@@ -1,0 +1,57 @@
+{
+  "meta": {
+    "version": "0.6-sample",
+    "ruleset": "combirank-0.6",
+    "provisional": true,
+    "source": "hand-written loader/schema test fixture",
+    "generatedAt": "2026-07-04T00:00:00Z"
+  },
+  "species": [
+    {
+      "id": "Lamball",
+      "displayName": "Lamball",
+      "index": 0,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1470,
+      "genderRatio": { "male": 0.5, "female": 0.5 },
+      "elements": ["Neutral"]
+    },
+    {
+      "id": "Sparkit",
+      "displayName": "Sparkit",
+      "index": 6,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 990,
+      "genderRatio": { "male": 0.5, "female": 0.5 },
+      "elements": ["Electric"]
+    },
+    {
+      "id": "Relaxaurus_Lux",
+      "displayName": "Relaxaurus Lux",
+      "index": 812,
+      "standardBreedable": true,
+      "wildCatchable": false,
+      "otherObtainOnly": false,
+      "rank": null,
+      "genderRatio": null,
+      "elements": ["Dragon", "Electric"]
+    }
+  ],
+  "specialCombos": [
+    { "parents": ["Relaxaurus_Lux", "Sparkit"], "child": "Relaxaurus_Lux", "genderRule": null }
+  ],
+  "passives": [
+    { "id": "Legend", "displayName": "Legend", "tier": 3, "category": "combat" },
+    { "id": "Swift", "displayName": "Swift", "tier": 2, "category": "movement" }
+  ],
+  "passiveModel": {
+    "maxSlots": 4,
+    "inheritCountDist": [0, 0.4, 0.4, 0.15, 0.05],
+    "mutationDist": [0.7, 0.25, 0.05],
+    "verified": false
+  }
+}
