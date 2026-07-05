@@ -1,11 +1,14 @@
-import type { Gender, SpeciesId } from '../ruleset/types';
+import type { Gender, PassiveId, SpeciesId } from '../ruleset/types';
 
-export type { Gender, SpeciesId };
+export type { Gender, PassiveId, SpeciesId };
 
 /** One individual the user currently owns — supplies its species+gender at cost 0. */
 export interface RosterEntry {
   species: SpeciesId;
   gender: Gender;
+  /** Passives this specific individual carries. Omitted/empty for a "clean" individual —
+   * only meaningful when the planner is given `desiredPassives` (spec §7.3). */
+  passives?: PassiveId[];
 }
 
 export interface SpeciesPlannerOptions {
@@ -15,12 +18,28 @@ export interface SpeciesPlannerOptions {
   catchCost?: number;
   /** Set false to disallow catching entirely (roster-only planning). Default true. */
   allowCatching?: boolean;
+  /**
+   * Desired final-cross perk set (spec §7.3). When supplied and the target requires at
+   * least one combination, the planner treats species-cost and passives as a joint
+   * pick among cost-tied final-parent candidates: among the parent pairs that all
+   * achieve the minimum `combinationCount`, it picks whichever maximizes passive-landing
+   * odds, preferring roster individuals with matching passives for whichever final-cross
+   * slot they can fill. Perks are injected at the final cross only (spec §7.3's "inject
+   * at final cross, not upstream") — passives are not tracked through intermediate
+   * breeds in this planner, so a produced-not-owned final parent is assumed clean.
+   * Omit to get the passive-agnostic plan (0.3 behavior).
+   */
+  desiredPassives?: PassiveId[];
 }
 
 /** A specific individual required as one side of a combination. */
 export interface PlanIndividual {
   species: SpeciesId;
   gender: Gender;
+  /** Passives this individual is assumed to carry. Only populated when the plan was
+   * computed with `desiredPassives`; empty/omitted otherwise or when the individual is
+   * produced rather than roster-supplied (clean-carrier assumption, spec §7.3). */
+  passives?: PassiveId[];
 }
 
 /** One distinct breeding combination in the plan (spec §7.4). */
@@ -40,6 +59,26 @@ export interface AnchorHint {
   resultingCost: number;
 }
 
+/** The perk overlay on the final cross (spec §7.3) — attached to `SpeciesPlanResult` when
+ * the planner was given `desiredPassives` and the target needs at least one combination. */
+export interface PassivePlanResult {
+  desired: PassiveId[];
+  /** Per-egg odds of the final cross landing exactly `desired` (and nothing else) /
+   * at least `desired` (may carry extras). */
+  landOdds: { exactSet: number; supersetContaining: number };
+  /** Expected eggs (1/p) to hit each bar. Infinity when the corresponding odds are 0. */
+  expectedEggs: { exactSet: number; supersetContaining: number };
+  /** The two final-cross parents the planner selected. `passives` is the specific roster
+   * individual's set when that slot was roster-supplied at cost 0, or empty when the slot
+   * is produced/caught (clean-carrier assumption — perks aren't tracked through
+   * intermediates in this planner). */
+  finalParentA: PlanIndividual;
+  finalParentB: PlanIndividual;
+  /** Passives either final parent carries outside `desired` — lowers the odds (spec §7.3
+   * "flag pollution"), surfaced rather than auto-resolved. */
+  pollution: { parentA: PassiveId[]; parentB: PassiveId[] };
+}
+
 export interface SpeciesPlanResult {
   target: SpeciesId;
   feasible: boolean;
@@ -56,4 +95,77 @@ export interface SpeciesPlanResult {
   /** Present only when `feasible` is false: candidate anchors that would unlock the
    * target, nearest-rank-first. Empty if none was found. */
   anchorHints?: AnchorHint[];
+  /** Present only when the planner was given `desiredPassives` and the target needs at
+   * least one combination (spec §7.3). */
+  passivePlan?: PassivePlanResult;
+}
+
+/** Multi-target species plan (spec §7.2's "baseline, always produced" plan). Each target
+ * is solved against the same roster, then the per-target steps/catches are merged and
+ * deduped so an intermediate shared by several targets is still counted once. */
+export interface UnionPlanResult {
+  targets: SpeciesId[];
+  /** True only if every target is individually feasible. */
+  feasible: boolean;
+  /** Each target's own plan (its `anchorHints` surface per-target infeasibility). */
+  perTarget: SpeciesPlanResult[];
+  /** Distinct combinations across ALL targets, shared intermediates counted once
+   * (CLAUDE.md invariant #4) — computed over whichever targets are feasible. */
+  combinationCount: number;
+  cost: number;
+  /** Topologically ordered so every step's parents are already available. */
+  steps: SpeciesPlanStep[];
+  catches: PlanIndividual[];
+}
+
+export interface HubFinderOptions extends SpeciesPlannerOptions {
+  /**
+   * Fixed-target mode (spec §7.2): score candidate hubs by
+   * `obtainCost(H) + Σ injectCost(H → Ti)` across these targets. Omit for general-reach
+   * mode — rank hubs by structural breadth instead (how many species this hub could
+   * directly parent), useful before you've picked specific targets ("I have good perks on
+   * a bad host, what's a good general-purpose carrier").
+   */
+  targets?: SpeciesId[];
+  /** Cap on how many ranked candidates to return. Default 5. */
+  maxHubs?: number;
+}
+
+/** One ranked hub candidate (spec §7.2) — an optional overlay on the union plan, never
+ * forced. */
+export interface HubCandidate {
+  species: SpeciesId;
+  /** Cost (combinations + weighted catches) to obtain this species from the current
+   * roster. Computed with `desiredPassives` at the final cross when supplied, so a hub
+   * that's cheap in species terms but expensive to load with the right perks doesn't rank
+   * artificially high. */
+  obtainCost: number;
+  /** Present only when `desiredPassives` was supplied and obtaining this hub needed at
+   * least one combination — the perk-landing overlay for that final cross. */
+  obtainPassivePlan?: PassivePlanResult;
+  /**
+   * Fixed-target mode only. Per-target combos needed to go from "H is available" to
+   * producing that target. `direct: true` (combos === 1) means H is a **direct parent** —
+   * the single-final-cross shape spec §7.2 strongly prefers, since perks don't have to
+   * survive any extra inheritance rolls; `direct: false` means the branch reaches the
+   * target only through intermediates and is worth less for that reason.
+   */
+  injectCost?: { target: SpeciesId; combos: number; direct: boolean }[];
+  /** Fixed-target mode: `obtainCost + Σ injectCost.combos`, primary sort key (lower is
+   * better). Absent in general-reach mode — use `breadth`/`obtainCost` instead. */
+  score?: number;
+  /**
+   * General-reach mode only: how many distinct breed-capable species this hub can
+   * directly parent (one cross), primary sort key (higher is better). Purely structural —
+   * the dataset carries no reliable role/category tag (its `category` field is a freeform
+   * optional string), so this doesn't know "combat" from "mount" from "worker"; you judge
+   * which of the reached species are the ones you actually care about.
+   */
+  breadth?: number;
+}
+
+export interface HubFinderResult {
+  /** Ranked candidates, best first (fixed-target mode: lowest `score`; general-reach mode:
+   * highest `breadth`). */
+  hubs: HubCandidate[];
 }

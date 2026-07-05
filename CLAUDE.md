@@ -12,7 +12,7 @@ Audience: one technical user, run locally / on a home server. Not a public produ
 
 Phase 0 — build against the current CombiRank system. Sessions are defined in spec §10. Update the line below at the start of each working block:
 
-> **Active session:** 0.2
+> **Active session:** 0.4
 
 ## Stack
 

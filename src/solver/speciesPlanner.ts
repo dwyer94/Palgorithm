@@ -2,6 +2,8 @@ import type { BreedingRuleset } from '../ruleset/types';
 import type {
   AnchorHint,
   Gender,
+  PassiveId,
+  PassivePlanResult,
   PlanIndividual,
   RosterEntry,
   SpeciesId,
@@ -29,6 +31,11 @@ import type {
  * counted once" objective (CLAUDE.md invariant #4): a node is finalized once, and every
  * later user of it reuses that same finalized cost.
  */
+
+/** Species-cost options only — `desiredPassives` is handled separately in `planSpecies`
+ * since it has no meaningful "required" default and doesn't participate in the core
+ * species-cost solve. */
+type CoreOptions = Required<Pick<SpeciesPlannerOptions, 'catchCost' | 'allowCatching'>>;
 
 type Node = string; // `${species}|${gender}`
 const node = (species: SpeciesId, gender: Gender): Node => `${species}|${gender}`;
@@ -104,7 +111,7 @@ interface SolveState {
 }
 
 /** Knuth–Dijkstra fixpoint over the hypergraph, seeded from roster/catch base cases. */
-function solve(graph: Graph, roster: RosterEntry[], ruleset: BreedingRuleset, opts: Required<SpeciesPlannerOptions>): SolveState {
+function solve(graph: Graph, roster: RosterEntry[], ruleset: BreedingRuleset, opts: CoreOptions): SolveState {
   const dist = new Map<Node, number>();
   const from: SolveState['from'] = new Map();
   const finalized = new Set<Node>();
@@ -195,6 +202,86 @@ function reconstruct(state: SolveState, target: Node): { steps: SpeciesPlanStep[
   return { steps, catches };
 }
 
+function parseNode(n: Node): { species: SpeciesId; gender: Gender } {
+  const [species, gender] = n.split('|') as [SpeciesId, Gender];
+  return { species, gender };
+}
+
+function rosterByNode(roster: RosterEntry[]): Map<Node, RosterEntry[]> {
+  const m = new Map<Node, RosterEntry[]>();
+  for (const r of roster) {
+    const n = node(r.species, r.gender);
+    const list = m.get(n) ?? [];
+    list.push(r);
+    m.set(n, list);
+  }
+  return m;
+}
+
+/** Every edge that could serve as the FINAL combo producing `targetNode` at the minimum
+ * cost — i.e. cost-tied final-parent candidates. A node's dist can be reached by more than
+ * one equally-cheap combo, but Dijkstra's `from` pointer only remembers the first one
+ * found; passive-aware selection needs to compare all of them. */
+function tiedFinalEdges(graph: Graph, state: SolveState, targetNode: Node, minCost: number): Edge[] {
+  return graph.edges.filter((edge) => {
+    if (edge.output !== targetNode) return false;
+    const total = edge.inputs.reduce((s, inp) => s + (state.dist.get(inp) ?? Infinity), 0) + 1;
+    return total === minCost;
+  });
+}
+
+/** A node's dist is 0 only when it's roster-owned (catches and combos always cost > 0), so
+ * its passives are knowable; anything else (produced or caught) is a fresh individual with
+ * no tracked passives — the clean-carrier assumption (spec §7.3, passives not tracked
+ * through intermediates in this planner). Returns one candidate per distinct roster
+ * individual at that node, or a single "clean" candidate if none. */
+function passiveCandidates(n: Node, state: SolveState, byNode: Map<Node, RosterEntry[]>): PassiveId[][] {
+  if ((state.dist.get(n) ?? Infinity) !== 0) return [[]];
+  const entries = byNode.get(n) ?? [];
+  return entries.length > 0 ? entries.map((e) => e.passives ?? []) : [[]];
+}
+
+/** Among cost-tied final-parent candidates, pick the pair (and specific roster
+ * individuals, where a slot is roster-supplied) that maximizes passive-landing odds
+ * (spec §7.3's final-cross-injection overlay). */
+function pickBestFinalSelection(
+  edges: Edge[],
+  state: SolveState,
+  byNode: Map<Node, RosterEntry[]>,
+  ruleset: BreedingRuleset,
+  desired: PassiveId[],
+): { edge: Edge; parentA: PlanIndividual; parentB: PlanIndividual; odds: { exactSet: number; supersetContaining: number } } | null {
+  let best: { edge: Edge; parentA: PlanIndividual; parentB: PlanIndividual; odds: { exactSet: number; supersetContaining: number } } | null = null;
+
+  for (const edge of edges) {
+    const [inA, inB] = edge.inputs;
+    const candsA = passiveCandidates(inA, state, byNode);
+    const candsB = passiveCandidates(inB, state, byNode);
+    const { species: speciesA, gender: genderA } = parseNode(inA);
+    const { species: speciesB, gender: genderB } = parseNode(inB);
+
+    for (const passivesA of candsA) {
+      for (const passivesB of candsB) {
+        const odds = ruleset.passiveModel.landOdds(passivesA, passivesB, desired);
+        if (
+          !best ||
+          odds.exactSet > best.odds.exactSet ||
+          (odds.exactSet === best.odds.exactSet && odds.supersetContaining > best.odds.supersetContaining)
+        ) {
+          best = {
+            edge,
+            parentA: { species: speciesA, gender: genderA, passives: passivesA },
+            parentB: { species: speciesB, gender: genderB, passives: passivesB },
+            odds,
+          };
+        }
+      }
+    }
+  }
+
+  return best;
+}
+
 /** Try seeding a single extra species (both genders, cost 0) and see whether the target
  * becomes reachable — the sound way to answer "what anchor would unlock this" without
  * relying on an unsound rank-based prune (spec §7.1). Exhaustive over rank-bearing
@@ -203,7 +290,7 @@ function findAnchorHints(
   ruleset: BreedingRuleset,
   roster: RosterEntry[],
   target: SpeciesId,
-  opts: Required<SpeciesPlannerOptions>,
+  opts: CoreOptions,
   alreadyReachable: Set<SpeciesId>,
 ): AnchorHint[] {
   const targetRank = ruleset.rankTable[target] ?? null;
@@ -248,7 +335,7 @@ export function planSpecies(
   target: SpeciesId,
   options: SpeciesPlannerOptions = {},
 ): SpeciesPlanResult {
-  const opts: Required<SpeciesPlannerOptions> = {
+  const opts: CoreOptions = {
     catchCost: options.catchCost ?? 1,
     allowCatching: options.allowCatching ?? true,
   };
@@ -280,7 +367,42 @@ export function planSpecies(
   }
 
   const winningGender: Gender = maleCost <= femaleCost ? 'male' : 'female';
-  const { steps, catches } = reconstruct(state, node(target, winningGender));
+  const targetNode = node(target, winningGender);
+
+  // Passive-aware final-cross selection (spec §7.3): among cost-tied final-parent
+  // candidates, prefer whichever pair maximizes passive-landing odds for `desiredPassives`,
+  // using actual roster passives where a slot is roster-supplied. This only re-picks WHICH
+  // tied edge produces the target — it never changes `cost`/`combinationCount`, since every
+  // candidate here already achieves the minimum species cost.
+  let finalSelection: ReturnType<typeof pickBestFinalSelection> = null;
+  if (options.desiredPassives && options.desiredPassives.length > 0 && cost > 0) {
+    const candidates = tiedFinalEdges(graph, state, targetNode, state.dist.get(targetNode)!);
+    finalSelection = pickBestFinalSelection(candidates, state, rosterByNode(roster), ruleset, options.desiredPassives);
+    if (finalSelection) state.from.set(targetNode, { kind: 'combo', edge: finalSelection.edge });
+  }
+
+  const { steps, catches } = reconstruct(state, targetNode);
+
+  let passivePlan: PassivePlanResult | undefined;
+  if (finalSelection && steps.length > 0) {
+    const desired = options.desiredPassives!;
+    const desiredSet = new Set(desired);
+    const { odds, parentA, parentB } = finalSelection;
+    passivePlan = {
+      desired,
+      landOdds: odds,
+      expectedEggs: {
+        exactSet: odds.exactSet > 0 ? 1 / odds.exactSet : Infinity,
+        supersetContaining: odds.supersetContaining > 0 ? 1 / odds.supersetContaining : Infinity,
+      },
+      finalParentA: parentA,
+      finalParentB: parentB,
+      pollution: {
+        parentA: (parentA.passives ?? []).filter((p) => !desiredSet.has(p)),
+        parentB: (parentB.passives ?? []).filter((p) => !desiredSet.has(p)),
+      },
+    };
+  }
 
   // Report cost from the deduped plan, not the raw Dijkstra distance: `dist` sums the
   // additive derivation and double-counts a shared intermediate reused by two branches
@@ -293,5 +415,6 @@ export function planSpecies(
     cost: steps.length + catches.length * opts.catchCost,
     steps,
     catches,
+    ...(passivePlan ? { passivePlan } : {}),
   };
 }
