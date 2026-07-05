@@ -86,6 +86,15 @@ export interface BreedingRuleset {
   reverse(target: SpeciesId, ctx?: ServerConfig): { parentA: SpeciesId; parentB: SpeciesId }[];
 
   rankTable: Record<SpeciesId, number>;
+
+  /**
+   * Per-species gender split (spec §7.1 gender feasibility). Loaded from data, never
+   * hardcoded 50/50 — the solver needs this to tell a dead single-gender branch from a
+   * merely skewed one. Falls back to an even split only if the dataset has no ratio for
+   * an id (e.g. provisional/unknown species).
+   */
+  genderRatio(species: SpeciesId): GenderRatio;
+
   specialCombos: {
     parents: [SpeciesId, SpeciesId];
     child: SpeciesId;
