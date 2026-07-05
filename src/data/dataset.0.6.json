@@ -4,12 +4,12 @@
     "ruleset": "combirank-0.6",
     "provisional": false,
     "source": "FModel export of local Palworld build 22461598 (usmap Mappings.0.6.6); EN L10N names. Normalized by src/pipeline/normalize.ts. Passive model is a flagged estimate (verified:false).",
-    "generatedAt": "2026-07-05T00:33:38.298Z"
+    "generatedAt": "2026-07-05T02:15:16.608Z"
   },
   "species": [
     {
       "id": "BadCatgirl",
-      "displayName": "Nyafia ",
+      "displayName": "Nyafia",
       "index": 0,
       "standardBreedable": true,
       "wildCatchable": true,
@@ -97,50 +97,9 @@
       "internalName": "BlueberryFairy"
     },
     {
-      "id": "BrownRabbit",
-      "displayName": "en_text",
-      "index": 2,
-      "standardBreedable": false,
-      "wildCatchable": false,
-      "otherObtainOnly": true,
-      "rank": 0,
-      "genderRatio": {
-        "male": 0.5,
-        "female": 0.5
-      },
-      "elements": [
-        "Ground"
-      ],
-      "rarity": 0,
-      "workSuitabilities": [
-        {
-          "type": "Handcraft",
-          "level": 2
-        },
-        {
-          "type": "Collection",
-          "level": 2
-        },
-        {
-          "type": "Mining",
-          "level": 1
-        },
-        {
-          "type": "Transport",
-          "level": 1
-        }
-      ],
-      "baseStats": {
-        "hp": 100,
-        "attack": 110,
-        "defense": 100
-      },
-      "internalName": "BrownRabbit"
-    },
-    {
       "id": "ElecLion",
       "displayName": "Boltmane",
-      "index": 3,
+      "index": 2,
       "standardBreedable": false,
       "wildCatchable": false,
       "otherObtainOnly": true,
@@ -169,7 +128,7 @@
     {
       "id": "GoldenHorse",
       "displayName": "Gildane",
-      "index": 4,
+      "index": 3,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -197,32 +156,9 @@
       "internalName": "GoldenHorse"
     },
     {
-      "id": "PinkKangaroo",
-      "displayName": "en_text",
-      "index": 5,
-      "standardBreedable": false,
-      "wildCatchable": false,
-      "otherObtainOnly": true,
-      "rank": 0,
-      "genderRatio": {
-        "male": 0.5,
-        "female": 0.5
-      },
-      "elements": [
-        "Neutral"
-      ],
-      "rarity": 0,
-      "baseStats": {
-        "hp": 100,
-        "attack": 100,
-        "defense": 100
-      },
-      "internalName": "PinkKangaroo"
-    },
-    {
       "id": "TentacleTurtle",
       "displayName": "Turtacle",
-      "index": 6,
+      "index": 4,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -260,7 +196,7 @@
     {
       "id": "TentacleTurtle_Ground",
       "displayName": "Turtacle Terra",
-      "index": 7,
+      "index": 5,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -297,84 +233,9 @@
       "internalName": "TentacleTurtle_Ground"
     },
     {
-      "id": "BeardedDragon",
-      "displayName": "en_text",
-      "index": 8,
-      "standardBreedable": false,
-      "wildCatchable": false,
-      "otherObtainOnly": true,
-      "rank": 0,
-      "genderRatio": {
-        "male": 0.5,
-        "female": 0.5
-      },
-      "elements": [
-        "Dragon"
-      ],
-      "rarity": 0,
-      "baseStats": {
-        "hp": 100,
-        "attack": 100,
-        "defense": 100
-      },
-      "internalName": "BeardedDragon"
-    },
-    {
-      "id": "WaterLizard",
-      "displayName": "en_text",
-      "index": 9,
-      "standardBreedable": false,
-      "wildCatchable": false,
-      "otherObtainOnly": true,
-      "rank": 0,
-      "genderRatio": {
-        "male": 0.5,
-        "female": 0.5
-      },
-      "elements": [
-        "Fire"
-      ],
-      "rarity": 0,
-      "baseStats": {
-        "hp": 90,
-        "attack": 90,
-        "defense": 90
-      },
-      "internalName": "WaterLizard"
-    },
-    {
-      "id": "GrassDragon",
-      "displayName": "en_text",
-      "index": 10,
-      "standardBreedable": false,
-      "wildCatchable": false,
-      "otherObtainOnly": true,
-      "rank": 0,
-      "genderRatio": {
-        "male": 0.5,
-        "female": 0.5
-      },
-      "elements": [
-        "Grass"
-      ],
-      "rarity": 0,
-      "workSuitabilities": [
-        {
-          "type": "ProductMedicine",
-          "level": 1
-        }
-      ],
-      "baseStats": {
-        "hp": 130,
-        "attack": 120,
-        "defense": 90
-      },
-      "internalName": "GrassDragon"
-    },
-    {
       "id": "Anubis",
       "displayName": "Anubis",
-      "index": 11,
+      "index": 6,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -412,7 +273,7 @@
     {
       "id": "Baphomet",
       "displayName": "Incineram",
-      "index": 12,
+      "index": 7,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -455,7 +316,7 @@
     {
       "id": "Baphomet_Dark",
       "displayName": "Incineram Noct",
-      "index": 13,
+      "index": 8,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -493,7 +354,7 @@
     {
       "id": "Bastet",
       "displayName": "Mau",
-      "index": 14,
+      "index": 9,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -523,7 +384,7 @@
     {
       "id": "Bastet_Ice",
       "displayName": "Mau Cryst",
-      "index": 15,
+      "index": 10,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -557,7 +418,7 @@
     {
       "id": "Boar",
       "displayName": "Rushoar",
-      "index": 16,
+      "index": 11,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -587,7 +448,7 @@
     {
       "id": "Carbunclo",
       "displayName": "Lifmunk",
-      "index": 17,
+      "index": 12,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -633,7 +494,7 @@
     {
       "id": "ColorfulBird",
       "displayName": "Tocotoco",
-      "index": 18,
+      "index": 13,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -663,7 +524,7 @@
     {
       "id": "Deer",
       "displayName": "Eikthyrdeer",
-      "index": 19,
+      "index": 14,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -693,7 +554,7 @@
     {
       "id": "Deer_Ground",
       "displayName": "Eikthyrdeer Terra",
-      "index": 20,
+      "index": 15,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -723,7 +584,7 @@
     {
       "id": "DrillGame",
       "displayName": "Digtoise",
-      "index": 21,
+      "index": 16,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -753,7 +614,7 @@
     {
       "id": "Eagle",
       "displayName": "Galeclaw",
-      "index": 22,
+      "index": 17,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -783,7 +644,7 @@
     {
       "id": "ElecPanda",
       "displayName": "Grizzbolt",
-      "index": 23,
+      "index": 18,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -825,7 +686,7 @@
     {
       "id": "Ganesha",
       "displayName": "Teafant",
-      "index": 24,
+      "index": 19,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -855,7 +716,7 @@
     {
       "id": "Garm",
       "displayName": "Direhowl",
-      "index": 25,
+      "index": 20,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -885,7 +746,7 @@
     {
       "id": "Gorilla",
       "displayName": "Gorirat",
-      "index": 26,
+      "index": 21,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -923,7 +784,7 @@
     {
       "id": "Gorilla_Ground",
       "displayName": "Gorirat Terra",
-      "index": 27,
+      "index": 22,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -961,7 +822,7 @@
     {
       "id": "Hedgehog",
       "displayName": "Jolthog",
-      "index": 28,
+      "index": 23,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -991,7 +852,7 @@
     {
       "id": "Hedgehog_Ice",
       "displayName": "Jolthog Cryst",
-      "index": 29,
+      "index": 24,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -1021,7 +882,7 @@
     {
       "id": "Kirin",
       "displayName": "Univolt",
-      "index": 30,
+      "index": 25,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -1055,7 +916,7 @@
     {
       "id": "Kitsunebi",
       "displayName": "Foxparks",
-      "index": 31,
+      "index": 26,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -1085,7 +946,7 @@
     {
       "id": "LittleBriarRose",
       "displayName": "Bristla",
-      "index": 32,
+      "index": 27,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -1131,7 +992,7 @@
     {
       "id": "Mutant",
       "displayName": "Lunaris",
-      "index": 33,
+      "index": 28,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -1169,7 +1030,7 @@
     {
       "id": "Penguin",
       "displayName": "Pengullet",
-      "index": 34,
+      "index": 29,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -1212,7 +1073,7 @@
     {
       "id": "Penguin_Electric",
       "displayName": "Pengullet Lux",
-      "index": 35,
+      "index": 30,
       "standardBreedable": false,
       "wildCatchable": false,
       "otherObtainOnly": true,
@@ -1255,7 +1116,7 @@
     {
       "id": "RaijinDaughter",
       "displayName": "Dazzi",
-      "index": 36,
+      "index": 31,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -1293,7 +1154,7 @@
     {
       "id": "SharkKid",
       "displayName": "Gobfin",
-      "index": 37,
+      "index": 32,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -1331,7 +1192,7 @@
     {
       "id": "SharkKid_Fire",
       "displayName": "Gobfin Ignis",
-      "index": 38,
+      "index": 33,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -1369,7 +1230,7 @@
     {
       "id": "SheepBall",
       "displayName": "Lamball",
-      "index": 39,
+      "index": 34,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -1407,7 +1268,7 @@
     {
       "id": "Umihebi",
       "displayName": "Jormuntide",
-      "index": 40,
+      "index": 35,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -1438,7 +1299,7 @@
     {
       "id": "Umihebi_Fire",
       "displayName": "Jormuntide Ignis",
-      "index": 41,
+      "index": 36,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -1469,7 +1330,7 @@
     {
       "id": "Werewolf",
       "displayName": "Loupmoon",
-      "index": 42,
+      "index": 37,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -1497,9 +1358,89 @@
       "internalName": "Werewolf"
     },
     {
+      "id": "WindChimes",
+      "displayName": "Hangyu",
+      "index": 38,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1420,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Ground"
+      ],
+      "paldexNo": "32",
+      "rarity": 1,
+      "workSuitabilities": [
+        {
+          "type": "Handcraft",
+          "level": 1
+        },
+        {
+          "type": "Collection",
+          "level": 1
+        },
+        {
+          "type": "Transport",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 80,
+        "attack": 70,
+        "defense": 70
+      },
+      "internalName": "WindChimes"
+    },
+    {
+      "id": "WindChimes_Ice",
+      "displayName": "Hangyu Cryst",
+      "index": 39,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1422,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Ice"
+      ],
+      "paldexNo": "32B",
+      "rarity": 2,
+      "workSuitabilities": [
+        {
+          "type": "Handcraft",
+          "level": 1
+        },
+        {
+          "type": "Collection",
+          "level": 1
+        },
+        {
+          "type": "Cool",
+          "level": 1
+        },
+        {
+          "type": "Transport",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 80,
+        "attack": 80,
+        "defense": 70
+      },
+      "internalName": "WindChimes_Ice"
+    },
+    {
       "id": "Suzaku",
       "displayName": "Suzaku",
-      "index": 43,
+      "index": 40,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -1529,7 +1470,7 @@
     {
       "id": "Suzaku_Water",
       "displayName": "Suzaku Aqua",
-      "index": 44,
+      "index": 41,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -1559,7 +1500,7 @@
     {
       "id": "FireKirin",
       "displayName": "Pyrin",
-      "index": 45,
+      "index": 42,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -1593,7 +1534,7 @@
     {
       "id": "FireKirin_Dark",
       "displayName": "Pyrin Noct",
-      "index": 46,
+      "index": 43,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -1628,7 +1569,7 @@
     {
       "id": "FairyDragon",
       "displayName": "Elphidran",
-      "index": 47,
+      "index": 44,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -1658,7 +1599,7 @@
     {
       "id": "FairyDragon_Water",
       "displayName": "Elphidran Aqua",
-      "index": 48,
+      "index": 45,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -1693,7 +1634,7 @@
     {
       "id": "SweetsSheep",
       "displayName": "Woolipop",
-      "index": 49,
+      "index": 46,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -1723,7 +1664,7 @@
     {
       "id": "WhiteTiger",
       "displayName": "Cryolinx",
-      "index": 50,
+      "index": 47,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -1765,7 +1706,7 @@
     {
       "id": "Alpaca",
       "displayName": "Melpaca",
-      "index": 51,
+      "index": 48,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -1795,7 +1736,7 @@
     {
       "id": "Serpent",
       "displayName": "Surfent",
-      "index": 52,
+      "index": 49,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -1825,7 +1766,7 @@
     {
       "id": "Serpent_Ground",
       "displayName": "Surfent Terra",
-      "index": 53,
+      "index": 50,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -1855,7 +1796,7 @@
     {
       "id": "DarkCrow",
       "displayName": "Cawgnito",
-      "index": 54,
+      "index": 51,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -1885,7 +1826,7 @@
     {
       "id": "BlueDragon",
       "displayName": "Azurobe",
-      "index": 55,
+      "index": 52,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -1916,7 +1857,7 @@
     {
       "id": "BlueDragon_Ice",
       "displayName": "Azurobe Cryst",
-      "index": 56,
+      "index": 53,
       "standardBreedable": false,
       "wildCatchable": false,
       "otherObtainOnly": true,
@@ -1947,7 +1888,7 @@
     {
       "id": "PinkCat",
       "displayName": "Cattiva",
-      "index": 57,
+      "index": 54,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -1989,7 +1930,7 @@
     {
       "id": "NegativeKoala",
       "displayName": "Depresso",
-      "index": 58,
+      "index": 55,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -2027,7 +1968,7 @@
     {
       "id": "FengyunDeeper",
       "displayName": "Fenglope",
-      "index": 59,
+      "index": 56,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -2057,7 +1998,7 @@
     {
       "id": "VolcanicMonster",
       "displayName": "Reptyro",
-      "index": 60,
+      "index": 57,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -2092,7 +2033,7 @@
     {
       "id": "VolcanicMonster_Ice",
       "displayName": "Reptyro Cryst",
-      "index": 61,
+      "index": 58,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -2127,7 +2068,7 @@
     {
       "id": "GhostBeast",
       "displayName": "Maraith",
-      "index": 62,
+      "index": 59,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -2161,7 +2102,7 @@
     {
       "id": "RobinHood",
       "displayName": "Robinquill",
-      "index": 63,
+      "index": 60,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -2211,7 +2152,7 @@
     {
       "id": "RobinHood_Ground",
       "displayName": "Robinquill Terra",
-      "index": 64,
+      "index": 61,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -2258,7 +2199,7 @@
     {
       "id": "LazyDragon",
       "displayName": "Relaxaurus",
-      "index": 65,
+      "index": 62,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -2293,7 +2234,7 @@
     {
       "id": "LazyDragon_Electric",
       "displayName": "Relaxaurus Lux",
-      "index": 66,
+      "index": 63,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -2328,7 +2269,7 @@
     {
       "id": "AmaterasuWolf",
       "displayName": "Kitsun",
-      "index": 67,
+      "index": 64,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -2358,7 +2299,7 @@
     {
       "id": "LizardMan",
       "displayName": "Leezpunk",
-      "index": 68,
+      "index": 65,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -2396,7 +2337,7 @@
     {
       "id": "LizardMan_Fire",
       "displayName": "Leezpunk Ignis",
-      "index": 69,
+      "index": 66,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -2438,7 +2379,7 @@
     {
       "id": "BluePlatypus",
       "displayName": "Fuack",
-      "index": 70,
+      "index": 67,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -2476,7 +2417,7 @@
     {
       "id": "BluePlatypus_Fire",
       "displayName": "Fuack Ignis",
-      "index": 71,
+      "index": 68,
       "standardBreedable": false,
       "wildCatchable": false,
       "otherObtainOnly": true,
@@ -2519,7 +2460,7 @@
     {
       "id": "BlackFurDragon",
       "displayName": "Dragostrophe",
-      "index": 72,
+      "index": 69,
       "standardBreedable": false,
       "wildCatchable": false,
       "otherObtainOnly": true,
@@ -2549,7 +2490,7 @@
     {
       "id": "BirdDragon",
       "displayName": "Vanwyrm",
-      "index": 73,
+      "index": 70,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -2584,7 +2525,7 @@
     {
       "id": "BirdDragon_Ice",
       "displayName": "Vanwyrm Cryst",
-      "index": 74,
+      "index": 71,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -2619,7 +2560,7 @@
     {
       "id": "ChickenPal",
       "displayName": "Chikipi",
-      "index": 75,
+      "index": 72,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -2653,7 +2594,7 @@
     {
       "id": "FlowerDinosaur",
       "displayName": "Dinossom",
-      "index": 76,
+      "index": 73,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -2688,7 +2629,7 @@
     {
       "id": "FlowerDinosaur_Electric",
       "displayName": "Dinossom Lux",
-      "index": 77,
+      "index": 74,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -2723,7 +2664,7 @@
     {
       "id": "ElecCat",
       "displayName": "Sparkit",
-      "index": 78,
+      "index": 75,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -2761,7 +2702,7 @@
     {
       "id": "IceHorse",
       "displayName": "Frostallion",
-      "index": 79,
+      "index": 76,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -2791,7 +2732,7 @@
     {
       "id": "IceHorse_Dark",
       "displayName": "Frostallion Noct",
-      "index": 80,
+      "index": 77,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -2821,7 +2762,7 @@
     {
       "id": "GrassMammoth",
       "displayName": "Mammorest",
-      "index": 81,
+      "index": 78,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -2860,7 +2801,7 @@
     {
       "id": "GrassMammoth_Ice",
       "displayName": "Mammorest Cryst",
-      "index": 82,
+      "index": 79,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -2899,7 +2840,7 @@
     {
       "id": "CatVampire",
       "displayName": "Felbat",
-      "index": 83,
+      "index": 80,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -2929,7 +2870,7 @@
     {
       "id": "SakuraSaurus",
       "displayName": "Broncherry",
-      "index": 84,
+      "index": 81,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -2959,7 +2900,7 @@
     {
       "id": "SakuraSaurus_Water",
       "displayName": "Broncherry Aqua",
-      "index": 85,
+      "index": 82,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -2990,7 +2931,7 @@
     {
       "id": "Horus",
       "displayName": "Faleris",
-      "index": 86,
+      "index": 83,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -3024,7 +2965,7 @@
     {
       "id": "KingBahamut",
       "displayName": "Blazamut",
-      "index": 87,
+      "index": 84,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -3058,7 +2999,7 @@
     {
       "id": "KingBahamut_Dragon",
       "displayName": "Blazamut Ryu",
-      "index": 88,
+      "index": 85,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -3093,7 +3034,7 @@
     {
       "id": "BerryGoat",
       "displayName": "Caprity",
-      "index": 89,
+      "index": 86,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -3127,7 +3068,7 @@
     {
       "id": "IceDeer",
       "displayName": "Reindrix",
-      "index": 90,
+      "index": 87,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -3161,7 +3102,7 @@
     {
       "id": "BlackGriffon",
       "displayName": "Shadowbeak",
-      "index": 91,
+      "index": 88,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -3191,7 +3132,7 @@
     {
       "id": "WhiteMoth",
       "displayName": "Sibelyx",
-      "index": 92,
+      "index": 89,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -3229,7 +3170,7 @@
     {
       "id": "CuteFox",
       "displayName": "Vixy",
-      "index": 93,
+      "index": 90,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -3263,7 +3204,7 @@
     {
       "id": "FoxMage",
       "displayName": "Wixen",
-      "index": 94,
+      "index": 91,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -3301,7 +3242,7 @@
     {
       "id": "FoxMage_Dark",
       "displayName": "Wixen Noct",
-      "index": 95,
+      "index": 92,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -3340,7 +3281,7 @@
     {
       "id": "PinkLizard",
       "displayName": "Lovander",
-      "index": 96,
+      "index": 93,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -3382,7 +3323,7 @@
     {
       "id": "WizardOwl",
       "displayName": "Hoocrates",
-      "index": 97,
+      "index": 94,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -3412,7 +3353,7 @@
     {
       "id": "Kelpie",
       "displayName": "Kelpsea",
-      "index": 98,
+      "index": 95,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -3446,7 +3387,7 @@
     {
       "id": "Kelpie_Fire",
       "displayName": "Kelpsea Ignis",
-      "index": 99,
+      "index": 96,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -3480,7 +3421,7 @@
     {
       "id": "NegativeOctopus",
       "displayName": "Killamari",
-      "index": 100,
+      "index": 97,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -3519,7 +3460,7 @@
     {
       "id": "NegativeOctopus_Neutral",
       "displayName": "Killamari Primo",
-      "index": 101,
+      "index": 98,
       "standardBreedable": false,
       "wildCatchable": false,
       "otherObtainOnly": true,
@@ -3558,7 +3499,7 @@
     {
       "id": "CowPal",
       "displayName": "Mozzarina",
-      "index": 102,
+      "index": 99,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -3588,7 +3529,7 @@
     {
       "id": "Yeti",
       "displayName": "Wumpo",
-      "index": 103,
+      "index": 100,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -3630,7 +3571,7 @@
     {
       "id": "Yeti_Grass",
       "displayName": "Wumpo Botan",
-      "index": 104,
+      "index": 101,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -3672,7 +3613,7 @@
     {
       "id": "VioletFairy",
       "displayName": "Vaelet",
-      "index": 105,
+      "index": 102,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -3718,7 +3659,7 @@
     {
       "id": "HawkBird",
       "displayName": "Nitewing",
-      "index": 106,
+      "index": 103,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -3748,7 +3689,7 @@
     {
       "id": "FlowerRabbit",
       "displayName": "Flopie",
-      "index": 107,
+      "index": 104,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -3794,7 +3735,7 @@
     {
       "id": "LilyQueen",
       "displayName": "Lyleen",
-      "index": 108,
+      "index": 105,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -3836,7 +3777,7 @@
     {
       "id": "LilyQueen_Dark",
       "displayName": "Lyleen Noct",
-      "index": 109,
+      "index": 106,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -3874,7 +3815,7 @@
     {
       "id": "QueenBee",
       "displayName": "Elizabee",
-      "index": 110,
+      "index": 107,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -3920,7 +3861,7 @@
     {
       "id": "SoldierBee",
       "displayName": "Beegarde",
-      "index": 111,
+      "index": 108,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -3974,7 +3915,7 @@
     {
       "id": "CatBat",
       "displayName": "Tombat",
-      "index": 112,
+      "index": 109,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -4012,7 +3953,7 @@
     {
       "id": "GrassPanda",
       "displayName": "Mossanda",
-      "index": 113,
+      "index": 110,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -4054,7 +3995,7 @@
     {
       "id": "GrassPanda_Electric",
       "displayName": "Mossanda Lux",
-      "index": 114,
+      "index": 111,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -4096,7 +4037,7 @@
     {
       "id": "FlameBuffalo",
       "displayName": "Arsox",
-      "index": 115,
+      "index": 112,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -4130,7 +4071,7 @@
     {
       "id": "ThunderDog",
       "displayName": "Rayhound",
-      "index": 116,
+      "index": 113,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -4160,7 +4101,7 @@
     {
       "id": "CuteMole",
       "displayName": "Fuddler",
-      "index": 117,
+      "index": 114,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -4198,7 +4139,7 @@
     {
       "id": "BlackMetalDragon",
       "displayName": "Astegon",
-      "index": 118,
+      "index": 115,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -4233,7 +4174,7 @@
     {
       "id": "GrassRabbitMan",
       "displayName": "Verdash",
-      "index": 119,
+      "index": 116,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -4279,7 +4220,7 @@
     {
       "id": "IceFox",
       "displayName": "Foxcicle",
-      "index": 120,
+      "index": 117,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -4309,7 +4250,7 @@
     {
       "id": "JetDragon",
       "displayName": "Jetragon",
-      "index": 121,
+      "index": 118,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -4339,7 +4280,7 @@
     {
       "id": "DreamDemon",
       "displayName": "Daedream",
-      "index": 122,
+      "index": 119,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -4377,7 +4318,7 @@
     {
       "id": "Monkey",
       "displayName": "Tanzee",
-      "index": 123,
+      "index": 120,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -4423,7 +4364,7 @@
     {
       "id": "Manticore",
       "displayName": "Blazehowl",
-      "index": 124,
+      "index": 121,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -4457,7 +4398,7 @@
     {
       "id": "Manticore_Dark",
       "displayName": "Blazehowl Noct",
-      "index": 125,
+      "index": 122,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -4492,7 +4433,7 @@
     {
       "id": "KingAlpaca",
       "displayName": "Kingpaca",
-      "index": 126,
+      "index": 123,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -4522,7 +4463,7 @@
     {
       "id": "KingAlpaca_Ice",
       "displayName": "Kingpaca Cryst",
-      "index": 127,
+      "index": 124,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -4556,7 +4497,7 @@
     {
       "id": "PlantSlime",
       "displayName": "Gumoss",
-      "index": 128,
+      "index": 125,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -4587,7 +4528,7 @@
     {
       "id": "PlantSlime_Flower",
       "displayName": "Gumoss",
-      "index": 129,
+      "index": 126,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -4616,46 +4557,9 @@
       "internalName": "PlantSlime_Flower"
     },
     {
-      "id": "DarkMutant",
-      "displayName": "en_text",
-      "index": 130,
-      "standardBreedable": false,
-      "wildCatchable": false,
-      "otherObtainOnly": true,
-      "rank": 0,
-      "genderRatio": {
-        "male": 0.5,
-        "female": 0.5
-      },
-      "elements": [
-        "Dark"
-      ],
-      "rarity": 5,
-      "workSuitabilities": [
-        {
-          "type": "Handcraft",
-          "level": 3
-        },
-        {
-          "type": "ProductMedicine",
-          "level": 3
-        },
-        {
-          "type": "Transport",
-          "level": 2
-        }
-      ],
-      "baseStats": {
-        "hp": 100,
-        "attack": 100,
-        "defense": 100
-      },
-      "internalName": "DarkMutant"
-    },
-    {
       "id": "MopBaby",
       "displayName": "Swee",
-      "index": 131,
+      "index": 127,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -4689,7 +4593,7 @@
     {
       "id": "MopKing",
       "displayName": "Sweepa",
-      "index": 132,
+      "index": 128,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -4723,7 +4627,7 @@
     {
       "id": "CatMage",
       "displayName": "Katress",
-      "index": 133,
+      "index": 129,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -4761,7 +4665,7 @@
     {
       "id": "CatMage_Fire",
       "displayName": "Katress Ignis",
-      "index": 134,
+      "index": 130,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -4804,7 +4708,7 @@
     {
       "id": "PinkRabbit",
       "displayName": "Ribbuny",
-      "index": 135,
+      "index": 131,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -4842,7 +4746,7 @@
     {
       "id": "ThunderBird",
       "displayName": "Beakon",
-      "index": 136,
+      "index": 132,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -4879,8 +4783,8 @@
     },
     {
       "id": "HerculesBeetle",
-      "displayName": "Warsect ",
-      "index": 137,
+      "displayName": "Warsect",
+      "index": 133,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -4923,7 +4827,7 @@
     {
       "id": "HerculesBeetle_Ground",
       "displayName": "Warsect Terra",
-      "index": 138,
+      "index": 134,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -4961,7 +4865,7 @@
     {
       "id": "SaintCentaur",
       "displayName": "Paladius",
-      "index": 139,
+      "index": 135,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -4995,7 +4899,7 @@
     {
       "id": "NightFox",
       "displayName": "Nox",
-      "index": 140,
+      "index": 136,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -5025,7 +4929,7 @@
     {
       "id": "CaptainPenguin",
       "displayName": "Penking",
-      "index": 141,
+      "index": 137,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -5072,7 +4976,7 @@
     {
       "id": "CaptainPenguin_Black",
       "displayName": "Penking Lux",
-      "index": 142,
+      "index": 138,
       "standardBreedable": false,
       "wildCatchable": false,
       "otherObtainOnly": true,
@@ -5119,7 +5023,7 @@
     {
       "id": "WeaselDragon",
       "displayName": "Chillet",
-      "index": 143,
+      "index": 139,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -5154,7 +5058,7 @@
     {
       "id": "WeaselDragon_Fire",
       "displayName": "Chillet Ignis",
-      "index": 144,
+      "index": 140,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -5189,7 +5093,7 @@
     {
       "id": "SkyDragon",
       "displayName": "Quivern",
-      "index": 145,
+      "index": 141,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -5231,7 +5135,7 @@
     {
       "id": "SkyDragon_Grass",
       "displayName": "Quivern Botan",
-      "index": 146,
+      "index": 142,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -5278,7 +5182,7 @@
     {
       "id": "HadesBird",
       "displayName": "Helzephyr",
-      "index": 147,
+      "index": 143,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -5308,7 +5212,7 @@
     {
       "id": "HadesBird_Electric",
       "displayName": "Helzephyr Lux",
-      "index": 148,
+      "index": 144,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -5343,7 +5247,7 @@
     {
       "id": "RedArmorBird",
       "displayName": "Ragnahawk",
-      "index": 149,
+      "index": 145,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -5377,7 +5281,7 @@
     {
       "id": "Ronin",
       "displayName": "Bushi",
-      "index": 150,
+      "index": 146,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -5423,7 +5327,7 @@
     {
       "id": "Ronin_Dark",
       "displayName": "Bushi Noct",
-      "index": 151,
+      "index": 147,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -5470,7 +5374,7 @@
     {
       "id": "FlyingManta",
       "displayName": "Celaray",
-      "index": 152,
+      "index": 148,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -5504,7 +5408,7 @@
     {
       "id": "FlyingManta_Thunder",
       "displayName": "Celaray Lux",
-      "index": 153,
+      "index": 149,
       "standardBreedable": false,
       "wildCatchable": false,
       "otherObtainOnly": true,
@@ -5543,7 +5447,7 @@
     {
       "id": "BlackCentaur",
       "displayName": "Necromus",
-      "index": 154,
+      "index": 150,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -5577,7 +5481,7 @@
     {
       "id": "FlowerDoll",
       "displayName": "Petallia",
-      "index": 155,
+      "index": 151,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -5623,7 +5527,7 @@
     {
       "id": "NaughtyCat",
       "displayName": "Grintale",
-      "index": 156,
+      "index": 152,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -5653,7 +5557,7 @@
     {
       "id": "CuteButterfly",
       "displayName": "Cinnamoth",
-      "index": 157,
+      "index": 153,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -5687,7 +5591,7 @@
     {
       "id": "DarkScorpion",
       "displayName": "Menasting",
-      "index": 158,
+      "index": 154,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -5722,7 +5626,7 @@
     {
       "id": "DarkScorpion_Ground",
       "displayName": "Menasting Terra",
-      "index": 159,
+      "index": 155,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -5756,7 +5660,7 @@
     {
       "id": "ThunderDragonMan",
       "displayName": "Orserk",
-      "index": 160,
+      "index": 156,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -5795,7 +5699,7 @@
     {
       "id": "WoolFox",
       "displayName": "Cremis",
-      "index": 161,
+      "index": 157,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -5829,7 +5733,7 @@
     {
       "id": "LazyCatfish",
       "displayName": "Dumud",
-      "index": 162,
+      "index": 158,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -5872,7 +5776,7 @@
     {
       "id": "LazyCatfish_Gold",
       "displayName": "Dumud Gild",
-      "index": 163,
+      "index": 159,
       "standardBreedable": false,
       "wildCatchable": false,
       "otherObtainOnly": true,
@@ -5915,7 +5819,7 @@
     {
       "id": "LavaGirl",
       "displayName": "Flambelle",
-      "index": 164,
+      "index": 160,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -5957,7 +5861,7 @@
     {
       "id": "FlameBambi",
       "displayName": "Rooby",
-      "index": 165,
+      "index": 161,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -5987,7 +5891,7 @@
     {
       "id": "NightLady",
       "displayName": "Bellanoir",
-      "index": 166,
+      "index": 162,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -6025,7 +5929,7 @@
     {
       "id": "NightLady_Dark",
       "displayName": "Bellanoir Libero",
-      "index": 167,
+      "index": 163,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -6063,7 +5967,7 @@
     {
       "id": "MoonQueen",
       "displayName": "Selyne",
-      "index": 168,
+      "index": 164,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -6102,7 +6006,7 @@
     {
       "id": "KendoFrog",
       "displayName": "Croajiro",
-      "index": 169,
+      "index": 165,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -6144,7 +6048,7 @@
     {
       "id": "KendoFrog_Dark",
       "displayName": "Croajiro Noct",
-      "index": 170,
+      "index": 166,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -6187,7 +6091,7 @@
     {
       "id": "LeafPrincess",
       "displayName": "Lullu",
-      "index": 171,
+      "index": 167,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -6229,7 +6133,7 @@
     {
       "id": "MushroomDragon",
       "displayName": "Shroomer",
-      "index": 172,
+      "index": 168,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -6271,7 +6175,7 @@
     {
       "id": "MushroomDragon_Dark",
       "displayName": "Shroomer Noct",
-      "index": 173,
+      "index": 169,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -6314,7 +6218,7 @@
     {
       "id": "SmallArmadillo",
       "displayName": "Kikit",
-      "index": 174,
+      "index": 170,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -6344,7 +6248,7 @@
     {
       "id": "CandleGhost",
       "displayName": "Sootseer",
-      "index": 175,
+      "index": 171,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -6391,7 +6295,7 @@
     {
       "id": "ScorpionMan",
       "displayName": "Prixter",
-      "index": 176,
+      "index": 172,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -6430,7 +6334,7 @@
     {
       "id": "WingGolem",
       "displayName": "Knocklem",
-      "index": 177,
+      "index": 173,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -6468,7 +6372,7 @@
     {
       "id": "GuardianDog",
       "displayName": "Yakumo",
-      "index": 178,
+      "index": 174,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -6498,7 +6402,7 @@
     {
       "id": "SifuDog",
       "displayName": "Dogen",
-      "index": 179,
+      "index": 175,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -6544,7 +6448,7 @@
     {
       "id": "FeatherOstrich",
       "displayName": "Dazemu",
-      "index": 180,
+      "index": 176,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -6574,7 +6478,7 @@
     {
       "id": "MimicDog",
       "displayName": "Mimog",
-      "index": 181,
+      "index": 177,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -6608,7 +6512,7 @@
     {
       "id": "DarkAlien",
       "displayName": "Xenovader",
-      "index": 182,
+      "index": 178,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -6642,7 +6546,7 @@
     {
       "id": "WhiteAlienDragon",
       "displayName": "Xenogard",
-      "index": 183,
+      "index": 179,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -6670,43 +6574,9 @@
       "internalName": "WhiteAlienDragon"
     },
     {
-      "id": "VolcanoDragon",
-      "displayName": "en_text",
-      "index": 184,
-      "standardBreedable": false,
-      "wildCatchable": false,
-      "otherObtainOnly": true,
-      "rank": 0,
-      "genderRatio": {
-        "male": 0.5,
-        "female": 0.5
-      },
-      "elements": [
-        "Fire",
-        "Ground"
-      ],
-      "rarity": 0,
-      "workSuitabilities": [
-        {
-          "type": "EmitFlame",
-          "level": 3
-        },
-        {
-          "type": "Mining",
-          "level": 3
-        }
-      ],
-      "baseStats": {
-        "hp": 100,
-        "attack": 100,
-        "defense": 100
-      },
-      "internalName": "VolcanoDragon"
-    },
-    {
       "id": "DarkMechaDragon",
-      "displayName": "Xenolord ",
-      "index": 185,
+      "displayName": "Xenolord",
+      "index": 180,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -6737,7 +6607,7 @@
     {
       "id": "GhostRabbit",
       "displayName": "Nitemary",
-      "index": 186,
+      "index": 181,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -6771,7 +6641,7 @@
     {
       "id": "NightBlueHorse",
       "displayName": "Starryon",
-      "index": 187,
+      "index": 182,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -6801,7 +6671,7 @@
     {
       "id": "WhiteShieldDragon",
       "displayName": "Silvegis",
-      "index": 188,
+      "index": 183,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -6831,7 +6701,7 @@
     {
       "id": "BlackPuppy",
       "displayName": "Smokie",
-      "index": 189,
+      "index": 184,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -6861,7 +6731,7 @@
     {
       "id": "WhiteDeer",
       "displayName": "Celesdir",
-      "index": 190,
+      "index": 185,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -6895,7 +6765,7 @@
     {
       "id": "MysteryMask",
       "displayName": "Omascul",
-      "index": 191,
+      "index": 186,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -6925,7 +6795,7 @@
     {
       "id": "GrimGirl",
       "displayName": "Splatterina",
-      "index": 192,
+      "index": 187,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -6967,7 +6837,7 @@
     {
       "id": "PurpleSpider",
       "displayName": "Tarantriss",
-      "index": 193,
+      "index": 188,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -7009,7 +6879,7 @@
     {
       "id": "BlueThunderHorse",
       "displayName": "Azurmane",
-      "index": 194,
+      "index": 189,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -7043,7 +6913,7 @@
     {
       "id": "OctopusGirl",
       "displayName": "Gloopie",
-      "index": 195,
+      "index": 190,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -7082,7 +6952,7 @@
     {
       "id": "IceNarwhal",
       "displayName": "Whalaska",
-      "index": 196,
+      "index": 191,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -7117,7 +6987,7 @@
     {
       "id": "IceNarwhal_Fire",
       "displayName": "Whalaska Ignis",
-      "index": 197,
+      "index": 192,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -7152,7 +7022,7 @@
     {
       "id": "JellyfishFairy",
       "displayName": "Jelliette",
-      "index": 198,
+      "index": 193,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -7190,7 +7060,7 @@
     {
       "id": "Kitsunebi_Ice",
       "displayName": "Foxparks Cryst",
-      "index": 199,
+      "index": 194,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -7220,7 +7090,7 @@
     {
       "id": "BerryGoat_Dark",
       "displayName": "Caprity Noct",
-      "index": 200,
+      "index": 195,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -7254,7 +7124,7 @@
     {
       "id": "PinkRabbit_Grass",
       "displayName": "Ribbuny Botan",
-      "index": 201,
+      "index": 196,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -7296,7 +7166,7 @@
     {
       "id": "Werewolf_Ice",
       "displayName": "Loupmoon Cryst",
-      "index": 202,
+      "index": 197,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -7330,7 +7200,7 @@
     {
       "id": "AmaterasuWolf_Dark",
       "displayName": "Kitsun Noct",
-      "index": 203,
+      "index": 198,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -7360,7 +7230,7 @@
     {
       "id": "RaijinDaughter_Water",
       "displayName": "Dazzi Noct",
-      "index": 204,
+      "index": 199,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -7403,7 +7273,7 @@
     {
       "id": "WhiteTiger_Ground",
       "displayName": "Cryolinx Terra",
-      "index": 205,
+      "index": 200,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -7445,7 +7315,7 @@
     {
       "id": "FengyunDeeper_Electric",
       "displayName": "Fenglope Lux",
-      "index": 206,
+      "index": 201,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -7479,7 +7349,7 @@
     {
       "id": "Horus_Water",
       "displayName": "Faleris Aqua",
-      "index": 207,
+      "index": 202,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -7513,7 +7383,7 @@
     {
       "id": "SnowTigerBeastman",
       "displayName": "Bastigor",
-      "index": 208,
+      "index": 203,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -7551,7 +7421,7 @@
     {
       "id": "GhostAnglerfish",
       "displayName": "Ghangler",
-      "index": 209,
+      "index": 204,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -7586,7 +7456,7 @@
     {
       "id": "GhostAnglerfish_Fire",
       "displayName": "Ghangler Ignis",
-      "index": 210,
+      "index": 205,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -7625,7 +7495,7 @@
     {
       "id": "IceWitch",
       "displayName": "Icelyn",
-      "index": 211,
+      "index": 206,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -7667,7 +7537,7 @@
     {
       "id": "LegendDeer",
       "displayName": "Hartalis",
-      "index": 212,
+      "index": 207,
       "standardBreedable": false,
       "wildCatchable": false,
       "otherObtainOnly": true,
@@ -7701,7 +7571,7 @@
     {
       "id": "LeafMomonga",
       "displayName": "Herbil",
-      "index": 213,
+      "index": 208,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -7740,7 +7610,7 @@
     {
       "id": "IceCrocodile",
       "displayName": "Munchill",
-      "index": 214,
+      "index": 209,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -7779,7 +7649,7 @@
     {
       "id": "StuffedShark",
       "displayName": "Finsider",
-      "index": 215,
+      "index": 210,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -7813,7 +7683,7 @@
     {
       "id": "StuffedShark_Fire",
       "displayName": "Finsider Ignis",
-      "index": 216,
+      "index": 211,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -7852,7 +7722,7 @@
     {
       "id": "IceSeal",
       "displayName": "Polapup",
-      "index": 217,
+      "index": 212,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -7887,7 +7757,7 @@
     {
       "id": "Plesiosaur",
       "displayName": "Braloha",
-      "index": 218,
+      "index": 213,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -7926,7 +7796,7 @@
     {
       "id": "TropicalOstrich",
       "displayName": "Palumba",
-      "index": 219,
+      "index": 214,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -7964,7 +7834,7 @@
     {
       "id": "SnowPeafowl",
       "displayName": "Frostplume",
-      "index": 220,
+      "index": 215,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -7998,7 +7868,7 @@
     {
       "id": "JellyfishGhost",
       "displayName": "Jellroy",
-      "index": 221,
+      "index": 216,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -8041,7 +7911,7 @@
     {
       "id": "PoseidonOrca",
       "displayName": "Neptilius",
-      "index": 222,
+      "index": 217,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -8100,6 +7970,14 @@
         "IceFox"
       ],
       "child": "BirdDragon_Ice",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "Deer",
+        "WindChimes"
+      ],
+      "child": "Deer_Ground",
       "genderRule": null
     },
     {
@@ -8236,6 +8114,14 @@
         "IceFox"
       ],
       "child": "VolcanicMonster_Ice",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "WindChimes",
+        "MopBaby"
+      ],
+      "child": "WindChimes_Ice",
       "genderRule": null
     },
     {
@@ -8536,18 +8422,10 @@
     },
     {
       "parents": [
-        "PinkKangaroo",
-        "PinkKangaroo"
+        "WindChimes_Ice",
+        "WindChimes_Ice"
       ],
-      "child": "PinkKangaroo",
-      "genderRule": null
-    },
-    {
-      "parents": [
-        "BeardedDragon",
-        "BeardedDragon"
-      ],
-      "child": "BeardedDragon",
+      "child": "WindChimes_Ice",
       "genderRule": null
     },
     {
@@ -8560,42 +8438,10 @@
     },
     {
       "parents": [
-        "WaterLizard",
-        "WaterLizard"
-      ],
-      "child": "WaterLizard",
-      "genderRule": null
-    },
-    {
-      "parents": [
         "ElecLion",
         "ElecLion"
       ],
       "child": "ElecLion",
-      "genderRule": null
-    },
-    {
-      "parents": [
-        "GrassDragon",
-        "GrassDragon"
-      ],
-      "child": "GrassDragon",
-      "genderRule": null
-    },
-    {
-      "parents": [
-        "DarkMutant",
-        "DarkMutant"
-      ],
-      "child": "DarkMutant",
-      "genderRule": null
-    },
-    {
-      "parents": [
-        "BrownRabbit",
-        "BrownRabbit"
-      ],
-      "child": "BrownRabbit",
       "genderRule": null
     },
     {

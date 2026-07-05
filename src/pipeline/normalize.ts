@@ -133,16 +133,28 @@ function main(): void {
   const combi = loadTable<CombiRow>(P_COMBI);
   const nameTbl = loadTable<NameRow>(P_NAMES);
 
+  // "en_text" is Unreal's own placeholder LocalizedString for keys that were never actually
+  // localized (only a dev source-string stub exists) — it shows up verbatim in the export for
+  // unreleased content and must be treated the same as a missing name, not a real one.
+  const UNLOCALIZED_PLACEHOLDER = 'en_text';
+
+  // Keyed case-insensitively: PAL_NAME_<CharacterID> fallback keys don't always match the
+  // DataTable row's CharacterID casing (e.g. row "WindChimes" vs. text key
+  // "PAL_NAME_Windchimes") — a casing quirk, same class as the tribe-name mismatches already
+  // handled below for special combos.
   const names = new Map<string, string>();
   for (const [key, row] of Object.entries(nameTbl.Rows)) {
-    const s = row.TextData?.LocalizedString;
-    if (s) names.set(key, s);
+    const s = row.TextData?.LocalizedString?.trim();
+    if (s && s.toLowerCase() !== UNLOCALIZED_PLACEHOLDER) names.set(key.toLowerCase(), s);
   }
 
   const resolveName = (charId: string, row: MonsterRow): string | undefined => {
     const override = row.OverrideNameTextID;
-    if (override && override !== 'None' && names.has(override)) return names.get(override);
-    return names.get(`PAL_NAME_${charId}`);
+    if (override && override !== 'None') {
+      const viaOverride = names.get(override.toLowerCase());
+      if (viaOverride) return viaOverride;
+    }
+    return names.get(`pal_name_${charId}`.toLowerCase());
   };
 
   const workSuits = (row: MonsterRow) => {
