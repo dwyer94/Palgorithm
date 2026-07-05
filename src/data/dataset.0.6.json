@@ -1,0 +1,9249 @@
+{
+  "meta": {
+    "version": "0.6",
+    "ruleset": "combirank-0.6",
+    "provisional": false,
+    "source": "FModel export of local Palworld build 22461598 (usmap Mappings.0.6.6); EN L10N names. Normalized by src/pipeline/normalize.ts. Passive model is a flagged estimate (verified:false).",
+    "generatedAt": "2026-07-05T00:33:38.298Z"
+  },
+  "species": [
+    {
+      "id": "BadCatgirl",
+      "displayName": "Nyafia ",
+      "index": 0,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 645,
+      "genderRatio": {
+        "male": 0.4,
+        "female": 0.6
+      },
+      "elements": [
+        "Dark"
+      ],
+      "paldexNo": "139",
+      "rarity": 4,
+      "workSuitabilities": [
+        {
+          "type": "Handcraft",
+          "level": 3
+        },
+        {
+          "type": "Collection",
+          "level": 2
+        },
+        {
+          "type": "Deforest",
+          "level": 2
+        },
+        {
+          "type": "Transport",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 110,
+        "attack": 100,
+        "defense": 100
+      },
+      "internalName": "BadCatgirl"
+    },
+    {
+      "id": "BlueberryFairy",
+      "displayName": "Prunelia",
+      "index": 1,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 755,
+      "genderRatio": {
+        "male": 0.4,
+        "female": 0.6
+      },
+      "elements": [
+        "Grass",
+        "Dark"
+      ],
+      "paldexNo": "138",
+      "rarity": 5,
+      "workSuitabilities": [
+        {
+          "type": "Seeding",
+          "level": 3
+        },
+        {
+          "type": "Handcraft",
+          "level": 1
+        },
+        {
+          "type": "Collection",
+          "level": 2
+        },
+        {
+          "type": "ProductMedicine",
+          "level": 3
+        },
+        {
+          "type": "Transport",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 105,
+        "attack": 95,
+        "defense": 100
+      },
+      "internalName": "BlueberryFairy"
+    },
+    {
+      "id": "BrownRabbit",
+      "displayName": "en_text",
+      "index": 2,
+      "standardBreedable": false,
+      "wildCatchable": false,
+      "otherObtainOnly": true,
+      "rank": 0,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Ground"
+      ],
+      "rarity": 0,
+      "workSuitabilities": [
+        {
+          "type": "Handcraft",
+          "level": 2
+        },
+        {
+          "type": "Collection",
+          "level": 2
+        },
+        {
+          "type": "Mining",
+          "level": 1
+        },
+        {
+          "type": "Transport",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 100,
+        "attack": 110,
+        "defense": 100
+      },
+      "internalName": "BrownRabbit"
+    },
+    {
+      "id": "ElecLion",
+      "displayName": "Boltmane",
+      "index": 3,
+      "standardBreedable": false,
+      "wildCatchable": false,
+      "otherObtainOnly": true,
+      "rank": 0,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Electric"
+      ],
+      "rarity": 0,
+      "workSuitabilities": [
+        {
+          "type": "EmitFlame",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 100,
+        "attack": 110,
+        "defense": 70
+      },
+      "internalName": "ElecLion"
+    },
+    {
+      "id": "GoldenHorse",
+      "displayName": "Gildane",
+      "index": 4,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 505,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Ground"
+      ],
+      "paldexNo": "140",
+      "rarity": 8,
+      "workSuitabilities": [
+        {
+          "type": "Collection",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 120,
+        "attack": 110,
+        "defense": 110
+      },
+      "internalName": "GoldenHorse"
+    },
+    {
+      "id": "PinkKangaroo",
+      "displayName": "en_text",
+      "index": 5,
+      "standardBreedable": false,
+      "wildCatchable": false,
+      "otherObtainOnly": true,
+      "rank": 0,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Neutral"
+      ],
+      "rarity": 0,
+      "baseStats": {
+        "hp": 100,
+        "attack": 100,
+        "defense": 100
+      },
+      "internalName": "PinkKangaroo"
+    },
+    {
+      "id": "TentacleTurtle",
+      "displayName": "Turtacle",
+      "index": 6,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1105,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Water"
+      ],
+      "paldexNo": "148",
+      "rarity": 3,
+      "workSuitabilities": [
+        {
+          "type": "Watering",
+          "level": 2
+        },
+        {
+          "type": "Mining",
+          "level": 1
+        },
+        {
+          "type": "Transport",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 75,
+        "attack": 75,
+        "defense": 115
+      },
+      "internalName": "TentacleTurtle"
+    },
+    {
+      "id": "TentacleTurtle_Ground",
+      "displayName": "Turtacle Terra",
+      "index": 7,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1065,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Water",
+        "Ground"
+      ],
+      "paldexNo": "148B",
+      "rarity": 4,
+      "workSuitabilities": [
+        {
+          "type": "Watering",
+          "level": 2
+        },
+        {
+          "type": "Mining",
+          "level": 1
+        },
+        {
+          "type": "Transport",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 85,
+        "attack": 85,
+        "defense": 125
+      },
+      "internalName": "TentacleTurtle_Ground"
+    },
+    {
+      "id": "BeardedDragon",
+      "displayName": "en_text",
+      "index": 8,
+      "standardBreedable": false,
+      "wildCatchable": false,
+      "otherObtainOnly": true,
+      "rank": 0,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Dragon"
+      ],
+      "rarity": 0,
+      "baseStats": {
+        "hp": 100,
+        "attack": 100,
+        "defense": 100
+      },
+      "internalName": "BeardedDragon"
+    },
+    {
+      "id": "WaterLizard",
+      "displayName": "en_text",
+      "index": 9,
+      "standardBreedable": false,
+      "wildCatchable": false,
+      "otherObtainOnly": true,
+      "rank": 0,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Fire"
+      ],
+      "rarity": 0,
+      "baseStats": {
+        "hp": 90,
+        "attack": 90,
+        "defense": 90
+      },
+      "internalName": "WaterLizard"
+    },
+    {
+      "id": "GrassDragon",
+      "displayName": "en_text",
+      "index": 10,
+      "standardBreedable": false,
+      "wildCatchable": false,
+      "otherObtainOnly": true,
+      "rank": 0,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Grass"
+      ],
+      "rarity": 0,
+      "workSuitabilities": [
+        {
+          "type": "ProductMedicine",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 130,
+        "attack": 120,
+        "defense": 90
+      },
+      "internalName": "GrassDragon"
+    },
+    {
+      "id": "Anubis",
+      "displayName": "Anubis",
+      "index": 11,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 570,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Ground"
+      ],
+      "paldexNo": "100",
+      "rarity": 10,
+      "workSuitabilities": [
+        {
+          "type": "Handcraft",
+          "level": 4
+        },
+        {
+          "type": "Mining",
+          "level": 3
+        },
+        {
+          "type": "Transport",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 120,
+        "attack": 130,
+        "defense": 100
+      },
+      "internalName": "Anubis"
+    },
+    {
+      "id": "Baphomet",
+      "displayName": "Incineram",
+      "index": 12,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 590,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Fire",
+        "Dark"
+      ],
+      "paldexNo": "40",
+      "rarity": 4,
+      "workSuitabilities": [
+        {
+          "type": "EmitFlame",
+          "level": 1
+        },
+        {
+          "type": "Handcraft",
+          "level": 2
+        },
+        {
+          "type": "Mining",
+          "level": 1
+        },
+        {
+          "type": "Transport",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 95,
+        "attack": 100,
+        "defense": 85
+      },
+      "internalName": "Baphomet"
+    },
+    {
+      "id": "Baphomet_Dark",
+      "displayName": "Incineram Noct",
+      "index": 13,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 580,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Dark"
+      ],
+      "paldexNo": "40B",
+      "rarity": 5,
+      "workSuitabilities": [
+        {
+          "type": "Handcraft",
+          "level": 2
+        },
+        {
+          "type": "Mining",
+          "level": 1
+        },
+        {
+          "type": "Transport",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 95,
+        "attack": 105,
+        "defense": 85
+      },
+      "internalName": "Baphomet_Dark"
+    },
+    {
+      "id": "Bastet",
+      "displayName": "Mau",
+      "index": 14,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1480,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Dark"
+      ],
+      "paldexNo": "24",
+      "rarity": 1,
+      "workSuitabilities": [
+        {
+          "type": "MonsterFarm",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 70,
+        "attack": 60,
+        "defense": 70
+      },
+      "internalName": "Bastet"
+    },
+    {
+      "id": "Bastet_Ice",
+      "displayName": "Mau Cryst",
+      "index": 15,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1440,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Ice"
+      ],
+      "paldexNo": "24B",
+      "rarity": 2,
+      "workSuitabilities": [
+        {
+          "type": "Cool",
+          "level": 1
+        },
+        {
+          "type": "MonsterFarm",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 70,
+        "attack": 65,
+        "defense": 70
+      },
+      "internalName": "Bastet_Ice"
+    },
+    {
+      "id": "Boar",
+      "displayName": "Rushoar",
+      "index": 16,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1130,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Ground"
+      ],
+      "paldexNo": "20",
+      "rarity": 1,
+      "workSuitabilities": [
+        {
+          "type": "Mining",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 80,
+        "attack": 70,
+        "defense": 70
+      },
+      "internalName": "Boar"
+    },
+    {
+      "id": "Carbunclo",
+      "displayName": "Lifmunk",
+      "index": 17,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1430,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Grass"
+      ],
+      "paldexNo": "4",
+      "rarity": 1,
+      "workSuitabilities": [
+        {
+          "type": "Seeding",
+          "level": 1
+        },
+        {
+          "type": "Handcraft",
+          "level": 1
+        },
+        {
+          "type": "Collection",
+          "level": 1
+        },
+        {
+          "type": "Deforest",
+          "level": 1
+        },
+        {
+          "type": "ProductMedicine",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 75,
+        "attack": 70,
+        "defense": 70
+      },
+      "internalName": "Carbunclo"
+    },
+    {
+      "id": "ColorfulBird",
+      "displayName": "Tocotoco",
+      "index": 18,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1340,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Neutral"
+      ],
+      "paldexNo": "27",
+      "rarity": 1,
+      "workSuitabilities": [
+        {
+          "type": "Collection",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 60,
+        "attack": 75,
+        "defense": 70
+      },
+      "internalName": "ColorfulBird"
+    },
+    {
+      "id": "Deer",
+      "displayName": "Eikthyrdeer",
+      "index": 19,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 920,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Neutral"
+      ],
+      "paldexNo": "37",
+      "rarity": 4,
+      "workSuitabilities": [
+        {
+          "type": "Deforest",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 95,
+        "attack": 80,
+        "defense": 80
+      },
+      "internalName": "Deer"
+    },
+    {
+      "id": "Deer_Ground",
+      "displayName": "Eikthyrdeer Terra",
+      "index": 20,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 900,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Ground"
+      ],
+      "paldexNo": "37B",
+      "rarity": 6,
+      "workSuitabilities": [
+        {
+          "type": "Deforest",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 95,
+        "attack": 80,
+        "defense": 80
+      },
+      "internalName": "Deer_Ground"
+    },
+    {
+      "id": "DrillGame",
+      "displayName": "Digtoise",
+      "index": 21,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 850,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Ground"
+      ],
+      "paldexNo": "67",
+      "rarity": 5,
+      "workSuitabilities": [
+        {
+          "type": "Mining",
+          "level": 3
+        }
+      ],
+      "baseStats": {
+        "hp": 80,
+        "attack": 95,
+        "defense": 120
+      },
+      "internalName": "DrillGame"
+    },
+    {
+      "id": "Eagle",
+      "displayName": "Galeclaw",
+      "index": 22,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1030,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Neutral"
+      ],
+      "paldexNo": "47",
+      "rarity": 2,
+      "workSuitabilities": [
+        {
+          "type": "Collection",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 75,
+        "attack": 85,
+        "defense": 60
+      },
+      "internalName": "Eagle"
+    },
+    {
+      "id": "ElecPanda",
+      "displayName": "Grizzbolt",
+      "index": 23,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 200,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Electric"
+      ],
+      "paldexNo": "103",
+      "rarity": 8,
+      "workSuitabilities": [
+        {
+          "type": "GenerateElectricity",
+          "level": 3
+        },
+        {
+          "type": "Handcraft",
+          "level": 2
+        },
+        {
+          "type": "Deforest",
+          "level": 2
+        },
+        {
+          "type": "Transport",
+          "level": 3
+        }
+      ],
+      "baseStats": {
+        "hp": 105,
+        "attack": 100,
+        "defense": 100
+      },
+      "internalName": "ElecPanda"
+    },
+    {
+      "id": "Ganesha",
+      "displayName": "Teafant",
+      "index": 24,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1490,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Water"
+      ],
+      "paldexNo": "16",
+      "rarity": 1,
+      "workSuitabilities": [
+        {
+          "type": "Watering",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 70,
+        "attack": 60,
+        "defense": 70
+      },
+      "internalName": "Ganesha"
+    },
+    {
+      "id": "Garm",
+      "displayName": "Direhowl",
+      "index": 25,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1060,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Neutral"
+      ],
+      "paldexNo": "26",
+      "rarity": 2,
+      "workSuitabilities": [
+        {
+          "type": "Collection",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 80,
+        "attack": 90,
+        "defense": 75
+      },
+      "internalName": "Garm"
+    },
+    {
+      "id": "Gorilla",
+      "displayName": "Gorirat",
+      "index": 26,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1040,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Neutral"
+      ],
+      "paldexNo": "49",
+      "rarity": 5,
+      "workSuitabilities": [
+        {
+          "type": "Handcraft",
+          "level": 1
+        },
+        {
+          "type": "Deforest",
+          "level": 2
+        },
+        {
+          "type": "Transport",
+          "level": 3
+        }
+      ],
+      "baseStats": {
+        "hp": 90,
+        "attack": 95,
+        "defense": 90
+      },
+      "internalName": "Gorilla"
+    },
+    {
+      "id": "Gorilla_Ground",
+      "displayName": "Gorirat Terra",
+      "index": 27,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1030,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Ground"
+      ],
+      "paldexNo": "49B",
+      "rarity": 5,
+      "workSuitabilities": [
+        {
+          "type": "Handcraft",
+          "level": 1
+        },
+        {
+          "type": "Mining",
+          "level": 2
+        },
+        {
+          "type": "Transport",
+          "level": 3
+        }
+      ],
+      "baseStats": {
+        "hp": 90,
+        "attack": 100,
+        "defense": 90
+      },
+      "internalName": "Gorilla_Ground"
+    },
+    {
+      "id": "Hedgehog",
+      "displayName": "Jolthog",
+      "index": 28,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1370,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Electric"
+      ],
+      "paldexNo": "12",
+      "rarity": 1,
+      "workSuitabilities": [
+        {
+          "type": "GenerateElectricity",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 70,
+        "attack": 75,
+        "defense": 70
+      },
+      "internalName": "Hedgehog"
+    },
+    {
+      "id": "Hedgehog_Ice",
+      "displayName": "Jolthog Cryst",
+      "index": 29,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1360,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Ice"
+      ],
+      "paldexNo": "12B",
+      "rarity": 2,
+      "workSuitabilities": [
+        {
+          "type": "Cool",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 70,
+        "attack": 75,
+        "defense": 80
+      },
+      "internalName": "Hedgehog_Ice"
+    },
+    {
+      "id": "Kirin",
+      "displayName": "Univolt",
+      "index": 30,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 680,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Electric"
+      ],
+      "paldexNo": "56",
+      "rarity": 5,
+      "workSuitabilities": [
+        {
+          "type": "GenerateElectricity",
+          "level": 2
+        },
+        {
+          "type": "Deforest",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 80,
+        "attack": 105,
+        "defense": 105
+      },
+      "internalName": "Kirin"
+    },
+    {
+      "id": "Kitsunebi",
+      "displayName": "Foxparks",
+      "index": 31,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1400,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Fire"
+      ],
+      "paldexNo": "5",
+      "rarity": 1,
+      "workSuitabilities": [
+        {
+          "type": "EmitFlame",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 65,
+        "attack": 75,
+        "defense": 70
+      },
+      "internalName": "Kitsunebi"
+    },
+    {
+      "id": "LittleBriarRose",
+      "displayName": "Bristla",
+      "index": 32,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1320,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Grass"
+      ],
+      "paldexNo": "30",
+      "rarity": 1,
+      "workSuitabilities": [
+        {
+          "type": "Seeding",
+          "level": 1
+        },
+        {
+          "type": "Handcraft",
+          "level": 1
+        },
+        {
+          "type": "Collection",
+          "level": 1
+        },
+        {
+          "type": "ProductMedicine",
+          "level": 2
+        },
+        {
+          "type": "Transport",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 80,
+        "attack": 80,
+        "defense": 80
+      },
+      "internalName": "LittleBriarRose"
+    },
+    {
+      "id": "Mutant",
+      "displayName": "Lunaris",
+      "index": 33,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1110,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Neutral"
+      ],
+      "paldexNo": "63",
+      "rarity": 6,
+      "workSuitabilities": [
+        {
+          "type": "Handcraft",
+          "level": 3
+        },
+        {
+          "type": "Collection",
+          "level": 1
+        },
+        {
+          "type": "Transport",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 90,
+        "attack": 100,
+        "defense": 90
+      },
+      "internalName": "Mutant"
+    },
+    {
+      "id": "Penguin",
+      "displayName": "Pengullet",
+      "index": 34,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1350,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Water",
+        "Ice"
+      ],
+      "paldexNo": "10",
+      "rarity": 1,
+      "workSuitabilities": [
+        {
+          "type": "Watering",
+          "level": 1
+        },
+        {
+          "type": "Handcraft",
+          "level": 1
+        },
+        {
+          "type": "Cool",
+          "level": 1
+        },
+        {
+          "type": "Transport",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 70,
+        "attack": 75,
+        "defense": 70
+      },
+      "internalName": "Penguin"
+    },
+    {
+      "id": "Penguin_Electric",
+      "displayName": "Pengullet Lux",
+      "index": 35,
+      "standardBreedable": false,
+      "wildCatchable": false,
+      "otherObtainOnly": true,
+      "rank": 1310,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Water",
+        "Electric"
+      ],
+      "paldexNo": "10B",
+      "rarity": 2,
+      "workSuitabilities": [
+        {
+          "type": "Watering",
+          "level": 1
+        },
+        {
+          "type": "GenerateElectricity",
+          "level": 2
+        },
+        {
+          "type": "Handcraft",
+          "level": 1
+        },
+        {
+          "type": "Transport",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 70,
+        "attack": 80,
+        "defense": 70
+      },
+      "internalName": "Penguin_Electric"
+    },
+    {
+      "id": "RaijinDaughter",
+      "displayName": "Dazzi",
+      "index": 36,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1210,
+      "genderRatio": {
+        "male": 0.2,
+        "female": 0.8
+      },
+      "elements": [
+        "Electric"
+      ],
+      "paldexNo": "62",
+      "rarity": 2,
+      "workSuitabilities": [
+        {
+          "type": "GenerateElectricity",
+          "level": 1
+        },
+        {
+          "type": "Handcraft",
+          "level": 1
+        },
+        {
+          "type": "Transport",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 70,
+        "attack": 80,
+        "defense": 70
+      },
+      "internalName": "RaijinDaughter"
+    },
+    {
+      "id": "SharkKid",
+      "displayName": "Gobfin",
+      "index": 37,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1090,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Water"
+      ],
+      "paldexNo": "31",
+      "rarity": 2,
+      "workSuitabilities": [
+        {
+          "type": "Watering",
+          "level": 2
+        },
+        {
+          "type": "Handcraft",
+          "level": 1
+        },
+        {
+          "type": "Transport",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 90,
+        "attack": 90,
+        "defense": 75
+      },
+      "internalName": "SharkKid"
+    },
+    {
+      "id": "SharkKid_Fire",
+      "displayName": "Gobfin Ignis",
+      "index": 38,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1100,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Fire"
+      ],
+      "paldexNo": "31B",
+      "rarity": 3,
+      "workSuitabilities": [
+        {
+          "type": "EmitFlame",
+          "level": 2
+        },
+        {
+          "type": "Handcraft",
+          "level": 1
+        },
+        {
+          "type": "Transport",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 90,
+        "attack": 90,
+        "defense": 75
+      },
+      "internalName": "SharkKid_Fire"
+    },
+    {
+      "id": "SheepBall",
+      "displayName": "Lamball",
+      "index": 39,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1470,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Neutral"
+      ],
+      "paldexNo": "1",
+      "rarity": 1,
+      "workSuitabilities": [
+        {
+          "type": "Handcraft",
+          "level": 1
+        },
+        {
+          "type": "Transport",
+          "level": 1
+        },
+        {
+          "type": "MonsterFarm",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 70,
+        "attack": 70,
+        "defense": 70
+      },
+      "internalName": "SheepBall"
+    },
+    {
+      "id": "Umihebi",
+      "displayName": "Jormuntide",
+      "index": 40,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 310,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Dragon",
+        "Water"
+      ],
+      "paldexNo": "101",
+      "rarity": 8,
+      "workSuitabilities": [
+        {
+          "type": "Watering",
+          "level": 4
+        }
+      ],
+      "baseStats": {
+        "hp": 130,
+        "attack": 120,
+        "defense": 100
+      },
+      "internalName": "Umihebi"
+    },
+    {
+      "id": "Umihebi_Fire",
+      "displayName": "Jormuntide Ignis",
+      "index": 41,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 315,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Dragon",
+        "Fire"
+      ],
+      "paldexNo": "101B",
+      "rarity": 9,
+      "workSuitabilities": [
+        {
+          "type": "EmitFlame",
+          "level": 4
+        }
+      ],
+      "baseStats": {
+        "hp": 130,
+        "attack": 130,
+        "defense": 100
+      },
+      "internalName": "Umihebi_Fire"
+    },
+    {
+      "id": "Werewolf",
+      "displayName": "Loupmoon",
+      "index": 42,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 950,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Dark"
+      ],
+      "paldexNo": "46",
+      "rarity": 3,
+      "workSuitabilities": [
+        {
+          "type": "Handcraft",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 80,
+        "attack": 100,
+        "defense": 80
+      },
+      "internalName": "Werewolf"
+    },
+    {
+      "id": "Suzaku",
+      "displayName": "Suzaku",
+      "index": 43,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 50,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Fire"
+      ],
+      "paldexNo": "102",
+      "rarity": 8,
+      "workSuitabilities": [
+        {
+          "type": "EmitFlame",
+          "level": 3
+        }
+      ],
+      "baseStats": {
+        "hp": 120,
+        "attack": 105,
+        "defense": 105
+      },
+      "internalName": "Suzaku"
+    },
+    {
+      "id": "Suzaku_Water",
+      "displayName": "Suzaku Aqua",
+      "index": 44,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 30,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Water"
+      ],
+      "paldexNo": "102B",
+      "rarity": 9,
+      "workSuitabilities": [
+        {
+          "type": "Watering",
+          "level": 3
+        }
+      ],
+      "baseStats": {
+        "hp": 125,
+        "attack": 105,
+        "defense": 105
+      },
+      "internalName": "Suzaku_Water"
+    },
+    {
+      "id": "FireKirin",
+      "displayName": "Pyrin",
+      "index": 45,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 360,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Fire"
+      ],
+      "paldexNo": "58",
+      "rarity": 6,
+      "workSuitabilities": [
+        {
+          "type": "EmitFlame",
+          "level": 2
+        },
+        {
+          "type": "Deforest",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 100,
+        "attack": 95,
+        "defense": 90
+      },
+      "internalName": "FireKirin"
+    },
+    {
+      "id": "FireKirin_Dark",
+      "displayName": "Pyrin Noct",
+      "index": 46,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 240,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Fire",
+        "Dark"
+      ],
+      "paldexNo": "58B",
+      "rarity": 7,
+      "workSuitabilities": [
+        {
+          "type": "EmitFlame",
+          "level": 2
+        },
+        {
+          "type": "Deforest",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 100,
+        "attack": 95,
+        "defense": 90
+      },
+      "internalName": "FireKirin_Dark"
+    },
+    {
+      "id": "FairyDragon",
+      "displayName": "Elphidran",
+      "index": 47,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 540,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Dragon"
+      ],
+      "paldexNo": "80",
+      "rarity": 7,
+      "workSuitabilities": [
+        {
+          "type": "Deforest",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 110,
+        "attack": 80,
+        "defense": 90
+      },
+      "internalName": "FairyDragon"
+    },
+    {
+      "id": "FairyDragon_Water",
+      "displayName": "Elphidran Aqua",
+      "index": 48,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 530,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Dragon",
+        "Water"
+      ],
+      "paldexNo": "80B",
+      "rarity": 8,
+      "workSuitabilities": [
+        {
+          "type": "Watering",
+          "level": 3
+        },
+        {
+          "type": "Deforest",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 115,
+        "attack": 80,
+        "defense": 95
+      },
+      "internalName": "FairyDragon_Water"
+    },
+    {
+      "id": "SweetsSheep",
+      "displayName": "Woolipop",
+      "index": 49,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1190,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Neutral"
+      ],
+      "paldexNo": "34",
+      "rarity": 3,
+      "workSuitabilities": [
+        {
+          "type": "MonsterFarm",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 70,
+        "attack": 70,
+        "defense": 90
+      },
+      "internalName": "SweetsSheep"
+    },
+    {
+      "id": "WhiteTiger",
+      "displayName": "Cryolinx",
+      "index": 50,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 130,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Ice"
+      ],
+      "paldexNo": "83",
+      "rarity": 7,
+      "workSuitabilities": [
+        {
+          "type": "Handcraft",
+          "level": 1
+        },
+        {
+          "type": "Deforest",
+          "level": 2
+        },
+        {
+          "type": "Cool",
+          "level": 3
+        },
+        {
+          "type": "Transport",
+          "level": 3
+        }
+      ],
+      "baseStats": {
+        "hp": 100,
+        "attack": 100,
+        "defense": 110
+      },
+      "internalName": "WhiteTiger"
+    },
+    {
+      "id": "Alpaca",
+      "displayName": "Melpaca",
+      "index": 51,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 890,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Neutral"
+      ],
+      "paldexNo": "36",
+      "rarity": 3,
+      "workSuitabilities": [
+        {
+          "type": "MonsterFarm",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 90,
+        "attack": 75,
+        "defense": 90
+      },
+      "internalName": "Alpaca"
+    },
+    {
+      "id": "Serpent",
+      "displayName": "Surfent",
+      "index": 52,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 560,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Water"
+      ],
+      "paldexNo": "65",
+      "rarity": 4,
+      "workSuitabilities": [
+        {
+          "type": "Watering",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 90,
+        "attack": 90,
+        "defense": 80
+      },
+      "internalName": "Serpent"
+    },
+    {
+      "id": "Serpent_Ground",
+      "displayName": "Surfent Terra",
+      "index": 53,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 550,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Ground"
+      ],
+      "paldexNo": "65B",
+      "rarity": 5,
+      "workSuitabilities": [
+        {
+          "type": "Collection",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 90,
+        "attack": 90,
+        "defense": 100
+      },
+      "internalName": "Serpent_Ground"
+    },
+    {
+      "id": "DarkCrow",
+      "displayName": "Cawgnito",
+      "index": 54,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1080,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Dark"
+      ],
+      "paldexNo": "44",
+      "rarity": 3,
+      "workSuitabilities": [
+        {
+          "type": "Deforest",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 75,
+        "attack": 95,
+        "defense": 80
+      },
+      "internalName": "DarkCrow"
+    },
+    {
+      "id": "BlueDragon",
+      "displayName": "Azurobe",
+      "index": 55,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 500,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Water",
+        "Dragon"
+      ],
+      "paldexNo": "82",
+      "rarity": 7,
+      "workSuitabilities": [
+        {
+          "type": "Watering",
+          "level": 3
+        }
+      ],
+      "baseStats": {
+        "hp": 110,
+        "attack": 100,
+        "defense": 100
+      },
+      "internalName": "BlueDragon"
+    },
+    {
+      "id": "BlueDragon_Ice",
+      "displayName": "Azurobe Cryst",
+      "index": 56,
+      "standardBreedable": false,
+      "wildCatchable": false,
+      "otherObtainOnly": true,
+      "rank": 480,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Ice",
+        "Dragon"
+      ],
+      "paldexNo": "82B",
+      "rarity": 8,
+      "workSuitabilities": [
+        {
+          "type": "Cool",
+          "level": 3
+        }
+      ],
+      "baseStats": {
+        "hp": 115,
+        "attack": 105,
+        "defense": 105
+      },
+      "internalName": "BlueDragon_Ice"
+    },
+    {
+      "id": "PinkCat",
+      "displayName": "Cattiva",
+      "index": 57,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1460,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Neutral"
+      ],
+      "paldexNo": "2",
+      "rarity": 1,
+      "workSuitabilities": [
+        {
+          "type": "Handcraft",
+          "level": 1
+        },
+        {
+          "type": "Collection",
+          "level": 1
+        },
+        {
+          "type": "Mining",
+          "level": 1
+        },
+        {
+          "type": "Transport",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 70,
+        "attack": 70,
+        "defense": 70
+      },
+      "internalName": "PinkCat"
+    },
+    {
+      "id": "NegativeKoala",
+      "displayName": "Depresso",
+      "index": 58,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1380,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Dark"
+      ],
+      "paldexNo": "17",
+      "rarity": 1,
+      "workSuitabilities": [
+        {
+          "type": "Handcraft",
+          "level": 1
+        },
+        {
+          "type": "Mining",
+          "level": 1
+        },
+        {
+          "type": "Transport",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 70,
+        "attack": 70,
+        "defense": 70
+      },
+      "internalName": "NegativeKoala"
+    },
+    {
+      "id": "FengyunDeeper",
+      "displayName": "Fenglope",
+      "index": 59,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 980,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Neutral"
+      ],
+      "paldexNo": "93",
+      "rarity": 3,
+      "workSuitabilities": [
+        {
+          "type": "Deforest",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 110,
+        "attack": 110,
+        "defense": 90
+      },
+      "internalName": "FengyunDeeper"
+    },
+    {
+      "id": "VolcanicMonster",
+      "displayName": "Reptyro",
+      "index": 60,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 320,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Fire",
+        "Ground"
+      ],
+      "paldexNo": "88",
+      "rarity": 6,
+      "workSuitabilities": [
+        {
+          "type": "EmitFlame",
+          "level": 3
+        },
+        {
+          "type": "Mining",
+          "level": 3
+        }
+      ],
+      "baseStats": {
+        "hp": 110,
+        "attack": 105,
+        "defense": 120
+      },
+      "internalName": "VolcanicMonster"
+    },
+    {
+      "id": "VolcanicMonster_Ice",
+      "displayName": "Reptyro Cryst",
+      "index": 61,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 230,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Ice",
+        "Ground"
+      ],
+      "paldexNo": "88B",
+      "rarity": 7,
+      "workSuitabilities": [
+        {
+          "type": "Mining",
+          "level": 3
+        },
+        {
+          "type": "Cool",
+          "level": 3
+        }
+      ],
+      "baseStats": {
+        "hp": 110,
+        "attack": 105,
+        "defense": 130
+      },
+      "internalName": "VolcanicMonster_Ice"
+    },
+    {
+      "id": "GhostBeast",
+      "displayName": "Maraith",
+      "index": 62,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1150,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Dark"
+      ],
+      "paldexNo": "66",
+      "rarity": 6,
+      "workSuitabilities": [
+        {
+          "type": "Collection",
+          "level": 2
+        },
+        {
+          "type": "Mining",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 75,
+        "attack": 105,
+        "defense": 80
+      },
+      "internalName": "GhostBeast"
+    },
+    {
+      "id": "RobinHood",
+      "displayName": "Robinquill",
+      "index": 63,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1020,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Grass"
+      ],
+      "paldexNo": "48",
+      "rarity": 5,
+      "workSuitabilities": [
+        {
+          "type": "Seeding",
+          "level": 1
+        },
+        {
+          "type": "Handcraft",
+          "level": 2
+        },
+        {
+          "type": "Collection",
+          "level": 2
+        },
+        {
+          "type": "Deforest",
+          "level": 1
+        },
+        {
+          "type": "ProductMedicine",
+          "level": 1
+        },
+        {
+          "type": "Transport",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 90,
+        "attack": 105,
+        "defense": 80
+      },
+      "internalName": "RobinHood"
+    },
+    {
+      "id": "RobinHood_Ground",
+      "displayName": "Robinquill Terra",
+      "index": 64,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1000,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Grass",
+        "Ground"
+      ],
+      "paldexNo": "48B",
+      "rarity": 6,
+      "workSuitabilities": [
+        {
+          "type": "Handcraft",
+          "level": 2
+        },
+        {
+          "type": "Collection",
+          "level": 2
+        },
+        {
+          "type": "Deforest",
+          "level": 1
+        },
+        {
+          "type": "ProductMedicine",
+          "level": 1
+        },
+        {
+          "type": "Transport",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 90,
+        "attack": 105,
+        "defense": 80
+      },
+      "internalName": "RobinHood_Ground"
+    },
+    {
+      "id": "LazyDragon",
+      "displayName": "Relaxaurus",
+      "index": 65,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 280,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Dragon",
+        "Water"
+      ],
+      "paldexNo": "85",
+      "rarity": 8,
+      "workSuitabilities": [
+        {
+          "type": "Watering",
+          "level": 2
+        },
+        {
+          "type": "Transport",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 110,
+        "attack": 100,
+        "defense": 70
+      },
+      "internalName": "LazyDragon"
+    },
+    {
+      "id": "LazyDragon_Electric",
+      "displayName": "Relaxaurus Lux",
+      "index": 66,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 270,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Dragon",
+        "Electric"
+      ],
+      "paldexNo": "85B",
+      "rarity": 9,
+      "workSuitabilities": [
+        {
+          "type": "GenerateElectricity",
+          "level": 3
+        },
+        {
+          "type": "Transport",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 110,
+        "attack": 110,
+        "defense": 75
+      },
+      "internalName": "LazyDragon_Electric"
+    },
+    {
+      "id": "AmaterasuWolf",
+      "displayName": "Kitsun",
+      "index": 67,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 830,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Fire"
+      ],
+      "paldexNo": "61",
+      "rarity": 6,
+      "workSuitabilities": [
+        {
+          "type": "EmitFlame",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 100,
+        "attack": 115,
+        "defense": 100
+      },
+      "internalName": "AmaterasuWolf"
+    },
+    {
+      "id": "LizardMan",
+      "displayName": "Leezpunk",
+      "index": 68,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1120,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Dark"
+      ],
+      "paldexNo": "45",
+      "rarity": 2,
+      "workSuitabilities": [
+        {
+          "type": "Handcraft",
+          "level": 1
+        },
+        {
+          "type": "Collection",
+          "level": 1
+        },
+        {
+          "type": "Transport",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 80,
+        "attack": 80,
+        "defense": 50
+      },
+      "internalName": "LizardMan"
+    },
+    {
+      "id": "LizardMan_Fire",
+      "displayName": "Leezpunk Ignis",
+      "index": 69,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1140,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Fire"
+      ],
+      "paldexNo": "45B",
+      "rarity": 3,
+      "workSuitabilities": [
+        {
+          "type": "EmitFlame",
+          "level": 1
+        },
+        {
+          "type": "Handcraft",
+          "level": 1
+        },
+        {
+          "type": "Collection",
+          "level": 1
+        },
+        {
+          "type": "Transport",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 80,
+        "attack": 80,
+        "defense": 50
+      },
+      "internalName": "LizardMan_Fire"
+    },
+    {
+      "id": "BluePlatypus",
+      "displayName": "Fuack",
+      "index": 70,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1330,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Water"
+      ],
+      "paldexNo": "6",
+      "rarity": 1,
+      "workSuitabilities": [
+        {
+          "type": "Watering",
+          "level": 1
+        },
+        {
+          "type": "Handcraft",
+          "level": 1
+        },
+        {
+          "type": "Transport",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 60,
+        "attack": 80,
+        "defense": 60
+      },
+      "internalName": "BluePlatypus"
+    },
+    {
+      "id": "BluePlatypus_Fire",
+      "displayName": "Fuack Ignis",
+      "index": 71,
+      "standardBreedable": false,
+      "wildCatchable": false,
+      "otherObtainOnly": true,
+      "rank": 1290,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Water",
+        "Fire"
+      ],
+      "paldexNo": "6B",
+      "rarity": 2,
+      "workSuitabilities": [
+        {
+          "type": "EmitFlame",
+          "level": 1
+        },
+        {
+          "type": "Watering",
+          "level": 1
+        },
+        {
+          "type": "Handcraft",
+          "level": 1
+        },
+        {
+          "type": "Transport",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 60,
+        "attack": 85,
+        "defense": 60
+      },
+      "internalName": "BluePlatypus_Fire"
+    },
+    {
+      "id": "BlackFurDragon",
+      "displayName": "Dragostrophe",
+      "index": 72,
+      "standardBreedable": false,
+      "wildCatchable": false,
+      "otherObtainOnly": true,
+      "rank": 0,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Dark",
+        "Dragon"
+      ],
+      "rarity": 10,
+      "workSuitabilities": [
+        {
+          "type": "Transport",
+          "level": 3
+        }
+      ],
+      "baseStats": {
+        "hp": 130,
+        "attack": 130,
+        "defense": 110
+      },
+      "internalName": "BlackFurDragon"
+    },
+    {
+      "id": "BirdDragon",
+      "displayName": "Vanwyrm",
+      "index": 73,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 660,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Fire",
+        "Dark"
+      ],
+      "paldexNo": "71",
+      "rarity": 4,
+      "workSuitabilities": [
+        {
+          "type": "EmitFlame",
+          "level": 1
+        },
+        {
+          "type": "Transport",
+          "level": 3
+        }
+      ],
+      "baseStats": {
+        "hp": 90,
+        "attack": 115,
+        "defense": 90
+      },
+      "internalName": "BirdDragon"
+    },
+    {
+      "id": "BirdDragon_Ice",
+      "displayName": "Vanwyrm Cryst",
+      "index": 74,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 620,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Ice",
+        "Dark"
+      ],
+      "paldexNo": "71B",
+      "rarity": 5,
+      "workSuitabilities": [
+        {
+          "type": "Cool",
+          "level": 2
+        },
+        {
+          "type": "Transport",
+          "level": 3
+        }
+      ],
+      "baseStats": {
+        "hp": 90,
+        "attack": 120,
+        "defense": 95
+      },
+      "internalName": "BirdDragon_Ice"
+    },
+    {
+      "id": "ChickenPal",
+      "displayName": "Chikipi",
+      "index": 75,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1500,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Neutral"
+      ],
+      "paldexNo": "3",
+      "rarity": 1,
+      "workSuitabilities": [
+        {
+          "type": "Collection",
+          "level": 1
+        },
+        {
+          "type": "MonsterFarm",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 60,
+        "attack": 60,
+        "defense": 60
+      },
+      "internalName": "ChickenPal"
+    },
+    {
+      "id": "FlowerDinosaur",
+      "displayName": "Dinossom",
+      "index": 76,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 820,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Grass",
+        "Dragon"
+      ],
+      "paldexNo": "64",
+      "rarity": 6,
+      "workSuitabilities": [
+        {
+          "type": "Seeding",
+          "level": 2
+        },
+        {
+          "type": "Deforest",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 110,
+        "attack": 85,
+        "defense": 90
+      },
+      "internalName": "FlowerDinosaur"
+    },
+    {
+      "id": "FlowerDinosaur_Electric",
+      "displayName": "Dinossom Lux",
+      "index": 77,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 810,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Electric",
+        "Dragon"
+      ],
+      "paldexNo": "64B",
+      "rarity": 7,
+      "workSuitabilities": [
+        {
+          "type": "GenerateElectricity",
+          "level": 2
+        },
+        {
+          "type": "Deforest",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 110,
+        "attack": 90,
+        "defense": 90
+      },
+      "internalName": "FlowerDinosaur_Electric"
+    },
+    {
+      "id": "ElecCat",
+      "displayName": "Sparkit",
+      "index": 78,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1410,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Electric"
+      ],
+      "paldexNo": "7",
+      "rarity": 1,
+      "workSuitabilities": [
+        {
+          "type": "GenerateElectricity",
+          "level": 1
+        },
+        {
+          "type": "Handcraft",
+          "level": 1
+        },
+        {
+          "type": "Transport",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 60,
+        "attack": 75,
+        "defense": 70
+      },
+      "internalName": "ElecCat"
+    },
+    {
+      "id": "IceHorse",
+      "displayName": "Frostallion",
+      "index": 79,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 120,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Ice"
+      ],
+      "paldexNo": "110",
+      "rarity": 20,
+      "workSuitabilities": [
+        {
+          "type": "Cool",
+          "level": 4
+        }
+      ],
+      "baseStats": {
+        "hp": 140,
+        "attack": 140,
+        "defense": 120
+      },
+      "internalName": "IceHorse"
+    },
+    {
+      "id": "IceHorse_Dark",
+      "displayName": "Frostallion Noct",
+      "index": 80,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 100,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Dark"
+      ],
+      "paldexNo": "110B",
+      "rarity": 20,
+      "workSuitabilities": [
+        {
+          "type": "Collection",
+          "level": 4
+        }
+      ],
+      "baseStats": {
+        "hp": 140,
+        "attack": 140,
+        "defense": 135
+      },
+      "internalName": "IceHorse_Dark"
+    },
+    {
+      "id": "GrassMammoth",
+      "displayName": "Mammorest",
+      "index": 81,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 300,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Grass",
+        "Ground"
+      ],
+      "paldexNo": "90",
+      "rarity": 8,
+      "workSuitabilities": [
+        {
+          "type": "Seeding",
+          "level": 2
+        },
+        {
+          "type": "Deforest",
+          "level": 2
+        },
+        {
+          "type": "Mining",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 150,
+        "attack": 85,
+        "defense": 90
+      },
+      "internalName": "GrassMammoth"
+    },
+    {
+      "id": "GrassMammoth_Ice",
+      "displayName": "Mammorest Cryst",
+      "index": 82,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 290,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Ice",
+        "Ground"
+      ],
+      "paldexNo": "90B",
+      "rarity": 9,
+      "workSuitabilities": [
+        {
+          "type": "Deforest",
+          "level": 2
+        },
+        {
+          "type": "Mining",
+          "level": 2
+        },
+        {
+          "type": "Cool",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 150,
+        "attack": 85,
+        "defense": 90
+      },
+      "internalName": "GrassMammoth_Ice"
+    },
+    {
+      "id": "CatVampire",
+      "displayName": "Felbat",
+      "index": 83,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1010,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Dark"
+      ],
+      "paldexNo": "94",
+      "rarity": 6,
+      "workSuitabilities": [
+        {
+          "type": "ProductMedicine",
+          "level": 3
+        }
+      ],
+      "baseStats": {
+        "hp": 100,
+        "attack": 105,
+        "defense": 110
+      },
+      "internalName": "CatVampire"
+    },
+    {
+      "id": "SakuraSaurus",
+      "displayName": "Broncherry",
+      "index": 84,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 860,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Grass"
+      ],
+      "paldexNo": "86",
+      "rarity": 7,
+      "workSuitabilities": [
+        {
+          "type": "Seeding",
+          "level": 3
+        }
+      ],
+      "baseStats": {
+        "hp": 120,
+        "attack": 90,
+        "defense": 100
+      },
+      "internalName": "SakuraSaurus"
+    },
+    {
+      "id": "SakuraSaurus_Water",
+      "displayName": "Broncherry Aqua",
+      "index": 85,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 840,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Grass",
+        "Water"
+      ],
+      "paldexNo": "86B",
+      "rarity": 8,
+      "workSuitabilities": [
+        {
+          "type": "Watering",
+          "level": 3
+        }
+      ],
+      "baseStats": {
+        "hp": 120,
+        "attack": 95,
+        "defense": 100
+      },
+      "internalName": "SakuraSaurus_Water"
+    },
+    {
+      "id": "Horus",
+      "displayName": "Faleris",
+      "index": 86,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 370,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Fire"
+      ],
+      "paldexNo": "105",
+      "rarity": 9,
+      "workSuitabilities": [
+        {
+          "type": "EmitFlame",
+          "level": 3
+        },
+        {
+          "type": "Transport",
+          "level": 3
+        }
+      ],
+      "baseStats": {
+        "hp": 100,
+        "attack": 105,
+        "defense": 110
+      },
+      "internalName": "Horus"
+    },
+    {
+      "id": "KingBahamut",
+      "displayName": "Blazamut",
+      "index": 87,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 10,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Fire"
+      ],
+      "paldexNo": "96",
+      "rarity": 9,
+      "workSuitabilities": [
+        {
+          "type": "EmitFlame",
+          "level": 3
+        },
+        {
+          "type": "Mining",
+          "level": 4
+        }
+      ],
+      "baseStats": {
+        "hp": 100,
+        "attack": 125,
+        "defense": 120
+      },
+      "internalName": "KingBahamut"
+    },
+    {
+      "id": "KingBahamut_Dragon",
+      "displayName": "Blazamut Ryu",
+      "index": 88,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 9,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Dragon",
+        "Fire"
+      ],
+      "paldexNo": "96B",
+      "rarity": 10,
+      "workSuitabilities": [
+        {
+          "type": "EmitFlame",
+          "level": 4
+        },
+        {
+          "type": "Mining",
+          "level": 4
+        }
+      ],
+      "baseStats": {
+        "hp": 105,
+        "attack": 130,
+        "defense": 125
+      },
+      "internalName": "KingBahamut_Dragon"
+    },
+    {
+      "id": "BerryGoat",
+      "displayName": "Caprity",
+      "index": 89,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 930,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Grass"
+      ],
+      "paldexNo": "35",
+      "rarity": 3,
+      "workSuitabilities": [
+        {
+          "type": "Seeding",
+          "level": 2
+        },
+        {
+          "type": "MonsterFarm",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 100,
+        "attack": 70,
+        "defense": 90
+      },
+      "internalName": "BerryGoat"
+    },
+    {
+      "id": "IceDeer",
+      "displayName": "Reindrix",
+      "index": 90,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 880,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Ice"
+      ],
+      "paldexNo": "59",
+      "rarity": 4,
+      "workSuitabilities": [
+        {
+          "type": "Deforest",
+          "level": 2
+        },
+        {
+          "type": "Cool",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 100,
+        "attack": 85,
+        "defense": 110
+      },
+      "internalName": "IceDeer"
+    },
+    {
+      "id": "BlackGriffon",
+      "displayName": "Shadowbeak",
+      "index": 91,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 60,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Dark"
+      ],
+      "paldexNo": "107",
+      "rarity": 10,
+      "workSuitabilities": [
+        {
+          "type": "Collection",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 120,
+        "attack": 120,
+        "defense": 140
+      },
+      "internalName": "BlackGriffon"
+    },
+    {
+      "id": "WhiteMoth",
+      "displayName": "Sibelyx",
+      "index": 92,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 450,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Ice"
+      ],
+      "paldexNo": "79",
+      "rarity": 7,
+      "workSuitabilities": [
+        {
+          "type": "ProductMedicine",
+          "level": 2
+        },
+        {
+          "type": "Cool",
+          "level": 2
+        },
+        {
+          "type": "MonsterFarm",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 110,
+        "attack": 90,
+        "defense": 100
+      },
+      "internalName": "WhiteMoth"
+    },
+    {
+      "id": "CuteFox",
+      "displayName": "Vixy",
+      "index": 93,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1450,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Neutral"
+      ],
+      "paldexNo": "14",
+      "rarity": 2,
+      "workSuitabilities": [
+        {
+          "type": "Collection",
+          "level": 1
+        },
+        {
+          "type": "MonsterFarm",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 70,
+        "attack": 70,
+        "defense": 70
+      },
+      "internalName": "CuteFox"
+    },
+    {
+      "id": "FoxMage",
+      "displayName": "Wixen",
+      "index": 94,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1160,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Fire"
+      ],
+      "paldexNo": "76",
+      "rarity": 6,
+      "workSuitabilities": [
+        {
+          "type": "EmitFlame",
+          "level": 2
+        },
+        {
+          "type": "Handcraft",
+          "level": 3
+        },
+        {
+          "type": "Transport",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 90,
+        "attack": 110,
+        "defense": 80
+      },
+      "internalName": "FoxMage"
+    },
+    {
+      "id": "FoxMage_Dark",
+      "displayName": "Wixen Noct",
+      "index": 95,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1150,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Fire",
+        "Dark"
+      ],
+      "paldexNo": "76B",
+      "rarity": 6,
+      "workSuitabilities": [
+        {
+          "type": "EmitFlame",
+          "level": 2
+        },
+        {
+          "type": "Handcraft",
+          "level": 3
+        },
+        {
+          "type": "Transport",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 90,
+        "attack": 110,
+        "defense": 85
+      },
+      "internalName": "FoxMage_Dark"
+    },
+    {
+      "id": "PinkLizard",
+      "displayName": "Lovander",
+      "index": 96,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 940,
+      "genderRatio": {
+        "male": 0.3,
+        "female": 0.7
+      },
+      "elements": [
+        "Neutral"
+      ],
+      "paldexNo": "69",
+      "rarity": 5,
+      "workSuitabilities": [
+        {
+          "type": "Handcraft",
+          "level": 2
+        },
+        {
+          "type": "Mining",
+          "level": 1
+        },
+        {
+          "type": "ProductMedicine",
+          "level": 2
+        },
+        {
+          "type": "Transport",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 120,
+        "attack": 70,
+        "defense": 70
+      },
+      "internalName": "PinkLizard"
+    },
+    {
+      "id": "WizardOwl",
+      "displayName": "Hoocrates",
+      "index": 97,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1390,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Dark"
+      ],
+      "paldexNo": "15",
+      "rarity": 1,
+      "workSuitabilities": [
+        {
+          "type": "Collection",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 70,
+        "attack": 70,
+        "defense": 80
+      },
+      "internalName": "WizardOwl"
+    },
+    {
+      "id": "Kelpie",
+      "displayName": "Kelpsea",
+      "index": 98,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1260,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Water"
+      ],
+      "paldexNo": "81",
+      "rarity": 1,
+      "workSuitabilities": [
+        {
+          "type": "Watering",
+          "level": 1
+        },
+        {
+          "type": "MonsterFarm",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 70,
+        "attack": 70,
+        "defense": 70
+      },
+      "internalName": "Kelpie"
+    },
+    {
+      "id": "Kelpie_Fire",
+      "displayName": "Kelpsea Ignis",
+      "index": 99,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1270,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Fire"
+      ],
+      "paldexNo": "81B",
+      "rarity": 2,
+      "workSuitabilities": [
+        {
+          "type": "EmitFlame",
+          "level": 1
+        },
+        {
+          "type": "MonsterFarm",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 70,
+        "attack": 70,
+        "defense": 70
+      },
+      "internalName": "Kelpie_Fire"
+    },
+    {
+      "id": "NegativeOctopus",
+      "displayName": "Killamari",
+      "index": 100,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1290,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Dark",
+        "Water"
+      ],
+      "paldexNo": "23",
+      "rarity": 1,
+      "workSuitabilities": [
+        {
+          "type": "Watering",
+          "level": 1
+        },
+        {
+          "type": "Collection",
+          "level": 1
+        },
+        {
+          "type": "Transport",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 60,
+        "attack": 60,
+        "defense": 70
+      },
+      "internalName": "NegativeOctopus"
+    },
+    {
+      "id": "NegativeOctopus_Neutral",
+      "displayName": "Killamari Primo",
+      "index": 101,
+      "standardBreedable": false,
+      "wildCatchable": false,
+      "otherObtainOnly": true,
+      "rank": 1250,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Neutral",
+        "Water"
+      ],
+      "paldexNo": "23B",
+      "rarity": 2,
+      "workSuitabilities": [
+        {
+          "type": "Watering",
+          "level": 1
+        },
+        {
+          "type": "Collection",
+          "level": 1
+        },
+        {
+          "type": "Transport",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 70,
+        "attack": 60,
+        "defense": 70
+      },
+      "internalName": "NegativeOctopus_Neutral"
+    },
+    {
+      "id": "CowPal",
+      "displayName": "Mozzarina",
+      "index": 102,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 910,
+      "genderRatio": {
+        "male": 0.2,
+        "female": 0.8
+      },
+      "elements": [
+        "Neutral"
+      ],
+      "paldexNo": "29",
+      "rarity": 2,
+      "workSuitabilities": [
+        {
+          "type": "MonsterFarm",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 90,
+        "attack": 50,
+        "defense": 80
+      },
+      "internalName": "CowPal"
+    },
+    {
+      "id": "Yeti",
+      "displayName": "Wumpo",
+      "index": 103,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 460,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Ice"
+      ],
+      "paldexNo": "91",
+      "rarity": 7,
+      "workSuitabilities": [
+        {
+          "type": "Handcraft",
+          "level": 2
+        },
+        {
+          "type": "Deforest",
+          "level": 3
+        },
+        {
+          "type": "Cool",
+          "level": 2
+        },
+        {
+          "type": "Transport",
+          "level": 4
+        }
+      ],
+      "baseStats": {
+        "hp": 140,
+        "attack": 80,
+        "defense": 100
+      },
+      "internalName": "Yeti"
+    },
+    {
+      "id": "Yeti_Grass",
+      "displayName": "Wumpo Botan",
+      "index": 104,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 480,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Grass"
+      ],
+      "paldexNo": "91B",
+      "rarity": 8,
+      "workSuitabilities": [
+        {
+          "type": "Seeding",
+          "level": 1
+        },
+        {
+          "type": "Handcraft",
+          "level": 2
+        },
+        {
+          "type": "Deforest",
+          "level": 3
+        },
+        {
+          "type": "Transport",
+          "level": 4
+        }
+      ],
+      "baseStats": {
+        "hp": 140,
+        "attack": 80,
+        "defense": 110
+      },
+      "internalName": "Yeti_Grass"
+    },
+    {
+      "id": "VioletFairy",
+      "displayName": "Vaelet",
+      "index": 105,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1050,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Grass"
+      ],
+      "paldexNo": "78",
+      "rarity": 8,
+      "workSuitabilities": [
+        {
+          "type": "Seeding",
+          "level": 2
+        },
+        {
+          "type": "Handcraft",
+          "level": 2
+        },
+        {
+          "type": "Collection",
+          "level": 2
+        },
+        {
+          "type": "ProductMedicine",
+          "level": 3
+        },
+        {
+          "type": "Transport",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 100,
+        "attack": 100,
+        "defense": 120
+      },
+      "internalName": "VioletFairy"
+    },
+    {
+      "id": "HawkBird",
+      "displayName": "Nitewing",
+      "index": 106,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 420,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Neutral"
+      ],
+      "paldexNo": "38",
+      "rarity": 3,
+      "workSuitabilities": [
+        {
+          "type": "Collection",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 100,
+        "attack": 95,
+        "defense": 80
+      },
+      "internalName": "HawkBird"
+    },
+    {
+      "id": "FlowerRabbit",
+      "displayName": "Flopie",
+      "index": 107,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1280,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Grass"
+      ],
+      "paldexNo": "28",
+      "rarity": 1,
+      "workSuitabilities": [
+        {
+          "type": "Seeding",
+          "level": 1
+        },
+        {
+          "type": "Handcraft",
+          "level": 1
+        },
+        {
+          "type": "Collection",
+          "level": 1
+        },
+        {
+          "type": "ProductMedicine",
+          "level": 1
+        },
+        {
+          "type": "Transport",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 75,
+        "attack": 65,
+        "defense": 70
+      },
+      "internalName": "FlowerRabbit"
+    },
+    {
+      "id": "LilyQueen",
+      "displayName": "Lyleen",
+      "index": 108,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 250,
+      "genderRatio": {
+        "male": 0.3,
+        "female": 0.7
+      },
+      "elements": [
+        "Grass"
+      ],
+      "paldexNo": "104",
+      "rarity": 9,
+      "workSuitabilities": [
+        {
+          "type": "Seeding",
+          "level": 4
+        },
+        {
+          "type": "Handcraft",
+          "level": 3
+        },
+        {
+          "type": "Collection",
+          "level": 2
+        },
+        {
+          "type": "ProductMedicine",
+          "level": 3
+        }
+      ],
+      "baseStats": {
+        "hp": 110,
+        "attack": 110,
+        "defense": 105
+      },
+      "internalName": "LilyQueen"
+    },
+    {
+      "id": "LilyQueen_Dark",
+      "displayName": "Lyleen Noct",
+      "index": 109,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 210,
+      "genderRatio": {
+        "male": 0.3,
+        "female": 0.7
+      },
+      "elements": [
+        "Dark"
+      ],
+      "paldexNo": "104B",
+      "rarity": 10,
+      "workSuitabilities": [
+        {
+          "type": "Handcraft",
+          "level": 3
+        },
+        {
+          "type": "Collection",
+          "level": 2
+        },
+        {
+          "type": "ProductMedicine",
+          "level": 3
+        }
+      ],
+      "baseStats": {
+        "hp": 110,
+        "attack": 110,
+        "defense": 115
+      },
+      "internalName": "LilyQueen_Dark"
+    },
+    {
+      "id": "QueenBee",
+      "displayName": "Elizabee",
+      "index": 110,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 330,
+      "genderRatio": {
+        "male": 0.1,
+        "female": 0.9
+      },
+      "elements": [
+        "Grass"
+      ],
+      "paldexNo": "51",
+      "rarity": 8,
+      "workSuitabilities": [
+        {
+          "type": "Seeding",
+          "level": 2
+        },
+        {
+          "type": "Handcraft",
+          "level": 2
+        },
+        {
+          "type": "Collection",
+          "level": 2
+        },
+        {
+          "type": "Deforest",
+          "level": 1
+        },
+        {
+          "type": "ProductMedicine",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 90,
+        "attack": 105,
+        "defense": 100
+      },
+      "internalName": "QueenBee"
+    },
+    {
+      "id": "SoldierBee",
+      "displayName": "Beegarde",
+      "index": 111,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1070,
+      "genderRatio": {
+        "male": 0.1,
+        "female": 0.9
+      },
+      "elements": [
+        "Grass"
+      ],
+      "paldexNo": "50",
+      "rarity": 4,
+      "workSuitabilities": [
+        {
+          "type": "Seeding",
+          "level": 1
+        },
+        {
+          "type": "Handcraft",
+          "level": 1
+        },
+        {
+          "type": "Collection",
+          "level": 1
+        },
+        {
+          "type": "Deforest",
+          "level": 1
+        },
+        {
+          "type": "ProductMedicine",
+          "level": 1
+        },
+        {
+          "type": "Transport",
+          "level": 2
+        },
+        {
+          "type": "MonsterFarm",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 80,
+        "attack": 90,
+        "defense": 90
+      },
+      "internalName": "SoldierBee"
+    },
+    {
+      "id": "CatBat",
+      "displayName": "Tombat",
+      "index": 112,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 750,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Dark"
+      ],
+      "paldexNo": "68",
+      "rarity": 5,
+      "workSuitabilities": [
+        {
+          "type": "Collection",
+          "level": 2
+        },
+        {
+          "type": "Mining",
+          "level": 2
+        },
+        {
+          "type": "Transport",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 95,
+        "attack": 95,
+        "defense": 80
+      },
+      "internalName": "CatBat"
+    },
+    {
+      "id": "GrassPanda",
+      "displayName": "Mossanda",
+      "index": 113,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 430,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Grass"
+      ],
+      "paldexNo": "33",
+      "rarity": 6,
+      "workSuitabilities": [
+        {
+          "type": "Seeding",
+          "level": 2
+        },
+        {
+          "type": "Handcraft",
+          "level": 2
+        },
+        {
+          "type": "Deforest",
+          "level": 2
+        },
+        {
+          "type": "Transport",
+          "level": 3
+        }
+      ],
+      "baseStats": {
+        "hp": 100,
+        "attack": 90,
+        "defense": 90
+      },
+      "internalName": "GrassPanda"
+    },
+    {
+      "id": "GrassPanda_Electric",
+      "displayName": "Mossanda Lux",
+      "index": 114,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 390,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Electric"
+      ],
+      "paldexNo": "33B",
+      "rarity": 7,
+      "workSuitabilities": [
+        {
+          "type": "GenerateElectricity",
+          "level": 2
+        },
+        {
+          "type": "Handcraft",
+          "level": 2
+        },
+        {
+          "type": "Deforest",
+          "level": 2
+        },
+        {
+          "type": "Transport",
+          "level": 3
+        }
+      ],
+      "baseStats": {
+        "hp": 100,
+        "attack": 100,
+        "defense": 100
+      },
+      "internalName": "GrassPanda_Electric"
+    },
+    {
+      "id": "FlameBuffalo",
+      "displayName": "Arsox",
+      "index": 115,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 790,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Fire"
+      ],
+      "paldexNo": "42",
+      "rarity": 4,
+      "workSuitabilities": [
+        {
+          "type": "EmitFlame",
+          "level": 2
+        },
+        {
+          "type": "Deforest",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 85,
+        "attack": 95,
+        "defense": 95
+      },
+      "internalName": "FlameBuffalo"
+    },
+    {
+      "id": "ThunderDog",
+      "displayName": "Rayhound",
+      "index": 116,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 740,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Electric"
+      ],
+      "paldexNo": "60",
+      "rarity": 5,
+      "workSuitabilities": [
+        {
+          "type": "GenerateElectricity",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 90,
+        "attack": 100,
+        "defense": 80
+      },
+      "internalName": "ThunderDog"
+    },
+    {
+      "id": "CuteMole",
+      "displayName": "Fuddler",
+      "index": 117,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1220,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Ground"
+      ],
+      "paldexNo": "22",
+      "rarity": 1,
+      "workSuitabilities": [
+        {
+          "type": "Handcraft",
+          "level": 1
+        },
+        {
+          "type": "Mining",
+          "level": 1
+        },
+        {
+          "type": "Transport",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 65,
+        "attack": 80,
+        "defense": 50
+      },
+      "internalName": "CuteMole"
+    },
+    {
+      "id": "BlackMetalDragon",
+      "displayName": "Astegon",
+      "index": 118,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 150,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Dragon",
+        "Dark"
+      ],
+      "paldexNo": "98",
+      "rarity": 9,
+      "workSuitabilities": [
+        {
+          "type": "Handcraft",
+          "level": 1
+        },
+        {
+          "type": "Mining",
+          "level": 4
+        }
+      ],
+      "baseStats": {
+        "hp": 100,
+        "attack": 125,
+        "defense": 125
+      },
+      "internalName": "BlackMetalDragon"
+    },
+    {
+      "id": "GrassRabbitMan",
+      "displayName": "Verdash",
+      "index": 119,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 990,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Grass"
+      ],
+      "paldexNo": "77",
+      "rarity": 8,
+      "workSuitabilities": [
+        {
+          "type": "Seeding",
+          "level": 2
+        },
+        {
+          "type": "Handcraft",
+          "level": 3
+        },
+        {
+          "type": "Collection",
+          "level": 3
+        },
+        {
+          "type": "Deforest",
+          "level": 2
+        },
+        {
+          "type": "Transport",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 90,
+        "attack": 115,
+        "defense": 90
+      },
+      "internalName": "GrassRabbitMan"
+    },
+    {
+      "id": "IceFox",
+      "displayName": "Foxcicle",
+      "index": 120,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 760,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Ice"
+      ],
+      "paldexNo": "57",
+      "rarity": 5,
+      "workSuitabilities": [
+        {
+          "type": "Cool",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 90,
+        "attack": 95,
+        "defense": 105
+      },
+      "internalName": "IceFox"
+    },
+    {
+      "id": "JetDragon",
+      "displayName": "Jetragon",
+      "index": 121,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 90,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Dragon"
+      ],
+      "paldexNo": "111",
+      "rarity": 20,
+      "workSuitabilities": [
+        {
+          "type": "Collection",
+          "level": 3
+        }
+      ],
+      "baseStats": {
+        "hp": 110,
+        "attack": 140,
+        "defense": 110
+      },
+      "internalName": "JetDragon"
+    },
+    {
+      "id": "DreamDemon",
+      "displayName": "Daedream",
+      "index": 122,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1230,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Dark"
+      ],
+      "paldexNo": "19",
+      "rarity": 1,
+      "workSuitabilities": [
+        {
+          "type": "Handcraft",
+          "level": 1
+        },
+        {
+          "type": "Collection",
+          "level": 1
+        },
+        {
+          "type": "Transport",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 70,
+        "attack": 75,
+        "defense": 60
+      },
+      "internalName": "DreamDemon"
+    },
+    {
+      "id": "Monkey",
+      "displayName": "Tanzee",
+      "index": 123,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1250,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Grass"
+      ],
+      "paldexNo": "8",
+      "rarity": 1,
+      "workSuitabilities": [
+        {
+          "type": "Seeding",
+          "level": 1
+        },
+        {
+          "type": "Handcraft",
+          "level": 1
+        },
+        {
+          "type": "Collection",
+          "level": 1
+        },
+        {
+          "type": "Deforest",
+          "level": 1
+        },
+        {
+          "type": "Transport",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 80,
+        "attack": 70,
+        "defense": 70
+      },
+      "internalName": "Monkey"
+    },
+    {
+      "id": "Manticore",
+      "displayName": "Blazehowl",
+      "index": 124,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 710,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Fire"
+      ],
+      "paldexNo": "84",
+      "rarity": 7,
+      "workSuitabilities": [
+        {
+          "type": "EmitFlame",
+          "level": 3
+        },
+        {
+          "type": "Deforest",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 105,
+        "attack": 110,
+        "defense": 80
+      },
+      "internalName": "Manticore"
+    },
+    {
+      "id": "Manticore_Dark",
+      "displayName": "Blazehowl Noct",
+      "index": 125,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 670,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Fire",
+        "Dark"
+      ],
+      "paldexNo": "84B",
+      "rarity": 8,
+      "workSuitabilities": [
+        {
+          "type": "EmitFlame",
+          "level": 3
+        },
+        {
+          "type": "Deforest",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 105,
+        "attack": 115,
+        "defense": 80
+      },
+      "internalName": "Manticore_Dark"
+    },
+    {
+      "id": "KingAlpaca",
+      "displayName": "Kingpaca",
+      "index": 126,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 470,
+      "genderRatio": {
+        "male": 0.9,
+        "female": 0.09999999999999998
+      },
+      "elements": [
+        "Neutral"
+      ],
+      "paldexNo": "89",
+      "rarity": 8,
+      "workSuitabilities": [
+        {
+          "type": "Collection",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 120,
+        "attack": 85,
+        "defense": 90
+      },
+      "internalName": "KingAlpaca"
+    },
+    {
+      "id": "KingAlpaca_Ice",
+      "displayName": "Kingpaca Cryst",
+      "index": 127,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 440,
+      "genderRatio": {
+        "male": 0.9,
+        "female": 0.09999999999999998
+      },
+      "elements": [
+        "Ice"
+      ],
+      "paldexNo": "89B",
+      "rarity": 9,
+      "workSuitabilities": [
+        {
+          "type": "Collection",
+          "level": 1
+        },
+        {
+          "type": "Cool",
+          "level": 3
+        }
+      ],
+      "baseStats": {
+        "hp": 120,
+        "attack": 85,
+        "defense": 90
+      },
+      "internalName": "KingAlpaca_Ice"
+    },
+    {
+      "id": "PlantSlime",
+      "displayName": "Gumoss",
+      "index": 128,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1240,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Grass",
+        "Ground"
+      ],
+      "paldexNo": "13",
+      "rarity": 1,
+      "workSuitabilities": [
+        {
+          "type": "Seeding",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 70,
+        "attack": 70,
+        "defense": 70
+      },
+      "internalName": "PlantSlime"
+    },
+    {
+      "id": "PlantSlime_Flower",
+      "displayName": "Gumoss",
+      "index": 129,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1240,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Grass",
+        "Ground"
+      ],
+      "paldexNo": "13B",
+      "rarity": 10,
+      "workSuitabilities": [
+        {
+          "type": "Seeding",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 70,
+        "attack": 70,
+        "defense": 70
+      },
+      "internalName": "PlantSlime_Flower"
+    },
+    {
+      "id": "DarkMutant",
+      "displayName": "en_text",
+      "index": 130,
+      "standardBreedable": false,
+      "wildCatchable": false,
+      "otherObtainOnly": true,
+      "rank": 0,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Dark"
+      ],
+      "rarity": 5,
+      "workSuitabilities": [
+        {
+          "type": "Handcraft",
+          "level": 3
+        },
+        {
+          "type": "ProductMedicine",
+          "level": 3
+        },
+        {
+          "type": "Transport",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 100,
+        "attack": 100,
+        "defense": 100
+      },
+      "internalName": "DarkMutant"
+    },
+    {
+      "id": "MopBaby",
+      "displayName": "Swee",
+      "index": 131,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1300,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Ice"
+      ],
+      "paldexNo": "53",
+      "rarity": 1,
+      "workSuitabilities": [
+        {
+          "type": "Collection",
+          "level": 1
+        },
+        {
+          "type": "Cool",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 60,
+        "attack": 60,
+        "defense": 60
+      },
+      "internalName": "MopBaby"
+    },
+    {
+      "id": "MopKing",
+      "displayName": "Sweepa",
+      "index": 132,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 410,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Ice"
+      ],
+      "paldexNo": "54",
+      "rarity": 6,
+      "workSuitabilities": [
+        {
+          "type": "Collection",
+          "level": 2
+        },
+        {
+          "type": "Cool",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 100,
+        "attack": 90,
+        "defense": 90
+      },
+      "internalName": "MopKing"
+    },
+    {
+      "id": "CatMage",
+      "displayName": "Katress",
+      "index": 133,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 700,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Dark"
+      ],
+      "paldexNo": "75",
+      "rarity": 6,
+      "workSuitabilities": [
+        {
+          "type": "Handcraft",
+          "level": 2
+        },
+        {
+          "type": "ProductMedicine",
+          "level": 2
+        },
+        {
+          "type": "Transport",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 90,
+        "attack": 105,
+        "defense": 90
+      },
+      "internalName": "CatMage"
+    },
+    {
+      "id": "CatMage_Fire",
+      "displayName": "Katress Ignis",
+      "index": 134,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 690,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Dark",
+        "Fire"
+      ],
+      "paldexNo": "75B",
+      "rarity": 6,
+      "workSuitabilities": [
+        {
+          "type": "EmitFlame",
+          "level": 2
+        },
+        {
+          "type": "Handcraft",
+          "level": 2
+        },
+        {
+          "type": "ProductMedicine",
+          "level": 2
+        },
+        {
+          "type": "Transport",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 95,
+        "attack": 105,
+        "defense": 90
+      },
+      "internalName": "CatMage_Fire"
+    },
+    {
+      "id": "PinkRabbit",
+      "displayName": "Ribbuny",
+      "index": 135,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1310,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Neutral"
+      ],
+      "paldexNo": "39",
+      "rarity": 1,
+      "workSuitabilities": [
+        {
+          "type": "Handcraft",
+          "level": 1
+        },
+        {
+          "type": "Collection",
+          "level": 1
+        },
+        {
+          "type": "Transport",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 75,
+        "attack": 65,
+        "defense": 70
+      },
+      "internalName": "PinkRabbit"
+    },
+    {
+      "id": "ThunderBird",
+      "displayName": "Beakon",
+      "index": 136,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 220,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Electric"
+      ],
+      "paldexNo": "73",
+      "rarity": 6,
+      "workSuitabilities": [
+        {
+          "type": "GenerateElectricity",
+          "level": 2
+        },
+        {
+          "type": "Collection",
+          "level": 1
+        },
+        {
+          "type": "Transport",
+          "level": 3
+        }
+      ],
+      "baseStats": {
+        "hp": 105,
+        "attack": 115,
+        "defense": 80
+      },
+      "internalName": "ThunderBird"
+    },
+    {
+      "id": "HerculesBeetle",
+      "displayName": "Warsect ",
+      "index": 137,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 340,
+      "genderRatio": {
+        "male": 0.85,
+        "female": 0.15000000000000002
+      },
+      "elements": [
+        "Ground",
+        "Grass"
+      ],
+      "paldexNo": "92",
+      "rarity": 8,
+      "workSuitabilities": [
+        {
+          "type": "Seeding",
+          "level": 1
+        },
+        {
+          "type": "Handcraft",
+          "level": 1
+        },
+        {
+          "type": "Deforest",
+          "level": 3
+        },
+        {
+          "type": "Transport",
+          "level": 3
+        }
+      ],
+      "baseStats": {
+        "hp": 120,
+        "attack": 100,
+        "defense": 120
+      },
+      "internalName": "HerculesBeetle"
+    },
+    {
+      "id": "HerculesBeetle_Ground",
+      "displayName": "Warsect Terra",
+      "index": 138,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 275,
+      "genderRatio": {
+        "male": 0.85,
+        "female": 0.15000000000000002
+      },
+      "elements": [
+        "Ground"
+      ],
+      "paldexNo": "92B",
+      "rarity": 9,
+      "workSuitabilities": [
+        {
+          "type": "Handcraft",
+          "level": 1
+        },
+        {
+          "type": "Mining",
+          "level": 3
+        },
+        {
+          "type": "Transport",
+          "level": 3
+        }
+      ],
+      "baseStats": {
+        "hp": 120,
+        "attack": 105,
+        "defense": 120
+      },
+      "internalName": "HerculesBeetle_Ground"
+    },
+    {
+      "id": "SaintCentaur",
+      "displayName": "Paladius",
+      "index": 139,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 80,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Neutral"
+      ],
+      "paldexNo": "108",
+      "rarity": 20,
+      "workSuitabilities": [
+        {
+          "type": "Deforest",
+          "level": 2
+        },
+        {
+          "type": "Mining",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 130,
+        "attack": 120,
+        "defense": 145
+      },
+      "internalName": "SaintCentaur"
+    },
+    {
+      "id": "NightFox",
+      "displayName": "Nox",
+      "index": 140,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1180,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Dark"
+      ],
+      "paldexNo": "21",
+      "rarity": 6,
+      "workSuitabilities": [
+        {
+          "type": "Collection",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 75,
+        "attack": 85,
+        "defense": 70
+      },
+      "internalName": "NightFox"
+    },
+    {
+      "id": "CaptainPenguin",
+      "displayName": "Penking",
+      "index": 141,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 520,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Water",
+        "Ice"
+      ],
+      "paldexNo": "11",
+      "rarity": 6,
+      "workSuitabilities": [
+        {
+          "type": "Watering",
+          "level": 2
+        },
+        {
+          "type": "Handcraft",
+          "level": 2
+        },
+        {
+          "type": "Mining",
+          "level": 2
+        },
+        {
+          "type": "Cool",
+          "level": 2
+        },
+        {
+          "type": "Transport",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 95,
+        "attack": 95,
+        "defense": 95
+      },
+      "internalName": "CaptainPenguin"
+    },
+    {
+      "id": "CaptainPenguin_Black",
+      "displayName": "Penking Lux",
+      "index": 142,
+      "standardBreedable": false,
+      "wildCatchable": false,
+      "otherObtainOnly": true,
+      "rank": 490,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Water",
+        "Electric"
+      ],
+      "paldexNo": "11B",
+      "rarity": 7,
+      "workSuitabilities": [
+        {
+          "type": "Watering",
+          "level": 2
+        },
+        {
+          "type": "GenerateElectricity",
+          "level": 2
+        },
+        {
+          "type": "Handcraft",
+          "level": 2
+        },
+        {
+          "type": "Mining",
+          "level": 2
+        },
+        {
+          "type": "Transport",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 100,
+        "attack": 100,
+        "defense": 100
+      },
+      "internalName": "CaptainPenguin_Black"
+    },
+    {
+      "id": "WeaselDragon",
+      "displayName": "Chillet",
+      "index": 143,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 800,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Ice",
+        "Dragon"
+      ],
+      "paldexNo": "55",
+      "rarity": 4,
+      "workSuitabilities": [
+        {
+          "type": "Collection",
+          "level": 1
+        },
+        {
+          "type": "Cool",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 90,
+        "attack": 80,
+        "defense": 80
+      },
+      "internalName": "WeaselDragon"
+    },
+    {
+      "id": "WeaselDragon_Fire",
+      "displayName": "Chillet Ignis",
+      "index": 144,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 790,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Fire",
+        "Dragon"
+      ],
+      "paldexNo": "55B",
+      "rarity": 5,
+      "workSuitabilities": [
+        {
+          "type": "EmitFlame",
+          "level": 2
+        },
+        {
+          "type": "Collection",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 90,
+        "attack": 85,
+        "defense": 80
+      },
+      "internalName": "WeaselDragon_Fire"
+    },
+    {
+      "id": "SkyDragon",
+      "displayName": "Quivern",
+      "index": 145,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 350,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Dragon"
+      ],
+      "paldexNo": "95",
+      "rarity": 7,
+      "workSuitabilities": [
+        {
+          "type": "Handcraft",
+          "level": 1
+        },
+        {
+          "type": "Collection",
+          "level": 2
+        },
+        {
+          "type": "Mining",
+          "level": 2
+        },
+        {
+          "type": "Transport",
+          "level": 3
+        }
+      ],
+      "baseStats": {
+        "hp": 105,
+        "attack": 100,
+        "defense": 100
+      },
+      "internalName": "SkyDragon"
+    },
+    {
+      "id": "SkyDragon_Grass",
+      "displayName": "Quivern Botan",
+      "index": 146,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 340,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Dragon",
+        "Grass"
+      ],
+      "paldexNo": "95B",
+      "rarity": 8,
+      "workSuitabilities": [
+        {
+          "type": "Seeding",
+          "level": 2
+        },
+        {
+          "type": "Handcraft",
+          "level": 1
+        },
+        {
+          "type": "Collection",
+          "level": 2
+        },
+        {
+          "type": "Mining",
+          "level": 2
+        },
+        {
+          "type": "Transport",
+          "level": 3
+        }
+      ],
+      "baseStats": {
+        "hp": 105,
+        "attack": 105,
+        "defense": 100
+      },
+      "internalName": "SkyDragon_Grass"
+    },
+    {
+      "id": "HadesBird",
+      "displayName": "Helzephyr",
+      "index": 147,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 190,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Dark"
+      ],
+      "paldexNo": "97",
+      "rarity": 7,
+      "workSuitabilities": [
+        {
+          "type": "Transport",
+          "level": 3
+        }
+      ],
+      "baseStats": {
+        "hp": 100,
+        "attack": 125,
+        "defense": 100
+      },
+      "internalName": "HadesBird"
+    },
+    {
+      "id": "HadesBird_Electric",
+      "displayName": "Helzephyr Lux",
+      "index": 148,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 180,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Dark",
+        "Electric"
+      ],
+      "paldexNo": "97B",
+      "rarity": 8,
+      "workSuitabilities": [
+        {
+          "type": "GenerateElectricity",
+          "level": 3
+        },
+        {
+          "type": "Transport",
+          "level": 3
+        }
+      ],
+      "baseStats": {
+        "hp": 105,
+        "attack": 125,
+        "defense": 100
+      },
+      "internalName": "HadesBird_Electric"
+    },
+    {
+      "id": "RedArmorBird",
+      "displayName": "Ragnahawk",
+      "index": 149,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 380,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Fire"
+      ],
+      "paldexNo": "74",
+      "rarity": 7,
+      "workSuitabilities": [
+        {
+          "type": "EmitFlame",
+          "level": 3
+        },
+        {
+          "type": "Transport",
+          "level": 3
+        }
+      ],
+      "baseStats": {
+        "hp": 95,
+        "attack": 105,
+        "defense": 120
+      },
+      "internalName": "RedArmorBird"
+    },
+    {
+      "id": "Ronin",
+      "displayName": "Bushi",
+      "index": 150,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 640,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Fire"
+      ],
+      "paldexNo": "72",
+      "rarity": 7,
+      "workSuitabilities": [
+        {
+          "type": "EmitFlame",
+          "level": 2
+        },
+        {
+          "type": "Handcraft",
+          "level": 1
+        },
+        {
+          "type": "Collection",
+          "level": 1
+        },
+        {
+          "type": "Deforest",
+          "level": 3
+        },
+        {
+          "type": "Transport",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 80,
+        "attack": 125,
+        "defense": 80
+      },
+      "internalName": "Ronin"
+    },
+    {
+      "id": "Ronin_Dark",
+      "displayName": "Bushi Noct",
+      "index": 151,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 650,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Fire",
+        "Dark"
+      ],
+      "paldexNo": "72B",
+      "rarity": 7,
+      "workSuitabilities": [
+        {
+          "type": "EmitFlame",
+          "level": 2
+        },
+        {
+          "type": "Handcraft",
+          "level": 1
+        },
+        {
+          "type": "Collection",
+          "level": 1
+        },
+        {
+          "type": "Deforest",
+          "level": 3
+        },
+        {
+          "type": "Transport",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 80,
+        "attack": 130,
+        "defense": 80
+      },
+      "internalName": "Ronin_Dark"
+    },
+    {
+      "id": "FlyingManta",
+      "displayName": "Celaray",
+      "index": 152,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 870,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Water"
+      ],
+      "paldexNo": "25",
+      "rarity": 3,
+      "workSuitabilities": [
+        {
+          "type": "Watering",
+          "level": 1
+        },
+        {
+          "type": "Transport",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 80,
+        "attack": 70,
+        "defense": 80
+      },
+      "internalName": "FlyingManta"
+    },
+    {
+      "id": "FlyingManta_Thunder",
+      "displayName": "Celaray Lux",
+      "index": 153,
+      "standardBreedable": false,
+      "wildCatchable": false,
+      "otherObtainOnly": true,
+      "rank": 830,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Water",
+        "Electric"
+      ],
+      "paldexNo": "25B",
+      "rarity": 4,
+      "workSuitabilities": [
+        {
+          "type": "Watering",
+          "level": 1
+        },
+        {
+          "type": "GenerateElectricity",
+          "level": 1
+        },
+        {
+          "type": "Transport",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 80,
+        "attack": 75,
+        "defense": 80
+      },
+      "internalName": "FlyingManta_Thunder"
+    },
+    {
+      "id": "BlackCentaur",
+      "displayName": "Necromus",
+      "index": 154,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 70,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Dark"
+      ],
+      "paldexNo": "109",
+      "rarity": 20,
+      "workSuitabilities": [
+        {
+          "type": "Deforest",
+          "level": 2
+        },
+        {
+          "type": "Mining",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 130,
+        "attack": 145,
+        "defense": 120
+      },
+      "internalName": "BlackCentaur"
+    },
+    {
+      "id": "FlowerDoll",
+      "displayName": "Petallia",
+      "index": 155,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 780,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Grass"
+      ],
+      "paldexNo": "87",
+      "rarity": 8,
+      "workSuitabilities": [
+        {
+          "type": "Seeding",
+          "level": 3
+        },
+        {
+          "type": "Handcraft",
+          "level": 2
+        },
+        {
+          "type": "Collection",
+          "level": 2
+        },
+        {
+          "type": "ProductMedicine",
+          "level": 2
+        },
+        {
+          "type": "Transport",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 100,
+        "attack": 95,
+        "defense": 100
+      },
+      "internalName": "FlowerDoll"
+    },
+    {
+      "id": "NaughtyCat",
+      "displayName": "Grintale",
+      "index": 156,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 510,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Neutral"
+      ],
+      "paldexNo": "52",
+      "rarity": 6,
+      "workSuitabilities": [
+        {
+          "type": "Collection",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 110,
+        "attack": 80,
+        "defense": 80
+      },
+      "internalName": "NaughtyCat"
+    },
+    {
+      "id": "CuteButterfly",
+      "displayName": "Cinnamoth",
+      "index": 157,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 490,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Grass"
+      ],
+      "paldexNo": "41",
+      "rarity": 4,
+      "workSuitabilities": [
+        {
+          "type": "Seeding",
+          "level": 2
+        },
+        {
+          "type": "ProductMedicine",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 70,
+        "attack": 80,
+        "defense": 80
+      },
+      "internalName": "CuteButterfly"
+    },
+    {
+      "id": "DarkScorpion",
+      "displayName": "Menasting",
+      "index": 158,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 260,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Dark",
+        "Ground"
+      ],
+      "paldexNo": "99",
+      "rarity": 9,
+      "workSuitabilities": [
+        {
+          "type": "Deforest",
+          "level": 2
+        },
+        {
+          "type": "Mining",
+          "level": 3
+        }
+      ],
+      "baseStats": {
+        "hp": 100,
+        "attack": 100,
+        "defense": 130
+      },
+      "internalName": "DarkScorpion"
+    },
+    {
+      "id": "DarkScorpion_Ground",
+      "displayName": "Menasting Terra",
+      "index": 159,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 250,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Ground"
+      ],
+      "paldexNo": "99B",
+      "rarity": 10,
+      "workSuitabilities": [
+        {
+          "type": "Deforest",
+          "level": 2
+        },
+        {
+          "type": "Mining",
+          "level": 3
+        }
+      ],
+      "baseStats": {
+        "hp": 100,
+        "attack": 105,
+        "defense": 130
+      },
+      "internalName": "DarkScorpion_Ground"
+    },
+    {
+      "id": "ThunderDragonMan",
+      "displayName": "Orserk",
+      "index": 160,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 140,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Dragon",
+        "Electric"
+      ],
+      "paldexNo": "106",
+      "rarity": 9,
+      "workSuitabilities": [
+        {
+          "type": "GenerateElectricity",
+          "level": 4
+        },
+        {
+          "type": "Handcraft",
+          "level": 2
+        },
+        {
+          "type": "Transport",
+          "level": 3
+        }
+      ],
+      "baseStats": {
+        "hp": 100,
+        "attack": 130,
+        "defense": 100
+      },
+      "internalName": "ThunderDragonMan"
+    },
+    {
+      "id": "WoolFox",
+      "displayName": "Cremis",
+      "index": 161,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1455,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Neutral"
+      ],
+      "paldexNo": "18",
+      "rarity": 1,
+      "workSuitabilities": [
+        {
+          "type": "Collection",
+          "level": 1
+        },
+        {
+          "type": "MonsterFarm",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 70,
+        "attack": 70,
+        "defense": 75
+      },
+      "internalName": "WoolFox"
+    },
+    {
+      "id": "LazyCatfish",
+      "displayName": "Dumud",
+      "index": 162,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 895,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Ground",
+        "Water"
+      ],
+      "paldexNo": "43",
+      "rarity": 4,
+      "workSuitabilities": [
+        {
+          "type": "Watering",
+          "level": 1
+        },
+        {
+          "type": "Mining",
+          "level": 2
+        },
+        {
+          "type": "Transport",
+          "level": 1
+        },
+        {
+          "type": "MonsterFarm",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 100,
+        "attack": 70,
+        "defense": 95
+      },
+      "internalName": "LazyCatfish"
+    },
+    {
+      "id": "LazyCatfish_Gold",
+      "displayName": "Dumud Gild",
+      "index": 163,
+      "standardBreedable": false,
+      "wildCatchable": false,
+      "otherObtainOnly": true,
+      "rank": 855,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Ground",
+        "Water"
+      ],
+      "paldexNo": "43B",
+      "rarity": 5,
+      "workSuitabilities": [
+        {
+          "type": "Watering",
+          "level": 1
+        },
+        {
+          "type": "Mining",
+          "level": 2
+        },
+        {
+          "type": "Transport",
+          "level": 1
+        },
+        {
+          "type": "MonsterFarm",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 105,
+        "attack": 75,
+        "defense": 100
+      },
+      "internalName": "LazyCatfish_Gold"
+    },
+    {
+      "id": "LavaGirl",
+      "displayName": "Flambelle",
+      "index": 164,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1405,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Fire"
+      ],
+      "paldexNo": "70",
+      "rarity": 1,
+      "workSuitabilities": [
+        {
+          "type": "EmitFlame",
+          "level": 1
+        },
+        {
+          "type": "Handcraft",
+          "level": 1
+        },
+        {
+          "type": "Transport",
+          "level": 1
+        },
+        {
+          "type": "MonsterFarm",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 60,
+        "attack": 70,
+        "defense": 80
+      },
+      "internalName": "LavaGirl"
+    },
+    {
+      "id": "FlameBambi",
+      "displayName": "Rooby",
+      "index": 165,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1155,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Fire"
+      ],
+      "paldexNo": "9",
+      "rarity": 2,
+      "workSuitabilities": [
+        {
+          "type": "EmitFlame",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 75,
+        "attack": 70,
+        "defense": 75
+      },
+      "internalName": "FlameBambi"
+    },
+    {
+      "id": "NightLady",
+      "displayName": "Bellanoir",
+      "index": 166,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1,
+      "genderRatio": {
+        "male": 0.1,
+        "female": 0.9
+      },
+      "elements": [
+        "Dark"
+      ],
+      "paldexNo": "112",
+      "rarity": 20,
+      "workSuitabilities": [
+        {
+          "type": "Handcraft",
+          "level": 2
+        },
+        {
+          "type": "ProductMedicine",
+          "level": 4
+        },
+        {
+          "type": "Transport",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 120,
+        "attack": 150,
+        "defense": 100
+      },
+      "internalName": "NightLady"
+    },
+    {
+      "id": "NightLady_Dark",
+      "displayName": "Bellanoir Libero",
+      "index": 167,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1,
+      "genderRatio": {
+        "male": 0.1,
+        "female": 0.9
+      },
+      "elements": [
+        "Dark"
+      ],
+      "paldexNo": "112B",
+      "rarity": 20,
+      "workSuitabilities": [
+        {
+          "type": "Handcraft",
+          "level": 2
+        },
+        {
+          "type": "ProductMedicine",
+          "level": 4
+        },
+        {
+          "type": "Transport",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 120,
+        "attack": 150,
+        "defense": 100
+      },
+      "internalName": "NightLady_Dark"
+    },
+    {
+      "id": "MoonQueen",
+      "displayName": "Selyne",
+      "index": 168,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 345,
+      "genderRatio": {
+        "male": 0.2,
+        "female": 0.8
+      },
+      "elements": [
+        "Dark",
+        "Neutral"
+      ],
+      "paldexNo": "113",
+      "rarity": 9,
+      "workSuitabilities": [
+        {
+          "type": "Handcraft",
+          "level": 4
+        },
+        {
+          "type": "ProductMedicine",
+          "level": 3
+        },
+        {
+          "type": "Transport",
+          "level": 3
+        }
+      ],
+      "baseStats": {
+        "hp": 130,
+        "attack": 115,
+        "defense": 110
+      },
+      "internalName": "MoonQueen"
+    },
+    {
+      "id": "KendoFrog",
+      "displayName": "Croajiro",
+      "index": 169,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 795,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Water"
+      ],
+      "paldexNo": "114",
+      "rarity": 4,
+      "workSuitabilities": [
+        {
+          "type": "Watering",
+          "level": 1
+        },
+        {
+          "type": "Handcraft",
+          "level": 1
+        },
+        {
+          "type": "Collection",
+          "level": 1
+        },
+        {
+          "type": "Transport",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 80,
+        "attack": 100,
+        "defense": 85
+      },
+      "internalName": "KendoFrog"
+    },
+    {
+      "id": "KendoFrog_Dark",
+      "displayName": "Croajiro Noct",
+      "index": 170,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 765,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Water",
+        "Dark"
+      ],
+      "paldexNo": "114B",
+      "rarity": 5,
+      "workSuitabilities": [
+        {
+          "type": "Watering",
+          "level": 1
+        },
+        {
+          "type": "Handcraft",
+          "level": 1
+        },
+        {
+          "type": "Collection",
+          "level": 1
+        },
+        {
+          "type": "Transport",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 85,
+        "attack": 110,
+        "defense": 90
+      },
+      "internalName": "KendoFrog_Dark"
+    },
+    {
+      "id": "LeafPrincess",
+      "displayName": "Lullu",
+      "index": 171,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 905,
+      "genderRatio": {
+        "male": 0.3,
+        "female": 0.7
+      },
+      "elements": [
+        "Grass"
+      ],
+      "paldexNo": "115",
+      "rarity": 4,
+      "workSuitabilities": [
+        {
+          "type": "Seeding",
+          "level": 2
+        },
+        {
+          "type": "Handcraft",
+          "level": 2
+        },
+        {
+          "type": "Collection",
+          "level": 1
+        },
+        {
+          "type": "ProductMedicine",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 90,
+        "attack": 90,
+        "defense": 80
+      },
+      "internalName": "LeafPrincess"
+    },
+    {
+      "id": "MushroomDragon",
+      "displayName": "Shroomer",
+      "index": 172,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 720,
+      "genderRatio": {
+        "male": 0.55,
+        "female": 0.44999999999999996
+      },
+      "elements": [
+        "Grass"
+      ],
+      "paldexNo": "116",
+      "rarity": 4,
+      "workSuitabilities": [
+        {
+          "type": "Seeding",
+          "level": 2
+        },
+        {
+          "type": "Handcraft",
+          "level": 1
+        },
+        {
+          "type": "Collection",
+          "level": 2
+        },
+        {
+          "type": "Deforest",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 110,
+        "attack": 80,
+        "defense": 90
+      },
+      "internalName": "MushroomDragon"
+    },
+    {
+      "id": "MushroomDragon_Dark",
+      "displayName": "Shroomer Noct",
+      "index": 173,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 730,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Grass",
+        "Dark"
+      ],
+      "paldexNo": "116B",
+      "rarity": 5,
+      "workSuitabilities": [
+        {
+          "type": "Seeding",
+          "level": 2
+        },
+        {
+          "type": "Handcraft",
+          "level": 1
+        },
+        {
+          "type": "Collection",
+          "level": 2
+        },
+        {
+          "type": "Deforest",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 110,
+        "attack": 85,
+        "defense": 90
+      },
+      "internalName": "MushroomDragon_Dark"
+    },
+    {
+      "id": "SmallArmadillo",
+      "displayName": "Kikit",
+      "index": 174,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1125,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Ground"
+      ],
+      "paldexNo": "117",
+      "rarity": 4,
+      "workSuitabilities": [
+        {
+          "type": "Mining",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 75,
+        "attack": 70,
+        "defense": 90
+      },
+      "internalName": "SmallArmadillo"
+    },
+    {
+      "id": "CandleGhost",
+      "displayName": "Sootseer",
+      "index": 175,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 545,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Dark",
+        "Fire"
+      ],
+      "paldexNo": "118",
+      "rarity": 7,
+      "workSuitabilities": [
+        {
+          "type": "EmitFlame",
+          "level": 3
+        },
+        {
+          "type": "Handcraft",
+          "level": 2
+        },
+        {
+          "type": "Collection",
+          "level": 1
+        },
+        {
+          "type": "Mining",
+          "level": 2
+        },
+        {
+          "type": "MonsterFarm",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 105,
+        "attack": 125,
+        "defense": 90
+      },
+      "internalName": "CandleGhost"
+    },
+    {
+      "id": "ScorpionMan",
+      "displayName": "Prixter",
+      "index": 176,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 355,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Dark",
+        "Ground"
+      ],
+      "paldexNo": "119",
+      "rarity": 5,
+      "workSuitabilities": [
+        {
+          "type": "Collection",
+          "level": 1
+        },
+        {
+          "type": "Deforest",
+          "level": 3
+        },
+        {
+          "type": "ProductMedicine",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 90,
+        "attack": 110,
+        "defense": 90
+      },
+      "internalName": "ScorpionMan"
+    },
+    {
+      "id": "WingGolem",
+      "displayName": "Knocklem",
+      "index": 177,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 265,
+      "genderRatio": {
+        "male": 0.7,
+        "female": 0.30000000000000004
+      },
+      "elements": [
+        "Ground"
+      ],
+      "paldexNo": "120",
+      "rarity": 9,
+      "workSuitabilities": [
+        {
+          "type": "Collection",
+          "level": 3
+        },
+        {
+          "type": "Mining",
+          "level": 4
+        },
+        {
+          "type": "Transport",
+          "level": 4
+        }
+      ],
+      "baseStats": {
+        "hp": 105,
+        "attack": 110,
+        "defense": 135
+      },
+      "internalName": "WingGolem"
+    },
+    {
+      "id": "GuardianDog",
+      "displayName": "Yakumo",
+      "index": 178,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 945,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Neutral"
+      ],
+      "paldexNo": "121",
+      "rarity": 4,
+      "workSuitabilities": [
+        {
+          "type": "Collection",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 85,
+        "attack": 85,
+        "defense": 85
+      },
+      "internalName": "GuardianDog"
+    },
+    {
+      "id": "SifuDog",
+      "displayName": "Dogen",
+      "index": 179,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 665,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Neutral"
+      ],
+      "paldexNo": "122",
+      "rarity": 6,
+      "workSuitabilities": [
+        {
+          "type": "Handcraft",
+          "level": 3
+        },
+        {
+          "type": "Collection",
+          "level": 2
+        },
+        {
+          "type": "Deforest",
+          "level": 2
+        },
+        {
+          "type": "ProductMedicine",
+          "level": 1
+        },
+        {
+          "type": "Transport",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 90,
+        "attack": 100,
+        "defense": 100
+      },
+      "internalName": "SifuDog"
+    },
+    {
+      "id": "FeatherOstrich",
+      "displayName": "Dazemu",
+      "index": 180,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 675,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Ground"
+      ],
+      "paldexNo": "123",
+      "rarity": 5,
+      "workSuitabilities": [
+        {
+          "type": "Collection",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 95,
+        "attack": 90,
+        "defense": 80
+      },
+      "internalName": "FeatherOstrich"
+    },
+    {
+      "id": "MimicDog",
+      "displayName": "Mimog",
+      "index": 181,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1200,
+      "genderRatio": {
+        "male": 0.8,
+        "female": 0.19999999999999996
+      },
+      "elements": [
+        "Neutral"
+      ],
+      "paldexNo": "124",
+      "rarity": 7,
+      "workSuitabilities": [
+        {
+          "type": "Collection",
+          "level": 1
+        },
+        {
+          "type": "Transport",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 60,
+        "attack": 60,
+        "defense": 130
+      },
+      "internalName": "MimicDog"
+    },
+    {
+      "id": "DarkAlien",
+      "displayName": "Xenovader",
+      "index": 182,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 465,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Dark"
+      ],
+      "paldexNo": "125",
+      "rarity": 7,
+      "workSuitabilities": [
+        {
+          "type": "Deforest",
+          "level": 2
+        },
+        {
+          "type": "Transport",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 90,
+        "attack": 125,
+        "defense": 85
+      },
+      "internalName": "DarkAlien"
+    },
+    {
+      "id": "WhiteAlienDragon",
+      "displayName": "Xenogard",
+      "index": 183,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 435,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Dragon"
+      ],
+      "paldexNo": "126",
+      "rarity": 9,
+      "workSuitabilities": [
+        {
+          "type": "Mining",
+          "level": 3
+        }
+      ],
+      "baseStats": {
+        "hp": 110,
+        "attack": 120,
+        "defense": 130
+      },
+      "internalName": "WhiteAlienDragon"
+    },
+    {
+      "id": "VolcanoDragon",
+      "displayName": "en_text",
+      "index": 184,
+      "standardBreedable": false,
+      "wildCatchable": false,
+      "otherObtainOnly": true,
+      "rank": 0,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Fire",
+        "Ground"
+      ],
+      "rarity": 0,
+      "workSuitabilities": [
+        {
+          "type": "EmitFlame",
+          "level": 3
+        },
+        {
+          "type": "Mining",
+          "level": 3
+        }
+      ],
+      "baseStats": {
+        "hp": 100,
+        "attack": 100,
+        "defense": 100
+      },
+      "internalName": "VolcanoDragon"
+    },
+    {
+      "id": "DarkMechaDragon",
+      "displayName": "Xenolord ",
+      "index": 185,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 265,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Dark",
+        "Dragon"
+      ],
+      "paldexNo": "127",
+      "rarity": 8,
+      "workSuitabilities": [
+        {
+          "type": "Collection",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 130,
+        "attack": 120,
+        "defense": 120
+      },
+      "internalName": "DarkMechaDragon"
+    },
+    {
+      "id": "GhostRabbit",
+      "displayName": "Nitemary",
+      "index": 186,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 705,
+      "genderRatio": {
+        "male": 0.4,
+        "female": 0.6
+      },
+      "elements": [
+        "Dark"
+      ],
+      "paldexNo": "128",
+      "rarity": 6,
+      "workSuitabilities": [
+        {
+          "type": "Handcraft",
+          "level": 3
+        },
+        {
+          "type": "Transport",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 105,
+        "attack": 95,
+        "defense": 105
+      },
+      "internalName": "GhostRabbit"
+    },
+    {
+      "id": "NightBlueHorse",
+      "displayName": "Starryon",
+      "index": 187,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 365,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Dark"
+      ],
+      "paldexNo": "129",
+      "rarity": 7,
+      "workSuitabilities": [
+        {
+          "type": "Collection",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 110,
+        "attack": 100,
+        "defense": 100
+      },
+      "internalName": "NightBlueHorse"
+    },
+    {
+      "id": "WhiteShieldDragon",
+      "displayName": "Silvegis",
+      "index": 188,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 215,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Dragon"
+      ],
+      "paldexNo": "130",
+      "rarity": 8,
+      "workSuitabilities": [
+        {
+          "type": "Deforest",
+          "level": 3
+        }
+      ],
+      "baseStats": {
+        "hp": 120,
+        "attack": 110,
+        "defense": 115
+      },
+      "internalName": "WhiteShieldDragon"
+    },
+    {
+      "id": "BlackPuppy",
+      "displayName": "Smokie",
+      "index": 189,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1245,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Dark"
+      ],
+      "paldexNo": "131",
+      "rarity": 2,
+      "workSuitabilities": [
+        {
+          "type": "Collection",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 85,
+        "attack": 90,
+        "defense": 85
+      },
+      "internalName": "BlackPuppy"
+    },
+    {
+      "id": "WhiteDeer",
+      "displayName": "Celesdir",
+      "index": 190,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 815,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Neutral"
+      ],
+      "paldexNo": "132",
+      "rarity": 6,
+      "workSuitabilities": [
+        {
+          "type": "Collection",
+          "level": 1
+        },
+        {
+          "type": "Deforest",
+          "level": 4
+        }
+      ],
+      "baseStats": {
+        "hp": 120,
+        "attack": 110,
+        "defense": 100
+      },
+      "internalName": "WhiteDeer"
+    },
+    {
+      "id": "MysteryMask",
+      "displayName": "Omascul",
+      "index": 191,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 630,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Dark"
+      ],
+      "paldexNo": "133",
+      "rarity": 4,
+      "workSuitabilities": [
+        {
+          "type": "Collection",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 95,
+        "attack": 105,
+        "defense": 100
+      },
+      "internalName": "MysteryMask"
+    },
+    {
+      "id": "GrimGirl",
+      "displayName": "Splatterina",
+      "index": 192,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 725,
+      "genderRatio": {
+        "male": 0.38,
+        "female": 0.62
+      },
+      "elements": [
+        "Dark"
+      ],
+      "paldexNo": "134",
+      "rarity": 4,
+      "workSuitabilities": [
+        {
+          "type": "Handcraft",
+          "level": 4
+        },
+        {
+          "type": "Deforest",
+          "level": 1
+        },
+        {
+          "type": "ProductMedicine",
+          "level": 3
+        },
+        {
+          "type": "Transport",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 95,
+        "attack": 115,
+        "defense": 105
+      },
+      "internalName": "GrimGirl"
+    },
+    {
+      "id": "PurpleSpider",
+      "displayName": "Tarantriss",
+      "index": 193,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 825,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Dark"
+      ],
+      "paldexNo": "135",
+      "rarity": 3,
+      "workSuitabilities": [
+        {
+          "type": "Handcraft",
+          "level": 2
+        },
+        {
+          "type": "Collection",
+          "level": 2
+        },
+        {
+          "type": "ProductMedicine",
+          "level": 2
+        },
+        {
+          "type": "Transport",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 110,
+        "attack": 100,
+        "defense": 100
+      },
+      "internalName": "PurpleSpider"
+    },
+    {
+      "id": "BlueThunderHorse",
+      "displayName": "Azurmane",
+      "index": 194,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 400,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Electric"
+      ],
+      "paldexNo": "136",
+      "rarity": 7,
+      "workSuitabilities": [
+        {
+          "type": "GenerateElectricity",
+          "level": 4
+        },
+        {
+          "type": "Collection",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 130,
+        "attack": 120,
+        "defense": 110
+      },
+      "internalName": "BlueThunderHorse"
+    },
+    {
+      "id": "OctopusGirl",
+      "displayName": "Gloopie",
+      "index": 195,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1195,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Water",
+        "Dark"
+      ],
+      "paldexNo": "151",
+      "rarity": 5,
+      "workSuitabilities": [
+        {
+          "type": "Watering",
+          "level": 2
+        },
+        {
+          "type": "Handcraft",
+          "level": 2
+        },
+        {
+          "type": "Transport",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 70,
+        "attack": 85,
+        "defense": 70
+      },
+      "internalName": "OctopusGirl"
+    },
+    {
+      "id": "IceNarwhal",
+      "displayName": "Whalaska",
+      "index": 196,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 445,
+      "genderRatio": {
+        "male": 0.58,
+        "female": 0.42000000000000004
+      },
+      "elements": [
+        "Ice",
+        "Water"
+      ],
+      "paldexNo": "154",
+      "rarity": 7,
+      "workSuitabilities": [
+        {
+          "type": "Watering",
+          "level": 3
+        },
+        {
+          "type": "Cool",
+          "level": 4
+        }
+      ],
+      "baseStats": {
+        "hp": 105,
+        "attack": 115,
+        "defense": 110
+      },
+      "internalName": "IceNarwhal"
+    },
+    {
+      "id": "IceNarwhal_Fire",
+      "displayName": "Whalaska Ignis",
+      "index": 197,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 430,
+      "genderRatio": {
+        "male": 0.42,
+        "female": 0.5800000000000001
+      },
+      "elements": [
+        "Ice",
+        "Fire"
+      ],
+      "paldexNo": "154B",
+      "rarity": 8,
+      "workSuitabilities": [
+        {
+          "type": "EmitFlame",
+          "level": 3
+        },
+        {
+          "type": "Cool",
+          "level": 4
+        }
+      ],
+      "baseStats": {
+        "hp": 105,
+        "attack": 120,
+        "defense": 110
+      },
+      "internalName": "IceNarwhal_Fire"
+    },
+    {
+      "id": "JellyfishFairy",
+      "displayName": "Jelliette",
+      "index": 198,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1385,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Water"
+      ],
+      "paldexNo": "150",
+      "rarity": 3,
+      "workSuitabilities": [
+        {
+          "type": "Watering",
+          "level": 2
+        },
+        {
+          "type": "Handcraft",
+          "level": 1
+        },
+        {
+          "type": "Transport",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 75,
+        "attack": 90,
+        "defense": 70
+      },
+      "internalName": "JellyfishFairy"
+    },
+    {
+      "id": "Kitsunebi_Ice",
+      "displayName": "Foxparks Cryst",
+      "index": 199,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1305,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Ice"
+      ],
+      "paldexNo": "5B",
+      "rarity": 1,
+      "workSuitabilities": [
+        {
+          "type": "Cool",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 65,
+        "attack": 80,
+        "defense": 70
+      },
+      "internalName": "Kitsunebi_Ice"
+    },
+    {
+      "id": "BerryGoat_Dark",
+      "displayName": "Caprity Noct",
+      "index": 200,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 855,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Dark"
+      ],
+      "paldexNo": "35B",
+      "rarity": 3,
+      "workSuitabilities": [
+        {
+          "type": "Seeding",
+          "level": 2
+        },
+        {
+          "type": "MonsterFarm",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 100,
+        "attack": 75,
+        "defense": 90
+      },
+      "internalName": "BerryGoat_Dark"
+    },
+    {
+      "id": "PinkRabbit_Grass",
+      "displayName": "Ribbuny Botan",
+      "index": 201,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1205,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Grass"
+      ],
+      "paldexNo": "39B",
+      "rarity": 1,
+      "workSuitabilities": [
+        {
+          "type": "Seeding",
+          "level": 1
+        },
+        {
+          "type": "Handcraft",
+          "level": 1
+        },
+        {
+          "type": "Collection",
+          "level": 1
+        },
+        {
+          "type": "Transport",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 80,
+        "attack": 65,
+        "defense": 70
+      },
+      "internalName": "PinkRabbit_Grass"
+    },
+    {
+      "id": "Werewolf_Ice",
+      "displayName": "Loupmoon Cryst",
+      "index": 202,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 805,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Ice"
+      ],
+      "paldexNo": "46B",
+      "rarity": 3,
+      "workSuitabilities": [
+        {
+          "type": "Handcraft",
+          "level": 2
+        },
+        {
+          "type": "Cool",
+          "level": 3
+        }
+      ],
+      "baseStats": {
+        "hp": 80,
+        "attack": 105,
+        "defense": 80
+      },
+      "internalName": "Werewolf_Ice"
+    },
+    {
+      "id": "AmaterasuWolf_Dark",
+      "displayName": "Kitsun Noct",
+      "index": 203,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 735,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Dark"
+      ],
+      "paldexNo": "61B",
+      "rarity": 6,
+      "workSuitabilities": [
+        {
+          "type": "EmitFlame",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 100,
+        "attack": 115,
+        "defense": 105
+      },
+      "internalName": "AmaterasuWolf_Dark"
+    },
+    {
+      "id": "RaijinDaughter_Water",
+      "displayName": "Dazzi Noct",
+      "index": 204,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1115,
+      "genderRatio": {
+        "male": 0.2,
+        "female": 0.8
+      },
+      "elements": [
+        "Dark",
+        "Electric"
+      ],
+      "paldexNo": "62B",
+      "rarity": 2,
+      "workSuitabilities": [
+        {
+          "type": "GenerateElectricity",
+          "level": 1
+        },
+        {
+          "type": "Handcraft",
+          "level": 1
+        },
+        {
+          "type": "ProductMedicine",
+          "level": 1
+        },
+        {
+          "type": "Transport",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 70,
+        "attack": 80,
+        "defense": 75
+      },
+      "internalName": "RaijinDaughter_Water"
+    },
+    {
+      "id": "WhiteTiger_Ground",
+      "displayName": "Cryolinx Terra",
+      "index": 205,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 160,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Ground"
+      ],
+      "paldexNo": "83B",
+      "rarity": 7,
+      "workSuitabilities": [
+        {
+          "type": "Handcraft",
+          "level": 1
+        },
+        {
+          "type": "Deforest",
+          "level": 2
+        },
+        {
+          "type": "Mining",
+          "level": 3
+        },
+        {
+          "type": "Transport",
+          "level": 3
+        }
+      ],
+      "baseStats": {
+        "hp": 100,
+        "attack": 105,
+        "defense": 110
+      },
+      "internalName": "WhiteTiger_Ground"
+    },
+    {
+      "id": "FengyunDeeper_Electric",
+      "displayName": "Fenglope Lux",
+      "index": 206,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 835,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Electric"
+      ],
+      "paldexNo": "93B",
+      "rarity": 3,
+      "workSuitabilities": [
+        {
+          "type": "GenerateElectricity",
+          "level": 2
+        },
+        {
+          "type": "Deforest",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 110,
+        "attack": 115,
+        "defense": 90
+      },
+      "internalName": "FengyunDeeper_Electric"
+    },
+    {
+      "id": "Horus_Water",
+      "displayName": "Faleris Aqua",
+      "index": 207,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 245,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Water"
+      ],
+      "paldexNo": "105B",
+      "rarity": 9,
+      "workSuitabilities": [
+        {
+          "type": "Watering",
+          "level": 4
+        },
+        {
+          "type": "Transport",
+          "level": 3
+        }
+      ],
+      "baseStats": {
+        "hp": 100,
+        "attack": 110,
+        "defense": 110
+      },
+      "internalName": "Horus_Water"
+    },
+    {
+      "id": "SnowTigerBeastman",
+      "displayName": "Bastigor",
+      "index": 208,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 170,
+      "genderRatio": {
+        "male": 0.6,
+        "female": 0.4
+      },
+      "elements": [
+        "Ice"
+      ],
+      "paldexNo": "137",
+      "rarity": 8,
+      "workSuitabilities": [
+        {
+          "type": "Deforest",
+          "level": 3
+        },
+        {
+          "type": "Mining",
+          "level": 3
+        },
+        {
+          "type": "Cool",
+          "level": 4
+        }
+      ],
+      "baseStats": {
+        "hp": 140,
+        "attack": 130,
+        "defense": 120
+      },
+      "internalName": "SnowTigerBeastman"
+    },
+    {
+      "id": "GhostAnglerfish",
+      "displayName": "Ghangler",
+      "index": 209,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 525,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Dark",
+        "Water"
+      ],
+      "paldexNo": "153",
+      "rarity": 5,
+      "workSuitabilities": [
+        {
+          "type": "Watering",
+          "level": 4
+        },
+        {
+          "type": "Transport",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 90,
+        "attack": 125,
+        "defense": 105
+      },
+      "internalName": "GhostAnglerfish"
+    },
+    {
+      "id": "GhostAnglerfish_Fire",
+      "displayName": "Ghangler Ignis",
+      "index": 210,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 505,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Fire",
+        "Water"
+      ],
+      "paldexNo": "153B",
+      "rarity": 6,
+      "workSuitabilities": [
+        {
+          "type": "EmitFlame",
+          "level": 3
+        },
+        {
+          "type": "Watering",
+          "level": 4
+        },
+        {
+          "type": "Transport",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 90,
+        "attack": 130,
+        "defense": 105
+      },
+      "internalName": "GhostAnglerfish_Fire"
+    },
+    {
+      "id": "IceWitch",
+      "displayName": "Icelyn",
+      "index": 211,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 605,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Ice"
+      ],
+      "paldexNo": "142",
+      "rarity": 4,
+      "workSuitabilities": [
+        {
+          "type": "Handcraft",
+          "level": 2
+        },
+        {
+          "type": "ProductMedicine",
+          "level": 2
+        },
+        {
+          "type": "Cool",
+          "level": 3
+        },
+        {
+          "type": "Transport",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 95,
+        "attack": 115,
+        "defense": 105
+      },
+      "internalName": "IceWitch"
+    },
+    {
+      "id": "LegendDeer",
+      "displayName": "Hartalis",
+      "index": 212,
+      "standardBreedable": false,
+      "wildCatchable": false,
+      "otherObtainOnly": true,
+      "rank": 20,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Neutral"
+      ],
+      "paldexNo": "156",
+      "rarity": 10,
+      "workSuitabilities": [
+        {
+          "type": "Collection",
+          "level": 3
+        },
+        {
+          "type": "Deforest",
+          "level": 4
+        }
+      ],
+      "baseStats": {
+        "hp": 135,
+        "attack": 130,
+        "defense": 110
+      },
+      "internalName": "LegendDeer"
+    },
+    {
+      "id": "LeafMomonga",
+      "displayName": "Herbil",
+      "index": 213,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1445,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Grass",
+        "Neutral"
+      ],
+      "paldexNo": "141",
+      "rarity": 3,
+      "workSuitabilities": [
+        {
+          "type": "Seeding",
+          "level": 2
+        },
+        {
+          "type": "Collection",
+          "level": 1
+        },
+        {
+          "type": "Transport",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 80,
+        "attack": 75,
+        "defense": 75
+      },
+      "internalName": "LeafMomonga"
+    },
+    {
+      "id": "IceCrocodile",
+      "displayName": "Munchill",
+      "index": 214,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1335,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Ice",
+        "Water"
+      ],
+      "paldexNo": "146",
+      "rarity": 3,
+      "workSuitabilities": [
+        {
+          "type": "Watering",
+          "level": 1
+        },
+        {
+          "type": "Cool",
+          "level": 2
+        },
+        {
+          "type": "Transport",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 75,
+        "attack": 80,
+        "defense": 85
+      },
+      "internalName": "IceCrocodile"
+    },
+    {
+      "id": "StuffedShark",
+      "displayName": "Finsider",
+      "index": 215,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1295,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Water"
+      ],
+      "paldexNo": "152",
+      "rarity": 3,
+      "workSuitabilities": [
+        {
+          "type": "Watering",
+          "level": 2
+        },
+        {
+          "type": "Transport",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 75,
+        "attack": 85,
+        "defense": 80
+      },
+      "internalName": "StuffedShark"
+    },
+    {
+      "id": "StuffedShark_Fire",
+      "displayName": "Finsider Ignis",
+      "index": 216,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1255,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Water",
+        "Fire"
+      ],
+      "paldexNo": "152B",
+      "rarity": 4,
+      "workSuitabilities": [
+        {
+          "type": "EmitFlame",
+          "level": 2
+        },
+        {
+          "type": "Watering",
+          "level": 2
+        },
+        {
+          "type": "Transport",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 75,
+        "attack": 90,
+        "defense": 80
+      },
+      "internalName": "StuffedShark_Fire"
+    },
+    {
+      "id": "IceSeal",
+      "displayName": "Polapup",
+      "index": 217,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 745,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Ice",
+        "Water"
+      ],
+      "paldexNo": "147",
+      "rarity": 5,
+      "workSuitabilities": [
+        {
+          "type": "Watering",
+          "level": 2
+        },
+        {
+          "type": "Cool",
+          "level": 3
+        }
+      ],
+      "baseStats": {
+        "hp": 95,
+        "attack": 105,
+        "defense": 105
+      },
+      "internalName": "IceSeal"
+    },
+    {
+      "id": "Plesiosaur",
+      "displayName": "Braloha",
+      "index": 218,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 335,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Grass",
+        "Ground"
+      ],
+      "paldexNo": "145",
+      "rarity": 6,
+      "workSuitabilities": [
+        {
+          "type": "Seeding",
+          "level": 4
+        },
+        {
+          "type": "Collection",
+          "level": 4
+        },
+        {
+          "type": "Mining",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 130,
+        "attack": 95,
+        "defense": 120
+      },
+      "internalName": "Plesiosaur"
+    },
+    {
+      "id": "TropicalOstrich",
+      "displayName": "Palumba",
+      "index": 219,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 455,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Grass"
+      ],
+      "paldexNo": "144",
+      "rarity": 4,
+      "workSuitabilities": [
+        {
+          "type": "Seeding",
+          "level": 2
+        },
+        {
+          "type": "Collection",
+          "level": 2
+        },
+        {
+          "type": "Mining",
+          "level": 3
+        }
+      ],
+      "baseStats": {
+        "hp": 105,
+        "attack": 110,
+        "defense": 115
+      },
+      "internalName": "TropicalOstrich"
+    },
+    {
+      "id": "SnowPeafowl",
+      "displayName": "Frostplume",
+      "index": 220,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 655,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Ice"
+      ],
+      "paldexNo": "143",
+      "rarity": 4,
+      "workSuitabilities": [
+        {
+          "type": "Collection",
+          "level": 1
+        },
+        {
+          "type": "Cool",
+          "level": 2
+        }
+      ],
+      "baseStats": {
+        "hp": 110,
+        "attack": 100,
+        "defense": 100
+      },
+      "internalName": "SnowPeafowl"
+    },
+    {
+      "id": "JellyfishGhost",
+      "displayName": "Jellroy",
+      "index": 221,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 1395,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Water",
+        "Dark"
+      ],
+      "paldexNo": "149",
+      "rarity": 3,
+      "workSuitabilities": [
+        {
+          "type": "Watering",
+          "level": 2
+        },
+        {
+          "type": "Handcraft",
+          "level": 1
+        },
+        {
+          "type": "ProductMedicine",
+          "level": 1
+        },
+        {
+          "type": "Transport",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 90,
+        "attack": 75,
+        "defense": 75
+      },
+      "internalName": "JellyfishGhost"
+    },
+    {
+      "id": "PoseidonOrca",
+      "displayName": "Neptilius",
+      "index": 222,
+      "standardBreedable": true,
+      "wildCatchable": true,
+      "otherObtainOnly": false,
+      "rank": 90,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Water"
+      ],
+      "paldexNo": "155",
+      "rarity": 20,
+      "workSuitabilities": [
+        {
+          "type": "Watering",
+          "level": 4
+        }
+      ],
+      "baseStats": {
+        "hp": 105,
+        "attack": 145,
+        "defense": 125
+      },
+      "internalName": "PoseidonOrca"
+    }
+  ],
+  "specialCombos": [
+    {
+      "parents": [
+        "LazyDragon",
+        "ElecCat"
+      ],
+      "child": "LazyDragon_Electric",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "Baphomet",
+        "GhostBeast"
+      ],
+      "child": "Baphomet_Dark",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "Bastet",
+        "Penguin"
+      ],
+      "child": "Bastet_Ice",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "BirdDragon",
+        "IceFox"
+      ],
+      "child": "BirdDragon_Ice",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "FairyDragon",
+        "Serpent"
+      ],
+      "child": "FairyDragon_Water",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "FireKirin",
+        "CatMage"
+      ],
+      "child": "FireKirin_Dark",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "GrassMammoth",
+        "Yeti"
+      ],
+      "child": "GrassMammoth_Ice",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "GrassPanda",
+        "ElecPanda"
+      ],
+      "child": "GrassPanda_Electric",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "FlowerDinosaur",
+        "ThunderDog"
+      ],
+      "child": "FlowerDinosaur_Electric",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "Hedgehog",
+        "Penguin"
+      ],
+      "child": "Hedgehog_Ice",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "IceHorse",
+        "HadesBird"
+      ],
+      "child": "IceHorse_Dark",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "KingAlpaca",
+        "IceDeer"
+      ],
+      "child": "KingAlpaca_Ice",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "LilyQueen",
+        "DarkScorpion"
+      ],
+      "child": "LilyQueen_Dark",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "LizardMan",
+        "LavaGirl"
+      ],
+      "child": "LizardMan_Fire",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "Manticore",
+        "CatVampire"
+      ],
+      "child": "Manticore_Dark",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "RobinHood",
+        "CuteMole"
+      ],
+      "child": "RobinHood_Ground",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "SakuraSaurus",
+        "BluePlatypus"
+      ],
+      "child": "SakuraSaurus_Water",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "Serpent",
+        "LazyCatfish"
+      ],
+      "child": "Serpent_Ground",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "SharkKid",
+        "FlameBambi"
+      ],
+      "child": "SharkKid_Fire",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "Suzaku",
+        "Umihebi"
+      ],
+      "child": "Suzaku_Water",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "VolcanicMonster",
+        "IceFox"
+      ],
+      "child": "VolcanicMonster_Ice",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "IceHorse",
+        "IceHorse"
+      ],
+      "child": "IceHorse",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "JetDragon",
+        "JetDragon"
+      ],
+      "child": "JetDragon",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "SaintCentaur",
+        "SaintCentaur"
+      ],
+      "child": "SaintCentaur",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "BlackCentaur",
+        "BlackCentaur"
+      ],
+      "child": "BlackCentaur",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "GrassPanda",
+        "FlowerDoll"
+      ],
+      "child": "LilyQueen",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "BirdDragon",
+        "Anubis"
+      ],
+      "child": "Horus",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "GrassPanda",
+        "ThunderDog"
+      ],
+      "child": "ElecPanda",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "ElecPanda",
+        "LazyDragon"
+      ],
+      "child": "ThunderDragonMan",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "AmaterasuWolf",
+        "BlackMetalDragon"
+      ],
+      "child": "BlackGriffon",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "LilyQueen",
+        "LilyQueen"
+      ],
+      "child": "LilyQueen",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "Horus",
+        "Horus"
+      ],
+      "child": "Horus",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "ElecPanda",
+        "ElecPanda"
+      ],
+      "child": "ElecPanda",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "ThunderDragonMan",
+        "ThunderDragonMan"
+      ],
+      "child": "ThunderDragonMan",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "BlackGriffon",
+        "BlackGriffon"
+      ],
+      "child": "BlackGriffon",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "Umihebi_Fire",
+        "Umihebi_Fire"
+      ],
+      "child": "Umihebi_Fire",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "LazyDragon_Electric",
+        "LazyDragon_Electric"
+      ],
+      "child": "LazyDragon_Electric",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "Baphomet_Dark",
+        "Baphomet_Dark"
+      ],
+      "child": "Baphomet_Dark",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "Bastet_Ice",
+        "Bastet_Ice"
+      ],
+      "child": "Bastet_Ice",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "BirdDragon_Ice",
+        "BirdDragon_Ice"
+      ],
+      "child": "BirdDragon_Ice",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "Deer_Ground",
+        "Deer_Ground"
+      ],
+      "child": "Deer_Ground",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "FairyDragon_Water",
+        "FairyDragon_Water"
+      ],
+      "child": "FairyDragon_Water",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "FireKirin_Dark",
+        "FireKirin_Dark"
+      ],
+      "child": "FireKirin_Dark",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "GrassMammoth_Ice",
+        "GrassMammoth_Ice"
+      ],
+      "child": "GrassMammoth_Ice",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "GrassPanda_Electric",
+        "GrassPanda_Electric"
+      ],
+      "child": "GrassPanda_Electric",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "FlowerDinosaur_Electric",
+        "FlowerDinosaur_Electric"
+      ],
+      "child": "FlowerDinosaur_Electric",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "Hedgehog_Ice",
+        "Hedgehog_Ice"
+      ],
+      "child": "Hedgehog_Ice",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "IceHorse_Dark",
+        "IceHorse_Dark"
+      ],
+      "child": "IceHorse_Dark",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "KingAlpaca_Ice",
+        "KingAlpaca_Ice"
+      ],
+      "child": "KingAlpaca_Ice",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "LilyQueen_Dark",
+        "LilyQueen_Dark"
+      ],
+      "child": "LilyQueen_Dark",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "LizardMan_Fire",
+        "LizardMan_Fire"
+      ],
+      "child": "LizardMan_Fire",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "Manticore_Dark",
+        "Manticore_Dark"
+      ],
+      "child": "Manticore_Dark",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "RobinHood_Ground",
+        "RobinHood_Ground"
+      ],
+      "child": "RobinHood_Ground",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "SakuraSaurus_Water",
+        "SakuraSaurus_Water"
+      ],
+      "child": "SakuraSaurus_Water",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "Serpent_Ground",
+        "Serpent_Ground"
+      ],
+      "child": "Serpent_Ground",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "SharkKid_Fire",
+        "SharkKid_Fire"
+      ],
+      "child": "SharkKid_Fire",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "Suzaku_Water",
+        "Suzaku_Water"
+      ],
+      "child": "Suzaku_Water",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "VolcanicMonster_Ice",
+        "VolcanicMonster_Ice"
+      ],
+      "child": "VolcanicMonster_Ice",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "PinkKangaroo",
+        "PinkKangaroo"
+      ],
+      "child": "PinkKangaroo",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "BeardedDragon",
+        "BeardedDragon"
+      ],
+      "child": "BeardedDragon",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "BlackFurDragon",
+        "BlackFurDragon"
+      ],
+      "child": "BlackFurDragon",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "WaterLizard",
+        "WaterLizard"
+      ],
+      "child": "WaterLizard",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "ElecLion",
+        "ElecLion"
+      ],
+      "child": "ElecLion",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "GrassDragon",
+        "GrassDragon"
+      ],
+      "child": "GrassDragon",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "DarkMutant",
+        "DarkMutant"
+      ],
+      "child": "DarkMutant",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "BrownRabbit",
+        "BrownRabbit"
+      ],
+      "child": "BrownRabbit",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "Umihebi",
+        "Manticore"
+      ],
+      "child": "Umihebi_Fire",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "NightLady",
+        "NightLady"
+      ],
+      "child": "NightLady",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "NightLady_Dark",
+        "NightLady_Dark"
+      ],
+      "child": "NightLady_Dark",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "NightLady",
+        "NightLady_Dark"
+      ],
+      "child": "NightLady",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "Gorilla_Ground",
+        "Gorilla_Ground"
+      ],
+      "child": "Gorilla_Ground",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "KingBahamut_Dragon",
+        "KingBahamut_Dragon"
+      ],
+      "child": "KingBahamut_Dragon",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "FoxMage_Dark",
+        "FoxMage_Dark"
+      ],
+      "child": "FoxMage_Dark",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "CatMage_Fire",
+        "CatMage_Fire"
+      ],
+      "child": "CatMage_Fire",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "HerculesBeetle_Ground",
+        "HerculesBeetle_Ground"
+      ],
+      "child": "HerculesBeetle_Ground",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "WeaselDragon_Fire",
+        "WeaselDragon_Fire"
+      ],
+      "child": "WeaselDragon_Fire",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "SkyDragon_Grass",
+        "SkyDragon_Grass"
+      ],
+      "child": "SkyDragon_Grass",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "HadesBird_Electric",
+        "HadesBird_Electric"
+      ],
+      "child": "HadesBird_Electric",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "Ronin_Dark",
+        "Ronin_Dark"
+      ],
+      "child": "Ronin_Dark",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "DarkScorpion_Ground",
+        "DarkScorpion_Ground"
+      ],
+      "child": "DarkScorpion_Ground",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "MimicDog",
+        "MimicDog"
+      ],
+      "child": "MimicDog",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "CatMage",
+        "FoxMage"
+      ],
+      "child": "FoxMage_Dark",
+      "genderRule": {
+        "femaleParent": "FoxMage",
+        "child": "FoxMage_Dark"
+      }
+    },
+    {
+      "parents": [
+        "CatMage",
+        "FoxMage"
+      ],
+      "child": "CatMage_Fire",
+      "genderRule": {
+        "femaleParent": "CatMage",
+        "child": "CatMage_Fire"
+      }
+    },
+    {
+      "parents": [
+        "Gorilla",
+        "SmallArmadillo"
+      ],
+      "child": "Gorilla_Ground",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "WeaselDragon",
+        "FlameBuffalo"
+      ],
+      "child": "WeaselDragon_Fire",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "SkyDragon",
+        "LeafPrincess"
+      ],
+      "child": "SkyDragon_Grass",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "HadesBird",
+        "ThunderBird"
+      ],
+      "child": "HadesBird_Electric",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "Ronin",
+        "CandleGhost"
+      ],
+      "child": "Ronin_Dark",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "DarkScorpion",
+        "WingGolem"
+      ],
+      "child": "DarkScorpion_Ground",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "MoonQueen",
+        "MoonQueen"
+      ],
+      "child": "MoonQueen",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "DarkAlien",
+        "DarkAlien"
+      ],
+      "child": "DarkAlien",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "WhiteAlienDragon",
+        "WhiteAlienDragon"
+      ],
+      "child": "WhiteAlienDragon",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "DarkMechaDragon",
+        "DarkMechaDragon"
+      ],
+      "child": "DarkMechaDragon",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "SnowTigerBeastman",
+        "SnowTigerBeastman"
+      ],
+      "child": "SnowTigerBeastman",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "Kitsunebi",
+        "IceFox"
+      ],
+      "child": "Kitsunebi_Ice",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "RaijinDaughter",
+        "MysteryMask"
+      ],
+      "child": "RaijinDaughter_Water",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "WhiteTiger",
+        "FeatherOstrich"
+      ],
+      "child": "WhiteTiger_Ground",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "FengyunDeeper",
+        "BlueThunderHorse"
+      ],
+      "child": "FengyunDeeper_Electric",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "BerryGoat",
+        "PurpleSpider"
+      ],
+      "child": "BerryGoat_Dark",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "Werewolf",
+        "MopKing"
+      ],
+      "child": "Werewolf_Ice",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "Horus",
+        "Umihebi"
+      ],
+      "child": "Horus_Water",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "PinkRabbit",
+        "LittleBriarRose"
+      ],
+      "child": "PinkRabbit_Grass",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "HerculesBeetle",
+        "DrillGame"
+      ],
+      "child": "HerculesBeetle_Ground",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "AmaterasuWolf",
+        "BadCatgirl"
+      ],
+      "child": "AmaterasuWolf_Dark",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "Kitsunebi_Ice",
+        "Kitsunebi_Ice"
+      ],
+      "child": "Kitsunebi_Ice",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "RaijinDaughter_Water",
+        "RaijinDaughter_Water"
+      ],
+      "child": "RaijinDaughter_Water",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "WhiteTiger_Ground",
+        "WhiteTiger_Ground"
+      ],
+      "child": "WhiteTiger_Ground",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "FengyunDeeper_Electric",
+        "FengyunDeeper_Electric"
+      ],
+      "child": "FengyunDeeper_Electric",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "BerryGoat_Dark",
+        "BerryGoat_Dark"
+      ],
+      "child": "BerryGoat_Dark",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "Werewolf_Ice",
+        "Werewolf_Ice"
+      ],
+      "child": "Werewolf_Ice",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "Horus_Water",
+        "Horus_Water"
+      ],
+      "child": "Horus_Water",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "PinkRabbit_Grass",
+        "PinkRabbit_Grass"
+      ],
+      "child": "PinkRabbit_Grass",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "HerculesBeetle_Ground",
+        "HerculesBeetle_Ground"
+      ],
+      "child": "HerculesBeetle_Ground",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "AmaterasuWolf_Dark",
+        "AmaterasuWolf_Dark"
+      ],
+      "child": "AmaterasuWolf_Dark",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "IceHorse",
+        "Anubis"
+      ],
+      "child": "SnowTigerBeastman",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "SaintCentaur",
+        "Mutant"
+      ],
+      "child": "MoonQueen",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "GoldenHorse",
+        "Deer_Ground"
+      ],
+      "child": "WhiteDeer",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "WhiteDeer",
+        "WhiteDeer"
+      ],
+      "child": "WhiteDeer",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "NegativeOctopus_Neutral",
+        "NegativeOctopus_Neutral"
+      ],
+      "child": "NegativeOctopus_Neutral",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "Penguin_Electric",
+        "Penguin_Electric"
+      ],
+      "child": "Penguin_Electric",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "CaptainPenguin_Black",
+        "CaptainPenguin_Black"
+      ],
+      "child": "CaptainPenguin_Black",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "FlyingManta_Thunder",
+        "FlyingManta_Thunder"
+      ],
+      "child": "FlyingManta_Thunder",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "BluePlatypus_Fire",
+        "BluePlatypus_Fire"
+      ],
+      "child": "BluePlatypus_Fire",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "LazyCatfish_Gold",
+        "LazyCatfish_Gold"
+      ],
+      "child": "LazyCatfish_Gold",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "TentacleTurtle_Ground",
+        "TentacleTurtle_Ground"
+      ],
+      "child": "TentacleTurtle_Ground",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "KendoFrog_Dark",
+        "KendoFrog_Dark"
+      ],
+      "child": "KendoFrog_Dark",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "BlueDragon_Ice",
+        "BlueDragon_Ice"
+      ],
+      "child": "BlueDragon_Ice",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "IceNarwhal_Fire",
+        "IceNarwhal_Fire"
+      ],
+      "child": "IceNarwhal_Fire",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "GhostAnglerfish_Fire",
+        "GhostAnglerfish_Fire"
+      ],
+      "child": "GhostAnglerfish_Fire",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "StuffedShark_Fire",
+        "StuffedShark_Fire"
+      ],
+      "child": "StuffedShark_Fire",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "PoseidonOrca",
+        "PoseidonOrca"
+      ],
+      "child": "PoseidonOrca",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "NegativeOctopus",
+        "PinkRabbit"
+      ],
+      "child": "NegativeOctopus_Neutral",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "Penguin",
+        "ElecCat"
+      ],
+      "child": "Penguin_Electric",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "CaptainPenguin",
+        "ThunderDog"
+      ],
+      "child": "CaptainPenguin_Black",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "FlyingManta",
+        "Kirin"
+      ],
+      "child": "FlyingManta_Thunder",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "BluePlatypus",
+        "LavaGirl"
+      ],
+      "child": "BluePlatypus_Fire",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "LazyCatfish",
+        "Deer_Ground"
+      ],
+      "child": "LazyCatfish_Gold",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "TentacleTurtle",
+        "DrillGame"
+      ],
+      "child": "TentacleTurtle_Ground",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "KendoFrog",
+        "Ronin_Dark"
+      ],
+      "child": "KendoFrog_Dark",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "BlueDragon",
+        "SnowPeafowl"
+      ],
+      "child": "BlueDragon_Ice",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "IceNarwhal",
+        "WeaselDragon_Fire"
+      ],
+      "child": "IceNarwhal_Fire",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "GhostAnglerfish",
+        "CandleGhost"
+      ],
+      "child": "GhostAnglerfish_Fire",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "StuffedShark",
+        "SharkKid_Fire"
+      ],
+      "child": "StuffedShark_Fire",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "LegendDeer",
+        "LegendDeer"
+      ],
+      "child": "LegendDeer",
+      "genderRule": null
+    }
+  ],
+  "passives": [],
+  "passiveModel": {
+    "maxSlots": 4,
+    "inheritCountDist": [
+      0,
+      0.4,
+      0.4,
+      0.15,
+      0.05
+    ],
+    "mutationDist": [
+      0.7,
+      0.25,
+      0.05
+    ],
+    "verified": false
+  }
+}

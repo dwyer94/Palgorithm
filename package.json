@@ -10,6 +10,7 @@
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
+    "data:normalize": "node src/pipeline/normalize.ts",
     "lint": "eslint .",
     "format": "prettier --write ."
   },

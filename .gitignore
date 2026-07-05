@@ -12,6 +12,15 @@ coverage/
 npm-debug.log*
 *.log
 
+# Extraction tools (binaries — not part of the repo; see src/pipeline/EXTRACTION.md)
+FModel.exe
+
+# FModel working dirs — keep the JSON exports (Output/Exports, the normalizer's input),
+# drop the ~1.1 GB local pak cache and transient logs/backups.
+Output/.data/
+Output/Logs/
+Output/Backups/
+
 # Editor / OS
 .vscode/*
 !.vscode/extensions.json

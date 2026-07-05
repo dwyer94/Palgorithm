@@ -13,31 +13,44 @@ Pak: `Pal\Content\Paks\Pal-Windows.pak` (no AES key needed — the mappings file
 
 ---
 
-## Part A — UE4SS → generate `Mappings.usmap`
+## Part A — get `Mappings.usmap`
 
-Palworld is Unreal Engine **5.1**. You need a UE4SS build that supports UE5.1 (any recent
-RE-UE4SS release does).
+The usmap is a **build-specific decoding key**, not game data. **Source it, don't generate it** —
+UE4SS's usmap generator is documented as memory-hungry and unstable, and it crashed on our current
+build (RE-UE4SS issues #804/#925/#1122; our log died at "Attempting to dump mappings..."). Sourcing
+a build-matched usmap and using it to decode *our own* pak is still our own extraction of the data.
 
-1. **Download UE4SS.** Grab the latest **Standard** zip from
-   <https://github.com/UE4SS-RE/RE-UE4SS/releases> (the normal one, not the `_dev`/debug build).
-2. **Install it.** Extract the zip's contents directly into:
-   `...\Palworld\Pal\Binaries\Win64\`
-   You should end up with `dwmapi.dll`, `UE4SS.dll`, `UE4SS-settings.ini`, and a `Mods\` folder
-   sitting next to `Palworld-Win64-Shipping.exe`.
-3. **Enable the debug console.** Open `UE4SS-settings.ini`, find the `[Debug]` section, and set:
-   ```ini
-   ConsoleEnabled = 1
-   GuiConsoleEnabled = 1
-   GuiConsoleVisible = 1
-   ```
-4. **Launch Palworld (offline).** A separate **UE4SS debug console** window opens alongside the
-   game. If it doesn't, UE4SS didn't attach — see Troubleshooting (this is the #1 patch-day risk,
-   good to shake out now).
-5. **Dump the mappings.** In the UE4SS console window, open the **`Dumpers`** tab and click
-   **`Generate .usmap file`** (a.k.a. "Dump Mappings"). It writes **`Mappings.usmap`** — usually
-   into the game root or the `Win64` folder. Search the game folder for `Mappings.usmap` to find it.
+### Where to get a usmap (fast — incl. patch day)
 
-You can now close the game. That `.usmap` is build-specific — regenerate it after every patch.
+Ranked by speed/reliability. Palworld's pak needs **no AES key**, so the usmap is the only key.
+
+1. **Primary (rolling, per-patch):** [PalworldModding/UsefulFiles → `Mappings.usmap`](https://github.com/PalworldModding/UsefulFiles/blob/master/Mappings.usmap)
+   — the pwmodding.wiki's official source, updated per patch. Raw:
+   `https://raw.githubusercontent.com/PalworldModding/UsefulFiles/master/Mappings.usmap`
+2. **Version-pinned backup:** [TheNaeem/Unreal-Mappings-Archive → `Palworld/<version>/`](https://github.com/TheNaeem/Unreal-Mappings-Archive/tree/main/Palworld)
+   — curated, matched to game version (currently up to 0.6.6). Slower to update (curates eventually).
+3. **Fastest same-day drops:** the **Palworld Modding Discord** (linked from <https://pwmodding.wiki>).
+   On a major patch, dataminers post a fresh usmap here first — usually within hours.
+4. ~~elliotks/Palworld-FModel~~ — **dead** (last updated May 2024, stops at v0.2.4.0). Do not use.
+
+**Patch-day (July 10) plan:** watch source #1 and the Discord (#3); a 1.0 usmap typically appears
+within hours–a day. Our decode→normalize→schema→diff pipeline is instant and ours, so once a usmap
+lands we turn it around immediately. Verify any usmap by loading it in FModel and confirming
+`DT_PalMonsterParameter` decodes cleanly (garbled/empty = wrong build → try another source).
+
+**Already fetched for the current build:** `src/pipeline/mappings/Mappings.0.6.6.usmap`
+(from source #2, valid `0x30C4` magic, 2.15 MB). Use this for Part B now.
+
+### Fallback / insurance — generate it ourselves
+
+Only if no community usmap exists (true independence). Generation is unreliable but the one
+untried lever is **dumping at the main menu** (before loading a save), with several GB of free RAM
+— the generator is memory-hungry and is documented to crash if you load past the main menu after
+dumping. Steps: install UE4SS (experimental) into `...\Pal\Binaries\Win64\`, set
+`GuiConsoleEnabled = 1`, launch offline, and at the **main menu** use the `Dumpers` tab →
+`Generate .usmap file` (or the `DumpUSMAP()` Lua function — same code path). Confirm UE4SS attaches
+first (it does on this build); a non-attaching UE4SS on the 1.0 build is the real patch-day risk to
+check on the 10th.
 
 ---
 
@@ -64,12 +77,69 @@ If you'd prefer this route, install it and I'll run it against the pak + `.usmap
 
 ---
 
-## Part C — hand it to me
+## Part C — normalization (DONE for 0.6)
 
-Drop the exported JSON somewhere in the repo (e.g. `src/pipeline/raw/`) or just tell me the path.
-I'll write/run the normalizer to map it into `dataset.0.6.json`, flip `meta.provisional` to
-`false`, and the schema validator will enforce that every species now has a real `rank` and
-`genderRatio`. If anything's missing, the validator tells us exactly what.
+Run: `npm run data:normalize` → reads the FModel export, writes `src/data/dataset.0.6.json`,
+self-validates against `DatasetSchema` before writing. Source lives in
+[`normalize.ts`](normalize.ts). Loader-gate test: `test/dataset.0.6.test.ts`.
+
+### Inputs actually used (0.6, build 22461598)
+
+Exported to `Output/Exports/Pal/Content/` (the default `--in` root):
+
+- `Pal/DataTable/Character/DT_PalMonsterParameter.json` — 663 rows; ranks, gender, elements, flags.
+- `Pal/DataTable/Character/DT_PalCombiUnique.json` — 213 special-combo overrides.
+- `L10N/en/Pal/DataTable/Text/DT_PalNameText_Common.json` — **English** names. The default
+  `DT_PalNameText` decodes to **Japanese** (Palworld's base text is authored in JP); export the
+  `L10N/en` copy for player-facing names. `OverrideNameTextID`, else `PAL_NAME_<CharacterID>`.
+
+### Result: 223 species, 144 special combos (2 gender-dependent)
+
+### Classification decisions (the export is a dev build — this is the judgement)
+
+The 663 rows include far more than the released roster. Rules applied, in order:
+
+1. **Drop admin/duplicate rows** — `BOSS_`/`Boss_`/`RAID_`/`GYM_`/`PREDATOR_`/`SUMMON_`/`Quest_`
+   prefixes and `*_Oilrig` / `Yakushima*` field-boss variants. These are combat-stat clones of a
+   base tribe, not distinct Pals.
+2. **Release gate = "has a resolvable English name."** Released Pals have a localized name; ~60
+   unreleased Feybreak stubs (CombiRank 0, ZukanIndex −1) and cut variant forms (`Kirin_Ice`,
+   `WindChimes`/`WindChimes_Ice`, …) have **none in either JP or EN** → excluded. This is a
+   game-authoritative gate, not a hand-maintained skip list. It keeps the *real* special-combo
+   variant children (Pengullet Lux, Azurobe Cryst, Dumud Gild, …) which do have names.
+3. **`standardBreedable = !IgnoreCombi`.** `IgnoreCombi` is the game's own "excluded from the
+   standard combination formula" flag. Special-combo-only variants and legendaries (Hartalis)
+   carry it → `standardBreedable:false`, `otherObtainOnly:true`, but they stay valid parents and
+   are still produced via `specialCombos`.
+4. **Special-combo parent resolution.** `DT_PalCombiUnique` names parents by **tribe** (sometimes a
+   numeric enum the usmap couldn't name, e.g. `262`, and with casing quirks like `Blueplatypus` vs
+   `BluePlatypus`) and children by **CharacterID**. Resolved tribe→species case-insensitively via
+   the monster table's own `Tribe` field. **69 combos referencing excluded/unreleased species were
+   dropped** (future Feybreak content: ElecLion, GrassDragon, …). Referential integrity is enforced
+   by the schema, so a bad resolution fails the build, not silently.
+5. **Gender-dependent combos** (spec invariant #2): the CatMage+FoxMage pair yields a different
+   child by which parent is female. Encoded as **two** `SpecialCombo` entries, each with
+   `genderRule.femaleParent` → its child. The ruleset (0.2) resolves this to a distribution.
+
+### Element enum map
+
+`Normal→Neutral`, `Leaf→Grass`, `Earth→Ground`, `Electricity→Electric`; Fire/Water/Ice/Dark/Dragon
+pass through. All 9 game elements map onto the schema's closed set.
+
+### Known gaps / provisional (flagged, not silent)
+
+- **`wildCatchable` is an approximation** (`= standardBreedable`). No spawner tables were exported;
+  refine from `DT_PalSpawner*` later. Special-only variants and legendaries → not catchable.
+- **`passives: []` and `passiveModel.verified:false`.** Passive skills (`DT_PalPassiveSkill*`) were
+  not extracted in 0.1; the inheritance odds are placeholder estimates (spec §3.3) — the UI must
+  present them as provisional. Do not treat as ground truth.
+
+### Patch-day (July 10) replay
+
+Re-export the same three tables from the 1.0 pak with a 1.0 usmap, then `npm run data:normalize
+--out src/data/dataset.1.0.json`. Re-check the classification rules above against 1.0 — Genetic
+Recombination may change `IgnoreCombi` semantics and the special-combo table shape. The self-
+validation + loader test catch structural breakage immediately.
 
 ---
 
