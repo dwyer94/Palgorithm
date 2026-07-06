@@ -52,6 +52,7 @@ export function PassiveMultiSelect({
         <label key={p.id}>
           <input type="checkbox" checked={value.includes(p.id)} onChange={() => toggle(p.id)} />
           {p.displayName}
+          {p.tier !== undefined && ` (tier ${p.tier})`}
         </label>
       ))}
     </div>

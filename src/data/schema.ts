@@ -87,6 +87,10 @@ export const PassiveSchema = z.object({
   displayName: z.string().min(1),
   tier: z.number().int().optional(),
   category: z.string().optional(),
+  // Raw game weight for the random-passive-selection pool (e.g. mutation rolls). Extracted
+  // as-is; NOT yet validated as the authoritative mutation-odds source (see passiveModel /
+  // spec §3.3) — don't treat it as verified until that's confirmed.
+  lotteryWeight: z.number().optional(),
 });
 
 /**

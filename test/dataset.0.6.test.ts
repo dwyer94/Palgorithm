@@ -74,4 +74,12 @@ describe('dataset.0.6 (extracted, final)', () => {
       expect(ids.has(c.child), c.child).toBe(true);
     }
   });
+
+  it('extracts real, player-visible passives with resolved names and tiers', () => {
+    expect(ds.passives.length).toBeGreaterThan(50);
+    const byId = new Map(ds.passives.map((p) => [p.id, p]));
+    expect(byId.get('CraftSpeed_up1')).toMatchObject({ displayName: 'Serious', tier: 1, lotteryWeight: 100 });
+    // dev-only rows (Category: SortNotDisplayable) must never surface as real passives.
+    expect(byId.has('TestSkill1')).toBe(false);
+  });
 });

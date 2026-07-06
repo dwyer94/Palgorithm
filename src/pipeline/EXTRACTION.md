@@ -68,6 +68,7 @@ Use **FModel** (reliable GUI; recommended) — or the CLI alternative below if y
      gender ratio, rarity, paldex index, base stats.
    - **`DT_PalNameText`** — internal id → display name.
    - Any **`DT_*Combi*` / breeding** table (e.g. unique/special combos) you can find.
+   - **`DT_PassiveSkill_Main`** and **`DT_SkillNameText`** — passive skill data + names.
    - If unsure which is which, just export the whole `Pal/Content/Pal/DataTable/` tree — I'll
      pick out what I need in the normalizer. **Exact field names don't matter** to you; I map them.
 
@@ -92,8 +93,16 @@ Exported to `Output/Exports/Pal/Content/` (the default `--in` root):
 - `L10N/en/Pal/DataTable/Text/DT_PalNameText_Common.json` — **English** names. The default
   `DT_PalNameText` decodes to **Japanese** (Palworld's base text is authored in JP); export the
   `L10N/en` copy for player-facing names. `OverrideNameTextID`, else `PAL_NAME_<CharacterID>`.
+- `Pal/DataTable/PassiveSkill/DT_PassiveSkill_Main_Common.json` — 873 rows; passive skill
+  tiers (`Rank`) and the `Category` flag that separates real, player-visible passives
+  (`SortDisplayable`) from internal tuning/duplicate rows (`SortNotDisplayable`, e.g. the
+  `TestSkill*` rows and the numerous per-species `_Gorilla`/`_WingGolem`-suffixed variants).
+- `L10N/en/Pal/DataTable/Text/DT_SkillNameText_Common.json` — English passive names, keyed
+  `PASSIVE_<skillId>`. Exported with a newer usmap (`Mappings073.usmap`) than the species/name
+  tables above (`Mappings.0.6.6.usmap`) — same game build, just decoded with two different
+  mapping files; no consistency issue.
 
-### Result: 223 species, 144 special combos (2 gender-dependent)
+### Result: 218 species, 141 special combos (2 gender-dependent), 92 passives
 
 ### Classification decisions (the export is a dev build — this is the judgement)
 
@@ -130,9 +139,15 @@ pass through. All 9 game elements map onto the schema's closed set.
 
 - **`wildCatchable` is an approximation** (`= standardBreedable`). No spawner tables were exported;
   refine from `DT_PalSpawner*` later. Special-only variants and legendaries → not catchable.
-- **`passives: []` and `passiveModel.verified:false`.** Passive skills (`DT_PalPassiveSkill*`) were
-  not extracted in 0.1; the inheritance odds are placeholder estimates (spec §3.3) — the UI must
-  present them as provisional. Do not treat as ground truth.
+- **The passive list itself (92 entries) is real extracted data** (session 0.6), but
+  **`passiveModel.verified:false` stays.** Inheritance/mutation odds are NOT reliably
+  extractable from the pak (spec §3.3) and ship as placeholder estimates — the UI must present
+  them as provisional regardless of how complete the passive list is.
+- **`Passive.lotteryWeight`** is the raw `LotteryWeight` field from `DT_PassiveSkill_Main`,
+  extracted as-is. In the current data it only takes two values (5 vs 100) and perfectly
+  correlates with `tier === 4` — plausibly the mutation-pool selection weight (rare/strong
+  passives rolled far less often), but this is an unconfirmed guess about game internals, not
+  verified. Treat it as raw source data, not a substitute for `passiveModel`'s odds.
 
 ### Patch-day (July 10) replay
 

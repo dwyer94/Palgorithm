@@ -18,7 +18,14 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { join, resolve, isAbsolute } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { DatasetSchema, ELEMENTS, type Dataset, type Species, type SpecialCombo } from '../data/schema.ts';
+import {
+  DatasetSchema,
+  ELEMENTS,
+  type Dataset,
+  type Species,
+  type SpecialCombo,
+  type Passive,
+} from '../data/schema.ts';
 
 // --- Paths --------------------------------------------------------------------------------
 
@@ -39,6 +46,8 @@ const OUT_FILE = asPath(arg('--out'), join(repoRoot, 'src', 'data', 'dataset.0.6
 const P_MONSTER = join(IN_ROOT, 'Pal', 'DataTable', 'Character', 'DT_PalMonsterParameter.json');
 const P_COMBI = join(IN_ROOT, 'Pal', 'DataTable', 'Character', 'DT_PalCombiUnique.json');
 const P_NAMES = join(IN_ROOT, 'L10N', 'en', 'Pal', 'DataTable', 'Text', 'DT_PalNameText_Common.json');
+const P_PASSIVES = join(IN_ROOT, 'Pal', 'DataTable', 'PassiveSkill', 'DT_PassiveSkill_Main_Common.json');
+const P_SKILL_NAMES = join(IN_ROOT, 'L10N', 'en', 'Pal', 'DataTable', 'Text', 'DT_SkillNameText_Common.json');
 
 // --- Raw shapes (only the fields we read) -------------------------------------------------
 
@@ -71,6 +80,13 @@ interface CombiRow {
 }
 interface NameRow {
   TextData?: { LocalizedString?: string };
+}
+interface PassiveSkillRow {
+  Rank?: number;
+  LotteryWeight?: number;
+  Category?: string;
+  OverrideNameTextID?: string;
+  [k: string]: unknown;
 }
 
 function loadTable<Row>(path: string): FModelTable<Row> {
@@ -132,11 +148,14 @@ function main(): void {
   const monster = loadTable<MonsterRow>(P_MONSTER);
   const combi = loadTable<CombiRow>(P_COMBI);
   const nameTbl = loadTable<NameRow>(P_NAMES);
+  const passiveTbl = loadTable<PassiveSkillRow>(P_PASSIVES);
+  const skillNameTbl = loadTable<NameRow>(P_SKILL_NAMES);
 
-  // "en_text" is Unreal's own placeholder LocalizedString for keys that were never actually
-  // localized (only a dev source-string stub exists) — it shows up verbatim in the export for
-  // unreleased content and must be treated the same as a missing name, not a real one.
-  const UNLOCALIZED_PLACEHOLDER = 'en_text';
+  // "en_text" / "en Text" is Unreal's own placeholder LocalizedString for keys that were never
+  // actually localized (only a dev source-string stub exists) — it shows up verbatim in the
+  // export for unreleased content and must be treated the same as a missing name, not a real
+  // one. The species and skill name tables spell it with a different separator, so match both.
+  const isUnlocalizedPlaceholder = (s: string): boolean => /^en[ _]text$/i.test(s);
 
   // Keyed case-insensitively: PAL_NAME_<CharacterID> fallback keys don't always match the
   // DataTable row's CharacterID casing (e.g. row "WindChimes" vs. text key
@@ -145,7 +164,7 @@ function main(): void {
   const names = new Map<string, string>();
   for (const [key, row] of Object.entries(nameTbl.Rows)) {
     const s = row.TextData?.LocalizedString?.trim();
-    if (s && s.toLowerCase() !== UNLOCALIZED_PLACEHOLDER) names.set(key.toLowerCase(), s);
+    if (s && !isUnlocalizedPlaceholder(s)) names.set(key.toLowerCase(), s);
   }
 
   const resolveName = (charId: string, row: MonsterRow): string | undefined => {
@@ -262,19 +281,54 @@ function main(): void {
     specialCombos.push({ parents: [a, b], child, genderRule });
   }
 
+  // Passive skills: the table carries dev-only rows (Category: SortNotDisplayable, e.g. the
+  // TestSkill* rows) alongside the real ones, and the name table has the same "en Text"
+  // dev-stub placeholder as species names for anything never localized. Same release gate as
+  // species: displayable AND has a resolvable English name.
+  const skillNames = new Map<string, string>();
+  for (const [key, row] of Object.entries(skillNameTbl.Rows)) {
+    const s = row.TextData?.LocalizedString?.trim();
+    if (s && !isUnlocalizedPlaceholder(s)) skillNames.set(key.toLowerCase(), s);
+  }
+  const resolvePassiveName = (skillId: string, row: PassiveSkillRow): string | undefined => {
+    const override = row.OverrideNameTextID;
+    if (override && override !== 'None') {
+      const viaOverride = skillNames.get(override.toLowerCase());
+      if (viaOverride) return viaOverride;
+    }
+    return skillNames.get(`passive_${skillId}`.toLowerCase());
+  };
+
+  const passives: Passive[] = [];
+  let excludedPassives = 0;
+  for (const [skillId, row] of Object.entries(passiveTbl.Rows)) {
+    if (row.Category !== 'EPalPassiveCategory::SortDisplayable') {
+      excludedPassives++; // dev-only row (e.g. TestSkill*), never shown in-game
+      continue;
+    }
+    const displayName = resolvePassiveName(skillId, row);
+    if (!displayName) {
+      excludedPassives++; // unreleased/dev stub, no English name
+      continue;
+    }
+    passives.push({ id: skillId, displayName, tier: row.Rank, lotteryWeight: row.LotteryWeight });
+  }
+
   const dataset: Dataset = {
     meta: {
       version: '0.6',
       ruleset: 'combirank-0.6',
       provisional: false, // real ranks + gender ratios for every included species
       source:
-        'FModel export of local Palworld build 22461598 (usmap Mappings.0.6.6); EN L10N names. ' +
-        'Normalized by src/pipeline/normalize.ts. Passive model is a flagged estimate (verified:false).',
+        'FModel export of local Palworld build 22461598 (species/names: usmap Mappings.0.6.6; ' +
+        'passives: usmap Mappings073.usmap, same game build); EN L10N names. Normalized by ' +
+        'src/pipeline/normalize.ts. passiveModel (inherit/mutation odds) remains a flagged ' +
+        'estimate (verified:false) — the passive list itself is real extracted data.',
       generatedAt: new Date().toISOString(),
     },
     species,
     specialCombos,
-    passives: [], // not extracted in 0.1 (needs DT_PalPassiveSkill*); UI-only, non-breeding-critical
+    passives,
     // Passive-inheritance odds are NOT reliably extractable and ship as flagged estimates
     // (spec §3.3). verified:false → the UI must present these as provisional. Do not treat
     // as ground truth; they are placeholders until measured.
@@ -303,6 +357,7 @@ function main(): void {
   console.log(`    standardBreedable: ${species.filter((s) => s.standardBreedable).length}`);
   console.log(`    otherObtainOnly:   ${species.filter((s) => s.otherObtainOnly).length}`);
   console.log(`  specialCombos:  ${specialCombos.length} (dropped ${droppedCombos} referencing excluded species)`);
+  console.log(`  passives:       ${passives.length} (excluded ${excludedPassives} dev-only/unreleased rows)`);
   console.log(`  gender-rules:   ${specialCombos.filter((c) => c.genderRule).length}`);
   console.log(`  excluded rows:  ${excluded.length}`);
 }
