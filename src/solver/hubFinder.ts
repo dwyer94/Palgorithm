@@ -163,9 +163,9 @@ export function findHubs(ruleset: BreedingRuleset, roster: RosterEntry[], option
   const maxHubs = options.maxHubs ?? 5;
   const targets = options.targets ?? [];
   const speciesOpts: SpeciesPlannerOptions = {
-    catchCost: options.catchCost,
-    allowCatching: options.allowCatching,
-    desiredPassives: options.desiredPassives,
+    ...(options.catchCost !== undefined && { catchCost: options.catchCost }),
+    ...(options.allowCatching !== undefined && { allowCatching: options.allowCatching }),
+    ...(options.desiredPassives !== undefined && { desiredPassives: options.desiredPassives }),
   };
 
   const targetSet = new Set(targets);
@@ -179,8 +179,8 @@ export function findHubs(ruleset: BreedingRuleset, roster: RosterEntry[], option
 
       const injectCost = targets.map((T) => {
         const combos = combosFromAnchor(ruleset, roster, H, T, {
-          catchCost: options.catchCost,
-          allowCatching: options.allowCatching,
+          ...(options.catchCost !== undefined && { catchCost: options.catchCost }),
+          ...(options.allowCatching !== undefined && { allowCatching: options.allowCatching }),
         });
         return { target: T, combos, direct: combos === 1 };
       });
@@ -190,7 +190,7 @@ export function findHubs(ruleset: BreedingRuleset, roster: RosterEntry[], option
       hubs.push({
         species: H,
         obtainCost: obtainPlan.cost,
-        obtainPassivePlan: obtainPlan.passivePlan,
+        ...(obtainPlan.passivePlan !== undefined && { obtainPassivePlan: obtainPlan.passivePlan }),
         injectCost,
         score,
       });
@@ -211,7 +211,7 @@ export function findHubs(ruleset: BreedingRuleset, roster: RosterEntry[], option
     hubs.push({
       species: H,
       obtainCost: obtainPlan.cost,
-      obtainPassivePlan: obtainPlan.passivePlan,
+      ...(obtainPlan.passivePlan !== undefined && { obtainPassivePlan: obtainPlan.passivePlan }),
       breadth,
     });
   }

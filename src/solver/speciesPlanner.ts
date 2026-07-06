@@ -103,6 +103,21 @@ function buildGraph(ruleset: BreedingRuleset): Graph {
   return { edges, edgesByInput };
 }
 
+/** `buildGraph` is a pure function of the ruleset alone (not the roster), and expensive at
+ * real dataset scale (`reverse()` is an exhaustive O(n^2) scan per 0.2, called once per
+ * species). `planSpecies` is called repeatedly against the same ruleset instance — most
+ * heavily from `hubFinder`, which calls it once per candidate hub — so rebuilding the graph
+ * every call turns a few-hundred-ms cost into minutes. Cache it per ruleset instance. */
+const graphCache = new WeakMap<BreedingRuleset, Graph>();
+function getGraph(ruleset: BreedingRuleset): Graph {
+  let graph = graphCache.get(ruleset);
+  if (!graph) {
+    graph = buildGraph(ruleset);
+    graphCache.set(ruleset, graph);
+  }
+  return graph;
+}
+
 type NodeSource = { kind: 'owned' } | { kind: 'catch' } | { kind: 'combo'; edge: Edge };
 
 interface SolveState {
@@ -298,7 +313,7 @@ function findAnchorHints(
   // target doesn't trivially "unlock itself".
   const candidates = Object.keys(ruleset.rankTable).filter((s) => s !== target && !alreadyReachable.has(s));
   const hints: AnchorHint[] = [];
-  const graph = buildGraph(ruleset);
+  const graph = getGraph(ruleset);
 
   for (const species of candidates) {
     const hypotheticalRoster: RosterEntry[] = [
@@ -340,7 +355,7 @@ export function planSpecies(
     allowCatching: options.allowCatching ?? true,
   };
 
-  const graph = buildGraph(ruleset);
+  const graph = getGraph(ruleset);
   const state = solve(graph, roster, ruleset, opts);
 
   const maleCost = state.dist.get(node(target, 'male')) ?? Infinity;
