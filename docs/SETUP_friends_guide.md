@@ -1,33 +1,21 @@
 # Palworld Breeding Calculator — Setup for Players
 
-This tool lets you see the pals in your own box on our server and plan breeding —
-"I want *this* pal with *these* passives, how do I get there from what I've got."
+This tool lets you see the pals **everyone on the server owns** and plan breeding —
+"I want *this* pal with *these* passives, how do I get there, using whatever's already in
+anyone's box."
 
-You only see **your own** pals, and setup is a one-time thing. ~5 minutes.
+Setup is a one-time thing, ~2 minutes.
 
 ---
 
 ## What you'll need
 
-- The **Steam account** you play Palworld on.
 - Whatever device you'll use the calculator on (PC, Mac, phone).
 - Two things from the admin: a **Tailscale invite email** and the **calculator link**.
 
 ---
 
-## Step 1 — Send the admin your SteamID64 (one time)
-
-This is how the tool knows which pals are yours.
-
-1. Go to your Steam profile in a browser.
-2. Copy your **SteamID64** — it's a 17-digit number starting with `7656…`.
-   - Easiest way: open https://steamid.io/ , paste your Steam profile URL, and copy the
-     **steamID64** value it shows.
-3. Send that number to the admin. That's it — you only do this once.
-
----
-
-## Step 2 — Install Tailscale and accept the invite
+## Step 1 — Install Tailscale and accept the invite
 
 Tailscale is a small, free app that creates a secure private connection to the server.
 Nothing about your machine is exposed to the internet — it's the safe way in.
@@ -45,33 +33,37 @@ Nothing about your machine is exposed to the internet — it's the safe way in.
 
 ---
 
-## Step 3 — Open the calculator
+## Step 2 — Open the calculator
 
 1. With Tailscale connected, open the **calculator link** the admin gave you
    (looks like `https://something.ts.net`).
-2. Your pals load automatically. Start planning breeds.
+2. Go to the **Server Pals** tab — every player's pals load there automatically.
+3. Check the box next to whichever players' pals you want to use as inputs for a breeding
+   plan (your own included, if you're on the server too), then go plan in the other tabs as
+   normal.
 
-That's the whole thing. Connect Tailscale → open the link → your box is there.
-
----
-
-## If it doesn't work
-
-- **"Not connected" / page won't load** → open Tailscale and check it says **Connected**. If not,
-  log in again.
-- **"No identity" error** → you're not logged into Tailscale, or logged in with a different
-  account than the one you accepted the invite with. Log in with the invited account.
-- **"You're not linked to a SteamID yet"** → the admin hasn't added your SteamID64 yet. Make sure
-  you did Step 1 and give them a nudge.
-- **You see no pals / wrong pals** → double-check the SteamID64 you sent is the account you
-  actually play on.
-- **Still stuck** → send the admin a screenshot of the error.
+That's the whole thing. Connect Tailscale → open the link → everyone's boxes are there.
 
 ---
 
 ## Good to know
 
-- You can only ever see **your own** pals through this — not other players'.
-- You don't need any password or key for the calculator itself; being connected to Tailscale
-  with your invited account *is* the login.
+- **Everyone who can open the link sees everyone's pals** — there's no per-player privacy
+  here, and nothing here lets anyone change anything on the server. It's read-only, by
+  design, so this isn't an oversight.
+- Players show up under their in-game character name automatically. If you'd rather see a
+  different name for someone, there's an optional name-override table in Settings — purely
+  cosmetic, doesn't affect what data loads.
+- You don't need any password, key, or SteamID for the calculator itself; being connected
+  to Tailscale with your invited account *is* what gets you in the door.
 - On mobile, Tailscale just needs its toggle on; then open the link in your browser as normal.
+
+---
+
+## If it doesn't work
+
+- **Page won't load / "using demo/mock data" shown** → check Tailscale says **Connected**.
+  If the calculator link itself loads but shows demo data instead of real players, the
+  admin hasn't finished pointing it at the real proxy yet — ping them.
+- **No players show up** → the admin's PalDefender/proxy setup might be down; ping them.
+- **Still stuck** → send the admin a screenshot of the error.

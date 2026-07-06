@@ -3,6 +3,14 @@
 This is the full build for wiring your breeding calculator to live pal data from your
 Palworld server, reachable securely by you and your friends over Tailscale.
 
+**This doc reflects what's actually built** (see `proxy/` in this repo and
+`docs/UI_REQUIREMENTS.md` for the design decisions behind it). It superseded an earlier
+draft that assumed a friend-scoped `/mypals` endpoint keyed to Tailscale identity — that
+was dropped: the proxy exposes no mutation endpoints, so there's nothing to protect by
+restricting who sees whose pals. Every caller who can reach the proxy gets full read access
+to every player's data. Tailscale's job is purely "can this device reach the proxy at all,"
+not "who is this and what do they own."
+
 ## Architecture
 
 ```
@@ -10,24 +18,23 @@ Palworld server, reachable securely by you and your friends over Tailscale.
   ├─ Palworld Dedicated Server (Steam)
   │    └─ PalDefender (d3d9 loader) ── REST API on 127.0.0.1  (holds the admin token)
   │
-  ├─ Broker (FastAPI)  ── binds 127.0.0.1 only
+  ├─ Proxy (FastAPI, proxy/ in this repo) ── binds 127.0.0.1 only
   │    ├─ holds the PalDefender token (never leaves this machine)
-  │    ├─ talks to PalDefender over localhost
-  │    ├─ maps each caller's Tailscale identity -> their SteamID64
-  │    └─ /mypals (self-only)   /players + /pals/{id} (admin-only)
+  │    ├─ mirrors PalDefender's REST API 1:1 (same paths, same response/error shapes)
+  │    ├─ adds CORS (for the browser app), an optional caller token, and a short-TTL cache
+  │    └─ GET /v1/pdapi/players · /v1/pdapi/player/{id} · /v1/pdapi/pals/{id}
   │
-  └─ Tailscale + `tailscale serve` ── exposes the broker over HTTPS on the tailnet ONLY,
-                                       injecting the caller's identity as a header
+  └─ Tailscale + `tailscale serve` ── exposes the proxy over HTTPS on the tailnet ONLY
 
-[You]     -> tailnet -> broker (full: any player)
-[Friends] -> tailnet -> broker (/mypals: their own pals only)
+[You]     -> tailnet -> proxy (full read access)
+[Friends] -> tailnet -> proxy (same full read access — nothing here can be changed, only viewed)
 ```
 
-Key security property: **PalDefender and the broker only ever listen on localhost.**
-The *only* thing exposed to the tailnet is the broker, and only through `tailscale serve`,
-which is tailnet-only and tells the broker who each caller is. Nothing touches the public internet.
+Key security property: **PalDefender and the proxy only ever listen on localhost.**
+The *only* thing exposed to the tailnet is the proxy, and only through `tailscale serve`,
+which is tailnet-only. Nothing touches the public internet.
 
-Do this in order: PalDefender -> Broker -> Tailscale -> SteamID map -> App changes.
+Do this in order: PalDefender -> Proxy -> Tailscale -> App config.
 
 ---
 
@@ -45,160 +52,110 @@ open UE4SS dedicated-server character-reset bug entirely).
 3. **First run:** start the server once so PalDefender generates its config files
    (`d3d9_config.json` and the PalDefender config), then stop it.
 
-4. **Enable the REST API.** In PalDefender's config, turn on the REST API, set a port, and set
-   a **bearer token** (recent versions use a token/permission-list system).
+4. **Enable the REST API.** In PalDefender's config, turn on the REST API, set a port, and
+   set a **bearer token**.
    - **VERIFY exact keys/default port** against the wiki's RESTAPI section — they differ by
      version. The shape you're looking for: an enable flag, a port, and a token.
    - **Bind it to `127.0.0.1`** (localhost) if the config allows a bind address. If it only
      binds to all interfaces, that's fine — Windows Firewall should still block the port from
-     the LAN/internet (see Part F). The broker reaches it locally either way.
+     the LAN/internet (see Part E). The proxy reaches it locally either way.
 
-5. **Confirm the endpoints exist.** With the server running, from the server itself:
+5. **Confirm the endpoints exist.** Endpoints are documented in `PalDefenderAPI/*.md` in
+   this repo and at https://ultimeit.github.io/PalDefender/RESTAPI/. With the server
+   running, from the server itself:
    ```powershell
-   curl -H "Authorization: Bearer YOUR_TOKEN" http://127.0.0.1:PORT/players
-   curl -H "Authorization: Bearer YOUR_TOKEN" http://127.0.0.1:PORT/pals/76561198XXXXXXXXX
+   curl -H "Authorization: Bearer YOUR_TOKEN" http://127.0.0.1:PORT/v1/pdapi/players
+   curl -H "Authorization: Bearer YOUR_TOKEN" http://127.0.0.1:PORT/v1/pdapi/pals/76561198XXXXXXXXX
    ```
-   - `/players` should list everyone; `/pals/{steamid}` should return that player's pals.
-   - **VERIFY the `/pals` response includes what the calculator needs:** species/ID, gender,
-     level, passives, and **IVs/talents**. IV inheritance is core to breeding — if IVs aren't
-     in `/pals`, check whether `/exportpals` (PalTemplate files) carries them and read from
-     that instead. Note the exact field names; you'll map them in the app (Part E).
+   - `/v1/pdapi/players` lists everyone; `/v1/pdapi/pals/{id}` returns that player's pals
+     (`{id}` can be a `UserId` or `PlayerUID` — see `src/live/types.ts`'s note on which one
+     is actually reliable once you've inspected a real response).
+   - Confirmed from the documented schema: `/v1/pdapi/pals/{id}` already includes `IVs`
+     (`Health`/`AttackMelee`/`AttackShot`/`Defense`) directly on each pal — no need to fall
+     back to `/exportpals`/PalTemplate files for IV data.
 
 > The vanilla Palworld REST API (`RESTAPIEnabled` in `PalWorldSettings.ini`) is a *separate*,
 > weaker API that has no pal data. Ignore it; use PalDefender's.
 
 ---
 
-## Part B — The Broker
+## Part B — The Proxy
 
-The broker is the only component that holds the token and the only one exposed (via Tailscale).
-It enforces "you only get your own pals."
+The proxy (`proxy/` in this repo) is the only component that holds the PalDefender token
+and the only one exposed (via Tailscale). It mirrors PalDefender's API as closely as
+possible — see `proxy/README.md` for the authoritative, up-to-date instructions; this is
+the short version.
 
-### B1. Install Python + deps (on the server)
-
-```powershell
-# Python 3.11+ from python.org, then:
-pip install fastapi "uvicorn[standard]" httpx
-```
-
-### B2. `broker.py` (reference implementation)
-
-Save this next to a `.env` (or set real env vars). Fill in the `STEAMID_MAP` and `ADMIN_LOGIN`.
-
-```python
-# broker.py
-import os, time, httpx
-from fastapi import FastAPI, Request, HTTPException
-
-PALDEFENDER_BASE  = os.environ.get("PALDEFENDER_BASE", "http://127.0.0.1:8213")  # VERIFY port
-PALDEFENDER_TOKEN = os.environ["PALDEFENDER_TOKEN"]           # bearer token, server-side only
-ADMIN_LOGIN       = os.environ.get("ADMIN_LOGIN", "you@example.com").lower()
-CACHE_TTL         = int(os.environ.get("CACHE_TTL", "60"))   # seconds
-
-# Tailscale login (email) -> SteamID64. Seed this once (see Part D).
-STEAMID_MAP = {
-    "you@example.com":     "76561198000000000",
-    # "friend1@gmail.com": "76561198111111111",
-}
-
-app = FastAPI()
-_cache: dict[str, tuple[float, object]] = {}
-
-async def pd_get(path: str):
-    now = time.time()
-    hit = _cache.get(path)
-    if hit and now - hit[0] < CACHE_TTL:
-        return hit[1]
-    async with httpx.AsyncClient(timeout=15) as c:
-        r = await c.get(f"{PALDEFENDER_BASE}{path}",
-                        headers={"Authorization": f"Bearer {PALDEFENDER_TOKEN}"})
-        r.raise_for_status()
-        data = r.json()
-    _cache[path] = (now, data)
-    return data
-
-def identity(req: Request) -> str:
-    # `tailscale serve` injects this for authenticated tailnet callers.
-    login = req.headers.get("Tailscale-User-Login")
-    if not login:
-        raise HTTPException(401, "No Tailscale identity — are you connected to the tailnet?")
-    return login.lower()
-
-def require_admin(req: Request):
-    if identity(req) != ADMIN_LOGIN:
-        raise HTTPException(403, "Admin only")
-
-@app.get("/health")
-async def health():
-    return {"ok": True}
-
-@app.get("/whoami")           # handy for debugging identity
-async def whoami(req: Request):
-    return {"login": identity(req)}
-
-@app.get("/mypals")           # friends: their own pals only
-async def mypals(req: Request):
-    who = identity(req)
-    steamid = STEAMID_MAP.get(who)
-    if not steamid:
-        raise HTTPException(403, f"{who} isn't linked to a SteamID yet — send yours to the admin.")
-    return await pd_get(f"/pals/{steamid}")   # VERIFY path
-
-@app.get("/players")          # admin: everyone
-async def players(req: Request):
-    require_admin(req)
-    return await pd_get("/players")
-
-@app.get("/pals/{steamid}")   # admin: any player
-async def pals(steamid: str, req: Request):
-    require_admin(req)
-    return await pd_get(f"/pals/{steamid}")
-```
-
-### B3. Run it (bound to localhost)
+### B1. Install + configure
 
 ```powershell
-# env vars for the session (or use a .env loader)
-$env:PALDEFENDER_TOKEN="your-token"; $env:ADMIN_LOGIN="you@example.com"
-uvicorn broker:app --host 127.0.0.1 --port 8080
+cd proxy
+python -m venv .venv
+.venv\Scripts\pip install -r requirements.txt
+copy .env.example .env
+notepad .env
 ```
 
-The broker binds `127.0.0.1:8080`. It is **not** directly reachable from anywhere — Tailscale
-will be the only door (Part C).
+Fill in `.env`:
+- `PALDEFENDER_BASE` — e.g. `http://127.0.0.1:8213` (**VERIFY** the port from Part A)
+- `PALDEFENDER_TOKEN` — the bearer token from Part A. Leaving this blank runs the proxy in
+  **demo mode** (canned data, no PalDefender needed) — useful for testing the app<->proxy
+  connection before this section is finished.
+- `PROXY_TOKEN` — optional. If set, callers must send it as a bearer token. Leave blank to
+  rely purely on Tailscale network access as the gate (this repo's default assumption,
+  since there's nothing here a caller could misuse beyond reading pal data).
+- `CORS_ORIGINS` — defaults to `*`. Tighten to the app's actual origin if you want.
+- `CACHE_TTL_SECONDS` — defaults to 5. PalDefender's own docs note a 5-second game-thread
+  timeout on its REST calls; this cache keeps repeated polling from hammering it.
 
-### B4. Run it as a service (so it survives reboots)
+### B2. Run it (bound to localhost)
 
-Use **NSSM** (`nssm install PalworldBroker`) pointing at your Python + `uvicorn broker:app
---host 127.0.0.1 --port 8080`, or a Task Scheduler task set to "run at startup." Set env vars
-in the service definition so the token never sits in a plaintext startup script you might share.
+```powershell
+.venv\Scripts\python -m uvicorn app:app --host 127.0.0.1 --port 8080
+```
+
+The proxy binds `127.0.0.1:8080`. It is **not** directly reachable from anywhere —
+Tailscale will be the only door (Part C).
+
+### B3. Run it as a service (so it survives reboots)
+
+Use **NSSM** (`nssm install PalworldProxy`) pointing at
+`<proxy>\.venv\Scripts\python.exe -m uvicorn app:app --host 127.0.0.1 --port 8080` with
+working directory set to `proxy\`, or a Task Scheduler task set to "run at startup." Set env
+vars in the service definition (or keep them in `proxy\.env`) so the token never sits in a
+plaintext startup script you might share.
 
 ---
 
 ## Part C — Tailscale
 
-1. **Create a Tailscale account** (sign in with Google/GitHub/Microsoft) and **install Tailscale
-   on the server**. Run `tailscale up`. Note the machine's MagicDNS name (e.g. `palworld-server`).
+1. **Create a Tailscale account** (sign in with Google/GitHub/Microsoft) and **install
+   Tailscale on the server**. Run `tailscale up`. Note the machine's MagicDNS name (e.g.
+   `palworld-server`).
 
-2. **Enable HTTPS + MagicDNS** in the admin console (DNS settings -> enable MagicDNS, and enable
-   HTTPS certificates). `tailscale serve` needs these to issue a cert for your `*.ts.net` name.
+2. **Enable HTTPS + MagicDNS** in the admin console (DNS settings -> enable MagicDNS, and
+   enable HTTPS certificates). `tailscale serve` needs these to issue a cert for your
+   `*.ts.net` name.
 
-3. **Expose the broker over the tailnet** with identity injection:
+3. **Expose the proxy over the tailnet:**
    ```powershell
    tailscale serve --bg 8080
    tailscale serve status     # confirm it's proxying https://<magicdns>.<tailnet>.ts.net -> 127.0.0.1:8080
    ```
-   - This serves the broker over **HTTPS on the tailnet only** (not public — that would be
+   - This serves the proxy over **HTTPS on the tailnet only** (not public — that would be
      `tailscale funnel`, which we're deliberately not using).
-   - `serve` adds `Tailscale-User-Login` (and `-User-Name`) headers for each authenticated
-     caller — that's what the broker reads for scoping.
+   - Unlike an earlier version of this doc, the proxy does **not** read any Tailscale
+     identity headers — it doesn't need to know *who* is calling, only that they're on the
+     tailnet at all. `tailscale serve` is doing access control, not identity injection, here.
    - **VERIFY the exact `serve` syntax** with `tailscale serve --help`; the CLI has changed
      across versions (some use `tailscale serve https / http://127.0.0.1:8080`).
 
-4. **Invite your friends** (Users -> Invite in the admin console). The free Personal plan covers
-   6 users in your tailnet; for more, use **node sharing** (Machines -> the broker node -> Share).
+4. **Invite your friends** (Users -> Invite in the admin console). The free Personal plan
+   covers 6 users in your tailnet; for more, use **node sharing** (Machines -> the proxy
+   node -> Share).
 
-5. **Lock friends down with ACLs** so they can reach *only* the broker's HTTPS port and nothing
-   else on your network (SSH, RDP, ComfyUI, game servers, etc.). Tag the server node and restrict:
+5. **Restrict friends to just the proxy's port** so they can't reach anything else on your
+   network (SSH, RDP, ComfyUI, the game server's other ports, etc.):
    ```jsonc
    {
      "groups": {
@@ -212,85 +169,92 @@ in the service definition so the token never sits in a plaintext startup script 
      ]
    }
    ```
-   Apply `tag:palworld` to the server node in the admin console. **VERIFY** against current
-   Tailscale docs — they're migrating ACLs toward "grants" syntax, but classic `acls` still works.
+   Apply `tag:palworld` to the proxy's node in the admin console. Note this ACL is about
+   **network segmentation** (friends can't reach your other services), not about who sees
+   whose pal data — everyone in `group:friends` gets the same full read access once they
+   can reach port 443 at all. **VERIFY** against current Tailscale docs — they're migrating
+   ACLs toward "grants" syntax, but classic `acls` still works.
 
 Your friends' final connection target is: `https://<magicdns-name>.<your-tailnet>.ts.net`
 
 ---
 
-## Part D — Link friends to their pals (SteamID map)
+## Part D — (Optional) Friendly display names
 
-The one manual coordination step. The broker needs to know which Tailscale login owns which pals.
-
-1. Ask each friend for their **SteamID64** (17 digits, e.g. `76561198…`). They can get it from
-   their Steam profile URL or a lookup site (put this in the friends' doc — it's already there).
-2. Add a line to `STEAMID_MAP` in `broker.py`: `"friend@gmail.com": "76561198XXXXXXXXX"`.
-3. Restart the broker service.
-
-To seed/spot-check SteamIDs, hit `/players` as admin — PalDefender returns everyone currently
-known to the world, so you can match names to IDs.
+There's no SteamID-to-Tailscale-identity mapping to maintain anymore — every friend gets
+the same full read access regardless of who they are. The only reason to collect a friend's
+SteamID64 now is cosmetic: PalDefender returns each player's in-game character name for
+free, and the app shows that automatically, but if someone wants a nicer label than their
+in-game name, the app's Settings has a display-name override table (SteamID64/PlayerUID ->
+name) that anyone using the app can edit locally. This is entirely optional and
+per-app-install — there's no server-side list to keep in sync.
 
 ---
 
-## Part E — What to add to the calculator app (brief)
+## Part E — What's already in the calculator app
 
-Three small additions; the breeding engine you already have doesn't change.
+Fully implemented — see `src/live/` and `docs/UI_REQUIREMENTS.md` for the design, this is
+just a pointer to where it lives:
 
-1. **Connection config.** One value: the broker base URL
-   (`https://<magicdns>.<tailnet>.ts.net`). No token in the client — Tailscale identity *is* the
-   auth. (Your admin build can carry a small "admin mode" flag to reveal player selection.)
-
-2. **Data layer.**
-   - Friend build: `GET {base}/mypals` on load -> normalize -> that's the player's inventory.
-   - Admin build: `GET {base}/players` to populate a player picker, then `GET {base}/pals/{id}`.
-   - **Normalize** PalDefender's pal objects into your existing pal model here (species, gender,
-     level, passives, IVs/talents). This is the one place the **VERIFY**'d field names from
-     Part A get mapped — keep it in a single adapter function so a schema change is a one-file fix.
-
-3. **Feed the pathfinder.** The fetched pals become the "what I already have" inventory for your
-   inverse/goal-driven feature: *"I want this species with these passives — cheapest/most-certain
-   path from my current box."* Same ranked-paths output you designed for the PoE2 tool, just with
-   pals as the owned-materials set.
-
-**Serving note (avoids CORS):** simplest is to **serve the friend SPA from the broker itself**
-(FastAPI `StaticFiles`) so the app and the API are same-origin over the tailnet — no CORS config,
-no separate host. If you'd rather host the SPA elsewhere, add CORS on the broker allowing that
-origin, but same-origin is less to manage.
+1. **Connection config** (Settings view): proxy base URL and an optional bearer token
+   (only needed if you set `PROXY_TOKEN` on the proxy). No other client-side auth — an
+   empty base URL runs the app against its own internal demo data.
+2. **Data layer** (`src/live/dataSource.ts`, `src/live/normalize.ts`): fetches
+   `/v1/pdapi/players` and `/v1/pdapi/pals/{id}`, normalizes into the app's pal model
+   (species, gender, passives, IVs), flags anything that doesn't resolve against the
+   bundled dataset instead of guessing.
+3. **Server Pals view** (`src/ui/ServerPalsView.tsx`): browse every connected player's
+   pals, select which players' pals should feed the planner.
+4. **Planner integration**: selected players' pals merge into the same roster the
+   single-target and hub planners already use — "what am I able to breed toward" now
+   spans your box plus whichever server players' boxes you've selected.
 
 ---
 
 ## Part F — Security checklist
 
 - [ ] PalDefender REST API reachable only on `127.0.0.1` (or blocked from LAN/WAN by firewall).
-- [ ] Broker binds `127.0.0.1` only; never `0.0.0.0`.
-- [ ] The PalDefender token exists **only** in the broker's env/service config — never in any
-      client build, repo, or message to friends. It's root-equivalent on your server.
-- [ ] Windows Firewall: no inbound rule opening the PalDefender or broker port to the network.
-- [ ] Tailscale ACLs restrict `group:friends` to the broker port only.
-- [ ] Broker enforces `/mypals` from identity, and **ignores any player id a client sends** for
-      the friend path (only admin endpoints accept an id).
+- [ ] Proxy binds `127.0.0.1` only; never `0.0.0.0`.
+- [ ] The PalDefender token exists **only** in the proxy's `.env`/service config — never in
+      any client build, repo, or message to friends. It's root-equivalent on your server.
+- [ ] If you set `PROXY_TOKEN`, it's likewise only in the proxy's env — the app's Settings
+      field for it is stored in the browser's localStorage, which is fine for a personal/
+      trusted-friend tool but isn't a secret vault.
+- [ ] Windows Firewall: no inbound rule opening the PalDefender or proxy port to the network.
+- [ ] Tailscale ACLs restrict `group:friends` to the proxy's port only.
 - [ ] Using `tailscale serve` (tailnet-only), **not** `tailscale funnel` (public).
+- [ ] You're comfortable that anyone who can reach the proxy sees *everyone's* pals — this
+      is intentional (no mutation endpoints exist), not an oversight.
 
 ---
 
 ## Part G — Smoke test
 
-1. `curl http://127.0.0.1:8080/health` on the server -> `{"ok": true}`.
-2. From your own laptop (on the tailnet): open `https://<magicdns>.<tailnet>.ts.net/whoami`
-   -> shows your login. Then `/players` works (you're admin).
-3. Have one friend connect (Part D done for them) and open `/mypals` -> only their pals.
-4. Confirm a non-linked friend gets the friendly "send your SteamID" 403, not a crash.
+1. `curl http://127.0.0.1:8080/health` on the server -> `{"ok": true, "mode": "live"}`
+   (or `"demo"` if `PALDEFENDER_TOKEN` is still blank).
+2. `curl http://127.0.0.1:8080/v1/pdapi/players` on the server -> real player list.
+3. From your own laptop (on the tailnet): open
+   `https://<magicdns>.<tailnet>.ts.net/health` -> same response as step 1.
+4. Point the app's Settings -> "Proxy base URL" at that same tailnet URL -> the Server Pals
+   view should populate with real players.
+5. Have a friend connect (Tailscale + the app link) and confirm they see the same data.
 
 ---
 
 ## Troubleshooting
 
-- **401 "No Tailscale identity":** the caller isn't going through `tailscale serve`, or isn't
-  connected to the tailnet. Check `tailscale serve status` and that they're logged in.
-- **403 "not linked to a SteamID":** add them to `STEAMID_MAP`, restart broker.
-- **Empty/500 from PalDefender:** re-check token, port, and that the server is running; confirm
-  the endpoint path against the wiki (`/pals/{id}` vs a variant).
-- **`/pals` missing IVs:** switch that path to read from `/exportpals` PalTemplate files instead.
-- **After a Palworld/PalDefender update things break:** pin a known-good PalDefender version;
-  re-verify the `/pals` schema and your adapter after each update.
+- **App shows "using demo/mock data"**: the base URL field in Settings is empty, or the
+  proxy itself is running in demo mode because `PALDEFENDER_TOKEN` is blank in its `.env`.
+- **Proxy returns `PROXY_UPSTREAM_UNREACHABLE`**: PalDefender isn't running, the port in
+  `PALDEFENDER_BASE` is wrong, or Windows Firewall is blocking localhost traffic (rare, but
+  check if you have unusual firewall rules).
+- **Proxy returns `PROXY_UPSTREAM_TIMEOUT`**: PalDefender's own docs note its REST calls
+  have an internal 5-second game-thread timeout; this can happen under server load.
+- **401 `INVALID_TOKEN` from the proxy**: you set `PROXY_TOKEN` on the proxy but the app's
+  Settings doesn't have a matching bearer token (or a friend's app install doesn't).
+- **CORS error in the browser console**: check `CORS_ORIGINS` in the proxy's `.env` isn't
+  restricted to an origin that doesn't match where the app is actually served from.
+- **After a Palworld/PalDefender update things break**: pin a known-good PalDefender
+  version; re-verify the `/v1/pdapi/pals` schema against `PalDefenderAPI/*.md` and
+  `src/live/normalize.ts` after each update — that's the one file that needs correcting if
+  field names change.
