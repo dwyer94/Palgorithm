@@ -28,6 +28,7 @@ Phase 0 — build against the current CombiRank system. Sessions are defined in 
 /src/solver    speciesPlanner, hubFinder, passivePlanner, types
 /src/store     localStorage roster/plans/settings
 /src/ui        views + components (unstyled until session 0.D)
+/src/live      PalDefender-proxy connection: mock + HTTP data sources, normalizer, LiveContext
 /src/pipeline  normalizer + diff scripts (Node CLI, run offline)
 /test          ruleset-vs-oracle + solver unit tests
 ```

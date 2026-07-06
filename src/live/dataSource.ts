@@ -1,0 +1,143 @@
+import type { Dataset } from '../data/schema';
+import { normalizePlayer, normalizePlayerPals } from './normalize';
+import type { LivePlayer, LivePlayerPals, PlayerIdentifier, RawApiError, RawPalsResponse, RawPlayer, RawPlayersResponse } from './types';
+
+/**
+ * The swappable seam for where live pal data comes from — a real PalDefender-mirroring
+ * proxy (`createHttpDataSource`) or in-memory fixtures (`createMockDataSource`) for
+ * developing/testing this feature before the proxy exists (piece 2). Both implementations
+ * funnel raw data through the same `normalize.ts` functions, so the mock exercises the real
+ * adapter rather than standing in for it.
+ */
+
+export interface LiveDataSourceError {
+  code: string;
+  message: string;
+}
+
+export type LiveResult<T> = { ok: true; data: T } | { ok: false; error: LiveDataSourceError };
+
+export interface LiveDataSource {
+  listPlayers(): Promise<LiveResult<LivePlayer[]>>;
+  getPlayerPals(identifier: PlayerIdentifier): Promise<LiveResult<LivePlayerPals>>;
+}
+
+// --- HTTP implementation --------------------------------------------------------------
+
+export interface HttpDataSourceConfig {
+  baseUrl: string;
+  bearerToken?: string;
+  fetchImpl?: typeof fetch;
+  timeoutMs?: number;
+}
+
+const DEFAULT_TIMEOUT_MS = 8000;
+
+function isRawApiError(body: unknown): body is RawApiError {
+  return typeof body === 'object' && body !== null && 'Error' in body;
+}
+
+async function pdFetch<T>(
+  path: string,
+  config: HttpDataSourceConfig,
+): Promise<LiveResult<T>> {
+  const fetchImpl = config.fetchImpl ?? fetch;
+  const base = config.baseUrl.replace(/\/+$/, '');
+  const headers: Record<string, string> = {};
+  if (config.bearerToken) headers.Authorization = `Bearer ${config.bearerToken}`;
+
+  let response: Response;
+  try {
+    response = await fetchImpl(`${base}${path}`, {
+      headers,
+      signal: AbortSignal.timeout(config.timeoutMs ?? DEFAULT_TIMEOUT_MS),
+    });
+  } catch (err) {
+    if (err instanceof Error && err.name === 'TimeoutError') {
+      return { ok: false, error: { code: 'REQUEST_TIMEOUT', message: 'Request to the proxy timed out.' } };
+    }
+    return { ok: false, error: { code: 'NETWORK_ERROR', message: err instanceof Error ? err.message : String(err) } };
+  }
+
+  let body: unknown;
+  try {
+    body = await response.json();
+  } catch {
+    return { ok: false, error: { code: 'INVALID_RESPONSE', message: 'Response was not valid JSON.' } };
+  }
+
+  if (!response.ok) {
+    if (isRawApiError(body)) {
+      return { ok: false, error: { code: body.Error.Code, message: body.Error.Message } };
+    }
+    return { ok: false, error: { code: 'HTTP_ERROR', message: `HTTP ${response.status}` } };
+  }
+
+  return { ok: true, data: body as T };
+}
+
+export function createHttpDataSource(config: HttpDataSourceConfig, dataset: Dataset): LiveDataSource {
+  return {
+    async listPlayers() {
+      const result = await pdFetch<RawPlayersResponse>('/v1/pdapi/players', config);
+      if (!result.ok) return result;
+      return { ok: true, data: result.data.Players.map((p: RawPlayer) => normalizePlayer(p)) };
+    },
+    async getPlayerPals(identifier: PlayerIdentifier) {
+      const result = await pdFetch<RawPalsResponse>(`/v1/pdapi/pals/${encodeURIComponent(identifier)}`, config);
+      if (!result.ok) return result;
+      return { ok: true, data: normalizePlayerPals(identifier, result.data, dataset.species, dataset.passives) };
+    },
+  };
+}
+
+// --- Mock implementation --------------------------------------------------------------
+
+export interface MockDataSourceConfig {
+  players: RawPlayer[];
+  palsByIdentifier: Record<PlayerIdentifier, RawPalsResponse>;
+  simulateLatencyMs?: number;
+  simulateError?: LiveDataSourceError;
+}
+
+async function maybeDelay(ms: number | undefined): Promise<void> {
+  if (ms && ms > 0) await new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+export function createMockDataSource(config: MockDataSourceConfig, dataset: Dataset): LiveDataSource {
+  return {
+    async listPlayers() {
+      await maybeDelay(config.simulateLatencyMs);
+      if (config.simulateError) return { ok: false, error: config.simulateError };
+      return { ok: true, data: config.players.map((p) => normalizePlayer(p)) };
+    },
+    async getPlayerPals(identifier: PlayerIdentifier) {
+      await maybeDelay(config.simulateLatencyMs);
+      if (config.simulateError) return { ok: false, error: config.simulateError };
+      const raw = config.palsByIdentifier[identifier];
+      if (!raw) return { ok: false, error: { code: 'PLAYER_NOT_FOUND', message: `No fixture pals for ${identifier}` } };
+      return { ok: true, data: normalizePlayerPals(identifier, raw, dataset.species, dataset.passives) };
+    },
+  };
+}
+
+// --- Selection -------------------------------------------------------------------------
+
+/** Empty base URL -> mock data source; otherwise the real HTTP client. No manual toggle in
+ * the UI — the moment a base URL is entered, the real thing is used. */
+export function selectDataSource(
+  settings: { live: { baseUrl: string; bearerToken: string } },
+  dataset: Dataset,
+  mockConfig: MockDataSourceConfig,
+): { source: LiveDataSource; isMock: boolean } {
+  if (!settings.live.baseUrl.trim()) {
+    return { source: createMockDataSource(mockConfig, dataset), isMock: true };
+  }
+  return {
+    source: createHttpDataSource(
+      { baseUrl: settings.live.baseUrl, ...(settings.live.bearerToken && { bearerToken: settings.live.bearerToken }) },
+      dataset,
+    ),
+    isMock: false,
+  };
+}

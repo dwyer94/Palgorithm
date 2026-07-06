@@ -1,0 +1,130 @@
+import type { RawPal, RawPalsResponse, RawPlayer, PlayerIdentifier } from './types';
+
+/**
+ * Synthetic PalDefender-shaped data for the mock data source (see `dataSource.ts`) and for
+ * unit tests. Shaped exactly like the documented raw responses (`PalDefenderAPI/*.md`), and
+ * built against real species/passive ids from the bundled dataset so normalization exercises
+ * real lookups, not just structural plumbing. Deliberately includes:
+ *  - a player with no `Name` and no seeded override (falls back to raw identifier)
+ *  - a player with an empty `Name` but a seeded override (override wins)
+ *  - a player with an in-game `Name` and no override (API name wins)
+ *  - a player with no pals at all (empty Team/Palbox/BaseCamps)
+ *  - one pal with an unresolvable `PalID` and one with an unresolvable passive, so the
+ *    "flag, don't drop" path is exercised by default rather than only in hand-written tests
+ *
+ * Three players reuse the real seeded SteamID64s from docs/UI_REQUIREMENTS.md as `PlayerUID`
+ * so the name-override table has something real to demonstrate against out of the box.
+ */
+
+function rawPal(overrides: Partial<RawPal> & Pick<RawPal, 'PalID' | 'Gender'>): RawPal {
+  return {
+    Nickname: '',
+    Level: 10,
+    Shiny: false,
+    Passives: [],
+    IVs: { Health: 60, AttackMelee: 60, AttackShot: 60, Defense: 60 },
+    ...overrides,
+  };
+}
+
+export const FIXTURE_KIT_UID: PlayerIdentifier = '76561198106031331';
+export const FIXTURE_INPUTCOMET_UID: PlayerIdentifier = '76561198061667425';
+export const FIXTURE_WANDERER_UID: PlayerIdentifier = 'fixture-player-uid-wanderer';
+export const FIXTURE_UNKNOWN_UID: PlayerIdentifier = 'fixture-player-uid-unknown';
+
+export const FIXTURE_PLAYERS: RawPlayer[] = [
+  {
+    Name: 'KitIngame',
+    IP: '',
+    PlayerUID: FIXTURE_KIT_UID,
+    UserId: FIXTURE_KIT_UID,
+    GuildName: 'The Guild',
+    GuildUUID: '',
+    Status: 'Online',
+    WorldLocation: { x: 0, y: 0, z: 0 },
+    MapLocation: { x: 0, y: 0, z: 0 },
+  },
+  {
+    Name: '',
+    IP: '',
+    PlayerUID: FIXTURE_INPUTCOMET_UID,
+    UserId: FIXTURE_INPUTCOMET_UID,
+    GuildName: 'The Guild',
+    GuildUUID: '',
+    Status: 'Online',
+    WorldLocation: { x: 0, y: 0, z: 0 },
+    MapLocation: { x: 0, y: 0, z: 0 },
+  },
+  {
+    Name: 'Wanderer99',
+    IP: '',
+    PlayerUID: FIXTURE_WANDERER_UID,
+    UserId: '',
+    GuildName: '',
+    GuildUUID: '',
+    Status: 'Offline',
+    WorldLocation: { x: 0, y: 0, z: 0 },
+    MapLocation: { x: 0, y: 0, z: 0 },
+  },
+  {
+    Name: '',
+    IP: '',
+    PlayerUID: FIXTURE_UNKNOWN_UID,
+    UserId: '',
+    GuildName: '',
+    GuildUUID: '',
+    Status: 'Offline',
+    WorldLocation: { x: 0, y: 0, z: 0 },
+    MapLocation: { x: 0, y: 0, z: 0 },
+  },
+];
+
+export const FIXTURE_PALS_BY_IDENTIFIER: Record<PlayerIdentifier, RawPalsResponse> = {
+  [FIXTURE_KIT_UID]: {
+    Meta: { PlayerUID: FIXTURE_KIT_UID, Player: FIXTURE_KIT_UID, TeamCount: 1, PalboxCount: 1, BaseCampCount: 1 },
+    Pals: {
+      Team: {
+        't1': rawPal({ PalID: 'Anubis', Gender: 'Male', Level: 50, Passives: ['CraftSpeed_up3', 'Deffence_up2'] }),
+      },
+      Palbox: {
+        'p1': rawPal({ PalID: 'GoldenHorse', Gender: 'Female', Level: 20, Passives: ['CraftSpeed_up1'] }),
+      },
+      BaseCamps: [
+        {
+          id: 'camp-1',
+          level: 3,
+          state: 'Active',
+          pals: { 'bc1': rawPal({ PalID: 'Boar', Gender: 'Male', Level: 15 }) },
+        },
+      ],
+    },
+  },
+  [FIXTURE_INPUTCOMET_UID]: {
+    Meta: { PlayerUID: FIXTURE_INPUTCOMET_UID, Player: FIXTURE_INPUTCOMET_UID, TeamCount: 1, PalboxCount: 1, BaseCampCount: 0 },
+    Pals: {
+      Team: {
+        't1': rawPal({ PalID: 'ElecLion', Gender: 'Female', Level: 35, Passives: ['Deffence_up3', 'FakePassive_XYZ'] }),
+      },
+      Palbox: {
+        // Deliberately unresolvable species — exercises the "flag, don't drop" path.
+        'p1': rawPal({ PalID: 'TotallyFakeSpecies_XYZ', Gender: 'Male', Level: 5 }),
+      },
+      BaseCamps: [],
+    },
+  },
+  [FIXTURE_WANDERER_UID]: {
+    Meta: { PlayerUID: FIXTURE_WANDERER_UID, Player: FIXTURE_WANDERER_UID, TeamCount: 1, PalboxCount: 0, BaseCampCount: 0 },
+    Pals: {
+      Team: {
+        // lowercase gender string — exercises case-insensitive gender normalization.
+        't1': rawPal({ PalID: 'Carbunclo', Gender: 'male', Level: 25, Passives: ['CraftSpeed_up2'] }),
+      },
+      Palbox: {},
+      BaseCamps: [],
+    },
+  },
+  [FIXTURE_UNKNOWN_UID]: {
+    Meta: { PlayerUID: FIXTURE_UNKNOWN_UID, Player: FIXTURE_UNKNOWN_UID, TeamCount: 0, PalboxCount: 0, BaseCampCount: 0 },
+    Pals: { Team: {}, Palbox: {}, BaseCamps: [] },
+  },
+};

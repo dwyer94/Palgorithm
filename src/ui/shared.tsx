@@ -1,5 +1,6 @@
 import type { Species, Passive } from '../data/schema';
 import type { PlanIndividual, SpeciesPlanResult, PassivePlanResult, UnionPlanResult, HubCandidate } from '../solver/types';
+import type { ProvenanceMatch } from '../live/provenance';
 
 /** Small shared pieces reused across the six unstyled views (spec §8). No styling beyond
  * functional layout — visual design is session 0.D (CLAUDE.md invariant #5). */
@@ -65,12 +66,30 @@ function individualLabel(ind: PlanIndividual, speciesById: Map<string, Species>)
   return `${name} (${ind.gender})${passives}`;
 }
 
-export function PassivePlanView({ plan, speciesById }: { plan: PassivePlanResult; speciesById: Map<string, Species> }) {
+/** Best-effort "whose box has this pal" hint (docs/UI_REQUIREMENTS.md). Absent when no
+ * connected players are selected, or when nothing matched — never a guaranteed claim. */
+function provenanceHint(provenance: Map<string, ProvenanceMatch> | undefined, key: string): string {
+  const match = provenance?.get(key);
+  if (!match) return '';
+  return match.confident ? ` (owned by ${match.ownerDisplayName})` : ` (possibly ${match.ownerDisplayName}'s)`;
+}
+
+export function PassivePlanView({
+  plan,
+  speciesById,
+  provenance,
+}: {
+  plan: PassivePlanResult;
+  speciesById: Map<string, Species>;
+  provenance?: Map<string, ProvenanceMatch> | undefined;
+}) {
   return (
     <div>
       <h4>Perk overlay: {plan.desired.join(', ')}</h4>
       <p>
-        Final cross: {individualLabel(plan.finalParentA, speciesById)} x {individualLabel(plan.finalParentB, speciesById)}
+        Final cross: {individualLabel(plan.finalParentA, speciesById)}
+        {provenanceHint(provenance, 'passivePlan:A')} x {individualLabel(plan.finalParentB, speciesById)}
+        {provenanceHint(provenance, 'passivePlan:B')}
       </p>
       <ul>
         <li>Exact set odds: {(plan.landOdds.exactSet * 100).toFixed(2)}% (expected eggs: {formatEggs(plan.expectedEggs.exactSet)})</li>
@@ -93,7 +112,15 @@ function formatEggs(n: number): string {
   return isFinite(n) ? n.toFixed(1) : '∞';
 }
 
-export function SpeciesPlanView({ plan, speciesById }: { plan: SpeciesPlanResult; speciesById: Map<string, Species> }) {
+export function SpeciesPlanView({
+  plan,
+  speciesById,
+  provenance,
+}: {
+  plan: SpeciesPlanResult;
+  speciesById: Map<string, Species>;
+  provenance?: Map<string, ProvenanceMatch> | undefined;
+}) {
   if (!plan.feasible) {
     return (
       <div>
@@ -127,22 +154,32 @@ export function SpeciesPlanView({ plan, speciesById }: { plan: SpeciesPlanResult
       <ol>
         {plan.steps.map((step, i) => (
           <li key={i}>
-            {individualLabel(step.parentA, speciesById)} x {individualLabel(step.parentB, speciesById)} →{' '}
-            {speciesById.get(step.child)?.displayName ?? step.child}
+            {individualLabel(step.parentA, speciesById)}
+            {provenanceHint(provenance, `step:${i}:A`)} x {individualLabel(step.parentB, speciesById)}
+            {provenanceHint(provenance, `step:${i}:B`)} → {speciesById.get(step.child)?.displayName ?? step.child}
           </li>
         ))}
       </ol>
       {plan.catches.length > 0 && (
         <p>
-          Requires catching: {plan.catches.map((c) => individualLabel(c, speciesById)).join(', ')}
+          Requires catching:{' '}
+          {plan.catches.map((c, i) => `${individualLabel(c, speciesById)}${provenanceHint(provenance, `catch:${i}`)}`).join(', ')}
         </p>
       )}
-      {plan.passivePlan && <PassivePlanView plan={plan.passivePlan} speciesById={speciesById} />}
+      {plan.passivePlan && <PassivePlanView plan={plan.passivePlan} speciesById={speciesById} provenance={provenance} />}
     </div>
   );
 }
 
-export function UnionPlanView({ plan, speciesById }: { plan: UnionPlanResult; speciesById: Map<string, Species> }) {
+export function UnionPlanView({
+  plan,
+  speciesById,
+  provenance,
+}: {
+  plan: UnionPlanResult;
+  speciesById: Map<string, Species>;
+  provenance?: Map<string, ProvenanceMatch> | undefined;
+}) {
   return (
     <div>
       <p>
@@ -156,13 +193,17 @@ export function UnionPlanView({ plan, speciesById }: { plan: UnionPlanResult; sp
       <ol>
         {plan.steps.map((step, i) => (
           <li key={i}>
-            {individualLabel(step.parentA, speciesById)} x {individualLabel(step.parentB, speciesById)} →{' '}
-            {speciesById.get(step.child)?.displayName ?? step.child}
+            {individualLabel(step.parentA, speciesById)}
+            {provenanceHint(provenance, `step:${i}:A`)} x {individualLabel(step.parentB, speciesById)}
+            {provenanceHint(provenance, `step:${i}:B`)} → {speciesById.get(step.child)?.displayName ?? step.child}
           </li>
         ))}
       </ol>
       {plan.catches.length > 0 && (
-        <p>Requires catching: {plan.catches.map((c) => individualLabel(c, speciesById)).join(', ')}</p>
+        <p>
+          Requires catching:{' '}
+          {plan.catches.map((c, i) => `${individualLabel(c, speciesById)}${provenanceHint(provenance, `catch:${i}`)}`).join(', ')}
+        </p>
       )}
       <h4>Per-target detail</h4>
       {plan.perTarget.map((p) => (
