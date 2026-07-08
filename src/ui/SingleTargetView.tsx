@@ -9,6 +9,7 @@ import { annotateSpeciesPlan } from '../live/provenance';
 import { resolvePlayerDisplayName } from '../live/nameResolution';
 import { useRulesetContext } from './RulesetContext';
 import { PassiveMultiSelect, SpeciesSelect, SpeciesPlanView } from './shared';
+import { PassiveChip } from './components';
 
 /** Single-target planner (design handoff README: reuses the Hub planner's shared pieces —
  * input rail shape, `SpeciesPlanView`'s graph/steps rendering, perk overlay). No hub
@@ -40,7 +41,7 @@ export default function SingleTargetView() {
     [result, live.selectedPlayerIds, live.palsByPlayer, displayNameByIdentifier],
   );
 
-  const passivesById = useMemo(() => new Map(passives.map((p) => [p.id, p.displayName])), [passives]);
+  const passivesById = useMemo(() => new Map(passives.map((p) => [p.id, p])), [passives]);
 
   const runPlan = () => {
     if (!target) return;
@@ -125,10 +126,16 @@ export default function SingleTargetView() {
             <>
               <div className="mb-5 flex items-baseline justify-between">
                 <div>
-                  <div className="font-sans text-[11px] font-semibold uppercase tracking-[.8px] text-muted">
-                    Result · single target
-                    {desiredPassives.length > 0 &&
-                      ` · [${desiredPassives.map((id) => passives.find((p) => p.id === id)?.displayName ?? id).join(', ')}]`}
+                  <div className="flex flex-wrap items-center gap-1.5 font-sans text-[11px] font-semibold uppercase tracking-[.8px] text-muted">
+                    <span>Result · single target</span>
+                    {desiredPassives.map((id) => (
+                      <PassiveChip
+                        key={id}
+                        label={passivesById.get(id)?.displayName ?? id}
+                        tier={passivesById.get(id)?.tier}
+                        className="normal-case tracking-normal"
+                      />
+                    ))}
                   </div>
                   <div className="mt-0.5 font-sans text-[22px] font-bold tracking-[-.4px]">
                     {targetSpecies?.displayName ?? target}

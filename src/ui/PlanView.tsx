@@ -1,9 +1,9 @@
-import { useMemo, useState } from 'react';
-import type { Species, SpeciesId } from '../data/schema';
+import { useMemo, useState, type ReactNode } from 'react';
+import type { Species, SpeciesId, Passive } from '../data/schema';
 import type { PlanIndividual, SpeciesPlanStep } from '../solver/types';
 import type { ProvenanceMatch } from '../live/provenance';
 import { buildPlanGraph, edgePath, type PlanGraphNode } from './graphLayout';
-import { GenderGlyph, PalNode, SegmentedControl, type PalNodeVariant } from './components';
+import { GenderGlyph, PalNode, PassiveChip, SegmentedControl, type PalNodeVariant } from './components';
 
 /**
  * The "Selected plan" panel shared by the Hub planner and Single-target planner (design
@@ -27,6 +27,7 @@ interface PlanGraphContext {
   speciesById: Map<string, Species>;
   hubSpeciesId?: string | undefined;
   desiredPassives?: string[] | undefined;
+  passivesById?: Map<string, Passive> | undefined;
 }
 
 function nodeVariant(node: PlanGraphNode, ctx: PlanGraphContext): PalNodeVariant {
@@ -37,14 +38,34 @@ function nodeVariant(node: PlanGraphNode, ctx: PlanGraphContext): PalNodeVariant
   return 'bred';
 }
 
-function nodeSubLabel(node: PlanGraphNode, ctx: PlanGraphContext): { label: string; className: string } {
+function nodeSubLabel(node: PlanGraphNode, ctx: PlanGraphContext): { label: ReactNode; className: string } {
   if (node.kind === 'leaf') {
     if (node.isCatch) {
       const rank = ctx.speciesById.get(node.species)?.rank;
       return { label: `catch${rank !== null && rank !== undefined ? ` · r${rank}` : ''}`, className: 'text-brand-hover' };
     }
-    const passives = node.passives && node.passives.length > 0 ? ` · [${node.passives.join(', ')}]` : '';
-    return { label: `owned${passives}`, className: 'text-success-text' };
+    if (!node.passives || node.passives.length === 0) {
+      return { label: 'owned', className: 'text-success-text' };
+    }
+    return {
+      label: (
+        <span className="inline-flex flex-wrap items-center gap-1">
+          owned ·
+          {node.passives.map((id) => {
+            const p = ctx.passivesById?.get(id);
+            return (
+              <PassiveChip
+                key={id}
+                label={p?.displayName ?? id}
+                tier={p?.tier}
+                className="px-1 py-0 text-[9px] leading-[14px]"
+              />
+            );
+          })}
+        </span>
+      ),
+      className: 'text-success-text',
+    };
   }
   if (node.isShared) {
     return { label: 'shared · used ×2', className: 'text-brand-hover font-semibold' };
@@ -62,6 +83,7 @@ export function PlanGraphPanel({
   speciesById,
   hubSpeciesId,
   desiredPassives,
+  passivesById,
 }: {
   steps: SpeciesPlanStep[];
   catches: PlanIndividual[];
@@ -69,9 +91,14 @@ export function PlanGraphPanel({
   speciesById: Map<string, Species>;
   hubSpeciesId?: string | undefined;
   desiredPassives?: string[] | undefined;
+  passivesById?: Map<string, Passive> | undefined;
 }) {
   const layout = useMemo(() => buildPlanGraph(steps, catches, targets), [steps, catches, targets]);
-  const ctx: PlanGraphContext = { speciesById, hubSpeciesId, desiredPassives };
+  const ctx: PlanGraphContext = { speciesById, hubSpeciesId, desiredPassives, passivesById };
+  const targetPassiveChips = desiredPassives?.map((id) => {
+    const p = passivesById?.get(id);
+    return { id, label: p?.displayName ?? id, tier: p?.tier };
+  });
 
   if (layout.nodes.length === 0) {
     return <p className="p-5 font-sans text-[13px] text-muted">Nothing to render yet — run a plan first.</p>;
@@ -131,7 +158,7 @@ export function PlanGraphPanel({
               variant={variant}
               subLabel={label}
               subLabelClassName={className}
-              passiveChips={isTarget ? desiredPassives : undefined}
+              passiveChips={isTarget ? targetPassiveChips : undefined}
               style={{ position: 'absolute', left: node.x, top: node.y + 22 }}
             />
           );
@@ -231,6 +258,7 @@ export function PlanRenderer({
   provenance,
   hubSpeciesId,
   desiredPassives,
+  passivesById,
   title = 'Selected plan',
   note,
 }: {
@@ -241,6 +269,7 @@ export function PlanRenderer({
   provenance?: Map<string, ProvenanceMatch> | undefined;
   hubSpeciesId?: string | undefined;
   desiredPassives?: string[] | undefined;
+  passivesById?: Map<string, Passive> | undefined;
   title?: string;
   note?: string;
 }) {
@@ -269,6 +298,7 @@ export function PlanRenderer({
           speciesById={speciesById}
           hubSpeciesId={hubSpeciesId}
           desiredPassives={desiredPassives}
+          passivesById={passivesById}
         />
       ) : (
         <StepsList

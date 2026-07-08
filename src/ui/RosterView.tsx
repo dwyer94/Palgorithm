@@ -205,9 +205,10 @@ export default function RosterView() {
                       </td>
                       <td className="px-4 py-2.5">
                         <span className="flex flex-wrap gap-1">
-                          {entry.passives.map((id) => (
-                            <PassiveChip key={id} label={passives.find((p) => p.id === id)?.displayName ?? id} />
-                          ))}
+                          {entry.passives.map((id) => {
+                            const p = passives.find((x) => x.id === id);
+                            return <PassiveChip key={id} label={p?.displayName ?? id} tier={p?.tier} />;
+                          })}
                         </span>
                       </td>
                       <td className="px-4 py-2.5 font-sans text-[12.5px] text-muted">{entry.notes ?? ''}</td>

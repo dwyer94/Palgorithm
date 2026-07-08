@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import type { Species } from '../data/schema';
+import type { Species, Passive } from '../data/schema';
 import { useLiveContext } from '../live/LiveContext';
 import { resolvePlayerDisplayName } from '../live/nameResolution';
 import type { LivePal, PlayerIdentifier } from '../live/types';
@@ -90,7 +90,7 @@ export default function ServerPalsView() {
 
 function PlayersTab() {
   const { speciesById, passives } = useRulesetContext();
-  const passivesById = useMemo(() => new Map(passives.map((p) => [p.id, p.displayName])), [passives]);
+  const passivesById = useMemo(() => new Map(passives.map((p) => [p.id, p])), [passives]);
   const [settings, setSettings] = useSettings();
   const live = useLiveContext();
   const [expanded, setExpanded] = useState<Set<string>>(new Set());
@@ -333,7 +333,7 @@ function PalRow({
 }: {
   pal: LivePal;
   speciesById: Map<string, Species>;
-  passivesById: Map<string, string>;
+  passivesById: Map<string, Passive>;
 }) {
   const species = pal.species ? speciesById.get(pal.species) : undefined;
   const unresolved = pal.species === null;
@@ -358,7 +358,7 @@ function PalRow({
       <td className="px-2.5 py-2">
         <span className="flex flex-wrap gap-1">
           {pal.passives.map((id) => (
-            <PassiveChip key={id} label={passivesById.get(id) ?? id} />
+            <PassiveChip key={id} label={passivesById.get(id)?.displayName ?? id} tier={passivesById.get(id)?.tier} />
           ))}
           {pal.unresolvedPassives.length > 0 && (
             <span className="rounded-[4px] bg-unresolved-bg px-1.5 py-px font-mono text-[10px] font-semibold text-provisional-text">
@@ -379,7 +379,7 @@ function PalRow({
 
 function FindAPalTab() {
   const { species, passives, speciesById } = useRulesetContext();
-  const passivesById = useMemo(() => new Map(passives.map((p) => [p.id, p.displayName])), [passives]);
+  const passivesById = useMemo(() => new Map(passives.map((p) => [p.id, p])), [passives]);
   const [settings] = useSettings();
   const live = useLiveContext();
   const [scope, setScope] = useState<Set<PlayerIdentifier> | null>(null); // null = all
@@ -506,7 +506,12 @@ function FindAPalTab() {
                 )}
                 <div className="flex flex-wrap gap-1">
                   {pal.passives.map((id) => (
-                    <PassiveChip key={id} label={passivesById.get(id) ?? id} variant={traitFilter.includes(id) ? 'matched' : 'dim'} />
+                    <PassiveChip
+                      key={id}
+                      label={passivesById.get(id)?.displayName ?? id}
+                      tier={passivesById.get(id)?.tier}
+                      variant={traitFilter.includes(id) ? 'matched' : 'dim'}
+                    />
                   ))}
                 </div>
                 <span className="ml-auto font-mono text-[11px] text-muted-light">

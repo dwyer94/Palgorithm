@@ -9,7 +9,7 @@ import { annotateUnionPlan } from '../live/provenance';
 import { resolvePlayerDisplayName } from '../live/nameResolution';
 import { useRulesetContext } from './RulesetContext';
 import { UnionPlanView, HubList } from './shared';
-import { ComboCount, ElementDot, PassiveMultiSelect, Pill, SpeciesTypeahead } from './components';
+import { ComboCount, ElementDot, PassiveChip, PassiveMultiSelect, Pill, SpeciesTypeahead } from './components';
 
 /** Multi-target / hub planner — the flagship view (design handoff README, "Hub planner").
  * Compares the always-valid union plan against ranked hub strategies; the union plan is
@@ -45,7 +45,7 @@ export default function HubView() {
     [unionResult, live.selectedPlayerIds, live.palsByPlayer, displayNameByIdentifier],
   );
 
-  const passivesById = useMemo(() => new Map(passives.map((p) => [p.id, p.displayName])), [passives]);
+  const passivesById = useMemo(() => new Map(passives.map((p) => [p.id, p])), [passives]);
 
   const addTarget = (id: string) => {
     if (id && !targets.includes(id)) setTargets([...targets, id]);
@@ -206,9 +206,19 @@ export default function HubView() {
             <>
               <div className="mb-5 flex items-baseline justify-between">
                 <div>
-                  <div className="font-sans text-[11px] font-semibold uppercase tracking-[.8px] text-muted">
-                    Result · {targets.length} target{targets.length === 1 ? '' : 's'}
-                    {desiredPassives.length > 0 && ` · shared [${desiredPassives.map((id) => passives.find((p) => p.id === id)?.displayName ?? id).join(', ')}]`}
+                  <div className="flex flex-wrap items-center gap-1.5 font-sans text-[11px] font-semibold uppercase tracking-[.8px] text-muted">
+                    <span>
+                      Result · {targets.length} target{targets.length === 1 ? '' : 's'}
+                      {desiredPassives.length > 0 && ' · shared'}
+                    </span>
+                    {desiredPassives.map((id) => (
+                      <PassiveChip
+                        key={id}
+                        label={passivesById.get(id)?.displayName ?? id}
+                        tier={passivesById.get(id)?.tier}
+                        className="normal-case tracking-normal"
+                      />
+                    ))}
                   </div>
                   <div className="mt-0.5 font-sans text-[22px] font-bold tracking-[-.4px]">Union vs. hub strategy</div>
                 </div>

@@ -196,9 +196,10 @@ export default function SettingsView() {
                 <div key={s.id} className="flex items-center gap-2.5 rounded-[10px] border border-border-inner px-3.5 py-2.5">
                   <span className="min-w-[96px] font-sans text-[13px] font-semibold">{s.name}</span>
                   <div className="flex flex-wrap gap-1.5">
-                    {s.passives.map((id) => (
-                      <PassiveChip key={id} label={passives.find((p) => p.id === id)?.displayName ?? id} />
-                    ))}
+                    {s.passives.map((id) => {
+                      const p = passives.find((x) => x.id === id);
+                      return <PassiveChip key={id} label={p?.displayName ?? id} tier={p?.tier} />;
+                    })}
                   </div>
                   <div className="ml-auto flex gap-2">
                     <span

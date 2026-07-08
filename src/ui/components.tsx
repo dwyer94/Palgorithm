@@ -79,6 +79,43 @@ export function RankPill({ rank }: { rank: number | null | undefined }) {
   return <span className="rounded font-mono text-[10px] font-medium text-[#9a7b3a] bg-[#f0e8d7] px-[5px] py-[1px]">r{rank}</span>;
 }
 
+/**
+ * Passive rank theming — in-game, a passive's name tag is filled with a rank-colored
+ * gradient rather than a plain flat chip. Confirmed reference points (per-tier screenshots):
+ * tier 3 ("Ice Emperor") is a gold/amber gradient, and tier 4 — the "Rainbow tier" the game's
+ * own patch notes name for its top passives (Legend, Swift, Lucky, Demon God, …) — is in
+ * practice a subtle iridescent blue-into-purple sheen, not a literal rainbow. Tiers 1/2 and
+ * the negative tiers aren't documented anywhere in text form (screenshot-only UI), so they're
+ * interpolated: white→champagne→gold for the positive ramp, red shades scaled by severity for
+ * the negative ramp (matches the "gold = great / white = normal / red = detrimental" framing
+ * used across community guides).
+ */
+interface PassiveTierStyle {
+  background: string;
+  color: string;
+  borderColor: string;
+}
+
+const PASSIVE_TIER_STYLE: Record<number, PassiveTierStyle> = {
+  4: { background: 'linear-gradient(120deg, #7fb8ea, #9c8ce8 55%, #b57fe0)', color: '#ffffff', borderColor: 'rgba(255,255,255,.55)' },
+  3: { background: 'linear-gradient(120deg, #f0c04c, #d69a1f)', color: '#3a2a06', borderColor: 'rgba(255,255,255,.45)' },
+  2: { background: 'linear-gradient(120deg, #e8d9a8, #d1b877)', color: '#3a2f14', borderColor: 'rgba(255,255,255,.4)' },
+  1: { background: 'linear-gradient(120deg, #f2ede1, #d9d0bd)', color: '#3a3527', borderColor: 'rgba(255,255,255,.5)' },
+  '-1': { background: 'linear-gradient(120deg, #d9a3a0, #c17d79)', color: '#33110f', borderColor: 'rgba(255,255,255,.4)' },
+  '-2': { background: 'linear-gradient(120deg, #d9584f, #b8362f)', color: '#fff2f0', borderColor: 'rgba(255,255,255,.4)' },
+  '-3': { background: 'linear-gradient(120deg, #b8362f, #7a211c)', color: '#fff2f0', borderColor: 'rgba(255,255,255,.35)' },
+};
+
+export function passiveTierTitle(tier: number | undefined): string | undefined {
+  if (tier === undefined) return undefined;
+  if (tier === 4) return 'Rainbow tier';
+  return `Tier ${tier > 0 ? '+' : ''}${tier}`;
+}
+
+function passiveTierStyle(tier: number | undefined): PassiveTierStyle | undefined {
+  return tier === undefined ? undefined : PASSIVE_TIER_STYLE[tier];
+}
+
 type PassiveChipVariant = 'default' | 'matched' | 'dim' | 'warn';
 
 const PASSIVE_CHIP_STYLE: Record<PassiveChipVariant, string> = {
@@ -88,17 +125,45 @@ const PASSIVE_CHIP_STYLE: Record<PassiveChipVariant, string> = {
   warn: 'bg-provisional-bg text-provisional-text border-provisional-border',
 };
 
+const PASSIVE_CHIP_VARIANT_ACCENT: Record<PassiveChipVariant, string> = {
+  default: '',
+  matched: 'ring-2 ring-[#3f7fe0] ring-offset-1',
+  dim: 'opacity-55',
+  warn: 'ring-2 ring-provisional-border',
+};
+
 export function PassiveChip({
   label,
+  tier,
   variant = 'default',
   onRemove,
   className = '',
 }: {
   label: string;
+  tier?: number | undefined;
   variant?: PassiveChipVariant;
   onRemove?: () => void;
   className?: string;
 }) {
+  const tierStyle = passiveTierStyle(tier);
+
+  if (tierStyle) {
+    return (
+      <span
+        title={passiveTierTitle(tier)}
+        className={`inline-flex items-center gap-1 rounded-chip border px-2 py-0.5 font-mono text-[11px] font-semibold ${PASSIVE_CHIP_VARIANT_ACCENT[variant]} ${className}`}
+        style={{ background: tierStyle.background, color: tierStyle.color, borderColor: tierStyle.borderColor }}
+      >
+        {label}
+        {onRemove && (
+          <span onClick={onRemove} className="cursor-pointer opacity-80 hover:opacity-100" role="button" aria-label={`Remove ${label}`}>
+            ×
+          </span>
+        )}
+      </span>
+    );
+  }
+
   return (
     <span
       className={`inline-flex items-center gap-1 rounded-chip border px-2 py-0.5 font-mono text-[11px] font-semibold ${PASSIVE_CHIP_STYLE[variant]} ${className}`}
@@ -356,7 +421,7 @@ export interface PalNodeProps {
   variant: PalNodeVariant;
   subLabel: ReactNode;
   subLabelClassName?: string;
-  passiveChips?: string[] | undefined;
+  passiveChips?: { id: string; label: string; tier?: number | undefined }[] | undefined;
   genderLabel?: string;
   style?: React.CSSProperties;
   width?: number;
@@ -389,12 +454,27 @@ export function PalNode({
         <span className="font-mono text-[11px] text-muted-lighter">{genderLabel ?? <GenderGlyph gender={gender} />}</span>
       </div>
       {passiveChips && passiveChips.length > 0 ? (
-        <div className="mt-1 flex items-center gap-1">
-          {passiveChips.map((p) => (
-            <span key={p} className="rounded font-mono text-[9px] font-semibold text-primary-chipText bg-primary-tint3 border border-primary-border px-1">
-              {p}
-            </span>
-          ))}
+        <div className="mt-1 flex flex-wrap items-center gap-1">
+          {passiveChips.map((p) => {
+            const tierStyle = passiveTierStyle(p.tier);
+            return (
+              <span
+                key={p.id}
+                className={
+                  tierStyle
+                    ? 'inline-flex items-center gap-[3px] rounded border px-1 font-mono text-[9px] font-semibold'
+                    : 'rounded font-mono text-[9px] font-semibold text-primary-chipText bg-primary-tint3 border border-primary-border px-1'
+                }
+                style={
+                  tierStyle
+                    ? { background: tierStyle.background, color: tierStyle.color, borderColor: tierStyle.borderColor }
+                    : undefined
+                }
+              >
+                {p.label}
+              </span>
+            );
+          })}
         </div>
       ) : (
         <div className="mt-[3px] flex items-center gap-[5px]">
@@ -694,7 +774,12 @@ export function PassiveMultiSelect({
     <div className="relative">
       <div className="flex min-h-[42px] flex-wrap items-center gap-1.5 rounded-panel border-[1.5px] border-border-input bg-white px-2 py-1.5">
         {value.map((id) => (
-          <PassiveChip key={id} label={byId.get(id)?.displayName ?? id} onRemove={() => remove(id)} />
+          <PassiveChip
+            key={id}
+            label={byId.get(id)?.displayName ?? id}
+            tier={byId.get(id)?.tier}
+            onRemove={() => remove(id)}
+          />
         ))}
         <input
           value={query}
@@ -717,7 +802,7 @@ export function PassiveMultiSelect({
               </div>
               {list.map((p) => (
                 <DropdownRow key={`${category}:${p.id}`} onPick={() => add(p.id)}>
-                  {p.displayName}
+                  <PassiveChip label={p.displayName} tier={p.tier} className="pointer-events-none" />
                   {p.tier !== undefined && <span className="ml-auto font-mono text-[10px] font-normal text-muted">tier {p.tier}</span>}
                 </DropdownRow>
               ))}

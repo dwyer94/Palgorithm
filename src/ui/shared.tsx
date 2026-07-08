@@ -1,4 +1,4 @@
-import type { Species } from '../data/schema';
+import type { Species, Passive } from '../data/schema';
 import type { SpeciesPlanResult, PassivePlanResult, UnionPlanResult, HubCandidate } from '../solver/types';
 import type { ProvenanceMatch } from '../live/provenance';
 import { ComboCount, ProvisionalTag, ElementDot, PassiveChip, RankPill } from './components';
@@ -25,12 +25,13 @@ export function PassivePlanView({
 }: {
   plan: PassivePlanResult;
   title?: string;
-  passivesById?: Map<string, string> | undefined;
+  passivesById?: Map<string, Passive> | undefined;
 }) {
   const pollutionA = plan.pollution.parentA;
   const pollutionB = plan.pollution.parentB;
   const hasPollution = pollutionA.length > 0 || pollutionB.length > 0;
-  const passiveName = (id: string) => passivesById?.get(id) ?? id;
+  const passiveName = (id: string) => passivesById?.get(id)?.displayName ?? id;
+  const passiveTier = (id: string) => passivesById?.get(id)?.tier;
 
   return (
     <div className="mb-[22px] overflow-hidden rounded-card border border-border-card bg-white shadow-card">
@@ -46,8 +47,11 @@ export function PassivePlanView({
             <span className="font-mono text-[34px] font-bold tracking-[-1px]">{(plan.landOdds.exactSet * 100).toFixed(1)}%</span>
             <ProvisionalTag variant="inline" />
           </div>
-          <div className="mt-1 font-mono text-[12.5px] font-medium text-muted">
-            {formatEggs(plan.expectedEggs.exactSet)} to hit exactly [{plan.desired.map(passiveName).join(', ')}]
+          <div className="mt-1 flex flex-wrap items-center gap-1 font-mono text-[12.5px] font-medium text-muted">
+            <span>{formatEggs(plan.expectedEggs.exactSet)} to hit exactly</span>
+            {plan.desired.map((id) => (
+              <PassiveChip key={id} label={passiveName(id)} tier={passiveTier(id)} className="px-1.5 py-0 text-[10.5px]" />
+            ))}
           </div>
         </div>
         <div className="p-5">
@@ -70,7 +74,7 @@ export function PassivePlanView({
             <span className="flex flex-wrap items-center gap-1 font-mono text-[11px] text-muted">
               A:
               {pollutionA.map((id) => (
-                <PassiveChip key={`a-${id}`} label={passiveName(id)} variant="warn" />
+                <PassiveChip key={`a-${id}`} label={passiveName(id)} tier={passiveTier(id)} variant="warn" />
               ))}
             </span>
           )}
@@ -78,7 +82,7 @@ export function PassivePlanView({
             <span className="flex flex-wrap items-center gap-1 font-mono text-[11px] text-muted">
               B:
               {pollutionB.map((id) => (
-                <PassiveChip key={`b-${id}`} label={passiveName(id)} variant="warn" />
+                <PassiveChip key={`b-${id}`} label={passiveName(id)} tier={passiveTier(id)} variant="warn" />
               ))}
             </span>
           )}
@@ -122,7 +126,7 @@ export function SpeciesPlanView({
   plan: SpeciesPlanResult;
   speciesById: Map<string, Species>;
   provenance?: Map<string, ProvenanceMatch> | undefined;
-  passivesById?: Map<string, string> | undefined;
+  passivesById?: Map<string, Passive> | undefined;
 }) {
   if (!plan.feasible) {
     return (
@@ -156,6 +160,7 @@ export function SpeciesPlanView({
         speciesById={speciesById}
         provenance={provenance}
         desiredPassives={plan.passivePlan?.desired}
+        passivesById={passivesById}
       />
       {plan.passivePlan && <PassivePlanView plan={plan.passivePlan} passivesById={passivesById} />}
     </div>
@@ -173,7 +178,7 @@ export function UnionPlanView({
   speciesById: Map<string, Species>;
   provenance?: Map<string, ProvenanceMatch> | undefined;
   hubSpeciesId?: string | undefined;
-  passivesById?: Map<string, string> | undefined;
+  passivesById?: Map<string, Passive> | undefined;
 }) {
   const targetsWithPassivePlan = plan.perTarget.filter((p) => p.passivePlan);
 
@@ -186,6 +191,7 @@ export function UnionPlanView({
         speciesById={speciesById}
         provenance={provenance}
         hubSpeciesId={hubSpeciesId}
+        passivesById={passivesById}
       />
       {targetsWithPassivePlan.map((t) => (
         <PassivePlanView

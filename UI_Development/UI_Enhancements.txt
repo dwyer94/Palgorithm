@@ -1,2 +1,10 @@
+Bug: Clicking in Target in Single Target view gives a drop down of options (but only scrolls down to C pals). Fix that so you  can scroll through all, but also add the drop down selection to the Target box in Hub Planner.
+
+
 Ensure traits are colored/styled by their rank to match in game
+
 Add a pal/passive search icon in the bottom right that pulls up an almost facebook messenger style little window that lets you toggle between pal or trait. You can search various aspects for pals (type, etc) and see a card with info on that pal (breeding number, dex number, type, picture when available, etc). Traits you can search by what it boosts, rank, etc to find all attack traits by rank, etc.
+
+Get pal icons and able to toggle between compact (this mode) or full (pals are squares with their picture).
+
+Hover over passive traits to see a description or at least category? (looking at Server Pals)

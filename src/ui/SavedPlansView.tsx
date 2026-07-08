@@ -66,7 +66,7 @@ function SavedPlanCard({
   onRename: (name: string) => void;
 }) {
   const { speciesById, passives } = useRulesetContext();
-  const passivesById = useMemo(() => new Map(passives.map((p) => [p.id, p.displayName])), [passives]);
+  const passivesById = useMemo(() => new Map(passives.map((p) => [p.id, p])), [passives]);
   const combinationCount = plan.result.combinationCount;
   const feasible = plan.result.feasible;
   const [editingName, setEditingName] = useState(false);
