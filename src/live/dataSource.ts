@@ -15,7 +15,11 @@ export interface LiveDataSourceError {
   message: string;
 }
 
-export type LiveResult<T> = { ok: true; data: T } | { ok: false; error: LiveDataSourceError };
+/** `meta` carries the HTTP status + round-trip latency when the request actually hit the
+ * network — absent for the mock source, whose "connection" is synthetic. Used by the
+ * Settings "Test connection" affordance (design handoff: `✓ 200 OK · 6 players · 128ms`). */
+export type LiveResultMeta = { status: number; latencyMs: number };
+export type LiveResult<T> = { ok: true; data: T; meta?: LiveResultMeta } | { ok: false; error: LiveDataSourceError };
 
 export interface LiveDataSource {
   listPlayers(): Promise<LiveResult<LivePlayer[]>>;
@@ -45,6 +49,7 @@ async function pdFetch<T>(
   const base = config.baseUrl.replace(/\/+$/, '');
   const headers: Record<string, string> = {};
   if (config.bearerToken) headers.Authorization = `Bearer ${config.bearerToken}`;
+  const start = performance.now();
 
   let response: Response;
   try {
@@ -73,7 +78,7 @@ async function pdFetch<T>(
     return { ok: false, error: { code: 'HTTP_ERROR', message: `HTTP ${response.status}` } };
   }
 
-  return { ok: true, data: body as T };
+  return { ok: true, data: body as T, meta: { status: response.status, latencyMs: Math.round(performance.now() - start) } };
 }
 
 export function createHttpDataSource(config: HttpDataSourceConfig, dataset: Dataset): LiveDataSource {

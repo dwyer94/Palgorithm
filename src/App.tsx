@@ -1,49 +1,62 @@
 import { useState } from 'react';
 import { RulesetProvider } from './ui/RulesetContext';
-import { LiveProvider } from './live/LiveContext';
+import { LiveProvider, useLiveContext } from './live/LiveContext';
+import { useRoster } from './store/hooks';
+import { Sidebar } from './ui/components';
 import RosterView from './ui/RosterView';
 import ServerPalsView from './ui/ServerPalsView';
 import SingleTargetView from './ui/SingleTargetView';
 import HubView from './ui/HubView';
+import SavedPlansView from './ui/SavedPlansView';
 import ForwardCalculatorView from './ui/ForwardCalculatorView';
 import ReverseLookupView from './ui/ReverseLookupView';
 import SettingsView from './ui/SettingsView';
 
 /**
- * Phase 0 functional shell (session 0.5, spec §8). Plain state-based tabs — no router
- * dependency, no visual design (that's 0.D per CLAUDE.md invariant #5).
+ * App shell (design handoff README: sidebar nav replaces the flat tab row). Two-pane views
+ * (Hub planner, Single-target) render their own <aside>+<main>; single-pane views render
+ * just a <main> — both fit inside the flex row below the sidebar.
  */
 
 const VIEWS = {
-  roster: { label: 'Roster', component: RosterView },
-  server: { label: 'Server Pals', component: ServerPalsView },
-  single: { label: 'Single-target planner', component: SingleTargetView },
-  hub: { label: 'Multi-target / hub planner', component: HubView },
-  forward: { label: 'Forward calculator', component: ForwardCalculatorView },
-  reverse: { label: 'Reverse lookup', component: ReverseLookupView },
-  settings: { label: 'Settings', component: SettingsView },
+  hub: HubView,
+  single: SingleTargetView,
+  saved: SavedPlansView,
+  roster: RosterView,
+  server: ServerPalsView,
+  forward: ForwardCalculatorView,
+  reverse: ReverseLookupView,
+  settings: SettingsView,
 } as const;
 
 type ViewKey = keyof typeof VIEWS;
 
-export default function App() {
-  const [active, setActive] = useState<ViewKey>('roster');
-  const ActiveView = VIEWS[active].component;
+function AppShell() {
+  const [active, setActive] = useState<ViewKey>('hub');
+  const [roster] = useRoster();
+  const live = useLiveContext();
+  const ActiveView = VIEWS[active];
 
+  return (
+    <div className="flex h-screen w-full overflow-hidden font-sans">
+      <Sidebar
+        active={active}
+        onSelect={(key) => setActive(key as ViewKey)}
+        rosterCount={roster.length}
+        serverOnCount={live.selectedPlayerIds.size}
+      />
+      <div className="flex flex-1 overflow-hidden">
+        <ActiveView />
+      </div>
+    </div>
+  );
+}
+
+export default function App() {
   return (
     <RulesetProvider>
       <LiveProvider>
-        <main className="p-4 font-mono">
-          <h1 className="text-lg">PalCalc — Breeding Path Optimizer</h1>
-          <nav>
-            {(Object.keys(VIEWS) as ViewKey[]).map((key) => (
-              <button key={key} disabled={key === active} onClick={() => setActive(key)}>
-                {VIEWS[key].label}
-              </button>
-            ))}
-          </nav>
-          <ActiveView />
-        </main>
+        <AppShell />
       </LiveProvider>
     </RulesetProvider>
   );

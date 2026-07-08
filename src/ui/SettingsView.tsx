@@ -4,16 +4,24 @@ import { newId } from '../store/localStore';
 import type { SavedPerkSet } from '../store/types';
 import { useLiveContext } from '../live/LiveContext';
 import { useRulesetContext } from './RulesetContext';
-import { PassiveMultiSelect } from './shared';
+import { PassiveChip, PassiveMultiSelect, Toggle } from './components';
 
-/** Settings (spec §8.6): allowed-catch policy, catch-cost weighting, saved perk sets, and
- * (for the 1.0 contingency) server-config presets + active ruleset selector. */
+/** Settings — planning policy, saved perk sets, live connection, name overrides, and the
+ * 1.0-patch placeholders (design handoff README, Screen 3). */
 export default function SettingsView() {
-  const { passives, ruleset } = useRulesetContext();
+  const { passives, species, ruleset } = useRulesetContext();
   const [settings, setSettings] = useSettings();
   const live = useLiveContext();
+  const [testing, setTesting] = useState(false);
+
+  const [addingSet, setAddingSet] = useState(false);
   const [draftPerkSetName, setDraftPerkSetName] = useState('');
   const [draftPerkSetPassives, setDraftPerkSetPassives] = useState<string[]>([]);
+
+  const [editingSetId, setEditingSetId] = useState<string | null>(null);
+  const [draftEditName, setDraftEditName] = useState('');
+  const [draftEditPassives, setDraftEditPassives] = useState<string[]>([]);
+
   const [draftOverrideId, setDraftOverrideId] = useState('');
   const [draftOverrideName, setDraftOverrideName] = useState('');
 
@@ -38,131 +46,343 @@ export default function SettingsView() {
     setSettings({ ...settings, savedPerkSets: [...settings.savedPerkSets, set] });
     setDraftPerkSetName('');
     setDraftPerkSetPassives([]);
+    setAddingSet(false);
   };
 
   const removePerkSet = (id: string) => {
     setSettings({ ...settings, savedPerkSets: settings.savedPerkSets.filter((s) => s.id !== id) });
   };
 
+  const startEditSet = (s: SavedPerkSet) => {
+    setEditingSetId(s.id);
+    setDraftEditName(s.name);
+    setDraftEditPassives(s.passives);
+    setAddingSet(false);
+  };
+
+  const saveEditSet = () => {
+    if (!editingSetId || !draftEditName) return;
+    setSettings({
+      ...settings,
+      savedPerkSets: settings.savedPerkSets.map((s) =>
+        s.id === editingSetId ? { ...s, name: draftEditName, passives: draftEditPassives } : s,
+      ),
+    });
+    setEditingSetId(null);
+  };
+
+  const testConnection = async () => {
+    setTesting(true);
+    await live.refreshPlayers();
+    setTesting(false);
+  };
+
   return (
-    <section>
-      <h2>Settings</h2>
-
-      <div>
-        <label>
-          <input
-            type="checkbox"
-            checked={settings.allowCatching}
-            onChange={(e) => setSettings({ ...settings, allowCatching: e.target.checked })}
-          />
-          Allow catching wild-catchable species
-        </label>
-      </div>
-
-      <div>
-        <label>
-          Catch cost weight:{' '}
-          <input
-            type="number"
-            min={0}
-            step={0.1}
-            value={settings.catchCost}
-            onChange={(e) => setSettings({ ...settings, catchCost: Number(e.target.value) })}
-          />
-        </label>
-      </div>
-
-      <div>
-        <p>
-          Active ruleset: <strong>{ruleset.version}</strong> (only combirank-0.6 is available until the 1.0 swap)
-        </p>
-      </div>
-
-      <div>
-        <h3>Saved perk sets</h3>
-        <input placeholder="name" value={draftPerkSetName} onChange={(e) => setDraftPerkSetName(e.target.value)} />
-        <PassiveMultiSelect passives={passives} value={draftPerkSetPassives} onChange={setDraftPerkSetPassives} />
-        <button onClick={addPerkSet}>Save perk set</button>
-        <ul>
-          {settings.savedPerkSets.map((s) => (
-            <li key={s.id}>
-              {s.name}: {s.passives.join(', ')} <button onClick={() => removePerkSet(s.id)}>Remove</button>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <div>
-        <h3>Server config preset</h3>
-        <p>No server-dependence confirmed yet for combirank-0.6 (spec §12) — placeholder for the 1.0 contingency.</p>
-      </div>
-
-      <div>
-        <h3>Live server connection</h3>
-        <div>
-          <label>
-            Proxy base URL:{' '}
-            <input
-              placeholder="https://your-server.ts.net (leave blank to use demo data)"
-              value={settings.live.baseUrl}
-              onChange={(e) => setLive({ baseUrl: e.target.value })}
-              size={40}
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            Bearer token (optional):{' '}
-            <input type="password" value={settings.live.bearerToken} onChange={(e) => setLive({ bearerToken: e.target.value })} />
-          </label>
-        </div>
-        <p>
-          Status: <strong>{live.status}</strong>
-          {live.isUsingMock && ' — using demo/mock data (no base URL configured)'}
-          {live.lastRefreshedAt && ` — last refreshed ${new Date(live.lastRefreshedAt).toLocaleTimeString()}`}
-        </p>
-        {live.error && (
-          <p>
-            Error: {live.error.code} — {live.error.message}
-          </p>
-        )}
-        <button onClick={() => live.refreshPlayers()}>Test connection / refresh players</button>
-
-        <div>
-          <label>
-            <input
-              type="checkbox"
-              checked={settings.live.autoPollEnabled}
-              onChange={(e) => setLive({ autoPollEnabled: e.target.checked })}
-            />
-            Auto-refresh
-          </label>{' '}
-          <label>
-            every{' '}
-            <input
-              type="number"
-              min={5}
-              disabled={!settings.live.autoPollEnabled}
-              value={settings.live.autoPollIntervalSeconds}
-              onChange={(e) => setLive({ autoPollIntervalSeconds: Number(e.target.value) })}
-            />{' '}
-            seconds
-          </label>
+    <main className="flex-1 overflow-y-auto bg-canvas">
+      <div className="mx-auto max-w-[860px] px-[34px] pb-[70px] pt-[26px]">
+        <div className="mb-0.5 font-sans text-[22px] font-bold tracking-[-.4px]">Settings</div>
+        <div className="mb-[26px] font-sans text-[13px] text-muted">
+          Ruleset <b className="font-mono text-ink-muted">{ruleset.version}</b> · {species.length} species · {passives.length}{' '}
+          passives · all changes saved locally.
         </div>
 
-        <h4>Display name overrides</h4>
-        <p>Takes precedence over the proxy's own player name. Keyed by player identifier (SteamID64/PlayerUID).</p>
-        <input placeholder="identifier" value={draftOverrideId} onChange={(e) => setDraftOverrideId(e.target.value)} />
-        <input placeholder="display name" value={draftOverrideName} onChange={(e) => setDraftOverrideName(e.target.value)} />
-        <button onClick={addNameOverride}>Add / update</button>
-        <ul>
-          {Object.entries(settings.live.nameOverrides).map(([id, name]) => (
-            <li key={id}>
-              {id} → {name} <button onClick={() => removeNameOverride(id)}>Remove</button>
-            </li>
-          ))}
-        </ul>
+        {/* PLANNING POLICY */}
+        <div className="mb-4 rounded-card border border-border-card bg-white p-5 px-[22px] shadow-card">
+          <div className="mb-0.5 font-sans text-[15px] font-bold">Planning policy</div>
+          <div className="mb-[18px] font-sans text-[12.5px] text-muted">How the solver trades off catching vs. breeding.</div>
+
+          <div className="flex items-center gap-3.5 border-b border-panel-header pb-4">
+            <div>
+              <div className="font-sans text-[13.5px] font-semibold">Allow catching wild species</div>
+              <div className="font-sans text-[12px] text-muted-light">Off = roster-only planning. Anchors are never suggested.</div>
+            </div>
+            <div className="ml-auto">
+              <Toggle on={settings.allowCatching} onChange={(v) => setSettings({ ...settings, allowCatching: v })} />
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3.5 pt-4">
+            <div>
+              <div className="font-sans text-[13.5px] font-semibold">Catch-cost weight</div>
+              <div className="font-sans text-[12px] text-muted-light">One catch = this many breeding combinations in the cost space.</div>
+            </div>
+            <div className="ml-auto flex flex-none items-center overflow-hidden rounded-panel border-[1.5px] border-border-input">
+              <span
+                onClick={() => setSettings({ ...settings, catchCost: Math.max(0, settings.catchCost - 0.5) })}
+                className="cursor-pointer bg-panel-subtle px-3 py-2 font-mono text-[15px] font-semibold text-muted hover:bg-panel-header"
+              >
+                −
+              </span>
+              <input
+                value={settings.catchCost}
+                onChange={(e) => setSettings({ ...settings, catchCost: Number(e.target.value) || 0 })}
+                className="w-[46px] border-x border-border-inner py-2 text-center font-mono text-[14px] font-semibold text-ink outline-none"
+              />
+              <span
+                onClick={() => setSettings({ ...settings, catchCost: settings.catchCost + 0.5 })}
+                className="cursor-pointer bg-panel-subtle px-3 py-2 font-mono text-[15px] font-semibold text-muted hover:bg-panel-header"
+              >
+                +
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* SAVED PERK SETS */}
+        <div className="mb-4 rounded-card border border-border-card bg-white p-5 px-[22px] shadow-card">
+          <div className="mb-0.5 flex items-center justify-between">
+            <div className="font-sans text-[15px] font-bold">Saved perk sets</div>
+            <span
+              onClick={() => setAddingSet(!addingSet)}
+              className="cursor-pointer rounded-lg bg-sidebar-bg px-3 py-1.5 font-mono text-[12px] font-semibold text-white hover:bg-sidebar-hover"
+            >
+              ＋ New set
+            </span>
+          </div>
+          <div className="mb-4 font-sans text-[12.5px] text-muted">Quick-apply these in either planner instead of re-picking perks.</div>
+
+          {addingSet && (
+            <div className="mb-3 flex flex-col gap-2 rounded-lg border border-border-inner bg-panel-subtle p-3">
+              <input
+                placeholder="Set name"
+                value={draftPerkSetName}
+                onChange={(e) => setDraftPerkSetName(e.target.value)}
+                className="rounded-panel border border-border-input px-3 py-2 font-sans text-[13px] outline-none focus:border-primary"
+              />
+              <PassiveMultiSelect passives={passives} value={draftPerkSetPassives} onChange={setDraftPerkSetPassives} />
+              <div className="flex gap-2">
+                <span
+                  onClick={addPerkSet}
+                  className="cursor-pointer rounded-lg bg-primary px-3 py-1.5 font-mono text-[12px] font-semibold text-white"
+                >
+                  Save set
+                </span>
+                <span
+                  onClick={() => setAddingSet(false)}
+                  className="cursor-pointer rounded-lg border border-border-card px-3 py-1.5 font-mono text-[12px] font-semibold text-muted"
+                >
+                  Cancel
+                </span>
+              </div>
+            </div>
+          )}
+
+          <div className="flex flex-col gap-2.5">
+            {settings.savedPerkSets.map((s) =>
+              editingSetId === s.id ? (
+                <div key={s.id} className="flex flex-col gap-2 rounded-lg border border-primary-border bg-primary-tint p-3">
+                  <input
+                    value={draftEditName}
+                    onChange={(e) => setDraftEditName(e.target.value)}
+                    className="rounded-panel border border-border-input px-3 py-2 font-sans text-[13px] outline-none focus:border-primary"
+                  />
+                  <PassiveMultiSelect passives={passives} value={draftEditPassives} onChange={setDraftEditPassives} />
+                  <div className="flex gap-2">
+                    <span
+                      onClick={saveEditSet}
+                      className="cursor-pointer rounded-lg bg-primary px-3 py-1.5 font-mono text-[12px] font-semibold text-white"
+                    >
+                      Save
+                    </span>
+                    <span
+                      onClick={() => setEditingSetId(null)}
+                      className="cursor-pointer rounded-lg border border-border-card px-3 py-1.5 font-mono text-[12px] font-semibold text-muted"
+                    >
+                      Cancel
+                    </span>
+                  </div>
+                </div>
+              ) : (
+                <div key={s.id} className="flex items-center gap-2.5 rounded-[10px] border border-border-inner px-3.5 py-2.5">
+                  <span className="min-w-[96px] font-sans text-[13px] font-semibold">{s.name}</span>
+                  <div className="flex flex-wrap gap-1.5">
+                    {s.passives.map((id) => (
+                      <PassiveChip key={id} label={passives.find((p) => p.id === id)?.displayName ?? id} />
+                    ))}
+                  </div>
+                  <div className="ml-auto flex gap-2">
+                    <span
+                      onClick={() => startEditSet(s)}
+                      className="cursor-pointer font-mono text-[11px] font-medium text-muted-lighter hover:text-primary-dark"
+                    >
+                      edit
+                    </span>
+                    <span
+                      onClick={() => removePerkSet(s.id)}
+                      className="cursor-pointer font-mono text-[11px] font-medium text-muted-lighter hover:text-brand-hover"
+                    >
+                      remove
+                    </span>
+                  </div>
+                </div>
+              ),
+            )}
+            {settings.savedPerkSets.length === 0 && !addingSet && (
+              <div className="font-sans text-[12.5px] text-muted-light">No saved sets yet.</div>
+            )}
+          </div>
+        </div>
+
+        {/* LIVE CONNECTION */}
+        <div className="mb-4 rounded-card border border-border-card bg-white p-5 px-[22px] shadow-card">
+          <div className="mb-0.5 flex items-center gap-2.5">
+            <div className="font-sans text-[15px] font-bold">Live server connection</div>
+            {live.status === 'connected' && (
+              <span className="flex items-center gap-1.5 rounded-pill border border-success-border bg-success-bg px-2.5 py-0.5 font-mono text-[11px] font-semibold text-success-text">
+                <span className="h-1.5 w-1.5 rounded-full bg-success-dot" />
+                connected
+              </span>
+            )}
+          </div>
+          <div className="mb-[18px] font-sans text-[12.5px] text-muted">
+            Self-hosted PalDefender proxy. Blank base URL = demo/mock data.
+          </div>
+
+          <div className="mb-3.5 grid grid-cols-2 gap-3.5">
+            <div>
+              <div className="mb-1.5 font-sans text-[10.5px] font-semibold uppercase tracking-[.5px] text-muted">Proxy base URL</div>
+              <input
+                placeholder="https://your-server.ts.net"
+                value={settings.live.baseUrl}
+                onChange={(e) => setLive({ baseUrl: e.target.value })}
+                className="w-full rounded-panel border-[1.5px] border-border-input px-[11px] py-2 font-mono text-[12.5px] outline-none focus:border-primary"
+              />
+            </div>
+            <div>
+              <div className="mb-1.5 font-sans text-[10.5px] font-semibold uppercase tracking-[.5px] text-muted">Bearer token</div>
+              <input
+                type="password"
+                value={settings.live.bearerToken}
+                onChange={(e) => setLive({ bearerToken: e.target.value })}
+                className="w-full rounded-panel border-[1.5px] border-border-input px-[11px] py-2 font-mono text-[12.5px] outline-none focus:border-primary"
+              />
+            </div>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-3 border-b border-panel-header pb-4">
+            <span
+              onClick={() => void testConnection()}
+              className="cursor-pointer rounded-lg border-[1.5px] border-[#26241f] bg-white px-3.5 py-2 font-mono text-[12.5px] font-semibold hover:bg-panel-subtle"
+            >
+              {testing ? 'Testing…' : 'Test connection'}
+            </span>
+            {!testing && live.status === 'connected' && (
+              <span className="font-mono text-[12px] text-success-text">
+                ✓ {live.isUsingMock ? 'mock' : live.lastConnectionMeta ? `${live.lastConnectionMeta.status} OK` : 'connected'} ·{' '}
+                {live.players.length} players
+                {!live.isUsingMock && live.lastConnectionMeta && ` · ${live.lastConnectionMeta.latencyMs}ms`}
+              </span>
+            )}
+            {!testing && live.status === 'error' && (
+              <span className="font-mono text-[12px] text-danger-text">
+                ✗ {live.error?.code} — {live.error?.message}
+              </span>
+            )}
+          </div>
+
+          <div className="flex items-center gap-3.5 pt-4">
+            <div>
+              <div className="font-sans text-[13.5px] font-semibold">Auto-refresh</div>
+              <div className="font-sans text-[12px] text-muted-light">Re-poll the server on an interval.</div>
+            </div>
+            <div className="ml-auto flex items-center gap-3">
+              <div className="flex items-center overflow-hidden rounded-panel border-[1.5px] border-border-input">
+                <input
+                  value={settings.live.autoPollIntervalSeconds}
+                  disabled={!settings.live.autoPollEnabled}
+                  onChange={(e) => setLive({ autoPollIntervalSeconds: Number(e.target.value) || 5 })}
+                  className="w-11 border-0 py-2 text-center font-mono text-[13px] font-semibold text-ink outline-none disabled:text-muted-lighter"
+                />
+                <span className="border-l border-border-inner bg-panel-subtle px-2.5 py-2 font-mono text-[11px] font-semibold text-muted">
+                  sec
+                </span>
+              </div>
+              <Toggle on={settings.live.autoPollEnabled} onChange={(v) => setLive({ autoPollEnabled: v })} />
+            </div>
+          </div>
+        </div>
+
+        {/* DISPLAY-NAME OVERRIDES */}
+        <div className="mb-4 rounded-card border border-border-card bg-white p-5 px-[22px] shadow-card">
+          <div className="mb-0.5 font-sans text-[15px] font-bold">Display-name overrides</div>
+          <div className="mb-4 font-sans text-[12.5px] text-muted">
+            Preferred names shown everywhere a player appears. Resolves override → API name → identifier.
+          </div>
+          <table className="w-full border-collapse">
+            <thead>
+              <tr className="text-left">
+                <th className="px-2.5 py-1.5 font-sans text-[10px] font-semibold uppercase tracking-wide text-muted-light">Identifier</th>
+                <th className="px-2.5 py-1.5 font-sans text-[10px] font-semibold uppercase tracking-wide text-muted-light">Display name</th>
+                <th className="w-10" />
+              </tr>
+            </thead>
+            <tbody className="font-mono">
+              {Object.entries(settings.live.nameOverrides).map(([id, name]) => (
+                <tr key={id} className="border-t border-panel-header">
+                  <td className="px-2.5 py-1.5 text-[11.5px] text-muted">{id}</td>
+                  <td className="px-2.5 py-1.5 text-[12.5px] font-semibold">{name}</td>
+                  <td
+                    onClick={() => removeNameOverride(id)}
+                    className="cursor-pointer px-2.5 py-1.5 text-center text-muted-lighter hover:text-brand-hover"
+                  >
+                    ×
+                  </td>
+                </tr>
+              ))}
+              <tr className="border-t border-panel-header">
+                <td className="px-2.5 py-1.5" colSpan={3}>
+                  <div className="flex items-center gap-2 pt-1">
+                    <input
+                      placeholder="identifier"
+                      value={draftOverrideId}
+                      onChange={(e) => setDraftOverrideId(e.target.value)}
+                      className="flex-1 rounded-lg border border-border-inner px-2.5 py-1.5 font-mono text-[11.5px] outline-none"
+                    />
+                    <input
+                      placeholder="name"
+                      value={draftOverrideName}
+                      onChange={(e) => setDraftOverrideName(e.target.value)}
+                      className="w-[150px] rounded-lg border border-border-inner px-2.5 py-1.5 font-mono text-[12px] outline-none"
+                    />
+                    <span
+                      onClick={addNameOverride}
+                      className="cursor-pointer rounded-lg bg-sidebar-bg px-3.5 py-1.5 font-mono text-[11px] font-semibold text-white hover:bg-sidebar-hover"
+                    >
+                      Add
+                    </span>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        {/* 1.0 SEAMS */}
+        <div className="rounded-card border-[1.5px] border-dashed border-[#d8cfbf] bg-panel-subtle p-5 px-[22px]">
+          <div className="mb-3.5 flex items-center gap-2.5">
+            <div className="font-sans text-[14px] font-bold text-[#6b655c]">Reserved for the 1.0 patch</div>
+            <span className="rounded-[5px] bg-[#efe6d3] px-1.5 py-0.5 font-mono text-[9.5px] font-semibold uppercase tracking-[.4px] text-provisional-text">
+              available Jul 10
+            </span>
+          </div>
+          <div className="grid grid-cols-2 gap-3.5">
+            <div className="opacity-65">
+              <div className="mb-1.5 font-sans text-[12.5px] font-semibold">Active ruleset</div>
+              <div className="flex items-center justify-between rounded-panel border-[1.5px] border-[#d8cfbf] bg-white px-3 py-2 font-mono text-[12.5px] font-semibold text-muted">
+                {ruleset.version} <span className="text-muted-lighter">▾</span>
+              </div>
+              <div className="mt-1.5 font-sans text-[11px] text-muted-light">genrecomb-1.0 arrives with the patch.</div>
+            </div>
+            <div className="opacity-65">
+              <div className="mb-1.5 font-sans text-[12.5px] font-semibold">Server-config preset</div>
+              <div className="flex items-center justify-between rounded-panel border-[1.5px] border-[#d8cfbf] bg-white px-3 py-2 font-mono text-[12.5px] font-semibold text-muted">
+                — none — <span className="text-muted-lighter">▾</span>
+              </div>
+              <div className="mt-1.5 font-sans text-[11px] text-muted-light">Only if 1.0 mechanics prove server-dependent.</div>
+            </div>
+          </div>
+        </div>
       </div>
-    </section>
+    </main>
   );
 }

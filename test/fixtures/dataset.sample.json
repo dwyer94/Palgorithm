@@ -45,8 +45,8 @@
     { "parents": ["Relaxaurus_Lux", "Sparkit"], "child": "Relaxaurus_Lux", "genderRule": null }
   ],
   "passives": [
-    { "id": "Legend", "displayName": "Legend", "tier": 3, "category": "combat" },
-    { "id": "Swift", "displayName": "Swift", "tier": 2, "category": "movement" }
+    { "id": "Legend", "displayName": "Legend", "tier": 3, "categories": ["Attack", "Defense", "Move Speed"] },
+    { "id": "Swift", "displayName": "Swift", "tier": 2, "categories": ["Move Speed"] }
   ],
   "passiveModel": {
     "maxSlots": 4,

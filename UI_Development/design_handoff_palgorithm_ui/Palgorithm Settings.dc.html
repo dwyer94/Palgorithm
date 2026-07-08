@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:#eceae4;font-family:'Space Grotesk',system-ui,sans-serif;color:#211e18;-webkit-font-smoothing:antialiased}
+a{color:#2a6bdb;text-decoration:none}
+a:hover{color:#1a52b8}
+input,select{font-family:'JetBrains Mono',monospace}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:#cfc7ba;border-radius:6px;border:2px solid transparent;background-clip:content-box}
+::-webkit-scrollbar-thumb:hover{background:#b3aa99;background-clip:content-box}
+</style>
+</helmet>
+
+<div style="display:flex;height:100vh;width:100%;overflow:hidden;font-family:'Space Grotesk',system-ui,sans-serif">
+
+  <!-- ============ SIDEBAR ============ -->
+  <nav style="width:212px;flex:none;background:#191712;color:#c8c2b6;display:flex;flex-direction:column;padding:0 0 12px">
+    <div style="display:flex;align-items:center;gap:10px;padding:20px 18px 18px">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="6" cy="7" r="3.2" stroke="#e8813a" stroke-width="1.8"/><circle cx="18" cy="7" r="3.2" stroke="#8fb8ff" stroke-width="1.8"/><circle cx="12" cy="17.5" r="3.6" fill="#e8813a"/><path d="M8.2 8.6 10.4 14.4M15.8 8.6 13.6 14.4" stroke="#6b665c" stroke-width="1.6"/></svg>
+      <div style="font-weight:700;font-size:17px;letter-spacing:-.3px;color:#f4f1ea">Palgorithm</div>
+    </div>
+    <div style="font:600 10px 'Space Grotesk';letter-spacing:1.2px;color:#6b665c;text-transform:uppercase;padding:14px 20px 7px">Plan</div>
+    <div style="padding:0 10px;display:flex;flex-direction:column;gap:2px">
+      <div style="display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;font-size:13.5px" style-hover="background:#241f18">◈ &nbsp;Hub planner</div>
+      <div style="display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;font-size:13.5px" style-hover="background:#241f18">◇ &nbsp;Single target</div>
+      <div style="display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;font-size:13.5px" style-hover="background:#241f18">★ &nbsp;Saved plans</div>
+    </div>
+    <div style="font:600 10px 'Space Grotesk';letter-spacing:1.2px;color:#6b665c;text-transform:uppercase;padding:16px 20px 7px">Data</div>
+    <div style="padding:0 10px;display:flex;flex-direction:column;gap:2px">
+      <div style="display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;font-size:13.5px" style-hover="background:#241f18">▤ &nbsp;Roster <span style="margin-left:auto;font:500 11px 'JetBrains Mono';color:#8a8378">54</span></div>
+      <div style="display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;font-size:13.5px" style-hover="background:#241f18">⛭ &nbsp;Server pals <span style="margin-left:auto;font:600 10px 'JetBrains Mono';background:#2f6f4a;color:#cdeddb;padding:1px 6px;border-radius:10px">2 on</span></div>
+    </div>
+    <div style="font:600 10px 'Space Grotesk';letter-spacing:1.2px;color:#6b665c;text-transform:uppercase;padding:16px 20px 7px">Utilities</div>
+    <div style="padding:0 10px;display:flex;flex-direction:column;gap:2px">
+      <div style="display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;font-size:13.5px" style-hover="background:#241f18">→ &nbsp;Forward calc</div>
+      <div style="display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;font-size:13.5px" style-hover="background:#241f18">← &nbsp;Reverse lookup</div>
+    </div>
+    <div style="margin-top:auto;padding:0 10px">
+      <div style="display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;background:#e8813a;color:#191712;font-weight:600;font-size:13.5px">⚙ &nbsp;Settings</div>
+    </div>
+  </nav>
+
+  <!-- ============ MAIN ============ -->
+  <main style="flex:1;overflow-y:auto;background:#eceae4">
+    <div style="max-width:860px;margin:0 auto;padding:26px 34px 70px">
+
+      <div style="font:700 22px 'Space Grotesk';letter-spacing:-.4px;margin-bottom:2px">Settings</div>
+      <div style="font:400 13px 'Space Grotesk';color:#8a8378;margin-bottom:26px">Ruleset <b style="color:#4a453c;font-family:'JetBrains Mono'">combirank-0.6</b> · 138 species · 120 passives · all changes saved locally.</div>
+
+      <!-- PLANNING POLICY -->
+      <div style="background:#fff;border:1px solid #ddd6ca;border-radius:14px;padding:20px 22px;margin-bottom:16px;box-shadow:0 1px 2px rgba(0,0,0,.04)">
+        <div style="font:700 15px 'Space Grotesk';margin-bottom:3px">Planning policy</div>
+        <div style="font:400 12.5px 'Space Grotesk';color:#8a8378;margin-bottom:18px">How the solver trades off catching vs. breeding.</div>
+
+        <div style="display:flex;align-items:center;gap:14px;padding-bottom:16px;border-bottom:1px solid #f2ecdf">
+          <div>
+            <div style="font:600 13.5px 'Space Grotesk'">Allow catching wild species</div>
+            <div style="font:400 12px 'Space Grotesk';color:#a89f8f">Off = roster-only planning. Anchors are never suggested.</div>
+          </div>
+          <div style="margin-left:auto;width:44px;height:25px;border-radius:20px;background:#2f9e5b;position:relative;cursor:pointer;flex:none"><div style="position:absolute;top:2.5px;right:2.5px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.25)"></div></div>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:14px;padding-top:16px">
+          <div>
+            <div style="font:600 13.5px 'Space Grotesk'">Catch-cost weight</div>
+            <div style="font:400 12px 'Space Grotesk';color:#a89f8f">One catch = this many breeding combinations in the cost space.</div>
+          </div>
+          <div style="margin-left:auto;display:flex;align-items:center;border:1.5px solid #cfc7ba;border-radius:9px;overflow:hidden;flex:none">
+            <span style="padding:8px 12px;background:#f6f4ef;color:#8a8378;font:600 15px 'JetBrains Mono';cursor:pointer" style-hover="background:#efe9dd">−</span>
+            <input value="1" style="width:46px;text-align:center;border:0;border-left:1px solid #e3ddd0;border-right:1px solid #e3ddd0;padding:8px 0;font:600 14px 'JetBrains Mono';outline:none;color:#211e18" />
+            <span style="padding:8px 12px;background:#f6f4ef;color:#8a8378;font:600 15px 'JetBrains Mono';cursor:pointer" style-hover="background:#efe9dd">+</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SAVED PERK SETS -->
+      <div style="background:#fff;border:1px solid #ddd6ca;border-radius:14px;padding:20px 22px;margin-bottom:16px;box-shadow:0 1px 2px rgba(0,0,0,.04)">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:3px">
+          <div style="font:700 15px 'Space Grotesk'">Saved perk sets</div>
+          <span style="font:600 12px 'JetBrains Mono';background:#191712;color:#fff;border-radius:8px;padding:7px 12px;cursor:pointer" style-hover="background:#2b2519">＋ New set</span>
+        </div>
+        <div style="font:400 12.5px 'Space Grotesk';color:#8a8378;margin-bottom:16px">Quick-apply these in either planner instead of re-picking perks.</div>
+        <div style="display:flex;flex-direction:column;gap:9px">
+          <div style="display:flex;align-items:center;gap:11px;border:1px solid #e3ddd0;border-radius:10px;padding:11px 13px">
+            <span style="font:600 13px 'Space Grotesk';min-width:96px">Combat 4</span>
+            <div style="display:flex;flex-wrap:wrap;gap:5px">
+              <span style="font:600 10px 'JetBrains Mono';background:#eef1fb;color:#41539e;border:1px solid #cdd6f2;border-radius:5px;padding:2px 7px">Legend</span>
+              <span style="font:600 10px 'JetBrains Mono';background:#eef1fb;color:#41539e;border:1px solid #cdd6f2;border-radius:5px;padding:2px 7px">Musclehead</span>
+              <span style="font:600 10px 'JetBrains Mono';background:#eef1fb;color:#41539e;border:1px solid #cdd6f2;border-radius:5px;padding:2px 7px">Ferocious</span>
+              <span style="font:600 10px 'JetBrains Mono';background:#eef1fb;color:#41539e;border:1px solid #cdd6f2;border-radius:5px;padding:2px 7px">Swift</span>
+            </div>
+            <div style="margin-left:auto;display:flex;gap:8px"><span style="font:500 11px 'JetBrains Mono';color:#8a8378;cursor:pointer" style-hover="color:#2a6bdb">edit</span><span style="font:500 11px 'JetBrains Mono';color:#b3aa99;cursor:pointer" style-hover="color:#c9662a">remove</span></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:11px;border:1px solid #e3ddd0;border-radius:10px;padding:11px 13px">
+            <span style="font:600 13px 'Space Grotesk';min-width:96px">Worker</span>
+            <div style="display:flex;flex-wrap:wrap;gap:5px">
+              <span style="font:600 10px 'JetBrains Mono';background:#eef1fb;color:#41539e;border:1px solid #cdd6f2;border-radius:5px;padding:2px 7px">Artisan</span>
+              <span style="font:600 10px 'JetBrains Mono';background:#eef1fb;color:#41539e;border:1px solid #cdd6f2;border-radius:5px;padding:2px 7px">Serious</span>
+              <span style="font:600 10px 'JetBrains Mono';background:#eef1fb;color:#41539e;border:1px solid #cdd6f2;border-radius:5px;padding:2px 7px">Lucky</span>
+            </div>
+            <div style="margin-left:auto;display:flex;gap:8px"><span style="font:500 11px 'JetBrains Mono';color:#8a8378;cursor:pointer" style-hover="color:#2a6bdb">edit</span><span style="font:500 11px 'JetBrains Mono';color:#b3aa99;cursor:pointer" style-hover="color:#c9662a">remove</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LIVE CONNECTION -->
+      <div style="background:#fff;border:1px solid #ddd6ca;border-radius:14px;padding:20px 22px;margin-bottom:16px;box-shadow:0 1px 2px rgba(0,0,0,.04)">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:3px">
+          <div style="font:700 15px 'Space Grotesk'">Live server connection</div>
+          <span style="display:flex;align-items:center;gap:6px;font:600 11px 'JetBrains Mono';color:#2f6f4a;background:#e7f4ec;border:1px solid #bfe0cc;border-radius:20px;padding:2px 9px"><span style="width:6px;height:6px;border-radius:50%;background:#2f9e5b"></span>connected</span>
+        </div>
+        <div style="font:400 12.5px 'Space Grotesk';color:#8a8378;margin-bottom:18px">Self-hosted PalDefender proxy over Tailscale. Blank base URL = demo/mock data.</div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px">
+          <div>
+            <div style="font:600 10.5px 'Space Grotesk';letter-spacing:.5px;text-transform:uppercase;color:#8a8378;margin-bottom:6px">Proxy base URL</div>
+            <input value="http://100.84.12.9:8788" style="width:100%;border:1.5px solid #cfc7ba;border-radius:9px;padding:9px 11px;font:500 12.5px 'JetBrains Mono';outline:none;color:#211e18" />
+          </div>
+          <div>
+            <div style="font:600 10.5px 'Space Grotesk';letter-spacing:.5px;text-transform:uppercase;color:#8a8378;margin-bottom:6px">Bearer token</div>
+            <input type="password" value="xxxxxxxxxxxx" style="width:100%;border:1.5px solid #cfc7ba;border-radius:9px;padding:9px 11px;font:500 12.5px 'JetBrains Mono';outline:none;color:#211e18" />
+          </div>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding-bottom:16px;border-bottom:1px solid #f2ecdf">
+          <span style="font:600 12.5px 'JetBrains Mono';background:#fff;border:1.5px solid #26241f;color:#211e18;border-radius:8px;padding:8px 14px;cursor:pointer" style-hover="background:#f6f4ef">Test connection</span>
+          <span style="font:500 12px 'JetBrains Mono';color:#2f6f4a">✓ 200 OK · 6 players · 128ms</span>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:14px;padding-top:16px">
+          <div>
+            <div style="font:600 13.5px 'Space Grotesk'">Auto-refresh</div>
+            <div style="font:400 12px 'Space Grotesk';color:#a89f8f">Re-poll the server on an interval.</div>
+          </div>
+          <div style="margin-left:auto;display:flex;align-items:center;gap:12px">
+            <div style="display:flex;align-items:center;border:1.5px solid #cfc7ba;border-radius:9px;overflow:hidden">
+              <input value="60" style="width:44px;text-align:center;border:0;padding:8px 0;font:600 13px 'JetBrains Mono';outline:none;color:#211e18" />
+              <span style="padding:8px 10px;background:#f6f4ef;color:#8a8378;font:600 11px 'JetBrains Mono';border-left:1px solid #e3ddd0">sec</span>
+            </div>
+            <div style="width:44px;height:25px;border-radius:20px;background:#2f9e5b;position:relative;cursor:pointer;flex:none"><div style="position:absolute;top:2.5px;right:2.5px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.25)"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DISPLAY-NAME OVERRIDES -->
+      <div style="background:#fff;border:1px solid #ddd6ca;border-radius:14px;padding:20px 22px;margin-bottom:16px;box-shadow:0 1px 2px rgba(0,0,0,.04)">
+        <div style="font:700 15px 'Space Grotesk';margin-bottom:3px">Display-name overrides</div>
+        <div style="font:400 12.5px 'Space Grotesk';color:#8a8378;margin-bottom:16px">Preferred names shown everywhere a player appears. Resolves override → API name → identifier.</div>
+        <table style="width:100%;border-collapse:collapse">
+          <thead><tr style="text-align:left">
+            <th style="font:600 10px 'Space Grotesk';letter-spacing:.5px;text-transform:uppercase;color:#a89f8f;padding:7px 10px">Identifier</th>
+            <th style="font:600 10px 'Space Grotesk';letter-spacing:.5px;text-transform:uppercase;color:#a89f8f;padding:7px 10px">Display name</th>
+            <th style="width:40px"></th>
+          </tr></thead>
+          <tbody style="font-family:'JetBrains Mono',monospace">
+            <tr style="border-top:1px solid #f2ecdf"><td style="padding:7px 10px;color:#8a8378;font-size:11.5px">76561198106031331</td><td style="padding:7px 10px;font-weight:600;font-size:12.5px">Kit</td><td style="padding:7px 10px;color:#b3aa99;text-align:center;cursor:pointer" style-hover="color:#c9662a">×</td></tr>
+            <tr style="border-top:1px solid #f2ecdf"><td style="padding:7px 10px;color:#8a8378;font-size:11.5px">76561198061667425</td><td style="padding:7px 10px;font-weight:600;font-size:12.5px">InputComet</td><td style="padding:7px 10px;color:#b3aa99;text-align:center;cursor:pointer" style-hover="color:#c9662a">×</td></tr>
+            <tr style="border-top:1px solid #f2ecdf"><td style="padding:7px 10px;color:#8a8378;font-size:11.5px">76561198146926388</td><td style="padding:7px 10px;font-weight:600;font-size:12.5px">D-Wire</td><td style="padding:7px 10px;color:#b3aa99;text-align:center;cursor:pointer" style-hover="color:#c9662a">×</td></tr>
+            <tr style="border-top:1px solid #f2ecdf"><td style="padding:7px 10px;color:#8a8378;font-size:11.5px">76561198140338260</td><td style="padding:7px 10px;font-weight:600;font-size:12.5px">Capn' Crain</td><td style="padding:7px 10px;color:#b3aa99;text-align:center;cursor:pointer" style-hover="color:#c9662a">×</td></tr>
+            <tr style="border-top:1px solid #f2ecdf"><td style="padding:7px 10px;color:#8a8378;font-size:11.5px">76561198053299466</td><td style="padding:7px 10px;font-weight:600;font-size:12.5px">ScootScoot</td><td style="padding:7px 10px;color:#b3aa99;text-align:center;cursor:pointer" style-hover="color:#c9662a">×</td></tr>
+            <tr style="border-top:1px solid #f2ecdf"><td style="padding:6px 10px" colspan="3">
+              <div style="display:flex;align-items:center;gap:8px;padding-top:5px">
+                <input placeholder="76561198…" style="flex:1;border:1.5px solid #e3ddd0;border-radius:8px;padding:7px 10px;font:500 11.5px 'JetBrains Mono';outline:none" />
+                <input placeholder="name" style="width:150px;border:1.5px solid #e3ddd0;border-radius:8px;padding:7px 10px;font:500 12px 'JetBrains Mono';outline:none" />
+                <span style="font:600 11px 'JetBrains Mono';background:#191712;color:#fff;border-radius:8px;padding:7px 13px;cursor:pointer">Add</span>
+              </div>
+            </td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 1.0 SEAMS (placeholders) -->
+      <div style="background:#f6f4ef;border:1.5px dashed #d8cfbf;border-radius:14px;padding:20px 22px">
+        <div style="display:flex;align-items:center;gap:9px;margin-bottom:14px">
+          <div style="font:700 14px 'Space Grotesk';color:#6b655c">Reserved for the 1.0 patch</div>
+          <span style="font:600 9.5px 'JetBrains Mono';letter-spacing:.4px;text-transform:uppercase;background:#efe6d3;color:#8a6d1a;border-radius:5px;padding:2px 7px">available Jul 10</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <div style="opacity:.65">
+            <div style="font:600 12.5px 'Space Grotesk';margin-bottom:6px">Active ruleset</div>
+            <div style="display:flex;align-items:center;justify-content:space-between;border:1.5px solid #d8cfbf;border-radius:9px;padding:9px 12px;background:#fff;font:600 12.5px 'JetBrains Mono';color:#8a8378">combirank-0.6 <span style="color:#b3aa99">▾</span></div>
+            <div style="font:400 11px 'Space Grotesk';color:#a89f8f;margin-top:5px">genrecomb-1.0 arrives with the patch.</div>
+          </div>
+          <div style="opacity:.65">
+            <div style="font:600 12.5px 'Space Grotesk';margin-bottom:6px">Server-config preset</div>
+            <div style="display:flex;align-items:center;justify-content:space-between;border:1.5px solid #d8cfbf;border-radius:9px;padding:9px 12px;background:#fff;font:600 12.5px 'JetBrains Mono';color:#8a8378">— none — <span style="color:#b3aa99">▾</span></div>
+            <div style="font:400 11px 'Space Grotesk';color:#a89f8f;margin-top:5px">Only if 1.0 mechanics prove server-dependent.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:800}}"></script>
+</body>
+</html>

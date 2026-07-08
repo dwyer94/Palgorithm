@@ -86,6 +86,9 @@ interface PassiveSkillRow {
   LotteryWeight?: number;
   Category?: string;
   OverrideNameTextID?: string;
+  EffectType1?: string;
+  EffectType2?: string;
+  EffectType3?: string;
   [k: string]: unknown;
 }
 
@@ -119,6 +122,58 @@ function mapElement(raw: string | undefined): (typeof ELEMENTS)[number] | null {
   const mapped = ELEMENT_MAP[tail];
   if (!mapped) throw new Error(`Unmapped element "${tail}" — extend ELEMENT_MAP`);
   return mapped;
+}
+
+/** Raw EPalPassiveSkillEffectType tails → a human category for the UI's passive filter
+ * ("find all attack traits by rank"). ShotAttack is the game's only real attack effect on
+ * released passives (melee and ranged share it) — deliberately folded into plain "Attack"
+ * rather than split by weapon type. Element boost/resist effects are handled separately
+ * below since they're parameterized by element rather than being their own fixed tails. */
+const EFFECT_CATEGORY_MAP: Record<string, string> = {
+  ShotAttack: 'Attack',
+  MeleeAttack: 'Attack',
+  MaxHP: 'Max HP',
+  Defense: 'Defense',
+  MoveSpeed: 'Move Speed',
+  SwimSpeed: 'Swim Speed',
+  BreedSpeed: 'Breeding Speed',
+  CraftSpeed: 'Crafting Speed',
+  Mining: 'Mining',
+  Logging: 'Logging',
+  CollectItem: 'Gathering',
+  GainItemDrop: 'Item Drop Rate',
+  ActiveSkillCoolTime_Decrease: 'Skill Cooldown',
+  PalSP_Increase: 'SP',
+  FullStomatch_Decrease: 'Food Consumption',
+  Sanity_Decrease: 'Sanity',
+  ShopSellPrice_Money_Increase: 'Sell Price',
+  ShopBuyPrice_Money_Increase: 'Buy Price',
+  LifeSteal: 'Life Steal',
+  Nocturnal: 'Nocturnal',
+  NonKilling: 'Non-Lethal',
+  Homing: 'Projectile Homing',
+  Explosive: 'Explosive',
+  BulletSpeed: 'Bullet Speed',
+  Recoil: 'Recoil',
+  BulletAccuracy: 'Accuracy',
+  Mute: 'Silence',
+  TemperatureResist_Heat: 'Heat Resistance',
+  TemperatureResist_Cold: 'Cold Resistance',
+  MaxInventoryWeight: 'Carry Weight',
+  Support: 'Support',
+};
+
+/** A passive's effect type can be an element boost/resist parameterized by element
+ * (`ElementBoost_Fire`, `ElementResist_Dragon`, …) — translate the element tail through the
+ * same `ELEMENT_MAP` used for species so the category reads as e.g. "Fire Boost". */
+function mapEffectCategory(raw: string | undefined): string | undefined {
+  const tail = enumTail(raw);
+  if (!tail || tail === 'no') return undefined;
+  const boost = /^ElementBoost_(.+)$/.exec(tail);
+  if (boost) return `${ELEMENT_MAP[boost[1]!] ?? boost[1]} Boost`;
+  const resist = /^ElementResist_(.+)$/.exec(tail);
+  if (resist) return `${ELEMENT_MAP[resist[1]!] ?? resist[1]} Resistance`;
+  return EFFECT_CATEGORY_MAP[tail] ?? tail; // unmapped tail: surface as-is rather than drop it
 }
 
 // --- Inclusion policy ---------------------------------------------------------------------
@@ -311,7 +366,16 @@ function main(): void {
       excludedPassives++; // unreleased/dev stub, no English name
       continue;
     }
-    passives.push({ id: skillId, displayName, tier: row.Rank, lotteryWeight: row.LotteryWeight });
+    // Up to 3 effect types per passive; de-duplicated since e.g. two ElementBoost slots on
+    // the same element would otherwise repeat a category.
+    const categories = Array.from(
+      new Set(
+        [row.EffectType1, row.EffectType2, row.EffectType3]
+          .map(mapEffectCategory)
+          .filter((c): c is string => c !== undefined),
+      ),
+    );
+    passives.push({ id: skillId, displayName, tier: row.Rank, categories, lotteryWeight: row.LotteryWeight });
   }
 
   const dataset: Dataset = {
@@ -358,6 +422,7 @@ function main(): void {
   console.log(`    otherObtainOnly:   ${species.filter((s) => s.otherObtainOnly).length}`);
   console.log(`  specialCombos:  ${specialCombos.length} (dropped ${droppedCombos} referencing excluded species)`);
   console.log(`  passives:       ${passives.length} (excluded ${excludedPassives} dev-only/unreleased rows)`);
+  console.log(`    with categories:   ${passives.filter((p) => p.categories.length > 0).length}`);
   console.log(`  gender-rules:   ${specialCombos.filter((c) => c.genderRule).length}`);
   console.log(`  excluded rows:  ${excluded.length}`);
 }

@@ -25,7 +25,7 @@ function species(overrides: Partial<Species> & Pick<Species, 'id'>): Species {
 }
 
 function passive(overrides: Partial<Passive> & Pick<Passive, 'id'>): Passive {
-  return { displayName: overrides.id, ...overrides };
+  return { displayName: overrides.id, categories: [], ...overrides };
 }
 
 const SPECIES: Species[] = [

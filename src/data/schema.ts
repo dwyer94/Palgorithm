@@ -86,7 +86,12 @@ export const PassiveSchema = z.object({
   id: z.string().min(1),
   displayName: z.string().min(1),
   tier: z.number().int().optional(),
-  category: z.string().optional(),
+  // What the passive boosts (e.g. "Attack", "Fire Boost", "Move Speed"), derived from the
+  // game's own effect-type fields — a passive can carry more than one effect (e.g. "Legend"
+  // boosts Attack + Defense + Move Speed) and should be findable under every one of them, so
+  // this is a list rather than a single value. Empty when the source row carries no mapped
+  // effect (extraction gap, not a real "no category" state).
+  categories: z.array(z.string()).default([]),
   // Raw game weight for the random-passive-selection pool (e.g. mutation rolls). Extracted
   // as-is; NOT yet validated as the authoritative mutation-odds source (see passiveModel /
   // spec §3.3) — don't treat it as verified until that's confirmed.

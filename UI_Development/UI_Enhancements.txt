@@ -1,0 +1,2 @@
+Ensure traits are colored/styled by their rank to match in game
+Add a pal/passive search icon in the bottom right that pulls up an almost facebook messenger style little window that lets you toggle between pal or trait. You can search various aspects for pals (type, etc) and see a card with info on that pal (breeding number, dex number, type, picture when available, etc). Traits you can search by what it boosts, rank, etc to find all attack traits by rank, etc.

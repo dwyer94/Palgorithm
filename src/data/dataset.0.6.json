@@ -4,7 +4,7 @@
     "ruleset": "combirank-0.6",
     "provisional": false,
     "source": "FModel export of local Palworld build 22461598 (species/names: usmap Mappings.0.6.6; passives: usmap Mappings073.usmap, same game build); EN L10N names. Normalized by src/pipeline/normalize.ts. passiveModel (inherit/mutation odds) remains a flagged estimate (verified:false) — the passive list itself is real extracted data.",
-    "generatedAt": "2026-07-06T00:16:41.551Z"
+    "generatedAt": "2026-07-08T02:02:12.673Z"
   },
   "species": [
     {
@@ -9080,552 +9080,852 @@
       "id": "CraftSpeed_up3",
       "displayName": "Remarkable Craftsmanship",
       "tier": 4,
+      "categories": [
+        "Crafting Speed"
+      ],
       "lotteryWeight": 5
     },
     {
       "id": "CraftSpeed_up2",
       "displayName": "Artisan",
       "tier": 3,
+      "categories": [
+        "Crafting Speed"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "CraftSpeed_up1",
       "displayName": "Serious",
       "tier": 1,
+      "categories": [
+        "Crafting Speed"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "CraftSpeed_down1",
       "displayName": "Clumsy",
       "tier": -1,
+      "categories": [
+        "Crafting Speed"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "CraftSpeed_down2",
       "displayName": "Slacker",
       "tier": -3,
+      "categories": [
+        "Crafting Speed"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "Deffence_up3",
       "displayName": "Diamond Body",
       "tier": 4,
+      "categories": [
+        "Defense"
+      ],
       "lotteryWeight": 5
     },
     {
       "id": "Deffence_up2",
       "displayName": "Burly Body",
       "tier": 3,
+      "categories": [
+        "Defense"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "Deffence_up1",
       "displayName": "Hard Skin",
       "tier": 1,
+      "categories": [
+        "Defense"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "Deffence_down1",
       "displayName": "Downtrodden",
       "tier": -1,
+      "categories": [
+        "Defense"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "Deffence_down2",
       "displayName": "Brittle",
       "tier": -3,
+      "categories": [
+        "Defense"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "Noukin",
       "displayName": "Musclehead",
       "tier": 2,
+      "categories": [
+        "Attack",
+        "Crafting Speed"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "Rare",
       "displayName": "Lucky",
       "tier": 4,
+      "categories": [
+        "Crafting Speed",
+        "Attack"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "Legend",
       "displayName": "Legend",
       "tier": 4,
+      "categories": [
+        "Attack",
+        "Defense",
+        "Move Speed"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "Witch",
       "displayName": "Siren of the Void",
       "tier": 4,
+      "categories": [
+        "Dark Boost",
+        "Ice Boost"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "EternalFlame",
       "displayName": "Eternal Flame",
       "tier": 4,
+      "categories": [
+        "Fire Boost",
+        "Electric Boost"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "Invader",
       "displayName": "Invader",
       "tier": 4,
+      "categories": [
+        "Dark Boost",
+        "Dragon Boost"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "PAL_ALLAttack_up3",
       "displayName": "Demon God",
       "tier": 4,
+      "categories": [
+        "Attack",
+        "Defense"
+      ],
       "lotteryWeight": 5
     },
     {
       "id": "PAL_ALLAttack_up2",
       "displayName": "Ferocious",
       "tier": 3,
+      "categories": [
+        "Attack"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "PAL_ALLAttack_up1",
       "displayName": "Brave",
       "tier": 1,
+      "categories": [
+        "Attack"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "PAL_ALLAttack_down1",
       "displayName": "Coward",
       "tier": -1,
+      "categories": [
+        "Attack"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "PAL_ALLAttack_down2",
       "displayName": "Pacifist",
       "tier": -3,
+      "categories": [
+        "Attack"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "PAL_rude",
       "displayName": "Hooligan",
       "tier": 1,
+      "categories": [
+        "Attack",
+        "Crafting Speed"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "PAL_conceited",
       "displayName": "Conceited",
       "tier": 1,
+      "categories": [
+        "Crafting Speed",
+        "Defense"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "PAL_sadist",
       "displayName": "Sadist",
       "tier": 1,
+      "categories": [
+        "Attack",
+        "Defense"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "PAL_masochist",
       "displayName": "Masochist",
       "tier": 1,
+      "categories": [
+        "Defense",
+        "Attack"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "PAL_CorporateSlave",
       "displayName": "Work Slave",
       "tier": 1,
+      "categories": [
+        "Crafting Speed",
+        "Attack"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "PAL_oraora",
       "displayName": "Aggressive",
       "tier": 1,
+      "categories": [
+        "Attack",
+        "Defense"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "TrainerATK_UP_1",
       "displayName": "Vanguard",
       "tier": 3,
+      "categories": [
+        "Attack"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "TrainerDEF_UP_1",
       "displayName": "Stronghold Strategist",
       "tier": 3,
+      "categories": [
+        "Defense"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "TrainerWorkSpeed_UP_1",
       "displayName": "Motivational Leader",
       "tier": 3,
+      "categories": [
+        "Crafting Speed"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "TrainerMining_up1",
       "displayName": "Mine Foreman",
       "tier": 3,
+      "categories": [
+        "Mining"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "TrainerLogging_up1",
       "displayName": "Logging Foreman",
       "tier": 3,
+      "categories": [
+        "Logging"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "ElementResist_Normal_1_PAL",
       "displayName": "Abnormal",
       "tier": 1,
+      "categories": [
+        "Neutral Resistance"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "ElementResist_Fire_1_PAL",
       "displayName": "Suntan Lover",
       "tier": 1,
+      "categories": [
+        "Fire Resistance"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "ElementResist_Aqua_1_PAL",
       "displayName": "Waterproof",
       "tier": 1,
+      "categories": [
+        "Water Resistance"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "ElementResist_Thunder_1_PAL",
       "displayName": "Insulated Body",
       "tier": 1,
+      "categories": [
+        "Electric Resistance"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "ElementResist_Leaf_1_PAL",
       "displayName": "Botanical Barrier",
       "tier": 1,
+      "categories": [
+        "Grass Resistance"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "ElementResist_Ice_1_PAL",
       "displayName": "Heated Body",
       "tier": 1,
+      "categories": [
+        "Ice Resistance"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "ElementResist_Earth_1_PAL",
       "displayName": "Earthquake Resistant",
       "tier": 1,
+      "categories": [
+        "Ground Resistance"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "ElementResist_Dark_1_PAL",
       "displayName": "Cheery",
       "tier": 1,
+      "categories": [
+        "Dark Resistance"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "ElementResist_Dragon_1_PAL",
       "displayName": "Dragonkiller",
       "tier": 1,
+      "categories": [
+        "Dragon Resistance"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "ElementBoost_Normal_1_PAL",
       "displayName": "Zen Mind",
       "tier": 1,
+      "categories": [
+        "Neutral Boost"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "ElementBoost_Fire_1_PAL",
       "displayName": "Pyromaniac",
       "tier": 1,
+      "categories": [
+        "Fire Boost"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "ElementBoost_Aqua_1_PAL",
       "displayName": "Hydromaniac",
       "tier": 1,
+      "categories": [
+        "Water Boost"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "ElementBoost_Thunder_1_PAL",
       "displayName": "Capacitor",
       "tier": 1,
+      "categories": [
+        "Electric Boost"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "ElementBoost_Leaf_1_PAL",
       "displayName": "Fragrant Foliage",
       "tier": 1,
+      "categories": [
+        "Grass Boost"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "ElementBoost_Ice_1_PAL",
       "displayName": "Coldblooded",
       "tier": 1,
+      "categories": [
+        "Ice Boost"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "ElementBoost_Earth_1_PAL",
       "displayName": "Power of Gaia",
       "tier": 1,
+      "categories": [
+        "Ground Boost"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "ElementBoost_Dark_1_PAL",
       "displayName": "Veil of Darkness",
       "tier": 1,
+      "categories": [
+        "Dark Boost"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "ElementBoost_Dragon_1_PAL",
       "displayName": "Blood of the Dragon",
       "tier": 1,
+      "categories": [
+        "Dragon Boost"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "PAL_FullStomach_Up_1",
       "displayName": "Glutton",
       "tier": -1,
+      "categories": [
+        "Food Consumption"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "PAL_FullStomach_Up_2",
       "displayName": "Bottomless Stomach",
       "tier": -2,
+      "categories": [
+        "Food Consumption"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "PAL_FullStomach_Down_1",
       "displayName": "Dainty Eater",
       "tier": 1,
+      "categories": [
+        "Food Consumption"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "PAL_FullStomach_Down_2",
       "displayName": "Diet Lover",
       "tier": 3,
+      "categories": [
+        "Food Consumption"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "PAL_FullStomach_Down_3",
       "displayName": "Mastery of Fasting",
       "tier": 4,
+      "categories": [
+        "Food Consumption"
+      ],
       "lotteryWeight": 5
     },
     {
       "id": "PAL_Sanity_Up_1",
       "displayName": "Unstable",
       "tier": -1,
+      "categories": [
+        "Sanity"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "PAL_Sanity_Up_2",
       "displayName": "Destructive",
       "tier": -2,
+      "categories": [
+        "Sanity"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "PAL_Sanity_Down_1",
       "displayName": "Positive Thinker",
       "tier": 1,
+      "categories": [
+        "Sanity"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "PAL_Sanity_Down_2",
       "displayName": "Workaholic",
       "tier": 3,
+      "categories": [
+        "Sanity"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "PAL_Sanity_Down_3",
       "displayName": "Heart of the Immovable King",
       "tier": 4,
+      "categories": [
+        "Sanity"
+      ],
       "lotteryWeight": 5
     },
     {
       "id": "ElementBoost_Normal_2_PAL",
       "displayName": "Celestial Emperor",
       "tier": 3,
+      "categories": [
+        "Neutral Boost"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "ElementBoost_Fire_2_PAL",
       "displayName": "Flame Emperor",
       "tier": 3,
+      "categories": [
+        "Fire Boost"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "ElementBoost_Aqua_2_PAL",
       "displayName": "Lord of the Sea",
       "tier": 3,
+      "categories": [
+        "Water Boost"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "ElementBoost_Thunder_2_PAL",
       "displayName": "Lord of Lightning",
       "tier": 3,
+      "categories": [
+        "Electric Boost"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "ElementBoost_Leaf_2_PAL",
       "displayName": "Spirit Emperor",
       "tier": 3,
+      "categories": [
+        "Grass Boost"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "ElementBoost_Ice_2_PAL",
       "displayName": "Ice Emperor",
       "tier": 3,
+      "categories": [
+        "Ice Boost"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "ElementBoost_Earth_2_PAL",
       "displayName": "Earth Emperor",
       "tier": 3,
+      "categories": [
+        "Ground Boost"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "ElementBoost_Dark_2_PAL",
       "displayName": "Lord of the Underworld",
       "tier": 3,
+      "categories": [
+        "Dark Boost"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "ElementBoost_Dragon_2_PAL",
       "displayName": "Divine Dragon",
       "tier": 3,
+      "categories": [
+        "Dragon Boost"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "MoveSpeed_up_1",
       "displayName": "Nimble",
       "tier": 1,
+      "categories": [
+        "Move Speed"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "MoveSpeed_up_2",
       "displayName": "Runner",
       "tier": 3,
+      "categories": [
+        "Move Speed"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "MoveSpeed_up_3",
       "displayName": "Swift",
       "tier": 4,
+      "categories": [
+        "Move Speed"
+      ],
       "lotteryWeight": 5
     },
     {
       "id": "NonKilling",
       "displayName": "Mercy Hit",
       "tier": -1,
+      "categories": [
+        "Non-Lethal"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "Nocturnal",
       "displayName": "Nocturnal",
       "tier": 1,
+      "categories": [
+        "Nocturnal"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "Test_PalEgg_HatchingSpeed_Up",
       "displayName": "Philanthropist",
       "tier": 3,
+      "categories": [
+        "Breeding Speed"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "CoolTimeReduction_Up_1",
       "displayName": "Serenity",
       "tier": 3,
+      "categories": [
+        "Skill Cooldown",
+        "Attack"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "CoolTimeReduction_Up_2",
       "displayName": "Impatient",
       "tier": 1,
+      "categories": [
+        "Skill Cooldown"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "CoolTimeReduction_Down_1",
       "displayName": "Easygoing",
       "tier": -1,
+      "categories": [
+        "Skill Cooldown"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "Stamina_Up_1",
       "displayName": "Infinite Stamina",
       "tier": 3,
+      "categories": [
+        "SP"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "Stamina_Up_2",
       "displayName": "Fit as a Fiddle",
       "tier": 1,
+      "categories": [
+        "SP"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "Stamina_Up_3",
       "displayName": "Eternal Engine",
       "tier": 4,
+      "categories": [
+        "SP"
+      ],
       "lotteryWeight": 5
     },
     {
       "id": "Stamina_Down_1",
       "displayName": "Sickly",
       "tier": -1,
+      "categories": [
+        "SP"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "SalePrice_Up_1",
       "displayName": "Noble",
       "tier": 3,
+      "categories": [
+        "Sell Price",
+        "Buy Price"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "SalePrice_Up_2",
       "displayName": "Fine Furs",
       "tier": 1,
+      "categories": [
+        "Sell Price",
+        "Buy Price"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "SalePrice_Down_1",
       "displayName": "Shabby",
       "tier": -1,
+      "categories": [
+        "Sell Price",
+        "Buy Price"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "Alien",
       "displayName": "Otherworldly Cells",
       "tier": 1,
+      "categories": [
+        "Attack",
+        "Fire Resistance",
+        "Electric Boost"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "Vampire",
       "displayName": "Vampiric",
       "tier": 4,
+      "categories": [
+        "Nocturnal",
+        "Life Steal"
+      ],
       "lotteryWeight": 5
     },
     {
       "id": "Nushi",
       "displayName": "Lunker",
       "tier": 4,
+      "categories": [
+        "Water Boost",
+        "Ice Boost",
+        "Defense"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "SwimSpeed_up_1",
       "displayName": "Sleek Stroke",
       "tier": 1,
+      "categories": [
+        "Swim Speed"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "SwimSpeed_up_2",
       "displayName": "Ace Swimmer",
       "tier": 3,
+      "categories": [
+        "Swim Speed"
+      ],
       "lotteryWeight": 100
     },
     {
       "id": "SwimSpeed_up_3",
       "displayName": "King of the Waves",
       "tier": 4,
+      "categories": [
+        "Swim Speed"
+      ],
       "lotteryWeight": 5
     },
     {
       "id": "Salvation",
       "displayName": "Savior",
       "tier": 4,
+      "categories": [
+        "Neutral Boost",
+        "Grass Boost"
+      ],
       "lotteryWeight": 100
     }
   ],
