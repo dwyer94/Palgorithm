@@ -198,7 +198,7 @@ export default function SettingsView() {
                   <div className="flex flex-wrap gap-1.5">
                     {s.passives.map((id) => {
                       const p = passives.find((x) => x.id === id);
-                      return <PassiveChip key={id} label={p?.displayName ?? id} tier={p?.tier} />;
+                      return <PassiveChip key={id} label={p?.displayName ?? id} tier={p?.tier} description={p?.description} />;
                     })}
                   </div>
                   <div className="ml-auto flex gap-2">

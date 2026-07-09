@@ -207,7 +207,7 @@ export default function RosterView() {
                         <span className="flex flex-wrap gap-1">
                           {entry.passives.map((id) => {
                             const p = passives.find((x) => x.id === id);
-                            return <PassiveChip key={id} label={p?.displayName ?? id} tier={p?.tier} />;
+                            return <PassiveChip key={id} label={p?.displayName ?? id} tier={p?.tier} description={p?.description} />;
                           })}
                         </span>
                       </td>

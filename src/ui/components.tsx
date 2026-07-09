@@ -1,4 +1,5 @@
-import { useMemo, useState, type ReactNode } from 'react';
+import { useMemo, useRef, useState, type ReactNode } from 'react';
+import { createPortal } from 'react-dom';
 import { ELEMENTS } from '../data/schema';
 import type { Element, Gender, Species, Passive } from '../data/schema';
 
@@ -116,6 +117,49 @@ function passiveTierStyle(tier: number | undefined): PassiveTierStyle | undefine
   return tier === undefined ? undefined : PASSIVE_TIER_STYLE[tier];
 }
 
+/**
+ * Effect-text tooltip for a passive, rendered via portal so it's never clipped by an
+ * ancestor's `overflow-hidden` (several chip hosts — cards, dropdowns — have one).
+ * Themed to match the `Dropdown` floating panel (white/border-card/shadow-dropdown).
+ */
+function PassiveTooltip({ description, children }: { description?: string | undefined; children: ReactNode }) {
+  const [pos, setPos] = useState<{ top: number; left: number } | null>(null);
+  const anchorRef = useRef<HTMLSpanElement>(null);
+
+  if (!description) return <>{children}</>;
+
+  const show = () => {
+    const rect = anchorRef.current?.getBoundingClientRect();
+    if (rect) setPos({ top: rect.top - 6, left: rect.left + rect.width / 2 });
+  };
+  const hide = () => setPos(null);
+
+  return (
+    <span
+      ref={anchorRef}
+      tabIndex={0}
+      onMouseEnter={show}
+      onMouseLeave={hide}
+      onFocus={show}
+      onBlur={hide}
+      className="inline-flex outline-none focus-visible:ring-2 focus-visible:ring-primary-border2 rounded-chip"
+    >
+      {children}
+      {pos &&
+        createPortal(
+          <div
+            role="tooltip"
+            className="pointer-events-none fixed z-50 max-w-[240px] -translate-x-1/2 -translate-y-full whitespace-pre-line rounded-panel border border-border-card bg-white px-3 py-2 font-sans text-[11.5px] leading-snug text-ink shadow-dropdown"
+            style={{ top: pos.top, left: pos.left }}
+          >
+            {description}
+          </div>,
+          document.body,
+        )}
+    </span>
+  );
+}
+
 type PassiveChipVariant = 'default' | 'matched' | 'dim' | 'warn';
 
 const PASSIVE_CHIP_STYLE: Record<PassiveChipVariant, string> = {
@@ -135,12 +179,14 @@ const PASSIVE_CHIP_VARIANT_ACCENT: Record<PassiveChipVariant, string> = {
 export function PassiveChip({
   label,
   tier,
+  description,
   variant = 'default',
   onRemove,
   className = '',
 }: {
   label: string;
   tier?: number | undefined;
+  description?: string | undefined;
   variant?: PassiveChipVariant;
   onRemove?: () => void;
   className?: string;
@@ -149,37 +195,41 @@ export function PassiveChip({
 
   if (tierStyle) {
     return (
-      <span
-        title={passiveTierTitle(tier)}
-        className={`inline-flex items-center gap-1 rounded-chip border px-2 py-0.5 font-mono text-[11px] font-semibold ${PASSIVE_CHIP_VARIANT_ACCENT[variant]} ${className}`}
-        style={{ background: tierStyle.background, color: tierStyle.color, borderColor: tierStyle.borderColor }}
-      >
-        {label}
-        {onRemove && (
-          <span onClick={onRemove} className="cursor-pointer opacity-80 hover:opacity-100" role="button" aria-label={`Remove ${label}`}>
-            ×
-          </span>
-        )}
-      </span>
+      <PassiveTooltip description={description}>
+        <span
+          title={description ? undefined : passiveTierTitle(tier)}
+          className={`inline-flex items-center gap-1 rounded-chip border px-2 py-0.5 font-mono text-[11px] font-semibold ${PASSIVE_CHIP_VARIANT_ACCENT[variant]} ${className}`}
+          style={{ background: tierStyle.background, color: tierStyle.color, borderColor: tierStyle.borderColor }}
+        >
+          {label}
+          {onRemove && (
+            <span onClick={onRemove} className="cursor-pointer opacity-80 hover:opacity-100" role="button" aria-label={`Remove ${label}`}>
+              ×
+            </span>
+          )}
+        </span>
+      </PassiveTooltip>
     );
   }
 
   return (
-    <span
-      className={`inline-flex items-center gap-1 rounded-chip border px-2 py-0.5 font-mono text-[11px] font-semibold ${PASSIVE_CHIP_STYLE[variant]} ${className}`}
-    >
-      {label}
-      {onRemove && (
-        <span
-          onClick={onRemove}
-          className="cursor-pointer text-[#9aa6d8]"
-          role="button"
-          aria-label={`Remove ${label}`}
-        >
-          ×
-        </span>
-      )}
-    </span>
+    <PassiveTooltip description={description}>
+      <span
+        className={`inline-flex items-center gap-1 rounded-chip border px-2 py-0.5 font-mono text-[11px] font-semibold ${PASSIVE_CHIP_STYLE[variant]} ${className}`}
+      >
+        {label}
+        {onRemove && (
+          <span
+            onClick={onRemove}
+            className="cursor-pointer text-[#9aa6d8]"
+            role="button"
+            aria-label={`Remove ${label}`}
+          >
+            ×
+          </span>
+        )}
+      </span>
+    </PassiveTooltip>
   );
 }
 
@@ -421,7 +471,7 @@ export interface PalNodeProps {
   variant: PalNodeVariant;
   subLabel: ReactNode;
   subLabelClassName?: string;
-  passiveChips?: { id: string; label: string; tier?: number | undefined }[] | undefined;
+  passiveChips?: { id: string; label: string; tier?: number | undefined; description?: string | undefined }[] | undefined;
   genderLabel?: string;
   style?: React.CSSProperties;
   width?: number;
@@ -458,21 +508,22 @@ export function PalNode({
           {passiveChips.map((p) => {
             const tierStyle = passiveTierStyle(p.tier);
             return (
-              <span
-                key={p.id}
-                className={
-                  tierStyle
-                    ? 'inline-flex items-center gap-[3px] rounded border px-1 font-mono text-[9px] font-semibold'
-                    : 'rounded font-mono text-[9px] font-semibold text-primary-chipText bg-primary-tint3 border border-primary-border px-1'
-                }
-                style={
-                  tierStyle
-                    ? { background: tierStyle.background, color: tierStyle.color, borderColor: tierStyle.borderColor }
-                    : undefined
-                }
-              >
-                {p.label}
-              </span>
+              <PassiveTooltip key={p.id} description={p.description}>
+                <span
+                  className={
+                    tierStyle
+                      ? 'inline-flex items-center gap-[3px] rounded border px-1 font-mono text-[9px] font-semibold'
+                      : 'rounded font-mono text-[9px] font-semibold text-primary-chipText bg-primary-tint3 border border-primary-border px-1'
+                  }
+                  style={
+                    tierStyle
+                      ? { background: tierStyle.background, color: tierStyle.color, borderColor: tierStyle.borderColor }
+                      : undefined
+                  }
+                >
+                  {p.label}
+                </span>
+              </PassiveTooltip>
             );
           })}
         </div>
@@ -776,6 +827,7 @@ export function PassiveMultiSelect({
             key={id}
             label={byId.get(id)?.displayName ?? id}
             tier={byId.get(id)?.tier}
+            description={byId.get(id)?.description}
             onRemove={() => remove(id)}
           />
         ))}
@@ -800,7 +852,7 @@ export function PassiveMultiSelect({
               </div>
               {list.map((p) => (
                 <DropdownRow key={`${category}:${p.id}`} onPick={() => add(p.id)}>
-                  <PassiveChip label={p.displayName} tier={p.tier} className="pointer-events-none" />
+                  <PassiveChip label={p.displayName} tier={p.tier} description={p.description} className="pointer-events-none" />
                   {p.tier !== undefined && <span className="ml-auto font-mono text-[10px] font-normal text-muted">tier {p.tier}</span>}
                 </DropdownRow>
               ))}

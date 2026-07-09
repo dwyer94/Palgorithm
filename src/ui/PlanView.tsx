@@ -58,6 +58,7 @@ function nodeSubLabel(node: PlanGraphNode, ctx: PlanGraphContext): { label: Reac
                 key={id}
                 label={p?.displayName ?? id}
                 tier={p?.tier}
+                description={p?.description}
                 className="px-1 py-0 text-[9px] leading-[14px]"
               />
             );
@@ -97,7 +98,7 @@ export function PlanGraphPanel({
   const ctx: PlanGraphContext = { speciesById, hubSpeciesId, desiredPassives, passivesById };
   const targetPassiveChips = desiredPassives?.map((id) => {
     const p = passivesById?.get(id);
-    return { id, label: p?.displayName ?? id, tier: p?.tier };
+    return { id, label: p?.displayName ?? id, tier: p?.tier, description: p?.description };
   });
 
   if (layout.nodes.length === 0) {

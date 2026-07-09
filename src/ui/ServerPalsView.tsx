@@ -358,7 +358,12 @@ function PalRow({
       <td className="px-2.5 py-2">
         <span className="flex flex-wrap gap-1">
           {pal.passives.map((id) => (
-            <PassiveChip key={id} label={passivesById.get(id)?.displayName ?? id} tier={passivesById.get(id)?.tier} />
+            <PassiveChip
+              key={id}
+              label={passivesById.get(id)?.displayName ?? id}
+              tier={passivesById.get(id)?.tier}
+              description={passivesById.get(id)?.description}
+            />
           ))}
           {pal.unresolvedPassives.length > 0 && (
             <span className="rounded-[4px] bg-unresolved-bg px-1.5 py-px font-mono text-[10px] font-semibold text-provisional-text">
@@ -510,6 +515,7 @@ function FindAPalTab() {
                       key={id}
                       label={passivesById.get(id)?.displayName ?? id}
                       tier={passivesById.get(id)?.tier}
+                      description={passivesById.get(id)?.description}
                       variant={traitFilter.includes(id) ? 'matched' : 'dim'}
                     />
                   ))}
