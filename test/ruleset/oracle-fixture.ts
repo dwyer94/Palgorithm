@@ -17,7 +17,9 @@ import type { Dataset } from '../../src/data/schema';
  * everything else joins on `displayName`. Kept in the harness, never mutating either dataset
  * (test/oracle/README.md "build a small alias map … rather than mutating"). */
 export const ORACLE_ALIASES: Record<string, string> = {
-  Gumoss: 'PlantSlime', // two dataset species share displayName "Gumoss"; disambiguate by id
+  // dataset now disambiguates this pair as "Gumoss" / "Gumoss (Flower)", but the oracle's own
+  // name for the variant is "Gumoss (Special)" and doesn't join on displayName either way.
+  Gumoss: 'PlantSlime',
   'Gumoss (Special)': 'PlantSlime_Flower',
   Ribunny: 'PinkRabbit', // dataset displayName is "Ribbuny"
   'Ice Reptyro': 'VolcanicMonster_Ice', // dataset displayName "Reptyro Cryst"

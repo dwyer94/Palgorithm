@@ -241,10 +241,13 @@ function generateFallbackDesc(row: PassiveSkillRow): string | undefined {
 // oil-rig / Yakushima field-boss variants, and ~60 unreleased Feybreak stubs (CombiRank 0,
 // ZukanIndex -1, no localized name). We include a row only if it is a real, released Pal.
 //
-// Release gate = "has a resolvable English name". Released Pals have a localized name; dev
-// stubs and cut variant forms (Kirin_Ice, WindChimes, …) have none. This cleanly keeps the
-// real special-combo variant children (Pengullet Lux, Azurobe Cryst, …) while dropping
-// stubs, without hand-maintaining a keep/skip list.
+// Release gate = "has a resolvable English name" AND "has a real Paldex slot (ZukanIndex
+// >= 0)". Name alone isn't sufficient: two unreleased stubs (ElecLion "Boltmane",
+// BlackFurDragon "Dragostrophe") carry a real localized name despite never being assigned a
+// Paldex entry and being flagged IgnoreCombi with CombiRank 0 — the same "unreleased" fingerprint
+// as the nameless stubs, just with a name attached. Requiring a Paldex slot catches those two
+// without hand-maintaining a keep/skip list, and doesn't affect any other row (every other
+// included species already has ZukanIndex >= 0).
 
 const ADMIN_PREFIXES = ['BOSS_', 'Boss_', 'RAID_', 'GYM_', 'PREDATOR_', 'SUMMON_', 'Quest_'];
 
@@ -334,6 +337,11 @@ function main(): void {
       excluded.push({ charId, reason: 'no English name (unreleased/dev stub)' });
       continue;
     }
+    const zukan = row.ZukanIndex ?? -1;
+    if (zukan < 0) {
+      excluded.push({ charId, reason: 'no Paldex slot (unreleased stub with a stray name)' });
+      continue;
+    }
 
     const mp = row.MaleProbability ?? 50;
     const male = mp / 100;
@@ -346,8 +354,7 @@ function main(): void {
     // remain valid parents and are still produced (via specialCombos).
     const standardBreedable = !row.IgnoreCombi;
 
-    const zukan = row.ZukanIndex ?? -1;
-    const paldexNo = zukan >= 0 ? `${zukan}${row.ZukanIndexSuffix ?? ''}` : undefined;
+    const paldexNo = `${zukan}${row.ZukanIndexSuffix ?? ''}`;
 
     // Icon: resolve via DT_PalCharacterIconDataTable, then confirm the referenced texture was
     // actually exported (a handful of table rows point at PNGs missing from this export — a
@@ -386,6 +393,26 @@ function main(): void {
       icon,
       internalName: charId,
     });
+  }
+
+  // A handful of Paldex "B" forms are visually/mechanically distinct from their base species
+  // (different rarity, drops, spawn odds) but were never given their own localized name — the
+  // game itself renders them with the exact same display name as the base (e.g. PlantSlime and
+  // PlantSlime_Flower both resolve to "Gumoss", the real "Gumoss (Flower)" variant). Left as-is
+  // these look like accidental duplicate imports. Disambiguate using the id's own suffix, which
+  // already names the variant (e.g. "Flower") — targeted at genuine name collisions only, so it
+  // doesn't touch the ~40 elemental variants (Cryst/Ignis/Terra/…) that already have their own
+  // distinct localized name and never collide.
+  const byDisplayName = new Map<string, Species[]>();
+  for (const s of species) {
+    byDisplayName.set(s.displayName, [...(byDisplayName.get(s.displayName) ?? []), s]);
+  }
+  for (const group of byDisplayName.values()) {
+    if (group.length < 2) continue;
+    for (const s of group) {
+      const suffix = s.id.includes('_') ? s.id.slice(s.id.lastIndexOf('_') + 1) : undefined;
+      if (suffix) s.displayName = `${s.displayName} (${suffix})`;
+    }
   }
 
   const includedIds = new Set(species.map((s) => s.id));
