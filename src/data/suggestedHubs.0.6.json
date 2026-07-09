@@ -1,0 +1,444 @@
+{
+  "meta": {
+    "version": "0.6",
+    "generatedAt": "2026-07-08T22:46:29.482Z"
+  },
+  "roles": {
+    "combat": {
+      "targets": [
+        "IceHorse_Dark",
+        "BlackGriffon",
+        "Anubis",
+        "Horus",
+        "ThunderBird",
+        "WhiteTiger",
+        "VolcanicMonster"
+      ],
+      "topHubs": [
+        {
+          "species": "BadCatgirl",
+          "obtainCost": 1,
+          "injectCost": [
+            {
+              "target": "IceHorse_Dark",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "BlackGriffon",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "Anubis",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "Horus",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "ThunderBird",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "WhiteTiger",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "VolcanicMonster",
+              "combos": 1,
+              "direct": true
+            }
+          ],
+          "score": 8
+        },
+        {
+          "species": "BlueberryFairy",
+          "obtainCost": 1,
+          "injectCost": [
+            {
+              "target": "IceHorse_Dark",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "BlackGriffon",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "Anubis",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "Horus",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "ThunderBird",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "WhiteTiger",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "VolcanicMonster",
+              "combos": 1,
+              "direct": true
+            }
+          ],
+          "score": 8
+        },
+        {
+          "species": "GoldenHorse",
+          "obtainCost": 1,
+          "injectCost": [
+            {
+              "target": "IceHorse_Dark",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "BlackGriffon",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "Anubis",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "Horus",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "ThunderBird",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "WhiteTiger",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "VolcanicMonster",
+              "combos": 1,
+              "direct": true
+            }
+          ],
+          "score": 8
+        }
+      ],
+      "unionCombinationCount": 7
+    },
+    "worker": {
+      "targets": [
+        "Anubis",
+        "WhiteMoth",
+        "ThunderDragonMan",
+        "IceHorse_Dark",
+        "WhiteTiger_Ground",
+        "KingAlpaca_Ice",
+        "WingGolem"
+      ],
+      "topHubs": [
+        {
+          "species": "BadCatgirl",
+          "obtainCost": 1,
+          "injectCost": [
+            {
+              "target": "Anubis",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "WhiteMoth",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "ThunderDragonMan",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "IceHorse_Dark",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "WhiteTiger_Ground",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "KingAlpaca_Ice",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "WingGolem",
+              "combos": 1,
+              "direct": true
+            }
+          ],
+          "score": 8
+        },
+        {
+          "species": "BlueberryFairy",
+          "obtainCost": 1,
+          "injectCost": [
+            {
+              "target": "Anubis",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "WhiteMoth",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "ThunderDragonMan",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "IceHorse_Dark",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "WhiteTiger_Ground",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "KingAlpaca_Ice",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "WingGolem",
+              "combos": 1,
+              "direct": true
+            }
+          ],
+          "score": 8
+        },
+        {
+          "species": "GoldenHorse",
+          "obtainCost": 1,
+          "injectCost": [
+            {
+              "target": "Anubis",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "WhiteMoth",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "ThunderDragonMan",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "IceHorse_Dark",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "WhiteTiger_Ground",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "KingAlpaca_Ice",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "WingGolem",
+              "combos": 1,
+              "direct": true
+            }
+          ],
+          "score": 8
+        }
+      ],
+      "unionCombinationCount": 7
+    },
+    "mount": {
+      "targets": [
+        "IceHorse_Dark",
+        "BlackGriffon",
+        "Garm",
+        "HawkBird",
+        "Serpent",
+        "ThunderBird",
+        "RedArmorBird",
+        "BirdDragon"
+      ],
+      "topHubs": [
+        {
+          "species": "BadCatgirl",
+          "obtainCost": 1,
+          "injectCost": [
+            {
+              "target": "IceHorse_Dark",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "BlackGriffon",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "Garm",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "HawkBird",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "Serpent",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "ThunderBird",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "RedArmorBird",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "BirdDragon",
+              "combos": 1,
+              "direct": true
+            }
+          ],
+          "score": 9
+        },
+        {
+          "species": "BlueberryFairy",
+          "obtainCost": 1,
+          "injectCost": [
+            {
+              "target": "IceHorse_Dark",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "BlackGriffon",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "Garm",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "HawkBird",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "Serpent",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "ThunderBird",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "RedArmorBird",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "BirdDragon",
+              "combos": 1,
+              "direct": true
+            }
+          ],
+          "score": 9
+        },
+        {
+          "species": "GoldenHorse",
+          "obtainCost": 1,
+          "injectCost": [
+            {
+              "target": "IceHorse_Dark",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "BlackGriffon",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "Garm",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "HawkBird",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "Serpent",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "ThunderBird",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "RedArmorBird",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "BirdDragon",
+              "combos": 1,
+              "direct": true
+            }
+          ],
+          "score": 9
+        }
+      ],
+      "unionCombinationCount": 8
+    }
+  }
+}

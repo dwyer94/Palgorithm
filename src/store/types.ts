@@ -61,7 +61,7 @@ export interface StoreState {
 }
 
 export const DEFAULT_SETTINGS: Settings = {
-  allowCatching: true,
+  allowCatching: false,
   catchCost: 1,
   savedPerkSets: [],
   serverConfigPreset: null,

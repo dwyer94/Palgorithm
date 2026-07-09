@@ -1,0 +1,6 @@
+{
+  "_comment": "Hand-curated 'popular pal' target lists per role, seeded from Palworld tier-list consensus (palworld.gg, thepalprofessor.com, game8.co). Editorial content, not extracted game data — lives outside dataset.<version>.json on purpose. Species ids must exist and be standardBreedable in the current dataset; suggestHubs.ts validates this at generation time. Deliberately excludes species whose only reverse() derivation is self+self (e.g. JetDragon, BlackCentaur, SaintCentaur, KingBahamut_Dragon, PoseidonOrca, DarkMechaDragon) — those apex/legendary pals can only ever be caught, never bred from scratch, so a 'hub' suggestion is structurally meaningless for them (one such target in a list makes every hub candidate infeasible, since a hub must reach every target). Update by hand as the meta shifts, but re-check new additions the same way.",
+  "combat": ["IceHorse_Dark", "BlackGriffon", "Anubis", "Horus", "ThunderBird", "WhiteTiger", "VolcanicMonster"],
+  "worker": ["Anubis", "WhiteMoth", "ThunderDragonMan", "IceHorse_Dark", "WhiteTiger_Ground", "KingAlpaca_Ice", "WingGolem"],
+  "mount": ["IceHorse_Dark", "BlackGriffon", "Garm", "HawkBird", "Serpent", "ThunderBird", "RedArmorBird", "BirdDragon"]
+}

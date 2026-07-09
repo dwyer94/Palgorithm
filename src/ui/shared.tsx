@@ -32,6 +32,7 @@ export function PassivePlanView({
   const hasPollution = pollutionA.length > 0 || pollutionB.length > 0;
   const passiveName = (id: string) => passivesById?.get(id)?.displayName ?? id;
   const passiveTier = (id: string) => passivesById?.get(id)?.tier;
+  const passiveDescription = (id: string) => passivesById?.get(id)?.description;
 
   return (
     <div className="mb-[22px] overflow-hidden rounded-card border border-border-card bg-white shadow-card">
@@ -50,7 +51,13 @@ export function PassivePlanView({
           <div className="mt-1 flex flex-wrap items-center gap-1 font-mono text-[12.5px] font-medium text-muted">
             <span>{formatEggs(plan.expectedEggs.exactSet)} to hit exactly</span>
             {plan.desired.map((id) => (
-              <PassiveChip key={id} label={passiveName(id)} tier={passiveTier(id)} className="px-1.5 py-0 text-[10.5px]" />
+              <PassiveChip
+                key={id}
+                label={passiveName(id)}
+                tier={passiveTier(id)}
+                description={passiveDescription(id)}
+                className="px-1.5 py-0 text-[10.5px]"
+              />
             ))}
           </div>
         </div>
@@ -74,7 +81,7 @@ export function PassivePlanView({
             <span className="flex flex-wrap items-center gap-1 font-mono text-[11px] text-muted">
               A:
               {pollutionA.map((id) => (
-                <PassiveChip key={`a-${id}`} label={passiveName(id)} tier={passiveTier(id)} variant="warn" />
+                <PassiveChip key={`a-${id}`} label={passiveName(id)} tier={passiveTier(id)} description={passiveDescription(id)} variant="warn" />
               ))}
             </span>
           )}
@@ -82,7 +89,7 @@ export function PassivePlanView({
             <span className="flex flex-wrap items-center gap-1 font-mono text-[11px] text-muted">
               B:
               {pollutionB.map((id) => (
-                <PassiveChip key={`b-${id}`} label={passiveName(id)} tier={passiveTier(id)} variant="warn" />
+                <PassiveChip key={`b-${id}`} label={passiveName(id)} tier={passiveTier(id)} description={passiveDescription(id)} variant="warn" />
               ))}
             </span>
           )}
@@ -249,11 +256,16 @@ export function HubList({
   speciesById,
   selected,
   onSelect,
+  scopeLabel,
 }: {
   hubs: HubCandidate[];
   speciesById: Map<string, Species>;
   selected?: string | undefined;
   onSelect?: ((species: string) => void) | undefined;
+  /** Overrides the "Ranked hubs" header — used to disclose how many candidates were
+   * actually checked (e.g. "Quick pick · 3 checked" vs "Ranked hubs · 211 checked"),
+   * since a quick-pick re-score and a full sweep answer different questions. */
+  scopeLabel?: string | undefined;
 }) {
   if (hubs.length === 0) {
     return (
@@ -264,7 +276,9 @@ export function HubList({
   }
   return (
     <div className="overflow-hidden rounded-card border border-border-card bg-white shadow-card">
-      <div className="px-[15px] pb-2 pt-3 font-sans text-[10.5px] font-semibold uppercase tracking-wide text-muted">Ranked hubs</div>
+      <div className="px-[15px] pb-2 pt-3 font-sans text-[10.5px] font-semibold uppercase tracking-wide text-muted">
+        {scopeLabel ?? 'Ranked hubs'}
+      </div>
       {hubs.map((h) => {
         const isSelected = selected === h.species;
         const direct = h.injectCost?.filter((ic) => ic.direct).length ?? 0;

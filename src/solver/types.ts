@@ -16,8 +16,30 @@ export interface SpeciesPlannerOptions {
    * same unit as a breeding combination, so catches and combos trade off in the same
    * cost space. */
   catchCost?: number;
-  /** Set false to disallow catching entirely (roster-only planning). Default true. */
+  /** Set true to allow catching wild-catchable species as a cost-`catchCost` substitute
+   * for breeding them. Default false (roster-only planning) — with most of the real
+   * dataset flagged wildCatchable, leaving this on by default let the solver bypass
+   * breeding for almost any target, defeating the point of a breeding-path optimizer. */
   allowCatching?: boolean;
+  /**
+   * Species to exclude from the catch shortcut even when `allowCatching` is true — they
+   * must be reached by breeding. Everything else stays catchable as bootstrap/fodder
+   * stock. Useful when the point of the plan is specifically to show a bred path to a
+   * particular species (e.g. suggestHubs.ts's empty-roster baseline needs *some*
+   * catchable stock to search from, while still forcing a real derivation for the
+   * species it's actually recommending toward).
+   */
+  excludeFromCatching?: SpeciesId[];
+  /**
+   * `planUnion`/`findHubs` only: exclude each target from catching only while solving
+   * *for that target* — other targets in the same batch stay legitimately catchable and
+   * may serve as parents. Some apex/legendary species are only reachable by breeding
+   * FROM each other via special combos; excluding a whole target batch from catching at
+   * once (via `excludeFromCatching`) creates an unsolvable cycle in that case, but
+   * excluding just the current target as it's evaluated doesn't. No-op on bare
+   * `planSpecies` calls (single target, nothing to exclude "the rest" from).
+   */
+  excludeTargetsFromCatching?: boolean;
   /**
    * Desired final-cross perk set (spec §7.3). When supplied and the target requires at
    * least one combination, the planner treats species-cost and passives as a joint
@@ -129,6 +151,13 @@ export interface HubFinderOptions extends SpeciesPlannerOptions {
   targets?: SpeciesId[];
   /** Cap on how many ranked candidates to return. Default 5. */
   maxHubs?: number;
+  /**
+   * Restrict the hub search to these species instead of sweeping every breed-capable
+   * species in `rankTable`. Meant for re-scoring a small precomputed shortlist (e.g. a
+   * suggested-hub quick-pick) against the live roster without paying for a full sweep —
+   * omit for the normal exhaustive search.
+   */
+  candidates?: SpeciesId[];
 }
 
 /** One ranked hub candidate (spec §7.2) — an optional overlay on the union plan, never

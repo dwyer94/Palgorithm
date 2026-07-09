@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { DatasetSchema, type Dataset } from './schema';
+import { DatasetSchema, type Dataset } from './schema.ts';
 
 /**
  * Dataset loader (spec §4.1). The only thing that reads `dataset.<version>.json`.

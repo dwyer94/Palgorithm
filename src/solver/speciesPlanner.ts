@@ -35,7 +35,9 @@ import type {
 /** Species-cost options only — `desiredPassives` is handled separately in `planSpecies`
  * since it has no meaningful "required" default and doesn't participate in the core
  * species-cost solve. */
-type CoreOptions = Required<Pick<SpeciesPlannerOptions, 'catchCost' | 'allowCatching'>>;
+type CoreOptions = Required<Pick<SpeciesPlannerOptions, 'catchCost' | 'allowCatching'>> & {
+  excludeFromCatching: Set<SpeciesId>;
+};
 
 type Node = string; // `${species}|${gender}`
 const node = (species: SpeciesId, gender: Gender): Node => `${species}|${gender}`;
@@ -146,6 +148,7 @@ function solve(graph: Graph, roster: RosterEntry[], ruleset: BreedingRuleset, op
 
   if (opts.allowCatching) {
     for (const species of ruleset.reachability.wildCatchable) {
+      if (opts.excludeFromCatching.has(species)) continue;
       const ratio = ruleset.genderRatio(species);
       for (const gender of ['male', 'female'] as Gender[]) {
         if (ratio[gender] > 0) relax(node(species, gender), opts.catchCost, { kind: 'catch' });
@@ -352,7 +355,8 @@ export function planSpecies(
 ): SpeciesPlanResult {
   const opts: CoreOptions = {
     catchCost: options.catchCost ?? 1,
-    allowCatching: options.allowCatching ?? true,
+    allowCatching: options.allowCatching ?? false,
+    excludeFromCatching: new Set(options.excludeFromCatching ?? []),
   };
 
   const graph = getGraph(ruleset);

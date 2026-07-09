@@ -32,8 +32,10 @@ export default function SingleTargetView() {
 
   const displayNameByIdentifier = useMemo(
     () =>
-      Object.fromEntries(live.players.map((p) => [p.identifier, resolvePlayerDisplayName(p, settings.live.nameOverrides)])),
-    [live.players, settings.live.nameOverrides],
+      Object.fromEntries(
+        live.players.map((p) => [p.identifier, resolvePlayerDisplayName(p, settings.live.nameOverrides, settings.live.identityLinks)]),
+      ),
+    [live.players, settings.live.nameOverrides, settings.live.identityLinks],
   );
 
   const provenance = useMemo(
@@ -80,6 +82,11 @@ export default function SingleTargetView() {
     a.download = 'palgorithm-single-plan.json';
     a.click();
     URL.revokeObjectURL(url);
+  };
+
+  const backToSelection = () => {
+    setResult(null);
+    setSavedFlash(false);
   };
 
   const targetSpecies = speciesById.get(target);
@@ -133,6 +140,7 @@ export default function SingleTargetView() {
                         key={id}
                         label={passivesById.get(id)?.displayName ?? id}
                         tier={passivesById.get(id)?.tier}
+                        description={passivesById.get(id)?.description}
                         className="normal-case tracking-normal"
                       />
                     ))}
@@ -142,6 +150,12 @@ export default function SingleTargetView() {
                   </div>
                 </div>
                 <div className="flex gap-2">
+                  <div
+                    onClick={backToSelection}
+                    className="flex cursor-pointer items-center gap-1.5 rounded-panel border border-border-card bg-white px-3.5 py-2.5 font-sans text-[13px] font-semibold text-[#6b655c] hover:border-muted-lighter"
+                  >
+                    ← Back
+                  </div>
                   <div
                     onClick={savePlan}
                     className="flex cursor-pointer items-center gap-1.5 rounded-panel border border-border-card bg-white px-3.5 py-2.5 font-sans text-[13px] font-semibold hover:border-brand-hover hover:text-brand-hover"

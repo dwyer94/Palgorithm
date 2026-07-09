@@ -1,10 +1,15 @@
-Bug: Clicking in Target in Single Target view gives a drop down of options (but only scrolls down to C pals). Fix that so you  can scroll through all, but also add the drop down selection to the Target box in Hub Planner.
-
-
-Ensure traits are colored/styled by their rank to match in game
-
 Add a pal/passive search icon in the bottom right that pulls up an almost facebook messenger style little window that lets you toggle between pal or trait. You can search various aspects for pals (type, etc) and see a card with info on that pal (breeding number, dex number, type, picture when available, etc). Traits you can search by what it boosts, rank, etc to find all attack traits by rank, etc.
 
-Get pal icons and able to toggle between compact (this mode) or full (pals are squares with their picture).
+* Get pal icons and able to toggle between compact (this mode) or full (pals are squares with their picture).
 
-Hover over passive traits to see a description or at least category? (looking at Server Pals)
+Maybe if a hub and its targets are too far away from each other, identify a subset of the target list (by looking at the tree), with a closer hub, and reco that subset in the UI.
+
+ ---------------------------------------------------------------------------------------
+* Fix Hub planner full-sweep performance
+In the Palworld Breeding Path Optimizer (PalCalc), findHubs in src/solver/hubFinder.ts (fixed-target mode, called from src/ui/HubView.tsx's runPlan and searchAllHubsFromSuggestion) does a full exhaustive sweep: for every non-target species in ruleset.rankTable (~211 in the real dataset), it calls planSpecies once for obtainCost plus once per target for injectCost (combosFromAnchor, itself a planSpecies call over an augmented roster). That's roughly candidates × (1 + targets.length) full Dijkstra-style solves (solve() in src/solver/speciesPlanner.ts), all synchronous on the main thread — no batching, no worker, no early-out beyond per-candidate infeasibility.
+
+Measured in the Vite dev build (unminified): a 7-target search with allowCatching:false (the current default — see memory note "catching-default-flipped-roster-only") took 73+ seconds and froze the tab completely, because with catching disabled most candidate/target pairs are genuinely unreachable and the solver has to exhaustively prove that (no early termination via cheap catch-relaxation) for ~1,500 candidate/target combinations. With allowCatching:true the same search was much faster (catch-relaxation gives early cost-0-ish shortcuts), but even that path visibly took real time — it just didn't hit the 30s eval timeout used to detect the freeze.
+
+A stopgap already landed (this session, 2026-07-08): searchAllHubsFromSuggestion in HubView.tsx defers the call one tick via setTimeout(..., 0) and shows a "searching every hub…" loading state so the tab doesn't look dead — but the tab is still fully frozen (unresponsive to any interaction) for the whole duration; this only fixes the "did it start" feedback, not the actual block.
+
+Please investigate real fixes — candidates likely include: chunking the candidate sweep across multiple animation frames / a Web Worker so the main thread stays responsive; caching/reusing partial Dijkstra state across candidates instead of re-solving from scratch each time (the graph itself is already cached per ruleset via a WeakMap in speciesPlanner.ts's getGraph, but the per-candidate solve() call still redoes the full relaxation pass); or reducing the algorithmic complexity of the fixed-target sweep itself (e.g. a smarter reverse search from the targets rather than a forward sweep from every candidate). Confirm whatever fix you land on with a timed before/after against a realistic multi-target search (7-8 targets, both allowCatching settings) rather than just the small synthetic test fixtures — the existing test suite (test/solver/hubFinder.test.ts, test/pipeline/suggestHubs.test.ts) doesn't exercise the real dataset's scale.

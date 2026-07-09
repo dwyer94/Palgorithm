@@ -15,11 +15,11 @@ export type {
   SpeciesId,
 } from './types';
 
-export { createCombiRank06, type CombiRankOptions } from './combirank';
+export { createCombiRank06, type CombiRankOptions } from './combirank.ts';
 
 import type { Dataset } from '../data/schema';
 import type { BreedingRuleset } from './types';
-import { createCombiRank06, type CombiRankOptions } from './combirank';
+import { createCombiRank06, type CombiRankOptions } from './combirank.ts';
 
 /**
  * Build the ruleset a dataset targets (`meta.ruleset`). Central place the 1.0 swap plugs

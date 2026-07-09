@@ -1,5 +1,5 @@
 import type { BreedingRuleset } from '../ruleset/types';
-import { planSpecies } from './speciesPlanner';
+import { planSpecies } from './speciesPlanner.ts';
 import type {
   HubCandidate,
   HubFinderOptions,
@@ -89,7 +89,11 @@ export function planUnion(
   targets: SpeciesId[],
   options: SpeciesPlannerOptions = {},
 ): UnionPlanResult {
-  const perTarget = targets.map((t) => planSpecies(ruleset, roster, t, options));
+  const perTargetOptions = (t: SpeciesId): SpeciesPlannerOptions =>
+    options.excludeTargetsFromCatching
+      ? { ...options, excludeFromCatching: [...(options.excludeFromCatching ?? []), t] }
+      : options;
+  const perTarget = targets.map((t) => planSpecies(ruleset, roster, t, perTargetOptions(t)));
   const feasible = perTarget.every((p) => p.feasible);
   const catchCost = options.catchCost ?? 1;
 
@@ -158,6 +162,8 @@ function buildDirectChildIndex(ruleset: BreedingRuleset): Map<SpeciesId, Set<Spe
  *   - `options.targets` omitted → general-reach: rank by structural breadth (how many
  *     species this hub could serve as a direct parent for), for "I have good perks on a
  *     bad host, what's a good general-purpose carrier" before you've picked targets.
+ * `options.candidates` narrows the species swept in either mode — omit for the normal
+ * exhaustive sweep over every `rankTable` entry.
  */
 export function findHubs(ruleset: BreedingRuleset, roster: RosterEntry[], options: HubFinderOptions = {}): HubFinderResult {
   const maxHubs = options.maxHubs ?? 5;
@@ -166,10 +172,11 @@ export function findHubs(ruleset: BreedingRuleset, roster: RosterEntry[], option
     ...(options.catchCost !== undefined && { catchCost: options.catchCost }),
     ...(options.allowCatching !== undefined && { allowCatching: options.allowCatching }),
     ...(options.desiredPassives !== undefined && { desiredPassives: options.desiredPassives }),
+    ...(options.excludeFromCatching !== undefined && { excludeFromCatching: options.excludeFromCatching }),
   };
 
   const targetSet = new Set(targets);
-  const candidates = Object.keys(ruleset.rankTable).filter((s) => !targetSet.has(s));
+  const candidates = (options.candidates ?? Object.keys(ruleset.rankTable)).filter((s) => !targetSet.has(s));
 
   if (targets.length > 0) {
     const hubs: HubCandidate[] = [];
@@ -178,9 +185,11 @@ export function findHubs(ruleset: BreedingRuleset, roster: RosterEntry[], option
       if (!obtainPlan.feasible) continue;
 
       const injectCost = targets.map((T) => {
+        const baseExclude = options.excludeFromCatching ?? [];
         const combos = combosFromAnchor(ruleset, roster, H, T, {
           ...(options.catchCost !== undefined && { catchCost: options.catchCost }),
           ...(options.allowCatching !== undefined && { allowCatching: options.allowCatching }),
+          excludeFromCatching: options.excludeTargetsFromCatching ? [...baseExclude, T] : baseExclude,
         });
         return { target: T, combos, direct: combos === 1 };
       });
