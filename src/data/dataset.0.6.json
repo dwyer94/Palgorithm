@@ -4,7 +4,7 @@
     "ruleset": "combirank-0.6",
     "provisional": false,
     "source": "FModel export of local Palworld build 22461598 (species/names: usmap Mappings.0.6.6; passives: usmap Mappings073.usmap, same game build); EN L10N names. Normalized by src/pipeline/normalize.ts. passiveModel (inherit/mutation odds) remains a flagged estimate (verified:false) — the passive list itself is real extracted data.",
-    "generatedAt": "2026-07-08T02:02:12.673Z"
+    "generatedAt": "2026-07-09T00:08:25.040Z"
   },
   "species": [
     {
@@ -47,6 +47,7 @@
         "attack": 100,
         "defense": 100
       },
+      "icon": "/icons/pals/BadCatgirl.png",
       "internalName": "BadCatgirl"
     },
     {
@@ -94,6 +95,7 @@
         "attack": 95,
         "defense": 100
       },
+      "icon": "/icons/pals/BlueberryFairy.png",
       "internalName": "BlueberryFairy"
     },
     {
@@ -153,6 +155,7 @@
         "attack": 110,
         "defense": 110
       },
+      "icon": "/icons/pals/GoldenHorse.png",
       "internalName": "GoldenHorse"
     },
     {
@@ -191,6 +194,7 @@
         "attack": 75,
         "defense": 115
       },
+      "icon": "/icons/pals/TentacleTurtle.png",
       "internalName": "TentacleTurtle"
     },
     {
@@ -230,6 +234,7 @@
         "attack": 85,
         "defense": 125
       },
+      "icon": "/icons/pals/TentacleTurtle_Ground.png",
       "internalName": "TentacleTurtle_Ground"
     },
     {
@@ -268,6 +273,7 @@
         "attack": 130,
         "defense": 100
       },
+      "icon": "/icons/pals/Anubis.png",
       "internalName": "Anubis"
     },
     {
@@ -311,6 +317,7 @@
         "attack": 100,
         "defense": 85
       },
+      "icon": "/icons/pals/Baphomet.png",
       "internalName": "Baphomet"
     },
     {
@@ -349,6 +356,7 @@
         "attack": 105,
         "defense": 85
       },
+      "icon": "/icons/pals/Baphomet_Dark.png",
       "internalName": "Baphomet_Dark"
     },
     {
@@ -379,6 +387,7 @@
         "attack": 60,
         "defense": 70
       },
+      "icon": "/icons/pals/Bastet.png",
       "internalName": "Bastet"
     },
     {
@@ -413,6 +422,7 @@
         "attack": 65,
         "defense": 70
       },
+      "icon": "/icons/pals/Bastet_Ice.png",
       "internalName": "Bastet_Ice"
     },
     {
@@ -443,6 +453,7 @@
         "attack": 70,
         "defense": 70
       },
+      "icon": "/icons/pals/Boar.png",
       "internalName": "Boar"
     },
     {
@@ -489,6 +500,7 @@
         "attack": 70,
         "defense": 70
       },
+      "icon": "/icons/pals/Carbunclo.png",
       "internalName": "Carbunclo"
     },
     {
@@ -519,6 +531,7 @@
         "attack": 75,
         "defense": 70
       },
+      "icon": "/icons/pals/ColorfulBird.png",
       "internalName": "ColorfulBird"
     },
     {
@@ -549,6 +562,7 @@
         "attack": 80,
         "defense": 80
       },
+      "icon": "/icons/pals/Deer.png",
       "internalName": "Deer"
     },
     {
@@ -579,6 +593,7 @@
         "attack": 80,
         "defense": 80
       },
+      "icon": "/icons/pals/Deer_Ground.png",
       "internalName": "Deer_Ground"
     },
     {
@@ -609,6 +624,7 @@
         "attack": 95,
         "defense": 120
       },
+      "icon": "/icons/pals/DrillGame.png",
       "internalName": "DrillGame"
     },
     {
@@ -639,6 +655,7 @@
         "attack": 85,
         "defense": 60
       },
+      "icon": "/icons/pals/Eagle.png",
       "internalName": "Eagle"
     },
     {
@@ -681,6 +698,7 @@
         "attack": 100,
         "defense": 100
       },
+      "icon": "/icons/pals/ElecPanda.png",
       "internalName": "ElecPanda"
     },
     {
@@ -711,6 +729,7 @@
         "attack": 60,
         "defense": 70
       },
+      "icon": "/icons/pals/Ganesha.png",
       "internalName": "Ganesha"
     },
     {
@@ -741,6 +760,7 @@
         "attack": 90,
         "defense": 75
       },
+      "icon": "/icons/pals/Garm.png",
       "internalName": "Garm"
     },
     {
@@ -779,6 +799,7 @@
         "attack": 95,
         "defense": 90
       },
+      "icon": "/icons/pals/Gorilla.png",
       "internalName": "Gorilla"
     },
     {
@@ -817,6 +838,7 @@
         "attack": 100,
         "defense": 90
       },
+      "icon": "/icons/pals/Gorilla_Ground.png",
       "internalName": "Gorilla_Ground"
     },
     {
@@ -847,6 +869,7 @@
         "attack": 75,
         "defense": 70
       },
+      "icon": "/icons/pals/Hedgehog.png",
       "internalName": "Hedgehog"
     },
     {
@@ -877,6 +900,7 @@
         "attack": 75,
         "defense": 80
       },
+      "icon": "/icons/pals/Hedgehog_Ice.png",
       "internalName": "Hedgehog_Ice"
     },
     {
@@ -911,6 +935,7 @@
         "attack": 105,
         "defense": 105
       },
+      "icon": "/icons/pals/Kirin.png",
       "internalName": "Kirin"
     },
     {
@@ -941,6 +966,7 @@
         "attack": 75,
         "defense": 70
       },
+      "icon": "/icons/pals/Kitsunebi.png",
       "internalName": "Kitsunebi"
     },
     {
@@ -987,6 +1013,7 @@
         "attack": 80,
         "defense": 80
       },
+      "icon": "/icons/pals/LittleBriarRose.png",
       "internalName": "LittleBriarRose"
     },
     {
@@ -1025,6 +1052,7 @@
         "attack": 100,
         "defense": 90
       },
+      "icon": "/icons/pals/Mutant.png",
       "internalName": "Mutant"
     },
     {
@@ -1068,6 +1096,7 @@
         "attack": 75,
         "defense": 70
       },
+      "icon": "/icons/pals/Penguin.png",
       "internalName": "Penguin"
     },
     {
@@ -1111,6 +1140,7 @@
         "attack": 80,
         "defense": 70
       },
+      "icon": "/icons/pals/Penguin_Electric.png",
       "internalName": "Penguin_Electric"
     },
     {
@@ -1149,6 +1179,7 @@
         "attack": 80,
         "defense": 70
       },
+      "icon": "/icons/pals/RaijinDaughter.png",
       "internalName": "RaijinDaughter"
     },
     {
@@ -1187,6 +1218,7 @@
         "attack": 90,
         "defense": 75
       },
+      "icon": "/icons/pals/SharkKid.png",
       "internalName": "SharkKid"
     },
     {
@@ -1225,6 +1257,7 @@
         "attack": 90,
         "defense": 75
       },
+      "icon": "/icons/pals/SharkKid_Fire.png",
       "internalName": "SharkKid_Fire"
     },
     {
@@ -1263,6 +1296,7 @@
         "attack": 70,
         "defense": 70
       },
+      "icon": "/icons/pals/SheepBall.png",
       "internalName": "SheepBall"
     },
     {
@@ -1294,6 +1328,7 @@
         "attack": 120,
         "defense": 100
       },
+      "icon": "/icons/pals/Umihebi.png",
       "internalName": "Umihebi"
     },
     {
@@ -1325,6 +1360,7 @@
         "attack": 130,
         "defense": 100
       },
+      "icon": "/icons/pals/Umihebi_Fire.png",
       "internalName": "Umihebi_Fire"
     },
     {
@@ -1355,6 +1391,7 @@
         "attack": 100,
         "defense": 80
       },
+      "icon": "/icons/pals/Werewolf.png",
       "internalName": "Werewolf"
     },
     {
@@ -1393,6 +1430,7 @@
         "attack": 70,
         "defense": 70
       },
+      "icon": "/icons/pals/WindChimes.png",
       "internalName": "WindChimes"
     },
     {
@@ -1435,6 +1473,7 @@
         "attack": 80,
         "defense": 70
       },
+      "icon": "/icons/pals/WindChimes_Ice.png",
       "internalName": "WindChimes_Ice"
     },
     {
@@ -1465,6 +1504,7 @@
         "attack": 105,
         "defense": 105
       },
+      "icon": "/icons/pals/Suzaku.png",
       "internalName": "Suzaku"
     },
     {
@@ -1495,6 +1535,7 @@
         "attack": 105,
         "defense": 105
       },
+      "icon": "/icons/pals/Suzaku_Water.png",
       "internalName": "Suzaku_Water"
     },
     {
@@ -1529,6 +1570,7 @@
         "attack": 95,
         "defense": 90
       },
+      "icon": "/icons/pals/FireKirin.png",
       "internalName": "FireKirin"
     },
     {
@@ -1564,6 +1606,7 @@
         "attack": 95,
         "defense": 90
       },
+      "icon": "/icons/pals/FireKirin_Dark.png",
       "internalName": "FireKirin_Dark"
     },
     {
@@ -1594,6 +1637,7 @@
         "attack": 80,
         "defense": 90
       },
+      "icon": "/icons/pals/FairyDragon.png",
       "internalName": "FairyDragon"
     },
     {
@@ -1629,6 +1673,7 @@
         "attack": 80,
         "defense": 95
       },
+      "icon": "/icons/pals/FairyDragon_Water.png",
       "internalName": "FairyDragon_Water"
     },
     {
@@ -1659,6 +1704,7 @@
         "attack": 70,
         "defense": 90
       },
+      "icon": "/icons/pals/SweetsSheep.png",
       "internalName": "SweetsSheep"
     },
     {
@@ -1701,6 +1747,7 @@
         "attack": 100,
         "defense": 110
       },
+      "icon": "/icons/pals/WhiteTiger.png",
       "internalName": "WhiteTiger"
     },
     {
@@ -1731,6 +1778,7 @@
         "attack": 75,
         "defense": 90
       },
+      "icon": "/icons/pals/Alpaca.png",
       "internalName": "Alpaca"
     },
     {
@@ -1761,6 +1809,7 @@
         "attack": 90,
         "defense": 80
       },
+      "icon": "/icons/pals/Serpent.png",
       "internalName": "Serpent"
     },
     {
@@ -1791,6 +1840,7 @@
         "attack": 90,
         "defense": 100
       },
+      "icon": "/icons/pals/Serpent_Ground.png",
       "internalName": "Serpent_Ground"
     },
     {
@@ -1821,6 +1871,7 @@
         "attack": 95,
         "defense": 80
       },
+      "icon": "/icons/pals/DarkCrow.png",
       "internalName": "DarkCrow"
     },
     {
@@ -1852,6 +1903,7 @@
         "attack": 100,
         "defense": 100
       },
+      "icon": "/icons/pals/BlueDragon.png",
       "internalName": "BlueDragon"
     },
     {
@@ -1883,6 +1935,7 @@
         "attack": 105,
         "defense": 105
       },
+      "icon": "/icons/pals/BlueDragon_Ice.png",
       "internalName": "BlueDragon_Ice"
     },
     {
@@ -1925,6 +1978,7 @@
         "attack": 70,
         "defense": 70
       },
+      "icon": "/icons/pals/PinkCat.png",
       "internalName": "PinkCat"
     },
     {
@@ -1963,6 +2017,7 @@
         "attack": 70,
         "defense": 70
       },
+      "icon": "/icons/pals/NegativeKoala.png",
       "internalName": "NegativeKoala"
     },
     {
@@ -1993,6 +2048,7 @@
         "attack": 110,
         "defense": 90
       },
+      "icon": "/icons/pals/FengyunDeeper.png",
       "internalName": "FengyunDeeper"
     },
     {
@@ -2028,6 +2084,7 @@
         "attack": 105,
         "defense": 120
       },
+      "icon": "/icons/pals/VolcanicMonster.png",
       "internalName": "VolcanicMonster"
     },
     {
@@ -2063,6 +2120,7 @@
         "attack": 105,
         "defense": 130
       },
+      "icon": "/icons/pals/VolcanicMonster_Ice.png",
       "internalName": "VolcanicMonster_Ice"
     },
     {
@@ -2097,6 +2155,7 @@
         "attack": 105,
         "defense": 80
       },
+      "icon": "/icons/pals/GhostBeast.png",
       "internalName": "GhostBeast"
     },
     {
@@ -2147,6 +2206,7 @@
         "attack": 105,
         "defense": 80
       },
+      "icon": "/icons/pals/RobinHood.png",
       "internalName": "RobinHood"
     },
     {
@@ -2194,6 +2254,7 @@
         "attack": 105,
         "defense": 80
       },
+      "icon": "/icons/pals/RobinHood_Ground.png",
       "internalName": "RobinHood_Ground"
     },
     {
@@ -2229,6 +2290,7 @@
         "attack": 100,
         "defense": 70
       },
+      "icon": "/icons/pals/LazyDragon.png",
       "internalName": "LazyDragon"
     },
     {
@@ -2264,6 +2326,7 @@
         "attack": 110,
         "defense": 75
       },
+      "icon": "/icons/pals/LazyDragon_Electric.png",
       "internalName": "LazyDragon_Electric"
     },
     {
@@ -2294,6 +2357,7 @@
         "attack": 115,
         "defense": 100
       },
+      "icon": "/icons/pals/AmaterasuWolf.png",
       "internalName": "AmaterasuWolf"
     },
     {
@@ -2332,6 +2396,7 @@
         "attack": 80,
         "defense": 50
       },
+      "icon": "/icons/pals/LizardMan.png",
       "internalName": "LizardMan"
     },
     {
@@ -2374,6 +2439,7 @@
         "attack": 80,
         "defense": 50
       },
+      "icon": "/icons/pals/LizardMan_Fire.png",
       "internalName": "LizardMan_Fire"
     },
     {
@@ -2412,6 +2478,7 @@
         "attack": 80,
         "defense": 60
       },
+      "icon": "/icons/pals/BluePlatypus.png",
       "internalName": "BluePlatypus"
     },
     {
@@ -2455,6 +2522,7 @@
         "attack": 85,
         "defense": 60
       },
+      "icon": "/icons/pals/BluePlatypus_Fire.png",
       "internalName": "BluePlatypus_Fire"
     },
     {
@@ -2520,6 +2588,7 @@
         "attack": 115,
         "defense": 90
       },
+      "icon": "/icons/pals/BirdDragon.png",
       "internalName": "BirdDragon"
     },
     {
@@ -2555,6 +2624,7 @@
         "attack": 120,
         "defense": 95
       },
+      "icon": "/icons/pals/BirdDragon_Ice.png",
       "internalName": "BirdDragon_Ice"
     },
     {
@@ -2589,6 +2659,7 @@
         "attack": 60,
         "defense": 60
       },
+      "icon": "/icons/pals/ChickenPal.png",
       "internalName": "ChickenPal"
     },
     {
@@ -2624,6 +2695,7 @@
         "attack": 85,
         "defense": 90
       },
+      "icon": "/icons/pals/FlowerDinosaur.png",
       "internalName": "FlowerDinosaur"
     },
     {
@@ -2659,6 +2731,7 @@
         "attack": 90,
         "defense": 90
       },
+      "icon": "/icons/pals/FlowerDinosaur_Electric.png",
       "internalName": "FlowerDinosaur_Electric"
     },
     {
@@ -2697,6 +2770,7 @@
         "attack": 75,
         "defense": 70
       },
+      "icon": "/icons/pals/ElecCat.png",
       "internalName": "ElecCat"
     },
     {
@@ -2727,6 +2801,7 @@
         "attack": 140,
         "defense": 120
       },
+      "icon": "/icons/pals/IceHorse.png",
       "internalName": "IceHorse"
     },
     {
@@ -2757,6 +2832,7 @@
         "attack": 140,
         "defense": 135
       },
+      "icon": "/icons/pals/IceHorse_Dark.png",
       "internalName": "IceHorse_Dark"
     },
     {
@@ -2796,6 +2872,7 @@
         "attack": 85,
         "defense": 90
       },
+      "icon": "/icons/pals/GrassMammoth.png",
       "internalName": "GrassMammoth"
     },
     {
@@ -2835,6 +2912,7 @@
         "attack": 85,
         "defense": 90
       },
+      "icon": "/icons/pals/GrassMammoth_Ice.png",
       "internalName": "GrassMammoth_Ice"
     },
     {
@@ -2865,6 +2943,7 @@
         "attack": 105,
         "defense": 110
       },
+      "icon": "/icons/pals/CatVampire.png",
       "internalName": "CatVampire"
     },
     {
@@ -2895,6 +2974,7 @@
         "attack": 90,
         "defense": 100
       },
+      "icon": "/icons/pals/SakuraSaurus.png",
       "internalName": "SakuraSaurus"
     },
     {
@@ -2926,6 +3006,7 @@
         "attack": 95,
         "defense": 100
       },
+      "icon": "/icons/pals/SakuraSaurus_Water.png",
       "internalName": "SakuraSaurus_Water"
     },
     {
@@ -2960,6 +3041,7 @@
         "attack": 105,
         "defense": 110
       },
+      "icon": "/icons/pals/Horus.png",
       "internalName": "Horus"
     },
     {
@@ -2994,6 +3076,7 @@
         "attack": 125,
         "defense": 120
       },
+      "icon": "/icons/pals/KingBahamut.png",
       "internalName": "KingBahamut"
     },
     {
@@ -3029,6 +3112,7 @@
         "attack": 130,
         "defense": 125
       },
+      "icon": "/icons/pals/KingBahamut_Dragon.png",
       "internalName": "KingBahamut_Dragon"
     },
     {
@@ -3063,6 +3147,7 @@
         "attack": 70,
         "defense": 90
       },
+      "icon": "/icons/pals/BerryGoat.png",
       "internalName": "BerryGoat"
     },
     {
@@ -3097,6 +3182,7 @@
         "attack": 85,
         "defense": 110
       },
+      "icon": "/icons/pals/IceDeer.png",
       "internalName": "IceDeer"
     },
     {
@@ -3127,6 +3213,7 @@
         "attack": 120,
         "defense": 140
       },
+      "icon": "/icons/pals/BlackGriffon.png",
       "internalName": "BlackGriffon"
     },
     {
@@ -3165,6 +3252,7 @@
         "attack": 90,
         "defense": 100
       },
+      "icon": "/icons/pals/WhiteMoth.png",
       "internalName": "WhiteMoth"
     },
     {
@@ -3199,6 +3287,7 @@
         "attack": 70,
         "defense": 70
       },
+      "icon": "/icons/pals/CuteFox.png",
       "internalName": "CuteFox"
     },
     {
@@ -3237,6 +3326,7 @@
         "attack": 110,
         "defense": 80
       },
+      "icon": "/icons/pals/FoxMage.png",
       "internalName": "FoxMage"
     },
     {
@@ -3276,6 +3366,7 @@
         "attack": 110,
         "defense": 85
       },
+      "icon": "/icons/pals/FoxMage_Dark.png",
       "internalName": "FoxMage_Dark"
     },
     {
@@ -3318,6 +3409,7 @@
         "attack": 70,
         "defense": 70
       },
+      "icon": "/icons/pals/PinkLizard.png",
       "internalName": "PinkLizard"
     },
     {
@@ -3348,6 +3440,7 @@
         "attack": 70,
         "defense": 80
       },
+      "icon": "/icons/pals/WizardOwl.png",
       "internalName": "WizardOwl"
     },
     {
@@ -3382,6 +3475,7 @@
         "attack": 70,
         "defense": 70
       },
+      "icon": "/icons/pals/Kelpie.png",
       "internalName": "Kelpie"
     },
     {
@@ -3416,6 +3510,7 @@
         "attack": 70,
         "defense": 70
       },
+      "icon": "/icons/pals/Kelpie_Fire.png",
       "internalName": "Kelpie_Fire"
     },
     {
@@ -3455,6 +3550,7 @@
         "attack": 60,
         "defense": 70
       },
+      "icon": "/icons/pals/NegativeOctopus.png",
       "internalName": "NegativeOctopus"
     },
     {
@@ -3494,6 +3590,7 @@
         "attack": 60,
         "defense": 70
       },
+      "icon": "/icons/pals/NegativeOctopus_Neutral.png",
       "internalName": "NegativeOctopus_Neutral"
     },
     {
@@ -3524,6 +3621,7 @@
         "attack": 50,
         "defense": 80
       },
+      "icon": "/icons/pals/CowPal.png",
       "internalName": "CowPal"
     },
     {
@@ -3566,6 +3664,7 @@
         "attack": 80,
         "defense": 100
       },
+      "icon": "/icons/pals/Yeti.png",
       "internalName": "Yeti"
     },
     {
@@ -3608,6 +3707,7 @@
         "attack": 80,
         "defense": 110
       },
+      "icon": "/icons/pals/Yeti_Grass.png",
       "internalName": "Yeti_Grass"
     },
     {
@@ -3654,6 +3754,7 @@
         "attack": 100,
         "defense": 120
       },
+      "icon": "/icons/pals/VioletFairy.png",
       "internalName": "VioletFairy"
     },
     {
@@ -3684,6 +3785,7 @@
         "attack": 95,
         "defense": 80
       },
+      "icon": "/icons/pals/HawkBird.png",
       "internalName": "HawkBird"
     },
     {
@@ -3730,6 +3832,7 @@
         "attack": 65,
         "defense": 70
       },
+      "icon": "/icons/pals/FlowerRabbit.png",
       "internalName": "FlowerRabbit"
     },
     {
@@ -3772,6 +3875,7 @@
         "attack": 110,
         "defense": 105
       },
+      "icon": "/icons/pals/LilyQueen.png",
       "internalName": "LilyQueen"
     },
     {
@@ -3810,6 +3914,7 @@
         "attack": 110,
         "defense": 115
       },
+      "icon": "/icons/pals/LilyQueen_Dark.png",
       "internalName": "LilyQueen_Dark"
     },
     {
@@ -3856,6 +3961,7 @@
         "attack": 105,
         "defense": 100
       },
+      "icon": "/icons/pals/QueenBee.png",
       "internalName": "QueenBee"
     },
     {
@@ -3910,6 +4016,7 @@
         "attack": 90,
         "defense": 90
       },
+      "icon": "/icons/pals/SoldierBee.png",
       "internalName": "SoldierBee"
     },
     {
@@ -3948,6 +4055,7 @@
         "attack": 95,
         "defense": 80
       },
+      "icon": "/icons/pals/CatBat.png",
       "internalName": "CatBat"
     },
     {
@@ -3990,6 +4098,7 @@
         "attack": 90,
         "defense": 90
       },
+      "icon": "/icons/pals/GrassPanda.png",
       "internalName": "GrassPanda"
     },
     {
@@ -4032,6 +4141,7 @@
         "attack": 100,
         "defense": 100
       },
+      "icon": "/icons/pals/GrassPanda_Electric.png",
       "internalName": "GrassPanda_Electric"
     },
     {
@@ -4066,6 +4176,7 @@
         "attack": 95,
         "defense": 95
       },
+      "icon": "/icons/pals/FlameBuffalo.png",
       "internalName": "FlameBuffalo"
     },
     {
@@ -4096,6 +4207,7 @@
         "attack": 100,
         "defense": 80
       },
+      "icon": "/icons/pals/ThunderDog.png",
       "internalName": "ThunderDog"
     },
     {
@@ -4134,6 +4246,7 @@
         "attack": 80,
         "defense": 50
       },
+      "icon": "/icons/pals/CuteMole.png",
       "internalName": "CuteMole"
     },
     {
@@ -4169,6 +4282,7 @@
         "attack": 125,
         "defense": 125
       },
+      "icon": "/icons/pals/BlackMetalDragon.png",
       "internalName": "BlackMetalDragon"
     },
     {
@@ -4215,6 +4329,7 @@
         "attack": 115,
         "defense": 90
       },
+      "icon": "/icons/pals/GrassRabbitMan.png",
       "internalName": "GrassRabbitMan"
     },
     {
@@ -4245,6 +4360,7 @@
         "attack": 95,
         "defense": 105
       },
+      "icon": "/icons/pals/IceFox.png",
       "internalName": "IceFox"
     },
     {
@@ -4275,6 +4391,7 @@
         "attack": 140,
         "defense": 110
       },
+      "icon": "/icons/pals/JetDragon.png",
       "internalName": "JetDragon"
     },
     {
@@ -4313,6 +4430,7 @@
         "attack": 75,
         "defense": 60
       },
+      "icon": "/icons/pals/DreamDemon.png",
       "internalName": "DreamDemon"
     },
     {
@@ -4359,6 +4477,7 @@
         "attack": 70,
         "defense": 70
       },
+      "icon": "/icons/pals/Monkey.png",
       "internalName": "Monkey"
     },
     {
@@ -4393,6 +4512,7 @@
         "attack": 110,
         "defense": 80
       },
+      "icon": "/icons/pals/Manticore.png",
       "internalName": "Manticore"
     },
     {
@@ -4428,6 +4548,7 @@
         "attack": 115,
         "defense": 80
       },
+      "icon": "/icons/pals/Manticore_Dark.png",
       "internalName": "Manticore_Dark"
     },
     {
@@ -4458,6 +4579,7 @@
         "attack": 85,
         "defense": 90
       },
+      "icon": "/icons/pals/KingAlpaca.png",
       "internalName": "KingAlpaca"
     },
     {
@@ -4492,6 +4614,7 @@
         "attack": 85,
         "defense": 90
       },
+      "icon": "/icons/pals/KingAlpaca_Ice.png",
       "internalName": "KingAlpaca_Ice"
     },
     {
@@ -4523,6 +4646,7 @@
         "attack": 70,
         "defense": 70
       },
+      "icon": "/icons/pals/PlantSlime.png",
       "internalName": "PlantSlime"
     },
     {
@@ -4588,6 +4712,7 @@
         "attack": 60,
         "defense": 60
       },
+      "icon": "/icons/pals/MopBaby.png",
       "internalName": "MopBaby"
     },
     {
@@ -4622,6 +4747,7 @@
         "attack": 90,
         "defense": 90
       },
+      "icon": "/icons/pals/MopKing.png",
       "internalName": "MopKing"
     },
     {
@@ -4660,6 +4786,7 @@
         "attack": 105,
         "defense": 90
       },
+      "icon": "/icons/pals/CatMage.png",
       "internalName": "CatMage"
     },
     {
@@ -4703,6 +4830,7 @@
         "attack": 105,
         "defense": 90
       },
+      "icon": "/icons/pals/CatMage_Fire.png",
       "internalName": "CatMage_Fire"
     },
     {
@@ -4741,6 +4869,7 @@
         "attack": 65,
         "defense": 70
       },
+      "icon": "/icons/pals/PinkRabbit.png",
       "internalName": "PinkRabbit"
     },
     {
@@ -4779,6 +4908,7 @@
         "attack": 115,
         "defense": 80
       },
+      "icon": "/icons/pals/ThunderBird.png",
       "internalName": "ThunderBird"
     },
     {
@@ -4822,6 +4952,7 @@
         "attack": 100,
         "defense": 120
       },
+      "icon": "/icons/pals/HerculesBeetle.png",
       "internalName": "HerculesBeetle"
     },
     {
@@ -4860,6 +4991,7 @@
         "attack": 105,
         "defense": 120
       },
+      "icon": "/icons/pals/HerculesBeetle_Ground.png",
       "internalName": "HerculesBeetle_Ground"
     },
     {
@@ -4894,6 +5026,7 @@
         "attack": 120,
         "defense": 145
       },
+      "icon": "/icons/pals/SaintCentaur.png",
       "internalName": "SaintCentaur"
     },
     {
@@ -4924,6 +5057,7 @@
         "attack": 85,
         "defense": 70
       },
+      "icon": "/icons/pals/NightFox.png",
       "internalName": "NightFox"
     },
     {
@@ -4971,6 +5105,7 @@
         "attack": 95,
         "defense": 95
       },
+      "icon": "/icons/pals/CaptainPenguin.png",
       "internalName": "CaptainPenguin"
     },
     {
@@ -5018,6 +5153,7 @@
         "attack": 100,
         "defense": 100
       },
+      "icon": "/icons/pals/CaptainPenguin_Black.png",
       "internalName": "CaptainPenguin_Black"
     },
     {
@@ -5053,6 +5189,7 @@
         "attack": 80,
         "defense": 80
       },
+      "icon": "/icons/pals/WeaselDragon.png",
       "internalName": "WeaselDragon"
     },
     {
@@ -5088,6 +5225,7 @@
         "attack": 85,
         "defense": 80
       },
+      "icon": "/icons/pals/WeaselDragon_Fire.png",
       "internalName": "WeaselDragon_Fire"
     },
     {
@@ -5130,6 +5268,7 @@
         "attack": 100,
         "defense": 100
       },
+      "icon": "/icons/pals/SkyDragon.png",
       "internalName": "SkyDragon"
     },
     {
@@ -5177,6 +5316,7 @@
         "attack": 105,
         "defense": 100
       },
+      "icon": "/icons/pals/SkyDragon_Grass.png",
       "internalName": "SkyDragon_Grass"
     },
     {
@@ -5207,6 +5347,7 @@
         "attack": 125,
         "defense": 100
       },
+      "icon": "/icons/pals/HadesBird.png",
       "internalName": "HadesBird"
     },
     {
@@ -5242,6 +5383,7 @@
         "attack": 125,
         "defense": 100
       },
+      "icon": "/icons/pals/HadesBird_Electric.png",
       "internalName": "HadesBird_Electric"
     },
     {
@@ -5276,6 +5418,7 @@
         "attack": 105,
         "defense": 120
       },
+      "icon": "/icons/pals/RedArmorBird.png",
       "internalName": "RedArmorBird"
     },
     {
@@ -5322,6 +5465,7 @@
         "attack": 125,
         "defense": 80
       },
+      "icon": "/icons/pals/Ronin.png",
       "internalName": "Ronin"
     },
     {
@@ -5369,6 +5513,7 @@
         "attack": 130,
         "defense": 80
       },
+      "icon": "/icons/pals/Ronin_Dark.png",
       "internalName": "Ronin_Dark"
     },
     {
@@ -5403,6 +5548,7 @@
         "attack": 70,
         "defense": 80
       },
+      "icon": "/icons/pals/FlyingManta.png",
       "internalName": "FlyingManta"
     },
     {
@@ -5442,6 +5588,7 @@
         "attack": 75,
         "defense": 80
       },
+      "icon": "/icons/pals/FlyingManta_Thunder.png",
       "internalName": "FlyingManta_Thunder"
     },
     {
@@ -5476,6 +5623,7 @@
         "attack": 145,
         "defense": 120
       },
+      "icon": "/icons/pals/BlackCentaur.png",
       "internalName": "BlackCentaur"
     },
     {
@@ -5522,6 +5670,7 @@
         "attack": 95,
         "defense": 100
       },
+      "icon": "/icons/pals/FlowerDoll.png",
       "internalName": "FlowerDoll"
     },
     {
@@ -5552,6 +5701,7 @@
         "attack": 80,
         "defense": 80
       },
+      "icon": "/icons/pals/NaughtyCat.png",
       "internalName": "NaughtyCat"
     },
     {
@@ -5586,6 +5736,7 @@
         "attack": 80,
         "defense": 80
       },
+      "icon": "/icons/pals/CuteButterfly.png",
       "internalName": "CuteButterfly"
     },
     {
@@ -5621,6 +5772,7 @@
         "attack": 100,
         "defense": 130
       },
+      "icon": "/icons/pals/DarkScorpion.png",
       "internalName": "DarkScorpion"
     },
     {
@@ -5655,6 +5807,7 @@
         "attack": 105,
         "defense": 130
       },
+      "icon": "/icons/pals/DarkScorpion_Ground.png",
       "internalName": "DarkScorpion_Ground"
     },
     {
@@ -5694,6 +5847,7 @@
         "attack": 130,
         "defense": 100
       },
+      "icon": "/icons/pals/ThunderDragonMan.png",
       "internalName": "ThunderDragonMan"
     },
     {
@@ -5728,6 +5882,7 @@
         "attack": 70,
         "defense": 75
       },
+      "icon": "/icons/pals/WoolFox.png",
       "internalName": "WoolFox"
     },
     {
@@ -5771,6 +5926,7 @@
         "attack": 70,
         "defense": 95
       },
+      "icon": "/icons/pals/LazyCatfish.png",
       "internalName": "LazyCatfish"
     },
     {
@@ -5814,6 +5970,7 @@
         "attack": 75,
         "defense": 100
       },
+      "icon": "/icons/pals/LazyCatfish_Gold.png",
       "internalName": "LazyCatfish_Gold"
     },
     {
@@ -5856,6 +6013,7 @@
         "attack": 70,
         "defense": 80
       },
+      "icon": "/icons/pals/LavaGirl.png",
       "internalName": "LavaGirl"
     },
     {
@@ -5886,6 +6044,7 @@
         "attack": 70,
         "defense": 75
       },
+      "icon": "/icons/pals/FlameBambi.png",
       "internalName": "FlameBambi"
     },
     {
@@ -5924,6 +6083,7 @@
         "attack": 150,
         "defense": 100
       },
+      "icon": "/icons/pals/NightLady.png",
       "internalName": "NightLady"
     },
     {
@@ -5962,6 +6122,7 @@
         "attack": 150,
         "defense": 100
       },
+      "icon": "/icons/pals/NightLady_Dark.png",
       "internalName": "NightLady_Dark"
     },
     {
@@ -6001,6 +6162,7 @@
         "attack": 115,
         "defense": 110
       },
+      "icon": "/icons/pals/MoonQueen.png",
       "internalName": "MoonQueen"
     },
     {
@@ -6043,6 +6205,7 @@
         "attack": 100,
         "defense": 85
       },
+      "icon": "/icons/pals/KendoFrog.png",
       "internalName": "KendoFrog"
     },
     {
@@ -6086,6 +6249,7 @@
         "attack": 110,
         "defense": 90
       },
+      "icon": "/icons/pals/KendoFrog_Dark.png",
       "internalName": "KendoFrog_Dark"
     },
     {
@@ -6128,6 +6292,7 @@
         "attack": 90,
         "defense": 80
       },
+      "icon": "/icons/pals/LeafPrincess.png",
       "internalName": "LeafPrincess"
     },
     {
@@ -6170,6 +6335,7 @@
         "attack": 80,
         "defense": 90
       },
+      "icon": "/icons/pals/MushroomDragon.png",
       "internalName": "MushroomDragon"
     },
     {
@@ -6213,6 +6379,7 @@
         "attack": 85,
         "defense": 90
       },
+      "icon": "/icons/pals/MushroomDragon_Dark.png",
       "internalName": "MushroomDragon_Dark"
     },
     {
@@ -6243,6 +6410,7 @@
         "attack": 70,
         "defense": 90
       },
+      "icon": "/icons/pals/SmallArmadillo.png",
       "internalName": "SmallArmadillo"
     },
     {
@@ -6290,6 +6458,7 @@
         "attack": 125,
         "defense": 90
       },
+      "icon": "/icons/pals/CandleGhost.png",
       "internalName": "CandleGhost"
     },
     {
@@ -6329,6 +6498,7 @@
         "attack": 110,
         "defense": 90
       },
+      "icon": "/icons/pals/ScorpionMan.png",
       "internalName": "ScorpionMan"
     },
     {
@@ -6367,6 +6537,7 @@
         "attack": 110,
         "defense": 135
       },
+      "icon": "/icons/pals/WingGolem.png",
       "internalName": "WingGolem"
     },
     {
@@ -6397,6 +6568,7 @@
         "attack": 85,
         "defense": 85
       },
+      "icon": "/icons/pals/GuardianDog.png",
       "internalName": "GuardianDog"
     },
     {
@@ -6443,6 +6615,7 @@
         "attack": 100,
         "defense": 100
       },
+      "icon": "/icons/pals/SifuDog.png",
       "internalName": "SifuDog"
     },
     {
@@ -6473,6 +6646,7 @@
         "attack": 90,
         "defense": 80
       },
+      "icon": "/icons/pals/FeatherOstrich.png",
       "internalName": "FeatherOstrich"
     },
     {
@@ -6507,6 +6681,7 @@
         "attack": 60,
         "defense": 130
       },
+      "icon": "/icons/pals/MimicDog.png",
       "internalName": "MimicDog"
     },
     {
@@ -6541,6 +6716,7 @@
         "attack": 125,
         "defense": 85
       },
+      "icon": "/icons/pals/DarkAlien.png",
       "internalName": "DarkAlien"
     },
     {
@@ -6571,6 +6747,7 @@
         "attack": 120,
         "defense": 130
       },
+      "icon": "/icons/pals/WhiteAlienDragon.png",
       "internalName": "WhiteAlienDragon"
     },
     {
@@ -6602,6 +6779,7 @@
         "attack": 120,
         "defense": 120
       },
+      "icon": "/icons/pals/DarkMechaDragon.png",
       "internalName": "DarkMechaDragon"
     },
     {
@@ -6636,6 +6814,7 @@
         "attack": 95,
         "defense": 105
       },
+      "icon": "/icons/pals/GhostRabbit.png",
       "internalName": "GhostRabbit"
     },
     {
@@ -6666,6 +6845,7 @@
         "attack": 100,
         "defense": 100
       },
+      "icon": "/icons/pals/NightBlueHorse.png",
       "internalName": "NightBlueHorse"
     },
     {
@@ -6696,6 +6876,7 @@
         "attack": 110,
         "defense": 115
       },
+      "icon": "/icons/pals/WhiteShieldDragon.png",
       "internalName": "WhiteShieldDragon"
     },
     {
@@ -6726,6 +6907,7 @@
         "attack": 90,
         "defense": 85
       },
+      "icon": "/icons/pals/BlackPuppy.png",
       "internalName": "BlackPuppy"
     },
     {
@@ -6760,6 +6942,7 @@
         "attack": 110,
         "defense": 100
       },
+      "icon": "/icons/pals/WhiteDeer.png",
       "internalName": "WhiteDeer"
     },
     {
@@ -6790,6 +6973,7 @@
         "attack": 105,
         "defense": 100
       },
+      "icon": "/icons/pals/MysteryMask.png",
       "internalName": "MysteryMask"
     },
     {
@@ -6832,6 +7016,7 @@
         "attack": 115,
         "defense": 105
       },
+      "icon": "/icons/pals/GrimGirl.png",
       "internalName": "GrimGirl"
     },
     {
@@ -6874,6 +7059,7 @@
         "attack": 100,
         "defense": 100
       },
+      "icon": "/icons/pals/PurpleSpider.png",
       "internalName": "PurpleSpider"
     },
     {
@@ -6908,6 +7094,7 @@
         "attack": 120,
         "defense": 110
       },
+      "icon": "/icons/pals/BlueThunderHorse.png",
       "internalName": "BlueThunderHorse"
     },
     {
@@ -6947,6 +7134,7 @@
         "attack": 85,
         "defense": 70
       },
+      "icon": "/icons/pals/OctopusGirl.png",
       "internalName": "OctopusGirl"
     },
     {
@@ -6982,6 +7170,7 @@
         "attack": 115,
         "defense": 110
       },
+      "icon": "/icons/pals/IceNarwhal.png",
       "internalName": "IceNarwhal"
     },
     {
@@ -7017,6 +7206,7 @@
         "attack": 120,
         "defense": 110
       },
+      "icon": "/icons/pals/IceNarwhal_Fire.png",
       "internalName": "IceNarwhal_Fire"
     },
     {
@@ -7055,6 +7245,7 @@
         "attack": 90,
         "defense": 70
       },
+      "icon": "/icons/pals/JellyfishFairy.png",
       "internalName": "JellyfishFairy"
     },
     {
@@ -7085,6 +7276,7 @@
         "attack": 80,
         "defense": 70
       },
+      "icon": "/icons/pals/Kitsunebi_Ice.png",
       "internalName": "Kitsunebi_Ice"
     },
     {
@@ -7119,6 +7311,7 @@
         "attack": 75,
         "defense": 90
       },
+      "icon": "/icons/pals/BerryGoat_Dark.png",
       "internalName": "BerryGoat_Dark"
     },
     {
@@ -7161,6 +7354,7 @@
         "attack": 65,
         "defense": 70
       },
+      "icon": "/icons/pals/PinkRabbit_Grass.png",
       "internalName": "PinkRabbit_Grass"
     },
     {
@@ -7195,6 +7389,7 @@
         "attack": 105,
         "defense": 80
       },
+      "icon": "/icons/pals/Werewolf_Ice.png",
       "internalName": "Werewolf_Ice"
     },
     {
@@ -7225,6 +7420,7 @@
         "attack": 115,
         "defense": 105
       },
+      "icon": "/icons/pals/AmaterasuWolf_Dark.png",
       "internalName": "AmaterasuWolf_Dark"
     },
     {
@@ -7268,6 +7464,7 @@
         "attack": 80,
         "defense": 75
       },
+      "icon": "/icons/pals/RaijinDaughter_Water.png",
       "internalName": "RaijinDaughter_Water"
     },
     {
@@ -7310,6 +7507,7 @@
         "attack": 105,
         "defense": 110
       },
+      "icon": "/icons/pals/WhiteTiger_Ground.png",
       "internalName": "WhiteTiger_Ground"
     },
     {
@@ -7344,6 +7542,7 @@
         "attack": 115,
         "defense": 90
       },
+      "icon": "/icons/pals/FengyunDeeper_Electric.png",
       "internalName": "FengyunDeeper_Electric"
     },
     {
@@ -7378,6 +7577,7 @@
         "attack": 110,
         "defense": 110
       },
+      "icon": "/icons/pals/Horus_Water.png",
       "internalName": "Horus_Water"
     },
     {
@@ -7416,6 +7616,7 @@
         "attack": 130,
         "defense": 120
       },
+      "icon": "/icons/pals/SnowTigerBeastman.png",
       "internalName": "SnowTigerBeastman"
     },
     {
@@ -7451,6 +7652,7 @@
         "attack": 125,
         "defense": 105
       },
+      "icon": "/icons/pals/GhostAnglerfish.png",
       "internalName": "GhostAnglerfish"
     },
     {
@@ -7490,6 +7692,7 @@
         "attack": 130,
         "defense": 105
       },
+      "icon": "/icons/pals/GhostAnglerfish_Fire.png",
       "internalName": "GhostAnglerfish_Fire"
     },
     {
@@ -7532,6 +7735,7 @@
         "attack": 115,
         "defense": 105
       },
+      "icon": "/icons/pals/IceWitch.png",
       "internalName": "IceWitch"
     },
     {
@@ -7566,6 +7770,7 @@
         "attack": 130,
         "defense": 110
       },
+      "icon": "/icons/pals/LegendDeer.png",
       "internalName": "LegendDeer"
     },
     {
@@ -7605,6 +7810,7 @@
         "attack": 75,
         "defense": 75
       },
+      "icon": "/icons/pals/LeafMomonga.png",
       "internalName": "LeafMomonga"
     },
     {
@@ -7644,6 +7850,7 @@
         "attack": 80,
         "defense": 85
       },
+      "icon": "/icons/pals/IceCrocodile.png",
       "internalName": "IceCrocodile"
     },
     {
@@ -7678,6 +7885,7 @@
         "attack": 85,
         "defense": 80
       },
+      "icon": "/icons/pals/StuffedShark.png",
       "internalName": "StuffedShark"
     },
     {
@@ -7717,6 +7925,7 @@
         "attack": 90,
         "defense": 80
       },
+      "icon": "/icons/pals/StuffedShark_Fire.png",
       "internalName": "StuffedShark_Fire"
     },
     {
@@ -7752,6 +7961,7 @@
         "attack": 105,
         "defense": 105
       },
+      "icon": "/icons/pals/IceSeal.png",
       "internalName": "IceSeal"
     },
     {
@@ -7791,6 +8001,7 @@
         "attack": 95,
         "defense": 120
       },
+      "icon": "/icons/pals/Plesiosaur.png",
       "internalName": "Plesiosaur"
     },
     {
@@ -7829,6 +8040,7 @@
         "attack": 110,
         "defense": 115
       },
+      "icon": "/icons/pals/TropicalOstrich.png",
       "internalName": "TropicalOstrich"
     },
     {
@@ -7863,6 +8075,7 @@
         "attack": 100,
         "defense": 100
       },
+      "icon": "/icons/pals/SnowPeafowl.png",
       "internalName": "SnowPeafowl"
     },
     {
@@ -7906,6 +8119,7 @@
         "attack": 75,
         "defense": 75
       },
+      "icon": "/icons/pals/JellyfishGhost.png",
       "internalName": "JellyfishGhost"
     },
     {
@@ -7936,6 +8150,7 @@
         "attack": 145,
         "defense": 125
       },
+      "icon": "/icons/pals/PoseidonOrca.png",
       "internalName": "PoseidonOrca"
     }
   ],
@@ -9083,7 +9298,8 @@
       "categories": [
         "Crafting Speed"
       ],
-      "lotteryWeight": 5
+      "lotteryWeight": 5,
+      "description": "Crafting Speed +75%"
     },
     {
       "id": "CraftSpeed_up2",
@@ -9092,7 +9308,8 @@
       "categories": [
         "Crafting Speed"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "Crafting Speed +50%"
     },
     {
       "id": "CraftSpeed_up1",
@@ -9101,7 +9318,8 @@
       "categories": [
         "Crafting Speed"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "Crafting Speed +20%"
     },
     {
       "id": "CraftSpeed_down1",
@@ -9110,7 +9328,8 @@
       "categories": [
         "Crafting Speed"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "Crafting Speed -10%"
     },
     {
       "id": "CraftSpeed_down2",
@@ -9119,7 +9338,8 @@
       "categories": [
         "Crafting Speed"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "Crafting Speed -30%"
     },
     {
       "id": "Deffence_up3",
@@ -9128,7 +9348,8 @@
       "categories": [
         "Defense"
       ],
-      "lotteryWeight": 5
+      "lotteryWeight": 5,
+      "description": "Defense +30%"
     },
     {
       "id": "Deffence_up2",
@@ -9137,7 +9358,8 @@
       "categories": [
         "Defense"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "Defense +20%"
     },
     {
       "id": "Deffence_up1",
@@ -9146,7 +9368,8 @@
       "categories": [
         "Defense"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "Defense +10%"
     },
     {
       "id": "Deffence_down1",
@@ -9155,7 +9378,8 @@
       "categories": [
         "Defense"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "Defense -10%"
     },
     {
       "id": "Deffence_down2",
@@ -9164,7 +9388,8 @@
       "categories": [
         "Defense"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "Defense -20%"
     },
     {
       "id": "Noukin",
@@ -9174,7 +9399,8 @@
         "Attack",
         "Crafting Speed"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "Attack +30%\nCrafting Speed -50%"
     },
     {
       "id": "Rare",
@@ -9184,7 +9410,8 @@
         "Crafting Speed",
         "Attack"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "Crafting Speed +15%\nAttack +15%"
     },
     {
       "id": "Legend",
@@ -9195,7 +9422,8 @@
         "Defense",
         "Move Speed"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "Attack +20%\nDefense +20%\nMovement Speed increases 15%"
     },
     {
       "id": "Witch",
@@ -9205,7 +9433,8 @@
         "Dark Boost",
         "Ice Boost"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "30% increase in Dark attack damage.\n30% increase in Ice attack damage."
     },
     {
       "id": "EternalFlame",
@@ -9215,7 +9444,8 @@
         "Fire Boost",
         "Electric Boost"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "30% increase to Fire attack damage.\n30% increase to Lightning attack damage."
     },
     {
       "id": "Invader",
@@ -9225,7 +9455,8 @@
         "Dark Boost",
         "Dragon Boost"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "30% increase in Dark attack damage.\n30% increase in Dragon attack damage."
     },
     {
       "id": "PAL_ALLAttack_up3",
@@ -9235,7 +9466,8 @@
         "Attack",
         "Defense"
       ],
-      "lotteryWeight": 5
+      "lotteryWeight": 5,
+      "description": "Attack +30%\nDefense +5%"
     },
     {
       "id": "PAL_ALLAttack_up2",
@@ -9244,7 +9476,8 @@
       "categories": [
         "Attack"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "Attack +20%"
     },
     {
       "id": "PAL_ALLAttack_up1",
@@ -9253,7 +9486,8 @@
       "categories": [
         "Attack"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "Attack +10%"
     },
     {
       "id": "PAL_ALLAttack_down1",
@@ -9262,7 +9496,8 @@
       "categories": [
         "Attack"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "Attack -10%"
     },
     {
       "id": "PAL_ALLAttack_down2",
@@ -9271,7 +9506,8 @@
       "categories": [
         "Attack"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "Attack -20%"
     },
     {
       "id": "PAL_rude",
@@ -9281,7 +9517,8 @@
         "Attack",
         "Crafting Speed"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "Attack +15%\nCrafting Speed -10%"
     },
     {
       "id": "PAL_conceited",
@@ -9291,7 +9528,8 @@
         "Crafting Speed",
         "Defense"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "Crafting Speed +10%\nDefense -10%"
     },
     {
       "id": "PAL_sadist",
@@ -9301,7 +9539,8 @@
         "Attack",
         "Defense"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "Attack +15%\nDefense -15%"
     },
     {
       "id": "PAL_masochist",
@@ -9311,7 +9550,8 @@
         "Defense",
         "Attack"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "Defense +15%\nAttack -15%"
     },
     {
       "id": "PAL_CorporateSlave",
@@ -9321,7 +9561,8 @@
         "Crafting Speed",
         "Attack"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "Crafting Speed +30%\nAttack -30%"
     },
     {
       "id": "PAL_oraora",
@@ -9331,7 +9572,8 @@
         "Attack",
         "Defense"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "Attack +10%\nDefense -10%"
     },
     {
       "id": "TrainerATK_UP_1",
@@ -9340,7 +9582,8 @@
       "categories": [
         "Attack"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "10% increase in Player Attack."
     },
     {
       "id": "TrainerDEF_UP_1",
@@ -9349,7 +9592,8 @@
       "categories": [
         "Defense"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "10% increase in Player Defense."
     },
     {
       "id": "TrainerWorkSpeed_UP_1",
@@ -9358,7 +9602,8 @@
       "categories": [
         "Crafting Speed"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "25% increase in Player Work Speed."
     },
     {
       "id": "TrainerMining_up1",
@@ -9367,7 +9612,8 @@
       "categories": [
         "Mining"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "25% increase in Player Mining Efficiency."
     },
     {
       "id": "TrainerLogging_up1",
@@ -9376,7 +9622,8 @@
       "categories": [
         "Logging"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "25% increase in Player Logging Efficiency."
     },
     {
       "id": "ElementResist_Normal_1_PAL",
@@ -9385,7 +9632,8 @@
       "categories": [
         "Neutral Resistance"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "10% decrease in incoming Neutral damage."
     },
     {
       "id": "ElementResist_Fire_1_PAL",
@@ -9394,7 +9642,8 @@
       "categories": [
         "Fire Resistance"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "10% decrease in incoming Fire damage."
     },
     {
       "id": "ElementResist_Aqua_1_PAL",
@@ -9403,7 +9652,8 @@
       "categories": [
         "Water Resistance"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "10% decrease in incoming Water damage."
     },
     {
       "id": "ElementResist_Thunder_1_PAL",
@@ -9412,7 +9662,8 @@
       "categories": [
         "Electric Resistance"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "10% decrease in incoming Lightning damage."
     },
     {
       "id": "ElementResist_Leaf_1_PAL",
@@ -9421,7 +9672,8 @@
       "categories": [
         "Grass Resistance"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "10% decrease in incoming Grass damage."
     },
     {
       "id": "ElementResist_Ice_1_PAL",
@@ -9430,7 +9682,8 @@
       "categories": [
         "Ice Resistance"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "10% decrease in incoming Ice damage."
     },
     {
       "id": "ElementResist_Earth_1_PAL",
@@ -9439,7 +9692,8 @@
       "categories": [
         "Ground Resistance"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "10% decrease in incoming Earth damage."
     },
     {
       "id": "ElementResist_Dark_1_PAL",
@@ -9448,7 +9702,8 @@
       "categories": [
         "Dark Resistance"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "10% decrease in incoming Dark damage."
     },
     {
       "id": "ElementResist_Dragon_1_PAL",
@@ -9457,7 +9712,8 @@
       "categories": [
         "Dragon Resistance"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "10% decrease in incoming Dragon damage."
     },
     {
       "id": "ElementBoost_Normal_1_PAL",
@@ -9466,7 +9722,8 @@
       "categories": [
         "Neutral Boost"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "10% increase in Neutral attack damage."
     },
     {
       "id": "ElementBoost_Fire_1_PAL",
@@ -9475,7 +9732,8 @@
       "categories": [
         "Fire Boost"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "10% increase in Fire attack damage."
     },
     {
       "id": "ElementBoost_Aqua_1_PAL",
@@ -9484,7 +9742,8 @@
       "categories": [
         "Water Boost"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "10% increase in Water attack damage."
     },
     {
       "id": "ElementBoost_Thunder_1_PAL",
@@ -9493,7 +9752,8 @@
       "categories": [
         "Electric Boost"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "10% increase in Lightning attack damage."
     },
     {
       "id": "ElementBoost_Leaf_1_PAL",
@@ -9502,7 +9762,8 @@
       "categories": [
         "Grass Boost"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "10% increase in Grass attack damage."
     },
     {
       "id": "ElementBoost_Ice_1_PAL",
@@ -9511,7 +9772,8 @@
       "categories": [
         "Ice Boost"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "10% increase in Ice attack damage."
     },
     {
       "id": "ElementBoost_Earth_1_PAL",
@@ -9520,7 +9782,8 @@
       "categories": [
         "Ground Boost"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "10% increase in Earth attack damage."
     },
     {
       "id": "ElementBoost_Dark_1_PAL",
@@ -9529,7 +9792,8 @@
       "categories": [
         "Dark Boost"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "10% increase in Dark attack damage."
     },
     {
       "id": "ElementBoost_Dragon_1_PAL",
@@ -9538,7 +9802,8 @@
       "categories": [
         "Dragon Boost"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "10% increase in Dragon attack damage."
     },
     {
       "id": "PAL_FullStomach_Up_1",
@@ -9547,7 +9812,8 @@
       "categories": [
         "Food Consumption"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "Hunger decreases +10.0% faster."
     },
     {
       "id": "PAL_FullStomach_Up_2",
@@ -9556,7 +9822,8 @@
       "categories": [
         "Food Consumption"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "Hunger decreases +15.0% faster."
     },
     {
       "id": "PAL_FullStomach_Down_1",
@@ -9565,7 +9832,8 @@
       "categories": [
         "Food Consumption"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "Hunger decreases +10.0% slower."
     },
     {
       "id": "PAL_FullStomach_Down_2",
@@ -9574,7 +9842,8 @@
       "categories": [
         "Food Consumption"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "Hunger decreases +15.0% slower."
     },
     {
       "id": "PAL_FullStomach_Down_3",
@@ -9583,7 +9852,8 @@
       "categories": [
         "Food Consumption"
       ],
-      "lotteryWeight": 5
+      "lotteryWeight": 5,
+      "description": "Hunger decreases +20.0% slower."
     },
     {
       "id": "PAL_Sanity_Up_1",
@@ -9592,7 +9862,8 @@
       "categories": [
         "Sanity"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "SAN drops +10.0% faster."
     },
     {
       "id": "PAL_Sanity_Up_2",
@@ -9601,7 +9872,8 @@
       "categories": [
         "Sanity"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "SAN drops +15.0% faster."
     },
     {
       "id": "PAL_Sanity_Down_1",
@@ -9610,7 +9882,8 @@
       "categories": [
         "Sanity"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "SAN drops +10.0% slower."
     },
     {
       "id": "PAL_Sanity_Down_2",
@@ -9619,7 +9892,8 @@
       "categories": [
         "Sanity"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "SAN drops +15.0% slower."
     },
     {
       "id": "PAL_Sanity_Down_3",
@@ -9628,7 +9902,8 @@
       "categories": [
         "Sanity"
       ],
-      "lotteryWeight": 5
+      "lotteryWeight": 5,
+      "description": "SAN drops +20.0% slower."
     },
     {
       "id": "ElementBoost_Normal_2_PAL",
@@ -9637,7 +9912,8 @@
       "categories": [
         "Neutral Boost"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "20% increase in Neutral attack damage."
     },
     {
       "id": "ElementBoost_Fire_2_PAL",
@@ -9646,7 +9922,8 @@
       "categories": [
         "Fire Boost"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "20% increase in Fire attack damage."
     },
     {
       "id": "ElementBoost_Aqua_2_PAL",
@@ -9655,7 +9932,8 @@
       "categories": [
         "Water Boost"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "20% increase in Water attack damage."
     },
     {
       "id": "ElementBoost_Thunder_2_PAL",
@@ -9664,7 +9942,8 @@
       "categories": [
         "Electric Boost"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "20% increase in Lightning attack damage."
     },
     {
       "id": "ElementBoost_Leaf_2_PAL",
@@ -9673,7 +9952,8 @@
       "categories": [
         "Grass Boost"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "20% increase in Grass attack damage."
     },
     {
       "id": "ElementBoost_Ice_2_PAL",
@@ -9682,7 +9962,8 @@
       "categories": [
         "Ice Boost"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "20% increase in Ice attack damage."
     },
     {
       "id": "ElementBoost_Earth_2_PAL",
@@ -9691,7 +9972,8 @@
       "categories": [
         "Ground Boost"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "20% increase in Earth attack damage."
     },
     {
       "id": "ElementBoost_Dark_2_PAL",
@@ -9700,7 +9982,8 @@
       "categories": [
         "Dark Boost"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "20% increase in Dark attack damage."
     },
     {
       "id": "ElementBoost_Dragon_2_PAL",
@@ -9709,7 +9992,8 @@
       "categories": [
         "Dragon Boost"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "20% increase in Dragon attack damage."
     },
     {
       "id": "MoveSpeed_up_1",
@@ -9718,7 +10002,8 @@
       "categories": [
         "Move Speed"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "10% increase to movement speed."
     },
     {
       "id": "MoveSpeed_up_2",
@@ -9727,7 +10012,8 @@
       "categories": [
         "Move Speed"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "20% increase to movement speed."
     },
     {
       "id": "MoveSpeed_up_3",
@@ -9736,7 +10022,8 @@
       "categories": [
         "Move Speed"
       ],
-      "lotteryWeight": 5
+      "lotteryWeight": 5,
+      "description": "30% increase to movement speed."
     },
     {
       "id": "NonKilling",
@@ -9745,7 +10032,8 @@
       "categories": [
         "Non-Lethal"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "Pacifist.\nWill not reduce the target's Health below 1."
     },
     {
       "id": "Nocturnal",
@@ -9754,7 +10042,8 @@
       "categories": [
         "Nocturnal"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "Does not sleep and continues to work even at night."
     },
     {
       "id": "Test_PalEgg_HatchingSpeed_Up",
@@ -9763,7 +10052,8 @@
       "categories": [
         "Breeding Speed"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "When assigned to a Breeding Farm, breeding speed is increased by 100%."
     },
     {
       "id": "CoolTimeReduction_Up_1",
@@ -9773,7 +10063,8 @@
         "Skill Cooldown",
         "Attack"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "Active skill cooldown reduction 30%\nAttack +10%"
     },
     {
       "id": "CoolTimeReduction_Up_2",
@@ -9782,7 +10073,8 @@
       "categories": [
         "Skill Cooldown"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "Active skill cooldown reduction 15%"
     },
     {
       "id": "CoolTimeReduction_Down_1",
@@ -9791,7 +10083,8 @@
       "categories": [
         "Skill Cooldown"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "Active skill cooldown extension -15%"
     },
     {
       "id": "Stamina_Up_1",
@@ -9800,7 +10093,8 @@
       "categories": [
         "SP"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "Max stamina +50%\n*This effect is only valid for rideable pals."
     },
     {
       "id": "Stamina_Up_2",
@@ -9809,7 +10103,8 @@
       "categories": [
         "SP"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "Max stamina +25%\n*This effect is only valid for rideable pals."
     },
     {
       "id": "Stamina_Up_3",
@@ -9818,7 +10113,8 @@
       "categories": [
         "SP"
       ],
-      "lotteryWeight": 5
+      "lotteryWeight": 5,
+      "description": "Max stamina +75%\n*This effect is only valid for rideable pals."
     },
     {
       "id": "Stamina_Down_1",
@@ -9827,7 +10123,8 @@
       "categories": [
         "SP"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "Max Stamina -25%\n*This effect is only valid for rideable pals."
     },
     {
       "id": "SalePrice_Up_1",
@@ -9837,7 +10134,8 @@
         "Sell Price",
         "Buy Price"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "Increases the value of items when sold by +5%"
     },
     {
       "id": "SalePrice_Up_2",
@@ -9847,7 +10145,8 @@
         "Sell Price",
         "Buy Price"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "Increases the value of items when sold by +3%"
     },
     {
       "id": "SalePrice_Down_1",
@@ -9857,7 +10156,8 @@
         "Sell Price",
         "Buy Price"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "Decrease the value of items when sold by -10%"
     },
     {
       "id": "Alien",
@@ -9868,7 +10168,8 @@
         "Fire Resistance",
         "Electric Boost"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "Attack +10%\nFire damage reduction 15%\nLightning damage reduction 15%"
     },
     {
       "id": "Vampire",
@@ -9878,7 +10179,8 @@
         "Nocturnal",
         "Life Steal"
       ],
-      "lotteryWeight": 5
+      "lotteryWeight": 5,
+      "description": "Absorbs a portion of the damage dealt to restore <uiCommon id=|COMMON_STATUS_HP|/>. \nDoes not sleep at night and continues to work."
     },
     {
       "id": "Nushi",
@@ -9889,7 +10191,8 @@
         "Ice Boost",
         "Defense"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "20% increase to Water attack damage \n20% increase to Ice attack damage \n20% increase to defense."
     },
     {
       "id": "SwimSpeed_up_1",
@@ -9898,7 +10201,8 @@
       "categories": [
         "Swim Speed"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "30% increase movement speed on water."
     },
     {
       "id": "SwimSpeed_up_2",
@@ -9907,7 +10211,8 @@
       "categories": [
         "Swim Speed"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "40% increase movement speed on water."
     },
     {
       "id": "SwimSpeed_up_3",
@@ -9916,7 +10221,8 @@
       "categories": [
         "Swim Speed"
       ],
-      "lotteryWeight": 5
+      "lotteryWeight": 5,
+      "description": "50% increase movement speed on water."
     },
     {
       "id": "Salvation",
@@ -9926,7 +10232,8 @@
         "Neutral Boost",
         "Grass Boost"
       ],
-      "lotteryWeight": 100
+      "lotteryWeight": 100,
+      "description": "30% increase in Neutral attack damage.\n30% increase in Grass attack damage."
     }
   ],
   "passiveModel": {

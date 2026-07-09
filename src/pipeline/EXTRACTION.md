@@ -101,8 +101,17 @@ Exported to `Output/Exports/Pal/Content/` (the default `--in` root):
   `PASSIVE_<skillId>`. Exported with a newer usmap (`Mappings073.usmap`) than the species/name
   tables above (`Mappings.0.6.6.usmap`) — same game build, just decoded with two different
   mapping files; no consistency issue.
+- `Pal/DataTable/Character/DT_PalCharacterIconDataTable.json` — species id → icon texture
+  asset path (237 rows). Keyed case-insensitively against species id (casing quirks: e.g.
+  `BadCatGirl` vs. species `BadCatgirl`).
+- `Pal/Texture/PalIcon/Normal/*.png` — the 512×512 icon textures the table above points at.
+  Copied by the normalizer into `public/icons/pals/<id>.png` (the app-servable output);
+  the raw export tree is gitignored, not committed.
+- `L10N/en/Pal/DataTable/Text/DT_SkillDescText_Common.json` — English passive effect text,
+  keyed by each passive row's own `OverrideDescMsgID`. Templated with `{EffectValue1-3}`,
+  resolved against that row's numeric effect values from `DT_PassiveSkill_Main_Common`.
 
-### Result: 218 species, 141 special combos (2 gender-dependent), 92 passives
+### Result: 218 species (215 with icon), 141 special combos (2 gender-dependent), 92 passives (69 with description)
 
 ### Classification decisions (the export is a dev build — this is the judgement)
 
@@ -148,6 +157,21 @@ pass through. All 9 game elements map onto the schema's closed set.
   correlates with `tier === 4` — plausibly the mutation-pool selection weight (rare/strong
   passives rolled far less often), but this is an unconfirmed guess about game internals, not
   verified. Treat it as raw source data, not a substitute for `passiveModel`'s odds.
+- **3 species have no `icon`**: `ElecLion` and `BlackFurDragon` have a row in
+  `DT_PalCharacterIconDataTable` but the referenced PNG wasn't present in the texture export
+  (re-export `Pal/Texture/PalIcon/Normal` if this matters later); `PlantSlime_Flower` has no
+  icon-table row at all (the variant may just reuse the base `PlantSlime` art in-game — not
+  assumed here, left unset rather than guessed).
+- **23 passives (e.g. `CraftSpeed_up1-3`, `Rare`, `Noukin`) have no authored `description`
+  text.** Their `DT_PassiveSkill_Main` row's `OverrideDescMsgID` is `None`, and there's no
+  reliable fallback key pattern (unlike names, which fall back to `PASSIVE_<skillId>`) —
+  confirmed these keys genuinely don't exist anywhere in `DT_SkillDescText_Common`, not a
+  lookup miss. The game apparently never authors flavor text for the plain stat-tier
+  passives (Serious, Diamond Body, Musclehead, …); community data-mining sites (paldb.cc)
+  render these the same mechanical way. So `normalize.ts` generates a fallback description
+  for these from the row's own `EffectType`/`EffectValue`/`TargetType` fields —
+  `"<Category> +/-<Value>%"` — the same real extracted numbers, just formatted rather than
+  pulled from a canned string. All 92 passives end up with a `description`.
 
 ### Patch-day (July 10) replay
 

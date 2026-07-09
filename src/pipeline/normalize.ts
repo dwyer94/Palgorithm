@@ -8,14 +8,23 @@
  * Run offline:  node src/pipeline/normalize.ts [--in <exportRoot>] [--out <file>]
  *
  * Inputs (relative to <exportRoot>, default: Output/Exports/Pal/Content):
- *   Pal/DataTable/Character/DT_PalMonsterParameter.json   ranks, gender, elements, flags
- *   Pal/DataTable/Character/DT_PalCombiUnique.json         special-combo overrides
- *   L10N/en/Pal/DataTable/Text/DT_PalNameText_Common.json  English display names
+ *   Pal/DataTable/Character/DT_PalMonsterParameter.json         ranks, gender, elements, flags
+ *   Pal/DataTable/Character/DT_PalCombiUnique.json                special-combo overrides
+ *   L10N/en/Pal/DataTable/Text/DT_PalNameText_Common.json         English display names
+ *   Pal/DataTable/Character/DT_PalCharacterIconDataTable.json     species id -> icon texture asset
+ *   Pal/Texture/PalIcon/Normal/*.png                              the icon textures themselves
+ *   L10N/en/Pal/DataTable/Text/DT_SkillDescText_Common.json       English passive effect text
+ *
+ * Icon textures referenced by the icon table are copied to public/icons/pals/<id>.png
+ * (repo-root-relative, served as-is by Vite) — this is the one step that touches the
+ * filesystem outside of reading inputs / writing the dataset. Both the icon table and the
+ * texture folder are optional inputs: a re-run without them (e.g. an export that only
+ * refreshed the DataTables) skips icon population with a warning rather than failing.
  *
  * Output: src/data/dataset.0.6.json (validated against DatasetSchema before writing).
  */
 
-import { readFileSync, writeFileSync } from 'node:fs';
+import { readFileSync, writeFileSync, existsSync, mkdirSync, copyFileSync, readdirSync } from 'node:fs';
 import { join, resolve, isAbsolute } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
@@ -48,6 +57,10 @@ const P_COMBI = join(IN_ROOT, 'Pal', 'DataTable', 'Character', 'DT_PalCombiUniqu
 const P_NAMES = join(IN_ROOT, 'L10N', 'en', 'Pal', 'DataTable', 'Text', 'DT_PalNameText_Common.json');
 const P_PASSIVES = join(IN_ROOT, 'Pal', 'DataTable', 'PassiveSkill', 'DT_PassiveSkill_Main_Common.json');
 const P_SKILL_NAMES = join(IN_ROOT, 'L10N', 'en', 'Pal', 'DataTable', 'Text', 'DT_SkillNameText_Common.json');
+const P_SKILL_DESCS = join(IN_ROOT, 'L10N', 'en', 'Pal', 'DataTable', 'Text', 'DT_SkillDescText_Common.json');
+const P_ICON_TABLE = join(IN_ROOT, 'Pal', 'DataTable', 'Character', 'DT_PalCharacterIconDataTable.json');
+const P_ICON_DIR = join(IN_ROOT, 'Pal', 'Texture', 'PalIcon', 'Normal');
+const ICON_OUT_DIR = join(repoRoot, 'public', 'icons', 'pals');
 
 // --- Raw shapes (only the fields we read) -------------------------------------------------
 
@@ -86,10 +99,17 @@ interface PassiveSkillRow {
   LotteryWeight?: number;
   Category?: string;
   OverrideNameTextID?: string;
+  OverrideDescMsgID?: string;
   EffectType1?: string;
   EffectType2?: string;
   EffectType3?: string;
+  EffectValue1?: number;
+  EffectValue2?: number;
+  EffectValue3?: number;
   [k: string]: unknown;
+}
+interface IconRow {
+  Icon?: { AssetPathName?: string };
 }
 
 function loadTable<Row>(path: string): FModelTable<Row> {
@@ -176,6 +196,44 @@ function mapEffectCategory(raw: string | undefined): string | undefined {
   return EFFECT_CATEGORY_MAP[tail] ?? tail; // unmapped tail: surface as-is rather than drop it
 }
 
+/** Raw EPalPassiveSkillEffectTargetType tails → a human suffix. ToSelf is the overwhelming
+ * default for pal passives and reads as noise if spelled out, so it (and the empty/None
+ * case) is omitted rather than mapped — only the less-common targets get a "(...)" suffix. */
+const TARGET_TYPE_MAP: Record<string, string> = {
+  ToOtomo: 'Partner Pal',
+  ToBaseCampPal: 'Base Pals',
+  ToTrainer: 'Trainer',
+  ToBuildObject: 'Built Objects',
+  ToSelfAndTrainer: 'Self & Trainer',
+};
+
+function mapEffectTarget(raw: string | undefined): string | undefined {
+  const tail = enumTail(raw);
+  if (!tail || tail === 'None' || tail === 'ToSelf') return undefined;
+  return TARGET_TYPE_MAP[tail] ?? tail;
+}
+
+/** Fallback passive description, generated from the row's own EffectType/EffectValue/
+ * TargetType fields for passives with no authored `OverrideDescMsgID` (spec: ~23 of 92 —
+ * the plain stat-tier passives like Serious/Diamond Body/Musclehead never got hand-written
+ * flavor text in the source data). Community data-mining sites (e.g. paldb.cc) render these
+ * exact passives the same mechanical way — "<Category> +/-<Value>% (<Target>)" — strongly
+ * suggesting the game itself has no authored string for them either and builds this
+ * on the fly, so this isn't guessing at unknown values, just formatting real extracted ones
+ * the way the source data implies they're meant to be read. */
+function generateFallbackDesc(row: PassiveSkillRow): string | undefined {
+  const clauses: string[] = [];
+  for (const i of [1, 2, 3] as const) {
+    const category = mapEffectCategory(row[`EffectType${i}`] as string | undefined);
+    const value = row[`EffectValue${i}`] as number | undefined;
+    if (!category || value === undefined) continue;
+    const sign = value >= 0 ? '+' : '';
+    const target = mapEffectTarget(row[`TargetType${i}`] as string | undefined);
+    clauses.push(`${category} ${sign}${value}%${target ? ` (${target})` : ''}`);
+  }
+  return clauses.length ? clauses.join('\n') : undefined;
+}
+
 // --- Inclusion policy ---------------------------------------------------------------------
 //
 // The export is a dev build: alongside the ~208 released standard-breeding Pals it carries
@@ -205,6 +263,27 @@ function main(): void {
   const nameTbl = loadTable<NameRow>(P_NAMES);
   const passiveTbl = loadTable<PassiveSkillRow>(P_PASSIVES);
   const skillNameTbl = loadTable<NameRow>(P_SKILL_NAMES);
+  const skillDescTbl = existsSync(P_SKILL_DESCS) ? loadTable<NameRow>(P_SKILL_DESCS) : undefined;
+
+  // Icon textures: DT_PalCharacterIconDataTable maps species id -> texture asset path. Both
+  // this table and the texture folder are optional — an export that didn't include icons
+  // (or a re-run against an older export) just skips icon population, it doesn't fail the
+  // whole normalize run (icon is UI-only, spec §6 / schema.ts comment on Species.icon).
+  const iconTbl = existsSync(P_ICON_TABLE) ? loadTable<IconRow>(P_ICON_TABLE) : undefined;
+  const iconFiles = existsSync(P_ICON_DIR) ? new Set(readdirSync(P_ICON_DIR)) : undefined;
+  // Keyed case-insensitively: the icon table's row keys don't always match a species id's
+  // casing (e.g. "BadCatGirl" vs. species "BadCatgirl", "Blueplatypus" vs. "BluePlatypus") —
+  // the same class of casing quirk already handled for tribe names below.
+  const iconFileByLowerId = new Map<string, string>();
+  if (iconTbl) {
+    for (const [key, row] of Object.entries(iconTbl.Rows)) {
+      const asset = row.Icon?.AssetPathName;
+      if (!asset) continue;
+      const fname = `${asset.split('/').pop()!.split('.')[0]}.png`;
+      iconFileByLowerId.set(key.toLowerCase(), fname);
+    }
+  }
+  const missingIcons: string[] = []; // species with no resolvable icon (no table row, or file absent from export)
 
   // "en_text" / "en Text" is Unreal's own placeholder LocalizedString for keys that were never
   // actually localized (only a dev source-string stub exists) — it shows up verbatim in the
@@ -270,6 +349,23 @@ function main(): void {
     const zukan = row.ZukanIndex ?? -1;
     const paldexNo = zukan >= 0 ? `${zukan}${row.ZukanIndexSuffix ?? ''}` : undefined;
 
+    // Icon: resolve via DT_PalCharacterIconDataTable, then confirm the referenced texture was
+    // actually exported (a handful of table rows point at PNGs missing from this export — a
+    // real extraction gap, not something to paper over). Copies the source PNG once per
+    // species into public/icons/pals so the built app can serve it without reaching into the
+    // pipeline's raw export tree.
+    let icon: string | undefined;
+    if (iconFiles) {
+      const srcName = iconFileByLowerId.get(charId.toLowerCase());
+      if (srcName && iconFiles.has(srcName)) {
+        mkdirSync(ICON_OUT_DIR, { recursive: true });
+        copyFileSync(join(P_ICON_DIR, srcName), join(ICON_OUT_DIR, `${charId}.png`));
+        icon = `/icons/pals/${charId}.png`;
+      } else {
+        missingIcons.push(charId);
+      }
+    }
+
     species.push({
       id: charId,
       displayName,
@@ -287,6 +383,7 @@ function main(): void {
       rarity: typeof row.Rarity === 'number' ? row.Rarity : undefined,
       workSuitabilities: workSuits(row),
       baseStats: { hp: row.Hp, attack: row.ShotAttack, defense: row.Defense },
+      icon,
       internalName: charId,
     });
   }
@@ -354,8 +451,38 @@ function main(): void {
     return skillNames.get(`passive_${skillId}`.toLowerCase());
   };
 
+  // Passive effect text: unlike names, there's no reliable `passive_<skillId>` fallback key —
+  // it's OverrideDescMsgID or nothing (23 real passives ship with neither; description stays
+  // unset for those, an extraction gap rather than a fabricated value). The source string
+  // carries a game template (`{EffectValue1-3}`) resolved against this row's own numeric
+  // values, plus the game's `<NumBlue_13>`/`<NumRed_13>`/`</>` colour tags around some
+  // pre-baked numbers — stripped since Phase 0 UI has no rich-text renderer for them.
+  const skillDescs = new Map<string, string>();
+  if (skillDescTbl) {
+    for (const [key, row] of Object.entries(skillDescTbl.Rows)) {
+      const s = row.TextData?.LocalizedString?.trim();
+      if (s && !isUnlocalizedPlaceholder(s)) skillDescs.set(key.toLowerCase(), s);
+    }
+  }
+  const resolvePassiveDesc = (row: PassiveSkillRow): string | undefined => {
+    const key = row.OverrideDescMsgID;
+    if (!key || key === 'None') return undefined;
+    const raw = skillDescs.get(key.toLowerCase());
+    if (!raw) return undefined;
+    const fmt = (v: number | undefined): string => (v === undefined ? '' : String(v));
+    return raw
+      .replace(/\{EffectValue1\}/g, fmt(row.EffectValue1))
+      .replace(/\{EffectValue2\}/g, fmt(row.EffectValue2))
+      .replace(/\{EffectValue3\}/g, fmt(row.EffectValue3))
+      .replace(/<\/?[A-Za-z0-9_]*>/g, '')
+      .replace(/\r\n/g, '\n')
+      .trim();
+  };
+
   const passives: Passive[] = [];
   let excludedPassives = 0;
+  let passivesGeneratedDesc = 0; // no authored text — description built from EffectType/Value/Target
+  let passivesMissingDesc = 0; // neither authored nor generatable (shouldn't happen; flagged if it does)
   for (const [skillId, row] of Object.entries(passiveTbl.Rows)) {
     if (row.Category !== 'EPalPassiveCategory::SortDisplayable') {
       excludedPassives++; // dev-only row (e.g. TestSkill*), never shown in-game
@@ -375,7 +502,20 @@ function main(): void {
           .filter((c): c is string => c !== undefined),
       ),
     );
-    passives.push({ id: skillId, displayName, tier: row.Rank, categories, lotteryWeight: row.LotteryWeight });
+    let description = resolvePassiveDesc(row);
+    if (!description) {
+      description = generateFallbackDesc(row);
+      if (description) passivesGeneratedDesc++;
+      else passivesMissingDesc++;
+    }
+    passives.push({
+      id: skillId,
+      displayName,
+      tier: row.Rank,
+      categories,
+      lotteryWeight: row.LotteryWeight,
+      description,
+    });
   }
 
   const dataset: Dataset = {
@@ -420,9 +560,14 @@ function main(): void {
   console.log(`  species:        ${species.length}`);
   console.log(`    standardBreedable: ${species.filter((s) => s.standardBreedable).length}`);
   console.log(`    otherObtainOnly:   ${species.filter((s) => s.otherObtainOnly).length}`);
+  console.log(`    with icon:         ${species.filter((s) => s.icon).length}${missingIcons.length ? ` (missing: ${missingIcons.join(', ')})` : ''}`);
   console.log(`  specialCombos:  ${specialCombos.length} (dropped ${droppedCombos} referencing excluded species)`);
   console.log(`  passives:       ${passives.length} (excluded ${excludedPassives} dev-only/unreleased rows)`);
   console.log(`    with categories:   ${passives.filter((p) => p.categories.length > 0).length}`);
+  console.log(
+    `    with description:  ${passives.length - passivesMissingDesc} ` +
+      `(${passivesGeneratedDesc} generated from effect values; missing ${passivesMissingDesc})`,
+  );
   console.log(`  gender-rules:   ${specialCombos.filter((c) => c.genderRule).length}`);
   console.log(`  excluded rows:  ${excluded.length}`);
 }

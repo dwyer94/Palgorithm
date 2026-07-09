@@ -96,6 +96,11 @@ export const PassiveSchema = z.object({
   // as-is; NOT yet validated as the authoritative mutation-odds source (see passiveModel /
   // spec §3.3) — don't treat it as verified until that's confirmed.
   lotteryWeight: z.number().optional(),
+  // English effect text (e.g. "Attack +20%\nDefense +20%\nMovement Speed increases 15%"),
+  // with the game's own {EffectValue1-3} template resolved against this row's numeric
+  // effect values. UI only — never used by the solver. Missing for a handful of passives
+  // whose source row carries no OverrideDescMsgID (extraction gap, not a real "no effect").
+  description: z.string().optional(),
 });
 
 /**

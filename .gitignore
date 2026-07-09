@@ -21,6 +21,10 @@ Output/.data/
 Output/Logs/
 Output/Backups/
 
+# Raw texture export tree — normalize.ts copies the icons it needs into public/icons/pals
+# (the real output the app serves); no reason to also carry the ~30MB source dump in git.
+Output/Exports/**/Texture/
+
 # Editor / OS
 .vscode/*
 !.vscode/extensions.json
