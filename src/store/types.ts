@@ -33,14 +33,21 @@ export interface SavedPerkSet {
 
 /** Connection config for the live PalDefender-proxy feature (see docs/UI_REQUIREMENTS.md).
  * `baseUrl` empty means "not configured" — the live data source falls back to mock/demo
- * data rather than requiring a separate toggle. `nameOverrides` is keyed by whatever
- * identifier the proxy addresses a player by (PlayerUID today — see src/live/types.ts). */
+ * data rather than requiring a separate toggle. `nameOverrides` stays keyed by SteamID64
+ * (matches the seed data below) rather than `PlayerUID` — PalDefender's `/pals/<id>` 404s
+ * for offline players, so `PlayerUID` (always populated) is what the app tracks a player by
+ * throughout, while `identityLinks` bridges PlayerUID -> SteamID64 so overrides/caching keep
+ * working once a player goes offline (see src/live/nameResolution.ts). */
 export interface LiveConnectionSettings {
   baseUrl: string;
   bearerToken: string;
   autoPollEnabled: boolean;
   autoPollIntervalSeconds: number;
   nameOverrides: Record<string, string>;
+  /** PlayerUID -> bare SteamID64, learned from `UserId` whenever a player is seen online
+   * (PalDefender only populates `UserId` while online). Persists across sessions so a
+   * player who's currently offline still resolves against `nameOverrides`. */
+  identityLinks: Record<string, string>;
 }
 
 /** Persisted app settings (spec §8.6). `serverConfigPreset`/`activeRuleset` are placeholders
@@ -69,11 +76,10 @@ export const DEFAULT_SETTINGS: Settings = {
   live: {
     baseUrl: '',
     bearerToken: '',
-    autoPollEnabled: false,
-    autoPollIntervalSeconds: 60,
-    // Known server roster (docs/UI_REQUIREMENTS.md). Keyed on SteamID64 for now; may need
-    // re-keying to PlayerUID once the real proxy's /players response is inspected — see
-    // src/live/types.ts's PlayerIdentifier note.
+    autoPollEnabled: true,
+    autoPollIntervalSeconds: 300,
+    // Known server roster (docs/UI_REQUIREMENTS.md), keyed on SteamID64 — see
+    // `identityLinks` above for how this keeps resolving once a player's offline.
     nameOverrides: {
       '76561198106031331': 'Kit',
       '76561198061667425': 'InputComet',
@@ -84,5 +90,6 @@ export const DEFAULT_SETTINGS: Settings = {
       '76561198131149693': 'Canter',
       '76561198074507245': 'Wiggum',
     },
+    identityLinks: {},
   },
 };

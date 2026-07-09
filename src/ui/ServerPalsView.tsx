@@ -99,6 +99,9 @@ function PlayersTab() {
 
   const setLive = (patch: Partial<typeof settings.live>) => setSettings({ ...settings, live: { ...settings.live, ...patch } });
 
+  // PalDefender's `Status` field is "saved player account state," not live connectivity —
+  // it does not flip when a player logs off, so it can't gate whether to attempt a fetch.
+  // Just try; a stale/offline player naturally 404s (see `notFound` below).
   const ensurePalsLoaded = (identifier: string) => {
     if (!live.palsByPlayer[identifier]) void live.refreshPlayerPals(identifier);
   };
@@ -187,14 +190,19 @@ function PlayersTab() {
         {live.players.map((p) => {
           const isSelected = live.selectedPlayerIds.has(p.identifier);
           const isExpanded = expanded.has(p.identifier);
-          const isOnline = p.status.toLowerCase() === 'online';
           const override = settings.live.nameOverrides[p.identifier];
-          const name = resolvePlayerDisplayName(p, settings.live.nameOverrides);
+          const name = resolvePlayerDisplayName(p, settings.live.nameOverrides, settings.live.identityLinks);
           const hasName = !!override || !!p.apiName;
           const playerPals = live.palsByPlayer[p.identifier];
+          const fetchedAt = live.palsFetchedAt[p.identifier];
           const loading = live.palsLoading.has(p.identifier);
           const palError = live.palsError[p.identifier];
-          const rowError = isExpanded && !loading && !!palError;
+          // PLAYER_NOT_FOUND is PalDefender's way of saying "not currently online" — that's
+          // expected and handled by the muted offline/cached notice below, not a real error.
+          // Any other error code (auth, network, timeout) is a genuine failure worth flagging.
+          const notFound = palError?.code === 'PLAYER_NOT_FOUND';
+          const hardError = !!palError && !notFound;
+          const rowError = isExpanded && !loading && hardError;
 
           return (
             <details
@@ -220,7 +228,7 @@ function PlayersTab() {
                 >
                   {isSelected && <span className="text-[11px]">✓</span>}
                 </div>
-                <span className={`h-2 w-2 flex-none rounded-full ${isOnline ? 'bg-success-dot' : 'bg-offline'}`} />
+                <span className={`h-2 w-2 flex-none rounded-full ${notFound ? 'bg-offline' : 'bg-success-dot'}`} />
                 {editingId === p.identifier ? (
                   <div className="flex items-center gap-1.5" onClick={(e) => e.preventDefault()}>
                     <input
@@ -268,7 +276,15 @@ function PlayersTab() {
                 )}
                 {p.guildName && <span className="font-mono text-[12px] text-muted">{p.guildName}</span>}
                 <span className="ml-auto font-mono text-[12px] text-muted">
-                  {isOnline ? (playerPals ? `${playerPals.pals.length} pals` : loading ? 'loading…' : '— pals') : 'offline'}
+                  {notFound
+                    ? playerPals
+                      ? `offline · ${playerPals.pals.length} cached`
+                      : 'offline'
+                    : playerPals
+                      ? `${playerPals.pals.length} pals`
+                      : loading
+                        ? 'loading…'
+                        : '— pals'}
                 </span>
                 <span className="font-mono text-[12px] font-semibold text-muted">{isExpanded ? '▾ hide' : '▸ show'}</span>
               </summary>
@@ -292,6 +308,23 @@ function PlayersTab() {
                         className="ml-auto cursor-pointer rounded-panel border border-danger-border bg-white px-2.5 py-1 font-mono text-[12px] font-semibold text-danger-text hover:bg-[#fdeee5]"
                       >
                         ⟳ Retry
+                      </span>
+                    </div>
+                  )}
+                  {!loading && notFound && (
+                    <div className="flex items-center gap-3 bg-panel-subtle px-4 py-2.5">
+                      <span className="font-mono text-[11px] text-muted">
+                        {playerPals
+                          ? `Offline — showing ${playerPals.pals.length} cached pal${playerPals.pals.length === 1 ? '' : 's'}${
+                              fetchedAt ? ` from ${new Date(fetchedAt).toLocaleString()}` : ''
+                            }.`
+                          : 'Offline — no cached pals yet. They need to log in once while the proxy is running.'}
+                      </span>
+                      <span
+                        onClick={() => void live.refreshPlayerPals(p.identifier)}
+                        className="ml-auto cursor-pointer rounded-panel border border-border-input bg-white px-2.5 py-1 font-mono text-[12px] font-semibold text-muted hover:bg-panel-subtle"
+                      >
+                        ⟳ Check now
                       </span>
                     </div>
                   )}
@@ -413,7 +446,7 @@ function FindAPalTab() {
     for (const p of live.players) {
       if (!inScope(p.identifier)) continue;
       const pals = live.palsByPlayer[p.identifier]?.pals ?? [];
-      const ownerName = resolvePlayerDisplayName(p, settings.live.nameOverrides);
+      const ownerName = resolvePlayerDisplayName(p, settings.live.nameOverrides, settings.live.identityLinks);
       for (const pal of pals) {
         if (speciesFilter && pal.species !== speciesFilter) continue;
         if (!traitFilter.every((t) => pal.passives.includes(t))) continue;
@@ -422,7 +455,7 @@ function FindAPalTab() {
     }
     return out;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [live.players, live.palsByPlayer, scope, speciesFilter, traitFilter, settings.live.nameOverrides]);
+  }, [live.players, live.palsByPlayer, scope, speciesFilter, traitFilter, settings.live.nameOverrides, settings.live.identityLinks]);
 
   const ownersInResults = new Set(results.map((r) => r.owner)).size;
 
@@ -441,7 +474,7 @@ function FindAPalTab() {
         <div className="flex flex-wrap gap-1.5">
           {live.players.map((p) => {
             const on = inScope(p.identifier);
-            const name = resolvePlayerDisplayName(p, settings.live.nameOverrides);
+            const name = resolvePlayerDisplayName(p, settings.live.nameOverrides, settings.live.identityLinks);
             return (
               <span
                 key={p.identifier}
