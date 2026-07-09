@@ -597,7 +597,7 @@ export function SpeciesSelect({
   const matches = useMemo(() => {
     const sorted = species.slice().sort((a, b) => a.displayName.localeCompare(b.displayName));
     const q = query.toLowerCase();
-    return sorted.filter((s) => (!q || s.displayName.toLowerCase().includes(q)) && filterState.matches(s)).slice(0, 30);
+    return sorted.filter((s) => (!q || s.displayName.toLowerCase().includes(q)) && filterState.matches(s));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query, species, filterState.elements, filterState.reach]);
 
@@ -675,11 +675,9 @@ export function SpeciesTypeahead({
   const filterState = useSpeciesFilterState();
 
   const matches = useMemo(() => {
-    if (!query && !filterState.active) return [];
+    const sorted = species.slice().sort((a, b) => a.displayName.localeCompare(b.displayName));
     const q = query.toLowerCase();
-    return species
-      .filter((s) => !exclude?.has(s.id) && (!q || s.displayName.toLowerCase().includes(q)) && filterState.matches(s))
-      .slice(0, query ? 8 : 20);
+    return sorted.filter((s) => !exclude?.has(s.id) && (!q || s.displayName.toLowerCase().includes(q)) && filterState.matches(s));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query, species, exclude, filterState.elements, filterState.reach]);
 
@@ -697,7 +695,7 @@ export function SpeciesTypeahead({
         placeholder={placeholder}
         className={inputClass}
       />
-      {open && (matches.length > 0 || filterState.active) && (
+      {open && (
         <Dropdown>
           <SpeciesFilterBar state={filterState} />
           {matches.map((s) => (
