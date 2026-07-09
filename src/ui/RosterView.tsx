@@ -1,10 +1,10 @@
 import { useRef, useState } from 'react';
-import { useRoster } from '../store/hooks';
+import { useRoster, useSettings } from '../store/hooks';
 import { newId } from '../store/localStore';
 import type { RosterEntry } from '../store/types';
 import { useRulesetContext } from './RulesetContext';
 import { PassiveMultiSelect, SpeciesSelect } from './shared';
-import { ElementDot, GenderGlyph, PassiveChip } from './components';
+import { ElementDot, GenderGlyph, PalCard, PalIcon, PassiveChip } from './components';
 
 /** Roster manager: add/edit/remove owned Pals, import/export JSON. Not part of the design
  * handoff bundle (session 0.D covered Hub/Server Pals/Settings) — styled to sit
@@ -12,6 +12,8 @@ import { ElementDot, GenderGlyph, PassiveChip } from './components';
 export default function RosterView() {
   const { species, passives, speciesById } = useRulesetContext();
   const [roster, setRoster] = useRoster();
+  const [settings] = useSettings();
+  const isFull = settings.iconDisplayMode === 'full';
   const [draftSpecies, setDraftSpecies] = useState(species[0]?.id ?? '');
   const [draftGender, setDraftGender] = useState<'male' | 'female'>('male');
   const [draftPassives, setDraftPassives] = useState<string[]>([]);
@@ -81,6 +83,40 @@ export default function RosterView() {
   const buttonClass =
     'cursor-pointer rounded-panel border border-border-card bg-white px-3.5 py-2 font-sans text-[13px] font-semibold hover:border-muted-lighter';
 
+  const editForm = (
+    <>
+      <div className="flex flex-wrap items-center gap-2.5">
+        <div className="w-[200px]">
+          <SpeciesSelect species={species} value={editSpecies} onChange={setEditSpecies} />
+        </div>
+        <select value={editGender} onChange={(e) => setEditGender(e.target.value as 'male' | 'female')} className={inputClass}>
+          <option value="male">male</option>
+          <option value="female">female</option>
+        </select>
+        <input
+          placeholder="notes (optional)"
+          value={editNotes}
+          onChange={(e) => setEditNotes(e.target.value)}
+          className={`${inputClass} flex-1`}
+        />
+      </div>
+      <div className="mt-2">
+        <PassiveMultiSelect passives={passives} value={editPassives} onChange={setEditPassives} />
+      </div>
+      <div className="mt-2 flex gap-2">
+        <span onClick={saveEdit} className="cursor-pointer rounded-panel bg-primary px-3.5 py-1.5 font-sans text-[12.5px] font-semibold text-white">
+          Save
+        </span>
+        <span
+          onClick={() => setEditingId(null)}
+          className="cursor-pointer rounded-panel border border-border-card bg-white px-3.5 py-1.5 font-sans text-[12.5px] font-semibold text-muted"
+        >
+          Cancel
+        </span>
+      </div>
+    </>
+  );
+
   return (
     <main className="flex-1 overflow-y-auto bg-canvas">
       <div className="mx-auto max-w-[1080px] px-[34px] pb-[60px] pt-[26px]">
@@ -133,6 +169,54 @@ export default function RosterView() {
           <div className="rounded-card border border-dashed border-border-input bg-panel-subtle p-8 text-center font-sans text-[13px] text-muted">
             No roster entries yet.
           </div>
+        ) : isFull ? (
+          <div className="flex flex-col gap-3">
+            {editingId && (
+              <div className="rounded-card border border-border-card bg-primary-tint p-4 shadow-card">{editForm}</div>
+            )}
+            <div className="flex flex-wrap gap-3">
+              {roster
+                .filter((entry) => entry.id !== editingId)
+                .map((entry) => {
+                  const s = speciesById.get(entry.species);
+                  return (
+                    <PalCard
+                      key={entry.id}
+                      icon={s?.icon}
+                      elements={s?.elements}
+                      title={s?.displayName ?? entry.species}
+                      meta={<GenderGlyph gender={entry.gender} className="font-mono text-[11px] text-muted" />}
+                    >
+                      {entry.passives.length > 0 && (
+                        <div className="flex flex-wrap justify-center gap-1">
+                          {entry.passives.map((id) => {
+                            const p = passives.find((x) => x.id === id);
+                            return (
+                              <PassiveChip key={id} label={p?.displayName ?? id} tier={p?.tier} description={p?.description} className="text-[9px]" />
+                            );
+                          })}
+                        </div>
+                      )}
+                      {entry.notes && <div className="font-sans text-[10.5px] text-muted-light">{entry.notes}</div>}
+                      <div className="mt-1 flex gap-2.5 border-t border-dashed border-border-inner pt-1.5">
+                        <span
+                          onClick={() => startEdit(entry)}
+                          className="cursor-pointer font-mono text-[10.5px] font-medium text-muted-lighter hover:text-primary-dark"
+                        >
+                          edit
+                        </span>
+                        <span
+                          onClick={() => removeEntry(entry.id)}
+                          className="cursor-pointer font-mono text-[10.5px] font-medium text-muted-lighter hover:text-brand-hover"
+                        >
+                          remove
+                        </span>
+                      </div>
+                    </PalCard>
+                  );
+                })}
+            </div>
+          </div>
         ) : (
           <div className="overflow-hidden rounded-card border border-border-card bg-white shadow-card">
             <table className="w-full border-collapse">
@@ -152,42 +236,7 @@ export default function RosterView() {
                     return (
                       <tr key={entry.id} className="border-t border-panel-header bg-primary-tint">
                         <td className="px-4 py-2.5" colSpan={5}>
-                          <div className="flex flex-wrap items-center gap-2.5">
-                            <div className="w-[200px]">
-                              <SpeciesSelect species={species} value={editSpecies} onChange={setEditSpecies} />
-                            </div>
-                            <select
-                              value={editGender}
-                              onChange={(e) => setEditGender(e.target.value as 'male' | 'female')}
-                              className={inputClass}
-                            >
-                              <option value="male">male</option>
-                              <option value="female">female</option>
-                            </select>
-                            <input
-                              placeholder="notes (optional)"
-                              value={editNotes}
-                              onChange={(e) => setEditNotes(e.target.value)}
-                              className={`${inputClass} flex-1`}
-                            />
-                          </div>
-                          <div className="mt-2">
-                            <PassiveMultiSelect passives={passives} value={editPassives} onChange={setEditPassives} />
-                          </div>
-                          <div className="mt-2 flex gap-2">
-                            <span
-                              onClick={saveEdit}
-                              className="cursor-pointer rounded-panel bg-primary px-3.5 py-1.5 font-sans text-[12.5px] font-semibold text-white"
-                            >
-                              Save
-                            </span>
-                            <span
-                              onClick={() => setEditingId(null)}
-                              className="cursor-pointer rounded-panel border border-border-card bg-white px-3.5 py-1.5 font-sans text-[12.5px] font-semibold text-muted"
-                            >
-                              Cancel
-                            </span>
-                          </div>
+                          {editForm}
                         </td>
                       </tr>
                     );
@@ -196,6 +245,7 @@ export default function RosterView() {
                     <tr key={entry.id} className="border-t border-panel-header">
                       <td className="px-4 py-2.5">
                         <span className="inline-flex items-center gap-1.5 font-mono text-[12.5px] font-semibold">
+                          <PalIcon icon={s?.icon} size={20} />
                           <ElementDot elements={s?.elements} />
                           {s?.displayName ?? entry.species}
                         </span>

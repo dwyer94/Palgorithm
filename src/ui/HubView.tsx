@@ -9,7 +9,7 @@ import { annotateUnionPlan } from '../live/provenance';
 import { resolvePlayerDisplayName } from '../live/nameResolution';
 import { useRulesetContext } from './RulesetContext';
 import { UnionPlanView, HubList } from './shared';
-import { ComboCount, ElementDot, PassiveChip, PassiveMultiSelect, Pill, SpeciesTypeahead } from './components';
+import { ComboCount, ElementDot, PalIcon, PassiveChip, PassiveMultiSelect, Pill, SpeciesTypeahead } from './components';
 import rawSuggestedHubs from '../data/suggestedHubs.0.6.json';
 import { SuggestedHubsSchema, type RoleSuggestion } from '../data/suggestedHubsSchema';
 
@@ -209,6 +209,7 @@ export default function HubView() {
             const s = speciesById.get(t);
             return (
               <div key={t} className="flex items-center gap-2.5 rounded-panel border border-border-inner bg-white px-[10px] py-2">
+                <PalIcon icon={s?.icon} size={22} />
                 <ElementDot elements={s?.elements} />
                 <span className="font-mono text-[13px] font-semibold">{s?.displayName ?? t}</span>
                 {s?.rank != null && (
@@ -302,7 +303,8 @@ export default function HubView() {
                       <div className="mb-1.5 font-sans text-[11px] font-semibold uppercase tracking-[.6px] text-muted">
                         {meta.icon} {meta.label}
                       </div>
-                      <div className="font-mono text-[16px] font-bold text-ink-strong">
+                      <div className="flex items-center gap-2 font-mono text-[16px] font-bold text-ink-strong">
+                        {top && <PalIcon icon={speciesById.get(top.species)?.icon} size={26} />}
                         {top ? (speciesById.get(top.species)?.displayName ?? top.species) : '—'}
                       </div>
                       <div className="mt-1 font-sans text-[12px] text-muted-light">
@@ -388,6 +390,7 @@ export default function HubView() {
                 {selectedHubCandidate ? (
                   <div className="rounded-card border-[1.5px] border-primary bg-primary-tint2 p-[18px] px-5 shadow-elevated-blue">
                     <div className="mb-1.5 flex items-center gap-2">
+                      <PalIcon icon={speciesById.get(selectedHubCandidate.species)?.icon} size={20} />
                       <span className="font-sans text-[11px] font-semibold uppercase tracking-[.6px] text-primary-dark">
                         Hub · {speciesById.get(selectedHubCandidate.species)?.displayName ?? selectedHubCandidate.species}
                       </span>
@@ -428,6 +431,7 @@ export default function HubView() {
                     <div className="mt-2.5 flex flex-col gap-1.5 border-t border-dashed border-primary-border pt-2.5">
                       {(selectedHubCandidate.injectCost ?? []).map((ic) => (
                         <div key={ic.target} className="flex items-center gap-2 text-[12.5px]">
+                          <PalIcon icon={speciesById.get(ic.target)?.icon} size={18} />
                           <span className="font-mono text-[12.5px] font-semibold text-ink-strong">
                             → {speciesById.get(ic.target)?.displayName ?? ic.target}
                           </span>

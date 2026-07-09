@@ -3,7 +3,7 @@ import type { Species, SpeciesId, Passive } from '../data/schema';
 import type { PlanIndividual, SpeciesPlanStep } from '../solver/types';
 import type { ProvenanceMatch } from '../live/provenance';
 import { buildPlanGraph, edgePath, type PlanGraphNode } from './graphLayout';
-import { GenderGlyph, PalNode, PassiveChip, SegmentedControl, type PalNodeVariant } from './components';
+import { GenderGlyph, PalIcon, PalNode, PassiveChip, SegmentedControl, type PalNodeVariant } from './components';
 
 /**
  * The "Selected plan" panel shared by the Hub planner and Single-target planner (design
@@ -154,6 +154,7 @@ export function PlanGraphPanel({
             <PalNode
               key={node.id}
               species={speciesName(speciesById, node.species)}
+              icon={speciesById.get(node.species)?.icon}
               elements={speciesById.get(node.species)?.elements}
               gender={node.gender}
               variant={variant}
@@ -208,7 +209,8 @@ export function StepsList({
             <span className="flex h-[22px] w-[22px] flex-none items-center justify-center rounded-full bg-sidebar-bg font-mono text-[11px] font-bold text-white">
               {i + 1}
             </span>
-            <span className="font-mono text-[13px] font-semibold">
+            <span className="flex items-center gap-1.5 font-mono text-[13px] font-semibold">
+              <PalIcon icon={speciesById.get(step.parentA.species)?.icon} size={20} />
               {speciesName(speciesById, step.parentA.species)} <GenderGlyph gender={step.parentA.gender} />
             </span>
             {parentIsCatch(step.parentA) && (
@@ -217,7 +219,8 @@ export function StepsList({
               </span>
             )}
             <span className="font-mono font-bold text-shared">×</span>
-            <span className="font-mono text-[13px] font-semibold">
+            <span className="flex items-center gap-1.5 font-mono text-[13px] font-semibold">
+              <PalIcon icon={speciesById.get(step.parentB.species)?.icon} size={20} />
               {speciesName(speciesById, step.parentB.species)} <GenderGlyph gender={step.parentB.gender} />
             </span>
             {parentIsCatch(step.parentB) && (
@@ -226,7 +229,8 @@ export function StepsList({
               </span>
             )}
             <span className="mx-0.5 font-mono font-bold text-shared">→</span>
-            <span className={`font-mono text-[13px] font-semibold ${isTarget ? '' : isHub ? 'text-primary-darker' : ''}`}>
+            <span className={`flex items-center gap-1.5 font-mono text-[13px] font-semibold ${isTarget ? '' : isHub ? 'text-primary-darker' : ''}`}>
+              <PalIcon icon={speciesById.get(step.child)?.icon} size={20} />
               {speciesName(speciesById, step.child)}
               {isTarget && ' ✦'}
             </span>

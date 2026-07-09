@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { RulesetProvider } from './ui/RulesetContext';
 import { LiveProvider, useLiveContext } from './live/LiveContext';
-import { useRoster } from './store/hooks';
+import { useRoster, useSettings } from './store/hooks';
 import { Sidebar } from './ui/components';
 import RosterView from './ui/RosterView';
 import ServerPalsView from './ui/ServerPalsView';
@@ -34,6 +34,7 @@ type ViewKey = keyof typeof VIEWS;
 function AppShell() {
   const [active, setActive] = useState<ViewKey>('hub');
   const [roster] = useRoster();
+  const [settings, setSettings] = useSettings();
   const live = useLiveContext();
   const ActiveView = VIEWS[active];
 
@@ -44,6 +45,8 @@ function AppShell() {
         onSelect={(key) => setActive(key as ViewKey)}
         rosterCount={roster.length}
         serverOnCount={live.selectedPlayerIds.size}
+        iconMode={settings.iconDisplayMode}
+        onIconModeChange={(iconDisplayMode) => setSettings({ ...settings, iconDisplayMode })}
       />
       <div className="flex flex-1 overflow-hidden">
         <ActiveView />

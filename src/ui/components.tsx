@@ -68,6 +68,78 @@ export function GenderGlyph({ gender, className }: { gender: Gender | null | und
   return <span className={className ?? 'font-mono text-[11px] text-muted-lighter'}>{glyph}</span>;
 }
 
+/**
+ * A Pal's icon (from the dataset's `species.icon`, populated by the extraction pipeline —
+ * see normalize.ts). Renders a blank placeholder tile rather than nothing when a species
+ * has no icon (missing extraction), so layouts never jump between icon/no-icon rows.
+ * `variant="card"` adds the bordered tile used by the "full" list layouts (Roster/Server
+ * Pals/Hub candidates); `variant="inline"` (default) is the small icon used everywhere else.
+ */
+export function PalIcon({
+  icon,
+  size = 20,
+  variant = 'inline',
+  className = '',
+}: {
+  icon?: string | undefined;
+  size?: number;
+  variant?: 'inline' | 'card';
+  className?: string;
+}) {
+  const frame =
+    variant === 'card'
+      ? 'rounded-lg border border-border-card bg-panel-inset p-1'
+      : 'rounded-[5px] bg-panel-inset';
+  return (
+    <span
+      className={`inline-flex flex-none items-center justify-center overflow-hidden ${frame} ${className}`}
+      style={{ width: size, height: size }}
+    >
+      {icon && <img src={icon} alt="" width={size} height={size} className="h-full w-full object-contain" loading="lazy" />}
+    </span>
+  );
+}
+
+/** Square Pal card used by the "full" display mode for list views (Roster/Server Pals/Hub
+ * candidates) — a larger icon plus title/meta, with a slot for view-specific extras
+ * (passives, actions, …) so each list keeps its own fields. */
+export function PalCard({
+  icon,
+  elements,
+  title,
+  meta,
+  selected,
+  onClick,
+  children,
+  className = '',
+}: {
+  icon?: string | undefined;
+  elements?: Element[] | undefined;
+  title: ReactNode;
+  meta?: ReactNode;
+  selected?: boolean;
+  onClick?: () => void;
+  children?: ReactNode;
+  className?: string;
+}) {
+  return (
+    <div
+      onClick={onClick}
+      className={`flex w-[150px] flex-none flex-col items-center gap-1.5 rounded-card border bg-white p-3 text-center shadow-card ${
+        selected ? 'border-[1.5px] border-primary shadow-elevated-blue' : 'border-border-card'
+      } ${onClick ? 'cursor-pointer hover:border-muted-lighter' : ''} ${className}`}
+    >
+      <PalIcon icon={icon} size={56} variant="card" />
+      <div className="flex max-w-full items-center gap-1 font-mono text-[12.5px] font-semibold leading-tight">
+        <ElementDot elements={elements} size={7} />
+        <span className="truncate">{title}</span>
+      </div>
+      {meta && <div className="font-mono text-[10.5px] text-muted">{meta}</div>}
+      {children}
+    </div>
+  );
+}
+
 /** Small rounded badge — "baseline", "best", "hub", counts, etc. */
 export function Pill({ children, className = '' }: { children: ReactNode; className?: string }) {
   return (
@@ -378,16 +450,49 @@ export function BrandMark() {
   );
 }
 
+function IconModeToggle({
+  mode,
+  onChange,
+}: {
+  mode: 'compact' | 'full';
+  onChange: (mode: 'compact' | 'full') => void;
+}) {
+  const options: { value: 'compact' | 'full'; label: string; title: string }[] = [
+    { value: 'compact', label: '☰ Compact', title: 'Compact — text rows with a small icon' },
+    { value: 'full', label: '▦ Full', title: 'Full — larger Pal icon cards' },
+  ];
+  return (
+    <div className="flex rounded-lg bg-sidebar-hover p-[3px]">
+      {options.map((opt) => (
+        <span
+          key={opt.value}
+          onClick={() => onChange(opt.value)}
+          title={opt.title}
+          className={`flex-1 cursor-pointer rounded-[6px] py-[5px] text-center font-sans text-[11px] font-semibold ${
+            mode === opt.value ? 'bg-brand text-sidebar-bg' : 'text-sidebar-text hover:text-[#f4f1ea]'
+          }`}
+        >
+          {opt.label}
+        </span>
+      ))}
+    </div>
+  );
+}
+
 export function Sidebar({
   active,
   onSelect,
   rosterCount,
   serverOnCount,
+  iconMode,
+  onIconModeChange,
 }: {
   active: string;
   onSelect: (key: string) => void;
   rosterCount: number;
   serverOnCount: number;
+  iconMode: 'compact' | 'full';
+  onIconModeChange: (mode: 'compact' | 'full') => void;
 }) {
   return (
     <nav className="flex w-[212px] flex-none flex-col bg-sidebar-bg pb-3 text-sidebar-text">
@@ -437,6 +542,9 @@ export function Sidebar({
       </div>
 
       <div className="mt-auto px-2.5">
+        <div className="mb-2 px-0.5">
+          <IconModeToggle mode={iconMode} onChange={onIconModeChange} />
+        </div>
         <div
           onClick={() => onSelect('settings')}
           className={`flex cursor-pointer items-center gap-2.5 rounded-lg px-3 py-[9px] text-[13.5px] ${
@@ -465,6 +573,7 @@ const PAL_NODE_STYLE: Record<PalNodeVariant, string> = {
 
 export interface PalNodeProps {
   species: string;
+  icon?: string | undefined;
   element?: Element | undefined;
   elements?: Element[] | undefined;
   gender: Gender | null | undefined;
@@ -479,6 +588,7 @@ export interface PalNodeProps {
 
 export function PalNode({
   species,
+  icon,
   element,
   elements,
   gender,
@@ -496,10 +606,13 @@ export function PalNode({
       className={`rounded-node px-2.5 py-[7px] ${PAL_NODE_STYLE[variant]}`}
       style={{ width, ...style }}
     >
-      <div className="flex items-center justify-between">
-        <span className={`font-mono text-[12.5px] font-semibold ${isTarget ? 'text-ink-strong' : 'text-ink-strong'}`}>
-          {species}
-          {isTarget && ' ✦'}
+      <div className="flex items-center justify-between gap-1.5">
+        <span className="flex min-w-0 items-center gap-1.5">
+          <PalIcon icon={icon} size={18} />
+          <span className={`truncate font-mono text-[12.5px] font-semibold ${isTarget ? 'text-ink-strong' : 'text-ink-strong'}`}>
+            {species}
+            {isTarget && ' ✦'}
+          </span>
         </span>
         <span className="font-mono text-[11px] text-muted-lighter">{genderLabel ?? <GenderGlyph gender={gender} />}</span>
       </div>
@@ -691,6 +804,7 @@ export function SpeciesSelect({
                 setOpen(false);
               }}
             >
+              <PalIcon icon={s.icon} size={20} />
               <ElementDot elements={s.elements} />
               {s.displayName}
               <span className="ml-auto">
@@ -758,6 +872,7 @@ export function SpeciesTypeahead({
                 setOpen(false);
               }}
             >
+              <PalIcon icon={s.icon} size={20} />
               <ElementDot elements={s.elements} />
               {s.displayName}
               <span className="ml-auto">

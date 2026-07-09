@@ -2,7 +2,7 @@ import { useState } from 'react';
 import type { Gender, BreedingEdge } from '../ruleset/types';
 import { useRulesetContext } from './RulesetContext';
 import { SpeciesSelect } from './shared';
-import { ElementDot } from './components';
+import { ElementDot, PalIcon } from './components';
 
 /** Forward calculator: pick two parents → predicted child, a sanity tool that visually
  * validates the ruleset. Genders are optional — omitting one surfaces the gender-dependent
@@ -73,6 +73,7 @@ export default function ForwardCalculatorView() {
                   const s = speciesById.get(o.child);
                   return (
                     <div key={i} className="flex items-center gap-2.5 rounded-panel border border-border-inner px-3 py-2">
+                      <PalIcon icon={s?.icon} size={22} />
                       <ElementDot elements={s?.elements} />
                       <span className="font-mono text-[13px] font-semibold">{s?.displayName ?? o.child}</span>
                       <span className="ml-auto font-mono text-[12.5px] font-semibold text-muted">{(o.p * 100).toFixed(1)}%</span>

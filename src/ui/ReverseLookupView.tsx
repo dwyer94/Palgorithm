@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useRulesetContext } from './RulesetContext';
 import { SpeciesSelect } from './shared';
-import { ElementDot } from './components';
+import { ElementDot, PalIcon } from './components';
 
 /** Reverse lookup: pick a child → all raw parent pairs, unranked. The building block
  * behind the planners, exposed directly for manual inspection. Styled to match the app
@@ -33,7 +33,8 @@ export default function ReverseLookupView() {
 
         {pairs && (
           <div className="rounded-card border border-border-card bg-white p-5 shadow-card">
-            <div className="mb-3 font-sans text-[15px] font-bold">
+            <div className="mb-3 flex items-center gap-2 font-sans text-[15px] font-bold">
+              <PalIcon icon={speciesById.get(child)?.icon} size={24} />
               Parent pairs for {speciesById.get(child)?.displayName ?? child}
             </div>
             {pairs.length === 0 ? (
@@ -45,9 +46,11 @@ export default function ReverseLookupView() {
                   const b = speciesById.get(p.parentB);
                   return (
                     <div key={i} className="flex items-center gap-2 rounded-panel border border-border-inner px-3 py-2 font-mono text-[13px] font-semibold">
+                      <PalIcon icon={a?.icon} size={20} />
                       <ElementDot elements={a?.elements} />
                       {a?.displayName ?? p.parentA}
                       <span className="text-shared">×</span>
+                      <PalIcon icon={b?.icon} size={20} />
                       <ElementDot elements={b?.elements} />
                       {b?.displayName ?? p.parentB}
                     </div>

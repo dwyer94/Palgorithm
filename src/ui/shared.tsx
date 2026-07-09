@@ -1,7 +1,8 @@
 import type { Species, Passive } from '../data/schema';
 import type { SpeciesPlanResult, PassivePlanResult, UnionPlanResult, HubCandidate } from '../solver/types';
 import type { ProvenanceMatch } from '../live/provenance';
-import { ComboCount, ProvisionalTag, ElementDot, PassiveChip, RankPill } from './components';
+import { useSettings } from '../store/hooks';
+import { ComboCount, ProvisionalTag, ElementDot, PalCard, PalIcon, PassiveChip, RankPill } from './components';
 import { PlanRenderer } from './PlanView';
 
 /** Shared, data-bound view composites reused across the planner screens (design handoff
@@ -109,6 +110,7 @@ function AnchorHintsBlock({ plan, speciesById }: { plan: SpeciesPlanResult; spec
       <div className="flex flex-col gap-1.5">
         {(plan.anchorHints ?? []).map((h, i) => (
           <div key={i} className="flex items-center gap-2.5 rounded-lg border border-[#e6d9bd] bg-[#f6efe1] px-3 py-2">
+            <PalIcon icon={speciesById.get(h.species)?.icon} size={20} />
             <span className="font-mono text-[12.5px] font-semibold">{speciesById.get(h.species)?.displayName ?? h.species}</span>
             <span className="font-mono text-[11px] font-medium text-provisional-text">
               rank {h.rank ?? '?'} · wild-catchable
@@ -139,6 +141,7 @@ export function SpeciesPlanView({
     return (
       <div className="overflow-hidden rounded-card border border-border-card bg-white shadow-card">
         <div className="flex items-center gap-2.5 px-[18px] py-3.5">
+          <PalIcon icon={speciesById.get(plan.target)?.icon} size={22} />
           <span className="font-mono text-[14px] font-semibold">
             {speciesById.get(plan.target)?.displayName ?? plan.target}
           </span>
@@ -216,6 +219,7 @@ export function UnionPlanView({
           return (
             <details key={p.target} className="overflow-hidden rounded-xl border border-border-card bg-white">
               <summary className="flex cursor-pointer list-none items-center gap-2.5 px-[18px] py-3.5">
+                <PalIcon icon={species?.icon} size={22} />
                 <ElementDot elements={species?.elements} />
                 <span className="font-mono text-[14px] font-semibold">{species?.displayName ?? p.target}</span>
                 <span className="font-mono text-[11px] text-muted">
@@ -251,6 +255,20 @@ export function UnionPlanView({
   );
 }
 
+function hubMeta(h: HubCandidate): string {
+  const direct = h.injectCost?.filter((ic) => ic.direct).length ?? 0;
+  const via = (h.injectCost?.length ?? 0) - direct;
+  let meta = `obtain ${h.obtainCost}`;
+  if (h.injectCost && h.injectCost.length > 0) {
+    meta += ' · ';
+    if (direct > 0) meta += `${direct} direct`;
+    if (direct > 0 && via > 0) meta += ', ';
+    if (via > 0) meta += `${via} via`;
+  }
+  if (h.breadth !== undefined) meta += ` · reaches ${h.breadth}`;
+  return meta;
+}
+
 export function HubList({
   hubs,
   speciesById,
@@ -267,6 +285,9 @@ export function HubList({
    * since a quick-pick re-score and a full sweep answer different questions. */
   scopeLabel?: string | undefined;
 }) {
+  const [settings] = useSettings();
+  const isFull = settings.iconDisplayMode === 'full';
+
   if (hubs.length === 0) {
     return (
       <div className="rounded-card border border-border-card bg-white p-5 font-sans text-[13px] text-muted shadow-card">
@@ -274,6 +295,42 @@ export function HubList({
       </div>
     );
   }
+
+  if (isFull) {
+    return (
+      <div className="overflow-hidden rounded-card border border-border-card bg-white shadow-card">
+        <div className="px-[15px] pb-2 pt-3 font-sans text-[10.5px] font-semibold uppercase tracking-wide text-muted">
+          {scopeLabel ?? 'Ranked hubs'}
+        </div>
+        <div className="flex flex-wrap gap-2.5 border-t border-border-divider p-[15px]">
+          {hubs.map((h) => {
+            const isSelected = selected === h.species;
+            const species = speciesById.get(h.species);
+            return (
+              <PalCard
+                key={h.species}
+                icon={species?.icon}
+                elements={species?.elements}
+                title={species?.displayName ?? h.species}
+                meta={hubMeta(h)}
+                selected={isSelected}
+                onClick={() => onSelect?.(h.species)}
+              >
+                <span className={`font-mono text-[11px] font-semibold ${isSelected ? 'text-primary-dark' : 'text-muted'}`}>
+                  {isSelected && '★ '}
+                  {h.score ?? h.breadth ?? h.obtainCost}
+                </span>
+              </PalCard>
+            );
+          })}
+        </div>
+        <div className="border-t border-border-divider px-[15px] py-2.5 font-sans text-[11px] text-muted-light">
+          Hubs are optional — compare, never forced.
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="overflow-hidden rounded-card border border-border-card bg-white shadow-card">
       <div className="px-[15px] pb-2 pt-3 font-sans text-[10.5px] font-semibold uppercase tracking-wide text-muted">
@@ -281,8 +338,6 @@ export function HubList({
       </div>
       {hubs.map((h) => {
         const isSelected = selected === h.species;
-        const direct = h.injectCost?.filter((ic) => ic.direct).length ?? 0;
-        const via = (h.injectCost?.length ?? 0) - direct;
         return (
           <div
             key={h.species}
@@ -291,8 +346,9 @@ export function HubList({
               isSelected ? 'border-l-[3px] border-l-primary bg-primary-tint2' : 'hover:bg-panel-inset'
             }`}
           >
-            <div className="flex items-center justify-between">
-              <span className={`font-mono text-[12.5px] font-semibold ${isSelected ? 'text-primary-darker' : 'text-ink-strong'}`}>
+            <div className="flex items-center justify-between gap-2">
+              <span className={`flex min-w-0 items-center gap-1.5 font-mono text-[12.5px] font-semibold ${isSelected ? 'text-primary-darker' : 'text-ink-strong'}`}>
+                <PalIcon icon={speciesById.get(h.species)?.icon} size={20} />
                 {isSelected && '★ '}
                 {speciesById.get(h.species)?.displayName ?? h.species}
               </span>
@@ -300,18 +356,7 @@ export function HubList({
                 {h.score ?? h.breadth ?? h.obtainCost}
               </span>
             </div>
-            <div className={`font-sans text-[11px] ${isSelected ? 'text-[#5a7fb8]' : 'text-muted-light'}`}>
-              obtain {h.obtainCost}
-              {h.injectCost && h.injectCost.length > 0 && (
-                <>
-                  {' '}
-                  · {direct > 0 && `${direct} direct`}
-                  {direct > 0 && via > 0 && ', '}
-                  {via > 0 && `${via} via`}
-                </>
-              )}
-              {h.breadth !== undefined && ` · reaches ${h.breadth}`}
-            </div>
+            <div className={`font-sans text-[11px] ${isSelected ? 'text-[#5a7fb8]' : 'text-muted-light'}`}>{hubMeta(h)}</div>
           </div>
         );
       })}

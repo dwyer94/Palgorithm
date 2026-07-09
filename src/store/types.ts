@@ -59,6 +59,9 @@ export interface Settings {
   serverConfigPreset: Record<string, unknown> | null;
   activeRuleset: string | null;
   live: LiveConnectionSettings;
+  /** Global list-display preference (Roster/Server Pals/Hub candidates): 'compact' keeps
+   * the existing text rows with a small inline icon, 'full' shows larger square Pal cards. */
+  iconDisplayMode: 'compact' | 'full';
 }
 
 export interface StoreState {
@@ -73,6 +76,7 @@ export const DEFAULT_SETTINGS: Settings = {
   savedPerkSets: [],
   serverConfigPreset: null,
   activeRuleset: null,
+  iconDisplayMode: 'compact',
   live: {
     baseUrl: '',
     bearerToken: '',

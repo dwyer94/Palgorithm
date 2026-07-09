@@ -5,7 +5,7 @@ import { resolvePlayerDisplayName } from '../live/nameResolution';
 import type { LivePal, PlayerIdentifier } from '../live/types';
 import { useSettings } from '../store/hooks';
 import { useRulesetContext } from './RulesetContext';
-import { ElementDot, GenderGlyph, PassiveChip, PassiveMultiSelect, SpeciesTypeahead } from './components';
+import { ElementDot, GenderGlyph, PalCard, PalIcon, PassiveChip, PassiveMultiSelect, SpeciesTypeahead } from './components';
 
 /** Ticking "auto-poll in M:SS" label — a plain re-render of `nextPollAt` would go stale
  * between polls, so this owns its own 1s tick to keep the countdown live. */
@@ -331,7 +331,14 @@ function PlayersTab() {
                   {!loading && playerPals && playerPals.pals.length === 0 && (
                     <div className="px-4 py-3 font-sans text-[12.5px] text-muted">No pals.</div>
                   )}
-                  {!loading && playerPals && playerPals.pals.length > 0 && (
+                  {!loading && playerPals && playerPals.pals.length > 0 && settings.iconDisplayMode === 'full' && (
+                    <div className="flex flex-wrap gap-2.5 p-3.5">
+                      {playerPals.pals.map((pal) => (
+                        <PalFullCard key={pal.instanceId} pal={pal} speciesById={speciesById} passivesById={passivesById} />
+                      ))}
+                    </div>
+                  )}
+                  {!loading && playerPals && playerPals.pals.length > 0 && settings.iconDisplayMode !== 'full' && (
                     <table className="w-full border-collapse font-mono">
                       <thead>
                         <tr className="text-left">
@@ -374,6 +381,7 @@ function PalRow({
     <tr className={`border-t border-panel-header ${unresolved ? 'bg-unresolved-bg2' : ''}`}>
       <td className="px-2.5 py-2">
         <span className="inline-flex items-center gap-1.5">
+          <PalIcon icon={species?.icon} size={20} />
           <ElementDot elements={species?.elements} />
           <b className={`text-[12.5px] ${unresolved ? 'text-provisional-text' : ''}`}>
             {species?.displayName ?? `${pal.rawPalId} (unresolved)`}
@@ -415,10 +423,69 @@ function PalRow({
   );
 }
 
+function PalFullCard({
+  pal,
+  speciesById,
+  passivesById,
+}: {
+  pal: LivePal;
+  speciesById: Map<string, Species>;
+  passivesById: Map<string, Passive>;
+}) {
+  const species = pal.species ? speciesById.get(pal.species) : undefined;
+  const unresolved = pal.species === null;
+  return (
+    <PalCard
+      icon={species?.icon}
+      elements={species?.elements}
+      title={
+        <span className={unresolved ? 'text-provisional-text' : ''}>
+          {species?.displayName ?? `${pal.rawPalId} (unresolved)`}
+          {pal.shiny && <span className="ml-1 text-shiny">★</span>}
+        </span>
+      }
+      meta={
+        <span className="inline-flex items-center gap-1.5">
+          {pal.gender ? <GenderGlyph gender={pal.gender} /> : '?'} · L{pal.level}
+        </span>
+      }
+    >
+      {unresolved && (
+        <span className="rounded-[4px] bg-unresolved-bg px-1.5 py-px font-mono text-[9px] font-semibold text-provisional-text">unresolved</span>
+      )}
+      {(pal.passives.length > 0 || pal.unresolvedPassives.length > 0) && (
+        <div className="flex flex-wrap justify-center gap-1">
+          {pal.passives.map((id) => (
+            <PassiveChip
+              key={id}
+              label={passivesById.get(id)?.displayName ?? id}
+              tier={passivesById.get(id)?.tier}
+              description={passivesById.get(id)?.description}
+              className="text-[9px]"
+            />
+          ))}
+          {pal.unresolvedPassives.length > 0 && (
+            <span className="rounded-[4px] bg-unresolved-bg px-1.5 py-px font-mono text-[9px] font-semibold text-provisional-text">
+              +{pal.unresolvedPassives.length}
+            </span>
+          )}
+        </div>
+      )}
+      <div className="font-mono text-[10px] text-muted">
+        IVs {pal.ivs.health}/{pal.ivs.attackMelee}/{pal.ivs.defense}
+      </div>
+      <div className="font-sans text-[10px] text-muted-light">
+        {pal.location.kind === 'baseCamp' ? `Base Camp ${pal.location.baseCampId}` : pal.location.kind === 'team' ? 'Team' : 'Palbox'}
+      </div>
+    </PalCard>
+  );
+}
+
 function FindAPalTab() {
   const { species, passives, speciesById } = useRulesetContext();
   const passivesById = useMemo(() => new Map(passives.map((p) => [p.id, p])), [passives]);
   const [settings] = useSettings();
+  const isFull = settings.iconDisplayMode === 'full';
   const live = useLiveContext();
   const [scope, setScope] = useState<Set<PlayerIdentifier> | null>(null); // null = all
   const [speciesFilter, setSpeciesFilter] = useState<string | null>(null);
@@ -500,6 +567,7 @@ function FindAPalTab() {
           <div className="mb-1.5 font-sans text-[10.5px] font-semibold uppercase tracking-[.5px] text-muted">Species</div>
           {speciesFilter ? (
             <div className="flex items-center gap-2 rounded-panel border-[1.5px] border-[#26241f] bg-white px-3 py-2">
+              <PalIcon icon={speciesById.get(speciesFilter)?.icon} size={20} />
               <span className="font-mono text-[13px] font-semibold">{speciesById.get(speciesFilter)?.displayName ?? speciesFilter}</span>
               <span onClick={() => setSpeciesFilter(null)} className="ml-auto cursor-pointer text-[16px] text-muted-lighter hover:text-brand-hover">
                 ×
@@ -527,12 +595,56 @@ function FindAPalTab() {
           <div className="mb-1 font-sans text-[14px] font-semibold text-[#6b655c]">No pal matches these filters</div>
           <div className="font-sans text-[12.5px] text-muted-light">Loosen a trait, or widen the player scope above.</div>
         </div>
+      ) : isFull ? (
+        <div className="flex flex-wrap gap-2.5">
+          {results.map(({ owner, pal }, i) => {
+            const sp = pal.species ? speciesById.get(pal.species) : undefined;
+            return (
+              <PalCard
+                key={pal.instanceId + i}
+                icon={sp?.icon}
+                elements={sp?.elements}
+                title={
+                  <span>
+                    {sp?.displayName ?? pal.rawPalId}
+                    {pal.shiny && <span className="ml-1 text-shiny">★</span>}
+                  </span>
+                }
+                meta={
+                  <span className="inline-flex items-center gap-1.5">
+                    <GenderGlyph gender={pal.gender} /> · L{pal.level}
+                  </span>
+                }
+              >
+                <div className="flex flex-wrap justify-center gap-1">
+                  {pal.passives.map((id) => (
+                    <PassiveChip
+                      key={id}
+                      label={passivesById.get(id)?.displayName ?? id}
+                      tier={passivesById.get(id)?.tier}
+                      description={passivesById.get(id)?.description}
+                      variant={traitFilter.includes(id) ? 'matched' : 'dim'}
+                      className="text-[9px]"
+                    />
+                  ))}
+                </div>
+                <div className="font-sans text-[10px] text-muted-light">
+                  {pal.location.kind === 'baseCamp' ? `Base Camp ${pal.location.baseCampId}` : pal.location.kind === 'team' ? 'Team' : 'Palbox'}
+                </div>
+                <span className="inline-flex items-center gap-1 rounded-pill border border-primary-border3 bg-primary-tint px-2 py-0.5 font-mono text-[10px] font-semibold text-primary-dark">
+                  {owner}
+                </span>
+              </PalCard>
+            );
+          })}
+        </div>
       ) : (
         <div className="flex flex-col gap-2">
           {results.map(({ owner, pal }, i) => {
             const sp = pal.species ? speciesById.get(pal.species) : undefined;
             return (
               <div key={pal.instanceId + i} className="flex flex-wrap items-center gap-3.5 rounded-[11px] border border-border-card bg-white px-3.5 py-2.5">
+                <PalIcon icon={sp?.icon} size={22} />
                 <ElementDot elements={sp?.elements} />
                 <span className="min-w-[104px] font-mono text-[13.5px] font-bold">{sp?.displayName ?? pal.rawPalId}</span>
                 <GenderGlyph gender={pal.gender} className="font-mono text-[12px] text-muted" />

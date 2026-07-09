@@ -9,7 +9,7 @@ import { annotateSpeciesPlan } from '../live/provenance';
 import { resolvePlayerDisplayName } from '../live/nameResolution';
 import { useRulesetContext } from './RulesetContext';
 import { PassiveMultiSelect, SpeciesSelect, SpeciesPlanView } from './shared';
-import { PassiveChip } from './components';
+import { PalIcon, PassiveChip } from './components';
 
 /** Single-target planner (design handoff README: reuses the Hub planner's shared pieces —
  * input rail shape, `SpeciesPlanView`'s graph/steps rendering, perk overlay). No hub
@@ -145,7 +145,8 @@ export default function SingleTargetView() {
                       />
                     ))}
                   </div>
-                  <div className="mt-0.5 font-sans text-[22px] font-bold tracking-[-.4px]">
+                  <div className="mt-0.5 flex items-center gap-2 font-sans text-[22px] font-bold tracking-[-.4px]">
+                    <PalIcon icon={targetSpecies?.icon} size={30} />
                     {targetSpecies?.displayName ?? target}
                   </div>
                 </div>
