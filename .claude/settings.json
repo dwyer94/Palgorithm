@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__0eb4455a-6b51-4207-8ac1-a3116951eae6__notion-fetch",
+      "mcp__Claude_Preview__preview_screenshot",
+      "mcp__nwiro__read_blueprint",
+      "mcp__unreal-api__get_function_signature",
+      "mcp__Claude_Preview__preview_snapshot",
+      "mcp__0eb4455a-6b51-4207-8ac1-a3116951eae6__notion-search",
+      "mcp__nwiro__read_resource",
+      "Bash(npx tsc *)",
+      "mcp__nwiro__read_log",
+      "mcp__unreal-api__get_class_reference",
+      "mcp__nwiro__read_asset",
+      "mcp__nwiro__find_assets",
+      "Bash(npm run build)",
+      "Bash(npm run lint)",
+      "mcp__Claude_Preview__preview_console_logs",
+      "Bash(npm run test)",
+      "mcp__nwiro__find_blueprints",
+      "mcp__nwiro__pie_list_actors",
+      "mcp__nwiro__pie_get_property",
+      "mcp__nwiro__read_anim_blueprint"
+    ]
+  }
+}
