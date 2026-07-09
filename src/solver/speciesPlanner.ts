@@ -347,33 +347,69 @@ function findAnchorHints(
   return hints.slice(0, 5);
 }
 
-export function planSpecies(
-  ruleset: BreedingRuleset,
-  roster: RosterEntry[],
-  target: SpeciesId,
-  options: SpeciesPlannerOptions = {},
-): SpeciesPlanResult {
-  const opts: CoreOptions = {
+/** Normalize the public option bag into the core cost knobs `solve` consumes. Split out so
+ * batch callers (`hubFinder`) can build a `SolveContext` once and reuse it across many
+ * candidates/targets that share the same roster+opts. */
+export function normalizeCoreOptions(options: SpeciesPlannerOptions = {}): CoreOptions {
+  return {
     catchCost: options.catchCost ?? 1,
     allowCatching: options.allowCatching ?? false,
     excludeFromCatching: new Set(options.excludeFromCatching ?? []),
   };
+}
 
+/** A solved roster: the shared graph, the Dijkstra fixpoint over it, and the core opts it
+ * was solved with. `hubFinder` solves one of these per distinct (roster, coreOpts) pair and
+ * reads off many targets/candidates from it, instead of re-running `solve` — which dominates
+ * cost at real dataset scale — once per candidate. */
+export interface SolveContext {
+  graph: Graph;
+  state: SolveState;
+  opts: CoreOptions;
+}
+
+/** Solve a roster once, ready to answer any number of target queries via `resultFromContext`. */
+export function solveContext(ruleset: BreedingRuleset, roster: RosterEntry[], options: SpeciesPlannerOptions = {}): SolveContext {
+  const opts = normalizeCoreOptions(options);
   const graph = getGraph(ruleset);
-  const state = solve(graph, roster, ruleset, opts);
+  return { graph, state: solve(graph, roster, ruleset, opts), opts };
+}
+
+/**
+ * Turn a solved context into a full plan for one `target`. This is everything `planSpecies`
+ * does after the solve. `withAnchorHints` gates the one genuinely expensive extra step —
+ * the anchor-hint search (itself a full solve per rank-bearing species, spec §7.1). Direct
+ * `planSpecies` callers want hints on an unreachable target; the `hubFinder` sweep only
+ * checks feasibility and combination-count over thousands of (candidate, target) probes and
+ * throws any hints away, so it passes `withAnchorHints: false` — skipping what used to be
+ * the sweep's dominant cost.
+ */
+export function resultFromContext(
+  ruleset: BreedingRuleset,
+  roster: RosterEntry[],
+  target: SpeciesId,
+  ctx: SolveContext,
+  options: SpeciesPlannerOptions,
+  withAnchorHints: boolean,
+): SpeciesPlanResult {
+  const { graph, state, opts } = ctx;
 
   const maleCost = state.dist.get(node(target, 'male')) ?? Infinity;
   const femaleCost = state.dist.get(node(target, 'female')) ?? Infinity;
   const cost = Math.min(maleCost, femaleCost);
 
   if (!isFinite(cost)) {
-    const alreadyReachable = new Set(
-      Object.keys(ruleset.rankTable).filter((s) => {
-        const c = Math.min(state.dist.get(node(s, 'male')) ?? Infinity, state.dist.get(node(s, 'female')) ?? Infinity);
-        return isFinite(c);
-      }),
-    );
-    for (const r of roster) alreadyReachable.add(r.species);
+    let anchorHints: AnchorHint[] = [];
+    if (withAnchorHints) {
+      const alreadyReachable = new Set(
+        Object.keys(ruleset.rankTable).filter((s) => {
+          const c = Math.min(state.dist.get(node(s, 'male')) ?? Infinity, state.dist.get(node(s, 'female')) ?? Infinity);
+          return isFinite(c);
+        }),
+      );
+      for (const r of roster) alreadyReachable.add(r.species);
+      anchorHints = findAnchorHints(ruleset, roster, target, opts, alreadyReachable);
+    }
     return {
       target,
       feasible: false,
@@ -381,7 +417,7 @@ export function planSpecies(
       cost: Infinity,
       steps: [],
       catches: [],
-      anchorHints: findAnchorHints(ruleset, roster, target, opts, alreadyReachable),
+      anchorHints,
     };
   }
 
@@ -394,13 +430,24 @@ export function planSpecies(
   // tied edge produces the target — it never changes `cost`/`combinationCount`, since every
   // candidate here already achieves the minimum species cost.
   let finalSelection: ReturnType<typeof pickBestFinalSelection> = null;
+  // The context's `state.from` is shared across every query answered from this context, so
+  // the final-cross re-pick below (the only mutation) is saved and restored — otherwise
+  // re-pointing a shared intermediate's finalized edge would corrupt a later target's
+  // reconstruction. Standalone `planSpecies` discards its context, so the restore is a no-op
+  // there.
+  let restoreFrom: (() => void) | null = null;
   if (options.desiredPassives && options.desiredPassives.length > 0 && cost > 0) {
     const candidates = tiedFinalEdges(graph, state, targetNode, state.dist.get(targetNode)!);
     finalSelection = pickBestFinalSelection(candidates, state, rosterByNode(roster), ruleset, options.desiredPassives);
-    if (finalSelection) state.from.set(targetNode, { kind: 'combo', edge: finalSelection.edge });
+    if (finalSelection) {
+      const prev = state.from.get(targetNode);
+      state.from.set(targetNode, { kind: 'combo', edge: finalSelection.edge });
+      restoreFrom = () => (prev ? state.from.set(targetNode, prev) : state.from.delete(targetNode));
+    }
   }
 
   const { steps, catches } = reconstruct(state, targetNode);
+  restoreFrom?.();
 
   let passivePlan: PassivePlanResult | undefined;
   if (finalSelection && steps.length > 0) {
@@ -436,4 +483,18 @@ export function planSpecies(
     catches,
     ...(passivePlan ? { passivePlan } : {}),
   };
+}
+
+/** Minimum-combination plan to reach `target` from `roster` (spec §7.1). Solves the roster
+ * once and builds the result, including anchor-hint guidance when the target is unreachable.
+ * Batch callers that probe many targets against the same roster should instead build a
+ * `SolveContext` with `solveContext` and call `resultFromContext` per target. */
+export function planSpecies(
+  ruleset: BreedingRuleset,
+  roster: RosterEntry[],
+  target: SpeciesId,
+  options: SpeciesPlannerOptions = {},
+): SpeciesPlanResult {
+  const ctx = solveContext(ruleset, roster, options);
+  return resultFromContext(ruleset, roster, target, ctx, options, true);
 }

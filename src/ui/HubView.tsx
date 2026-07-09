@@ -130,13 +130,11 @@ export default function HubView() {
   /** Upgrades a quick-pick to the full exhaustive sweep — deliberately its own handler,
    * not a call into `runPlan`: it must keep the SAME allowCatching:true +
    * excludeTargetsFromCatching assumption `applySuggestion` used, not the user's live
-   * Settings, or the result would silently contradict the numbers already on screen
-   * (observed while testing: with the real default allowCatching:false and a near-empty
-   * roster, this search took 70+ seconds and then reported everything unreachable,
-   * because it had to exhaustively prove ~1,500 candidate/target pairs infeasible rather
-   * than terminate early via catch-relaxation). Deferred one tick via setTimeout so the
-   * "searching…" state actually paints before the heavy synchronous sweep blocks the
-   * main thread. */
+   * Settings, or the result would silently contradict the numbers already on screen.
+   * `findHubs` now solves the base roster once and reuses it across candidates (skipping the
+   * anchor-hint sweep that used to make an unreachable full search take 70+ seconds), so this
+   * is typically well under a second; the setTimeout defer + "searching…" state is kept as
+   * cheap insurance for the rare target set that still forces per-candidate solves. */
   const searchAllHubsFromSuggestion = () => {
     setSearchingAllHubs(true);
     setTimeout(() => {

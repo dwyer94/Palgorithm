@@ -1,5 +1,5 @@
 import type { BreedingRuleset } from '../ruleset/types';
-import { planSpecies } from './speciesPlanner.ts';
+import { planSpecies, solveContext, resultFromContext } from './speciesPlanner.ts';
 import type {
   HubCandidate,
   HubFinderOptions,
@@ -111,22 +111,6 @@ export function planUnion(
   };
 }
 
-/** Combos needed to reach `target` once `anchor` is available (both genders, cost 0) in
- * addition to whatever's already on the roster — the same "seed a hypothetical anchor and
- * re-solve" trick speciesPlanner's anchor-hint search uses (spec §7.1), repurposed here as
- * hubFinder's `injectCost(H → Ti)`. Infinity if `target` is still unreachable. */
-function combosFromAnchor(
-  ruleset: BreedingRuleset,
-  roster: RosterEntry[],
-  anchor: SpeciesId,
-  target: SpeciesId,
-  options: SpeciesPlannerOptions,
-): number {
-  const augmented: RosterEntry[] = [...roster, { species: anchor, gender: 'male' }, { species: anchor, gender: 'female' }];
-  const plan = planSpecies(ruleset, augmented, target, options);
-  return plan.feasible ? plan.combinationCount : Infinity;
-}
-
 /** Every distinct species a given species can directly parent (one cross, p > 0) —
  * general-reach mode's structural breadth measure. Built once from `forward()` over all
  * breed-capable pairs (cheap at this graph size, spec §7.1), reused across every
@@ -178,33 +162,144 @@ export function findHubs(ruleset: BreedingRuleset, roster: RosterEntry[], option
   const targetSet = new Set(targets);
   const candidates = (options.candidates ?? Object.keys(ruleset.rankTable)).filter((s) => !targetSet.has(s));
 
+  // The base roster is identical for every candidate's obtainCost, so solve it once and read
+  // each candidate off that single fixpoint (`resultFromContext`) instead of re-running the
+  // full Dijkstra per candidate. Passing `withAnchorHints: false` skips the anchor-hint
+  // search — a per-call full-solve-per-species pass the sweep only ever discards, and
+  // previously the dominant cost when most candidates were infeasible to obtain. (Anchor
+  // hints for `desiredPassives` are unaffected: they don't influence the solve.)
+  const baseCtx = solveContext(ruleset, roster, speciesOpts);
+
   if (targets.length > 0) {
+    const baseExclude = options.excludeFromCatching ?? [];
+    const catchingOn = options.allowCatching ?? false;
+    const rosterSpecies = new Set(roster.map((r) => r.species));
+    // Inject solves never use `desiredPassives` (perks are an obtain-side concern), so the
+    // core cost knobs are all that matter here.
+    const injectBaseOptions: SpeciesPlannerOptions = {
+      ...(options.catchCost !== undefined && { catchCost: options.catchCost }),
+      ...(options.allowCatching !== undefined && { allowCatching: options.allowCatching }),
+      excludeFromCatching: baseExclude,
+    };
+
+    // A target needs its own anchor-solve only when it must be excluded from catching AND is
+    // itself wild-catchable with catching enabled — removing its own catch base-case changes
+    // the fixpoint. Otherwise a target reads off the shared (anchor-inclusive) or base
+    // (anchor-free) solve directly.
+    const needsDedicated = (T: SpeciesId): boolean =>
+      !!options.excludeTargetsFromCatching && catchingOn && ruleset.reachability.wildCatchable.has(T) && !baseExclude.includes(T);
+
+    // The least injectCost(H → T) can possibly be for ANY anchor H: a target already free from
+    // the roster (owned, or catchable when catching isn't disabled for it) costs 0 combos;
+    // otherwise it must be bred, ≥ 1.
+    const floorOf = (T: SpeciesId): number =>
+      rosterSpecies.has(T) || (catchingOn && !needsDedicated(T) && ruleset.reachability.wildCatchable.has(T) && !baseExclude.includes(T)) ? 0 : 1;
+
+    // Anchor-free base injectCost per target — the cost to reach T with NOTHING extra seeded.
+    // Seeding a candidate anchor (cost 0) can only lower this, and it can never drop below the
+    // target's floor. So whenever base(T) already equals the floor, injectCost(H → T) is pinned
+    // to that value for EVERY candidate — no per-candidate anchor-solve is needed. For the
+    // typical apex target (standard-breedable and one cross from catchable stock) that's the
+    // case, which collapses the whole sweep to one base solve plus a per-candidate obtain
+    // lookup. Non-dedicated targets read off `baseCtx` (its core opts match — `desiredPassives`
+    // doesn't affect the solve); each dedicated target costs a single extra solve.
+    const base = new Map<SpeciesId, number>();
+    for (const T of targets) {
+      let plan;
+      if (needsDedicated(T)) {
+        const opt: SpeciesPlannerOptions = { ...injectBaseOptions, excludeFromCatching: [...baseExclude, T] };
+        plan = resultFromContext(ruleset, roster, T, solveContext(ruleset, roster, opt), opt, false);
+      } else {
+        plan = resultFromContext(ruleset, roster, T, baseCtx, injectBaseOptions, false);
+      }
+      base.set(T, plan.feasible ? plan.combinationCount : Infinity);
+    }
+    // A target is "variable" (its injectCost can differ per anchor) only when its base cost
+    // exceeds its floor — including the unreachable-without-an-anchor case (base = Infinity),
+    // where the right anchor may unlock it. Everything else contributes a fixed offset.
+    const variable = new Set(targets.filter((T) => base.get(T)! !== floorOf(T)));
+    const constOffset = targets.filter((T) => !variable.has(T)).reduce((s, T) => s + base.get(T)!, 0);
+    const totalVarFloor = [...variable].reduce((s, T) => s + floorOf(T), 0);
+
+    // Evaluate cheapest-to-obtain candidates first: with the constant offset shared by all,
+    // obtainCost is exactly what surfaces the lowest-scoring hubs first, tightening `worst`
+    // early so branch-and-bound skips the rest before their (variable-target) anchor-solves.
+    // Pure ordering — the final ranking tiebreaks on the original candidate index, so this
+    // changes only how much is pruned, never the output.
+    const candidateIndex = new Map<SpeciesId, number>(candidates.map((s, i) => [s, i]));
+    const obtainable = candidates
+      .map((H) => ({ H, obtainPlan: resultFromContext(ruleset, roster, H, baseCtx, speciesOpts, false) }))
+      .filter((c) => c.obtainPlan.feasible)
+      .sort((a, b) => a.obtainPlan.cost - b.obtainPlan.cost || candidateIndex.get(a.H)! - candidateIndex.get(b.H)!);
+
+    // Accepted hub scores kept sorted ascending; `worst` is the current `maxHubs`-th best
+    // (Infinity until the list is full), the threshold a candidate's lower bound must beat.
+    const acceptedScores: number[] = [];
+    const worst = (): number => (acceptedScores.length >= maxHubs ? acceptedScores[maxHubs - 1]! : Infinity);
+    const recordScore = (score: number): void => {
+      let lo = 0;
+      let hi = acceptedScores.length;
+      while (lo < hi) {
+        const mid = (lo + hi) >> 1;
+        if (acceptedScores[mid]! < score) lo = mid + 1;
+        else hi = mid;
+      }
+      acceptedScores.splice(lo, 0, score);
+    };
+
     const hubs: HubCandidate[] = [];
-    for (const H of candidates) {
-      const obtainPlan = planSpecies(ruleset, roster, H, speciesOpts);
-      if (!obtainPlan.feasible) continue;
+    for (const { H, obtainPlan } of obtainable) {
+      const augmented: RosterEntry[] = [...roster, { species: H, gender: 'male' }, { species: H, gender: 'female' }];
+      let sharedInjectCtx: ReturnType<typeof solveContext> | null = null;
 
-      const injectCost = targets.map((T) => {
-        const baseExclude = options.excludeFromCatching ?? [];
-        const combos = combosFromAnchor(ruleset, roster, H, T, {
-          ...(options.catchCost !== undefined && { catchCost: options.catchCost }),
-          ...(options.allowCatching !== undefined && { allowCatching: options.allowCatching }),
-          excludeFromCatching: options.excludeTargetsFromCatching ? [...baseExclude, T] : baseExclude,
-        });
-        return { target: T, combos, direct: combos === 1 };
-      });
-      if (injectCost.some((i) => !isFinite(i.combos))) continue; // can't reach every target
+      // Constant-target injectCosts are known up front, so seed them into the running score;
+      // only variable targets need a per-candidate solve (usually none).
+      let runningScore = obtainPlan.cost + constOffset;
+      let remainingVarFloor = totalVarFloor;
+      const injectCost: NonNullable<HubCandidate['injectCost']> = [];
+      let viable = true;
+      for (const T of targets) {
+        if (!variable.has(T)) {
+          const combos = base.get(T)!;
+          injectCost.push({ target: T, combos, direct: combos === 1 });
+          continue;
+        }
+        // Optimistic total if this and every not-yet-solved variable target hit its floor.
+        if (runningScore + remainingVarFloor > worst()) {
+          viable = false; // provably can't make the top list — stop solving for this hub
+          break;
+        }
+        let plan;
+        if (needsDedicated(T)) {
+          const opt: SpeciesPlannerOptions = { ...injectBaseOptions, excludeFromCatching: [...baseExclude, T] };
+          plan = resultFromContext(ruleset, augmented, T, solveContext(ruleset, augmented, opt), opt, false);
+        } else {
+          sharedInjectCtx ??= solveContext(ruleset, augmented, injectBaseOptions);
+          plan = resultFromContext(ruleset, augmented, T, sharedInjectCtx, injectBaseOptions, false);
+        }
+        const combos = plan.feasible ? plan.combinationCount : Infinity;
+        if (!isFinite(combos)) {
+          viable = false; // can't reach every target even with this anchor
+          break;
+        }
+        injectCost.push({ target: T, combos, direct: combos === 1 });
+        runningScore += combos;
+        remainingVarFloor -= floorOf(T);
+      }
+      if (!viable) continue;
 
-      const score = obtainPlan.cost + injectCost.reduce((s, i) => s + i.combos, 0);
       hubs.push({
         species: H,
         obtainCost: obtainPlan.cost,
         ...(obtainPlan.passivePlan !== undefined && { obtainPassivePlan: obtainPlan.passivePlan }),
         injectCost,
-        score,
+        score: runningScore,
       });
+      recordScore(runningScore);
     }
-    hubs.sort((a, b) => a.score! - b.score!);
+    // Tiebreak on original candidate index so the ranking is identical to an exhaustive
+    // rankTable-order sweep, independent of the pruning-favorable evaluation order above.
+    hubs.sort((a, b) => a.score! - b.score! || candidateIndex.get(a.species)! - candidateIndex.get(b.species)!);
     return { hubs: hubs.slice(0, maxHubs) };
   }
 
@@ -214,7 +309,7 @@ export function findHubs(ruleset: BreedingRuleset, roster: RosterEntry[], option
     const breadth = directIdx.get(H)?.size ?? 0;
     if (breadth === 0) continue; // can't directly parent anything -> useless as a carrier
 
-    const obtainPlan = planSpecies(ruleset, roster, H, speciesOpts);
+    const obtainPlan = resultFromContext(ruleset, roster, H, baseCtx, speciesOpts, false);
     if (!obtainPlan.feasible) continue;
 
     hubs.push({
