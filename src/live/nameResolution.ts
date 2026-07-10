@@ -24,7 +24,7 @@ export function resolvePlayerDisplayName(
  * `null` for blank/non-Steam ids rather than guessing. */
 export function extractSteamId64(userId: string): string | null {
   const match = /^steam_(\d+)$/i.exec(userId.trim());
-  return match ? match[1] : null;
+  return match?.[1] ?? null;
 }
 
 /** Learns PlayerUID -> SteamID64 links from a fresh players list, merging into `existing`
