@@ -79,7 +79,7 @@ export default function SettingsView() {
 
   return (
     <main className="flex-1 overflow-y-auto bg-canvas">
-      <div className="mx-auto max-w-[860px] px-[34px] pb-[70px] pt-[26px]">
+      <div className="mx-auto max-w-[860px] px-4 pb-[70px] pt-[26px] md:px-[34px]">
         <div className="mb-0.5 font-sans text-[22px] font-bold tracking-[-.4px]">Settings</div>
         <div className="mb-[26px] font-sans text-[13px] text-muted">
           Ruleset <b className="font-mono text-ink-muted">{ruleset.version}</b> · {species.length} species · {passives.length}{' '}
@@ -239,7 +239,7 @@ export default function SettingsView() {
             Self-hosted PalDefender proxy. Blank base URL = demo/mock data.
           </div>
 
-          <div className="mb-3.5 grid grid-cols-2 gap-3.5">
+          <div className="mb-3.5 grid grid-cols-1 gap-3.5 sm:grid-cols-2">
             <div>
               <div className="mb-1.5 font-sans text-[10.5px] font-semibold uppercase tracking-[.5px] text-muted">Proxy base URL</div>
               <input
@@ -366,7 +366,7 @@ export default function SettingsView() {
               available Jul 10
             </span>
           </div>
-          <div className="grid grid-cols-2 gap-3.5">
+          <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
             <div className="opacity-65">
               <div className="mb-1.5 font-sans text-[12.5px] font-semibold">Active ruleset</div>
               <div className="flex items-center justify-between rounded-panel border-[1.5px] border-[#d8cfbf] bg-white px-3 py-2 font-mono text-[12.5px] font-semibold text-muted">

@@ -15,12 +15,12 @@ export default function ReverseLookupView() {
 
   return (
     <main className="flex-1 overflow-y-auto bg-canvas">
-      <div className="mx-auto max-w-[720px] px-[34px] pb-[60px] pt-[26px]">
+      <div className="mx-auto max-w-[720px] px-4 pb-[60px] pt-[26px] md:px-[34px]">
         <div className="mb-0.5 font-sans text-[22px] font-bold tracking-[-.4px]">Reverse lookup</div>
         <div className="mb-6 font-sans text-[13px] text-muted">Pick a child species, see every raw parent pair that can produce it.</div>
 
-        <div className="mb-4 flex items-center gap-2.5 rounded-card border border-border-card bg-white p-5 shadow-card">
-          <div className="w-[240px]">
+        <div className="mb-4 flex flex-wrap items-center gap-2.5 rounded-card border border-border-card bg-white p-5 shadow-card">
+          <div className="w-full sm:w-[240px]">
             <SpeciesSelect species={species} value={child} onChange={setChild} />
           </div>
           <span

@@ -29,13 +29,13 @@ export default function ForwardCalculatorView() {
 
   return (
     <main className="flex-1 overflow-y-auto bg-canvas">
-      <div className="mx-auto max-w-[720px] px-[34px] pb-[60px] pt-[26px]">
+      <div className="mx-auto max-w-[720px] px-4 pb-[60px] pt-[26px] md:px-[34px]">
         <div className="mb-0.5 font-sans text-[22px] font-bold tracking-[-.4px]">Forward calculator</div>
         <div className="mb-6 font-sans text-[13px] text-muted">Pick two parents, see every possible child outcome.</div>
 
         <div className="mb-4 rounded-card border border-border-card bg-white p-5 shadow-card">
-          <div className="mb-3 flex items-center gap-2.5">
-            <div className="w-[240px]">
+          <div className="mb-3 flex flex-wrap items-center gap-2.5">
+            <div className="w-full sm:w-[240px]">
               <SpeciesSelect species={species} value={parentA} onChange={setParentA} />
             </div>
             <select value={genderA} onChange={(e) => setGenderA(e.target.value as Gender | '')} className={selectClass}>
@@ -44,8 +44,8 @@ export default function ForwardCalculatorView() {
               <option value="female">female</option>
             </select>
           </div>
-          <div className="mb-4 flex items-center gap-2.5">
-            <div className="w-[240px]">
+          <div className="mb-4 flex flex-wrap items-center gap-2.5">
+            <div className="w-full sm:w-[240px]">
               <SpeciesSelect species={species} value={parentB} onChange={setParentB} />
             </div>
             <select value={genderB} onChange={(e) => setGenderB(e.target.value as Gender | '')} className={selectClass}>

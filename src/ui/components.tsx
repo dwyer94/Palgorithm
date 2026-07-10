@@ -494,68 +494,106 @@ export function Sidebar({
   iconMode: 'compact' | 'full';
   onIconModeChange: (mode: 'compact' | 'full') => void;
 }) {
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  const select = (key: string) => {
+    onSelect(key);
+    setMobileOpen(false);
+  };
+
   return (
-    <nav className="flex w-[212px] flex-none flex-col bg-sidebar-bg pb-3 text-sidebar-text">
-      <div className="flex items-center gap-2.5 px-[18px] pb-[18px] pt-5">
-        <BrandMark />
-        <div className="font-sans text-[17px] font-bold tracking-[-.3px] text-[#f4f1ea]">Palgorithm</div>
-      </div>
-
-      <SectionLabel>Plan</SectionLabel>
-      <div className="flex flex-col gap-0.5 px-2.5">
-        {PLAN_NAV_ITEMS.map((item) => (
-          <NavRow key={item.key} item={item} active={active === item.key} onClick={() => onSelect(item.key)} />
-        ))}
-      </div>
-
-      <SectionLabel>Data</SectionLabel>
-      <div className="flex flex-col gap-0.5 px-2.5">
-        <NavRow
-          item={ROSTER_NAV_ITEM}
-          active={active === 'roster'}
-          onClick={() => onSelect('roster')}
-          badge={<span className="ml-auto font-mono text-[11px] font-medium text-muted">{rosterCount}</span>}
-        />
-        <NavRow
-          item={SERVER_NAV_ITEM}
-          active={active === 'server'}
-          onClick={() => onSelect('server')}
-          badge={
-            serverOnCount > 0 ? (
-              <span
-                className={`ml-auto rounded-pill px-1.5 py-px font-mono text-[10px] font-semibold ${
-                  active === 'server' ? 'bg-sidebar-bg text-[#e8c9a8]' : 'bg-success-text text-[#cdeddb]'
-                }`}
-              >
-                {serverOnCount} on
-              </span>
-            ) : undefined
-          }
-        />
-      </div>
-
-      <SectionLabel>Utilities</SectionLabel>
-      <div className="flex flex-col gap-0.5 px-2.5">
-        {UTILITY_NAV_ITEMS.map((item) => (
-          <NavRow key={item.key} item={item} active={active === item.key} onClick={() => onSelect(item.key)} />
-        ))}
-      </div>
-
-      <div className="mt-auto px-2.5">
-        <div className="mb-2 px-0.5">
-          <IconModeToggle mode={iconMode} onChange={onIconModeChange} />
+    <>
+      {/* mobile top bar — hidden on desktop, where the nav below is always visible */}
+      <div className="flex flex-none items-center justify-between bg-sidebar-bg px-4 py-3 text-sidebar-text md:hidden">
+        <div className="flex items-center gap-2.5">
+          <BrandMark />
+          <div className="font-sans text-[17px] font-bold tracking-[-.3px] text-[#f4f1ea]">Palgorithm</div>
         </div>
-        <div
-          onClick={() => onSelect('settings')}
-          className={`flex cursor-pointer items-center gap-2.5 rounded-lg px-3 py-[9px] text-[13.5px] ${
-            active === 'settings' ? 'bg-brand font-semibold text-sidebar-bg' : 'text-muted hover:bg-sidebar-hover'
-          }`}
+        <span
+          onClick={() => setMobileOpen(true)}
+          role="button"
+          aria-label="Open menu"
+          className="cursor-pointer px-1 text-[22px] leading-none text-[#f4f1ea]"
         >
-          <span>⚙</span>
-          <span>Settings</span>
-        </div>
+          ☰
+        </span>
       </div>
-    </nav>
+
+      {/* drawer overlay — mobile only, dismisses the drawer on tap */}
+      {mobileOpen && (
+        <div
+          onClick={() => setMobileOpen(false)}
+          className="fixed inset-0 z-40 bg-black/40 md:hidden"
+          aria-hidden="true"
+        />
+      )}
+
+      <nav
+        className={`fixed inset-y-0 left-0 z-50 flex w-[212px] flex-none flex-col overflow-y-auto bg-sidebar-bg pb-3 text-sidebar-text transition-transform duration-200 ease-in-out md:static md:z-auto md:translate-x-0 ${
+          mobileOpen ? 'translate-x-0' : '-translate-x-full'
+        }`}
+      >
+        <div className="flex items-center gap-2.5 px-[18px] pb-[18px] pt-5">
+          <BrandMark />
+          <div className="font-sans text-[17px] font-bold tracking-[-.3px] text-[#f4f1ea]">Palgorithm</div>
+        </div>
+
+        <SectionLabel>Plan</SectionLabel>
+        <div className="flex flex-col gap-0.5 px-2.5">
+          {PLAN_NAV_ITEMS.map((item) => (
+            <NavRow key={item.key} item={item} active={active === item.key} onClick={() => select(item.key)} />
+          ))}
+        </div>
+
+        <SectionLabel>Data</SectionLabel>
+        <div className="flex flex-col gap-0.5 px-2.5">
+          <NavRow
+            item={ROSTER_NAV_ITEM}
+            active={active === 'roster'}
+            onClick={() => select('roster')}
+            badge={<span className="ml-auto font-mono text-[11px] font-medium text-muted">{rosterCount}</span>}
+          />
+          <NavRow
+            item={SERVER_NAV_ITEM}
+            active={active === 'server'}
+            onClick={() => select('server')}
+            badge={
+              serverOnCount > 0 ? (
+                <span
+                  className={`ml-auto rounded-pill px-1.5 py-px font-mono text-[10px] font-semibold ${
+                    active === 'server' ? 'bg-sidebar-bg text-[#e8c9a8]' : 'bg-success-text text-[#cdeddb]'
+                  }`}
+                >
+                  {serverOnCount} on
+                </span>
+              ) : undefined
+            }
+          />
+        </div>
+
+        <SectionLabel>Utilities</SectionLabel>
+        <div className="flex flex-col gap-0.5 px-2.5">
+          {UTILITY_NAV_ITEMS.map((item) => (
+            <NavRow key={item.key} item={item} active={active === item.key} onClick={() => select(item.key)} />
+          ))}
+        </div>
+
+        <div className="mt-auto px-2.5">
+          <div className="mb-2 px-0.5">
+            <IconModeToggle mode={iconMode} onChange={onIconModeChange} />
+          </div>
+          <div
+            onClick={() => select('settings')}
+            className={`flex cursor-pointer items-center gap-2.5 rounded-lg px-3 py-[9px] text-[13.5px] ${
+              active === 'settings' ? 'bg-brand font-semibold text-sidebar-bg' : 'text-muted hover:bg-sidebar-hover'
+            }`}
+          >
+            <span>⚙</span>
+            <span>Settings</span>
+          </div>
+        </div>
+      </nav>
+    </>
   );
 }
 

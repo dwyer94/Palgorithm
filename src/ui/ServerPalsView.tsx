@@ -31,7 +31,7 @@ export default function ServerPalsView() {
 
   return (
     <main className="flex-1 overflow-y-auto bg-canvas">
-      <div className="mx-auto max-w-[1000px] px-[34px] pb-[60px] pt-[26px]">
+      <div className="mx-auto max-w-[1000px] px-4 pb-[60px] pt-[26px] md:px-[34px]">
         <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
           <div>
             <div className="font-sans text-[22px] font-bold tracking-[-.4px]">Server Pals</div>
@@ -562,7 +562,7 @@ function FindAPalTab() {
         </div>
       </div>
 
-      <div className="mb-4 grid grid-cols-2 items-start gap-3.5">
+      <div className="mb-4 grid grid-cols-1 items-start gap-3.5 sm:grid-cols-2">
         <div>
           <div className="mb-1.5 font-sans text-[10.5px] font-semibold uppercase tracking-[.5px] text-muted">Species</div>
           {speciesFilter ? (

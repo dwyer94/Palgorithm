@@ -197,7 +197,7 @@ export default function HubView() {
   return (
     <>
       {/* ============ INPUT RAIL ============ */}
-      <aside className="w-[266px] flex-none overflow-y-auto border-r border-border-card bg-panel-subtle p-5">
+      <aside className="w-full flex-none border-b border-border-card bg-panel-subtle p-5 md:w-[266px] md:overflow-y-auto md:border-b-0 md:border-r">
         <div className="mb-0.5 font-sans text-[16px] font-bold tracking-[-.3px]">Multi-target plan</div>
         <div className="mb-[22px] font-sans text-[12.5px] text-muted">Breed several targets from one strategy.</div>
 
@@ -278,8 +278,8 @@ export default function HubView() {
       </aside>
 
       {/* ============ RESULT ============ */}
-      <main className="flex-1 overflow-y-auto bg-canvas">
-        <div className="mx-auto max-w-[1080px] px-[34px] pb-[60px] pt-[26px]">
+      <main className="flex-1 bg-canvas md:overflow-y-auto">
+        <div className="mx-auto max-w-[1080px] px-4 pb-[60px] pt-[26px] md:px-[34px]">
           {!unionResult && (
             <div>
               <div className="rounded-card border border-dashed border-border-input bg-panel-subtle p-10 text-center font-sans text-[13px] text-muted">
@@ -288,7 +288,7 @@ export default function HubView() {
               <div className="mb-2.5 mt-[26px] font-sans text-[11px] font-semibold uppercase tracking-wide text-muted">
                 Or jump-start with a popular pick
               </div>
-              <div className="grid grid-cols-3 gap-3.5">
+              <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-3">
                 {Object.entries(suggestedHubs.roles).map(([role, roleData]) => {
                   const meta = ROLE_META[role] ?? { label: role, icon: '★' };
                   const top = roleData.topHubs[0];
@@ -369,7 +369,7 @@ export default function HubView() {
               </div>
 
               {/* COMPARE STRIP */}
-              <div className="mb-[26px] grid grid-cols-[1fr_1fr_250px] gap-3.5">
+              <div className="mb-[26px] grid grid-cols-1 gap-3.5 lg:grid-cols-[1fr_1fr_250px]">
                 <div className="rounded-card border border-border-card bg-white p-[18px] px-5 shadow-card">
                   <div className="mb-1.5 flex items-center gap-2">
                     <span className="font-sans text-[11px] font-semibold uppercase tracking-[.6px] text-muted">Union plan</span>

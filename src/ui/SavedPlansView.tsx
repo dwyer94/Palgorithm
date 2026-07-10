@@ -23,7 +23,7 @@ export default function SavedPlansView() {
 
   return (
     <main className="flex-1 overflow-y-auto bg-canvas">
-      <div className="mx-auto max-w-[1080px] px-[34px] pb-[60px] pt-[26px]">
+      <div className="mx-auto max-w-[1080px] px-4 pb-[60px] pt-[26px] md:px-[34px]">
         <div className="mb-0.5 font-sans text-[22px] font-bold tracking-[-.4px]">Saved plans</div>
         <div className="mb-6 font-sans text-[13px] text-muted">
           Snapshots from the Hub and Single-target planners — reopening replays the stored result, it never recomputes.

@@ -43,8 +43,8 @@ export function PassivePlanView({
         <ProvisionalTag />
         <span className="font-sans text-[12px] text-muted-light">odds are unverified — treat as guidance</span>
       </div>
-      <div className="grid grid-cols-2">
-        <div className="border-r border-border-divider p-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2">
+        <div className="border-b border-border-divider p-5 sm:border-b-0 sm:border-r">
           <div className="mb-2 font-sans text-[11px] font-semibold uppercase tracking-wide text-muted">Exact set</div>
           <div className="flex items-baseline gap-2">
             <span className="font-mono text-[34px] font-bold tracking-[-1px]">{(plan.landOdds.exactSet * 100).toFixed(1)}%</span>

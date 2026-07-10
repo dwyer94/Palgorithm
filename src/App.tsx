@@ -39,7 +39,7 @@ function AppShell() {
   const ActiveView = VIEWS[active];
 
   return (
-    <div className="flex h-screen w-full overflow-hidden font-sans">
+    <div className="flex h-screen w-full flex-col overflow-hidden font-sans md:flex-row">
       <Sidebar
         active={active}
         onSelect={(key) => setActive(key as ViewKey)}
@@ -48,7 +48,7 @@ function AppShell() {
         iconMode={settings.iconDisplayMode}
         onIconModeChange={(iconDisplayMode) => setSettings({ ...settings, iconDisplayMode })}
       />
-      <div className="flex flex-1 overflow-hidden">
+      <div className="flex flex-1 flex-col overflow-y-auto md:flex-row md:overflow-hidden">
         <ActiveView />
       </div>
     </div>
