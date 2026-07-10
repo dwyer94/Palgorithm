@@ -423,6 +423,27 @@ function main(): void {
 
   const includedIds = new Set(species.map((s) => s.id));
 
+  // Admin-duplicate rows (BOSS_/RAID_/GYM_/PREDATOR_/SUMMON_/Quest_-prefixed, *_Oilrig-suffixed)
+  // are excluded above as combat-stat duplicates, not distinct species — but a player really can
+  // end up owning one (e.g. catching a field-boss spawn), and a live-server integration
+  // (src/live/normalize.ts) needs to recognize that raw CharacterID as the base species instead
+  // of flagging it unresolved. Wire up an alias only when stripping the admin marker yields an
+  // exact match (case-insensitive) to an already-included species id — e.g. "BOSS_FlameBuffalo"
+  // → "FlameBuffalo". Never guess: markers with no such match (YakushimaBoss001, GYM_ThunderDragonMan
+  // — no standalone "ThunderDragonMan" species exists) are left genuinely unresolved.
+  const speciesByLowerId = new Map(species.map((s) => [s.id.toLowerCase(), s]));
+  let adminAliasesAdded = 0;
+  for (const charId of Object.keys(monster.Rows)) {
+    if (!isAdminDuplicate(charId)) continue;
+    const prefix = ADMIN_PREFIXES.find((p) => charId.startsWith(p));
+    const baseId = prefix ? charId.slice(prefix.length) : charId.endsWith('_Oilrig') ? charId.slice(0, -'_Oilrig'.length) : undefined;
+    if (!baseId) continue;
+    const target = speciesByLowerId.get(baseId.toLowerCase());
+    if (!target) continue;
+    target.aliases = [...(target.aliases ?? []), charId];
+    adminAliasesAdded++;
+  }
+
   // tribe enum name → canonical species id. Parents in DT_PalCombiUnique are referenced by
   // tribe (sometimes a numeric enum the usmap couldn't name, e.g. "262"); children by
   // CharacterID. Canonical = the species whose id equals the tribe name (case-insensitive,
@@ -599,6 +620,7 @@ function main(): void {
   console.log(`    standardBreedable: ${species.filter((s) => s.standardBreedable).length}`);
   console.log(`    otherObtainOnly:   ${species.filter((s) => s.otherObtainOnly).length}`);
   console.log(`    with icon:         ${species.filter((s) => s.icon).length}${missingIcons.length ? ` (missing: ${missingIcons.join(', ')})` : ''}`);
+  console.log(`  admin aliases:  ${adminAliasesAdded} (BOSS_/RAID_/GYM_/PREDATOR_/SUMMON_/Quest_/_Oilrig rows mapped to base species)`);
   console.log(`  specialCombos:  ${specialCombos.length} (dropped ${droppedCombos} referencing excluded species)`);
   console.log(`  passives:       ${passives.length} (excluded ${excludedPassives} dev-only/unreleased rows)`);
   console.log(`    with categories:   ${passives.filter((p) => p.categories.length > 0).length}`);
