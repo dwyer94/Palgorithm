@@ -124,7 +124,7 @@ export function PlanGraphPanel({
     for (const node of layout.nodes) {
       if (node.kind !== 'leaf' || node.isCatch || node.gender === null) continue;
       const match = matchProvenance(
-        { species: node.species, gender: node.gender, passives: node.passives },
+        { species: node.species, gender: node.gender, ...(node.passives && { passives: node.passives }) },
         selectedPlayerIds,
         palsByPlayer,
         displayNameByIdentifier,
