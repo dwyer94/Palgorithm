@@ -60,7 +60,7 @@ open UE4SS dedicated-server character-reset bug entirely).
      binds to all interfaces, that's fine — Windows Firewall should still block the port from
      the LAN/internet (see Part E). The proxy reaches it locally either way.
 
-5. **Confirm the endpoints exist.** Endpoints are documented in `PalDefenderAPI/*.md` in
+5. **Confirm the endpoints exist.** Endpoints are documented in `docs/PalDefenderAPI/*.md` in
    this repo and at https://ultimeit.github.io/PalDefender/RESTAPI/. With the server
    running, from the server itself:
    ```powershell
@@ -255,6 +255,6 @@ just a pointer to where it lives:
 - **CORS error in the browser console**: check `CORS_ORIGINS` in the proxy's `.env` isn't
   restricted to an origin that doesn't match where the app is actually served from.
 - **After a Palworld/PalDefender update things break**: pin a known-good PalDefender
-  version; re-verify the `/v1/pdapi/pals` schema against `PalDefenderAPI/*.md` and
+  version; re-verify the `/v1/pdapi/pals` schema against `docs/PalDefenderAPI/*.md` and
   `src/live/normalize.ts` after each update — that's the one file that needs correcting if
   field names change.

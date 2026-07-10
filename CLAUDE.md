@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Guidance for Claude Code working in this repo. Read this first; full detail lives in `PALWORLD_BREEDING_OPTIMIZER_SPEC.md`, which is the source of truth. This file is the always-loaded quick reference and guardrails.
+Guidance for Claude Code working in this repo. Read this first; full detail lives in `docs/PALWORLD_BREEDING_OPTIMIZER_SPEC.md`, which is the source of truth. This file is the always-loaded quick reference and guardrails.
 
 ## Project
 

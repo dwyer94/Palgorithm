@@ -1,6 +1,6 @@
 # PalCalc PalDefender proxy
 
-A thin FastAPI proxy that mirrors PalDefender's REST API (`../PalDefenderAPI/*.md`,
+A thin FastAPI proxy that mirrors PalDefender's REST API (`../docs/PalDefenderAPI/*.md`,
 https://ultimeit.github.io/PalDefender/RESTAPI/) as closely as possible, so the PalCalc app
 never has to know PalDefender exists — it just talks to this proxy using the exact same
 paths and response shapes. See `../docs/UI_REQUIREMENTS.md` for the feature this serves and

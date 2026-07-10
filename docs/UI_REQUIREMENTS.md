@@ -8,7 +8,7 @@ what they must accomplish*, not how they should look. **All aesthetic and layout
 are the designer's to make**; the constraints here are about capability, information, and
 priority, not visual style.
 
-Source of truth for mechanics/architecture is `PALWORLD_BREEDING_OPTIMIZER_SPEC.md`; this
+Source of truth for mechanics/architecture is `PALWORLD_BREEDING_OPTIMIZER_SPEC.md` (same directory); this
 doc is the UI-scoped companion. Where the two disagree on *mechanics*, the spec wins.
 
 ---

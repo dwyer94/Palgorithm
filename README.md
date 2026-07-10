@@ -4,7 +4,7 @@ A personal, client-side tool that takes the Pals you own (species, gender, passi
 one or more target Pals (with a desired perk set) and returns the breeding plan that
 reaches them in the **fewest distinct breeding combinations**. Built to survive
 Palworld's 1.0 breeding overhaul (Genetic Recombination) by keeping all breeding rules
-behind a swappable interface — see [`PALWORLD_BREEDING_OPTIMIZER_SPEC.md`](PALWORLD_BREEDING_OPTIMIZER_SPEC.md)
+behind a swappable interface — see [`PALWORLD_BREEDING_OPTIMIZER_SPEC.md`](docs/PALWORLD_BREEDING_OPTIMIZER_SPEC.md)
 for the full design and [`CLAUDE.md`](CLAUDE.md) for the working invariants.
 
 React + TypeScript + Tailwind, built with Vite. No backend is required to use it — game

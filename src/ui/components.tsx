@@ -5,7 +5,7 @@ import type { Element, Gender, Species, Passive } from '../data/schema';
 
 /**
  * Shared visual primitives (spec session 0.D handoff, docs in
- * UI_Development/design_handoff_palgorithm_ui/README.md). These are the atoms every
+ * docs/design_handoff_palgorithm_ui/README.md). These are the atoms every
  * restyled view is built from — keep visual values in sync with the design tokens in
  * tailwind.config.js rather than re-deriving them per component.
  */

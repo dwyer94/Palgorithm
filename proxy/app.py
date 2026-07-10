@@ -1,4 +1,4 @@
-"""FastAPI proxy mirroring PalDefender's REST API (../PalDefenderAPI/*.md) for PalCalc's
+"""FastAPI proxy mirroring PalDefender's REST API (../docs/PalDefenderAPI/*.md) for PalCalc's
 live server connection feature (see ../docs/UI_REQUIREMENTS.md). It adds only what
 PalDefender itself doesn't provide: CORS (so a browser SPA on a different origin can call
 it), optional caller auth, and a short-TTL cache to avoid hammering PalDefender's

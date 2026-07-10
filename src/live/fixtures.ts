@@ -2,7 +2,7 @@ import type { RawPal, RawPalsResponse, RawPlayer, PlayerIdentifier } from './typ
 
 /**
  * Synthetic PalDefender-shaped data for the mock data source (see `dataSource.ts`) and for
- * unit tests. Shaped exactly like the documented raw responses (`PalDefenderAPI/*.md`), and
+ * unit tests. Shaped exactly like the documented raw responses (`docs/PalDefenderAPI/*.md`), and
  * built against real species/passive ids from the bundled dataset so normalization exercises
  * real lookups, not just structural plumbing. Deliberately includes:
  *  - a player with no `Name` and no seeded override (falls back to raw identifier)

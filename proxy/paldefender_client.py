@@ -16,7 +16,7 @@ from demo_data import DEMO_PALS_BY_IDENTIFIER, DEMO_PLAYERS, find_player
 
 class PalDefenderError(Exception):
     """Carries enough to reproduce PalDefender's own `{Error: {Code, Message, Details}}`
-    error shape (see ../PalDefenderAPI/*.md) so callers of this proxy see the same contract
+    error shape (see ../docs/PalDefenderAPI/*.md) so callers of this proxy see the same contract
     whether the error originated at PalDefender or at the proxy itself (e.g. upstream
     unreachable)."""
 

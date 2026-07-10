@@ -1,5 +1,5 @@
 """Canned data for demo mode (no PalDefender required) — shaped exactly like the
-documented PalDefender REST API responses (see ../PalDefenderAPI/*.md), so the app's real
+documented PalDefender REST API responses (see ../docs/PalDefenderAPI/*.md), so the app's real
 HTTP data source (src/live/dataSource.ts) exercises the actual wire format, not a stand-in.
 
 Uses real species/passive internal names from the bundled PalCalc dataset (Anubis,

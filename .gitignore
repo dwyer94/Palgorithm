@@ -43,3 +43,6 @@ __pycache__/
 .pytest_cache/
 .venv/
 venv/
+
+# Personal scratch notes — not project docs
+UI_Enhancements.txt

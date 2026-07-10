@@ -3,7 +3,7 @@ import type { Gender, PassiveId, SpeciesId } from '../ruleset/types';
 export type { Gender, PassiveId, SpeciesId };
 
 /**
- * Raw PalDefender REST API shapes (subset of fields we read), per PalDefenderAPI/*.md and
+ * Raw PalDefender REST API shapes (subset of fields we read), per docs/PalDefenderAPI/*.md and
  * https://ultimeit.github.io/PalDefender/RESTAPI/. `/pals/<id>` groups pals by location
  * (Team/Palbox/BaseCamps) and keys each group by pal instance ID — NOT a flat array.
  */
