@@ -1,6 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
 import { getSettings, setSettings as writeSettings } from '../store/localStore';
-import { useSettings } from '../store/hooks';
+import { useSelectedPlayerIds, useSettings } from '../store/hooks';
 import { useRulesetContext } from '../ui/RulesetContext';
 import { selectDataSource, type LiveDataSourceError, type LiveResultMeta } from './dataSource';
 import { FIXTURE_PALS_BY_IDENTIFIER, FIXTURE_PLAYERS } from './fixtures';
@@ -13,7 +13,7 @@ import type { LivePlayer, LivePlayerPals, PlayerIdentifier } from './types';
  * pattern but stateful: connection status, cached player/pal data, refresh controls, and
  * `selectedPlayerIds` (which connected players feed the planner views). Selection lives
  * here rather than per-view since it's cross-cutting and should survive tab switches; it is
- * deliberately NOT persisted to localStorage (re-established each session).
+ * persisted to localStorage (see `useSelectedPlayerIds`) so it survives reloads too.
  */
 
 export type ConnectionStatus = 'unconfigured' | 'connecting' | 'connected' | 'error';
@@ -62,7 +62,7 @@ export function LiveProvider({ children }: { children: ReactNode }) {
   });
   const [palsLoading, setPalsLoading] = useState<Set<PlayerIdentifier>>(new Set());
   const [palsError, setPalsError] = useState<Record<PlayerIdentifier, LiveDataSourceError | undefined>>({});
-  const [selectedPlayerIds, setSelectedPlayerIds] = useState<Set<PlayerIdentifier>>(new Set());
+  const [selectedPlayerIds, setSelectedPlayerIds] = useSelectedPlayerIds();
   const [nextPollAt, setNextPollAt] = useState<number | null>(null);
 
   const { source, isMock } = useMemo(

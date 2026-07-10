@@ -13,6 +13,7 @@ const KEYS = {
   roster: 'palcalc.roster',
   savedPlans: 'palcalc.savedPlans',
   settings: 'palcalc.settings',
+  selectedPlayerIds: 'palcalc.selectedPlayerIds',
 } as const;
 
 function parse<T>(raw: string | null, fallback: T): T {
@@ -43,11 +44,13 @@ export function subscribe(listener: Listener): () => void {
 let rosterCache: RosterEntry[] | null = null;
 let savedPlansCache: SavedPlan[] | null = null;
 let settingsCache: Settings | null = null;
+let selectedPlayerIdsCache: string[] | null = null;
 
 window.addEventListener('storage', (e) => {
   if (e.key === KEYS.roster) rosterCache = null;
   else if (e.key === KEYS.savedPlans) savedPlansCache = null;
   else if (e.key === KEYS.settings) settingsCache = null;
+  else if (e.key === KEYS.selectedPlayerIds) selectedPlayerIdsCache = null;
   else return;
   notify();
 });
@@ -84,6 +87,19 @@ export function getSettings(): Settings {
 export function setSettings(settings: Settings): void {
   settingsCache = settings;
   write(KEYS.settings, settings);
+  notify();
+}
+
+export function getSelectedPlayerIds(): string[] {
+  if (selectedPlayerIdsCache === null) {
+    selectedPlayerIdsCache = parse<string[]>(localStorage.getItem(KEYS.selectedPlayerIds), []);
+  }
+  return selectedPlayerIdsCache;
+}
+
+export function setSelectedPlayerIds(ids: string[]): void {
+  selectedPlayerIdsCache = ids;
+  write(KEYS.selectedPlayerIds, ids);
   notify();
 }
 
