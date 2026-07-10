@@ -172,7 +172,15 @@ export default function SingleTargetView() {
                 </div>
               </div>
 
-              <SpeciesPlanView plan={result} speciesById={speciesById} provenance={provenance} passivesById={passivesById} />
+              <SpeciesPlanView
+                plan={result}
+                speciesById={speciesById}
+                provenance={provenance}
+                passivesById={passivesById}
+                selectedPlayerIds={live.selectedPlayerIds}
+                palsByPlayer={live.palsByPlayer}
+                displayNameByIdentifier={displayNameByIdentifier}
+              />
             </>
           )}
         </div>

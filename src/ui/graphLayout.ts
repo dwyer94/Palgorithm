@@ -209,9 +209,13 @@ function romanish(n: number): string {
   return CIRCLED[n - 1] ?? String(n);
 }
 
-export function edgePath(x1: number, y1: number, x2: number, y2: number): string {
+/** `bow` bends both control points by the same vertical amount — used to fan apart two
+ * edges that would otherwise sit exactly on top of each other (e.g. a same-species pair
+ * bred with itself has parentA and parentB resolve to the identical leaf node, so both
+ * edges into the child share the same endpoints). */
+export function edgePath(x1: number, y1: number, x2: number, y2: number, bow = 0): string {
   const d = Math.max(30, (x2 - x1) / 2);
-  return `M${x1},${y1} C${x1 + d},${y1} ${x2 - d},${y2} ${x2},${y2}`;
+  return `M${x1},${y1} C${x1 + d},${y1 + bow} ${x2 - d},${y2 + bow} ${x2},${y2}`;
 }
 
 export const NODE_WIDTH_PX = NODE_WIDTH;

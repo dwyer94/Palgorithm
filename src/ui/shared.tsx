@@ -1,6 +1,7 @@
 import type { Species, Passive } from '../data/schema';
 import type { SpeciesPlanResult, PassivePlanResult, UnionPlanResult, HubCandidate } from '../solver/types';
 import type { ProvenanceMatch } from '../live/provenance';
+import type { LivePlayerPals, PlayerIdentifier } from '../live/types';
 import { useSettings } from '../store/hooks';
 import { ComboCount, ProvisionalTag, ElementDot, PalCard, PalIcon, PassiveChip, RankPill } from './components';
 import { PlanRenderer } from './PlanView';
@@ -131,11 +132,17 @@ export function SpeciesPlanView({
   speciesById,
   provenance,
   passivesById,
+  selectedPlayerIds,
+  palsByPlayer,
+  displayNameByIdentifier,
 }: {
   plan: SpeciesPlanResult;
   speciesById: Map<string, Species>;
   provenance?: Map<string, ProvenanceMatch> | undefined;
   passivesById?: Map<string, Passive> | undefined;
+  selectedPlayerIds?: Set<PlayerIdentifier> | undefined;
+  palsByPlayer?: Record<PlayerIdentifier, LivePlayerPals | undefined> | undefined;
+  displayNameByIdentifier?: Record<PlayerIdentifier, string> | undefined;
 }) {
   if (!plan.feasible) {
     return (
@@ -171,6 +178,9 @@ export function SpeciesPlanView({
         provenance={provenance}
         desiredPassives={plan.passivePlan?.desired}
         passivesById={passivesById}
+        selectedPlayerIds={selectedPlayerIds}
+        palsByPlayer={palsByPlayer}
+        displayNameByIdentifier={displayNameByIdentifier}
       />
       {plan.passivePlan && <PassivePlanView plan={plan.passivePlan} passivesById={passivesById} />}
     </div>
@@ -183,12 +193,18 @@ export function UnionPlanView({
   provenance,
   hubSpeciesId,
   passivesById,
+  selectedPlayerIds,
+  palsByPlayer,
+  displayNameByIdentifier,
 }: {
   plan: UnionPlanResult;
   speciesById: Map<string, Species>;
   provenance?: Map<string, ProvenanceMatch> | undefined;
   hubSpeciesId?: string | undefined;
   passivesById?: Map<string, Passive> | undefined;
+  selectedPlayerIds?: Set<PlayerIdentifier> | undefined;
+  palsByPlayer?: Record<PlayerIdentifier, LivePlayerPals | undefined> | undefined;
+  displayNameByIdentifier?: Record<PlayerIdentifier, string> | undefined;
 }) {
   const targetsWithPassivePlan = plan.perTarget.filter((p) => p.passivePlan);
 
@@ -202,6 +218,9 @@ export function UnionPlanView({
         provenance={provenance}
         hubSpeciesId={hubSpeciesId}
         passivesById={passivesById}
+        selectedPlayerIds={selectedPlayerIds}
+        palsByPlayer={palsByPlayer}
+        displayNameByIdentifier={displayNameByIdentifier}
       />
       {targetsWithPassivePlan.map((t) => (
         <PassivePlanView

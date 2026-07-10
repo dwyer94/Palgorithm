@@ -2,6 +2,8 @@ import { useMemo, useState, type ReactNode } from 'react';
 import type { Species, SpeciesId, Passive } from '../data/schema';
 import type { PlanIndividual, SpeciesPlanStep } from '../solver/types';
 import type { ProvenanceMatch } from '../live/provenance';
+import { matchProvenance } from '../live/provenance';
+import type { LivePlayerPals, PlayerIdentifier } from '../live/types';
 import { buildPlanGraph, edgePath, type PlanGraphNode } from './graphLayout';
 import { GenderGlyph, PalIcon, PalNode, PassiveChip, SegmentedControl, type PalNodeVariant } from './components';
 
@@ -28,6 +30,16 @@ interface PlanGraphContext {
   hubSpeciesId?: string | undefined;
   desiredPassives?: string[] | undefined;
   passivesById?: Map<string, Passive> | undefined;
+  leafProvenance?: Map<string, ProvenanceMatch> | undefined;
+}
+
+/** Small inline "whose box is this from" tag for an owned leaf node — `Roster` when no
+ * live pal of that species+gender matched (which, since candidates are only drawn from
+ * connected live players, unambiguously means it came from the local roster instead). */
+function leafSourceLabel(node: PlanGraphNode, ctx: PlanGraphContext): string {
+  const match = ctx.leafProvenance?.get(node.id);
+  if (!match) return ' · Roster';
+  return match.confident ? ` · ${match.ownerDisplayName}` : ` · ${match.ownerDisplayName}?`;
 }
 
 function nodeVariant(node: PlanGraphNode, ctx: PlanGraphContext): PalNodeVariant {
@@ -45,12 +57,12 @@ function nodeSubLabel(node: PlanGraphNode, ctx: PlanGraphContext): { label: Reac
       return { label: `catch${rank !== null && rank !== undefined ? ` · r${rank}` : ''}`, className: 'text-brand-hover' };
     }
     if (!node.passives || node.passives.length === 0) {
-      return { label: 'owned', className: 'text-success-text' };
+      return { label: `owned${leafSourceLabel(node, ctx)}`, className: 'text-success-text' };
     }
     return {
       label: (
         <span className="inline-flex flex-wrap items-center gap-1">
-          owned ·
+          owned{leafSourceLabel(node, ctx)} ·
           {node.passives.map((id) => {
             const p = ctx.passivesById?.get(id);
             return (
@@ -85,6 +97,9 @@ export function PlanGraphPanel({
   hubSpeciesId,
   desiredPassives,
   passivesById,
+  selectedPlayerIds,
+  palsByPlayer,
+  displayNameByIdentifier,
 }: {
   steps: SpeciesPlanStep[];
   catches: PlanIndividual[];
@@ -93,13 +108,60 @@ export function PlanGraphPanel({
   hubSpeciesId?: string | undefined;
   desiredPassives?: string[] | undefined;
   passivesById?: Map<string, Passive> | undefined;
+  selectedPlayerIds?: Set<PlayerIdentifier> | undefined;
+  palsByPlayer?: Record<PlayerIdentifier, LivePlayerPals | undefined> | undefined;
+  displayNameByIdentifier?: Record<PlayerIdentifier, string> | undefined;
 }) {
   const layout = useMemo(() => buildPlanGraph(steps, catches, targets), [steps, catches, targets]);
-  const ctx: PlanGraphContext = { speciesById, hubSpeciesId, desiredPassives, passivesById };
+  // Match each leaf/owned node (not the raw plan steps) against the live pools, so the
+  // dedup already done by `buildPlanGraph` (one node per species+gender) is respected
+  // rather than re-derived — a produced intermediate that happens to share a species+gender
+  // with a live pal never gets a spurious "owned by" tag, since it's never a leaf node here.
+  const leafProvenance = useMemo(() => {
+    if (!selectedPlayerIds || !palsByPlayer || !displayNameByIdentifier) return undefined;
+    const claimed = new Set<string>();
+    const map = new Map<string, ProvenanceMatch>();
+    for (const node of layout.nodes) {
+      if (node.kind !== 'leaf' || node.isCatch || node.gender === null) continue;
+      const match = matchProvenance(
+        { species: node.species, gender: node.gender, passives: node.passives },
+        selectedPlayerIds,
+        palsByPlayer,
+        displayNameByIdentifier,
+        claimed,
+      );
+      if (match) map.set(node.id, match);
+    }
+    return map;
+  }, [layout.nodes, selectedPlayerIds, palsByPlayer, displayNameByIdentifier]);
+  const ctx: PlanGraphContext = { speciesById, hubSpeciesId, desiredPassives, passivesById, leafProvenance };
   const targetPassiveChips = desiredPassives?.map((id) => {
     const p = passivesById?.get(id);
     return { id, label: p?.displayName ?? id, tier: p?.tier, description: p?.description };
   });
+
+  // Hovering a node isolates its own lineage — direct parent edge(s) in and the one child
+  // edge out light up while every unrelated line/box fades, which is the only reliable way
+  // to follow one Pal's line once several curves start crossing in a busy graph.
+  const [hoverId, setHoverId] = useState<string | null>(null);
+  const { litEdges, litNodes } = useMemo(() => {
+    if (!hoverId) return { litEdges: null as Set<number> | null, litNodes: null as Set<string> | null };
+    const edges = new Set<number>();
+    const nodes = new Set<string>([hoverId]);
+    layout.edges.forEach((e, i) => {
+      if (e.from === hoverId || e.to === hoverId) {
+        edges.add(i);
+        nodes.add(e.from);
+        nodes.add(e.to);
+      }
+    });
+    return { litEdges: edges, litNodes: nodes };
+  }, [hoverId, layout.edges]);
+
+  // Two edges with identical endpoints (a species bred with itself, so parentA and parentB
+  // both resolve to the same leaf node) would otherwise draw as one indistinguishable line —
+  // bow each occurrence past the first a bit further so they fan apart.
+  const dupSeen = new Map<string, number>();
 
   if (layout.nodes.length === 0) {
     return <p className="p-5 font-sans text-[13px] text-muted">Nothing to render yet — run a plan first.</p>;
@@ -116,6 +178,9 @@ export function PlanGraphPanel({
             <marker id="pg-arrow-shared" markerWidth="8" markerHeight="8" refX="6.5" refY="3.5" orient="auto">
               <path d="M0,0 L7,3.5 L0,7 z" fill="#d2691e" />
             </marker>
+            <marker id="pg-arrow-lit" markerWidth="8" markerHeight="8" refX="6.5" refY="3.5" orient="auto">
+              <path d="M0,0 L7,3.5 L0,7 z" fill="#3b6fd6" />
+            </marker>
           </defs>
           {layout.edges.map((e, i) => {
             const from = layout.nodeById.get(e.from);
@@ -125,14 +190,22 @@ export function PlanGraphPanel({
             const y1 = from.y + NODE_ANCHOR_Y;
             const x2 = to.x;
             const y2 = to.y + NODE_ANCHOR_Y;
+            const dupKey = `${e.from}->${e.to}`;
+            const dupIndex = dupSeen.get(dupKey) ?? 0;
+            dupSeen.set(dupKey, dupIndex + 1);
+            const bow = dupIndex === 0 ? 0 : (dupIndex % 2 === 1 ? 1 : -1) * Math.ceil(dupIndex / 2) * 16;
+            const isLit = litEdges?.has(i) ?? false;
+            const isDimmed = litEdges !== null && !isLit;
             return (
               <path
                 key={i}
-                d={edgePath(x1, y1, x2, y2)}
+                d={edgePath(x1, y1, x2, y2, bow)}
                 fill="none"
-                stroke={e.fromShared ? '#d2691e' : '#c4bbaa'}
-                strokeWidth={e.fromShared ? 2.1 : 1.6}
-                markerEnd={e.fromShared ? 'url(#pg-arrow-shared)' : 'url(#pg-arrow)'}
+                stroke={isLit ? '#3b6fd6' : e.fromShared ? '#d2691e' : '#c4bbaa'}
+                strokeWidth={isLit ? 2.6 : e.fromShared ? 2.1 : 1.6}
+                opacity={isDimmed ? 0.18 : 1}
+                markerEnd={isLit ? 'url(#pg-arrow-lit)' : e.fromShared ? 'url(#pg-arrow-shared)' : 'url(#pg-arrow)'}
+                className="transition-[opacity,stroke,stroke-width] duration-150"
               />
             );
           })}
@@ -150,9 +223,12 @@ export function PlanGraphPanel({
           const variant = nodeVariant(node, ctx);
           const { label, className } = nodeSubLabel(node, ctx);
           const isTarget = variant === 'target';
+          const isDimmed = litNodes !== null && !litNodes.has(node.id);
           return (
             <PalNode
               key={node.id}
+              onMouseEnter={() => setHoverId(node.id)}
+              onMouseLeave={() => setHoverId((cur) => (cur === node.id ? null : cur))}
               species={speciesName(speciesById, node.species)}
               icon={speciesById.get(node.species)?.icon}
               elements={speciesById.get(node.species)?.elements}
@@ -161,7 +237,7 @@ export function PlanGraphPanel({
               subLabel={label}
               subLabelClassName={className}
               passiveChips={isTarget ? targetPassiveChips : undefined}
-              style={{ position: 'absolute', left: node.x, top: node.y + 22 }}
+              style={{ position: 'absolute', left: node.x, top: node.y + 22, opacity: isDimmed ? 0.35 : 1 }}
             />
           );
         })}
@@ -264,6 +340,9 @@ export function PlanRenderer({
   hubSpeciesId,
   desiredPassives,
   passivesById,
+  selectedPlayerIds,
+  palsByPlayer,
+  displayNameByIdentifier,
   title = 'Selected plan',
   note,
 }: {
@@ -275,6 +354,9 @@ export function PlanRenderer({
   hubSpeciesId?: string | undefined;
   desiredPassives?: string[] | undefined;
   passivesById?: Map<string, Passive> | undefined;
+  selectedPlayerIds?: Set<PlayerIdentifier> | undefined;
+  palsByPlayer?: Record<PlayerIdentifier, LivePlayerPals | undefined> | undefined;
+  displayNameByIdentifier?: Record<PlayerIdentifier, string> | undefined;
   title?: string;
   note?: string;
 }) {
@@ -304,6 +386,9 @@ export function PlanRenderer({
           hubSpeciesId={hubSpeciesId}
           desiredPassives={desiredPassives}
           passivesById={passivesById}
+          selectedPlayerIds={selectedPlayerIds}
+          palsByPlayer={palsByPlayer}
+          displayNameByIdentifier={displayNameByIdentifier}
         />
       ) : (
         <StepsList

@@ -584,6 +584,8 @@ export interface PalNodeProps {
   genderLabel?: string;
   style?: React.CSSProperties;
   width?: number;
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
 }
 
 export function PalNode({
@@ -599,12 +601,16 @@ export function PalNode({
   genderLabel,
   style,
   width = 150,
+  onMouseEnter,
+  onMouseLeave,
 }: PalNodeProps) {
   const isTarget = variant === 'target';
   return (
     <div
-      className={`rounded-node px-2.5 py-[7px] ${PAL_NODE_STYLE[variant]}`}
+      className={`rounded-node px-2.5 py-[7px] transition-[opacity,box-shadow] duration-150 ${PAL_NODE_STYLE[variant]}`}
       style={{ width, ...style }}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
     >
       <div className="flex items-center justify-between gap-1.5">
         <span className="flex min-w-0 items-center gap-1.5">

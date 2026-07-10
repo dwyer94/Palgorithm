@@ -473,6 +473,9 @@ export default function HubView() {
                 provenance={provenance}
                 hubSpeciesId={selectedHub}
                 passivesById={passivesById}
+                selectedPlayerIds={live.selectedPlayerIds}
+                palsByPlayer={live.palsByPlayer}
+                displayNameByIdentifier={displayNameByIdentifier}
               />
             </>
           )}
