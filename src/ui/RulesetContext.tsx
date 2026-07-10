@@ -1,5 +1,5 @@
 import { createContext, useContext, useMemo, type ReactNode } from 'react';
-import rawDataset from '../data/dataset.0.6.json';
+import rawDataset from '../data/dataset.1.0.json';
 import { parseDataset } from '../data/loader';
 import { createRuleset } from '../ruleset';
 import type { BreedingRuleset } from '../ruleset/types';

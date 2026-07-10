@@ -49,8 +49,14 @@ function asPath(p: string | undefined, fallback: string): string {
   return isAbsolute(p) ? p : resolve(repoRoot, p);
 }
 
+// Game-data version this run targets (spec §5 patch-day replay: re-export under a new
+// usmap, then `--version 1.0 --out src/data/dataset.1.0.json`). Defaults to 0.6 so existing
+// invocations (npm run data:normalize) are unaffected.
+const VERSION = arg('--version') ?? '0.6';
+const SOURCE_OVERRIDE = arg('--source');
+
 const IN_ROOT = asPath(arg('--in'), join(repoRoot, 'Output', 'Exports', 'Pal', 'Content'));
-const OUT_FILE = asPath(arg('--out'), join(repoRoot, 'src', 'data', 'dataset.0.6.json'));
+const OUT_FILE = asPath(arg('--out'), join(repoRoot, 'src', 'data', `dataset.${VERSION}.json`));
 
 const P_MONSTER = join(IN_ROOT, 'Pal', 'DataTable', 'Character', 'DT_PalMonsterParameter.json');
 const P_COMBI = join(IN_ROOT, 'Pal', 'DataTable', 'Character', 'DT_PalCombiUnique.json');
@@ -547,14 +553,19 @@ function main(): void {
 
   const dataset: Dataset = {
     meta: {
-      version: '0.6',
+      version: VERSION,
+      // Species/formula ruleset this data targets — NOT the same axis as game-data version.
+      // Still 'combirank-0.6' for 1.0 data: confirmed unchanged post-launch (childRank
+      // formula, special combos, reachability all held; see project memory
+      // palworld-1-0-shipped-breeding-status). Update this if/when genrecomb-1.0 ships.
       ruleset: 'combirank-0.6',
       provisional: false, // real ranks + gender ratios for every included species
       source:
+        SOURCE_OVERRIDE ??
         'FModel export of local Palworld build 22461598 (species/names: usmap Mappings.0.6.6; ' +
-        'passives: usmap Mappings073.usmap, same game build); EN L10N names. Normalized by ' +
-        'src/pipeline/normalize.ts. passiveModel (inherit/mutation odds) remains a flagged ' +
-        'estimate (verified:false) — the passive list itself is real extracted data.',
+          'passives: usmap Mappings073.usmap, same game build); EN L10N names. Normalized by ' +
+          'src/pipeline/normalize.ts. passiveModel (inherit/mutation odds) remains a flagged ' +
+          'estimate (verified:false) — the passive list itself is real extracted data.',
       generatedAt: new Date().toISOString(),
     },
     species,

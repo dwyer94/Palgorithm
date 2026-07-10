@@ -164,12 +164,20 @@
           "LocalizedString": "Eikthyrdeer's exclusive skill.\r\nCharges at foes and uses antlers to launch them into the air.\r\nWhen used while riding, the direction of the charge can be controlled."
         }
       },
+      "ACTION_SKILL_Unique_Deer_Ground_DirtyHorn": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_Deer_Ground_DirtyHorn_TextData",
+          "SourceString": "Eikthyrdeer Terra's exclusive skill.\r\nCharges at foes and uses its antlers to whip mud at them.\r\nWhen used while riding, the direction of the charge can be controlled.",
+          "LocalizedString": "Eikthyrdeer Terra's exclusive skill.\r\nCharges at foes and uses its antlers to whip mud at them.\r\nWhen used while riding, the direction of the charge can be controlled."
+        }
+      },
       "ACTION_SKILL_Unique_Garm_Bite": {
         "TextData": {
           "Namespace": "DT_SkillDescText_Common",
           "Key": "ACTION_SKILL_Unique_Garm_Bite_TextData",
-          "SourceString": "<characterName id=|Garm|/>'s exclusive skill. \r\nSwiftly leaps at an enemy and bites into them.",
-          "LocalizedString": "<characterName id=|Garm|/>'s exclusive skill. \r\nSwiftly leaps at an enemy and bites into them."
+          "SourceString": "Swiftly leaps at an enemy and bites into them.",
+          "LocalizedString": "Swiftly leaps at an enemy and bites into them."
         }
       },
       "ACTION_SKILL_Unique_Boar_Tackle": {
@@ -194,6 +202,14 @@
           "Key": "ACTION_SKILL_Unique_FlowerDinosaur_Whip_TextData",
           "SourceString": "Dinossom's exclusive skill.\r\nUses its large tail to strike the ground in front of it, \r\ndelivering a shockwave in a straight line.",
           "LocalizedString": "Dinossom's exclusive skill.\r\nUses its large tail to strike the ground in front of it, \r\ndelivering a shockwave in a straight line."
+        }
+      },
+      "ACTION_SKILL_Unique_FlowerDinosaur_Electric_ThunderWhip": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_FlowerDinosaur_Electric_ThunderWhip_TextData",
+          "SourceString": "Dinossom Lux's exclusive skill. \r\nUses its large tail to strike the ground in front of it,\r\ndelivering a bolt of lightning in a straight line.",
+          "LocalizedString": "Dinossom Lux's exclusive skill. \r\nUses its large tail to strike the ground in front of it,\r\ndelivering a bolt of lightning in a straight line."
         }
       },
       "ACTION_SKILL_Unique_SheepBall_Roll": {
@@ -252,6 +268,14 @@
           "LocalizedString": "<characterName id=|Gorilla|/>'s exclusive skill.\r\nPounds the ground twice before leaping into the air\r\nand delivers a powerful punch."
         }
       },
+      "ACTION_SKILL_Unique_Gorilla_Ground_EarthPunch": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_Gorilla_Ground_EarthPunch_TextData",
+          "SourceString": "<characterName id=|Gorilla_Ground|/>'s exclusive skill. \r\nPounds the ground twice before leaping into the air\r\nand delivers a powerful punch infused with the Power of Gaia.",
+          "LocalizedString": "<characterName id=|Gorilla_Ground|/>'s exclusive skill. \r\nPounds the ground twice before leaping into the air\r\nand delivers a powerful punch infused with the Power of Gaia."
+        }
+      },
       "ACTION_SKILL_Unique_Grassmammoth_Earthquake": {
         "TextData": {
           "Namespace": "DT_SkillDescText_Common",
@@ -306,6 +330,14 @@
           "Key": "ACTION_SKILL_Unique_Baphomet_SwallowKite_TextData",
           "SourceString": "<characterName id=|Baphomet|/>'s exclusive skill.\r\nDraws near enemies using its left claw to slash them into the air\r\nbefore cutting them down with its right claw.",
           "LocalizedString": "<characterName id=|Baphomet|/>'s exclusive skill.\r\nDraws near enemies using its left claw to slash them into the air\r\nbefore cutting them down with its right claw."
+        }
+      },
+      "ACTION_SKILL_Unique_Baphomet_Dark_DarkKite": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_Baphomet_Dark_DarkKite_TextData",
+          "SourceString": "Incineram Noct's exclusive skill. \r\nDraws near enemies using its left dark claw to slash them into the air\r\nbefore cutting them down with its right dark claw.",
+          "LocalizedString": "Incineram Noct's exclusive skill. \r\nDraws near enemies using its left dark claw to slash them into the air\r\nbefore cutting them down with its right dark claw."
         }
       },
       "ACTION_SKILL_Unique_BirdDragon_FireBreath": {
@@ -484,6 +516,14 @@
           "LocalizedString": "Frostallion's exclusive skill.\r\nDashes forward while concentrating frigid air around its wings,\r\nusing them to slash enemies with icy blade."
         }
       },
+      "ACTION_SKILL_Unique_IceHorse_Dark_DarkBladeAttack": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_IceHorse_Dark_DarkBladeAttack_TextData",
+          "SourceString": "Frostallion Noct's exclusive skill. \r\nDashes forward while concentrating dark energy around its wings,\r\nusing them to slash enemies,\r\nthen converting that energy into homing shots",
+          "LocalizedString": "Frostallion Noct's exclusive skill. \r\nDashes forward while concentrating dark energy around its wings,\r\nusing them to slash enemies,\r\nthen converting that energy into homing shots"
+        }
+      },
       "ACTION_SKILL_Unique_JetDragon_JumpBeam": {
         "TextData": {
           "Namespace": "DT_SkillDescText_Common",
@@ -498,6 +538,14 @@
           "Key": "ACTION_SKILL_Unique_KingAlpaca_BodyPress_TextData",
           "SourceString": "Kingpaca's exclusive skill.\r\nLeaps high into the air before\r\nsmashing into an enemy with its chubby, massive body.",
           "LocalizedString": "Kingpaca's exclusive skill.\r\nLeaps high into the air before\r\nsmashing into an enemy with its chubby, massive body."
+        }
+      },
+      "ACTION_SKILL_Unique_KingAlpaca_Ice_IcePress": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_KingAlpaca_Ice_IcePress_TextData",
+          "SourceString": "Kingpaca Cryst's exclusive skill. \r\nLeaps high into the air before smashing into\r\nan enemy with ice and its chubby, massive body.",
+          "LocalizedString": "Kingpaca Cryst's exclusive skill. \r\nLeaps high into the air before smashing into\r\nan enemy with ice and its chubby, massive body."
         }
       },
       "ACTION_SKILL_Unique_KingBahamut_AirCrash": {
@@ -578,6 +626,14 @@
           "Key": "ACTION_SKILL_Unique_SakuraSaurus_SideTackle_TextData",
           "SourceString": "Broncherry's exclusive skill.\r\nTurns sideways before tackling enemies in front of it,\r\nsending them flying into the air.",
           "LocalizedString": "Broncherry's exclusive skill.\r\nTurns sideways before tackling enemies in front of it,\r\nsending them flying into the air."
+        }
+      },
+      "ACTION_SKILL_Unique_SakuraSaurus_Water_SplashTackle": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_SakuraSaurus_Water_SplashTackle_TextData",
+          "SourceString": "Broncherry Aqua's exclusive skill. \r\nTurns sideways before tackling enemies in front of it,\r\nsending them flying with a burst of water.",
+          "LocalizedString": "Broncherry Aqua's exclusive skill. \r\nTurns sideways before tackling enemies in front of it,\r\nsending them flying with a burst of water."
         }
       },
       "ACTION_SKILL_Unique_SoldierBee_NeedleLance": {
@@ -1188,6 +1244,606 @@
           "LocalizedString": "<characterName id=|LegendDeer|/>' exclusive skill.\r\nLeaps high into the air, condensing immense energy into a descending sphere of light.\r\nWhen it strikes the ground, it purifies all on the ground below."
         }
       },
+      "ACTION_SKILL_Unique_KingWhale_WaveTackle": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_KingWhale_WaveTackle_TextData",
+          "SourceString": "<characterName id=|KingWhale|/>'s exclusive skill.\r\nSlams the body into the enemy, generating a massive wave on impact.",
+          "LocalizedString": "<characterName id=|KingWhale|/>'s exclusive skill.\r\nSlams the body into the enemy, generating a massive wave on impact."
+        }
+      },
+      "ACTION_SKILL_Unique_KingWhale_Breaching": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_KingWhale_Breaching_TextData",
+          "SourceString": "<characterName id=|KingWhale|/>'s exclusive skill.\r\nDives underwater and leaps out after a short delay.\r\nThe momentum of the leap creates ripples that damage the surrounding area.",
+          "LocalizedString": "<characterName id=|KingWhale|/>'s exclusive skill.\r\nDives underwater and leaps out after a short delay.\r\nThe momentum of the leap creates ripples that damage the surrounding area."
+        }
+      },
+      "ACTION_SKILL_Unique_KingWhale_HomingBubble": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_KingWhale_HomingBubble_TextData",
+          "SourceString": "<characterName id=|KingWhale|/>'s exclusive skill.\r\nFires a large cluster of homing bubbles that remain in place upon landing.\r\nBubbles burst and deal damage upon contact or after several seconds.",
+          "LocalizedString": "<characterName id=|KingWhale|/>'s exclusive skill.\r\nFires a large cluster of homing bubbles that remain in place upon landing.\r\nBubbles burst and deal damage upon contact or after several seconds."
+        }
+      },
+      "ACTION_SKILL_CreepingBubble": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_CreepingBubble_TextData",
+          "SourceString": "<characterName id=|KingWhale|/>'s exclusive skill.\r\nGenerates a multitude of bubbles around the enemy to surround and attack them.",
+          "LocalizedString": "<characterName id=|KingWhale|/>'s exclusive skill.\r\nGenerates a multitude of bubbles around the enemy to surround and attack them."
+        }
+      },
+      "ACTION_SKILL_Unique_KingWhale_AquaBlade": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_KingWhale_AquaBlade_TextData",
+          "SourceString": "<characterName id=|KingWhale|/>'s exclusive skill.\r\nLaunches sharp water blades at enemies.",
+          "LocalizedString": "<characterName id=|KingWhale|/>'s exclusive skill.\r\nLaunches sharp water blades at enemies."
+        }
+      },
+      "ACTION_SKILL_Unique_KingWhale_Maelstrom": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_KingWhale_Maelstrom_TextData",
+          "SourceString": "<characterName id=|KingWhale|/>'s exclusive skill.\r\nCreates a vortex around the enemy. \r\nThe vortex pulls targets toward its center while shrinking, ending in a high-pressure water pillar explosion.",
+          "LocalizedString": "<characterName id=|KingWhale|/>'s exclusive skill.\r\nCreates a vortex around the enemy. \r\nThe vortex pulls targets toward its center while shrinking, ending in a high-pressure water pillar explosion."
+        }
+      },
+      "ACTION_SKILL_Unique_KingWhale_AquaTornado": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_KingWhale_AquaTornado_TextData",
+          "SourceString": "<characterName id=|KingWhale|/>'s exclusive skill.\r\nSoars into the sky and generates multiple massive tornadoes that slowly track enemies.",
+          "LocalizedString": "<characterName id=|KingWhale|/>'s exclusive skill.\r\nSoars into the sky and generates multiple massive tornadoes that slowly track enemies."
+        }
+      },
+      "ACTION_SKILL_Unique_BlueSkyDragon_Tossin": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_BlueSkyDragon_Tossin_TextData",
+          "SourceString": "<characterName id=|BlueSkyDragon|/>'s exclusive skill.\r\nCloaks the body in water and charges straight forward.",
+          "LocalizedString": "<characterName id=|BlueSkyDragon|/>'s exclusive skill.\r\nCloaks the body in water and charges straight forward."
+        }
+      },
+      "ACTION_SKILL_Unique_BlueSkyDragon_SweepBreath": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_BlueSkyDragon_SweepBreath_TextData",
+          "SourceString": "<characterName id=|BlueSkyDragon|/>'s exclusive skill.\r\nBreathes Dragon-elemental flames in a sweeping motion, scorching the surrounding area.",
+          "LocalizedString": "<characterName id=|BlueSkyDragon|/>'s exclusive skill.\r\nBreathes Dragon-elemental flames in a sweeping motion, scorching the surrounding area."
+        }
+      },
+      "ACTION_SKILL_Unique_BlueSkyDragon_DrainStorm": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_BlueSkyDragon_DrainStorm_TextData",
+          "SourceString": "<characterName id=|BlueSkyDragon|/>'s exclusive skill.\r\nSummons a massive vortex reaching into the heavens.\r\nThe vortex draws in and eliminates all surrounding enemies at once.",
+          "LocalizedString": "<characterName id=|BlueSkyDragon|/>'s exclusive skill.\r\nSummons a massive vortex reaching into the heavens.\r\nThe vortex draws in and eliminates all surrounding enemies at once."
+        }
+      },
+      "ACTION_SKILL_Unique_VolcanoDragon_VolcanicLaser": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_VolcanoDragon_VolcanicLaser_TextData",
+          "SourceString": "<characterName id=|VolcanoDragon|/>'s exclusive skill.\r\nEmits a thermal beam from its mouth that scorches the ground.\r\nHeated ground forms magma pools that damage enemies on contact.",
+          "LocalizedString": "<characterName id=|VolcanoDragon|/>'s exclusive skill.\r\nEmits a thermal beam from its mouth that scorches the ground.\r\nHeated ground forms magma pools that damage enemies on contact."
+        }
+      },
+      "ACTION_SKILL_Unique_VolcanoDragon_MagmaSpit": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_VolcanoDragon_MagmaSpit_TextData",
+          "SourceString": "<characterName id=|VolcanoDragon|/>'s exclusive skill.\r\nSpits a mass of magma from its mouth.\r\nThe impact creates magma pools that damage enemies on contact.",
+          "LocalizedString": "<characterName id=|VolcanoDragon|/>'s exclusive skill.\r\nSpits a mass of magma from its mouth.\r\nThe impact creates magma pools that damage enemies on contact."
+        }
+      },
+      "ACTION_SKILL_Unique_VolcanoDragon_Ice_IceLaser": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_VolcanoDragon_Ice_IceLaser_TextData",
+          "SourceString": "<characterName id=|VolcanoDragon_Ice|/>'s exclusive skill.\r\nFires a freezing beam from the mouth that coats the ground in ice.\r\nFrozen ground forms frost pools that freeze and damage enemies on contact.\r\n",
+          "LocalizedString": "<characterName id=|VolcanoDragon_Ice|/>'s exclusive skill.\r\nFires a freezing beam from the mouth that coats the ground in ice.\r\nFrozen ground forms frost pools that freeze and damage enemies on contact.\r\n"
+        }
+      },
+      "ACTION_SKILL_Unique_VolcanoDragon_Ice_IcicleSpit": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_VolcanoDragon_Ice_IcicleSpit_TextData",
+          "SourceString": "<characterName id=|VolcanoDragon_Ice|/>'s exclusive skill.\r\nSpits a chunk of ice from its mouth.\r\nThe impact creates frost pools that freeze and damage enemies on contact.",
+          "LocalizedString": "<characterName id=|VolcanoDragon_Ice|/>'s exclusive skill.\r\nSpits a chunk of ice from its mouth.\r\nThe impact creates frost pools that freeze and damage enemies on contact."
+        }
+      },
+      "ACTION_SKILL_Unique_GrassGolem_RocketPunch": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_GrassGolem_RocketPunch_TextData",
+          "SourceString": "<characterName id=|GrassGolem|/>s exclusive skill.\r\nDetaches its left arm to sweep enemies, then launches its right arm.",
+          "LocalizedString": "<characterName id=|GrassGolem|/>s exclusive skill.\r\nDetaches its left arm to sweep enemies, then launches its right arm."
+        }
+      },
+      "ACTION_SKILL_Unique_GrassGolem_ArmCannon": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_GrassGolem_ArmCannon_TextData",
+          "SourceString": "<characterName id=|GrassGolem|/>s exclusive skill.\r\nFires a Grass-elemental energy projectile from its arm.\r\nUpon impact, the blast transforms into persistent roots that track and pierce the enemy from below.",
+          "LocalizedString": "<characterName id=|GrassGolem|/>s exclusive skill.\r\nFires a Grass-elemental energy projectile from its arm.\r\nUpon impact, the blast transforms into persistent roots that track and pierce the enemy from below."
+        }
+      },
+      "ACTION_SKILL_Unique_GrassGolem_Dark_DarkArmCannon": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_GrassGolem_Dark_DarkArmCannon_TextData",
+          "SourceString": "<characterName id=|GrassGolem_Dark|/>s exclusive skill.\r\nFires a Dark-elemental energy projectile from its arm.\r\nUpon impact, the blast transforms into persistent roots that track and pierce the enemy from below.",
+          "LocalizedString": "<characterName id=|GrassGolem_Dark|/>s exclusive skill.\r\nFires a Dark-elemental energy projectile from its arm.\r\nUpon impact, the blast transforms into persistent roots that track and pierce the enemy from below."
+        }
+      },
+      "ACTION_SKILL_Unique_Sekhmet_SomersaultScratch": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_Sekhmet_SomersaultScratch_TextData",
+          "SourceString": "<characterName id=|Sekhmet|/>s exclusive skill.\r\nScratches the enemy while performing a backward somersault to create distance.",
+          "LocalizedString": "<characterName id=|Sekhmet|/>s exclusive skill.\r\nScratches the enemy while performing a backward somersault to create distance."
+        }
+      },
+      "ACTION_SKILL_Unique_Sekhmet_RollingScratch": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_Sekhmet_RollingScratch_TextData",
+          "SourceString": "<characterName id=|Sekhmet|/>s exclusive skill.\r\nSpins forward to quickly close the distance and scratch the enemy.",
+          "LocalizedString": "<characterName id=|Sekhmet|/>s exclusive skill.\r\nSpins forward to quickly close the distance and scratch the enemy."
+        }
+      },
+      "ACTION_SKILL_Unique_MonochromeQueen_BalletJump": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_MonochromeQueen_BalletJump_TextData",
+          "SourceString": "<characterName id=|MonochromeQueen|/>'s exclusive skill.\r\nJumps diagonally and throws sharp black feathers at enemies.",
+          "LocalizedString": "<characterName id=|MonochromeQueen|/>'s exclusive skill.\r\nJumps diagonally and throws sharp black feathers at enemies."
+        }
+      },
+      "ACTION_SKILL_Unique_LanternButler_LanternFlame": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_LanternButler_LanternFlame_TextData",
+          "SourceString": "<characterName id=|LanternButler|/>'s exclusive skill.\r\nRaises a lantern and summons multiple spirits that relentlessly pursue enemies.",
+          "LocalizedString": "<characterName id=|LanternButler|/>'s exclusive skill.\r\nRaises a lantern and summons multiple spirits that relentlessly pursue enemies."
+        }
+      },
+      "ACTION_SKILL_Unique_RockBeast_RockHorn": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_RockBeast_RockHorn_TextData",
+          "SourceString": "<characterName id=|RockBeast|/>'s exclusive skill.\r\nRakes the ground with its horn, then hurls a rock projectile at enemies.",
+          "LocalizedString": "<characterName id=|RockBeast|/>'s exclusive skill.\r\nRakes the ground with its horn, then hurls a rock projectile at enemies."
+        }
+      },
+      "ACTION_SKILL_Unique_RockBeast_Ice_IceHorn": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_RockBeast_Ice_IceHorn_TextData",
+          "SourceString": "<characterName id=|RockBeast_Ice|/>'s exclusive skill.\r\nRakes the ground with its horn, then hurls a snow chunk at enemies.",
+          "LocalizedString": "<characterName id=|RockBeast_Ice|/>'s exclusive skill.\r\nRakes the ground with its horn, then hurls a snow chunk at enemies."
+        }
+      },
+      "ACTION_SKILL_Unique_ClownRabbit_TrickShow": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_ClownRabbit_TrickShow_TextData",
+          "SourceString": "<characterName id=|ClownRabbit|/>'s exclusive skill.\r\nCreates two illusions to distract enemies, then launches fire birds from its top hat.",
+          "LocalizedString": "<characterName id=|ClownRabbit|/>'s exclusive skill.\r\nCreates two illusions to distract enemies, then launches fire birds from its top hat."
+        }
+      },
+      "ACTION_SKILL_Unique_CubeTurtle_CubePress": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_CubeTurtle_CubePress_TextData",
+          "SourceString": "<characterName id=|CubeTurtle|/>'s exclusive skill.\r\nLeaps into the air and crushes enemies with its massive weight.",
+          "LocalizedString": "<characterName id=|CubeTurtle|/>'s exclusive skill.\r\nLeaps into the air and crushes enemies with its massive weight."
+        }
+      },
+      "ACTION_SKILL_Unique_CubeTurtle_Neutral_HolyPress": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_CubeTurtle_Neutral_HolyPress_TextData",
+          "SourceString": "<characterName id=|CubeTurtle_Neutral|/>'s exclusive skill.\r\nLeaps into the air and crushes enemies with its massive weight.\r\nUpon landing, light spreads outward, forming pillars of light that burst forth and strike nearby enemies.",
+          "LocalizedString": "<characterName id=|CubeTurtle_Neutral|/>'s exclusive skill.\r\nLeaps into the air and crushes enemies with its massive weight.\r\nUpon landing, light spreads outward, forming pillars of light that burst forth and strike nearby enemies."
+        }
+      },
+      "ACTION_SKILL_Unique_SamuraiDog_DashSlash": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_SamuraiDog_DashSlash_TextData",
+          "SourceString": "<characterName id=|SamuraiDog|/>'s exclusive skill.\r\nCharges at full speed, delivering two consecutive slashes with the wooden stick held in its mouth.",
+          "LocalizedString": "<characterName id=|SamuraiDog|/>'s exclusive skill.\r\nCharges at full speed, delivering two consecutive slashes with the wooden stick held in its mouth."
+        }
+      },
+      "ACTION_SKILL_Unique_MummyPal_MummyAttack": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_MummyPal_MummyAttack_TextData",
+          "SourceString": "<characterName id=|MummyPal|/>'s exclusive skill.\r\nExtends bandages from its hands to deliver a series of attacks.",
+          "LocalizedString": "<characterName id=|MummyPal|/>'s exclusive skill.\r\nExtends bandages from its hands to deliver a series of attacks."
+        }
+      },
+      "ACTION_SKILL_Unique_SumoDog_SumoStomp": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_SumoDog_SumoStomp_TextData",
+          "SourceString": "<characterName id=|SumoDog|/>'s exclusive skill.\r\nRaises its right hind leg high and stomps the ground, creating a shockwave that strikes enemies in a fan-shaped area ahead.",
+          "LocalizedString": "<characterName id=|SumoDog|/>'s exclusive skill.\r\nRaises its right hind leg high and stomps the ground, creating a shockwave that strikes enemies in a fan-shaped area ahead."
+        }
+      },
+      "ACTION_SKILL_Unique_LotusDragon_LotusBloom": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_LotusDragon_LotusBloom_TextData",
+          "SourceString": "<characterName id=|LotusDragon|/>'s exclusive skill.\r\nBurrows into the ground and vanishes.\r\nIt then emerges at the surface as a flower bud, blooms, and unleashes a wide-area attack.",
+          "LocalizedString": "<characterName id=|LotusDragon|/>'s exclusive skill.\r\nBurrows into the ground and vanishes.\r\nIt then emerges at the surface as a flower bud, blooms, and unleashes a wide-area attack."
+        }
+      },
+      "ACTION_SKILL_Unique_DomeArmorDragon_ExplosiveMissile": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_DomeArmorDragon_ExplosiveMissile_TextData",
+          "SourceString": "<characterName id=|DomeArmorDragon|/>'s exclusive skill.\r\nLaunches countless explosive missiles from its wings.",
+          "LocalizedString": "<characterName id=|DomeArmorDragon|/>'s exclusive skill.\r\nLaunches countless explosive missiles from its wings."
+        }
+      },
+      "ACTION_SKILL_Unique_GhostDragon_TailSlash": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_GhostDragon_TailSlash_TextData",
+          "SourceString": "<characterName id=|GhostDragon|/>'s exclusive skill.\r\nCloses in on the enemy at high speed to deliver a cleaving swipe with its tail.",
+          "LocalizedString": "<characterName id=|GhostDragon|/>'s exclusive skill.\r\nCloses in on the enemy at high speed to deliver a cleaving swipe with its tail."
+        }
+      },
+      "ACTION_SKILL_Unique_GhostDragon_PhosphorousBeam": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_GhostDragon_PhosphorousBeam_TextData",
+          "SourceString": "<characterName id=|GhostDragon|/>'s exclusive skill.\r\nEmits a superheated light beam for a short time.\r\nAt the final moment, the targeted area is engulfed in a massive explosion.",
+          "LocalizedString": "<characterName id=|GhostDragon|/>'s exclusive skill.\r\nEmits a superheated light beam for a short time.\r\nAt the final moment, the targeted area is engulfed in a massive explosion."
+        }
+      },
+      "ACTION_SKILL_Unique_GrassMinotaur_BullRush_Lower": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_GrassMinotaur_BullRush_Lower_TextData",
+          "SourceString": "<characterName id=|GrassMinotaur|/>'s exclusive skill.\r\nEnters a wild frenzy and unleashes two consecutive Grass-element charge attacks.",
+          "LocalizedString": "<characterName id=|GrassMinotaur|/>'s exclusive skill.\r\nEnters a wild frenzy and unleashes two consecutive Grass-element charge attacks."
+        }
+      },
+      "ACTION_SKILL_Unique_GrassMinotaur_BullRush": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_GrassMinotaur_BullRush_TextData",
+          "SourceString": "<characterName id=|GrassMinotaur|/>'s exclusive skill.\r\nEnters a violent frenzy and unleashes four consecutive rage-fueled Grass-element charge attacks.",
+          "LocalizedString": "<characterName id=|GrassMinotaur|/>'s exclusive skill.\r\nEnters a violent frenzy and unleashes four consecutive rage-fueled Grass-element charge attacks."
+        }
+      },
+      "ACTION_SKILL_Unique_GrassMinotaur_Ice_BullRush_Lower": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_GrassMinotaur_Ice_BullRush_Lower_TextData",
+          "SourceString": "<characterName id=|GrassMinotaur_Ice|/>'s exclusive skill.\r\nEnters a wild frenzy and unleashes two consecutive Ice-element charge attacks.",
+          "LocalizedString": "<characterName id=|GrassMinotaur_Ice|/>'s exclusive skill.\r\nEnters a wild frenzy and unleashes two consecutive Ice-element charge attacks."
+        }
+      },
+      "ACTION_SKILL_Unique_GrassMinotaur_Ice_BullRush": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_GrassMinotaur_Ice_BullRush_TextData",
+          "SourceString": "<characterName id=|GrassMinotaur_Ice|/>'s exclusive skill.\r\nEnters a violent frenzy and unleashes four consecutive rage-fueled Ice-element charge attacks.",
+          "LocalizedString": "<characterName id=|GrassMinotaur_Ice|/>'s exclusive skill.\r\nEnters a violent frenzy and unleashes four consecutive rage-fueled Ice-element charge attacks."
+        }
+      },
+      "ACTION_SKILL_Unique_PandaGirl_RapidKick": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_PandaGirl_RapidKick_TextData",
+          "SourceString": "<characterName id=|PandaGirl|/>'s exclusive skill.\r\nRapidly delivers a series of consecutive roundhouse kicks, finishing with an engery blast.",
+          "LocalizedString": "<characterName id=|PandaGirl|/>'s exclusive skill.\r\nRapidly delivers a series of consecutive roundhouse kicks, finishing with an engery blast."
+        }
+      },
+      "ACTION_SKILL_Unique_ElecSnail_ShellCharge": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_ElecSnail_ShellCharge_TextData",
+          "SourceString": "<characterName id=|ElecSnail|/>'s exclusive skill.\r\nWithdraws into its shell to reduce damage taken while building electric charge.\r\nOnce fully charged, it discharges, damaging nearby enemies.\r\nAfter discharging, the Attack of this Pal's Electric skills is increased for a limited time.",
+          "LocalizedString": "<characterName id=|ElecSnail|/>'s exclusive skill.\r\nWithdraws into its shell to reduce damage taken while building electric charge.\r\nOnce fully charged, it discharges, damaging nearby enemies.\r\nAfter discharging, the Attack of this Pal's Electric skills is increased for a limited time."
+        }
+      },
+      "ACTION_SKILL_Unique_CuteMole_DiggingAttack": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_CuteMole_DiggingAttack_TextData",
+          "SourceString": "<characterName id=|CuteMole|/>'s exclusive skill.\r\nBurrows underground and bursts out from beneath enemies.",
+          "LocalizedString": "<characterName id=|CuteMole|/>'s exclusive skill.\r\nBurrows underground and bursts out from beneath enemies."
+        }
+      },
+      "ACTION_SKILL_Unique_BlueThunderHorse_Tossin": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_BlueThunderHorse_Tossin_TextData",
+          "SourceString": "<characterName id=|BlueThunderHorse|/>'s exclusive skill.\r\nCloaks the body in lightning and performs a high-speed charge toward the enemy.",
+          "LocalizedString": "<characterName id=|BlueThunderHorse|/>'s exclusive skill.\r\nCloaks the body in lightning and performs a high-speed charge toward the enemy."
+        }
+      },
+      "ACTION_SKILL_Unique_NightBlueHorse_Tossin": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_NightBlueHorse_Tossin_TextData",
+          "SourceString": "<characterName id=|NightBlueHorse|/>'s exclusive skill.\r\nCloaks the body in flickering flames and charges toward the enemy.",
+          "LocalizedString": "<characterName id=|NightBlueHorse|/>'s exclusive skill.\r\nCloaks the body in flickering flames and charges toward the enemy."
+        }
+      },
+      "ACTION_SKILL_Unique_NightBlueHorse_Neutral_Tossin": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_NightBlueHorse_Neutral_Tossin_TextData",
+          "SourceString": "<characterName id=|NightBlueHorse_Neutral|/>'s exclusive skill.\r\nCloaks the body in radiant flames and charges toward the enemy.",
+          "LocalizedString": "<characterName id=|NightBlueHorse_Neutral|/>'s exclusive skill.\r\nCloaks the body in radiant flames and charges toward the enemy."
+        }
+      },
+      "ACTION_SKILL_Unique_NightBlueHorse_Neutral_AirStep": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_NightBlueHorse_Neutral_AirStep_TextData",
+          "SourceString": "<characterName id=|NightBlueHorse_Neutral|/>'s exclusive skill.\r\nConfuses enemies with an elegant stride and launches slashing attack with its sharp horn.",
+          "LocalizedString": "<characterName id=|NightBlueHorse_Neutral|/>'s exclusive skill.\r\nConfuses enemies with an elegant stride and launches slashing attack with its sharp horn."
+        }
+      },
+      "ACTION_SKILL_Unique_Kirin_Ice_IceTackle": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_Kirin_Ice_IceTackle_TextData",
+          "SourceString": "<characterName id=|Kirin_Ice|/>'s exclusive skill.\r\nGenerates ice pillars around itself while charging toward enemies.",
+          "LocalizedString": "<characterName id=|Kirin_Ice|/>'s exclusive skill.\r\nGenerates ice pillars around itself while charging toward enemies."
+        }
+      },
+      "ACTION_SKILL_Unique_ThunderDog_Ice_KoriShorai": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_ThunderDog_Ice_KoriShorai_TextData",
+          "SourceString": "<characterName id=|ThunderDog_Ice|/>'s exclusive skill.\r\nGenerates ice pillars ahead and charges forward at high speed through the gaps between them.",
+          "LocalizedString": "<characterName id=|ThunderDog_Ice|/>'s exclusive skill.\r\nGenerates ice pillars ahead and charges forward at high speed through the gaps between them."
+        }
+      },
+      "ACTION_SKILL_Unique_ScorpionMan_Erectric_UpperThunder": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_ScorpionMan_Erectric_UpperThunder_TextData",
+          "SourceString": "<characterName id=|ScorpionMan_Erectric|/>'s exclusive skill.\r\nUses superconductivity to closes the distance to the enemy at high speed,\r\nthen swings its pincers upward with full force.",
+          "LocalizedString": "<characterName id=|ScorpionMan_Erectric|/>'s exclusive skill.\r\nUses superconductivity to closes the distance to the enemy at high speed,\r\nthen swings its pincers upward with full force."
+        }
+      },
+      "ACTION_SKILL_Unique_WingGolem_Fire_FlameCutter": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_WingGolem_Fire_FlameCutter_TextData",
+          "SourceString": "<characterName id=|WingGolem_Fire|/>'s exclusive skill.\r\nTakes a big swing and throws the flaming ring from its back.\r\nThe ring flies in a circular trajectory.",
+          "LocalizedString": "<characterName id=|WingGolem_Fire|/>'s exclusive skill.\r\nTakes a big swing and throws the flaming ring from its back.\r\nThe ring flies in a circular trajectory."
+        }
+      },
+      "ACTION_SKILL_Unique_ThunderBird_Ice_SnowStrom": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_ThunderBird_Ice_SnowStrom_TextData",
+          "SourceString": "<characterName id=|ThunderBird_Ice|/>'s exclusive skill\r\nIce first erupts from the ground at the target's location.\r\nThen glides forward in a rushing charge, causing ice to burst from the ground on both sides along its path.",
+          "LocalizedString": "<characterName id=|ThunderBird_Ice|/>'s exclusive skill\r\nIce first erupts from the ground at the target's location.\r\nThen glides forward in a rushing charge, causing ice to burst from the ground on both sides along its path."
+        }
+      },
+      "ACTION_SKILL_Unique_WhiteDeer_Dark_DarkPillar": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_WhiteDeer_Dark_DarkPillar_TextData",
+          "SourceString": "<characterName id=|WhiteDeer_Dark|/>'s exclusive skill.\r\nAfter igniting a burst of darkness across a vast area ahead, it strides forward, generating pillars of darkness around itself.",
+          "LocalizedString": "<characterName id=|WhiteDeer_Dark|/>'s exclusive skill.\r\nAfter igniting a burst of darkness across a vast area ahead, it strides forward, generating pillars of darkness around itself."
+        }
+      },
+      "ACTION_SKILL_Unique_Garm_BiteV2": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_Garm_BiteV2_TextData",
+          "SourceString": "Launches a rapid succession of bites at the enemy.",
+          "LocalizedString": "Launches a rapid succession of bites at the enemy."
+        }
+      },
+      "ACTION_SKILL_Unique_RedFlowerBird_JumpKick": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_RedFlowerBird_JumpKick_TextData",
+          "SourceString": "<characterName id=|RedFlowerBird|/>'s exclusive skill. \r\nLeaps lightly into the air, then forcefully slams its sharp claws into the ground.",
+          "LocalizedString": "<characterName id=|RedFlowerBird|/>'s exclusive skill. \r\nLeaps lightly into the air, then forcefully slams its sharp claws into the ground."
+        }
+      },
+      "ACTION_SKILL_Unique_SnakeGirl_SnakeShot": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_SnakeGirl_SnakeShot_TextData",
+          "SourceString": "<characterName id=|SnakeGirl|/>'s exclusive skill. \r\nThe snakes on her head spit toxic globs in a wide arc.\r\nThe poisonous pool left at the impact point inflicts Poison on anyone who touches it.",
+          "LocalizedString": "<characterName id=|SnakeGirl|/>'s exclusive skill. \r\nThe snakes on her head spit toxic globs in a wide arc.\r\nThe poisonous pool left at the impact point inflicts Poison on anyone who touches it."
+        }
+      },
+      "ACTION_SKILL_Unique_GuardianDog_Bite": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_GuardianDog_Bite_TextData",
+          "SourceString": "Quickly lunges at the enemy and bites to deal damage.",
+          "LocalizedString": "Quickly lunges at the enemy and bites to deal damage."
+        }
+      },
+      "ACTION_SKILL_Unique_GuardianDog_BiteV2": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_GuardianDog_BiteV2_TextData",
+          "SourceString": "Bites rapidly in succession to attack enemies.",
+          "LocalizedString": "Bites rapidly in succession to attack enemies."
+        }
+      },
+      "ACTION_SKILL_Unique_ThunderDog_Bite": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_ThunderDog_Bite_TextData",
+          "SourceString": "Quickly lunges at the enemy and bites to deal damage.",
+          "LocalizedString": "Quickly lunges at the enemy and bites to deal damage."
+        }
+      },
+      "ACTION_SKILL_Unique_ThunderDog_BiteV2": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_ThunderDog_BiteV2_TextData",
+          "SourceString": "Bites rapidly in succession to attack enemies.",
+          "LocalizedString": "Bites rapidly in succession to attack enemies."
+        }
+      },
+      "ACTION_SKILL_Unique_ElecPomeranian_Bite": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_ElecPomeranian_Bite_TextData",
+          "SourceString": "Quickly lunges at the enemy and bites to deal damage.",
+          "LocalizedString": "Quickly lunges at the enemy and bites to deal damage."
+        }
+      },
+      "ACTION_SKILL_Unique_ElecPomeranian_BiteV2": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_ElecPomeranian_BiteV2_TextData",
+          "SourceString": "Bites rapidly in succession to attack enemies.",
+          "LocalizedString": "Bites rapidly in succession to attack enemies."
+        }
+      },
+      "ACTION_SKILL_Unique_ThunderDog_Ice_Bite": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_ThunderDog_Ice_Bite_TextData",
+          "SourceString": "Quickly lunges at the enemy and bites to deal damage.",
+          "LocalizedString": "Quickly lunges at the enemy and bites to deal damage."
+        }
+      },
+      "ACTION_SKILL_Unique_ThunderDog_Ice_BiteV2": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_ThunderDog_Ice_BiteV2_TextData",
+          "SourceString": "Bites rapidly in succession to attack enemies.",
+          "LocalizedString": "Bites rapidly in succession to attack enemies."
+        }
+      },
+      "ACTION_SKILL_Unique_GoldenHorse_Bite": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_GoldenHorse_Bite_TextData",
+          "SourceString": "Quickly lunges at the enemy and bites to deal damage.",
+          "LocalizedString": "Quickly lunges at the enemy and bites to deal damage."
+        }
+      },
+      "ACTION_SKILL_Unique_GoldenHorse_BiteV2": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_GoldenHorse_BiteV2_TextData",
+          "SourceString": "Bites rapidly in succession to attack enemies.",
+          "LocalizedString": "Bites rapidly in succession to attack enemies."
+        }
+      },
+      "ACTION_SKILL_Unique_SamuraiDog_Bite": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_SamuraiDog_Bite_TextData",
+          "SourceString": "Quickly lunges at the enemy and bites to deal damage.",
+          "LocalizedString": "Quickly lunges at the enemy and bites to deal damage."
+        }
+      },
+      "ACTION_SKILL_Unique_SamuraiDog_BiteV2": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_SamuraiDog_BiteV2_TextData",
+          "SourceString": "Bites rapidly in succession to attack enemies.",
+          "LocalizedString": "Bites rapidly in succession to attack enemies."
+        }
+      },
+      "ACTION_SKILL_Unique_AmaterasuWolf_Bite": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_AmaterasuWolf_Bite_TextData",
+          "SourceString": "Quickly lunges at the enemy and bites to deal damage.",
+          "LocalizedString": "Quickly lunges at the enemy and bites to deal damage."
+        }
+      },
+      "ACTION_SKILL_Unique_AmaterasuWolf_BiteV2": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_AmaterasuWolf_BiteV2_TextData",
+          "SourceString": "Bites rapidly in succession to attack enemies.",
+          "LocalizedString": "Bites rapidly in succession to attack enemies."
+        }
+      },
+      "ACTION_SKILL_Unique_AmaterasuWolf_Dark_Bite": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_AmaterasuWolf_Dark_Bite_TextData",
+          "SourceString": "Quickly lunges at the enemy and bites to deal damage.",
+          "LocalizedString": "Quickly lunges at the enemy and bites to deal damage."
+        }
+      },
+      "ACTION_SKILL_Unique_AmaterasuWolf_Dark_BiteV2": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_AmaterasuWolf_Dark_BiteV2_TextData",
+          "SourceString": "Bites rapidly in succession to attack enemies.",
+          "LocalizedString": "Bites rapidly in succession to attack enemies."
+        }
+      },
+      "ACTION_SKILL_Unique_BlackPuppy_Bite": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_BlackPuppy_Bite_TextData",
+          "SourceString": "Quickly lunges at the enemy and bites to deal damage.",
+          "LocalizedString": "Quickly lunges at the enemy and bites to deal damage."
+        }
+      },
+      "ACTION_SKILL_Unique_BlackPuppy_BiteV2": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_BlackPuppy_BiteV2_TextData",
+          "SourceString": "Bites rapidly in succession to attack enemies.",
+          "LocalizedString": "Bites rapidly in succession to attack enemies."
+        }
+      },
+      "ACTION_SKILL_Unique_FlowerPrince_PoisonGasDance": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_FlowerPrince_PoisonGasDance_TextData",
+          "SourceString": "<characterName id=|FlowerPrince|/>'s exclusive skill.\r\nPerforms a dance while releasing corrosive mist.\r\nThe mist remains in the area for a limited time.",
+          "LocalizedString": "<characterName id=|FlowerPrince|/>'s exclusive skill.\r\nPerforms a dance while releasing corrosive mist.\r\nThe mist remains in the area for a limited time."
+        }
+      },
+      "ACTION_SKILL_Unique_FlowerPrince_PoisonGasTackle": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_FlowerPrince_PoisonGasTackle_TextData",
+          "SourceString": "<characterName id=|FlowerPrince|/>'s exclusive skill.\r\nCharges forward while sliding along the ground, spraying corrosive mist.\r\nThe mist remains in the area for a limited time.",
+          "LocalizedString": "<characterName id=|FlowerPrince|/>'s exclusive skill.\r\nCharges forward while sliding along the ground, spraying corrosive mist.\r\nThe mist remains in the area for a limited time."
+        }
+      },
+      "ACTION_SKILL_Unique_Mothman_GiantSpore": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_Mothman_GiantSpore_TextData",
+          "SourceString": "<characterName id=|Mothman|/>'s exclusive skill.\r\nFires a massive tracking spore that pursues enemies. \r\nIt explodes on impact, releasing a wide-area blast.",
+          "LocalizedString": "<characterName id=|Mothman|/>'s exclusive skill.\r\nFires a massive tracking spore that pursues enemies. \r\nIt explodes on impact, releasing a wide-area blast."
+        }
+      },
+      "ACTION_SKILL_Unique_Mothman_SporeScatter": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_Unique_Mothman_SporeScatter_TextData",
+          "SourceString": "<characterName id=|Mothman|/>'s exclusive skill.\r\nScatters explosive spores over a wide area, \r\nthen triggers a mass explosion after a set period of time.",
+          "LocalizedString": "<characterName id=|Mothman|/>'s exclusive skill.\r\nScatters explosive spores over a wide area, \r\nthen triggers a mass explosion after a set period of time."
+        }
+      },
       "ACTION_SKILL_PoisonFog": {
         "TextData": {
           "Namespace": "DT_SkillDescText_Common",
@@ -1516,6 +2172,14 @@
           "LocalizedString": "Launches a blade of wind that rebounds off enemies or trees, striking repeatedly.\r\nCan ricochet up to four times."
         }
       },
+      "ACTION_SKILL_WindBurst": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "ACTION_SKILL_WindBurst_TextData",
+          "SourceString": "Summons a massive wind vortex around itself and unleashes a powerful attack.",
+          "LocalizedString": "Summons a massive wind vortex around itself and unleashes a powerful attack."
+        }
+      },
       "ACTION_SKILL_ThunderRain": {
         "TextData": {
           "Namespace": "DT_SkillDescText_Common",
@@ -1832,8 +2496,8 @@
         "TextData": {
           "Namespace": "DT_SkillDescText_Common",
           "Key": "ACTION_SKILL_Psychokinesis_TextData",
-          "SourceString": "Utilizes psychokinesis to grab enemies\r\nbefore flinging them to the ground from above.",
-          "LocalizedString": "Utilizes psychokinesis to grab enemies\r\nbefore flinging them to the ground from above."
+          "SourceString": "Utilizes gravity to deprive enemies of their freedom, \r\nthen slams them into the ground from high above.",
+          "LocalizedString": "Utilizes gravity to deprive enemies of their freedom, \r\nthen slams them into the ground from high above."
         }
       },
       "ACTION_SKILL_ShadowBall": {
@@ -2576,8 +3240,288 @@
         "TextData": {
           "Namespace": "DT_SkillDescText_Common",
           "Key": "PASSIVE_Deffence_up2_2_TextData",
-          "SourceString": "en Text",
-          "LocalizedString": "en Text"
+          "SourceString": "Defense +{EffectValue1}%\r\nImmune to Knockback",
+          "LocalizedString": "Defense +{EffectValue1}%\r\nImmune to Knockback"
+        }
+      },
+      "PASSIVE_WorldTree_CraftSpeed": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "PASSIVE_WorldTree_CraftSpeed_TextData",
+          "SourceString": "Work Speed <NumBlue_13>+</>{EffectValue1}<NumBlue_13>%</>\r\nSAN dreceases <NumRed_13>+15.0% faster</>\r\nWorld Tree harvestables won't vanish when approached.",
+          "LocalizedString": "Work Speed <NumBlue_13>+</>{EffectValue1}<NumBlue_13>%</>\r\nSAN dreceases <NumRed_13>+15.0% faster</>\r\nWorld Tree harvestables won't vanish when approached."
+        }
+      },
+      "PASSIVE_WorldTree_FullStomach": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "PASSIVE_WorldTree_FullStomach_TextData",
+          "SourceString": "Decrease Hunger depletion rate by <NumBlue_13>+50.0%</>\r\nHP {EffectValue2}<NumRed_13>%</>\r\nWorld Tree resources will not vanish when approached.",
+          "LocalizedString": "Decrease Hunger depletion rate by <NumBlue_13>+50.0%</>\r\nHP {EffectValue2}<NumRed_13>%</>\r\nWorld Tree resources will not vanish when approached."
+        }
+      },
+      "PASSIVE_WorldTree_Sanity": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "PASSIVE_WorldTree_Sanity_TextData",
+          "SourceString": "SAN depletion rate -<NumBlue_13>50.0%</>\r\nWork Speed {EffectValue2}<NumRed_13>%</>\r\nWorld Tree resources will not vanish when approached.",
+          "LocalizedString": "SAN depletion rate -<NumBlue_13>50.0%</>\r\nWork Speed {EffectValue2}<NumRed_13>%</>\r\nWorld Tree resources will not vanish when approached."
+        }
+      },
+      "PASSIVE_WorldTree_MoveSpeed": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "PASSIVE_WorldTree_MoveSpeed_TextData",
+          "SourceString": "Movement Speed <NumBlue_13>+</>{EffectValue1}<NumBlue_13>%</>\r\nIncreases Hunger depletion rate by <NumRed_13>+15.0%</>\r\nWorld Tree resources will not vanish when approached.",
+          "LocalizedString": "Movement Speed <NumBlue_13>+</>{EffectValue1}<NumBlue_13>%</>\r\nIncreases Hunger depletion rate by <NumRed_13>+15.0%</>\r\nWorld Tree resources will not vanish when approached."
+        }
+      },
+      "PASSIVE_NightOwl": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "PASSIVE_NightOwl_TextData",
+          "SourceString": "Tends to nap through the day, due to being nocturnal.",
+          "LocalizedString": "Tends to nap through the day, due to being nocturnal."
+        }
+      },
+      "PASSIVE_PAL_SelfDeathAddItemDrop_up_1": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "PASSIVE_PAL_SelfDeathAddItemDrop_up_1_TextData",
+          "SourceString": "Your Dropped Items + {EffectValue1}%",
+          "LocalizedString": "Your Dropped Items + {EffectValue1}%"
+        }
+      },
+      "PASSIVE_PAL_SelfDeathAddItemDrop_up_2": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "PASSIVE_PAL_SelfDeathAddItemDrop_up_2_TextData",
+          "SourceString": "Your Dropped Items + {EffectValue1}%",
+          "LocalizedString": "Your Dropped Items + {EffectValue1}%"
+        }
+      },
+      "PASSIVE_PAL_SelfDeathAddItemDrop_up_3": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "PASSIVE_PAL_SelfDeathAddItemDrop_up_3_TextData",
+          "SourceString": "Your Dropped Items + {EffectValue1}%",
+          "LocalizedString": "Your Dropped Items + {EffectValue1}%"
+        }
+      },
+      "PASSIVE_PAL_WorkSuitabilityAddRank_MonsterFarm_1": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "PASSIVE_PAL_WorkSuitabilityAddRank_MonsterFarm_1_TextData",
+          "SourceString": "<uiCommon id=|COMMON_WORK_SUITABILITY_MonsterFarm|/>'s <uiCommon id=|COMMON_WORK_SUITABILITY_PALDEX|/><NumBlue_13> +1</>",
+          "LocalizedString": "<uiCommon id=|COMMON_WORK_SUITABILITY_MonsterFarm|/>'s <uiCommon id=|COMMON_WORK_SUITABILITY_PALDEX|/><NumBlue_13> +1</>"
+        }
+      },
+      "PASSIVE_PAL_WorkSuitabilityAddRank_MonsterFarm_2": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "PASSIVE_PAL_WorkSuitabilityAddRank_MonsterFarm_2_TextData",
+          "SourceString": "<uiCommon id=|COMMON_WORK_SUITABILITY_MonsterFarm|/>'s <uiCommon id=|COMMON_WORK_SUITABILITY_PALDEX|/><NumBlue_13> +2</>",
+          "LocalizedString": "<uiCommon id=|COMMON_WORK_SUITABILITY_MonsterFarm|/>'s <uiCommon id=|COMMON_WORK_SUITABILITY_PALDEX|/><NumBlue_13> +2</>"
+        }
+      },
+      "PASSIVE_MutationPal_Babysitter_DESC": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "PASSIVE_MutationPal_Babysitter_DESC_TextData",
+          "SourceString": "While at a base, increases egg production speed by +{EffectValue2}% and incubation speed by +{EffectValue1}% for Pals assigned to a Breeding Farm.",
+          "LocalizedString": "While at a base, increases egg production speed by +{EffectValue2}% and incubation speed by +{EffectValue1}% for Pals assigned to a Breeding Farm."
+        }
+      },
+      "PASSIVE_MutationPal_Mutant_DESC": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "PASSIVE_MutationPal_Mutant_DESC_TextData",
+          "SourceString": "Pal and Player Auto Health Regeneration Rate +{EffectValue1}%\r\nDefense +{EffectValue4}%\r\n<Status_Up>Immune</> to Poison Damage\r\n<Status_Up>Immune</> to Burn Damage",
+          "LocalizedString": "Pal and Player Auto Health Regeneration Rate +{EffectValue1}%\r\nDefense +{EffectValue4}%\r\n<Status_Up>Immune</> to Poison Damage\r\n<Status_Up>Immune</> to Burn Damage"
+        }
+      },
+      "PASSIVE_MutationPal_Immortal_DESC": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "PASSIVE_MutationPal_Immortal_DESC_TextData",
+          "SourceString": "Life Steal +{EffectValue1}%\r\nPal Auto Health Regeneration Rate +{EffectValue2}%\r\nAttack +{EffectValue3}%",
+          "LocalizedString": "Life Steal +{EffectValue1}%\r\nPal Auto Health Regeneration Rate +{EffectValue2}%\r\nAttack +{EffectValue3}%"
+        }
+      },
+      "PASSIVE_MutationPal_ExplosionResist_DESC": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "PASSIVE_MutationPal_ExplosionResist_DESC_TextData",
+          "SourceString": "<Status_Up>Immune</> to Explosion Damage",
+          "LocalizedString": "<Status_Up>Immune</> to Explosion Damage"
+        }
+      },
+      "PASSIVE_WoodDrop_Boost_1_DESC": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "PASSIVE_WoodDrop_Boost_1_DESC_TextData",
+          "SourceString": "Slightly increases the drop amount of Wood.",
+          "LocalizedString": "Slightly increases the drop amount of Wood."
+        }
+      },
+      "PASSIVE_WoodDrop_Boost_2_DESC": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "PASSIVE_WoodDrop_Boost_2_DESC_TextData",
+          "SourceString": "Increases the drop amount of Wood.",
+          "LocalizedString": "Increases the drop amount of Wood."
+        }
+      },
+      "PASSIVE_WoodDrop_Boost_3_DESC": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "PASSIVE_WoodDrop_Boost_3_DESC_TextData",
+          "SourceString": "Greatly increases the drop amount of Wood.",
+          "LocalizedString": "Greatly increases the drop amount of Wood."
+        }
+      },
+      "PASSIVE_WoodDrop_Boost_4_DESC": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "PASSIVE_WoodDrop_Boost_4_DESC_TextData",
+          "SourceString": "Significantly increases the drop amount of Wood.",
+          "LocalizedString": "Significantly increases the drop amount of Wood."
+        }
+      },
+      "PASSIVE_WoodDrop_Boost_5_DESC": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "PASSIVE_WoodDrop_Boost_5_DESC_TextData",
+          "SourceString": "Massively increases the drop amount of Wood.",
+          "LocalizedString": "Massively increases the drop amount of Wood."
+        }
+      },
+      "PASSIVE_StonDrop_Boost_1_DESC": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "PASSIVE_StonDrop_Boost_1_DESC_TextData",
+          "SourceString": "Slightly increases the drop amount of Stone and Ore.",
+          "LocalizedString": "Slightly increases the drop amount of Stone and Ore."
+        }
+      },
+      "PASSIVE_StonDrop_Boost_2_DESC": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "PASSIVE_StonDrop_Boost_2_DESC_TextData",
+          "SourceString": "Increases the drop amount of Stone and Ore.",
+          "LocalizedString": "Increases the drop amount of Stone and Ore."
+        }
+      },
+      "PASSIVE_StonDrop_Boost_3_DESC": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "PASSIVE_StonDrop_Boost_3_DESC_TextData",
+          "SourceString": "Greatly increases the drop amount of Stone and Ore.",
+          "LocalizedString": "Greatly increases the drop amount of Stone and Ore."
+        }
+      },
+      "PASSIVE_StonDrop_Boost_4_DESC": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "PASSIVE_StonDrop_Boost_4_DESC_TextData",
+          "SourceString": "Significantly increases the drop amount of Stone and Ore.",
+          "LocalizedString": "Significantly increases the drop amount of Stone and Ore."
+        }
+      },
+      "PASSIVE_StonDrop_Boost_5_DESC": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "PASSIVE_StonDrop_Boost_5_DESC_TextData",
+          "SourceString": "Massively increases the drop amount of Stone and Ore.",
+          "LocalizedString": "Massively increases the drop amount of Stone and Ore."
+        }
+      },
+      "PASSIVE_Deffence_up2": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "PASSIVE_Deffence_up2_TextData",
+          "SourceString": "Defense +{EffectValue1}%\r\nImmune to Flinch",
+          "LocalizedString": "Defense +{EffectValue1}%\r\nImmune to Flinch"
+        }
+      },
+      "PASSIVE_Deffence_up3": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "PASSIVE_Deffence_up3_TextData",
+          "SourceString": "Defense +{EffectValue1}%\r\nImmune to Flinch\r\nImmune to Knockback",
+          "LocalizedString": "Defense +{EffectValue1}%\r\nImmune to Flinch\r\nImmune to Knockback"
+        }
+      },
+      "PASSIVE_RideJumpCount_Increase1_DESC": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "PASSIVE_RideJumpCount_Increase1_DESC_TextData",
+          "SourceString": "Mounted Jump Count <NumBlue_13>+1</>",
+          "LocalizedString": "Mounted Jump Count <NumBlue_13>+1</>"
+        }
+      },
+      "PASSIVE_RideJumpCount_Increase2_DESC": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "PASSIVE_RideJumpCount_Increase2_DESC_TextData",
+          "SourceString": "Mounted Jump Count <NumBlue_13>+2</>",
+          "LocalizedString": "Mounted Jump Count <NumBlue_13>+2</>"
+        }
+      },
+      "PASSIVE_WorldTree_ATK": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "PASSIVE_WorldTree_ATK_TextData",
+          "SourceString": "Attack <NumBlue_13>+</>{EffectValue1}%\r\nDefense {EffectValue2}%\r\nWorld Tree resources will not vanish when approached.",
+          "LocalizedString": "Attack <NumBlue_13>+</>{EffectValue1}%\r\nDefense {EffectValue2}%\r\nWorld Tree resources will not vanish when approached."
+        }
+      },
+      "PASSIVE_WorldTree_DEF": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "PASSIVE_WorldTree_DEF_TextData",
+          "SourceString": "Defense <NumBlue_13>+</>{EffectValue1}%\r\nAttack {EffectValue2}%\r\nWorld Tree resources will not vanish when approached.",
+          "LocalizedString": "Defense <NumBlue_13>+</>{EffectValue1}%\r\nAttack {EffectValue2}%\r\nWorld Tree resources will not vanish when approached."
+        }
+      },
+      "PASSIVE_WorldTree_ATK_DEF": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "PASSIVE_WorldTree_ATK_DEF_TextData",
+          "SourceString": "Attack <NumBlue_13>+</>{EffectValue1}%\r\nDefense <NumBlue_13>+</>{EffectValue2}%\r\nMax Health {EffectValue3}%\r\nWorld Tree resources will not vanish when approached.",
+          "LocalizedString": "Attack <NumBlue_13>+</>{EffectValue1}%\r\nDefense <NumBlue_13>+</>{EffectValue2}%\r\nMax Health {EffectValue3}%\r\nWorld Tree resources will not vanish when approached."
+        }
+      },
+      "PASSIVE_PlayerSP_DecreaseRate_1": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "PASSIVE_PlayerSP_DecreaseRate_1_TextData",
+          "SourceString": "Player Stamina Consumption -<NumBlue_13>5.0</>%",
+          "LocalizedString": "Player Stamina Consumption -<NumBlue_13>5.0</>%"
+        }
+      },
+      "PASSIVE_AutoHPRegeneRate_1": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "PASSIVE_AutoHPRegeneRate_1_TextData",
+          "SourceString": "Player Auto Health Regeneration Rate +{EffectValue1}%",
+          "LocalizedString": "Player Auto Health Regeneration Rate +{EffectValue1}%"
+        }
+      },
+      "PASSIVE_ReloadSpeedUp_1": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "PASSIVE_ReloadSpeedUp_1_TextData",
+          "SourceString": "Player Reload Speed +{EffectValue1}%",
+          "LocalizedString": "Player Reload Speed +{EffectValue1}%"
+        }
+      },
+      "PASSIVE_StonWoodDrop_Boost_DESC": {
+        "TextData": {
+          "Namespace": "DT_SkillDescText_Common",
+          "Key": "PASSIVE_StonWoodDrop_Boost_DESC_TextData",
+          "SourceString": "Significantly increases the drop amount of Wood, Stone, and Ore.",
+          "LocalizedString": "Significantly increases the drop amount of Wood, Stone, and Ore."
         }
       }
     }

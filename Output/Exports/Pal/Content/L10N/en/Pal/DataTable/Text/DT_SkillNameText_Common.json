@@ -896,72 +896,72 @@
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
           "Key": "PASSIVE_TemperatureResist_Heat1_TextData",
-          "SourceString": "Heat Resistant Lv. 1",
-          "LocalizedString": "Heat Resistant Lv. 1"
+          "SourceString": "Heat Resistance Lv. 1",
+          "LocalizedString": "Heat Resistance Lv. 1"
         }
       },
       "PASSIVE_TemperatureResist_Heat2": {
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
           "Key": "PASSIVE_TemperatureResist_Heat2_TextData",
-          "SourceString": "Heat Resistant Lv. 2",
-          "LocalizedString": "Heat Resistant Lv. 2"
+          "SourceString": "Heat Resistance Lv. 2",
+          "LocalizedString": "Heat Resistance Lv. 2"
         }
       },
       "PASSIVE_TemperatureResist_Heat3": {
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
           "Key": "PASSIVE_TemperatureResist_Heat3_TextData",
-          "SourceString": "Heat Resistant Lv. 3",
-          "LocalizedString": "Heat Resistant Lv. 3"
+          "SourceString": "Heat Resistance Lv. 3",
+          "LocalizedString": "Heat Resistance Lv. 3"
         }
       },
       "PASSIVE_TemperatureResist_Cold1": {
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
           "Key": "PASSIVE_TemperatureResist_Cold1_TextData",
-          "SourceString": "Cold Resistant Lv. 1",
-          "LocalizedString": "Cold Resistant Lv. 1"
+          "SourceString": "Cold Resistance Lv. 1",
+          "LocalizedString": "Cold Resistance Lv. 1"
         }
       },
       "PASSIVE_TemperatureResist_Cold2": {
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
           "Key": "PASSIVE_TemperatureResist_Cold2_TextData",
-          "SourceString": "Cold Resistant Lv. 2",
-          "LocalizedString": "Cold Resistant Lv. 2"
+          "SourceString": "Cold Resistance Lv. 2",
+          "LocalizedString": "Cold Resistance Lv. 2"
         }
       },
       "PASSIVE_TemperatureResist_Cold3": {
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
           "Key": "PASSIVE_TemperatureResist_Cold3_TextData",
-          "SourceString": "Cold Resistant Lv. 3",
-          "LocalizedString": "Cold Resistant Lv. 3"
+          "SourceString": "Cold Resistance Lv. 3",
+          "LocalizedString": "Cold Resistance Lv. 3"
         }
       },
       "PASSIVE_TemperatureResist_Heat1Cold1": {
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
           "Key": "PASSIVE_TemperatureResist_Heat1Cold1_TextData",
-          "SourceString": "Heat Resistant Lv. 1 / Cold Resistant Lv. 1",
-          "LocalizedString": "Heat Resistant Lv. 1 / Cold Resistant Lv. 1"
+          "SourceString": "Heat Resistance Lv. 1 / Cold Resistance Lv. 1",
+          "LocalizedString": "Heat Resistance Lv. 1 / Cold Resistance Lv. 1"
         }
       },
       "PASSIVE_TemperatureResist_Heat2Cold2": {
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
           "Key": "PASSIVE_TemperatureResist_Heat2Cold2_TextData",
-          "SourceString": "Heat Resistant Lv. 2 / Cold Resistant Lv. 2",
-          "LocalizedString": "Heat Resistant Lv. 2 / Cold Resistant Lv. 2"
+          "SourceString": "Heat Resistance Lv. 2 / Cold Resistance Lv. 2",
+          "LocalizedString": "Heat Resistance Lv. 2 / Cold Resistance Lv. 2"
         }
       },
       "PASSIVE_TemperatureResist_Heat3Cold3": {
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
           "Key": "PASSIVE_TemperatureResist_Heat3Cold3_TextData",
-          "SourceString": "Heat Resistant Lv. 3 / Cold Resistant Lv. 3",
-          "LocalizedString": "Heat Resistant Lv. 3 / Cold Resistant Lv. 3"
+          "SourceString": "Heat Resistance Lv. 3 / Cold Resistance Lv. 3",
+          "LocalizedString": "Heat Resistance Lv. 3 / Cold Resistance Lv. 3"
         }
       },
       "PASSIVE_Rare": {
@@ -1412,6 +1412,14 @@
           "LocalizedString": "Antler Uppercut"
         }
       },
+      "ACTION_SKILL_Unique_Deer_Ground_DirtyHorn": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_Deer_Ground_DirtyHorn_TextData",
+          "SourceString": "Mud Horn",
+          "LocalizedString": "Mud Horn"
+        }
+      },
       "ACTION_SKILL_Unique_Garm_Bite": {
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
@@ -1442,6 +1450,14 @@
           "Key": "ACTION_SKILL_Unique_FlowerDinosaur_Whip_TextData",
           "SourceString": "Botanical Smash",
           "LocalizedString": "Botanical Smash"
+        }
+      },
+      "ACTION_SKILL_Unique_FlowerDinosaur_Electric_ThunderWhip": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_FlowerDinosaur_Electric_ThunderWhip_TextData",
+          "SourceString": "Lightning Smash",
+          "LocalizedString": "Lightning Smash"
         }
       },
       "ACTION_SKILL_Unique_SheepBall_Roll": {
@@ -1500,6 +1516,14 @@
           "LocalizedString": "Ground Pound"
         }
       },
+      "ACTION_SKILL_Unique_Gorilla_Ground_EarthPunch": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_Gorilla_Ground_EarthPunch_TextData",
+          "SourceString": "Rumble Combo",
+          "LocalizedString": "Rumble Combo"
+        }
+      },
       "ACTION_SKILL_Unique_Grassmammoth_Earthquake": {
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
@@ -1554,6 +1578,14 @@
           "Key": "ACTION_SKILL_Unique_Baphomet_SwallowKite_TextData",
           "SourceString": "Hellfire Claw",
           "LocalizedString": "Hellfire Claw"
+        }
+      },
+      "ACTION_SKILL_Unique_Baphomet_Dark_DarkKite": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_Baphomet_Dark_DarkKite_TextData",
+          "SourceString": "Nightmare Claw",
+          "LocalizedString": "Nightmare Claw"
         }
       },
       "ACTION_SKILL_Unique_BirdDragon_FireBreath": {
@@ -1624,8 +1656,8 @@
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
           "Key": "ACTION_SKILL_Unique_DarkMutant_DarkTackle_TextData",
-          "SourceString": "en Text",
-          "LocalizedString": "en Text"
+          "SourceString": "Apocalypse",
+          "LocalizedString": "Apocalypse"
         }
       },
       "ACTION_SKILL_Unique_DarkScorpion_Pierce": {
@@ -1740,6 +1772,14 @@
           "LocalizedString": "Crystal Wing"
         }
       },
+      "ACTION_SKILL_Unique_IceHorse_Dark_DarkBladeAttack": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_IceHorse_Dark_DarkBladeAttack_TextData",
+          "SourceString": "Dark Wing",
+          "LocalizedString": "Dark Wing"
+        }
+      },
       "ACTION_SKILL_Unique_JetDragon_JumpBeam": {
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
@@ -1754,6 +1794,14 @@
           "Key": "ACTION_SKILL_Unique_KingAlpaca_BodyPress_TextData",
           "SourceString": "Kingly Slam",
           "LocalizedString": "Kingly Slam"
+        }
+      },
+      "ACTION_SKILL_Unique_KingAlpaca_Ice_IcePress": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_KingAlpaca_Ice_IcePress_TextData",
+          "SourceString": "Frozen Press",
+          "LocalizedString": "Frozen Press"
         }
       },
       "ACTION_SKILL_Unique_KingBahamut_AirCrash": {
@@ -1834,6 +1882,14 @@
           "Key": "ACTION_SKILL_Unique_SakuraSaurus_SideTackle_TextData",
           "SourceString": "Muscle Slam",
           "LocalizedString": "Muscle Slam"
+        }
+      },
+      "ACTION_SKILL_Unique_SakuraSaurus_Water_SplashTackle": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_SakuraSaurus_Water_SplashTackle_TextData",
+          "SourceString": "Splash Tackle",
+          "LocalizedString": "Splash Tackle"
         }
       },
       "ACTION_SKILL_Unique_SoldierBee_NeedleLance": {
@@ -2436,6 +2492,590 @@
           "LocalizedString": "Purifying Light"
         }
       },
+      "ACTION_SKILL_Unique_KingWhale_WaveTackle": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_KingWhale_WaveTackle_TextData",
+          "SourceString": "Tidal Charge",
+          "LocalizedString": "Tidal Charge"
+        }
+      },
+      "ACTION_SKILL_Unique_KingWhale_Breaching": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_KingWhale_Breaching_TextData",
+          "SourceString": "Grand Breach",
+          "LocalizedString": "Grand Breach"
+        }
+      },
+      "ACTION_SKILL_Unique_KingWhale_HomingBubble": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_KingWhale_HomingBubble_TextData",
+          "SourceString": "Bubble Rain",
+          "LocalizedString": "Bubble Rain"
+        }
+      },
+      "ACTION_SKILL_CreepingBubble": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_CreepingBubble_TextData",
+          "SourceString": "Creeping Bubbles",
+          "LocalizedString": "Creeping Bubbles"
+        }
+      },
+      "ACTION_SKILL_Unique_KingWhale_AquaBlade": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_KingWhale_AquaBlade_TextData",
+          "SourceString": "Aqua Blade",
+          "LocalizedString": "Aqua Blade"
+        }
+      },
+      "ACTION_SKILL_Unique_KingWhale_Maelstrom": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_KingWhale_Maelstrom_TextData",
+          "SourceString": "Maelstrom",
+          "LocalizedString": "Maelstrom"
+        }
+      },
+      "ACTION_SKILL_Unique_KingWhale_AquaTornado": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_KingWhale_AquaTornado_TextData",
+          "SourceString": "Aqua Tornado",
+          "LocalizedString": "Aqua Tornado"
+        }
+      },
+      "ACTION_SKILL_Unique_BlueSkyDragon_Tossin": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_BlueSkyDragon_Tossin_TextData",
+          "SourceString": "Hydra Charge",
+          "LocalizedString": "Hydra Charge"
+        }
+      },
+      "ACTION_SKILL_Unique_BlueSkyDragon_SweepBreath": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_BlueSkyDragon_SweepBreath_TextData",
+          "SourceString": "Azure Dracoflare",
+          "LocalizedString": "Azure Dracoflare"
+        }
+      },
+      "ACTION_SKILL_Unique_BlueSkyDragon_DrainStorm": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_BlueSkyDragon_DrainStorm_TextData",
+          "SourceString": "Celestial Vortex",
+          "LocalizedString": "Celestial Vortex"
+        }
+      },
+      "ACTION_SKILL_Unique_VolcanoDragon_VolcanicLaser": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_VolcanoDragon_VolcanicLaser_TextData",
+          "SourceString": "Magma Laser",
+          "LocalizedString": "Magma Laser"
+        }
+      },
+      "ACTION_SKILL_Unique_VolcanoDragon_MagmaSpit": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_VolcanoDragon_MagmaSpit_TextData",
+          "SourceString": "Magma Spit",
+          "LocalizedString": "Magma Spit"
+        }
+      },
+      "ACTION_SKILL_Unique_VolcanoDragon_Ice_IceLaser": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_VolcanoDragon_Ice_IceLaser_TextData",
+          "SourceString": "Ice Laser",
+          "LocalizedString": "Ice Laser"
+        }
+      },
+      "ACTION_SKILL_Unique_VolcanoDragon_Ice_IcicleSpit": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_VolcanoDragon_Ice_IcicleSpit_TextData",
+          "SourceString": "Ice Spit",
+          "LocalizedString": "Ice Spit"
+        }
+      },
+      "ACTION_SKILL_Unique_GrassGolem_RocketPunch": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_GrassGolem_RocketPunch_TextData",
+          "SourceString": "Rocket Arm",
+          "LocalizedString": "Rocket Arm"
+        }
+      },
+      "ACTION_SKILL_Unique_GrassGolem_ArmCannon": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_GrassGolem_ArmCannon_TextData",
+          "SourceString": "Root Cannon",
+          "LocalizedString": "Root Cannon"
+        }
+      },
+      "ACTION_SKILL_Unique_GrassGolem_Dark_DarkArmCannon": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_GrassGolem_Dark_DarkArmCannon_TextData",
+          "SourceString": "Dark Root",
+          "LocalizedString": "Dark Root"
+        }
+      },
+      "ACTION_SKILL_Unique_Sekhmet_SomersaultScratch": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_Sekhmet_SomersaultScratch_TextData",
+          "SourceString": "Somersault Scratch",
+          "LocalizedString": "Somersault Scratch"
+        }
+      },
+      "ACTION_SKILL_Unique_Sekhmet_RollingScratch": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_Sekhmet_RollingScratch_TextData",
+          "SourceString": "Rolling Scratch",
+          "LocalizedString": "Rolling Scratch"
+        }
+      },
+      "ACTION_SKILL_Unique_MonochromeQueen_BalletJump": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_MonochromeQueen_BalletJump_TextData",
+          "SourceString": "Black Quilled Ballet",
+          "LocalizedString": "Black Quilled Ballet"
+        }
+      },
+      "ACTION_SKILL_Unique_LanternButler_LanternFlame": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_LanternButler_LanternFlame_TextData",
+          "SourceString": "Lantern Flame",
+          "LocalizedString": "Lantern Flame"
+        }
+      },
+      "ACTION_SKILL_Unique_RockBeast_RockHorn": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_RockBeast_RockHorn_TextData",
+          "SourceString": "Horn Burst",
+          "LocalizedString": "Horn Burst"
+        }
+      },
+      "ACTION_SKILL_Unique_RockBeast_Ice_IceHorn": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_RockBeast_Ice_IceHorn_TextData",
+          "SourceString": "Ice Burst",
+          "LocalizedString": "Ice Burst"
+        }
+      },
+      "ACTION_SKILL_Unique_ClownRabbit_TrickShow": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_ClownRabbit_TrickShow_TextData",
+          "SourceString": "Trickster Show",
+          "LocalizedString": "Trickster Show"
+        }
+      },
+      "ACTION_SKILL_Unique_CubeTurtle_CubePress": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_CubeTurtle_CubePress_TextData",
+          "SourceString": "Cube Press",
+          "LocalizedString": "Cube Press"
+        }
+      },
+      "ACTION_SKILL_Unique_CubeTurtle_Neutral_HolyPress": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_CubeTurtle_Neutral_HolyPress_TextData",
+          "SourceString": "Holy Press",
+          "LocalizedString": "Holy Press"
+        }
+      },
+      "ACTION_SKILL_Unique_SamuraiDog_DashSlash": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_SamuraiDog_DashSlash_TextData",
+          "SourceString": "Persistent Slash",
+          "LocalizedString": "Persistent Slash"
+        }
+      },
+      "ACTION_SKILL_Unique_MummyPal_MummyAttack": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_MummyPal_MummyAttack_TextData",
+          "SourceString": "Mummy Rush",
+          "LocalizedString": "Mummy Rush"
+        }
+      },
+      "ACTION_SKILL_Unique_SumoDog_SumoStomp": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_SumoDog_SumoStomp_TextData",
+          "SourceString": "Sumo Stomp",
+          "LocalizedString": "Sumo Stomp"
+        }
+      },
+      "ACTION_SKILL_Unique_LotusDragon_LotusBloom": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_LotusDragon_LotusBloom_TextData",
+          "SourceString": "Lotus Bloom",
+          "LocalizedString": "Lotus Bloom"
+        }
+      },
+      "ACTION_SKILL_Unique_DomeArmorDragon_ExplosiveMissile": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_DomeArmorDragon_ExplosiveMissile_TextData",
+          "SourceString": "Missile Burst",
+          "LocalizedString": "Missile Burst"
+        }
+      },
+      "ACTION_SKILL_Unique_GhostDragon_TailSlash": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_GhostDragon_TailSlash_TextData",
+          "SourceString": "Tail Slash",
+          "LocalizedString": "Tail Slash"
+        }
+      },
+      "ACTION_SKILL_Unique_GhostDragon_PhosphorousBeam": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_GhostDragon_PhosphorousBeam_TextData",
+          "SourceString": "Blazing Beam",
+          "LocalizedString": "Blazing Beam"
+        }
+      },
+      "ACTION_SKILL_Unique_GrassMinotaur_BullRush_Lower": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_GrassMinotaur_BullRush_Lower_TextData",
+          "SourceString": "Bull Rush",
+          "LocalizedString": "Bull Rush"
+        }
+      },
+      "ACTION_SKILL_Unique_GrassMinotaur_BullRush": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_GrassMinotaur_BullRush_TextData",
+          "SourceString": "Raging Bull Rush",
+          "LocalizedString": "Raging Bull Rush"
+        }
+      },
+      "ACTION_SKILL_Unique_GrassMinotaur_Ice_BullRush_Lower": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_GrassMinotaur_Ice_BullRush_Lower_TextData",
+          "SourceString": "Snow Rush",
+          "LocalizedString": "Snow Rush"
+        }
+      },
+      "ACTION_SKILL_Unique_GrassMinotaur_Ice_BullRush": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_GrassMinotaur_Ice_BullRush_TextData",
+          "SourceString": "Raging Snow Rush",
+          "LocalizedString": "Raging Snow Rush"
+        }
+      },
+      "ACTION_SKILL_Unique_PandaGirl_RapidKick": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_PandaGirl_RapidKick_TextData",
+          "SourceString": "Rapid Kick",
+          "LocalizedString": "Rapid Kick"
+        }
+      },
+      "ACTION_SKILL_Unique_ElecSnail_ShellCharge": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_ElecSnail_ShellCharge_TextData",
+          "SourceString": "Shell Charge",
+          "LocalizedString": "Shell Charge"
+        }
+      },
+      "ACTION_SKILL_Unique_CuteMole_DiggingAttack": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_CuteMole_DiggingAttack_TextData",
+          "SourceString": "Fuddler Tunneler",
+          "LocalizedString": "Fuddler Tunneler"
+        }
+      },
+      "ACTION_SKILL_Unique_BlueThunderHorse_Tossin": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_BlueThunderHorse_Tossin_TextData",
+          "SourceString": "Flash Charge",
+          "LocalizedString": "Flash Charge"
+        }
+      },
+      "ACTION_SKILL_Unique_NightBlueHorse_Tossin": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_NightBlueHorse_Tossin_TextData",
+          "SourceString": "Spectral Steed",
+          "LocalizedString": "Spectral Steed"
+        }
+      },
+      "ACTION_SKILL_Unique_NightBlueHorse_Neutral_Tossin": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_NightBlueHorse_Neutral_Tossin_TextData",
+          "SourceString": "Silver Steed",
+          "LocalizedString": "Silver Steed"
+        }
+      },
+      "ACTION_SKILL_Unique_NightBlueHorse_Neutral_AirStep": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_NightBlueHorse_Neutral_AirStep_TextData",
+          "SourceString": "Royal Step",
+          "LocalizedString": "Royal Step"
+        }
+      },
+      "ACTION_SKILL_Unique_Kirin_Ice_IceTackle": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_Kirin_Ice_IceTackle_TextData",
+          "SourceString": "Ice Gale Strike",
+          "LocalizedString": "Ice Gale Strike"
+        }
+      },
+      "ACTION_SKILL_Unique_ThunderDog_Ice_KoriShorai": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_ThunderDog_Ice_KoriShorai_TextData",
+          "SourceString": "Frostcall",
+          "LocalizedString": "Frostcall"
+        }
+      },
+      "ACTION_SKILL_Unique_ScorpionMan_Erectric_UpperThunder": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_ScorpionMan_Erectric_UpperThunder_TextData",
+          "SourceString": "Thunder Uppercut",
+          "LocalizedString": "Thunder Uppercut"
+        }
+      },
+      "ACTION_SKILL_Unique_WingGolem_Fire_FlameCutter": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_WingGolem_Fire_FlameCutter_TextData",
+          "SourceString": "Flame Cutter",
+          "LocalizedString": "Flame Cutter"
+        }
+      },
+      "ACTION_SKILL_Unique_ThunderBird_Ice_SnowStrom": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_ThunderBird_Ice_SnowStrom_TextData",
+          "SourceString": "Glacial Plunge",
+          "LocalizedString": "Glacial Plunge"
+        }
+      },
+      "ACTION_SKILL_Unique_WhiteDeer_Dark_DarkPillar": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_WhiteDeer_Dark_DarkPillar_TextData",
+          "SourceString": "Dark Nova",
+          "LocalizedString": "Dark Nova"
+        }
+      },
+      "ACTION_SKILL_Unique_Garm_BiteV2": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_Garm_BiteV2_TextData",
+          "SourceString": "Double Fang",
+          "LocalizedString": "Double Fang"
+        }
+      },
+      "ACTION_SKILL_Unique_GuardianDog_Bite": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_GuardianDog_Bite_TextData",
+          "SourceString": "Fierce Fang",
+          "LocalizedString": "Fierce Fang"
+        }
+      },
+      "ACTION_SKILL_Unique_GuardianDog_BiteV2": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_GuardianDog_BiteV2_TextData",
+          "SourceString": "Double Fang",
+          "LocalizedString": "Double Fang"
+        }
+      },
+      "ACTION_SKILL_Unique_ThunderDog_Bite": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_ThunderDog_Bite_TextData",
+          "SourceString": "Fierce Fang (Electric)",
+          "LocalizedString": "Fierce Fang (Electric)"
+        }
+      },
+      "ACTION_SKILL_Unique_ThunderDog_BiteV2": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_ThunderDog_BiteV2_TextData",
+          "SourceString": "Double Fang (Electric)",
+          "LocalizedString": "Double Fang (Electric)"
+        }
+      },
+      "ACTION_SKILL_Unique_ElecPomeranian_Bite": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_ElecPomeranian_Bite_TextData",
+          "SourceString": "Fierce Fang (Electric)",
+          "LocalizedString": "Fierce Fang (Electric)"
+        }
+      },
+      "ACTION_SKILL_Unique_ElecPomeranian_BiteV2": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_ElecPomeranian_BiteV2_TextData",
+          "SourceString": "Double Fang (Electric)",
+          "LocalizedString": "Double Fang (Electric)"
+        }
+      },
+      "ACTION_SKILL_Unique_ThunderDog_Ice_Bite": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_ThunderDog_Ice_Bite_TextData",
+          "SourceString": "Fierce Fang (Ice)",
+          "LocalizedString": "Fierce Fang (Ice)"
+        }
+      },
+      "ACTION_SKILL_Unique_ThunderDog_Ice_BiteV2": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_ThunderDog_Ice_BiteV2_TextData",
+          "SourceString": "Double Fang (Ice)",
+          "LocalizedString": "Double Fang (Ice)"
+        }
+      },
+      "ACTION_SKILL_Unique_GoldenHorse_Bite": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_GoldenHorse_Bite_TextData",
+          "SourceString": "Fierce Fang (Ground)",
+          "LocalizedString": "Fierce Fang (Ground)"
+        }
+      },
+      "ACTION_SKILL_Unique_GoldenHorse_BiteV2": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_GoldenHorse_BiteV2_TextData",
+          "SourceString": "Double Fang (Ground)",
+          "LocalizedString": "Double Fang (Ground)"
+        }
+      },
+      "ACTION_SKILL_Unique_SamuraiDog_Bite": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_SamuraiDog_Bite_TextData",
+          "SourceString": "Fierce Fang (Ground)",
+          "LocalizedString": "Fierce Fang (Ground)"
+        }
+      },
+      "ACTION_SKILL_Unique_SamuraiDog_BiteV2": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_SamuraiDog_BiteV2_TextData",
+          "SourceString": "Double Fang (Ground)",
+          "LocalizedString": "Double Fang (Ground)"
+        }
+      },
+      "ACTION_SKILL_Unique_AmaterasuWolf_Bite": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_AmaterasuWolf_Bite_TextData",
+          "SourceString": "Fierce Fang (Fire)",
+          "LocalizedString": "Fierce Fang (Fire)"
+        }
+      },
+      "ACTION_SKILL_Unique_AmaterasuWolf_BiteV2": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_AmaterasuWolf_BiteV2_TextData",
+          "SourceString": "Double Fang (Fire)",
+          "LocalizedString": "Double Fang (Fire)"
+        }
+      },
+      "ACTION_SKILL_Unique_AmaterasuWolf_Dark_Bite": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_AmaterasuWolf_Dark_Bite_TextData",
+          "SourceString": "Fierce Fang (Dark)",
+          "LocalizedString": "Fierce Fang (Dark)"
+        }
+      },
+      "ACTION_SKILL_Unique_AmaterasuWolf_Dark_BiteV2": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_AmaterasuWolf_Dark_BiteV2_TextData",
+          "SourceString": "Double Fang (Dark)",
+          "LocalizedString": "Double Fang (Dark)"
+        }
+      },
+      "ACTION_SKILL_Unique_BlackPuppy_Bite": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_BlackPuppy_Bite_TextData",
+          "SourceString": "Fierce Fang (Dark)",
+          "LocalizedString": "Fierce Fang (Dark)"
+        }
+      },
+      "ACTION_SKILL_Unique_BlackPuppy_BiteV2": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_BlackPuppy_BiteV2_TextData",
+          "SourceString": "Double Fang (Dark)",
+          "LocalizedString": "Double Fang (Dark)"
+        }
+      },
+      "ACTION_SKILL_Unique_FlowerPrince_PoisonGasDance": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_FlowerPrince_PoisonGasDance_TextData",
+          "SourceString": "Toxic Dance",
+          "LocalizedString": "Toxic Dance"
+        }
+      },
+      "ACTION_SKILL_Unique_FlowerPrince_PoisonGasTackle": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_FlowerPrince_PoisonGasTackle_TextData",
+          "SourceString": "Poison Promenade",
+          "LocalizedString": "Poison Promenade"
+        }
+      },
+      "ACTION_SKILL_Unique_Mothman_GiantSpore": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_Mothman_GiantSpore_TextData",
+          "SourceString": "Giant Spore",
+          "LocalizedString": "Giant Spore"
+        }
+      },
+      "ACTION_SKILL_Unique_Mothman_SporeScatter": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_Mothman_SporeScatter_TextData",
+          "SourceString": "Spore Burst",
+          "LocalizedString": "Spore Burst"
+        }
+      },
       "ACTION_SKILL_Weapon_Use": {
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
@@ -2868,6 +3508,14 @@
           "LocalizedString": "Reflect Leaf"
         }
       },
+      "ACTION_SKILL_WindBurst": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_WindBurst_TextData",
+          "SourceString": "Wind Burst",
+          "LocalizedString": "Wind Burst"
+        }
+      },
       "ACTION_SKILL_ThunderRain": {
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
@@ -3160,8 +3808,8 @@
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
           "Key": "ACTION_SKILL_RockBeat_TextData",
-          "SourceString": "Stone Beat",
-          "LocalizedString": "Stone Beat"
+          "SourceString": "Rocky Impact",
+          "LocalizedString": "Rocky Impact"
         }
       },
       "ACTION_SKILL_DarkLaser": {
@@ -3272,8 +3920,8 @@
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
           "Key": "ACTION_SKILL_ChaosLaser_TextData",
-          "SourceString": "Chaos Laser",
-          "LocalizedString": "Chaos Laser"
+          "SourceString": "-",
+          "LocalizedString": "-"
         }
       },
       "ACTION_SKILL_BubbleShower": {
@@ -3304,8 +3952,8 @@
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
           "Key": "ACTION_SKILL_DragonBreath_TextData",
-          "SourceString": "Draconic Breath",
-          "LocalizedString": "Draconic Breath"
+          "SourceString": "Dragon Breath",
+          "LocalizedString": "Dragon Breath"
         }
       },
       "ACTION_SKILL_DragonWave": {
@@ -3376,8 +4024,8 @@
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
           "Key": "ACTION_SKILL_TripleCanon_TextData",
-          "SourceString": "Triple Cannon",
-          "LocalizedString": "Triple Cannon"
+          "SourceString": "-",
+          "LocalizedString": "-"
         }
       },
       "PASSIVE_Attack_ACC_up1": {
@@ -3544,8 +4192,8 @@
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
           "Key": "PARTNERSKILL_AmaterasuWolf_TextData",
-          "SourceString": "Clear Mind",
-          "LocalizedString": "Clear Mind"
+          "SourceString": "Wolf of the Sun",
+          "LocalizedString": "Wolf of the Sun"
         }
       },
       "PARTNERSKILL_Anubis": {
@@ -3584,8 +4232,8 @@
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
           "Key": "PARTNERSKILL_Bastet_Ice_TextData",
-          "SourceString": "Gold Digger",
-          "LocalizedString": "Gold Digger"
+          "SourceString": "Icy Whispers",
+          "LocalizedString": "Icy Whispers"
         }
       },
       "PARTNERSKILL_BeardedDragon": {
@@ -3632,8 +4280,8 @@
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
           "Key": "PARTNERSKILL_BlackFurDragon_TextData",
-          "SourceString": "The Black Winged Shooter",
-          "LocalizedString": "The Black Winged Shooter"
+          "SourceString": "-",
+          "LocalizedString": "-"
         }
       },
       "PARTNERSKILL_BlackGriffon": {
@@ -3696,8 +4344,8 @@
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
           "Key": "PARTNERSKILL_CatMage_TextData",
-          "SourceString": "Grimoire Collector",
-          "LocalizedString": "Grimoire Collector"
+          "SourceString": "Mystical Black Magic",
+          "LocalizedString": "Mystical Black Magic"
         }
       },
       "PARTNERSKILL_CatVampire": {
@@ -3760,16 +4408,16 @@
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
           "Key": "PARTNERSKILL_CuteMole_TextData",
-          "SourceString": "Ore Detector",
-          "LocalizedString": "Ore Detector"
+          "SourceString": "Mining Assistance",
+          "LocalizedString": "Mining Assistance"
         }
       },
       "PARTNERSKILL_DarkCrow": {
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
           "Key": "PARTNERSKILL_DarkCrow_TextData",
-          "SourceString": "Telepeck",
-          "LocalizedString": "Telepeck"
+          "SourceString": "Eerie Nightstreaker",
+          "LocalizedString": "Eerie Nightstreaker"
         }
       },
       "PARTNERSKILL_DarkMutant": {
@@ -4024,8 +4672,8 @@
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
           "Key": "PARTNERSKILL_GrassRabbitMan_TextData",
-          "SourceString": "Grassland Speedster",
-          "LocalizedString": "Grassland Speedster"
+          "SourceString": "Grassland Gymnast",
+          "LocalizedString": "Grassland Gymnast"
         }
       },
       "PARTNERSKILL_GuardianDog": {
@@ -4096,8 +4744,8 @@
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
           "Key": "PARTNERSKILL_IceHorse_TextData",
-          "SourceString": "Ice Steed",
-          "LocalizedString": "Ice Steed"
+          "SourceString": "Icy Steed",
+          "LocalizedString": "Icy Steed"
         }
       },
       "PARTNERSKILL_IceHorse_Dark": {
@@ -4144,8 +4792,8 @@
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
           "Key": "PARTNERSKILL_KingAlpaca_Ice_TextData",
-          "SourceString": "King of Muscles",
-          "LocalizedString": "King of Muscles"
+          "SourceString": "Coldhearted King",
+          "LocalizedString": "Coldhearted King"
         }
       },
       "PARTNERSKILL_KingBahamut": {
@@ -4216,16 +4864,16 @@
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
           "Key": "PARTNERSKILL_LizardMan_TextData",
-          "SourceString": "Sixth Sense",
-          "LocalizedString": "Sixth Sense"
+          "SourceString": "Too Cool to be Seen",
+          "LocalizedString": "Too Cool to be Seen"
         }
       },
       "PARTNERSKILL_LizardMan_Fire": {
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
           "Key": "PARTNERSKILL_LizardMan_Fire_TextData",
-          "SourceString": "Sixth Sense",
-          "LocalizedString": "Sixth Sense"
+          "SourceString": "Too Cool to be Seen",
+          "LocalizedString": "Too Cool to be Seen"
         }
       },
       "PARTNERSKILL_Manticore": {
@@ -4280,8 +4928,8 @@
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
           "Key": "PARTNERSKILL_NaughtyCat_TextData",
-          "SourceString": "Plump Body",
-          "LocalizedString": "Plump Body"
+          "SourceString": "Glaring Cat's Eye",
+          "LocalizedString": "Glaring Cat's Eye"
         }
       },
       "PARTNERSKILL_NegativeKoala": {
@@ -4344,8 +4992,8 @@
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
           "Key": "PARTNERSKILL_PinkRabbit_TextData",
-          "SourceString": "Skilled Fingers",
-          "LocalizedString": "Skilled Fingers"
+          "SourceString": "Happy-Go-Lucky Bunny",
+          "LocalizedString": "Happy-Go-Lucky Bunny"
         }
       },
       "PARTNERSKILL_PlantSlime": {
@@ -4392,16 +5040,16 @@
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
           "Key": "PARTNERSKILL_RobinHood_TextData",
-          "SourceString": "Hawk Eye",
-          "LocalizedString": "Hawk Eye"
+          "SourceString": "Grounded Archer",
+          "LocalizedString": "Grounded Archer"
         }
       },
       "PARTNERSKILL_RobinHood_Ground": {
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
           "Key": "PARTNERSKILL_RobinHood_Ground_TextData",
-          "SourceString": "Hawk Eye",
-          "LocalizedString": "Hawk Eye"
+          "SourceString": "Master Archer",
+          "LocalizedString": "Master Archer"
         }
       },
       "PARTNERSKILL_SaintCentaur": {
@@ -4416,16 +5064,16 @@
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
           "Key": "PARTNERSKILL_SakuraSaurus_TextData",
-          "SourceString": "Overaffectionate",
-          "LocalizedString": "Overaffectionate"
+          "SourceString": "Love's First Blossom",
+          "LocalizedString": "Love's First Blossom"
         }
       },
       "PARTNERSKILL_SakuraSaurus_Water": {
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
           "Key": "PARTNERSKILL_SakuraSaurus_Water_TextData",
-          "SourceString": "Overaffectionate",
-          "LocalizedString": "Overaffectionate"
+          "SourceString": "Purity's Full Bloom",
+          "LocalizedString": "Purity's Full Bloom"
         }
       },
       "PARTNERSKILL_Serpent": {
@@ -4512,8 +5160,8 @@
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
           "Key": "PARTNERSKILL_ThunderDog_TextData",
-          "SourceString": "Jumping Force",
-          "LocalizedString": "Jumping Force"
+          "SourceString": "Lightning Shepherd",
+          "LocalizedString": "Lightning Shepherd"
         }
       },
       "PARTNERSKILL_ThunderDragonMan": {
@@ -4592,8 +5240,8 @@
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
           "Key": "PARTNERSKILL_WhiteMoth_TextData",
-          "SourceString": "Silk Maker",
-          "LocalizedString": "Silk Maker"
+          "SourceString": "Silk Shroud",
+          "LocalizedString": "Silk Shroud"
         }
       },
       "PARTNERSKILL_WhiteTiger": {
@@ -4656,8 +5304,8 @@
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
           "Key": "PARTNERSKILL_HerculesBeetle_TextData",
-          "SourceString": "Hard Armor",
-          "LocalizedString": "Hard Armor"
+          "SourceString": "Cast-Iron Shell",
+          "LocalizedString": "Cast-Iron Shell"
         }
       },
       "PARTNERSKILL_WoolFox": {
@@ -4712,8 +5360,8 @@
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
           "Key": "PARTNERSKILL_BrownRabbit_TextData",
-          "SourceString": "Under investigation.",
-          "LocalizedString": "Under investigation."
+          "SourceString": "Friend of Earth",
+          "LocalizedString": "Friend of Earth"
         }
       },
       "PARTNERSKILL_FeatherOstrich": {
@@ -4728,8 +5376,8 @@
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
           "Key": "PARTNERSKILL_ScorpionMan_TextData",
-          "SourceString": "Scorpion Sonar",
-          "LocalizedString": "Scorpion Sonar"
+          "SourceString": "Phantom Venom",
+          "LocalizedString": "Phantom Venom"
         }
       },
       "PARTNERSKILL_NightLady": {
@@ -4752,16 +5400,16 @@
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
           "Key": "PARTNERSKILL_MushroomDragon_TextData",
-          "SourceString": "Swooshy Spores",
-          "LocalizedString": "Swooshy Spores"
+          "SourceString": "Rampant Spores",
+          "LocalizedString": "Rampant Spores"
         }
       },
       "PARTNERSKILL_MushroomDragon_Dark": {
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
           "Key": "PARTNERSKILL_MushroomDragon_Dark_TextData",
-          "SourceString": "Swooshy Spores",
-          "LocalizedString": "Swooshy Spores"
+          "SourceString": "Roiling Spores",
+          "LocalizedString": "Roiling Spores"
         }
       },
       "PARTNERSKILL_LeafPrincess": {
@@ -4784,8 +5432,8 @@
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
           "Key": "PARTNERSKILL_SmallArmadillo_TextData",
-          "SourceString": "Rollin' Full Oil",
-          "LocalizedString": "Rollin' Full Oil"
+          "SourceString": "Sandball Soccer",
+          "LocalizedString": "Sandball Soccer"
         }
       },
       "PARTNERSKILL_CandleGhost": {
@@ -4808,8 +5456,8 @@
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
           "Key": "PARTNERSKILL_DarkAlien_TextData",
-          "SourceString": "Meteor Mania",
-          "LocalizedString": "Meteor Mania"
+          "SourceString": "Unknown Invader",
+          "LocalizedString": "Unknown Invader"
         }
       },
       "PARTNERSKILL_MimicDog": {
@@ -4944,8 +5592,8 @@
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
           "Key": "PASSIVE_ElementBoost_Normal_1_PAL_TextData",
-          "SourceString": "Zen Mind",
-          "LocalizedString": "Zen Mind"
+          "SourceString": "Spirit of Zen",
+          "LocalizedString": "Spirit of Zen"
         }
       },
       "PASSIVE_ElementBoost_Fire_1_PAL": {
@@ -5124,12 +5772,12 @@
           "LocalizedString": "Max Carrying Capacity Lv. 3"
         }
       },
-      "PASSIVE_Nocturnal": {
+      "PASSIVE_NightOwl": {
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
-          "Key": "PASSIVE_Nocturnal_TextData",
-          "SourceString": "Nocturnal",
-          "LocalizedString": "Nocturnal"
+          "Key": "PASSIVE_NightOwl_TextData",
+          "SourceString": "Night Owl",
+          "LocalizedString": "Night Owl"
         }
       },
       "PASSIVE_CoolTimeReduction_Up_1": {
@@ -5248,16 +5896,16 @@
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
           "Key": "PARTNERSKILL_HerculesBeetle_Ground_TextData",
-          "SourceString": "Fortified Shell",
-          "LocalizedString": "Fortified Shell"
+          "SourceString": "Fullmetal Shell",
+          "LocalizedString": "Fullmetal Shell"
         }
       },
       "PARTNERSKILL_Gorilla_Ground": {
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
           "Key": "PARTNERSKILL_Gorilla_Ground_TextData",
-          "SourceString": "Full-Power Gorilla Mode",
-          "LocalizedString": "Full-Power Gorilla Mode"
+          "SourceString": "Full-Power Gorilla Pound",
+          "LocalizedString": "Full-Power Gorilla Pound"
         }
       },
       "PARTNERSKILL_HadesBird_Electric": {
@@ -5272,24 +5920,24 @@
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
           "Key": "PARTNERSKILL_DarkScorpion_Ground_TextData",
-          "SourceString": "Steel Scorpion",
-          "LocalizedString": "Steel Scorpion"
+          "SourceString": "Golden Scorpion",
+          "LocalizedString": "Golden Scorpion"
         }
       },
       "PARTNERSKILL_Ronin_Dark": {
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
           "Key": "PARTNERSKILL_Ronin_Dark_TextData",
-          "SourceString": "Flash Blade",
-          "LocalizedString": "Flash Blade"
+          "SourceString": "Void Blade",
+          "LocalizedString": "Void Blade"
         }
       },
       "PARTNERSKILL_CatMage_Fire": {
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
           "Key": "PARTNERSKILL_CatMage_Fire_TextData",
-          "SourceString": "Botanical Atlas",
-          "LocalizedString": "Botanical Atlas"
+          "SourceString": "Blazing Black Magic",
+          "LocalizedString": "Blazing Black Magic"
         }
       },
       "PARTNERSKILL_FoxMage_Dark": {
@@ -5320,8 +5968,8 @@
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
           "Key": "PARTNERSKILL_WhiteAlienDragon_TextData",
-          "SourceString": "Crater Enthusiast",
-          "LocalizedString": "Crater Enthusiast"
+          "SourceString": "Unknown Intruder",
+          "LocalizedString": "Unknown Intruder"
         }
       },
       "PASSIVE_EternalFlame": {
@@ -5624,8 +6272,8 @@
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
           "Key": "PARTNERSKILL_PinkRabbit_Grass_TextData",
-          "SourceString": "Grass Weaver",
-          "LocalizedString": "Grass Weaver"
+          "SourceString": "Ground 'n' Pound",
+          "LocalizedString": "Ground 'n' Pound"
         }
       },
       "PARTNERSKILL_Werewolf_Ice": {
@@ -5640,8 +6288,8 @@
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
           "Key": "PARTNERSKILL_AmaterasuWolf_Dark_TextData",
-          "SourceString": "Fogged Mind",
-          "LocalizedString": "Fogged Mind"
+          "SourceString": "Gloomhowl",
+          "LocalizedString": "Gloomhowl"
         }
       },
       "PARTNERSKILL_RaijinDaughter_Water": {
@@ -5656,8 +6304,8 @@
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
           "Key": "PARTNERSKILL_WhiteTiger_Ground_TextData",
-          "SourceString": "Electro Hunter",
-          "LocalizedString": "Electro Hunter"
+          "SourceString": "Explosive Strength",
+          "LocalizedString": "Explosive Strength"
         }
       },
       "PARTNERSKILL_FengyunDeeper_Electric": {
@@ -5712,8 +6360,8 @@
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
           "Key": "PARTNERSKILL_BlackPuppy_TextData",
-          "SourceString": "Dig, Dog! Dig!",
-          "LocalizedString": "Dig, Dog! Dig!"
+          "SourceString": "Dig, Smokie! Dig!",
+          "LocalizedString": "Dig, Smokie! Dig!"
         }
       },
       "PARTNERSKILL_WhiteDeer": {
@@ -6536,8 +7184,8 @@
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
           "Key": "PARTNERSKILL_GhostAnglerfish_Fire_TextData",
-          "SourceString": "Flame Lantern",
-          "LocalizedString": "Flame Lantern"
+          "SourceString": "Abyssal Celebrity Chef",
+          "LocalizedString": "Abyssal Celebrity Chef"
         }
       },
       "PARTNERSKILL_StuffedShark_Fire": {
@@ -6592,8 +7240,8 @@
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
           "Key": "PARTNERSKILL_GhostAnglerfish_TextData",
-          "SourceString": "Master Night Angler",
-          "LocalizedString": "Master Night Angler"
+          "SourceString": "Master of Darkness",
+          "LocalizedString": "Master of Darkness"
         }
       },
       "PARTNERSKILL_IceWitch": {
@@ -6624,8 +7272,8 @@
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
           "Key": "PARTNERSKILL_StuffedShark_TextData",
-          "SourceString": "Echo Chamber",
-          "LocalizedString": "Echo Chamber"
+          "SourceString": "Water Gun",
+          "LocalizedString": "Water Gun"
         }
       },
       "PARTNERSKILL_IceSeal": {
@@ -7160,8 +7808,8 @@
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
           "Key": "PASSIVE_GYM_NAME_Meadow_TextData",
-          "SourceString": "Rayne Syndicate Officer",
-          "LocalizedString": "Rayne Syndicate Officer"
+          "SourceString": "Rayne Syndicate Boss",
+          "LocalizedString": "Rayne Syndicate Boss"
         }
       },
       "PASSIVE_GYM_NAME_Forest": {
@@ -7176,8 +7824,8 @@
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
           "Key": "PASSIVE_GYM_NAME_Desert_TextData",
-          "SourceString": "PIDF Officer",
-          "LocalizedString": "PIDF Officer"
+          "SourceString": "PIDF Commander",
+          "LocalizedString": "PIDF Commander"
         }
       },
       "PASSIVE_GYM_NAME_Volcano": {
@@ -7244,12 +7892,1380 @@
           "LocalizedString": "Blood Is Fuel"
         }
       },
+      "PASSIVE_MiniNushi": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_MiniNushi_TextData",
+          "SourceString": "Whopper",
+          "LocalizedString": "Whopper"
+        }
+      },
       "PASSIVE_Deffence_up2_2": {
         "TextData": {
           "Namespace": "DT_SkillNameText_Common",
           "Key": "PASSIVE_Deffence_up2_2_TextData",
-          "SourceString": "en_text",
-          "LocalizedString": "en_text"
+          "SourceString": "Heavyweight",
+          "LocalizedString": "Heavyweight"
+        }
+      },
+      "PASSIVE_WorldTree_ATK": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_WorldTree_ATK_TextData",
+          "SourceString": "Twin-Edged Holy Blade",
+          "LocalizedString": "Twin-Edged Holy Blade"
+        }
+      },
+      "PASSIVE_WorldTree_DEF": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_WorldTree_DEF_TextData",
+          "SourceString": "Sanctified Meat Shield",
+          "LocalizedString": "Sanctified Meat Shield"
+        }
+      },
+      "PASSIVE_WorldTree_CraftSpeed": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_WorldTree_CraftSpeed_TextData",
+          "SourceString": "Demon’s Hand",
+          "LocalizedString": "Demon’s Hand"
+        }
+      },
+      "PASSIVE_WorldTree_FullStomach": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_WorldTree_FullStomach_TextData",
+          "SourceString": "World Tree Seedbed",
+          "LocalizedString": "World Tree Seedbed"
+        }
+      },
+      "PASSIVE_WorldTree_Sanity": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_WorldTree_Sanity_TextData",
+          "SourceString": "Hermit Sage",
+          "LocalizedString": "Hermit Sage"
+        }
+      },
+      "PASSIVE_WorldTree_MoveSpeed": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_WorldTree_MoveSpeed_TextData",
+          "SourceString": "Dimensional Leap",
+          "LocalizedString": "Dimensional Leap"
+        }
+      },
+      "PASSIVE_WorldTree_ATK_DEF": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_WorldTree_ATK_DEF_TextData",
+          "SourceString": "God of Destruction",
+          "LocalizedString": "God of Destruction"
+        }
+      },
+      "PARTNERSKILL_WhiteMoth_Neutral": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_WhiteMoth_Neutral_TextData",
+          "SourceString": "Gilded Shroud",
+          "LocalizedString": "Gilded Shroud"
+        }
+      },
+      "PARTNERSKILL_ElecSnail": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_ElecSnail_TextData",
+          "SourceString": "Charging Shell",
+          "LocalizedString": "Charging Shell"
+        }
+      },
+      "PARTNERSKILL_ElecSnail_Ground": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_ElecSnail_Ground_TextData",
+          "SourceString": "Grounding Shell",
+          "LocalizedString": "Grounding Shell"
+        }
+      },
+      "PARTNERSKILL_IceSeal_Ground": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_IceSeal_Ground_TextData",
+          "SourceString": "Snowy Mountain Slider",
+          "LocalizedString": "Snowy Mountain Slider"
+        }
+      },
+      "PARTNERSKILL_Kirin_Ice": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_Kirin_Ice_TextData",
+          "SourceString": "Frigid Deity",
+          "LocalizedString": "Frigid Deity"
+        }
+      },
+      "PARTNERSKILL_ClioneTwins": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_ClioneTwins_TextData",
+          "SourceString": "Magical Twin Powers",
+          "LocalizedString": "Magical Twin Powers"
+        }
+      },
+      "PARTNERSKILL_FluffyBird": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_FluffyBird_TextData",
+          "SourceString": "Fluffy Flutterer",
+          "LocalizedString": "Fluffy Flutterer"
+        }
+      },
+      "PARTNERSKILL_MoonChild": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_MoonChild_TextData",
+          "SourceString": "Hidden Dark Energy",
+          "LocalizedString": "Hidden Dark Energy"
+        }
+      },
+      "PARTNERSKILL_CloverFairy": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_CloverFairy_TextData",
+          "SourceString": "Happy Clover",
+          "LocalizedString": "Happy Clover"
+        }
+      },
+      "PARTNERSKILL_ClownRabbit": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_ClownRabbit_TextData",
+          "SourceString": "Trick-Loving Fluffle",
+          "LocalizedString": "Trick-Loving Fluffle"
+        }
+      },
+      "PARTNERSKILL_BlackPuppy_Ice": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_BlackPuppy_Ice_TextData",
+          "SourceString": "Cryo Instincts",
+          "LocalizedString": "Cryo Instincts"
+        }
+      },
+      "PARTNERSKILL_SwordCutlassfish": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_SwordCutlassfish_TextData",
+          "SourceString": "Fish Fillet",
+          "LocalizedString": "Fish Fillet"
+        }
+      },
+      "PARTNERSKILL_SwordCutlassfish_Fire": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_SwordCutlassfish_Fire_TextData",
+          "SourceString": "Seared Fish Fillet",
+          "LocalizedString": "Seared Fish Fillet"
+        }
+      },
+      "PARTNERSKILL_GrassGolem": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_GrassGolem_TextData",
+          "SourceString": "Forest Laser",
+          "LocalizedString": "Forest Laser"
+        }
+      },
+      "PARTNERSKILL_GrassGolem_Dark": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_GrassGolem_Dark_TextData",
+          "SourceString": "Corruption Laser",
+          "LocalizedString": "Corruption Laser"
+        }
+      },
+      "PARTNERSKILL_FlowerDoll_Fire": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_FlowerDoll_Fire_TextData",
+          "SourceString": "Passion of the Flower Spirit",
+          "LocalizedString": "Passion of the Flower Spirit"
+        }
+      },
+      "PARTNERSKILL_MushroomLady": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_MushroomLady_TextData",
+          "SourceString": "Charming Spore",
+          "LocalizedString": "Charming Spore"
+        }
+      },
+      "PARTNERSKILL_SumoDog": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_SumoDog_TextData",
+          "SourceString": "Yokozuna's Presence",
+          "LocalizedString": "Yokozuna's Presence"
+        }
+      },
+      "PARTNERSKILL_CactusDoll": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_CactusDoll_TextData",
+          "SourceString": "Hug Me Please",
+          "LocalizedString": "Hug Me Please"
+        }
+      },
+      "PARTNERSKILL_CactusDoll_Dark": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_CactusDoll_Dark_TextData",
+          "SourceString": "Hug You So Much",
+          "LocalizedString": "Hug You So Much"
+        }
+      },
+      "PARTNERSKILL_RockBeast": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_RockBeast_TextData",
+          "SourceString": "Power Stone",
+          "LocalizedString": "Power Stone"
+        }
+      },
+      "PARTNERSKILL_RockBeast_Ice": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_RockBeast_Ice_TextData",
+          "SourceString": "Power Crystal",
+          "LocalizedString": "Power Crystal"
+        }
+      },
+      "PARTNERSKILL_ThiefBird": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_ThiefBird_TextData",
+          "SourceString": "Dark-Nester",
+          "LocalizedString": "Dark-Nester"
+        }
+      },
+      "PARTNERSKILL_SleeveRabbit": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_SleeveRabbit_TextData",
+          "SourceString": "Long-Sleeved Hurray",
+          "LocalizedString": "Long-Sleeved Hurray"
+        }
+      },
+      "PARTNERSKILL_SnakeGirl": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_SnakeGirl_TextData",
+          "SourceString": "Snake's Sagacity",
+          "LocalizedString": "Snake's Sagacity"
+        }
+      },
+      "PARTNERSKILL_KabukiMan": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_KabukiMan_TextData",
+          "SourceString": "Stage Combat",
+          "LocalizedString": "Stage Combat"
+        }
+      },
+      "PARTNERSKILL_SamuraiDog": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_SamuraiDog_TextData",
+          "SourceString": "Best Boy",
+          "LocalizedString": "Best Boy"
+        }
+      },
+      "PARTNERSKILL_Sekhmet": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_Sekhmet_TextData",
+          "SourceString": "Desert Empress",
+          "LocalizedString": "Desert Empress"
+        }
+      },
+      "PARTNERSKILL_GhostRabbit_Grass": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_GhostRabbit_Grass_TextData",
+          "SourceString": "Soul Binder",
+          "LocalizedString": "Soul Binder"
+        }
+      },
+      "PARTNERSKILL_LotusDragon": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_LotusDragon_TextData",
+          "SourceString": "Glorious Mist",
+          "LocalizedString": "Glorious Mist"
+        }
+      },
+      "PARTNERSKILL_Monkey_Fire": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_Monkey_Fire_TextData",
+          "SourceString": "Chipper Chimp Gunfire",
+          "LocalizedString": "Chipper Chimp Gunfire"
+        }
+      },
+      "PARTNERSKILL_DarkFlameFox": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_DarkFlameFox_TextData",
+          "SourceString": "Phantasmal Arcana",
+          "LocalizedString": "Phantasmal Arcana"
+        }
+      },
+      "PARTNERSKILL_FoxExorcist": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_FoxExorcist_TextData",
+          "SourceString": "Burning Future",
+          "LocalizedString": "Burning Future"
+        }
+      },
+      "PARTNERSKILL_VenusFlytrap": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_VenusFlytrap_TextData",
+          "SourceString": "Entangling Tongue",
+          "LocalizedString": "Entangling Tongue"
+        }
+      },
+      "PARTNERSKILL_ElecLizard": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_ElecLizard_TextData",
+          "SourceString": "Chillswitch",
+          "LocalizedString": "Chillswitch"
+        }
+      },
+      "PARTNERSKILL_MonochromeQueen": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_MonochromeQueen_TextData",
+          "SourceString": "Untainted Maiden",
+          "LocalizedString": "Untainted Maiden"
+        }
+      },
+      "PARTNERSKILL_OctopusGirl_Neutral": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_OctopusGirl_Neutral_TextData",
+          "SourceString": "Cephalo-Princess",
+          "LocalizedString": "Cephalo-Princess"
+        }
+      },
+      "PARTNERSKILL_HoodGhost": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_HoodGhost_TextData",
+          "SourceString": "Void-Dweller",
+          "LocalizedString": "Void-Dweller"
+        }
+      },
+      "PARTNERSKILL_BlueSkyDragon": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_BlueSkyDragon_TextData",
+          "SourceString": "Azure Sovereign",
+          "LocalizedString": "Azure Sovereign"
+        }
+      },
+      "PARTNERSKILL_GhostDragon": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_GhostDragon_TextData",
+          "SourceString": "Liberated Pterosaur",
+          "LocalizedString": "Liberated Pterosaur"
+        }
+      },
+      "PARTNERSKILL_GhostDragon_Fire": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_GhostDragon_Fire_TextData",
+          "SourceString": "Resentful Pterosaur",
+          "LocalizedString": "Resentful Pterosaur"
+        }
+      },
+      "PARTNERSKILL_PandaGirl": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_PandaGirl_TextData",
+          "SourceString": "Selfless Discipline",
+          "LocalizedString": "Selfless Discipline"
+        }
+      },
+      "PARTNERSKILL_VolcanoDragon": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_VolcanoDragon_TextData",
+          "SourceString": "Magma Overload",
+          "LocalizedString": "Magma Overload"
+        }
+      },
+      "PARTNERSKILL_VolcanoDragon_Ice": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_VolcanoDragon_Ice_TextData",
+          "SourceString": "Ice Overload",
+          "LocalizedString": "Ice Overload"
+        }
+      },
+      "PARTNERSKILL_MummyPal": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_MummyPal_TextData",
+          "SourceString": "Resurrection",
+          "LocalizedString": "Resurrection"
+        }
+      },
+      "PARTNERSKILL_SweetsSheep_Ground": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_SweetsSheep_Ground_TextData",
+          "SourceString": "Bitter Pop",
+          "LocalizedString": "Bitter Pop"
+        }
+      },
+      "PARTNERSKILL_KingWhale": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_KingWhale_TextData",
+          "SourceString": "Resonant Guardian",
+          "LocalizedString": "Resonant Guardian"
+        }
+      },
+      "PARTNERSKILL_LanternButler": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_LanternButler_TextData",
+          "SourceString": "Lantern Enchantment",
+          "LocalizedString": "Lantern Enchantment"
+        }
+      },
+      "PARTNERSKILL_LongCat": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_LongCat_TextData",
+          "SourceString": "Big Stretch",
+          "LocalizedString": "Big Stretch"
+        }
+      },
+      "PARTNERSKILL_CubeTurtle": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_CubeTurtle_TextData",
+          "SourceString": "Masonry Archelon",
+          "LocalizedString": "Masonry Archelon"
+        }
+      },
+      "PARTNERSKILL_CubeTurtle_Neutral": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_CubeTurtle_Neutral_TextData",
+          "SourceString": "Stone-Chaser Archelon",
+          "LocalizedString": "Stone-Chaser Archelon"
+        }
+      },
+      "PARTNERSKILL_ScorpionMan_Electric": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_ScorpionMan_Electric_TextData",
+          "SourceString": "Scorpion Longwave",
+          "LocalizedString": "Scorpion Longwave"
+        }
+      },
+      "PARTNERSKILL_DandelionGirl": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_DandelionGirl_TextData",
+          "SourceString": "Fuzzy Fairy",
+          "LocalizedString": "Fuzzy Fairy"
+        }
+      },
+      "PARTNERSKILL_RedFlowerBird": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_RedFlowerBird_TextData",
+          "SourceString": "Flower Dance",
+          "LocalizedString": "Flower Dance"
+        }
+      },
+      "PARTNERSKILL_ThunderFluffyBird": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_ThunderFluffyBird_TextData",
+          "SourceString": "Electro-Massage Incubation",
+          "LocalizedString": "Electro-Massage Incubation"
+        }
+      },
+      "PARTNERSKILL_SmallYeti": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_SmallYeti_TextData",
+          "SourceString": "Invisible Eye",
+          "LocalizedString": "Invisible Eye"
+        }
+      },
+      "PARTNERSKILL_Mothman": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_Mothman_TextData",
+          "SourceString": "Spore Stalwart",
+          "LocalizedString": "Spore Stalwart"
+        }
+      },
+      "PARTNERSKILL_KingSunfish": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_KingSunfish_TextData",
+          "SourceString": "Charming Fish",
+          "LocalizedString": "Charming Fish"
+        }
+      },
+      "PARTNERSKILL_KingSunfish_Thunder": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_KingSunfish_Thunder_TextData",
+          "SourceString": "Shocking Fish",
+          "LocalizedString": "Shocking Fish"
+        }
+      },
+      "PARTNERSKILL_ThunderBird_Ice": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_ThunderBird_Ice_TextData",
+          "SourceString": "Coldsnap",
+          "LocalizedString": "Coldsnap"
+        }
+      },
+      "PARTNERSKILL_WhiteDeer_Dark": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_WhiteDeer_Dark_TextData",
+          "SourceString": "Blessing of Chaos",
+          "LocalizedString": "Blessing of Chaos"
+        }
+      },
+      "PARTNERSKILL_NightBlueHorse_Neutral": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_NightBlueHorse_Neutral_TextData",
+          "SourceString": "Light Dancer",
+          "LocalizedString": "Light Dancer"
+        }
+      },
+      "PARTNERSKILL_DomeArmorDragon": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_DomeArmorDragon_TextData",
+          "SourceString": "Indestructible Fortress",
+          "LocalizedString": "Indestructible Fortress"
+        }
+      },
+      "PARTNERSKILL_OniGhostGirl": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_OniGhostGirl_TextData",
+          "SourceString": "Grinning Death",
+          "LocalizedString": "Grinning Death"
+        }
+      },
+      "PARTNERSKILL_WorldTreeDragon": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_WorldTreeDragon_TextData",
+          "SourceString": "-",
+          "LocalizedString": "-"
+        }
+      },
+      "PARTNERSKILL_GrassMinotaur": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_GrassMinotaur_TextData",
+          "SourceString": "Mother Nature's Menace",
+          "LocalizedString": "Mother Nature's Menace"
+        }
+      },
+      "PARTNERSKILL_GrassMinotaur_Ice": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_GrassMinotaur_Ice_TextData",
+          "SourceString": "Father Winter's Threat",
+          "LocalizedString": "Father Winter's Threat"
+        }
+      },
+      "PARTNERSKILL_GhostBlackCat": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_GhostBlackCat_TextData",
+          "SourceString": "Death-Cheating Feline",
+          "LocalizedString": "Death-Cheating Feline"
+        }
+      },
+      "PARTNERSKILL_ElecPomeranian": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_ElecPomeranian_TextData",
+          "SourceString": "Crackle Booster",
+          "LocalizedString": "Crackle Booster"
+        }
+      },
+      "PARTNERSKILL_FlowerPrince": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_FlowerPrince_TextData",
+          "SourceString": "Mist Stalwart",
+          "LocalizedString": "Mist Stalwart"
+        }
+      },
+      "PARTNERSKILL_WingGolem_Fire": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_WingGolem_Fire_TextData",
+          "SourceString": "Iron Guardian Mode",
+          "LocalizedString": "Iron Guardian Mode"
+        }
+      },
+      "PARTNERSKILL_ThunderDog_Ice": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_ThunderDog_Ice_TextData",
+          "SourceString": "Snow Shepherd",
+          "LocalizedString": "Snow Shepherd"
+        }
+      },
+      "PASSIVE_Nocturnal": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_Nocturnal_TextData",
+          "SourceString": "Insomnia",
+          "LocalizedString": "Insomnia"
+        }
+      },
+      "PASSIVE_SelfDeathAddItemDrop_up_1": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_SelfDeathAddItemDrop_up_1_TextData",
+          "SourceString": "Sharing is Caring",
+          "LocalizedString": "Sharing is Caring"
+        }
+      },
+      "PASSIVE_SelfDeathAddItemDrop_up_2": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_SelfDeathAddItemDrop_up_2_TextData",
+          "SourceString": "Service-Minded",
+          "LocalizedString": "Service-Minded"
+        }
+      },
+      "PASSIVE_SelfDeathAddItemDrop_up_3": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_SelfDeathAddItemDrop_up_3_TextData",
+          "SourceString": "Lavish Hospitality",
+          "LocalizedString": "Lavish Hospitality"
+        }
+      },
+      "PASSIVE_WorkSuitabilityAddRank_MonsterFarm_1": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_WorkSuitabilityAddRank_MonsterFarm_1_TextData",
+          "SourceString": "Farmhand",
+          "LocalizedString": "Farmhand"
+        }
+      },
+      "PASSIVE_WorkSuitabilityAddRank_MonsterFarm_2": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_WorkSuitabilityAddRank_MonsterFarm_2_TextData",
+          "SourceString": "Ranch Master",
+          "LocalizedString": "Ranch Master"
+        }
+      },
+      "PASSIVE_MutationPal_Babysitter": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_MutationPal_Babysitter_TextData",
+          "SourceString": "Babysitter",
+          "LocalizedString": "Babysitter"
+        }
+      },
+      "PASSIVE_MutationPal_Mutant": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_MutationPal_Mutant_TextData",
+          "SourceString": "Idiosyncratic",
+          "LocalizedString": "Idiosyncratic"
+        }
+      },
+      "PASSIVE_MutationPal_Immortal": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_MutationPal_Immortal_TextData",
+          "SourceString": "Immortality",
+          "LocalizedString": "Immortality"
+        }
+      },
+      "PASSIVE_MutationPal_ExplosionResist": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_MutationPal_ExplosionResist_TextData",
+          "SourceString": "Heavily Armored",
+          "LocalizedString": "Heavily Armored"
+        }
+      },
+      "PASSIVE_WoodDrop_Boost_1": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_WoodDrop_Boost_1_TextData",
+          "SourceString": "Logging Yield Up Lv. 1",
+          "LocalizedString": "Logging Yield Up Lv. 1"
+        }
+      },
+      "PASSIVE_WoodDrop_Boost_2": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_WoodDrop_Boost_2_TextData",
+          "SourceString": "Logging Yield Up Lv. 2",
+          "LocalizedString": "Logging Yield Up Lv. 2"
+        }
+      },
+      "PASSIVE_WoodDrop_Boost_3": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_WoodDrop_Boost_3_TextData",
+          "SourceString": "Logging Yield Up Lv. 3",
+          "LocalizedString": "Logging Yield Up Lv. 3"
+        }
+      },
+      "PASSIVE_WoodDrop_Boost_4": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_WoodDrop_Boost_4_TextData",
+          "SourceString": "Logging Yield Up Lv. 4",
+          "LocalizedString": "Logging Yield Up Lv. 4"
+        }
+      },
+      "PASSIVE_WoodDrop_Boost_5": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_WoodDrop_Boost_5_TextData",
+          "SourceString": "Logging Yield Up Lv. 5",
+          "LocalizedString": "Logging Yield Up Lv. 5"
+        }
+      },
+      "PASSIVE_StonDrop_Boost_1": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_StonDrop_Boost_1_TextData",
+          "SourceString": "Mining Yield Up Lv. 1",
+          "LocalizedString": "Mining Yield Up Lv. 1"
+        }
+      },
+      "PASSIVE_StonDrop_Boost_2": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_StonDrop_Boost_2_TextData",
+          "SourceString": "Mining Yield Up Lv. 2",
+          "LocalizedString": "Mining Yield Up Lv. 2"
+        }
+      },
+      "PASSIVE_StonDrop_Boost_3": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_StonDrop_Boost_3_TextData",
+          "SourceString": "Mining Yield Up Lv. 3",
+          "LocalizedString": "Mining Yield Up Lv. 3"
+        }
+      },
+      "PASSIVE_StonDrop_Boost_4": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_StonDrop_Boost_4_TextData",
+          "SourceString": "Mining Yield Up Lv. 4",
+          "LocalizedString": "Mining Yield Up Lv. 4"
+        }
+      },
+      "PASSIVE_StonDrop_Boost_5": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_StonDrop_Boost_5_TextData",
+          "SourceString": "Mining Yield Up Lv. 5",
+          "LocalizedString": "Mining Yield Up Lv. 5"
+        }
+      },
+      "PASSIVE_RideJumpCount_Increase1": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_RideJumpCount_Increase1_TextData",
+          "SourceString": "Lightfooted",
+          "LocalizedString": "Lightfooted"
+        }
+      },
+      "PASSIVE_RideJumpCount_Increase2": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_RideJumpCount_Increase2_TextData",
+          "SourceString": "Skymarcher",
+          "LocalizedString": "Skymarcher"
+        }
+      },
+      "PASSIVE_FriendshipPoint_Increase_EquipSkill": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_FriendshipPoint_Increase_EquipSkill_TextData",
+          "SourceString": "Party Pals Bond Boost",
+          "LocalizedString": "Party Pals Bond Boost"
+        }
+      },
+      "PASSIVE_AvoidDurationUp_EquipSkill_2": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_AvoidDurationUp_EquipSkill_2_TextData",
+          "SourceString": "Extended Dodge Immunity",
+          "LocalizedString": "Extended Dodge Immunity"
+        }
+      },
+      "PASSIVE_Defuser_ExplosiveSpore_EquipSkill": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_Defuser_ExplosiveSpore_EquipSkill_TextData",
+          "SourceString": "Explosion Immunity",
+          "LocalizedString": "Explosion Immunity"
+        }
+      },
+      "ACTION_SKILL_Unique_RedFlowerBird_JumpKick": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_RedFlowerBird_JumpKick_TextData",
+          "SourceString": "Flower Stomp",
+          "LocalizedString": "Flower Stomp"
+        }
+      },
+      "ACTION_SKILL_Unique_SnakeGirl_SnakeShot": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "ACTION_SKILL_Unique_SnakeGirl_SnakeShot_TextData",
+          "SourceString": "Poison Scatter",
+          "LocalizedString": "Poison Scatter"
+        }
+      },
+      "PARTNERSKILL_DUMMY_None": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PARTNERSKILL_DUMMY_None_TextData",
+          "SourceString": "None",
+          "LocalizedString": "None"
+        }
+      },
+      "PASSIVE_Invalid_ToxicGas_EquipSkill": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_Invalid_ToxicGas_EquipSkill_TextData",
+          "SourceString": "Toxic Gas Immunity",
+          "LocalizedString": "Toxic Gas Immunity"
+        }
+      },
+      "PASSIVE_HP_ACC_up4": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_HP_ACC_up4_TextData",
+          "SourceString": "Health Up Lv. 4",
+          "LocalizedString": "Health Up Lv. 4"
+        }
+      },
+      "PASSIVE_defense_ACC_up4": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_defense_ACC_up4_TextData",
+          "SourceString": "Defense Up Lv. 4",
+          "LocalizedString": "Defense Up Lv. 4"
+        }
+      },
+      "PASSIVE_WorkSpeed_ACC_up4": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_WorkSpeed_ACC_up4_TextData",
+          "SourceString": "Speedy Worker Lv. 4",
+          "LocalizedString": "Speedy Worker Lv. 4"
+        }
+      },
+      "PASSIVE_Attack_ACC_up4": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_Attack_ACC_up4_TextData",
+          "SourceString": "Attack Up Lv. 4",
+          "LocalizedString": "Attack Up Lv. 4"
+        }
+      },
+      "PASSIVE_MaxInventoryWeight_up_Equip_4": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_MaxInventoryWeight_up_Equip_4_TextData",
+          "SourceString": "Max Carrying Capacity Lv. 4",
+          "LocalizedString": "Max Carrying Capacity Lv. 4"
+        }
+      },
+      "PASSIVE_ElementResist_Normal_4": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_ElementResist_Normal_4_TextData",
+          "SourceString": "Neutral Damage Reduction Lv. 4",
+          "LocalizedString": "Neutral Damage Reduction Lv. 4"
+        }
+      },
+      "PASSIVE_ElementResist_Fire_4": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_ElementResist_Fire_4_TextData",
+          "SourceString": "Fire Damage Reduction Lv. 4",
+          "LocalizedString": "Fire Damage Reduction Lv. 4"
+        }
+      },
+      "PASSIVE_ElementResist_Aqua_4": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_ElementResist_Aqua_4_TextData",
+          "SourceString": "Water Damage Reduction Lv. 4",
+          "LocalizedString": "Water Damage Reduction Lv. 4"
+        }
+      },
+      "PASSIVE_ElementResist_Thunder_4": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_ElementResist_Thunder_4_TextData",
+          "SourceString": "Electric Damage Reduction Lv. 4",
+          "LocalizedString": "Electric Damage Reduction Lv. 4"
+        }
+      },
+      "PASSIVE_ElementResist_Leaf_4": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_ElementResist_Leaf_4_TextData",
+          "SourceString": "Grass Damage Reduction Lv. 4",
+          "LocalizedString": "Grass Damage Reduction Lv. 4"
+        }
+      },
+      "PASSIVE_ElementResist_Ice_4": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_ElementResist_Ice_4_TextData",
+          "SourceString": "Ice Damage Reduction Lv. 4",
+          "LocalizedString": "Ice Damage Reduction Lv. 4"
+        }
+      },
+      "PASSIVE_ElementResist_Earth_4": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_ElementResist_Earth_4_TextData",
+          "SourceString": "Ground Damage Reduction Lv. 4",
+          "LocalizedString": "Ground Damage Reduction Lv. 4"
+        }
+      },
+      "PASSIVE_ElementResist_Dark_4": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_ElementResist_Dark_4_TextData",
+          "SourceString": "Dark Damage Reduction Lv. 4",
+          "LocalizedString": "Dark Damage Reduction Lv. 4"
+        }
+      },
+      "PASSIVE_ElementResist_Dragon_4": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_ElementResist_Dragon_4_TextData",
+          "SourceString": "Dragon Damage Reduction Lv. 4",
+          "LocalizedString": "Dragon Damage Reduction Lv. 4"
+        }
+      },
+      "PASSIVE_ElementBoost_Normal_4_Otomo_Only_Equip": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_ElementBoost_Normal_4_Otomo_Only_Equip_TextData",
+          "SourceString": "Pal Neutral Damage Enhancement Lv. 4",
+          "LocalizedString": "Pal Neutral Damage Enhancement Lv. 4"
+        }
+      },
+      "PASSIVE_ElementBoost_Fire_4_Otomo_Only_Equip": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_ElementBoost_Fire_4_Otomo_Only_Equip_TextData",
+          "SourceString": "Pal Fire Damage Enhancement Lv. 4",
+          "LocalizedString": "Pal Fire Damage Enhancement Lv. 4"
+        }
+      },
+      "PASSIVE_ElementBoost_Water_4_Otomo_Only_Equip": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_ElementBoost_Water_4_Otomo_Only_Equip_TextData",
+          "SourceString": "Pal Water Damage Enhancement Lv. 4",
+          "LocalizedString": "Pal Water Damage Enhancement Lv. 4"
+        }
+      },
+      "PASSIVE_ElementBoost_Electricity_4_Otomo_Only_Equip": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_ElementBoost_Electricity_4_Otomo_Only_Equip_TextData",
+          "SourceString": "Pal Electric Damage Enhancement Lv. 4",
+          "LocalizedString": "Pal Electric Damage Enhancement Lv. 4"
+        }
+      },
+      "PASSIVE_ElementBoost_Leaf_4_Otomo_Only_Equip": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_ElementBoost_Leaf_4_Otomo_Only_Equip_TextData",
+          "SourceString": "Pal Grass Damage Enhancement Lv. 4",
+          "LocalizedString": "Pal Grass Damage Enhancement Lv. 4"
+        }
+      },
+      "PASSIVE_ElementBoost_Ice_4_Otomo_Only_Equip": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_ElementBoost_Ice_4_Otomo_Only_Equip_TextData",
+          "SourceString": "Pal Ice Damage Enhancement Lv. 4",
+          "LocalizedString": "Pal Ice Damage Enhancement Lv. 4"
+        }
+      },
+      "PASSIVE_ElementBoost_Earth_4_Otomo_Only_Equip": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_ElementBoost_Earth_4_Otomo_Only_Equip_TextData",
+          "SourceString": "Pal Ground Damage Enhancement Lv. 4",
+          "LocalizedString": "Pal Ground Damage Enhancement Lv. 4"
+        }
+      },
+      "PASSIVE_ElementBoost_Dark_4_Otomo_Only_Equip": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_ElementBoost_Dark_4_Otomo_Only_Equip_TextData",
+          "SourceString": "Pal Dark Damage Enhancement Lv. 4",
+          "LocalizedString": "Pal Dark Damage Enhancement Lv. 4"
+        }
+      },
+      "PASSIVE_ElementBoost_Dragon_4_Otomo_Only_Equip": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_ElementBoost_Dragon_4_Otomo_Only_Equip_TextData",
+          "SourceString": "Pal Dragon Damage Enhancement Lv. 4",
+          "LocalizedString": "Pal Dragon Damage Enhancement Lv. 4"
+        }
+      },
+      "PASSIVE_Attack_ACC_up4_Otomo_Only_Equip": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_Attack_ACC_up4_Otomo_Only_Equip_TextData",
+          "SourceString": "Pal Attack Up Lv. 4",
+          "LocalizedString": "Pal Attack Up Lv. 4"
+        }
+      },
+      "PASSIVE_Defense_ACC_up4_Otomo_Only_Equip": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_Defense_ACC_up4_Otomo_Only_Equip_TextData",
+          "SourceString": "Pal Defense Up Lv. 4",
+          "LocalizedString": "Pal Defense Up Lv. 4"
+        }
+      },
+      "PASSIVE_PlayerSP_DecreaseRate_Passive": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_PlayerSP_DecreaseRate_Passive_TextData",
+          "SourceString": "Wellness Watcher",
+          "LocalizedString": "Wellness Watcher"
+        }
+      },
+      "PASSIVE_AutoHPRegeneRate_Passive": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_AutoHPRegeneRate_Passive_TextData",
+          "SourceString": "Healing Coach",
+          "LocalizedString": "Healing Coach"
+        }
+      },
+      "PASSIVE_ReloadSpeedUp_Passive": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_ReloadSpeedUp_Passive_TextData",
+          "SourceString": "Reload Master",
+          "LocalizedString": "Reload Master"
+        }
+      },
+      "PASSIVE_BossDefeatReward_FireKirin": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_BossDefeatReward_FireKirin_TextData",
+          "SourceString": "Fire Damage Enhancement (Small)",
+          "LocalizedString": "Fire Damage Enhancement (Small)"
+        }
+      },
+      "PASSIVE_BossDefeatReward_CubeTurtle": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_BossDefeatReward_CubeTurtle_TextData",
+          "SourceString": "Ground Damage Enhancement (Small)",
+          "LocalizedString": "Ground Damage Enhancement (Small)"
+        }
+      },
+      "PASSIVE_BossDefeatReward_VolcanicMonster": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_BossDefeatReward_VolcanicMonster_TextData",
+          "SourceString": "Ground Damage Enhancement (Small)",
+          "LocalizedString": "Ground Damage Enhancement (Small)"
+        }
+      },
+      "PASSIVE_BossDefeatReward_KabukiMan": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_BossDefeatReward_KabukiMan_TextData",
+          "SourceString": "Fire Damage Enhancement (Medium)",
+          "LocalizedString": "Fire Damage Enhancement (Medium)"
+        }
+      },
+      "PASSIVE_BossDefeatReward_VolcanoDragon_Ice": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_BossDefeatReward_VolcanoDragon_Ice_TextData",
+          "SourceString": "Ice Damage Enhancement (Medium)",
+          "LocalizedString": "Ice Damage Enhancement (Medium)"
+        }
+      },
+      "PASSIVE_BossDefeatReward_GrassGolem": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_BossDefeatReward_GrassGolem_TextData",
+          "SourceString": "Grass Damage Enhancement (Medium)",
+          "LocalizedString": "Grass Damage Enhancement (Medium)"
+        }
+      },
+      "PASSIVE_BossDefeatReward_MushroomLady": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_BossDefeatReward_MushroomLady_TextData",
+          "SourceString": "Grass Damage Enhancement (Small)",
+          "LocalizedString": "Grass Damage Enhancement (Small)"
+        }
+      },
+      "PASSIVE_BossDefeatReward_WhiteDeer_Dark": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_BossDefeatReward_WhiteDeer_Dark_TextData",
+          "SourceString": "Dark Damage Enhancement (Medium)",
+          "LocalizedString": "Dark Damage Enhancement (Medium)"
+        }
+      },
+      "PASSIVE_BossDefeatReward_RockBeast_Ice": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_BossDefeatReward_RockBeast_Ice_TextData",
+          "SourceString": "Ice Damage Enhancement (Medium)",
+          "LocalizedString": "Ice Damage Enhancement (Medium)"
+        }
+      },
+      "PASSIVE_BossDefeatReward_LotusDragon": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_BossDefeatReward_LotusDragon_TextData",
+          "SourceString": "Water Damage Enhancement (Medium)",
+          "LocalizedString": "Water Damage Enhancement (Medium)"
+        }
+      },
+      "PASSIVE_BossDefeatReward_FoxExorcist": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_BossDefeatReward_FoxExorcist_TextData",
+          "SourceString": "Fire Damage Enhancement (Medium)",
+          "LocalizedString": "Fire Damage Enhancement (Medium)"
+        }
+      },
+      "PASSIVE_BossDefeatReward_ThunderFluffyBird": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_BossDefeatReward_ThunderFluffyBird_TextData",
+          "SourceString": "Electric Damage Enhancement (Small)",
+          "LocalizedString": "Electric Damage Enhancement (Small)"
+        }
+      },
+      "PASSIVE_BossDefeatReward_ElecLizard": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_BossDefeatReward_ElecLizard_TextData",
+          "SourceString": "Electric Damage Enhancement (Small)",
+          "LocalizedString": "Electric Damage Enhancement (Small)"
+        }
+      },
+      "PASSIVE_BossDefeatReward_ElecSnail": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_BossDefeatReward_ElecSnail_TextData",
+          "SourceString": "Electric Damage Enhancement (Small)",
+          "LocalizedString": "Electric Damage Enhancement (Small)"
+        }
+      },
+      "PASSIVE_BossDefeatReward_GhostDragon": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_BossDefeatReward_GhostDragon_TextData",
+          "SourceString": "Dragon Damage Enhancement (Medium)",
+          "LocalizedString": "Dragon Damage Enhancement (Medium)"
+        }
+      },
+      "PASSIVE_BossDefeatReward_LilyQueen": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_BossDefeatReward_LilyQueen_TextData",
+          "SourceString": "Grass Damage Enhancement (Large)",
+          "LocalizedString": "Grass Damage Enhancement (Large)"
+        }
+      },
+      "PASSIVE_BossDefeatReward_ElecPanda": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_BossDefeatReward_ElecPanda_TextData",
+          "SourceString": "Electric Damage Enhancement (Medium)",
+          "LocalizedString": "Electric Damage Enhancement (Medium)"
+        }
+      },
+      "PASSIVE_BossDefeatReward_GrassGolem_Dark": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_BossDefeatReward_GrassGolem_Dark_TextData",
+          "SourceString": "Dark Damage Enhancement (Medium)",
+          "LocalizedString": "Dark Damage Enhancement (Medium)"
+        }
+      },
+      "PASSIVE_BossDefeatReward_Manticore": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_BossDefeatReward_Manticore_TextData",
+          "SourceString": "Fire Damage Enhancement (Small)",
+          "LocalizedString": "Fire Damage Enhancement (Small)"
+        }
+      },
+      "PASSIVE_BossDefeatReward_FlameBuffalo": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_BossDefeatReward_FlameBuffalo_TextData",
+          "SourceString": "Fire Damage Enhancement (Small)",
+          "LocalizedString": "Fire Damage Enhancement (Small)"
+        }
+      },
+      "PASSIVE_BossDefeatReward_IceFox": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_BossDefeatReward_IceFox_TextData",
+          "SourceString": "Ice Damage Enhancement (Small)",
+          "LocalizedString": "Ice Damage Enhancement (Small)"
+        }
+      },
+      "PASSIVE_BossDefeatReward_FoxMage": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_BossDefeatReward_FoxMage_TextData",
+          "SourceString": "Fire Damage Enhancement (Small)",
+          "LocalizedString": "Fire Damage Enhancement (Small)"
+        }
+      },
+      "PASSIVE_BossDefeatReward_CubeTurtle_Neutral": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_BossDefeatReward_CubeTurtle_Neutral_TextData",
+          "SourceString": "Neutral Damage Enhancement (Medium)",
+          "LocalizedString": "Neutral Damage Enhancement (Medium)"
+        }
+      },
+      "PASSIVE_BossDefeatReward_MoonChild": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_BossDefeatReward_MoonChild_TextData",
+          "SourceString": "Dark Damage Enhancement (Medium)",
+          "LocalizedString": "Dark Damage Enhancement (Medium)"
+        }
+      },
+      "PASSIVE_BossDefeatReward_ScorpionMan_Electric": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_BossDefeatReward_ScorpionMan_Electric_TextData",
+          "SourceString": "Electric Damage Enhancement (Small)",
+          "LocalizedString": "Electric Damage Enhancement (Small)"
+        }
+      },
+      "PASSIVE_BossDefeatReward_RockBeast": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_BossDefeatReward_RockBeast_TextData",
+          "SourceString": "Ground Damage Enhancement (Medium)",
+          "LocalizedString": "Ground Damage Enhancement (Medium)"
+        }
+      },
+      "PASSIVE_BossDefeatReward_VolcanoDragon": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_BossDefeatReward_VolcanoDragon_TextData",
+          "SourceString": "Fire Damage Enhancement (Small)",
+          "LocalizedString": "Fire Damage Enhancement (Small)"
+        }
+      },
+      "PASSIVE_BossDefeatReward_CactusDoll": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_BossDefeatReward_CactusDoll_TextData",
+          "SourceString": "Grass Damage Enhancement (Small)",
+          "LocalizedString": "Grass Damage Enhancement (Small)"
+        }
+      },
+      "PASSIVE_Attack_ACC_up1_Armor": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_Attack_ACC_up1_Armor_TextData",
+          "SourceString": "Attack Up (S) Lv. 1",
+          "LocalizedString": "Attack Up (S) Lv. 1"
+        }
+      },
+      "PASSIVE_Attack_ACC_up2_Armor": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_Attack_ACC_up2_Armor_TextData",
+          "SourceString": "Attack Up (S) Lv. 2",
+          "LocalizedString": "Attack Up (S) Lv. 2"
+        }
+      },
+      "PASSIVE_Attack_ACC_up3_Armor": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_Attack_ACC_up3_Armor_TextData",
+          "SourceString": "Attack Up (S) Lv. 3",
+          "LocalizedString": "Attack Up (S) Lv. 3"
+        }
+      },
+      "PASSIVE_Attack_ACC_up4_Armor": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_Attack_ACC_up4_Armor_TextData",
+          "SourceString": "Attack Up (S) Lv. 4",
+          "LocalizedString": "Attack Up (S) Lv. 4"
+        }
+      },
+      "PASSIVE_StonWoodDrop_Boost": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_StonWoodDrop_Boost_TextData",
+          "SourceString": "Logging/Mining Yield Up",
+          "LocalizedString": "Logging/Mining Yield Up"
+        }
+      },
+      "PASSIVE_BossDefeatReward_DomeArmorDragon": {
+        "TextData": {
+          "Namespace": "DT_SkillNameText_Common",
+          "Key": "PASSIVE_BossDefeatReward_DomeArmorDragon_TextData",
+          "SourceString": "Dragon Damage Enhancement (Large)",
+          "LocalizedString": "Dragon Damage Enhancement (Large)"
         }
       }
     }

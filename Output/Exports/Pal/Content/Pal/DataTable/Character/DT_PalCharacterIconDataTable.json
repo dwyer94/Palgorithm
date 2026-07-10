@@ -282,18 +282,6 @@
           "SubPathString": ""
         }
       },
-      "BlackFurDragon": {
-        "Icon": {
-          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_BlackFurDragon_icon_normal.T_BlackFurDragon_icon_normal",
-          "SubPathString": ""
-        }
-      },
-      "BeardedDragon": {
-        "Icon": {
-          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_BeardedDragon_icon_normal.T_BeardedDragon_icon_normal",
-          "SubPathString": ""
-        }
-      },
       "BirdDragon": {
         "Icon": {
           "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_BirdDragon_icon_normal.T_BirdDragon_icon_normal",
@@ -408,12 +396,6 @@
           "SubPathString": ""
         }
       },
-      "WaterLizard": {
-        "Icon": {
-          "AssetPathName": "None",
-          "SubPathString": null
-        }
-      },
       "ElecLion": {
         "Icon": {
           "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_ElecLion_icon_normal.T_ElecLion_icon_normal",
@@ -424,12 +406,6 @@
         "Icon": {
           "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_GuardianDog_icon_normal.T_GuardianDog_icon_normal",
           "SubPathString": ""
-        }
-      },
-      "GrassDragon": {
-        "Icon": {
-          "AssetPathName": "None",
-          "SubPathString": null
         }
       },
       "WizardOwl": {
@@ -674,7 +650,7 @@
       },
       "DarkMutant": {
         "Icon": {
-          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_DarkMutant_icon_normal.T_DarkMutant_icon_normal",
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_dummy_icon.T_dummy_icon",
           "SubPathString": ""
         }
       },
@@ -1166,7 +1142,7 @@
       },
       "FengyunDeeper_Electric": {
         "Icon": {
-          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_FengyunDeeper_Electric_icon_norma.T_FengyunDeeper_Electric_icon_norma",
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_FengyunDeeper_Electric_icon_normal.T_FengyunDeeper_Electric_icon_normal",
           "SubPathString": ""
         }
       },
@@ -1437,6 +1413,2652 @@
       "LegendDeer": {
         "Icon": {
           "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_LegendDeer_icon_normal.T_LegendDeer_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "BrownRabbit": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_BrownRabbit_icon_normal.T_BrownRabbit_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "CactusDoll": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_CactusDoll_icon_normal.T_CactusDoll_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "CactusDoll_Dark": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_CactusDoll_Dark_icon_normal.T_CactusDoll_Dark_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "ClioneTwins": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_ClioneTwins_icon_normal.T_ClioneTwins_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "CloverFairy": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_CloverFairy_icon_normal.T_CloverFairy_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "ClownRabbit": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_ClownRabbit_icon_normal.T_ClownRabbit_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "ElecLizard": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_ElecLizard_icon_normal.T_ElecLizard_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "ElecSnail": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_ElecSnail_icon_normal.T_ElecSnail_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "ElecSnail_Ground": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_ElecSnail_Ground_icon_normal.T_ElecSnail_Ground_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "GhostBlackCat": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_GhostBlackCat_icon_normal.T_GhostBlackCat_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "GrassGolem": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_GrassGolem_icon_normal.T_GrassGolem_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "HoodGhost": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_HoodGhost_icon_normal.T_HoodGhost_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "KingSunfish": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_KingSunfish_icon_normal.T_KingSunfish_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "KingSunfish_Thunder": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_KingSunfish_Thunder_icon_normal.T_KingSunfish_Thunder_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "KingWhale": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_KingWhale_icon_normal.T_KingWhale_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "LongCat": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_LongCat_icon_normal.T_LongCat_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "MonochromeQueen": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_MonochromeQueen_icon_normal.T_MonochromeQueen_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "MoonChild": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_MoonChild_icon_normal.T_MoonChild_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "MummyPal": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_MummyPal_icon_normal.T_MummyPal_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "MushroomLady": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_MushroomLady_icon_normal.T_MushroomLady_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "OniGhostGirl": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_OniGhostGirl_icon_normal.T_OniGhostGirl_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "CubeTurtle": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_CubeTurtle_icon_normal.T_CubeTurtle_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "RockBeast": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_RockBeast_icon_normal.T_RockBeast_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "RockBeast_Ice": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_RockBeast_Ice_icon_normal.T_RockBeast_Ice_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "SamuraiDog": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_SamuraiDog_icon_normal.T_SamuraiDog_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Sekhmet": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Sekhmet_icon_normal.T_Sekhmet_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "SleeveRabbit": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_SleeveRabbit_icon_normal.T_SleeveRabbit_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "SmallYeti": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_SmallYeti_icon_normal.T_SmallYeti_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "SnakeGirl": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_SnakeGirl_icon_normal.T_SnakeGirl_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "SwordCutlassFish": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_SwordCutlassfish_icon_normal.T_SwordCutlassfish_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "ThiefBird": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_ThiefBird_icon_normal.T_ThiefBird_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "ThunderFluffyBird": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_ThunderFluffyBird_icon_normal.T_ThunderFluffyBird_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "VolcanoDragon": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_VolcanoDragon_icon_normal.T_VolcanoDragon_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Hunter_Rifle": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_icon_normal.T_Hunter_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Hunter_Handgun": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_icon_normal.T_Hunter_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Hunter_Shotgun": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_icon_normal.T_Hunter_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Hunter_RocketLauncher": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_icon_normal.T_Hunter_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Hunter_MissileLauncher": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_icon_normal.T_Hunter_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Hunter_GrenadeLauncher": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_icon_normal.T_Hunter_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Hunter_Bat": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_icon_normal.T_Hunter_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Hunter_Grenade": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_icon_normal.T_Hunter_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Hunter_FlameThrower": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_icon_normal.T_Hunter_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Hunter_Fat_GatlingGun": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_Fat_icon_normal.T_Hunter_Fat_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Police_Rifle": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Police_icon_normal.T_Police_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Police_Handgun": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Police_icon_normal.T_Police_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Police_Shotgun": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Police_icon_normal.T_Police_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "MobuCitizen": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Female_MobuCitizen_icon_normal.T_Female_MobuCitizen_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "MobuVillager": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Female_MobuCitizen_icon_normal.T_Female_MobuCitizen_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "QuestMan": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Female_MobuCitizen_icon_normal.T_Female_MobuCitizen_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "SalesPerson": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_SalesPerson_icon_normal.T_SalesPerson_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "VisitingMerchant": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Female_MobuCitizen_icon_normal.T_Female_MobuCitizen_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "WeaponsDealer": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Female_MobuCitizen_icon_normal.T_Female_MobuCitizen_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "PalDealer": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_PalDealer_icon_normal.T_PalDealer_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Inspector": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Female_MobuCitizen_icon_normal.T_Female_MobuCitizen_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "PalTrader": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Female_MobuCitizen_icon_normal.T_Female_MobuCitizen_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "GoodwillAmbassador": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Female_MobuCitizen_icon_normal.T_Female_MobuCitizen_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Robbery_Minion": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Female_MobuCitizen_icon_normal.T_Female_MobuCitizen_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Robbery_Leader": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Female_MobuCitizen_icon_normal.T_Female_MobuCitizen_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Guard_Rifle": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Police_icon_normal.T_Police_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Guard_Shotgun": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Police_icon_normal.T_Police_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "TestAssassin": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Female_MobuCitizen_icon_normal.T_Female_MobuCitizen_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Visitor_Hunter_Rifle": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_icon_normal.T_Hunter_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Visitor_Present": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_SalesPerson_icon_normal.T_SalesPerson_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "FireCult_Rifle": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_FireCult_icon_normal.T_FireCult_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "FireCult_FlameThrower": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_FireCult_icon_normal.T_FireCult_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Believer_Bat": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Believer_icon_normal.T_Believer_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Believer_CrossBow": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Believer_icon_normal.T_Believer_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_People02": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_People02_icon_normal.T_Male_People02_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_People03": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_People03_icon_normal.T_Male_People03_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Female_People02": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Female_People02_icon_normal.T_Female_People02_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Female_People03": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Female_People03_icon_normal.T_Female_People03_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_Trader01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_PalDealer_icon_normal.T_PalDealer_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_Trader02": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_SalesPerson_Green_icon_normal.T_SalesPerson_Green_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_Trader03": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_SalesPerson_icon_normal.T_SalesPerson_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_DarkTrader01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_DarkTrader01_icon_normal.T_Male_DarkTrader01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_DesertPeople01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_DesertPeople01_icon_normal.T_Male_DesertPeople01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Female_DesertPeople02": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Female_DesertPeople02_icon_normal.T_Female_DesertPeople02_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "MobuCitizen_Male": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_MobuCitizen_Male_icon_normal.T_MobuCitizen_Male_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_Soldier01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Soldier01_icon_normal.T_Male_Soldier01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Female_Soldier01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Female_Soldier01_icon_normal.T_Female_Soldier01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_Police_old": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Police_old_icon_normal.T_Male_Police_old_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_Scientist01_LaserRifle": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Scientist01_icon_normal.T_Male_Scientist01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Scientist_FlameThrower": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Scientist01_icon_normal.T_Male_Scientist01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "SalesPerson_Desert": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_SalesPerson_icon_normal.T_SalesPerson_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "SalesPerson_Desert2": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_SalesPerson_Green_icon_normal.T_SalesPerson_Green_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "PalDealer_Desert": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_PalDealer_icon_normal.T_PalDealer_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "SalesPerson_Volcano": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_SalesPerson_icon_normal.T_SalesPerson_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "SalesPerson_Volcano2": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_SalesPerson_Green_icon_normal.T_SalesPerson_Green_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "PalDealer_Volcano": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_PalDealer_icon_normal.T_PalDealer_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "SalesPerson_Wander": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_SalesPerson_Green_icon_normal.T_SalesPerson_Green_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "RandomEventShop": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_PalDealer_icon_normal.T_PalDealer_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Hunter_Rifle_Invader": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_icon_normal.T_Hunter_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Hunter_Handgun_Invader": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_icon_normal.T_Hunter_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Hunter_Shotgun_Invader": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_icon_normal.T_Hunter_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Hunter_RocketLauncher_Invader": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_icon_normal.T_Hunter_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Hunter_Bat_Invader": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_icon_normal.T_Hunter_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Hunter_Grenade_Invader": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_icon_normal.T_Hunter_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Hunter_FlameThrower_Invader": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_icon_normal.T_Hunter_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Hunter_Fat_GatlingGun_Invader": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_Fat_icon_normal.T_Hunter_Fat_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Believer_Bat_Invader": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Believer_icon_normal.T_Believer_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Believer_CrossBow_Invader": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Believer_icon_normal.T_Believer_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "FireCult_Rifle_Invader": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_FireCult_icon_normal.T_FireCult_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "FireCult_FlameThrower_Invader": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_FireCult_icon_normal.T_FireCult_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_Scientist01_LaserRifle_Invader": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Scientist01_icon_normal.T_Male_Scientist01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Scientist_FlameThrower_Invader": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Scientist01_icon_normal.T_Male_Scientist01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Believer_Fat_GatlingGun": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Believer_Fat_icon_normal.T_Believer_Fat_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_Soldier02": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Soldier02_icon_normal.T_Male_Soldier02_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Female_Soldier02": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Female_Soldier02_icon_normal.T_Female_Soldier02_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_Soldier03": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Soldier03_icon_normal.T_Male_Soldier03_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Female_Soldier03": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Female_Soldier03_icon_normal.T_Female_Soldier03_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_Soldier04": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Soldier04_icon_normal.T_Male_Soldier04_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Female_Soldier04": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Female_Soldier04_icon_normal.T_Female_Soldier04_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Hunter_Rifle_Oilrig": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_icon_normal.T_Hunter_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Hunter_Shotgun_Oilrig": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_icon_normal.T_Hunter_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Hunter_Grenade_Oilrig": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_icon_normal.T_Hunter_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Hunter_FlameThrower_Oilrig": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_icon_normal.T_Hunter_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Hunter_RocketLauncher_Oilrig": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_icon_normal.T_Hunter_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Hunter_GrenadeLauncher_Oilrig": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_icon_normal.T_Hunter_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Hunter_MissileLauncher_Oilrig": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_icon_normal.T_Hunter_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Hunter_Fat_GatlingGun_Oilrig": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_Fat_icon_normal.T_Hunter_Fat_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_DarkTrader02": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_DarkTrader02_icon_normal.T_Male_DarkTrader02_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_Ninja01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Ninja01_icon_normal.T_Male_Ninja01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_NinjaElite01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_NinjaElite01_icon_normal.T_Male_NinjaElite01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Hunter_Fat_GatlingGun_Tower": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_Fat_icon_normal.T_Hunter_Fat_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Believer_CrossBow_Tower": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Believer_icon_normal.T_Believer_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Ninja01_Tower": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Ninja01_icon_normal.T_Male_Ninja01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "NinjaElite01_Tower": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_NinjaElite01_icon_normal.T_Male_NinjaElite01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Police_Rifle_Tower": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Police_icon_normal.T_Police_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Police_Shotgun_Tower": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Police_icon_normal.T_Police_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "BOSS_Hunter_Rifle": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/NPC/T_BOSS_NPC_Hunter.T_BOSS_NPC_Hunter",
+          "SubPathString": ""
+        }
+      },
+      "BOSS_Hunter_Fat_GatlingGun": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/NPC/T_BOSS_NPC_Hunter_Fat.T_BOSS_NPC_Hunter_Fat",
+          "SubPathString": ""
+        }
+      },
+      "BOSS_Believer_CrossBow": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/NPC/T_BOSS_NPC_Believer.T_BOSS_NPC_Believer",
+          "SubPathString": ""
+        }
+      },
+      "BOSS_Believer_Fat_GiantClub": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/NPC/T_BOSS_NPC_Believer_Fat.T_BOSS_NPC_Believer_Fat",
+          "SubPathString": ""
+        }
+      },
+      "BOSS_Police_Rifle": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/NPC/T_BOSS_NPC_Police.T_BOSS_NPC_Police",
+          "SubPathString": ""
+        }
+      },
+      "BOSS_FireCult_FlameThrower": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/NPC/T_BOSS_NPC_FireCult.T_BOSS_NPC_FireCult",
+          "SubPathString": ""
+        }
+      },
+      "BOSS_Scientist_LaserRifle": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/NPC/T_BOSS_NPC_Male_Scientist.T_BOSS_NPC_Male_Scientist",
+          "SubPathString": ""
+        }
+      },
+      "BOSS_Ninja": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/NPC/T_BOSS_NPC_Male_Ninja.T_BOSS_NPC_Male_Ninja",
+          "SubPathString": ""
+        }
+      },
+      "BOSS_Male_NinjaElite": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/NPC/T_BOSS_NPC_Male_NinjaElite.T_BOSS_NPC_Male_NinjaElite",
+          "SubPathString": ""
+        }
+      },
+      "BOSS_Viking": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/NPC/T_BOSS_NPC_Viking.T_BOSS_NPC_Viking",
+          "SubPathString": ""
+        }
+      },
+      "BOSS_VikingElite": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/NPC/T_BOSS_NPC_VikingElite.T_BOSS_NPC_VikingElite",
+          "SubPathString": ""
+        }
+      },
+      "BOSS_Female_Soldier": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/NPC/T_BOSS_NPC_Female_Soldier.T_BOSS_NPC_Female_Soldier",
+          "SubPathString": ""
+        }
+      },
+      "BOSS_Female_Soldier02": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/NPC/T_BOSS_NPC_Female_Soldier02.T_BOSS_NPC_Female_Soldier02",
+          "SubPathString": ""
+        }
+      },
+      "BOSS_Female_Soldier03": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/NPC/T_BOSS_NPC_Female_Soldier03.T_BOSS_NPC_Female_Soldier03",
+          "SubPathString": ""
+        }
+      },
+      "BOSS_Female_Soldier04": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/NPC/T_BOSS_NPC_Female_Soldier04.T_BOSS_NPC_Female_Soldier04",
+          "SubPathString": ""
+        }
+      },
+      "BOSS_Male_Soldier": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/NPC/T_BOSS_NPC_Male_Soldier.T_BOSS_NPC_Male_Soldier",
+          "SubPathString": ""
+        }
+      },
+      "BOSS_Male_Soldier02": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/NPC/T_BOSS_NPC_Male_Soldier02.T_BOSS_NPC_Male_Soldier02",
+          "SubPathString": ""
+        }
+      },
+      "BOSS_Male_Soldier03": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/NPC/T_BOSS_NPC_Male_Soldier03.T_BOSS_NPC_Male_Soldier03",
+          "SubPathString": ""
+        }
+      },
+      "BOSS_Male_Soldier04": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/NPC/T_BOSS_NPC_Male_Soldier04.T_BOSS_NPC_Male_Soldier04",
+          "SubPathString": ""
+        }
+      },
+      "BOSS_Female_People": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/NPC/T_BOSS_NPC_Female.T_BOSS_NPC_Female",
+          "SubPathString": ""
+        }
+      },
+      "BOSS_Female_People02": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/NPC/T_BOSS_NPC_Female02.T_BOSS_NPC_Female02",
+          "SubPathString": ""
+        }
+      },
+      "BOSS_Female_People03": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/NPC/T_BOSS_NPC_Female03.T_BOSS_NPC_Female03",
+          "SubPathString": ""
+        }
+      },
+      "BOSS_Male_People": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/NPC/T_BOSS_NPC_Male.T_BOSS_NPC_Male",
+          "SubPathString": ""
+        }
+      },
+      "BOSS_Male_People2": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/NPC/T_BOSS_NPC_Male.T_BOSS_NPC_Male",
+          "SubPathString": ""
+        }
+      },
+      "BOSS_Male_People02": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/NPC/T_BOSS_NPC_Male02.T_BOSS_NPC_Male02",
+          "SubPathString": ""
+        }
+      },
+      "BOSS_Male_People03": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/NPC/T_BOSS_NPC_Male03.T_BOSS_NPC_Male03",
+          "SubPathString": ""
+        }
+      },
+      "BOSS_Male_DesertPeople": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/NPC/T_BOSS_NPC_Male_DesertPeople.T_BOSS_NPC_Male_DesertPeople",
+          "SubPathString": ""
+        }
+      },
+      "BOSS_Female_DesertPeople": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/NPC/T_BOSS_NPC_Female_DesertPeople.T_BOSS_NPC_Female_DesertPeople",
+          "SubPathString": ""
+        }
+      },
+      "BOSS_Police_old": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/NPC/T_BOSS_NPC_Police_Old.T_BOSS_NPC_Police_Old",
+          "SubPathString": ""
+        }
+      },
+      "BOSS_DarkTrader": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/NPC/T_BOSS_NPC_DarkTrader.T_BOSS_NPC_DarkTrader",
+          "SubPathString": ""
+        }
+      },
+      "BOSS_Male_Trader01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/NPC/T_BOSS_NPC_Male_Trader01.T_BOSS_NPC_Male_Trader01",
+          "SubPathString": ""
+        }
+      },
+      "BOSS_Male_Trader02": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/NPC/T_BOSS_NPC_Male_Trader02.T_BOSS_NPC_Male_Trader02",
+          "SubPathString": ""
+        }
+      },
+      "BOSS_Male_Trader03": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/NPC/T_BOSS_NPC_Male_Trader03.T_BOSS_NPC_Male_Trader03",
+          "SubPathString": ""
+        }
+      },
+      "Hunter_Handgun_MiniOilrig": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_icon_normal.T_Hunter_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Hunter_Rifle_MiniOilrig": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_icon_normal.T_Hunter_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Hunter_Shotgun_MiniOilrig": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_icon_normal.T_Hunter_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Hunter_Grenade_MiniOilrig": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_icon_normal.T_Hunter_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Hunter_FlameThrower_MiiniOilrig": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_icon_normal.T_Hunter_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Hunter_RocketLauncher_MiniOilrig": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_icon_normal.T_Hunter_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Hunter_Fat_GatlingGun_MiniOilrig": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_Fat_icon_normal.T_Hunter_Fat_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_Soldier01_EnemyGroup": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Soldier01_icon_normal.T_Male_Soldier01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_Soldier02_EnemyGroup": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Soldier02_icon_normal.T_Male_Soldier02_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Hunter_LaserRifle_Oilrig": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_icon_normal.T_Hunter_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Hunter_BowGun_Oilrig": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_icon_normal.T_Hunter_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Hunter_Katana_Oilrig": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_icon_normal.T_Hunter_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Hunter_RocketLauncher_Oilrig_LD": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_icon_normal.T_Hunter_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Hunter_Rifle_LargeOilrig": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_icon_normal.T_Hunter_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Hunter_Shotgun_LargeOilrig": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_icon_normal.T_Hunter_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Hunter_Grenade_LargeOilrig": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_icon_normal.T_Hunter_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Hunter_FlameThrower_LargeOilrig": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_icon_normal.T_Hunter_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Hunter_RocketLauncher_LargeOilrig": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_icon_normal.T_Hunter_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Hunter_GrenadeLauncher_LargeOilrig": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_icon_normal.T_Hunter_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Hunter_MissileLauncher_LargeOilrig": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_icon_normal.T_Hunter_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Hunter_Fat_GatlingGun_LargeOilrig": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_Fat_icon_normal.T_Hunter_Fat_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Viking": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Viking_icon_normal.T_Viking_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Viking_Elite": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Viking_Elite_icon_normal.T_Viking_Elite_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Visitor_Recruiter": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Visitor_Recruiter_icon_normal.T_Visitor_Recruiter_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Believer_Fat_Cane": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Believer_Fat_icon_normal.T_Believer_Fat_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Emote_Tester": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Female_MobuCitizen_icon_normal.T_Female_MobuCitizen_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Doctor": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Doctor_icon_normal.T_Doctor_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "PalPassive_Doctor": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Doctor_icon_normal.T_Doctor_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Reward_Food": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Reward_Food_icon_normal.T_Reward_Food_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Reward_Paldex": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Reward_Paldex_icon_normal.T_Reward_Paldex_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Reward_BossDefeat": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Reward_BossDefeat_icon_normal.T_Reward_BossDefeat_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Reward_PalCaptureCount": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Reward_PalCaptureCount_icon_normal.T_Reward_PalCaptureCount_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Reward_PalDisplay_A_01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Reward_PalDisplay_icon_normal.T_Reward_PalDisplay_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Reward_PalDisplay_B_01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Reward_PalDisplay_icon_normal.T_Reward_PalDisplay_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Reward_PalDisplay_C_01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Reward_PalDisplay_icon_normal.T_Reward_PalDisplay_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Reward_PalDisplay_D_01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Reward_PalDisplay_icon_normal.T_Reward_PalDisplay_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Reward_PalDisplay_E_01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Reward_PalDisplay_icon_normal.T_Reward_PalDisplay_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Reward_PalDisplay_F_01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Reward_PalDisplay_icon_normal.T_Reward_PalDisplay_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Reward_PalDisplay_G_01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Reward_PalDisplay_icon_normal.T_Reward_PalDisplay_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Reward_PalDisplay_H_01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Reward_PalDisplay_icon_normal.T_Reward_PalDisplay_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Reward_PalDisplay_I_01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Reward_PalDisplay_icon_normal.T_Reward_PalDisplay_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Female_Presenter01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Female_Presenter01_icon_normal.T_Female_Presenter01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "CaravanLeader01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_SalesPerson_Green_icon_normal.T_SalesPerson_Green_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "CaravanLeader02": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_SalesPerson_Green_icon_normal.T_SalesPerson_Green_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "CaravanLeader03": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_SalesPerson_Green_icon_normal.T_SalesPerson_Green_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "NPC_FoodRequire_1": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Female_MobuCitizen_icon_normal.T_Female_MobuCitizen_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "NPC_PalDisplay_1": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Reward_PalDisplay_icon_normal.T_Reward_PalDisplay_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "BountyTrader": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Police_icon_normal.T_Police_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Ambassador01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_DesertPeople01_icon_normal.T_Male_DesertPeople01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Blacksmith01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_MobuCitizen_Male_icon_normal.T_MobuCitizen_Male_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Epicure01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Female_People03_icon_normal.T_Female_People03_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Escort_Warrior01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Police_icon_normal.T_Police_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Escort_PalTamer01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Soldier01_icon_normal.T_Male_Soldier01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Viking_Tower": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Viking_icon_normal.T_Viking_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "VikingElite_Tower": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Viking_Elite_icon_normal.T_Viking_Elite_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_NinjaElite01_Invader": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_NinjaElite01_icon_normal.T_Male_NinjaElite01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Viking_Elite_Invader": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Viking_Elite_icon_normal.T_Viking_Elite_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_Soldier02_Invader": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/NPC/T_NPC_Male_Soldier02.T_NPC_Male_Soldier02",
+          "SubPathString": ""
+        }
+      },
+      "Female_Soldier03_Invader": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Female_Soldier03_icon_normal.T_Female_Soldier03_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Female_Soldier04_Invader": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Female_Soldier04_icon_normal.T_Female_Soldier04_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Yamishima_guide1": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_MobuCitizen_Male_icon_normal.T_MobuCitizen_Male_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Yamishima_guide2": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_People02_icon_normal.T_Male_People02_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Yamishima_guide3": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Female_People03_icon_normal.T_Female_People03_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Yamishima_guide4": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_SalesPerson_icon_normal.T_SalesPerson_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Yamishima_guide5": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Soldier01_icon_normal.T_Male_Soldier01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Reward_Emote_A_01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Reward_Emote_icon_normal.T_Reward_Emote_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Reward_Emote_B_01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Reward_Emote_icon_normal.T_Reward_Emote_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Reward_Emote_C_01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Reward_Emote_icon_normal.T_Reward_Emote_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Reward_Emote_D_01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Reward_Emote_icon_normal.T_Reward_Emote_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Reward_Emote_E_01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Reward_Emote_icon_normal.T_Reward_Emote_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Reward_Emote_F_01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Reward_Emote_icon_normal.T_Reward_Emote_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Reward_Emote_G_01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Reward_Emote_icon_normal.T_Reward_Emote_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Reward_Emote_H_01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Reward_Emote_icon_normal.T_Reward_Emote_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Reward_Emote_I_01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Reward_Emote_icon_normal.T_Reward_Emote_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Emote_location_A_01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Reward_Emote_icon_normal.T_Reward_Emote_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Emote_location_A_02": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Reward_Emote_icon_normal.T_Reward_Emote_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Emote_location_B_01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Reward_Emote_icon_normal.T_Reward_Emote_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Emote_location_B_02": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Reward_Emote_icon_normal.T_Reward_Emote_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Emote_location_C_01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Reward_Emote_icon_normal.T_Reward_Emote_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Emote_location_C_02": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Reward_Emote_icon_normal.T_Reward_Emote_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Emote_location_D_01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Reward_Emote_icon_normal.T_Reward_Emote_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Emote_location_D_02": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Reward_Emote_icon_normal.T_Reward_Emote_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Emote_location_E_01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Reward_Emote_icon_normal.T_Reward_Emote_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Emote_location_E_02": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Reward_Emote_icon_normal.T_Reward_Emote_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Emote_location_F_01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Reward_Emote_icon_normal.T_Reward_Emote_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Emote_location_F_02": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Reward_Emote_icon_normal.T_Reward_Emote_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Emote_location_G_01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Reward_Emote_icon_normal.T_Reward_Emote_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Emote_location_G_02": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Reward_Emote_icon_normal.T_Reward_Emote_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Emote_location_H_01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Reward_Emote_icon_normal.T_Reward_Emote_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Emote_location_H_02": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Reward_Emote_icon_normal.T_Reward_Emote_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Emote_location_I_01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Reward_Emote_icon_normal.T_Reward_Emote_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Emote_location_I_02": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Reward_Emote_icon_normal.T_Reward_Emote_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Help01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Help01_icon_normal.T_Help01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Help02": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Help02_icon_normal.T_Help02_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Help03": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Help03_icon_normal.T_Help03_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Help04": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Help04_icon_normal.T_Help04_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "DeathPenalty_guide": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Female_Soldier03_icon_normal.T_Female_Soldier03_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Respawn_guide": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Soldier03_icon_normal.T_Male_Soldier03_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Police_TreasureGuard_NarrowSite": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Police_icon_normal.T_Police_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Police_Vigilance": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Police_icon_normal.T_Police_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Police_BowGun": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Police_icon_normal.T_Police_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Hunter_Prisoner": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_icon_normal.T_Hunter_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Believer_Prisoner": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Believer_icon_normal.T_Believer_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "FireCult_Prisoner": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_FireCult_icon_normal.T_FireCult_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Police_old_Prisoner": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Police_old_icon_normal.T_Male_Police_old_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Scientist_Prisoner": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Scientist01_icon_normal.T_Male_Scientist01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Ninja_Prisoner": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Ninja01_icon_normal.T_Male_Ninja01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Viking_Prisoner": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Viking_icon_normal.T_Viking_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Believer_Fat_Prisoner": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Believer_Fat_icon_normal.T_Believer_Fat_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Hunter_Fat_Prisoner": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_Fat_icon_normal.T_Hunter_Fat_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Police_Chief": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Police_old_icon_normal.T_Male_Police_old_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "FireCult_Rifle_Relax": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_FireCult_icon_normal.T_FireCult_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "FireCult_FlameThrower_Relax": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_FireCult_icon_normal.T_FireCult_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Hunter_LaserRifle": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_icon_normal.T_Hunter_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Hunter_BowGun": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_icon_normal.T_Hunter_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Hunter_Katana": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_icon_normal.T_Hunter_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Ninja_NoEquip": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Ninja01_icon_normal.T_Male_Ninja01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "NinjaElite_NoEquip": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_NinjaElite01_icon_normal.T_Male_NinjaElite01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Ninja_Bowgun": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Ninja01_icon_normal.T_Male_Ninja01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "NinjaElite_Bowgun": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_NinjaElite01_icon_normal.T_Male_NinjaElite01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "ArenaShop": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_SalesPerson_icon_normal.T_SalesPerson_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Female_Farmer01_v01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Female_Farmer01_v01_icon_normal.T_Female_Farmer01_v01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Female_Farmer01_v02": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Female_Farmer01_v02_icon_normal.T_Female_Farmer01_v02_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Female_Farmer01_v03": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Female_Farmer01_v03_icon_normal.T_Female_Farmer01_v03_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Female_Farmer01_v04": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Female_Farmer01_v04_icon_normal.T_Female_Farmer01_v04_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_Scholar01_v01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Scholar01_v01_icon_normal.T_Male_Scholar01_v01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_Scholar01_v02": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Scholar01_v02_Icon_normal.T_Male_Scholar01_v02_Icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_Scholar01_v03": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Scholar01_v03_icon_normal.T_Male_Scholar01_v03_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_Scholar01_v04": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Scholar01_v04_icon_normal.T_Male_Scholar01_v04_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_Breeder01_v01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Breeder01_v01_icon_normal.T_Male_Breeder01_v01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_Breeder01_v02": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Breeder01_v02_icon_normal.T_Male_Breeder01_v02_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_Breeder01_v03": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Breeder01_v03_icon_normal.T_Male_Breeder01_v03_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_Breeder01_v04": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Breeder01_v04_icon_normal.T_Male_Breeder01_v04_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Female_Ranger01_v01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Female_Ranger01_v01_icon_normal.T_Female_Ranger01_v01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Female_Ranger01_v02": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Female_Ranger01_v02_icon_normal.T_Female_Ranger01_v02_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Female_Ranger01_v03": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Female_Ranger01_v03_icon_normal.T_Female_Ranger01_v03_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Female_Ranger01_v04": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Female_Ranger01_v04_icon_normal.T_Female_Ranger01_v04_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Female_Nomad01_v01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Female_Nomad01_v01_icon_normal.T_Female_Nomad01_v01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Female_Nomad01_v02": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Female_Nomad01_v02_icon_normal.T_Female_Nomad01_v02_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Female_Nomad01_v03": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Female_Nomad01_v03_icon_normal.T_Female_Nomad01_v03_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Female_Nomad01_v04": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Female_Nomad01_v04_icon_normal.T_Female_Nomad01_v04_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_Angler01_v01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_People02_icon_normal.T_Male_People02_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Quest_Hunter_Katana01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_icon_normal.T_Hunter_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Quest_Hunter_RocketLauncher01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_icon_normal.T_Hunter_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Quest_Hunter_Fat_GatlingGun01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_Fat_icon_normal.T_Hunter_Fat_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Quest_Hunter_FlameThrower": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_icon_normal.T_Hunter_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Believer_Bat_Camp02": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Believer_icon_normal.T_Believer_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Believer_CrossBow_Camp02": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Believer_icon_normal.T_Believer_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Police_Shield_Tower": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Police_icon_normal.T_Police_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_Kigurumi01_v01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Kigurumi01_v01_icon_normal.T_Male_Kigurumi01_v01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Negotiator": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_People02_icon_normal.T_Male_People02_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "ScorpionMan_Electric": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_ScorpionMan_Electric_icon_normal.T_ScorpionMan_Electric_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "GhostRabbit_Grass": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_GhostRabbit_Grass_icon_normal.T_GhostRabbit_Grass_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "NightBlueHorse_Neutral": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_NightBlueHorse_Neutral_icon_normal.T_NightBlueHorse_Neutral_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "OctopusGirl_Neutral": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_OctopusGirl_Neutral_icon_normal.T_OctopusGirl_Neutral_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "BlackPuppy_Ice": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_BlackPuppy_Ice_icon_normal.T_BlackPuppy_Ice_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Kirin_ice": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Kirin_Ice_icon_normal.T_Kirin_Ice_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "SweetsSheep_Ground": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_SweetsSheep_Ground_icon_normal.T_SweetsSheep_Ground_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Monkey_Fire": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Monkey_Fire_icon_normal.T_Monkey_Fire_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "ThunderDog_Ice": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_ThunderDog_Ice_icon_normal.T_ThunderDog_Ice_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "DarkFlameFox": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_DarkFlameFox_icon_normal.T_DarkFlameFox_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "RedFlowerBird": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_RedFlowerBird_icon_normal.T_RedFlowerBird_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "SumoDog": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_SumoDog_icon_normal.T_SumoDog_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "VenusFlytrap": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_VenusFlytrap_icon_normal.T_VenusFlytrap_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "FluffyBird": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_FluffyBird_icon_normal.T_FluffyBird_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "ElecPomeranian": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_ElecPomeranian_icon_normal.T_ElecPomeranian_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "FoxExorcist": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_FoxExorcist_icon_normal.T_FoxExorcist_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "BlueSkyDragon": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_BlueSkyDragon_icon_normal.T_BlueSkyDragon_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "LanternButler": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_LanternButler_icon_normal.T_LanternButler_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "WorldTreeDragon": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_WorldTreeDragon_icon_normal.T_WorldTreeDragon_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "GhostDragon": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_GhostDragon_icon_normal.T_GhostDragon_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "FlowerPrince": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_FlowerPrince_icon_normal.T_FlowerPrince_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Mothman": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Mothman_icon_normal.T_Mothman_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "WhiteMoth_Neutral": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_WhiteMoth_Neutral_icon_normal.T_WhiteMoth_Neutral_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "FlowerDoll_Fire": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_FlowerDoll_Fire_icon_normal.T_FlowerDoll_Fire_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "WingGolem_Fire": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_WingGolem_Fire_icon_normal.T_WingGolem_Fire_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "IceSeal_Ground": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_IceSeal_Ground_icon_normal.T_IceSeal_Ground_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "DandelionGirl": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_DandelionGirl_icon_normal.T_DandelionGirl_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "SwordCutlassFish_Fire": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_SwordCutlassfish_Fire_icon_normal.T_SwordCutlassfish_Fire_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "GrassMinotaur": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_GrassMinotaur_icon_normal.T_GrassMinotaur_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "GrassMinotaur_Ice": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_GrassMinotaur_Ice_icon_normal.T_GrassMinotaur_Ice_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "VolcanoDragon_Ice": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_VolcanoDragon_Ice_icon_normal.T_VolcanoDragon_Ice_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "CubeTurtle_Neutral": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_CubeTurtle_Neutral_icon_normal.T_CubeTurtle_Neutral_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "GrassGolem_Dark": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_GrassGolem_Dark_icon_normal.T_GrassGolem_Dark_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "PandaGirl": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_PandaGirl_icon_normal.T_PandaGirl_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "LotusDragon": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_LotusDragon_icon_normal.T_LotusDragon_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "ThunderBird_Ice": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_ThunderBird_Ice_icon_normal.T_ThunderBird_Ice_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "GhostDragon_Fire": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_GhostDragon_Fire_icon_normal.T_GhostDragon_Fire_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "WhiteDeer_Dark": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_WhiteDeer_Dark_icon_normal.T_WhiteDeer_Dark_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "KabukiMan": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_KabukiMan_icon_normal.T_KabukiMan_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "DomeArmorDragon": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_DomeArmorDragon_icon_normal.T_DomeArmorDragon_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Female_SurveyGirl01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Female_SurveyGirl01_icon_normal.T_Female_SurveyGirl01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Female_SurveyGirl02": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Female_SurveyGirl02_icon_normal.T_Female_SurveyGirl02_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Female_SurveyGirl03": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Female_SurveyGirl03_icon_normal.T_Female_SurveyGirl03_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Female_SurveyGirl04": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Female_SurveyGirl04_icon_normal.T_Female_SurveyGirl04_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Female_SurveyWoman01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Female_SurveyWoman01_icon_normal.T_Female_SurveyWoman01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Female_SurveyWoman02": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Female_SurveyWoman02_icon_normal.T_Female_SurveyWoman02_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_SurveyMan01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_SurveyMan01_icon_normal.T_Male_SurveyMan01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_SurveyMan02": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_SurveyMan02_icon_normal.T_Male_SurveyMan02_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_SurveyMan03": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_SurveyMan03_icon_normal.T_Male_SurveyMan03_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_StrongOldMan01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_StrongOldMan01_icon_normal.T_Male_StrongOldMan01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_StrongOldMan02": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_StrongOldMan02_icon_normal.T_Male_StrongOldMan02_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Hunter_Handgun_Quest_StrongOldMan": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_icon_normal.T_Hunter_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Hunter_Shotgun_Quest_StrongOldMan": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_icon_normal.T_Hunter_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Hunter_RocketLauncher_Quest_StrongOldMan": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_icon_normal.T_Hunter_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Reward_Paldex_v02": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Reward_Paldex_v02_icon_normal.T_Reward_Paldex_v02_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Reward_PalCaptureCount_v02": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Reward_PalCaptureCount_v02_icon_normal.T_Reward_PalCaptureCount_v02_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Female_Farmer01_v05": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Female_Farmer01_v05_icon_normal.T_Female_Farmer01_v05_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_Scholar01_v05": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Scholar01_v05_icon_normal.T_Male_Scholar01_v05_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_Breeder01_v05": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Breeder01_v05_icon_normal.T_Male_Breeder01_v05_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Female_Ranger01_v05": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Female_Ranger01_v05_icon_normal.T_Female_Ranger01_v05_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Female_Nomad01_v05": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Female_Nomad01_v05_icon_normal.T_Female_Nomad01_v05_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "BOSS_Hunter_Fat_GatlingGun_Quest_StrongOldMan": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Hunter_Fat_icon_normal.T_Hunter_Fat_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "FireCult_GrenadeLauncher": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_FireCult_icon_normal.T_FireCult_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "FireCult_RocketLauncher": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_FireCult_icon_normal.T_FireCult_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "FireCult_MissileLauncher": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_FireCult_icon_normal.T_FireCult_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Scientist_GrenadeLauncher": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Scientist01_icon_normal.T_Male_Scientist01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Scientist_MissileLauncher": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Scientist01_icon_normal.T_Male_Scientist01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Ninja_Grenade": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Ninja01_icon_normal.T_Male_Ninja01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "NinjaElite_Grenade": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_NinjaElite01_icon_normal.T_Male_NinjaElite01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Viking_Melee": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Viking_icon_normal.T_Viking_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Viking_GrenadeLauncher": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Viking_icon_normal.T_Viking_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Viking_RocketLauncher": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Viking_Elite_icon_normal.T_Viking_Elite_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_DTairikuPeople01_v01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_DTairikuPeople01_v01_icon_normal.T_Male_DTairikuPeople01_v01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Female_DTairikuPeople01_v01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Female_DTairikuPeople01_v01_icon_normal.T_Female_DTairikuPeople01_v01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_TenrakuPeople01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_TenrakuPeople01_icon_normal.T_Male_TenrakuPeople01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Female_TenrakuPeople01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Female_TenrakuPeople01_icon_normal.T_Female_TenrakuPeople01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_SnowPeople01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_SnowPeople01_icon_normal.T_Male_SnowPeople01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Female_SnowPeople01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Female_SnowPeople01_icon_normal.T_Female_SnowPeople01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_SakurajimaPeople01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_SakurajimaPeople01_icon_normal.T_Male_SakurajimaPeople01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Female_SakurajimaPeople01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Female_SakurajimaPeople01_icon_normal.T_Female_SakurajimaPeople01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_SorajimaPeople01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_SorajimaPeople01_icon_normal.T_Male_SorajimaPeople01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Female_SorajimaPeople01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Female_SorajimaPeople01_icon_normal.T_Female_SorajimaPeople01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Police_Invader_Rifle": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Police_icon_normal.T_Police_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Police_Invader_Handgun": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Police_icon_normal.T_Police_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Police_Invader_Shotgun": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Police_icon_normal.T_Police_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Police_Invader_Katana": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Police_icon_normal.T_Police_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Police_Invader_CrossBow": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Police_icon_normal.T_Police_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Police_Invader_LaserRifle": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Police_icon_normal.T_Police_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Police_Invader_GrenadeLauncher": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Police_icon_normal.T_Police_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Police_Invader_FlameThrower": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Police_icon_normal.T_Police_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Police_Invader_RocketLauncher": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Police_icon_normal.T_Police_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Police_Invader_MissileLauncher": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Police_icon_normal.T_Police_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_WorldTreePeople01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_WorldTreePeople01_icon_normal.T_Male_WorldTreePeople01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Female_WorldTreePeople01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Female_WorldTreePeople01_icon_normal.T_Female_WorldTreePeople01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Female_Kunoichi01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Female_Kunoichi01_icon_normal.T_Female_Kunoichi01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_Scholar02": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Scholar01_v02_Icon_normal.T_Male_Scholar01_v02_Icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "CaravanLeader04": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_SalesPerson_Green_icon_normal.T_SalesPerson_Green_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_Trader01_v04": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Trader01_v04_icon_normal.T_Male_Trader01_v04_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_Trader01_v05": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Trader01_v05_icon_normal.T_Male_Trader01_v05_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_Trader01_v06": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Trader01_v06_icon_normal.T_Male_Trader01_v06_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_Trader01_v07": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Trader01_v07_icon_normal.T_Male_Trader01_v07_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_Trader01_v08": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Trader01_v08_icon_normal.T_Male_Trader01_v08_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_Trader01_v09": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Trader01_v09_icon_normal.T_Male_Trader01_v09_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_Trader01_v10": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Trader01_v10_icon_normal.T_Male_Trader01_v10_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_Trader01_v11": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Trader01_v11_icon_normal.T_Male_Trader01_v11_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_Trader01_v12": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Trader01_v12_icon_normal.T_Male_Trader01_v12_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_Trader01_v13": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Trader01_v13_icon_normal.T_Male_Trader01_v13_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_Trader01_v14": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Trader01_v14_icon_normal.T_Male_Trader01_v14_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_Trader01_v15": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Trader01_v15_icon_normal.T_Male_Trader01_v15_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_Trader01_v16": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Trader01_v16_icon_normal.T_Male_Trader01_v16_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_Trader01_v17": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Trader01_v17_icon_normal.T_Male_Trader01_v17_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_Trader01_v18": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Trader01_v18_icon_normal.T_Male_Trader01_v18_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_Trader01_v19": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Trader01_v19_icon_normal.T_Male_Trader01_v19_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_Trader01_v20": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Trader01_v20_icon_normal.T_Male_Trader01_v20_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_Trader01_v21": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Trader01_v21_icon_normal.T_Male_Trader01_v21_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_Trader01_v22": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Trader01_v22_icon_normal.T_Male_Trader01_v22_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_Trader01_v23": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Trader01_v23_icon_normal.T_Male_Trader01_v23_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_Trader01_v24": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Trader01_v24_icon_normal.T_Male_Trader01_v24_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_Trader01_v25": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Trader01_v25_icon_normal.T_Male_Trader01_v25_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Quest_Male_Scientist01_LaserRifle": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Scientist01_icon_normal.T_Male_Scientist01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Quest_Scientist_FlameThrower": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Scientist01_icon_normal.T_Male_Scientist01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Quest_Male_Ninja01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Ninja01_icon_normal.T_Male_Ninja01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Quest_Male_NinjaElite01": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_NinjaElite01_icon_normal.T_Male_NinjaElite01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_Ninja01_Seabase": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Ninja01_icon_normal.T_Male_Ninja01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Male_NinjaElite01_Seabase": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Ninja01_icon_normal.T_Male_Ninja01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Ninja_Bowgun_Seabase": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Male_Ninja01_icon_normal.T_Male_Ninja01_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Police_Rifle_Crime_Lv4": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Police_icon_normal.T_Police_icon_normal",
+          "SubPathString": ""
+        }
+      },
+      "Police_Rifle_Crime_Lv5": {
+        "Icon": {
+          "AssetPathName": "/Game/Pal/Texture/PalIcon/Normal/T_Police_icon_normal.T_Police_icon_normal",
           "SubPathString": ""
         }
       }

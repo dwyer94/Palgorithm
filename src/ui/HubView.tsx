@@ -10,7 +10,7 @@ import { resolvePlayerDisplayName } from '../live/nameResolution';
 import { useRulesetContext } from './RulesetContext';
 import { UnionPlanView, HubList } from './shared';
 import { ComboCount, ElementDot, PalIcon, PassiveChip, PassiveMultiSelect, Pill, SpeciesTypeahead } from './components';
-import rawSuggestedHubs from '../data/suggestedHubs.0.6.json';
+import rawSuggestedHubs from '../data/suggestedHubs.1.0.json';
 import { SuggestedHubsSchema, type RoleSuggestion } from '../data/suggestedHubsSchema';
 
 /** Precomputed "if you want popular combat/worker/mount pals, here's a hub to aim for"

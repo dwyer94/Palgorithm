@@ -94,8 +94,8 @@
         "TextData": {
           "Namespace": "DT_PalNameText_Common",
           "Key": "PAL_NAME_BeardedDragon_TextData",
-          "SourceString": "エンシュロン",
-          "LocalizedString": "エンシュロン"
+          "SourceString": "-",
+          "LocalizedString": "-"
         }
       },
       "PAL_NAME_BerryGoat": {
@@ -142,8 +142,8 @@
         "TextData": {
           "Namespace": "DT_PalNameText_Common",
           "Key": "PAL_NAME_BlackFurDragon_TextData",
-          "SourceString": "シャドーラ",
-          "LocalizedString": "シャドーラ"
+          "SourceString": "-",
+          "LocalizedString": "-"
         }
       },
       "PAL_NAME_BlackGriffon": {
@@ -168,6 +168,14 @@
           "Key": "PAL_NAME_BlackPuppy_TextData",
           "SourceString": "クロマル",
           "LocalizedString": "クロマル"
+        }
+      },
+      "PAL_NAME_BlackPuppy_Ice": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_BlackPuppy_Ice_TextData",
+          "SourceString": "フユマル",
+          "LocalizedString": "フユマル"
         }
       },
       "PAL_NAME_BlueberryFairy": {
@@ -230,8 +238,8 @@
         "TextData": {
           "Namespace": "DT_PalNameText_Common",
           "Key": "PAL_NAME_BrownRabbit_TextData",
-          "SourceString": "フラビット",
-          "LocalizedString": "フラビット"
+          "SourceString": "バトラビー",
+          "LocalizedString": "バトラビー"
         }
       },
       "PAL_NAME_CandleGhost": {
@@ -374,8 +382,8 @@
         "TextData": {
           "Namespace": "DT_PalNameText_Common",
           "Key": "PAL_NAME_DarkMutant_TextData",
-          "SourceString": "ダクネシス",
-          "LocalizedString": "ダクネシス"
+          "SourceString": "-",
+          "LocalizedString": "-"
         }
       },
       "PAL_NAME_DarkScorpion": {
@@ -454,8 +462,8 @@
         "TextData": {
           "Namespace": "DT_PalNameText_Common",
           "Key": "PAL_NAME_ElecLion_TextData",
-          "SourceString": "リオサージ",
-          "LocalizedString": "リオサージ"
+          "SourceString": "-",
+          "LocalizedString": "-"
         }
       },
       "PAL_NAME_ElecPanda": {
@@ -658,6 +666,14 @@
           "LocalizedString": "ナイトメアリ"
         }
       },
+      "PAL_NAME_GhostRabbit_Grass": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_GhostRabbit_Grass_TextData",
+          "SourceString": "グラスメアリ",
+          "LocalizedString": "グラスメアリ"
+        }
+      },
       "PAL_NAME_GoldenHorse": {
         "TextData": {
           "Namespace": "DT_PalNameText_Common",
@@ -694,8 +710,8 @@
         "TextData": {
           "Namespace": "DT_PalNameText_Common",
           "Key": "PAL_NAME_GrassDragon_TextData",
-          "SourceString": "ジャングロン",
-          "LocalizedString": "ジャングロン"
+          "SourceString": "-",
+          "LocalizedString": "-"
         }
       },
       "PAL_NAME_GrassMammoth": {
@@ -994,6 +1010,14 @@
           "LocalizedString": "ライコーン"
         }
       },
+      "PAL_NAME_Kirin_Ice": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_Kirin_Ice_TextData",
+          "SourceString": "レイコーン",
+          "LocalizedString": "レイコーン"
+        }
+      },
       "PAL_NAME_Kitsunebi": {
         "TextData": {
           "Namespace": "DT_PalNameText_Common",
@@ -1138,6 +1162,14 @@
           "LocalizedString": "エテッパ"
         }
       },
+      "PAL_NAME_Monkey_Fire": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_Monkey_Fire_TextData",
+          "SourceString": "カレッパ",
+          "LocalizedString": "カレッパ"
+        }
+      },
       "PAL_NAME_MoonQueen": {
         "TextData": {
           "Namespace": "DT_PalNameText_Common",
@@ -1234,6 +1266,14 @@
           "LocalizedString": "ナイトロット"
         }
       },
+      "PAL_NAME_NightBlueHorse_Neutral": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_NightBlueHorse_Neutral_TextData",
+          "SourceString": "ライトロット",
+          "LocalizedString": "ライトロット"
+        }
+      },
       "PAL_NAME_NightFox": {
         "TextData": {
           "Namespace": "DT_PalNameText_Common",
@@ -1266,6 +1306,14 @@
           "LocalizedString": "ヒメンダコ"
         }
       },
+      "PAL_NAME_OctopusGirl_Neutral": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_OctopusGirl_Neutral_TextData",
+          "SourceString": "ユメンダコ",
+          "LocalizedString": "ユメンダコ"
+        }
+      },
       "PAL_NAME_Penguin": {
         "TextData": {
           "Namespace": "DT_PalNameText_Common",
@@ -1294,8 +1342,8 @@
         "TextData": {
           "Namespace": "DT_PalNameText_Common",
           "Key": "PAL_NAME_PinkKangaroo_TextData",
-          "SourceString": "トゥインガル",
-          "LocalizedString": "トゥインガル"
+          "SourceString": "-",
+          "LocalizedString": "-"
         }
       },
       "PAL_NAME_PinkLizard": {
@@ -1458,6 +1506,14 @@
           "LocalizedString": "ブッサソリ"
         }
       },
+      "PAL_NAME_ScorpionMan_Electric": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_ScorpionMan_Electric_TextData",
+          "SourceString": "ブッサンダー",
+          "LocalizedString": "ブッサンダー"
+        }
+      },
       "PAL_NAME_Serpent": {
         "TextData": {
           "Namespace": "DT_PalNameText_Common",
@@ -1602,6 +1658,14 @@
           "LocalizedString": "メリポップ"
         }
       },
+      "PAL_NAME_SweetsSheep_Ground": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_SweetsSheep_Ground_TextData",
+          "SourceString": "メリコロネ",
+          "LocalizedString": "メリコロネ"
+        }
+      },
       "PAL_NAME_TentacleTurtle": {
         "TextData": {
           "Namespace": "DT_PalNameText_Common",
@@ -1632,6 +1696,14 @@
           "Key": "PAL_NAME_ThunderDog_TextData",
           "SourceString": "イヌズマ",
           "LocalizedString": "イヌズマ"
+        }
+      },
+      "PAL_NAME_ThunderDog_Ice": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_ThunderDog_Ice_TextData",
+          "SourceString": "フリーズマ",
+          "LocalizedString": "フリーズマ"
         }
       },
       "PAL_NAME_ThunderDragonMan": {
@@ -1706,20 +1778,20 @@
           "LocalizedString": "アクセル＆ボルゼクス"
         }
       },
-      "PAL_NAME_VolcanoDragon": {
+      "PAL_NAME_VolcanoDragon_omit": {
         "TextData": {
           "Namespace": "DT_PalNameText_Common",
-          "Key": "PAL_NAME_VolcanoDragon_TextData",
-          "SourceString": "ラヴェアース",
-          "LocalizedString": "ラヴェアース"
+          "Key": "PAL_NAME_VolcanoDragon_omit_TextData",
+          "SourceString": "-",
+          "LocalizedString": "-"
         }
       },
       "PAL_NAME_WaterLizard": {
         "TextData": {
           "Namespace": "DT_PalNameText_Common",
           "Key": "PAL_NAME_WaterLizard_TextData",
-          "SourceString": "オキシリュー",
-          "LocalizedString": "オキシリュー"
+          "SourceString": "-",
+          "LocalizedString": "-"
         }
       },
       "PAL_NAME_WeaselDragon": {
@@ -1968,6 +2040,558 @@
           "Key": "PAL_NAME_LegendDeer_TextData",
           "SourceString": "レジェンディア",
           "LocalizedString": "レジェンディア"
+        }
+      },
+      "PAL_NAME_VolcanoDragon": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_VolcanoDragon_TextData",
+          "SourceString": "マグマンダー",
+          "LocalizedString": "マグマンダー"
+        }
+      },
+      "PAL_NAME_HoodGhost": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_HoodGhost_TextData",
+          "SourceString": "フードール",
+          "LocalizedString": "フードール"
+        }
+      },
+      "PAL_NAME_Sekhmet": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_Sekhmet_TextData",
+          "SourceString": "セクメト",
+          "LocalizedString": "セクメト"
+        }
+      },
+      "PAL_NAME_RockBeast": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_RockBeast_TextData",
+          "SourceString": "ジオルドン",
+          "LocalizedString": "ジオルドン"
+        }
+      },
+      "PAL_NAME_RockBeast_Ice": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_RockBeast_Ice_TextData",
+          "SourceString": "フロスドン",
+          "LocalizedString": "フロスドン"
+        }
+      },
+      "PAL_NAME_MoonChild": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_MoonChild_TextData",
+          "SourceString": "ホシノコ",
+          "LocalizedString": "ホシノコ"
+        }
+      },
+      "PAL_NAME_ClownRabbit": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_ClownRabbit_TextData",
+          "SourceString": "ラピエール",
+          "LocalizedString": "ラピエール"
+        }
+      },
+      "PAL_NAME_CactusDoll": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_CactusDoll_TextData",
+          "SourceString": "ハグミー",
+          "LocalizedString": "ハグミー"
+        }
+      },
+      "PAL_NAME_CactusDoll_Dark": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_CactusDoll_Dark_TextData",
+          "SourceString": "ハグユー",
+          "LocalizedString": "ハグユー"
+        }
+      },
+      "PAL_NAME_GrassGolem": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_GrassGolem_TextData",
+          "SourceString": "ウゴクゾー",
+          "LocalizedString": "ウゴクゾー"
+        }
+      },
+      "PAL_NAME_GrassGolem_Dark": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_GrassGolem_Dark_TextData",
+          "SourceString": "ノロウゾー",
+          "LocalizedString": "ノロウゾー"
+        }
+      },
+      "PAL_NAME_CubeTurtle": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_CubeTurtle_TextData",
+          "SourceString": "オモシガメ",
+          "LocalizedString": "オモシガメ"
+        }
+      },
+      "PAL_NAME_SamuraiDog": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_SamuraiDog_TextData",
+          "SourceString": "ポチムネ",
+          "LocalizedString": "ポチムネ"
+        }
+      },
+      "PAL_NAME_MummyPal": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_MummyPal_TextData",
+          "SourceString": "ヨミーラ",
+          "LocalizedString": "ヨミーラ"
+        }
+      },
+      "PAL_NAME_KingSunfish": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_KingSunfish_TextData",
+          "SourceString": "オーマンボ",
+          "LocalizedString": "オーマンボ"
+        }
+      },
+      "PAL_NAME_KingSunfish_Thunder": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_KingSunfish_Thunder_TextData",
+          "SourceString": "トノサマンボ",
+          "LocalizedString": "トノサマンボ"
+        }
+      },
+      "PAL_NAME_MonochromeQueen": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_MonochromeQueen_TextData",
+          "SourceString": "モノクローナ",
+          "LocalizedString": "モノクローナ"
+        }
+      },
+      "PAL_NAME_ElecSnail": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_ElecSnail_TextData",
+          "SourceString": "デンツム",
+          "LocalizedString": "デンツム"
+        }
+      },
+      "PAL_NAME_ElecSnail_Ground": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_ElecSnail_Ground_TextData",
+          "SourceString": "ドンツム",
+          "LocalizedString": "ドンツム"
+        }
+      },
+      "PAL_NAME_SumoDog": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_SumoDog_TextData",
+          "SourceString": "ドスコイヌ",
+          "LocalizedString": "ドスコイヌ"
+        }
+      },
+      "PAL_NAME_VolcanicTurtle": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_VolcanicTurtle_TextData",
+          "SourceString": "-",
+          "LocalizedString": "-"
+        }
+      },
+      "PAL_NAME_ElecPomeranian": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_ElecPomeranian_TextData",
+          "SourceString": "パチマル",
+          "LocalizedString": "パチマル"
+        }
+      },
+      "PAL_NAME_ElecLizard": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_ElecLizard_TextData",
+          "SourceString": "ノンビリリ",
+          "LocalizedString": "ノンビリリ"
+        }
+      },
+      "PAL_NAME_RedFlowerBird": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_RedFlowerBird_TextData",
+          "SourceString": "フラペック",
+          "LocalizedString": "フラペック"
+        }
+      },
+      "PAL_NAME_ThiefBird": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_ThiefBird_TextData",
+          "SourceString": "アルセーヴ",
+          "LocalizedString": "アルセーヴ"
+        }
+      },
+      "PAL_NAME_ThunderFluffyBird": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_ThunderFluffyBird_TextData",
+          "SourceString": "ダイナモフ",
+          "LocalizedString": "ダイナモフ"
+        }
+      },
+      "PAL_NAME_FluffyBird": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_FluffyBird_TextData",
+          "SourceString": "モコチッチ",
+          "LocalizedString": "モコチッチ"
+        }
+      },
+      "PAL_NAME_FoxExorcist": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_FoxExorcist_TextData",
+          "SourceString": "センコ",
+          "LocalizedString": "センコ"
+        }
+      },
+      "PAL_NAME_ClioneTwins": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_ClioneTwins_TextData",
+          "SourceString": "リオリネ",
+          "LocalizedString": "リオリネ"
+        }
+      },
+      "PAL_NAME_DandelionGirl": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_DandelionGirl_TextData",
+          "SourceString": "ポポフィア",
+          "LocalizedString": "ポポフィア"
+        }
+      },
+      "PAL_NAME_SleeveRabbit": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_SleeveRabbit_TextData",
+          "SourceString": "ネモフィ",
+          "LocalizedString": "ネモフィ"
+        }
+      },
+      "PAL_NAME_SmallYeti": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_SmallYeti_TextData",
+          "SourceString": "ユキボウ",
+          "LocalizedString": "ユキボウ"
+        }
+      },
+      "PAL_NAME_StrawHatCat": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_StrawHatCat_TextData",
+          "SourceString": "-",
+          "LocalizedString": "-"
+        }
+      },
+      "PAL_NAME_CandleWitch": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_CandleWitch_TextData",
+          "SourceString": "-",
+          "LocalizedString": "-"
+        }
+      },
+      "PAL_NAME_CloverFairy": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_CloverFairy_TextData",
+          "SourceString": "ポワワ",
+          "LocalizedString": "ポワワ"
+        }
+      },
+      "PAL_NAME_GhostBlackCat": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_GhostBlackCat_TextData",
+          "SourceString": "ニャンシー",
+          "LocalizedString": "ニャンシー"
+        }
+      },
+      "PAL_NAME_OniGhostGirl": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_OniGhostGirl_TextData",
+          "SourceString": "ウラミィ",
+          "LocalizedString": "ウラミィ"
+        }
+      },
+      "PAL_NAME_LongCat": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_LongCat_TextData",
+          "SourceString": "ニャルル",
+          "LocalizedString": "ニャルル"
+        }
+      },
+      "PAL_NAME_DarkFlameFox": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_DarkFlameFox_TextData",
+          "SourceString": "マジョルナ",
+          "LocalizedString": "マジョルナ"
+        }
+      },
+      "PAL_NAME_LanternButler": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_LanternButler_TextData",
+          "SourceString": "ヴィランタン",
+          "LocalizedString": "ヴィランタン"
+        }
+      },
+      "PAL_NAME_VenusFlytrap": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_VenusFlytrap_TextData",
+          "SourceString": "カプリリス",
+          "LocalizedString": "カプリリス"
+        }
+      },
+      "PAL_NAME_SwordCutlassfish": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_SwordCutlassfish_TextData",
+          "SourceString": "オオタチウオ",
+          "LocalizedString": "オオタチウオ"
+        }
+      },
+      "PAL_NAME_SnakeGirl": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_SnakeGirl_TextData",
+          "SourceString": "メドゥーナ",
+          "LocalizedString": "メドゥーナ"
+        }
+      },
+      "PAL_NAME_MushroomLady": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_MushroomLady_TextData",
+          "SourceString": "マシュリー",
+          "LocalizedString": "マシュリー"
+        }
+      },
+      "PAL_NAME_KingWhale": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_KingWhale_TextData",
+          "SourceString": "グランジーラ",
+          "LocalizedString": "グランジーラ"
+        }
+      },
+      "PAL_NAME_BlueSkyDragon": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_BlueSkyDragon_TextData",
+          "SourceString": "シャオロン",
+          "LocalizedString": "シャオロン"
+        }
+      },
+      "PAL_NAME_Mothman": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_Mothman_TextData",
+          "SourceString": "モスローン",
+          "LocalizedString": "モスローン"
+        }
+      },
+      "PAL_NAME_GhostDragon": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_GhostDragon_TextData",
+          "SourceString": "レイバーン",
+          "LocalizedString": "レイバーン"
+        }
+      },
+      "PAL_NAME_FlowerPrince": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_FlowerPrince_TextData",
+          "SourceString": "ノクサージュ",
+          "LocalizedString": "ノクサージュ"
+        }
+      },
+      "PAL_NAME_WorldTreeDragon": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_WorldTreeDragon_TextData",
+          "SourceString": "ゼロヴァース",
+          "LocalizedString": "ゼロヴァース"
+        }
+      },
+      "PAL_NAME_GrassMinotaur": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_GrassMinotaur_TextData",
+          "SourceString": "モリタロス",
+          "LocalizedString": "モリタロス"
+        }
+      },
+      "PAL_NAME_GrassMinotaur_Ice": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_GrassMinotaur_Ice_TextData",
+          "SourceString": "ユキタロス",
+          "LocalizedString": "ユキタロス"
+        }
+      },
+      "PAL_NAME_LotusDragon": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_LotusDragon_TextData",
+          "SourceString": "ハナミズチ",
+          "LocalizedString": "ハナミズチ"
+        }
+      },
+      "PAL_NAME_PandaGirl": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_PandaGirl_TextData",
+          "SourceString": "リーファン",
+          "LocalizedString": "リーファン"
+        }
+      },
+      "PAL_NAME_KabukiMan": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_KabukiMan_TextData",
+          "SourceString": "ゴウカブキ",
+          "LocalizedString": "ゴウカブキ"
+        }
+      },
+      "PAL_NAME_DomeArmorDragon": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_DomeArmorDragon_TextData",
+          "SourceString": "シェルガドラ",
+          "LocalizedString": "シェルガドラ"
+        }
+      },
+      "PAL_NAME_WhiteDeer_Dark": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_WhiteDeer_Dark_TextData",
+          "SourceString": "コスモディア",
+          "LocalizedString": "コスモディア"
+        }
+      },
+      "PAL_NAME_WingGolem_Fire": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_WingGolem_Fire_TextData",
+          "SourceString": "マグナイト",
+          "LocalizedString": "マグナイト"
+        }
+      },
+      "PAL_NAME_GhostDragon_Fire": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_GhostDragon_Fire_TextData",
+          "SourceString": "ヘルバーン",
+          "LocalizedString": "ヘルバーン"
+        }
+      },
+      "PAL_NAME_FlowerDoll_Fire": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_FlowerDoll_Fire_TextData",
+          "SourceString": "チェリーナ",
+          "LocalizedString": "チェリーナ"
+        }
+      },
+      "PAL_NAME_IceSeal_Ground": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_IceSeal_Ground_TextData",
+          "SourceString": "チョコザラシ",
+          "LocalizedString": "チョコザラシ"
+        }
+      },
+      "PAL_NAME_SwordCutlassfish_Fire": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_SwordCutlassfish_Fire_TextData",
+          "SourceString": "ヒノタチウオ",
+          "LocalizedString": "ヒノタチウオ"
+        }
+      },
+      "PAL_NAME_WhiteMoth_Neutral": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_WhiteMoth_Neutral_TextData",
+          "SourceString": "ソワレーヌ",
+          "LocalizedString": "ソワレーヌ"
+        }
+      },
+      "PAL_NAME_ThunderBird_Ice": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_ThunderBird_Ice_TextData",
+          "SourceString": "チルバード",
+          "LocalizedString": "チルバード"
+        }
+      },
+      "PAL_NAME_CubeTurtle_Neutral": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_CubeTurtle_Neutral_TextData",
+          "SourceString": "オシロガメ",
+          "LocalizedString": "オシロガメ"
+        }
+      },
+      "PAL_NAME_VolcanoDragon_Ice": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_VolcanoDragon_Ice_TextData",
+          "SourceString": "ブリザンダー",
+          "LocalizedString": "ブリザンダー"
+        }
+      },
+      "PAL_NAME_SorajimaBoss": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_SorajimaBoss_TextData",
+          "SourceString": "アウリ＆シャオロン",
+          "LocalizedString": "アウリ＆シャオロン"
+        }
+      },
+      "PAL_NAME_LastBoss": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_LastBoss_TextData",
+          "SourceString": "ゼナーラ＆ゼロヴァース",
+          "LocalizedString": "ゼナーラ＆ゼロヴァース"
+        }
+      },
+      "PAL_NAME_POLICE_PalRide": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_POLICE_PalRide_TextData",
+          "SourceString": "自警団 ライダー",
+          "LocalizedString": "自警団 ライダー"
         }
       }
     }

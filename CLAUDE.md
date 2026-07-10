@@ -10,9 +10,9 @@ Audience: one technical user, run locally / on a home server. Not a public produ
 
 ## Status
 
-Phase 0 — build against the current CombiRank system. Sessions are defined in spec §10. Update the line below at the start of each working block:
+Phase 1 — July 10 patch day (spec §5/§10). 1.0 shipped; `combirank-0.6` formula confirmed unchanged, `dataset.1.0.json` ingested (291 species) and wired in as the live dataset. `genrecomb-1.0` ruleset not yet scaffolded — no published Mutation/passive odds to encode yet. Update the line below at the start of each working block:
 
-> **Active session:** 0.6
+> **Active session:** Phase 1 (post-ingestion)
 
 ## Stack
 

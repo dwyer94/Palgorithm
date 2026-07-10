@@ -48,8 +48,8 @@
         "TextData": {
           "Namespace": "DT_PalNameText_Common",
           "Key": "PAL_NAME_BadCatgirl_TextData",
-          "SourceString": "Nyafia ",
-          "LocalizedString": "Nyafia "
+          "SourceString": "Nyafia",
+          "LocalizedString": "Nyafia"
         }
       },
       "PAL_NAME_Baphomet": {
@@ -164,6 +164,14 @@
           "LocalizedString": "Smokie"
         }
       },
+      "PAL_NAME_BlackPuppy_Ice": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_BlackPuppy_Ice_TextData",
+          "SourceString": "Smokie Cryst",
+          "LocalizedString": "Smokie Cryst"
+        }
+      },
       "PAL_NAME_BlueberryFairy": {
         "TextData": {
           "Namespace": "DT_PalNameText_Common",
@@ -224,8 +232,8 @@
         "TextData": {
           "Namespace": "DT_PalNameText_Common",
           "Key": "PAL_NAME_BrownRabbit_TextData",
-          "SourceString": "en_text",
-          "LocalizedString": "en_text"
+          "SourceString": "Lapiron",
+          "LocalizedString": "Lapiron"
         }
       },
       "PAL_NAME_CandleGhost": {
@@ -360,8 +368,8 @@
         "TextData": {
           "Namespace": "DT_PalNameText_Common",
           "Key": "PAL_NAME_DarkMechaDragon_TextData",
-          "SourceString": "Xenolord ",
-          "LocalizedString": "Xenolord "
+          "SourceString": "Xenolord",
+          "LocalizedString": "Xenolord"
         }
       },
       "PAL_NAME_DarkMutant": {
@@ -652,6 +660,14 @@
           "LocalizedString": "Nitemary"
         }
       },
+      "PAL_NAME_GhostRabbit_Grass": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_GhostRabbit_Grass_TextData",
+          "SourceString": "Nitemary Botan",
+          "LocalizedString": "Nitemary Botan"
+        }
+      },
       "PAL_NAME_GoldenHorse": {
         "TextData": {
           "Namespace": "DT_PalNameText_Common",
@@ -792,8 +808,8 @@
         "TextData": {
           "Namespace": "DT_PalNameText_Common",
           "Key": "PAL_NAME_HerculesBeetle_TextData",
-          "SourceString": "Warsect ",
-          "LocalizedString": "Warsect "
+          "SourceString": "Warsect",
+          "LocalizedString": "Warsect"
         }
       },
       "PAL_NAME_HerculesBeetle_Ground": {
@@ -988,6 +1004,14 @@
           "LocalizedString": "Univolt"
         }
       },
+      "PAL_NAME_Kirin_Ice": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_Kirin_Ice_TextData",
+          "SourceString": "Univolt Cryst",
+          "LocalizedString": "Univolt Cryst"
+        }
+      },
       "PAL_NAME_Kitsunebi": {
         "TextData": {
           "Namespace": "DT_PalNameText_Common",
@@ -1132,6 +1156,14 @@
           "LocalizedString": "Tanzee"
         }
       },
+      "PAL_NAME_Monkey_Fire": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_Monkey_Fire_TextData",
+          "SourceString": "Tanzee Ignis",
+          "LocalizedString": "Tanzee Ignis"
+        }
+      },
       "PAL_NAME_MoonQueen": {
         "TextData": {
           "Namespace": "DT_PalNameText_Common",
@@ -1228,6 +1260,14 @@
           "LocalizedString": "Starryon"
         }
       },
+      "PAL_NAME_NightBlueHorse_Neutral": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_NightBlueHorse_Neutral_TextData",
+          "SourceString": "Starryon Primo",
+          "LocalizedString": "Starryon Primo"
+        }
+      },
       "PAL_NAME_NightFox": {
         "TextData": {
           "Namespace": "DT_PalNameText_Common",
@@ -1258,6 +1298,14 @@
           "Key": "PAL_NAME_OctopusGirl_TextData",
           "SourceString": "Gloopie",
           "LocalizedString": "Gloopie"
+        }
+      },
+      "PAL_NAME_OctopusGirl_Neutral": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_OctopusGirl_Neutral_TextData",
+          "SourceString": "Gloopie Primo",
+          "LocalizedString": "Gloopie Primo"
         }
       },
       "PAL_NAME_Penguin": {
@@ -1452,6 +1500,14 @@
           "LocalizedString": "Prixter"
         }
       },
+      "PAL_NAME_ScorpionMan_Electric": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_ScorpionMan_Electric_TextData",
+          "SourceString": "Prixter Lux",
+          "LocalizedString": "Prixter Lux"
+        }
+      },
       "PAL_NAME_Serpent": {
         "TextData": {
           "Namespace": "DT_PalNameText_Common",
@@ -1596,6 +1652,14 @@
           "LocalizedString": "Woolipop"
         }
       },
+      "PAL_NAME_SweetsSheep_Ground": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_SweetsSheep_Ground_TextData",
+          "SourceString": "Woolipop Terra",
+          "LocalizedString": "Woolipop Terra"
+        }
+      },
       "PAL_NAME_TentacleTurtle": {
         "TextData": {
           "Namespace": "DT_PalNameText_Common",
@@ -1626,6 +1690,14 @@
           "Key": "PAL_NAME_ThunderDog_TextData",
           "SourceString": "Rayhound",
           "LocalizedString": "Rayhound"
+        }
+      },
+      "PAL_NAME_ThunderDog_Ice": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_ThunderDog_Ice_TextData",
+          "SourceString": "Rayhound Cryst",
+          "LocalizedString": "Rayhound Cryst"
         }
       },
       "PAL_NAME_ThunderDragonMan": {
@@ -1700,10 +1772,10 @@
           "LocalizedString": "Axel & Orserk"
         }
       },
-      "PAL_NAME_VolcanoDragon": {
+      "PAL_NAME_VolcanoDragon_omit": {
         "TextData": {
           "Namespace": "DT_PalNameText_Common",
-          "Key": "PAL_NAME_VolcanoDragon_TextData",
+          "Key": "PAL_NAME_VolcanoDragon_omit_TextData",
           "SourceString": "en_text",
           "LocalizedString": "en_text"
         }
@@ -1962,6 +2034,558 @@
           "Key": "PAL_NAME_LegendDeer_TextData",
           "SourceString": "Hartalis",
           "LocalizedString": "Hartalis"
+        }
+      },
+      "PAL_NAME_VolcanoDragon": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_VolcanoDragon_TextData",
+          "SourceString": "Moldron",
+          "LocalizedString": "Moldron"
+        }
+      },
+      "PAL_NAME_HoodGhost": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_HoodGhost_TextData",
+          "SourceString": "Hoodle",
+          "LocalizedString": "Hoodle"
+        }
+      },
+      "PAL_NAME_Sekhmet": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_Sekhmet_TextData",
+          "SourceString": "Sekhmet",
+          "LocalizedString": "Sekhmet"
+        }
+      },
+      "PAL_NAME_RockBeast": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_RockBeast_TextData",
+          "SourceString": "Pierdon",
+          "LocalizedString": "Pierdon"
+        }
+      },
+      "PAL_NAME_RockBeast_Ice": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_RockBeast_Ice_TextData",
+          "SourceString": "Pierdon Cryst",
+          "LocalizedString": "Pierdon Cryst"
+        }
+      },
+      "PAL_NAME_MoonChild": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_MoonChild_TextData",
+          "SourceString": "Wistella",
+          "LocalizedString": "Wistella"
+        }
+      },
+      "PAL_NAME_ClownRabbit": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_ClownRabbit_TextData",
+          "SourceString": "Dupin",
+          "LocalizedString": "Dupin"
+        }
+      },
+      "PAL_NAME_CactusDoll": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_CactusDoll_TextData",
+          "SourceString": "Needoll",
+          "LocalizedString": "Needoll"
+        }
+      },
+      "PAL_NAME_CactusDoll_Dark": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_CactusDoll_Dark_TextData",
+          "SourceString": "Needoll Noct",
+          "LocalizedString": "Needoll Noct"
+        }
+      },
+      "PAL_NAME_GrassGolem": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_GrassGolem_TextData",
+          "SourceString": "Dualith",
+          "LocalizedString": "Dualith"
+        }
+      },
+      "PAL_NAME_GrassGolem_Dark": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_GrassGolem_Dark_TextData",
+          "SourceString": "Dualith Noct",
+          "LocalizedString": "Dualith Noct"
+        }
+      },
+      "PAL_NAME_CubeTurtle": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_CubeTurtle_TextData",
+          "SourceString": "Tetroise ",
+          "LocalizedString": "Tetroise "
+        }
+      },
+      "PAL_NAME_SamuraiDog": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_SamuraiDog_TextData",
+          "SourceString": "Pupperai",
+          "LocalizedString": "Pupperai"
+        }
+      },
+      "PAL_NAME_MummyPal": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_MummyPal_TextData",
+          "SourceString": "Gildra",
+          "LocalizedString": "Gildra"
+        }
+      },
+      "PAL_NAME_KingSunfish": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_KingSunfish_TextData",
+          "SourceString": "Solmora",
+          "LocalizedString": "Solmora"
+        }
+      },
+      "PAL_NAME_KingSunfish_Thunder": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_KingSunfish_Thunder_TextData",
+          "SourceString": "Solmora Lux",
+          "LocalizedString": "Solmora Lux"
+        }
+      },
+      "PAL_NAME_MonochromeQueen": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_MonochromeQueen_TextData",
+          "SourceString": "Solenne",
+          "LocalizedString": "Solenne"
+        }
+      },
+      "PAL_NAME_ElecSnail": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_ElecSnail_TextData",
+          "SourceString": "Snock",
+          "LocalizedString": "Snock"
+        }
+      },
+      "PAL_NAME_ElecSnail_Ground": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_ElecSnail_Ground_TextData",
+          "SourceString": "Snock Lux",
+          "LocalizedString": "Snock Lux"
+        }
+      },
+      "PAL_NAME_SumoDog": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_SumoDog_TextData",
+          "SourceString": "Bulldosu",
+          "LocalizedString": "Bulldosu"
+        }
+      },
+      "PAL_NAME_VolcanicTurtle": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_VolcanicTurtle_TextData",
+          "SourceString": "Unidentified Pal",
+          "LocalizedString": "Unidentified Pal"
+        }
+      },
+      "PAL_NAME_ElecPomeranian": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_ElecPomeranian_TextData",
+          "SourceString": "Puffolt",
+          "LocalizedString": "Puffolt"
+        }
+      },
+      "PAL_NAME_ElecLizard": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_ElecLizard_TextData",
+          "SourceString": "Slowatt",
+          "LocalizedString": "Slowatt"
+        }
+      },
+      "PAL_NAME_RedFlowerBird": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_RedFlowerBird_TextData",
+          "SourceString": "Tropicaw",
+          "LocalizedString": "Tropicaw"
+        }
+      },
+      "PAL_NAME_ThiefBird": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_ThiefBird_TextData",
+          "SourceString": "Roujay",
+          "LocalizedString": "Roujay"
+        }
+      },
+      "PAL_NAME_ThunderFluffyBird": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_ThunderFluffyBird_TextData",
+          "SourceString": "Dynamoff",
+          "LocalizedString": "Dynamoff"
+        }
+      },
+      "PAL_NAME_FluffyBird": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_FluffyBird_TextData",
+          "SourceString": "Muffly",
+          "LocalizedString": "Muffly"
+        }
+      },
+      "PAL_NAME_FoxExorcist": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_FoxExorcist_TextData",
+          "SourceString": "Flaracle",
+          "LocalizedString": "Flaracle"
+        }
+      },
+      "PAL_NAME_ClioneTwins": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_ClioneTwins_TextData",
+          "SourceString": "Amione",
+          "LocalizedString": "Amione"
+        }
+      },
+      "PAL_NAME_DandelionGirl": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_DandelionGirl_TextData",
+          "SourceString": "Souffline",
+          "LocalizedString": "Souffline"
+        }
+      },
+      "PAL_NAME_SleeveRabbit": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_SleeveRabbit_TextData",
+          "SourceString": "Lapure",
+          "LocalizedString": "Lapure"
+        }
+      },
+      "PAL_NAME_SmallYeti": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_SmallYeti_TextData",
+          "SourceString": "Snugloo",
+          "LocalizedString": "Snugloo"
+        }
+      },
+      "PAL_NAME_StrawHatCat": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_StrawHatCat_TextData",
+          "SourceString": "Unidentified Pal",
+          "LocalizedString": "Unidentified Pal"
+        }
+      },
+      "PAL_NAME_CandleWitch": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_CandleWitch_TextData",
+          "SourceString": "Unidentified Pal",
+          "LocalizedString": "Unidentified Pal"
+        }
+      },
+      "PAL_NAME_CloverFairy": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_CloverFairy_TextData",
+          "SourceString": "Clovee",
+          "LocalizedString": "Clovee"
+        }
+      },
+      "PAL_NAME_GhostBlackCat": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_GhostBlackCat_TextData",
+          "SourceString": "Wispaw",
+          "LocalizedString": "Wispaw"
+        }
+      },
+      "PAL_NAME_OniGhostGirl": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_OniGhostGirl_TextData",
+          "SourceString": "Bakemi",
+          "LocalizedString": "Bakemi"
+        }
+      },
+      "PAL_NAME_LongCat": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_LongCat_TextData",
+          "SourceString": "Valentail",
+          "LocalizedString": "Valentail"
+        }
+      },
+      "PAL_NAME_DarkFlameFox": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_DarkFlameFox_TextData",
+          "SourceString": "Majex",
+          "LocalizedString": "Majex"
+        }
+      },
+      "PAL_NAME_LanternButler": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_LanternButler_TextData",
+          "SourceString": "Loomen",
+          "LocalizedString": "Loomen"
+        }
+      },
+      "PAL_NAME_VenusFlytrap": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_VenusFlytrap_TextData",
+          "SourceString": "Carnibora",
+          "LocalizedString": "Carnibora"
+        }
+      },
+      "PAL_NAME_SwordCutlassfish": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_SwordCutlassfish_TextData",
+          "SourceString": "Skutlass",
+          "LocalizedString": "Skutlass"
+        }
+      },
+      "PAL_NAME_SnakeGirl": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_SnakeGirl_TextData",
+          "SourceString": "Venusa",
+          "LocalizedString": "Venusa"
+        }
+      },
+      "PAL_NAME_MushroomLady": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_MushroomLady_TextData",
+          "SourceString": "Mycora",
+          "LocalizedString": "Mycora"
+        }
+      },
+      "PAL_NAME_KingWhale": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_KingWhale_TextData",
+          "SourceString": "Panthalus",
+          "LocalizedString": "Panthalus"
+        }
+      },
+      "PAL_NAME_BlueSkyDragon": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_BlueSkyDragon_TextData",
+          "SourceString": "Shaolong",
+          "LocalizedString": "Shaolong"
+        }
+      },
+      "PAL_NAME_Mothman": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_Mothman_TextData",
+          "SourceString": "Silvance",
+          "LocalizedString": "Silvance"
+        }
+      },
+      "PAL_NAME_GhostDragon": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_GhostDragon_TextData",
+          "SourceString": "Eidrolon",
+          "LocalizedString": "Eidrolon"
+        }
+      },
+      "PAL_NAME_FlowerPrince": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_FlowerPrince_TextData",
+          "SourceString": "Dandilord",
+          "LocalizedString": "Dandilord"
+        }
+      },
+      "PAL_NAME_WorldTreeDragon": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_WorldTreeDragon_TextData",
+          "SourceString": "Astralym",
+          "LocalizedString": "Astralym"
+        }
+      },
+      "PAL_NAME_GrassMinotaur": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_GrassMinotaur_TextData",
+          "SourceString": "Elgrove",
+          "LocalizedString": "Elgrove"
+        }
+      },
+      "PAL_NAME_GrassMinotaur_Ice": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_GrassMinotaur_Ice_TextData",
+          "SourceString": "Elgrove Cryst",
+          "LocalizedString": "Elgrove Cryst"
+        }
+      },
+      "PAL_NAME_LotusDragon": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_LotusDragon_TextData",
+          "SourceString": "Ophydia",
+          "LocalizedString": "Ophydia"
+        }
+      },
+      "PAL_NAME_PandaGirl": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_PandaGirl_TextData",
+          "SourceString": "Leafan",
+          "LocalizedString": "Leafan"
+        }
+      },
+      "PAL_NAME_KabukiMan": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_KabukiMan_TextData",
+          "SourceString": "Renjishi",
+          "LocalizedString": "Renjishi"
+        }
+      },
+      "PAL_NAME_DomeArmorDragon": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_DomeArmorDragon_TextData",
+          "SourceString": "Aegidron",
+          "LocalizedString": "Aegidron"
+        }
+      },
+      "PAL_NAME_WhiteDeer_Dark": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_WhiteDeer_Dark_TextData",
+          "SourceString": "Celesdir Noct",
+          "LocalizedString": "Celesdir Noct"
+        }
+      },
+      "PAL_NAME_WingGolem_Fire": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_WingGolem_Fire_TextData",
+          "SourceString": "Knocklem Ignis",
+          "LocalizedString": "Knocklem Ignis"
+        }
+      },
+      "PAL_NAME_GhostDragon_Fire": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_GhostDragon_Fire_TextData",
+          "SourceString": "Eidrolon Ignis",
+          "LocalizedString": "Eidrolon Ignis"
+        }
+      },
+      "PAL_NAME_FlowerDoll_Fire": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_FlowerDoll_Fire_TextData",
+          "SourceString": "Petallia Ignis",
+          "LocalizedString": "Petallia Ignis"
+        }
+      },
+      "PAL_NAME_IceSeal_Ground": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_IceSeal_Ground_TextData",
+          "SourceString": "Polapup Terra",
+          "LocalizedString": "Polapup Terra"
+        }
+      },
+      "PAL_NAME_SwordCutlassfish_Fire": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_SwordCutlassfish_Fire_TextData",
+          "SourceString": "Skutlass Ignis",
+          "LocalizedString": "Skutlass Ignis"
+        }
+      },
+      "PAL_NAME_WhiteMoth_Neutral": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_WhiteMoth_Neutral_TextData",
+          "SourceString": "Sibelyx Primo",
+          "LocalizedString": "Sibelyx Primo"
+        }
+      },
+      "PAL_NAME_ThunderBird_Ice": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_ThunderBird_Ice_TextData",
+          "SourceString": "Beakon Cryst",
+          "LocalizedString": "Beakon Cryst"
+        }
+      },
+      "PAL_NAME_CubeTurtle_Neutral": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_CubeTurtle_Neutral_TextData",
+          "SourceString": "Tetroise Primo",
+          "LocalizedString": "Tetroise Primo"
+        }
+      },
+      "PAL_NAME_VolcanoDragon_Ice": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_VolcanoDragon_Ice_TextData",
+          "SourceString": "Moldron Cryst",
+          "LocalizedString": "Moldron Cryst"
+        }
+      },
+      "PAL_NAME_SorajimaBoss": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_SorajimaBoss_TextData",
+          "SourceString": "Auri & Shaolong",
+          "LocalizedString": "Auri & Shaolong"
+        }
+      },
+      "PAL_NAME_LastBoss": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_LastBoss_TextData",
+          "SourceString": "Zenara & Astralym",
+          "LocalizedString": "Zenara & Astralym"
+        }
+      },
+      "PAL_NAME_POLICE_PalRide": {
+        "TextData": {
+          "Namespace": "DT_PalNameText_Common",
+          "Key": "PAL_NAME_POLICE_PalRide_TextData",
+          "SourceString": "PIDF Rider",
+          "LocalizedString": "PIDF Rider"
         }
       }
     }

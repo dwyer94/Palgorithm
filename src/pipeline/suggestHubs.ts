@@ -30,10 +30,17 @@ interface PopularTargets {
   mount: string[];
 }
 
+function arg(flag: string): string | undefined {
+  const i = process.argv.indexOf(flag);
+  return i >= 0 ? process.argv[i + 1] : undefined;
+}
+
 const repoRoot = resolve(fileURLToPath(import.meta.url), '../../..');
-const DATASET_FILE = join(repoRoot, 'src', 'data', 'dataset.0.6.json');
+// Version this run targets — defaults to 0.6 so `npm run data:hubs` is unaffected.
+const VERSION = arg('--version') ?? '0.6';
+const DATASET_FILE = join(repoRoot, 'src', 'data', `dataset.${VERSION}.json`);
 const POPULAR_TARGETS_FILE = join(repoRoot, 'src', 'pipeline', 'popularTargets.json');
-const OUT_FILE = join(repoRoot, 'src', 'data', 'suggestedHubs.0.6.json');
+const OUT_FILE = join(repoRoot, 'src', 'data', `suggestedHubs.${VERSION}.json`);
 
 /** Best hub candidates + union baseline for one role's target list, empty-roster
  * assumption. Exported so it's unit-testable against a synthetic dataset without going

@@ -1,0 +1,332 @@
+{
+  "meta": {
+    "version": "1.0",
+    "generatedAt": "2026-07-10T18:06:31.651Z"
+  },
+  "roles": {
+    "combat": {
+      "targets": [
+        "Anubis",
+        "ThunderBird",
+        "WhiteTiger",
+        "VolcanicMonster"
+      ],
+      "topHubs": [
+        {
+          "species": "BadCatgirl",
+          "obtainCost": 1,
+          "injectCost": [
+            {
+              "target": "Anubis",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "ThunderBird",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "WhiteTiger",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "VolcanicMonster",
+              "combos": 1,
+              "direct": true
+            }
+          ],
+          "score": 5
+        },
+        {
+          "species": "BlueberryFairy",
+          "obtainCost": 1,
+          "injectCost": [
+            {
+              "target": "Anubis",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "ThunderBird",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "WhiteTiger",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "VolcanicMonster",
+              "combos": 1,
+              "direct": true
+            }
+          ],
+          "score": 5
+        },
+        {
+          "species": "BrownRabbit",
+          "obtainCost": 1,
+          "injectCost": [
+            {
+              "target": "Anubis",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "ThunderBird",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "WhiteTiger",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "VolcanicMonster",
+              "combos": 1,
+              "direct": true
+            }
+          ],
+          "score": 5
+        }
+      ],
+      "unionCombinationCount": 4
+    },
+    "worker": {
+      "targets": [
+        "Anubis",
+        "WhiteMoth",
+        "WhiteTiger_Ground",
+        "KingAlpaca_Ice",
+        "WingGolem"
+      ],
+      "topHubs": [
+        {
+          "species": "BadCatgirl",
+          "obtainCost": 1,
+          "injectCost": [
+            {
+              "target": "Anubis",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "WhiteMoth",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "WhiteTiger_Ground",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "KingAlpaca_Ice",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "WingGolem",
+              "combos": 1,
+              "direct": true
+            }
+          ],
+          "score": 6
+        },
+        {
+          "species": "BlueberryFairy",
+          "obtainCost": 1,
+          "injectCost": [
+            {
+              "target": "Anubis",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "WhiteMoth",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "WhiteTiger_Ground",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "KingAlpaca_Ice",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "WingGolem",
+              "combos": 1,
+              "direct": true
+            }
+          ],
+          "score": 6
+        },
+        {
+          "species": "BrownRabbit",
+          "obtainCost": 1,
+          "injectCost": [
+            {
+              "target": "Anubis",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "WhiteMoth",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "WhiteTiger_Ground",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "KingAlpaca_Ice",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "WingGolem",
+              "combos": 1,
+              "direct": true
+            }
+          ],
+          "score": 6
+        }
+      ],
+      "unionCombinationCount": 5
+    },
+    "mount": {
+      "targets": [
+        "Garm",
+        "HawkBird",
+        "Serpent",
+        "ThunderBird",
+        "RedArmorBird",
+        "BirdDragon"
+      ],
+      "topHubs": [
+        {
+          "species": "BadCatgirl",
+          "obtainCost": 1,
+          "injectCost": [
+            {
+              "target": "Garm",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "HawkBird",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "Serpent",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "ThunderBird",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "RedArmorBird",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "BirdDragon",
+              "combos": 1,
+              "direct": true
+            }
+          ],
+          "score": 7
+        },
+        {
+          "species": "BlueberryFairy",
+          "obtainCost": 1,
+          "injectCost": [
+            {
+              "target": "Garm",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "HawkBird",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "Serpent",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "ThunderBird",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "RedArmorBird",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "BirdDragon",
+              "combos": 1,
+              "direct": true
+            }
+          ],
+          "score": 7
+        },
+        {
+          "species": "BrownRabbit",
+          "obtainCost": 1,
+          "injectCost": [
+            {
+              "target": "Garm",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "HawkBird",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "Serpent",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "ThunderBird",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "RedArmorBird",
+              "combos": 1,
+              "direct": true
+            },
+            {
+              "target": "BirdDragon",
+              "combos": 1,
+              "direct": true
+            }
+          ],
+          "score": 7
+        }
+      ],
+      "unionCombinationCount": 6
+    }
+  }
+}
