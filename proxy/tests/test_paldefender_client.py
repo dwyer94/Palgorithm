@@ -1,7 +1,7 @@
 import httpx
 import pytest
 
-from demo_data import DWIRE_UID, KIT_UID
+from demo_data import QUILL_UID, NOVA_UID
 from paldefender_client import DemoPalDefenderClient, PalDefenderError, RealPalDefenderClient
 
 
@@ -77,13 +77,13 @@ async def test_demo_client_lists_players():
     client = DemoPalDefenderClient()
     result = await client.get_players()
     assert result["Meta"]["PlayerCount"] == len(result["Players"])
-    assert any(p["PlayerUID"] == KIT_UID for p in result["Players"])
+    assert any(p["PlayerUID"] == NOVA_UID for p in result["Players"])
 
 
 @pytest.mark.asyncio
 async def test_demo_client_returns_pals_for_known_player():
     client = DemoPalDefenderClient()
-    result = await client.get_pals(KIT_UID)
+    result = await client.get_pals(NOVA_UID)
     assert result["Pals"]["Team"]["t1"]["PalID"] == "Anubis"
 
 
@@ -91,7 +91,7 @@ async def test_demo_client_returns_pals_for_known_player():
 async def test_demo_client_supports_lookup_by_either_identifier():
     client = DemoPalDefenderClient()
     # UserId is set equal to PlayerUID for demo players (see demo_data.py).
-    result = await client.get_pals(DWIRE_UID)
+    result = await client.get_pals(QUILL_UID)
     assert result["Pals"]["Team"]["t1"]["PalID"] == "Carbunclo"
 
 

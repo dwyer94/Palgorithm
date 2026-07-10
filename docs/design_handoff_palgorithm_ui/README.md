@@ -166,7 +166,7 @@ max-width 1080, centered, padding 26/34)**.
   Dashed "＋ Add target species…" affordance (opens the searchable species picker — see §Controls).
 - **Shared perks** — selected as blue passive chips with "×"; "＋ add perk · apply saved set ▾".
   Caption "Injected at the final cross only."
-- **Pal pools** — card listing "Local roster (54)" + selected live players ("Kit, D-Wire +38").
+- **Pal pools** — card listing "Local roster (54)" + selected live players ("Nova, Quill +38").
   Bind to `live.selectedPlayerIds` / `buildRosterForSolver`.
 - **▶ Run plan** — primary button `bg #191712`, white, radius 10.
 
@@ -280,8 +280,8 @@ passives · all changes saved locally." Sections as white cards:
    128ms". **Auto-refresh** toggle + interval (seconds) input (interval disabled when off).
 4. **Display-name overrides** — table Identifier → Display name + remove "×", plus an add row (two
    inputs + "Add"). Seed data:
-   `76561198106031331→Kit, …061667425→InputComet, …146926388→D-Wire, …140338260→Capn' Crain,
-   …053299466→ScootScoot, …253583281→Kris, …131149693→Canter, …074507245→Wiggum`. Editable inline
+   `76561198000000001→Nova, …002→Ember, …003→Quill, …004→Rook,
+   …005→Pixel, …006→Skye, …007→Juno, …008→Otto`. Editable inline
    from Server Pals rows too. (`settings.live.nameOverrides`.)
 5. **Reserved for the 1.0 patch** (dashed panel, `opacity ~.65`, "available Jul 10" tag): **Active
    ruleset** select showing `combirank-0.6` (placeholder for `genrecomb-1.0`) + **Server-config

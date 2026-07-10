@@ -221,21 +221,12 @@ Must let the user configure:
   - **Test connection / refresh** action, with inline status + error.
   - **Auto-refresh** toggle + interval (seconds); interval disabled when auto-refresh off.
   - **Display-name override table**: identifier → preferred name; add/update/remove. Seed
-    data below. Also editable inline from Server Pals rows.
+    data is personal (real SteamID64s/nicknames) and lives outside this repo, not in a table
+    here — see `src/store/nameOverrides.example.ts` for the seeding mechanism. Also editable
+    inline from Server Pals rows.
 
-Seed data for the name-override table (SteamID64 → preferred name; may re-key to PlayerUID
-once the real proxy `/players` response is inspected):
-
-| Identifier | Display name |
-|---|---|
-| 76561198106031331 | Kit |
-| 76561198061667425 | InputComet |
-| 76561198146926388 | D-Wire |
-| 76561198140338260 | Capn' Crain |
-| 76561198053299466 | ScootScoot |
-| 76561198253583281 | Kris |
-| 76561198131149693 | Canter |
-| 76561198074507245 | Wiggum |
+Seed data for the name-override table is keyed by SteamID64 (may re-key to PlayerUID once the
+real proxy `/players` response is inspected).
 
 ### 3.8 Saved Plans (data exists, UI missing — needs a home)
 

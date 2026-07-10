@@ -7,6 +7,8 @@ GoldenHorse, Boar, ElecLion, Carbunclo, CraftSpeed_up*, Deffence_up*) so pals re
 cleanly if the real app points at this demo proxy — mirrors src/live/fixtures.ts, though
 the two aren't required to be identical.
 
+Player names/ids below are made up, not tied to any real player or SteamID64.
+
 `UserId` is set equal to `PlayerUID` for every demo player so lookups by either identifier
 work — real PalDefender data may not have this property (see src/live/types.ts's
 PlayerIdentifier note on the still-unverified UserId format).
@@ -45,19 +47,19 @@ def _player(uid: str, name: str, guild: str = "The Guild", status: str = "Online
     }
 
 
-KIT_UID = "76561198106031331"
-INPUTCOMET_UID = "76561198061667425"
-DWIRE_UID = "76561198146926388"
+NOVA_UID = "76561198000000001"
+EMBER_UID = "76561198000000002"
+QUILL_UID = "76561198000000003"
 
 DEMO_PLAYERS: list[dict] = [
-    _player(KIT_UID, "KitIngame"),
-    _player(INPUTCOMET_UID, "InputComet"),
-    _player(DWIRE_UID, "D-Wire", status="Offline"),
+    _player(NOVA_UID, "NovaIngame"),
+    _player(EMBER_UID, "Ember"),
+    _player(QUILL_UID, "Quill", status="Offline"),
 ]
 
 DEMO_PALS_BY_IDENTIFIER: dict[str, dict] = {
-    KIT_UID: {
-        "Meta": {"PlayerUID": KIT_UID, "Player": KIT_UID, "TeamCount": 1, "PalboxCount": 1, "BaseCampCount": 1},
+    NOVA_UID: {
+        "Meta": {"PlayerUID": NOVA_UID, "Player": NOVA_UID, "TeamCount": 1, "PalboxCount": 1, "BaseCampCount": 1},
         "Pals": {
             "Team": {"t1": _pal("Anubis", "Male", Level=50, Passives=["CraftSpeed_up3", "Deffence_up2"])},
             "Palbox": {"p1": _pal("GoldenHorse", "Female", Level=20, Passives=["CraftSpeed_up1"])},
@@ -66,16 +68,16 @@ DEMO_PALS_BY_IDENTIFIER: dict[str, dict] = {
             ],
         },
     },
-    INPUTCOMET_UID: {
-        "Meta": {"PlayerUID": INPUTCOMET_UID, "Player": INPUTCOMET_UID, "TeamCount": 1, "PalboxCount": 0, "BaseCampCount": 0},
+    EMBER_UID: {
+        "Meta": {"PlayerUID": EMBER_UID, "Player": EMBER_UID, "TeamCount": 1, "PalboxCount": 0, "BaseCampCount": 0},
         "Pals": {
             "Team": {"t1": _pal("ElecLion", "Female", Level=35, Passives=["Deffence_up3"])},
             "Palbox": {},
             "BaseCamps": [],
         },
     },
-    DWIRE_UID: {
-        "Meta": {"PlayerUID": DWIRE_UID, "Player": DWIRE_UID, "TeamCount": 1, "PalboxCount": 0, "BaseCampCount": 0},
+    QUILL_UID: {
+        "Meta": {"PlayerUID": QUILL_UID, "Player": QUILL_UID, "TeamCount": 1, "PalboxCount": 0, "BaseCampCount": 0},
         "Pals": {
             "Team": {"t1": _pal("Carbunclo", "male", Level=25, Passives=["CraftSpeed_up2"])},
             "Palbox": {},

@@ -23,20 +23,20 @@ describe('resolvePlayerDisplayName', () => {
   });
 
   it('resolves a SteamID64-keyed override via the live userId when identifier is the PlayerUID', () => {
-    const p = player({ identifier: 'player-uid-1', userId: 'steam_76561198061667425', apiName: '' });
-    expect(resolvePlayerDisplayName(p, { '76561198061667425': 'InputComet' })).toBe('InputComet');
+    const p = player({ identifier: 'player-uid-1', userId: 'steam_76561198000000099', apiName: '' });
+    expect(resolvePlayerDisplayName(p, { '76561198000000099': 'Ember' })).toBe('Ember');
   });
 
   it('resolves a SteamID64-keyed override via identityLinks when the player is offline (blank userId)', () => {
     const p = player({ identifier: 'player-uid-1', userId: '', apiName: '' });
-    const identityLinks = { 'player-uid-1': '76561198061667425' };
-    expect(resolvePlayerDisplayName(p, { '76561198061667425': 'InputComet' }, identityLinks)).toBe('InputComet');
+    const identityLinks = { 'player-uid-1': '76561198000000099' };
+    expect(resolvePlayerDisplayName(p, { '76561198000000099': 'Ember' }, identityLinks)).toBe('Ember');
   });
 });
 
 describe('extractSteamId64', () => {
   it('strips the steam_ prefix', () => {
-    expect(extractSteamId64('steam_76561198061667425')).toBe('76561198061667425');
+    expect(extractSteamId64('steam_76561198000000099')).toBe('76561198000000099');
   });
 
   it('returns null for a blank or non-Steam userId', () => {
@@ -47,13 +47,13 @@ describe('extractSteamId64', () => {
 
 describe('mergeIdentityLinks', () => {
   it('learns a new PlayerUID -> SteamID64 link', () => {
-    const p = player({ identifier: 'player-uid-1', userId: 'steam_76561198061667425' });
-    expect(mergeIdentityLinks([p], {})).toEqual({ 'player-uid-1': '76561198061667425' });
+    const p = player({ identifier: 'player-uid-1', userId: 'steam_76561198000000099' });
+    expect(mergeIdentityLinks([p], {})).toEqual({ 'player-uid-1': '76561198000000099' });
   });
 
   it('returns the same reference when nothing new was learned (offline players have blank userId)', () => {
-    const existing = { 'player-uid-1': '76561198061667425' };
-    const online = player({ identifier: 'player-uid-1', userId: 'steam_76561198061667425' });
+    const existing = { 'player-uid-1': '76561198000000099' };
+    const online = player({ identifier: 'player-uid-1', userId: 'steam_76561198000000099' });
     const offline = player({ identifier: 'player-uid-2', userId: '' });
     expect(mergeIdentityLinks([online, offline], existing)).toBe(existing);
   });

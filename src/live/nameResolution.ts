@@ -19,7 +19,7 @@ export function resolvePlayerDisplayName(
   return overrides[player.identifier] || (steamId && overrides[steamId]) || player.apiName || player.identifier;
 }
 
-/** PalDefender's `UserId` for Steam players looks like `steam_76561198061667425` — strips
+/** PalDefender's `UserId` for Steam players looks like `steam_76561198000000001` — strips
  * the platform prefix to get the bare SteamID64 that `nameOverrides` is keyed by. Returns
  * `null` for blank/non-Steam ids rather than guessing. */
 export function extractSteamId64(userId: string): string | null {

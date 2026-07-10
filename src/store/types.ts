@@ -70,6 +70,16 @@ export interface StoreState {
   settings: Settings;
 }
 
+/** Optional personal seed for `nameOverrides` below, kept out of the public repo (gitignored —
+ * see nameOverrides.example.ts). `import.meta.glob` resolves to an empty object rather than a
+ * build error when the file doesn't exist, so a fresh clone still builds and runs; it just
+ * starts with no pre-populated names, addable by hand from the Settings view instead. */
+const localNameOverrideModules = import.meta.glob<{ nameOverrides: Record<string, string> }>(
+  './nameOverrides.local.ts',
+  { eager: true },
+);
+const seedNameOverrides: Record<string, string> = Object.values(localNameOverrideModules)[0]?.nameOverrides ?? {};
+
 export const DEFAULT_SETTINGS: Settings = {
   allowCatching: false,
   catchCost: 1,
@@ -82,18 +92,9 @@ export const DEFAULT_SETTINGS: Settings = {
     bearerToken: '',
     autoPollEnabled: true,
     autoPollIntervalSeconds: 300,
-    // Known server roster (docs/UI_REQUIREMENTS.md), keyed on SteamID64 — see
-    // `identityLinks` above for how this keeps resolving once a player's offline.
-    nameOverrides: {
-      '76561198106031331': 'Kit',
-      '76561198061667425': 'InputComet',
-      '76561198146926388': 'D-Wire',
-      '76561198140338260': "Capn' Crain",
-      '76561198053299466': 'ScootScoot',
-      '76561198253583281': 'Kris',
-      '76561198131149693': 'Canter',
-      '76561198074507245': 'Wiggum',
-    },
+    // Known server roster, keyed on SteamID64 — see `identityLinks` above for how this keeps
+    // resolving once a player's offline, and nameOverrides.example.ts for how to seed your own.
+    nameOverrides: seedNameOverrides,
     identityLinks: {},
   },
 };

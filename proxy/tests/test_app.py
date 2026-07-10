@@ -2,7 +2,7 @@ import pytest
 from fastapi.testclient import TestClient
 
 import app as app_module
-from demo_data import KIT_UID
+from demo_data import NOVA_UID
 from paldefender_client import PalDefenderError
 
 
@@ -31,11 +31,11 @@ def test_players_route_returns_demo_players(client):
     response = client.get("/v1/pdapi/players")
     assert response.status_code == 200
     body = response.json()
-    assert any(p["PlayerUID"] == KIT_UID for p in body["Players"])
+    assert any(p["PlayerUID"] == NOVA_UID for p in body["Players"])
 
 
 def test_pals_route_returns_demo_pals_for_known_player(client):
-    response = client.get(f"/v1/pdapi/pals/{KIT_UID}")
+    response = client.get(f"/v1/pdapi/pals/{NOVA_UID}")
     assert response.status_code == 200
     assert response.json()["Pals"]["Team"]["t1"]["PalID"] == "Anubis"
 

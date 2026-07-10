@@ -37,6 +37,9 @@ Thumbs.db
 .env.local
 .env.*.local
 
+# Personal SteamID64 -> display name seed data — see src/store/nameOverrides.example.ts
+src/store/nameOverrides.local.ts
+
 # Python (proxy/)
 __pycache__/
 *.pyc

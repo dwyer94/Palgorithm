@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
 import type { Dataset } from '../../src/data/schema';
 import { createHttpDataSource, createMockDataSource } from '../../src/live/dataSource';
-import { FIXTURE_KIT_UID, FIXTURE_PALS_BY_IDENTIFIER, FIXTURE_PLAYERS } from '../../src/live/fixtures';
+import { FIXTURE_NOVA_UID, FIXTURE_PALS_BY_IDENTIFIER, FIXTURE_PLAYERS } from '../../src/live/fixtures';
 
 function emptyDataset(): Dataset {
   return {
@@ -25,7 +25,7 @@ describe('createMockDataSource', () => {
 
   it('resolves a specific player\'s pals', async () => {
     const source = createMockDataSource({ players: FIXTURE_PLAYERS, palsByIdentifier: FIXTURE_PALS_BY_IDENTIFIER }, dataset);
-    const result = await source.getPlayerPals(FIXTURE_KIT_UID);
+    const result = await source.getPlayerPals(FIXTURE_NOVA_UID);
     expect(result.ok).toBe(true);
     if (result.ok) expect(result.data.pals.length).toBeGreaterThan(0);
   });

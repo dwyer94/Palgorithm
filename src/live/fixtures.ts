@@ -6,14 +6,14 @@ import type { RawPal, RawPalsResponse, RawPlayer, PlayerIdentifier } from './typ
  * built against real species/passive ids from the bundled dataset so normalization exercises
  * real lookups, not just structural plumbing. Deliberately includes:
  *  - a player with no `Name` and no seeded override (falls back to raw identifier)
- *  - a player with an empty `Name` but a seeded override (override wins)
+ *  - a player with an empty `Name` but a seeded override (override wins, if configured)
  *  - a player with an in-game `Name` and no override (API name wins)
  *  - a player with no pals at all (empty Team/Palbox/BaseCamps)
  *  - one pal with an unresolvable `PalID` and one with an unresolvable passive, so the
  *    "flag, don't drop" path is exercised by default rather than only in hand-written tests
  *
- * Three players reuse the real seeded SteamID64s from docs/UI_REQUIREMENTS.md as `PlayerUID`
- * so the name-override table has something real to demonstrate against out of the box.
+ * Names and identifiers here are entirely made up — not tied to any real player or SteamID64
+ * (see nameOverrides.example.ts for how personal overrides are seeded, kept out of this repo).
  */
 
 function rawPal(overrides: Partial<RawPal> & Pick<RawPal, 'PalID' | 'Gender'>): RawPal {
@@ -27,17 +27,17 @@ function rawPal(overrides: Partial<RawPal> & Pick<RawPal, 'PalID' | 'Gender'>): 
   };
 }
 
-export const FIXTURE_KIT_UID: PlayerIdentifier = '76561198106031331';
-export const FIXTURE_INPUTCOMET_UID: PlayerIdentifier = '76561198061667425';
+export const FIXTURE_NOVA_UID: PlayerIdentifier = '76561198000000001';
+export const FIXTURE_EMBER_UID: PlayerIdentifier = '76561198000000002';
 export const FIXTURE_WANDERER_UID: PlayerIdentifier = 'fixture-player-uid-wanderer';
 export const FIXTURE_UNKNOWN_UID: PlayerIdentifier = 'fixture-player-uid-unknown';
 
 export const FIXTURE_PLAYERS: RawPlayer[] = [
   {
-    Name: 'KitIngame',
+    Name: 'NovaIngame',
     IP: '',
-    PlayerUID: FIXTURE_KIT_UID,
-    UserId: FIXTURE_KIT_UID,
+    PlayerUID: FIXTURE_NOVA_UID,
+    UserId: FIXTURE_NOVA_UID,
     GuildName: 'The Guild',
     GuildUUID: '',
     Status: 'Online',
@@ -47,8 +47,8 @@ export const FIXTURE_PLAYERS: RawPlayer[] = [
   {
     Name: '',
     IP: '',
-    PlayerUID: FIXTURE_INPUTCOMET_UID,
-    UserId: FIXTURE_INPUTCOMET_UID,
+    PlayerUID: FIXTURE_EMBER_UID,
+    UserId: FIXTURE_EMBER_UID,
     GuildName: 'The Guild',
     GuildUUID: '',
     Status: 'Online',
@@ -80,8 +80,8 @@ export const FIXTURE_PLAYERS: RawPlayer[] = [
 ];
 
 export const FIXTURE_PALS_BY_IDENTIFIER: Record<PlayerIdentifier, RawPalsResponse> = {
-  [FIXTURE_KIT_UID]: {
-    Meta: { PlayerUID: FIXTURE_KIT_UID, Player: FIXTURE_KIT_UID, TeamCount: 1, PalboxCount: 1, BaseCampCount: 1 },
+  [FIXTURE_NOVA_UID]: {
+    Meta: { PlayerUID: FIXTURE_NOVA_UID, Player: FIXTURE_NOVA_UID, TeamCount: 1, PalboxCount: 1, BaseCampCount: 1 },
     Pals: {
       Team: {
         't1': rawPal({ PalID: 'Anubis', Gender: 'Male', Level: 50, Passives: ['CraftSpeed_up3', 'Deffence_up2'] }),
@@ -99,8 +99,8 @@ export const FIXTURE_PALS_BY_IDENTIFIER: Record<PlayerIdentifier, RawPalsRespons
       ],
     },
   },
-  [FIXTURE_INPUTCOMET_UID]: {
-    Meta: { PlayerUID: FIXTURE_INPUTCOMET_UID, Player: FIXTURE_INPUTCOMET_UID, TeamCount: 1, PalboxCount: 1, BaseCampCount: 0 },
+  [FIXTURE_EMBER_UID]: {
+    Meta: { PlayerUID: FIXTURE_EMBER_UID, Player: FIXTURE_EMBER_UID, TeamCount: 1, PalboxCount: 1, BaseCampCount: 0 },
     Pals: {
       Team: {
         't1': rawPal({ PalID: 'ElecLion', Gender: 'Female', Level: 35, Passives: ['Deffence_up3', 'FakePassive_XYZ'] }),
