@@ -1,6 +1,7 @@
 import type { BreedingRuleset } from '../ruleset/types';
 import type {
   AnchorHint,
+  ForcedCarrierResult,
   Gender,
   PassiveId,
   PassivePlanResult,
@@ -11,6 +12,7 @@ import type {
   SpeciesPlannerOptions,
   SpeciesPlanStep,
 } from './types';
+import { MinHeap } from './minHeap';
 
 /**
  * speciesPlanner (spec §7.1) — minimum-combination derivation over the species AND/OR
@@ -121,107 +123,105 @@ function getGraph(ruleset: BreedingRuleset): Graph {
 }
 
 /**
- * Forced-carrier search (spec §7.3's "guaranteed carrier" overlay, session 0.4c). Finds the
- * cheapest derivation of `target` that provably threads through a specific owned individual
- * (the "carrier"), instead of `passivePlanner`'s original approach of throwing away the rest
- * of the roster and catching entirely to fake soundness — that over-restriction meant a
+ * Forced-carrier search (spec §7.3's "guaranteed carrier" overlay, session 0.4c; generalized
+ * to joint multi-passive routing in the two-mode §7.3 rewrite). Finds the cheapest derivation
+ * of `target` that provably threads through the roster individuals carrying a set of desired
+ * passives (1-4 of them), instead of `passivePlanner`'s original approach of throwing away the
+ * rest of the roster and catching entirely to fake soundness — that over-restriction meant a
  * carrier could only ever reach species its own self-cross could produce, which for almost
  * every real species is nothing at all (`combirank-0.6`'s same-species shortcut always yields
  * the same species; the ~100 self-pair special combos in the shipped 1.0 dataset are all
  * fixed points too), making the old search return "not possible" essentially unconditionally.
  *
- * Instead, every (species,gender) node is split into a "clean" state and a "tainted" state
- * (a doubled/product graph, `Taint` below). Tainted seeds are ONLY the carrier's own
- * passive-carrying roster entries; everything else — the rest of the owned roster AND
- * catching, per the caller's real settings — seeds clean. A combo's output is tainted iff at
- * least one of its two inputs is tainted, so a derivation can freely use any other owned or
- * caught species as an intermediate/partner, but the desired passive's presence in the answer
- * is only ever true if a real edge traces back to the carrier. Catching alone can never
- * produce a tainted result (catch seeds are always clean), which is exactly the soundness
- * property the old narrowing was (over-aggressively) protecting — this gets the same
- * guarantee without needing to pretend the rest of the roster doesn't exist.
+ * Every (species,gender) node is split into states keyed by a **bitmask** over the caller's
+ * `requiredPassives` (one bit per passive, order = array order) instead of a single 0/1 taint
+ * bit: a roster entry seeds the node for whichever mask its own passives happen to intersect
+ * `requiredPassives` at (0 for ordinary fodder, a multi-bit mask for an individual that already
+ * carries several of them), and a combo's output mask is the bitwise OR of its two inputs'
+ * masks. This is what lets two *different* carriers, each holding a different desired passive,
+ * combine into one lineage that carries both — the fix for the "AND not OR" bug: forcing two
+ * desired passives used to mean running this search twice and getting two unrelated trees back;
+ * now it's one search whose target mask is the union of both.
  *
- * The doubled edge set is built once from the already-cached `Graph` (no extra `reverse()`
- * cost) and itself cached per ruleset, since it's independent of which species ends up being
- * the carrier.
+ * A naive generalization of the old design — precompute every `(maskA, maskB) -> maskA|maskB`
+ * doubled edge up front, the same shape as the old 4-combo `buildDoubledGraph` scaled from
+ * `2x2` to `2^k x 2^k` combos per base edge — was measured against the real shipped dataset
+ * during design and found to reach multi-second builds at k=3 and to OOM outright at k=4 (the
+ * real passive-slot cap), before a single query even runs: not shippable. Instead, `solveMasked`
+ * below runs the SAME finalized-input-count Dijkstra shape as the plain `solve()`, but lazily —
+ * it reuses the already-cached plain `Graph` unmodified and only ever creates a `(node, mask)`
+ * state when a relax genuinely reaches it, pairing a newly finalized state against whichever
+ * masks the combo's other input has *already* finalized (tracked per plain node) rather than
+ * against a precomputed combo table. Work scales with the masks actually reached, not the full
+ * `4^k` cross product — empirically identical to the old single-bit search when only one
+ * non-zero mask is ever reachable, which is the common case (one carrier, one or two passives).
+ * Catch seeds are always mask 0 — catching can never manufacture a passive, the same soundness
+ * property the old narrowing was (over-aggressively) protecting.
  */
-type Taint = 0 | 1;
-type TNode = string; // `${species}|${gender}|${taint}`
-const tnode = (species: SpeciesId, gender: Gender, t: Taint): TNode => `${species}|${gender}|${t}`;
-const isTainted = (n: TNode): boolean => n.endsWith('|1');
-
-interface DoubledEdge {
-  inputs: [TNode, TNode];
-  output: TNode;
-  via: SpeciesPlanStep;
+type Taint = number; // bitmask over the caller's `requiredPassives`, one bit per entry
+type TNode = string; // `${species}|${gender}|${mask}`
+const tnode = (species: SpeciesId, gender: Gender, mask: Taint): TNode => `${species}|${gender}|${mask}`;
+function parseTNode(n: TNode): { species: SpeciesId; gender: Gender; mask: number } {
+  const [species, gender, mask] = n.split('|') as [SpeciesId, Gender, string];
+  return { species, gender, mask: Number(mask) };
 }
 
-function buildDoubledGraph(graph: Graph): { edges: DoubledEdge[]; edgesByInput: Map<TNode, number[]> } {
-  const edges: DoubledEdge[] = [];
-  const edgesByInput = new Map<TNode, number[]>();
-  const addEdge = (a: TNode, b: TNode, output: TNode, via: SpeciesPlanStep) => {
-    edges.push({ inputs: [a, b], output, via });
-    const idx = edges.length - 1;
-    for (const n of [a, b]) {
-      const list = edgesByInput.get(n) ?? [];
-      list.push(idx);
-      edgesByInput.set(n, list);
-    }
-  };
+function popcount(mask: number): number {
+  let c = 0;
+  for (let m = mask; m !== 0; m >>= 1) c += m & 1;
+  return c;
+}
 
-  // Any combo where at least one input is tainted produces a tainted output; both-clean is
-  // the only combo that stays clean. The (1,1)->1 combo is NOT redundant with (1,0)/(0,1) —
-  // a node reachable only in tainted form (no clean route exists at all) still needs to be
-  // usable as an input on the tainted side of a later combo.
-  const taintCombos: [Taint, Taint, Taint][] = [
-    [0, 0, 0],
-    [1, 0, 1],
-    [0, 1, 1],
-    [1, 1, 1],
-  ];
-  for (const e of graph.edges) {
-    const [a, b] = e.inputs;
-    for (const [ta, tb, tc] of taintCombos) {
-      addEdge(`${a}|${ta}`, `${b}|${tb}`, `${e.output}|${tc}`, e.via);
-    }
+/** Bitmask of which `requiredPassives` this roster entry carries — 0 for ordinary fodder. */
+function passiveMask(entry: RosterEntry, requiredPassives: PassiveId[]): number {
+  let m = 0;
+  for (let i = 0; i < requiredPassives.length; i++) {
+    if (entry.passives?.includes(requiredPassives[i]!)) m |= 1 << i;
   }
-  return { edges, edgesByInput };
+  return m;
 }
 
-const doubledGraphCache = new WeakMap<BreedingRuleset, ReturnType<typeof buildDoubledGraph>>();
-function getDoubledGraph(ruleset: BreedingRuleset): ReturnType<typeof buildDoubledGraph> {
-  let dg = doubledGraphCache.get(ruleset);
-  if (!dg) {
-    dg = buildDoubledGraph(getGraph(ruleset));
-    doubledGraphCache.set(ruleset, dg);
-  }
-  return dg;
+/** Inverse of `passiveMask`: which `requiredPassives` a mask represents, in array order. */
+function decodeMask(mask: number, requiredPassives: PassiveId[]): PassiveId[] {
+  const out: PassiveId[] = [];
+  for (let i = 0; i < requiredPassives.length; i++) if (mask & (1 << i)) out.push(requiredPassives[i]!);
+  return out;
 }
 
-type TNodeSource = { kind: 'owned' } | { kind: 'catch' } | { kind: 'combo'; edge: DoubledEdge };
+type TNodeSource = { kind: 'owned' } | { kind: 'catch' } | { kind: 'combo'; edge: Edge; maskA: number; maskB: number };
 
-function solveTainted(
+function solveMasked(
   ruleset: BreedingRuleset,
-  cleanRoster: RosterEntry[],
-  taintedRoster: RosterEntry[],
+  roster: RosterEntry[],
+  requiredPassives: PassiveId[],
   opts: CoreOptions,
-): { dist: Map<TNode, number>; from: Map<TNode, TNodeSource> } {
-  const { edges, edgesByInput } = getDoubledGraph(ruleset);
+): { dist: Map<TNode, number>; from: Map<TNode, TNodeSource>; leafEntryByTNode: Map<TNode, RosterEntry> } {
+  const graph = getGraph(ruleset); // the plain, unmodified base graph — no doubling
   const dist = new Map<TNode, number>();
   const from = new Map<TNode, TNodeSource>();
   const finalized = new Set<TNode>();
-  const finalizedInputCount = new Map<number, number>();
+  // Which masks have been finalized so far at each PLAIN node — this replaces the old static
+  // doubled-edge table: a combo fires by pairing a freshly finalized (node,mask) against every
+  // mask the edge's OTHER input has already finalized, not against a precomputed combo list.
+  const masksSoFar = new Map<Node, Set<number>>();
+  const leafEntryByTNode = new Map<TNode, RosterEntry>();
 
-  const queue: { n: TNode; cost: number }[] = [];
+  const heap = new MinHeap<{ n: TNode; cost: number }>((x) => x.cost);
   const relax = (n: TNode, cost: number, source: TNodeSource) => {
     if (cost >= (dist.get(n) ?? Infinity)) return;
     dist.set(n, cost);
     from.set(n, source);
-    queue.push({ n, cost });
+    heap.push({ n, cost });
   };
 
-  for (const r of cleanRoster) relax(tnode(r.species, r.gender, 0), 0, { kind: 'owned' });
-  for (const r of taintedRoster) relax(tnode(r.species, r.gender, 1), 0, { kind: 'owned' });
+  // Every roster entry seeds its own (species,gender,mask) at cost 0 — the mask itself is the
+  // clean/tainted split, generalized; no separate carrier-vs-rest roster partition needed.
+  for (const r of roster) {
+    const mask = passiveMask(r, requiredPassives);
+    const key = tnode(r.species, r.gender, mask);
+    if (!leafEntryByTNode.has(key)) leafEntryByTNode.set(key, r);
+    relax(key, 0, { kind: 'owned' });
+  }
 
   if (opts.allowCatching) {
     for (const species of ruleset.reachability.wildCatchable) {
@@ -233,57 +233,109 @@ function solveTainted(
     }
   }
 
-  while (queue.length > 0) {
-    let bestIdx = 0;
-    for (let i = 1; i < queue.length; i++) if (queue[i]!.cost < queue[bestIdx]!.cost) bestIdx = i;
-    const { n, cost } = queue.splice(bestIdx, 1)[0]!;
+  while (!heap.isEmpty()) {
+    const { n, cost } = heap.pop()!;
     if (finalized.has(n)) continue;
     if (cost > (dist.get(n) ?? Infinity)) continue;
     finalized.add(n);
 
-    for (const edgeIdx of edgesByInput.get(n) ?? []) {
-      const edge = edges[edgeIdx]!;
-      const count = (finalizedInputCount.get(edgeIdx) ?? 0) + 1;
-      finalizedInputCount.set(edgeIdx, count);
-      if (count < edge.inputs.length) continue;
-      const total = edge.inputs.reduce((s, inp) => s + (dist.get(inp) ?? Infinity), 0) + 1;
-      relax(edge.output, total, { kind: 'combo', edge });
+    const { species, gender, mask } = parseTNode(n);
+    const plainNode = node(species, gender);
+    let seenMasks = masksSoFar.get(plainNode);
+    if (!seenMasks) {
+      seenMasks = new Set();
+      masksSoFar.set(plainNode, seenMasks);
+    }
+    seenMasks.add(mask);
+
+    for (const edgeIdx of graph.edgesByInput.get(plainNode) ?? []) {
+      const edge = graph.edges[edgeIdx]!;
+      const [inA, inB] = edge.inputs;
+      const isA = inA === plainNode;
+      const otherMasks = masksSoFar.get(isA ? inB : inA);
+      if (!otherMasks) continue; // other side hasn't finalized any mask yet
+      for (const otherMask of otherMasks) {
+        const maskA = isA ? mask : otherMask;
+        const maskB = isA ? otherMask : mask;
+        const pA = parseNode(inA);
+        const pB = parseNode(inB);
+        const costA = dist.get(tnode(pA.species, pA.gender, maskA));
+        const costB = dist.get(tnode(pB.species, pB.gender, maskB));
+        if (costA === undefined || costB === undefined) continue;
+        const po = parseNode(edge.output);
+        relax(tnode(po.species, po.gender, maskA | maskB), costA + costB + 1, { kind: 'combo', edge, maskA, maskB });
+      }
     }
   }
 
-  return { dist, from };
+  return { dist, from, leafEntryByTNode };
 }
 
-/** Walks the tainted derivation back from `target`, deduping combos the same way `reconstruct`
- * does, and stamps `.passives` onto exactly the `PlanIndividual`s that sit on the tainted
- * lineage: the carrier's own leaf gets its real roster passives (so first-generation pollution
- * is visible), every tainted produced node downstream gets `[desiredPassive]`
- * (clean-carrier-forward, same assumption `passivePlanner`'s odds math already made). This
- * both lets the existing graph-attribution rendering (`graphLayout.ts` reads `.passives` off
- * leaf `PlanIndividual`s already) show the carrier wherever it actually sits — not just at a
- * final cross — and lets odds be computed directly from `steps` by node identity instead of
- * matching on species name (which breaks if the carrier's species also appears elsewhere in
- * the plan as ordinary clean fodder). */
-function reconstructTainted(
+/** Highest-popcount reachable mask at `target` (either gender), lowest-cost tiebreak — the
+ * spec §7.3 "partial routing" behavior: if all `requiredPassives` can't be jointly routed,
+ * report the largest subset that can. Deliberately excludes mask 0 (mirrors the old code only
+ * ever checking the tainted node, never the clean one) so "feasible" keeps meaning "at least
+ * one of the desired passives got routed," not "the plain baseline plan exists." */
+function bestReachableMask(
+  dist: Map<TNode, number>,
+  target: SpeciesId,
+  k: number,
+): { mask: number; gender: Gender; cost: number } | null {
+  const fullMask = (1 << k) - 1;
+  let bestPopcount = 0;
+  let bestCost = Infinity;
+  let bestMask = -1;
+  let bestGender: Gender = 'male';
+  for (let mask = 1; mask <= fullMask; mask++) {
+    const pc = popcount(mask);
+    for (const gender of ['male', 'female'] as Gender[]) {
+      const cost = dist.get(tnode(target, gender, mask)) ?? Infinity;
+      if (!isFinite(cost)) continue;
+      if (pc > bestPopcount || (pc === bestPopcount && cost < bestCost)) {
+        bestPopcount = pc;
+        bestCost = cost;
+        bestMask = mask;
+        bestGender = gender;
+      }
+    }
+  }
+  return bestMask === -1 ? null : { mask: bestMask, gender: bestGender, cost: bestCost };
+}
+
+/** Walks the masked derivation back from `target`, deduping combos the same way `reconstruct`
+ * does, and stamps `.passives` onto exactly the `PlanIndividual`s that sit on the routed
+ * lineage: a carrier's own leaf gets its real roster passives (so pollution is visible), every
+ * produced node downstream gets the decoded subset of `requiredPassives` its mask represents
+ * (clean-carrier-forward, same assumption `passivePlanner`'s odds math already made). This both
+ * lets the existing graph-attribution rendering (`graphLayout.ts` reads `.passives` off leaf
+ * `PlanIndividual`s already) show the carriers wherever they actually sit, and lets odds be
+ * computed directly from `steps` by node identity instead of matching on species name. Also
+ * returns `carrierLeaves` — the real owned individuals found on the lineage — since the caller
+ * no longer pre-selects a fixed `carrierEntries` list to report back. */
+function reconstructMasked(
   from: Map<TNode, TNodeSource>,
+  leafEntryByTNode: Map<TNode, RosterEntry>,
   target: TNode,
-  carrierEntries: RosterEntry[],
-  desiredPassive: PassiveId,
-): { steps: SpeciesPlanStep[]; catches: PlanIndividual[] } {
+  requiredPassives: PassiveId[],
+): { steps: SpeciesPlanStep[]; catches: PlanIndividual[]; carrierLeaves: RosterEntry[] } {
   const steps: SpeciesPlanStep[] = [];
   const catches: PlanIndividual[] = [];
+  const carrierLeaves = new Set<RosterEntry>();
   const visited = new Set<TNode>();
   const stepSeen = new Set<string>();
 
   const individualFor = (n: TNode, base: PlanIndividual): PlanIndividual => {
-    if (!isTainted(n)) return base;
-    const isLeaf = !from.has(n) || from.get(n)?.kind === 'owned';
+    const { mask } = parseTNode(n);
+    if (mask === 0) return base;
+    const source = from.get(n);
+    const isLeaf = !source || source.kind === 'owned';
     if (isLeaf) {
-      const match = carrierEntries.find((e) => e.species === base.species && e.gender === base.gender);
-      const passives = match?.passives && match.passives.length > 0 ? match.passives : [desiredPassive];
+      const entry = leafEntryByTNode.get(n);
+      if (entry) carrierLeaves.add(entry);
+      const passives = entry?.passives && entry.passives.length > 0 ? entry.passives : decodeMask(mask, requiredPassives);
       return { species: base.species, gender: base.gender, passives };
     }
-    return { species: base.species, gender: base.gender, passives: [desiredPassive] };
+    return { species: base.species, gender: base.gender, passives: decodeMask(mask, requiredPassives) };
   };
 
   function visit(n: TNode) {
@@ -292,58 +344,71 @@ function reconstructTainted(
     const source = from.get(n);
     if (!source || source.kind === 'owned') return;
     if (source.kind === 'catch') {
-      const [species, gender] = n.split('|') as [SpeciesId, Gender];
+      const { species, gender } = parseTNode(n);
       catches.push({ species, gender });
       return;
     }
-    const { edge } = source;
-    for (const input of edge.inputs) visit(input);
+    const { edge, maskA, maskB } = source;
+    const [inA, inB] = edge.inputs;
+    const pA = parseNode(inA);
+    const pB = parseNode(inB);
+    const tA = tnode(pA.species, pA.gender, maskA);
+    const tB = tnode(pB.species, pB.gender, maskB);
+    visit(tA);
+    visit(tB);
     const key = comboKey(edge.via);
     if (!stepSeen.has(key)) {
       stepSeen.add(key);
-      const [inA, inB] = edge.inputs;
       steps.push({
-        parentA: individualFor(inA, edge.via.parentA),
-        parentB: individualFor(inB, edge.via.parentB),
+        parentA: individualFor(tA, edge.via.parentA),
+        parentB: individualFor(tB, edge.via.parentB),
         child: edge.via.child,
       });
     }
   }
 
   visit(target);
-  return { steps, catches };
+  return { steps, catches, carrierLeaves: [...carrierLeaves] };
 }
 
-/** Cheapest derivation of `target` that provably threads through `carrierEntries` (spec
- * §7.3's "guaranteed carrier" overlay — see the block comment above `buildDoubledGraph`).
- * `fullRoster` includes the carrier entries themselves; the rest of the roster and catching
- * (per `options`) are legitimately available as clean intermediates/partners — only the
- * carrier's own entries seed tainted. Returns a `SpeciesPlanResult`-shaped result (no
- * `anchorHints`/`passivePlan` — the caller, `passivePlanner`, computes odds directly from the
- * now passive-annotated `steps`). */
+/** Cheapest derivation of `target` that provably threads through the roster individuals
+ * carrying `requiredPassives` (1-4 of them; spec §7.3's "guaranteed carrier" overlay — see the
+ * block comment above `solveMasked`). All k passives are routed jointly into ONE lineage when
+ * a route exists; when the full set can't be jointly reached, the result carries whichever
+ * largest subset can be (`routedPassives`/`fullyRouted`, spec's "partial routing"). `fullRoster`
+ * supplies every seed — carriers and ordinary fodder alike, distinguished only by their
+ * `passives` mask, not by a caller-supplied carrier list. */
 export function findForcedCarrierRoute(
   ruleset: BreedingRuleset,
   fullRoster: RosterEntry[],
-  carrierEntries: RosterEntry[],
+  requiredPassives: PassiveId[],
   target: SpeciesId,
-  desiredPassive: PassiveId,
   options: SpeciesPlannerOptions = {},
-): SpeciesPlanResult {
+): ForcedCarrierResult {
   const opts = normalizeCoreOptions(options);
-  const carrierSet = new Set(carrierEntries);
-  const cleanRoster = fullRoster.filter((r) => !carrierSet.has(r));
-
-  const { dist, from } = solveTainted(ruleset, cleanRoster, carrierEntries, opts);
-
-  const maleCost = dist.get(tnode(target, 'male', 1)) ?? Infinity;
-  const femaleCost = dist.get(tnode(target, 'female', 1)) ?? Infinity;
-  const cost = Math.min(maleCost, femaleCost);
-  if (!isFinite(cost)) {
-    return { target, feasible: false, combinationCount: Infinity, cost: Infinity, steps: [], catches: [] };
+  const desired = [...new Set(requiredPassives)];
+  const k = desired.length;
+  if (k < 1 || k > 4) {
+    throw new Error(`findForcedCarrierRoute: requiredPassives must have 1-4 entries, got ${k}`);
   }
 
-  const gender: Gender = maleCost <= femaleCost ? 'male' : 'female';
-  const { steps, catches } = reconstructTainted(from, tnode(target, gender, 1), carrierEntries, desiredPassive);
+  const { dist, from, leafEntryByTNode } = solveMasked(ruleset, fullRoster, desired, opts);
+  const best = bestReachableMask(dist, target, k);
+  if (!best) {
+    return {
+      target,
+      feasible: false,
+      combinationCount: Infinity,
+      cost: Infinity,
+      steps: [],
+      catches: [],
+      routedPassives: [],
+      fullyRouted: false,
+      carrierLeaves: [],
+    };
+  }
+
+  const { steps, catches, carrierLeaves } = reconstructMasked(from, leafEntryByTNode, tnode(target, best.gender, best.mask), desired);
   return {
     target,
     feasible: true,
@@ -351,6 +416,9 @@ export function findForcedCarrierRoute(
     cost: steps.length + catches.length * opts.catchCost,
     steps,
     catches,
+    routedPassives: decodeMask(best.mask, desired),
+    fullyRouted: best.mask === (1 << k) - 1,
+    carrierLeaves,
   };
 }
 

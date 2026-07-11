@@ -127,6 +127,21 @@ export interface SpeciesPlanResult {
   passivePlan?: PassivePlanResult;
 }
 
+/** Result of `findForcedCarrierRoute` (spec §7.3 mode 2b, the guaranteed-carrier overlay).
+ * Extends the plain species-plan shape with which of the caller's requested passives the
+ * route actually threads into the lineage, and which real owned individuals it used. */
+export interface ForcedCarrierResult extends SpeciesPlanResult {
+  /** Subset of the caller's requested passives this route provably carries into the target,
+   * in the caller's array order. Empty iff `feasible` is false. */
+  routedPassives: PassiveId[];
+  /** True iff every requested passive was jointly routed (`routedPassives.length` equals the
+   * caller's requested count) — false means only the largest routable subset was found (spec
+   * §7.3's "partial routing"). */
+  fullyRouted: boolean;
+  /** Real roster individuals found on the reconstructed lineage. */
+  carrierLeaves: RosterEntry[];
+}
+
 /** Multi-target species plan (spec §7.2's "baseline, always produced" plan). Each target
  * is solved against the same roster, then the per-target steps/catches are merged and
  * deduped so an intermediate shared by several targets is still counted once. */

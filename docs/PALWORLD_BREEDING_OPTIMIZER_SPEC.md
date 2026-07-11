@@ -34,7 +34,7 @@ Species and passives are solved in two stages, because in the current game a pas
 
 ### 2.3 Single-target vs multi-target
 
-- **Single target:** minimum-combination derivation of one species from the roster, with the desired perks injected at the final cross. No hub — if you know exactly where you're going, routing through a shared carrier adds work, not saves it.
+- **Single target:** minimum-combination derivation of one species from the roster. When perks are desired, §7.3's two modes both apply — the cheapest derivation with perks landed opportunistically at the final cross where free, and (separately) a guaranteed-carrier derivation that forces the full desired set in, preferring the final cross but threading carriers upstream when that's not possible. No hub — if you know exactly where you're going, routing through a shared carrier adds work, not saves it.
 - **Multi-target + shared perks:** produce N target species all carrying perk set P. Here a **hub** becomes worthwhile *as an option*: breed one individual loaded with P, then reuse that same perked Pal as a **direct parent** across the final cross toward each target, stamping the perks into many species with minimal rework. The hub is a convenience for "one good Pal I can breed in multiple directions," **not** a mandatory routing point — the optimizer always also offers the plain per-target plan and lets the combination count decide. See §7.2 for how the hub is chosen and §7.3 for why direct-parent injection keeps the perk odds simple.
 
 ---
@@ -284,14 +284,34 @@ Given targets `T1..Tn` (+ shared perk set P):
 - **Candidate hubs (the optional overlay).** Score each plausible carrier species `H` by `obtainCost(H) + Σ_i injectCost(H → Ti)`, where `injectCost` strongly prefers hubs that can be a **direct parent** of `Ti` (a single final cross), since that is what lets one perked individual serve many targets. Penalize hubs that only reach a target through intermediates: perks would then have to survive extra inheritance rolls (§7.3), so those branches are worth less. Surface the top hubs as "load P onto one of these, then branch to each target in one cross."
 - Return the baseline union plan **plus** the ranked hub suggestions as an alternative, and let the user compare. Never force the hub — for a single target, or when no carrier reaches the targets in short branches, the plain per-target plan wins.
 
-### 7.3 Passive planner — probabilistic overlay
+### 7.3 Passive planner — two explicit modes
 
-Given a species DAG and desired perk set P (≤ 4):
+*(Revised session — see git history for the prior single-mode text this replaces. The rewrite was triggered by a concrete bug: with two desired perks each carried by a different owned Pal, the guaranteed-carrier overlay returned two separate single-perk trees — an OR — instead of one tree carrying both — an AND. Root cause: the overlay's forced-carrier search was scoped to one carrier / one passive from the start (session 0.4c) and never generalized when multi-perk targets showed up. This section now specifies the two-mode split explicitly so that generalization is a requirement, not an afterthought.)*
 
-- **Inject at the final cross, not upstream.** Build a **clean carrier** holding exactly P (or as many of P as slots allow) and use it as a **direct parent** of each target in the last breed. The carrier *is* the multi-target hub of §7.2 when several targets share P. Injecting at the final step means the perk odds are a **single-cross calculation** — perks don't have to survive a chain of intermediate breeds.
-- **If perks must ride through intermediates,** the survival probability **compounds per step** (a fresh inheritance roll each breed), so the model must multiply the odds along the branch — and the planner should prefer, and the UI should recommend, re-loading a clean carrier at the final cross instead. Flag any branch where perks are carried more than one step as a certainty risk.
-- Compute per-egg landing probability via `passiveModel.landOdds()` from the two parents' perk pools, and derive **expected eggs** to hit the target set. Report both.
+Given a species DAG (§7.1) and a desired perk set P (≤ 4):
+
+**Mode 1 — no desired perks.** Cheapest species derivation only (§7.1). No passive computation at all.
+
+**Mode 2 — desired perk set P given.** Compute and display **both** of the following side by side, always, whenever P is non-empty — never gated behind a separate user action, and never silently collapsed into one answer:
+
+- **2a. Opportunistic (zero added cost).** The cheapest species derivation, unmodified — identical combination count to Mode 1. Among final-cross parent choices *tied* at minimum cost, prefer whichever supplies the most of P for free (existing tie-break logic — this never adds a combination, it only chooses among already-equal-cost options). Per perk in P, report either "lands here for free, X% odds" or "not present in this plan — only obtainable by chance during breeding, or by re-rolling/relocating afterward." This is always the cheapest possible answer; any certainty it offers is incidental, not engineered.
+
+- **2b. Guaranteed-carrier.** Explicitly force owned carrier(s) into the derivation's ancestry so P's presence is structural rather than luck (still probabilistic per egg — "in the tree" means the inheritance/mutation roll happens with real odds, not that the perk is certain). **Must combine all of P into one lineage/tree whenever a route exists** — a set of desired perks is an AND requirement on the result, never split into independent per-perk trees.
+  - **Partial routing.** If the full set P can't be jointly routed (no combination of owned carriers reaches the target together), report the single largest jointly-routable subset as one tree, and separately list the rest of P as infeasible with a reason: "no owner" (nothing in the roster carries it) vs "owned but no feasible breeding route." *(Future option, not built now: instead of collapsing to one largest-subset tree, rank several partial-subset trees by combination cost and let the user choose which subset to guarantee. Documented here as a known extension point, deferred until there's a concrete case that needs it.)*
+  - **Prefer combining at the final cross.** When two (or more) carriers each hold a disjoint useful part of P and can each reach the target's final cross directly, use them as the two final parents — single-cross odds, no compounding, matches the "inject at the final cross, not upstream" principle below.
+  - **Multi-carrier search.** When final-cross combination isn't possible, thread carriers together upstream by generalizing the existing single-carrier tainted-graph search (`findForcedCarrierRoute`) from one taint bit ("is this node on the forced carrier's lineage") to a **bitmask over the perks in P**: each carrier seeds the bits for the perks it holds (a single Pal holding two of P seeds both bits at once), each breeding combination ORs its two input bitmasks together, and the search targets the cheapest node reaching the fullest bitmask achievable. This one mechanism covers both "one Pal already has multiple desired perks" and "different Pals each have different desired perks" — no separate code paths.
+  - **Carrier selection.** When multiple owned individuals could each serve as carrier for the same perk (or overlapping subsets of P), auto-pick whichever combination yields the lowest total combination cost — consistent with the planner's cost-driven design throughout §7. *(Future option, not built now: let the user pin a specific individual as the forced carrier, e.g. to preserve a particular IV/gender they care about.)*
+  - **No cost cap.** Guaranteed-carrier plans are never hidden for being "too expensive" — always surface the real combination delta (2b's count minus 2a's) and let the user judge, consistent with this codebase's "surface, don't silently prune" philosophy (§7.1's anchor-hint guidance).
+  - Flag any branch where the combined carrier survives more than one breeding step as a certainty risk, showing per-step odds, not just the final compounded number.
+
+**Shared mechanics (both modes read the same odds model):**
+
+- **Inject at the final cross, not upstream** is the default strategy for 2b, not a hard rule — see "prefer combining at the final cross" above. The carrier *is* the multi-target hub of §7.2 when several targets share P.
+- **If perks must ride through intermediates,** the survival probability **compounds per step** (a fresh inheritance roll each breed) — multiply the odds along the branch, and flag it as a certainty risk per above.
+- Compute per-egg landing probability via `passiveModel.landOdds()` from the two parents' perk pools, and derive **expected eggs** to hit the target set. Report both, for both 2a's opportunistic parents and 2b's guaranteed carriers.
 - Flag pollution: if a parent carries perks outside P, show how much they lower the odds and suggest breeding a cleaner parent first (a cost-vs-certainty tradeoff, surfaced not auto-decided).
+
+**UI requirement (both modes).** Every displayed tree states outright which mode produced it (opportunistic vs. guaranteed) and what its guarantee actually is. No case silently drops a desired perk without saying why (no owner / owned-but-no-route / available-but-not-chosen).
 
 ### 7.4 Output — ranked plans
 
@@ -408,7 +428,7 @@ Note: the data is Pocketpair IP extracted from the game; keep it as a bundled lo
 - **Passive-model change** — 1.0 may alter slot count or inheritance odds; isolated to `passiveModel` data.
 - **Anchor availability** — the rarest-parent bound means some targets are simply unreachable without a specific rare catch; the tool should state this plainly rather than return nothing. Only `wildCatchable` species may be suggested as anchors (§3.2/#5).
 - **Gender feasibility** — every breed needs both genders; single-gender holdings and heavily-skewed `genderRatio` species can make an otherwise cheap species path infeasible or egg-expensive (§7.1/#3). Surfaced as a first-class result, factored into expected eggs.
-- **Perk survival across branches** — perks injected upstream of the final cross must survive an inheritance roll per intermediate breed (odds compound); the planner prefers final-cross injection and flags multi-step carries (§7.3/#2).
+- **Perk survival across branches** — perks injected upstream of the final cross must survive an inheritance roll per intermediate breed (odds compound); the guaranteed-carrier mode prefers final-cross injection and flags multi-step carries (§7.3, mode 2b).
 
 ---
 

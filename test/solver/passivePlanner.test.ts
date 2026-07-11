@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import type { Dataset, Species } from '../../src/data/schema';
 import { createCombiRank06 } from '../../src/ruleset/combirank';
 import { planSpecies } from '../../src/solver/speciesPlanner';
-import { findCarrierAlternatives } from '../../src/solver/passivePlanner';
+import { findCarrierAlternatives, findGuaranteedCarrierAlternative } from '../../src/solver/passivePlanner';
 import type { RosterEntry } from '../../src/solver/types';
 
 /**
@@ -123,5 +123,163 @@ describe('passivePlanner: findCarrierAlternatives (spec §7.3\'s "certainty risk
     // manufacture a route that doesn't exist.
     const alternatives = findCarrierAlternatives(ruleset, roster, 'TARGET', baseline, { allowCatching: true });
     expect(alternatives.map((a) => a.passive)).toEqual(['Artisan']);
+  });
+});
+
+/**
+ * findGuaranteedCarrierAlternative — the actual AND/OR bug fix (spec §7.3 mode 2b). Two
+ * independent carrier lineages that only meet at the final cross, so a correct fix must
+ * report ONE tree carrying both desired passives, not the old behavior of two separate
+ * single-passive trees from `findCarrierAlternatives`.
+ */
+describe('passivePlanner: findGuaranteedCarrierAlternative (joint multi-passive routing)', () => {
+  const dataset = synthetic(
+    [
+      // standardBreedable:false on every non-special-combo-child species below is
+      // deliberate — it keeps these species out of the standard CombiRank formula's
+      // closest-rank candidate pool entirely, so the graph edges are EXACTLY the 4
+      // specialCombos declared here, with no accidental formula-based shortcuts sneaking
+      // in through unrelated rank-proximity pairings (a real risk any time several species
+      // share a fixture: the formula runs over every pair regardless of what the test
+      // intends to exercise).
+      { id: 'CARRIER_A', rank: 1, wildCatchable: false, standardBreedable: false },
+      { id: 'CARRIER_B', rank: 2, wildCatchable: false, standardBreedable: false },
+      { id: 'MID_A', rank: 4, wildCatchable: false },
+      { id: 'MID_B', rank: 5, wildCatchable: false },
+      { id: 'FODDER', rank: 6, standardBreedable: false },
+      { id: 'FODDER2', rank: 7, standardBreedable: false },
+      { id: 'TARGET', rank: 10, wildCatchable: false },
+    ],
+    [
+      { parents: ['CARRIER_A', 'CARRIER_A'], child: 'MID_A', genderRule: null },
+      { parents: ['CARRIER_B', 'CARRIER_B'], child: 'MID_B', genderRule: null },
+      { parents: ['MID_A', 'MID_B'], child: 'TARGET', genderRule: null },
+      { parents: ['FODDER', 'FODDER2'], child: 'TARGET', genderRule: null },
+    ],
+  );
+  const ruleset = createCombiRank06(dataset);
+  const roster: RosterEntry[] = [
+    { species: 'CARRIER_A', gender: 'male', passives: ['P1'] },
+    { species: 'CARRIER_A', gender: 'female', passives: ['P1'] },
+    { species: 'CARRIER_B', gender: 'male', passives: ['P2'] },
+    { species: 'CARRIER_B', gender: 'female', passives: ['P2'] },
+    { species: 'FODDER', gender: 'male' },
+    { species: 'FODDER', gender: 'female' },
+    { species: 'FODDER2', gender: 'male' },
+    { species: 'FODDER2', gender: 'female' },
+  ];
+
+  it('returns ONE tree jointly carrying both passives instead of two separate trees', () => {
+    const baseline = planSpecies(ruleset, roster, 'TARGET', { desiredPassives: ['P1', 'P2'] });
+    expect(baseline.combinationCount).toBe(1); // cheap FODDER+FODDER2 baseline
+    expect(baseline.passivePlan?.unassigned).toEqual(['P1', 'P2']);
+
+    const alt = findGuaranteedCarrierAlternative(ruleset, roster, 'TARGET', baseline, {});
+    expect(alt).not.toBeNull();
+    expect(alt!.fullyRouted).toBe(true);
+    expect(alt!.routedPassives).toEqual(['P1', 'P2']);
+    expect(alt!.plan.combinationCount).toBe(3);
+    expect(alt!.combinationDelta).toBe(2);
+    const sourceSpecies = new Set(alt!.sourceIndividuals.map((s) => s.species));
+    expect(sourceSpecies).toEqual(new Set(['CARRIER_A', 'CARRIER_B']));
+    expect(alt!.compoundedOdds).toBeGreaterThan(0);
+
+    // Contrast with the legacy per-passive shape this replaces in the UI: it still exists
+    // (unchanged, for backward compat) but produces two independent trees, each paying the
+    // full 3-combo cost on its own — exactly the OR-shaped result the fix moves away from.
+    const legacy = findCarrierAlternatives(ruleset, roster, 'TARGET', baseline, {});
+    expect(legacy.map((a) => a.passive).sort()).toEqual(['P1', 'P2']);
+    expect(legacy.every((a) => a.plan.combinationCount === 3)).toBe(true);
+  });
+
+  it('routes a single individual holding both desired passives as one 2-combo lineage, not two searches', () => {
+    const dualDataset = synthetic(
+      [
+        { id: 'DUAL', rank: 1, wildCatchable: false, standardBreedable: false },
+        { id: 'MID', rank: 4, wildCatchable: false },
+        { id: 'FODDER', rank: 5, standardBreedable: false },
+        { id: 'FODDER2', rank: 6, standardBreedable: false },
+        { id: 'TARGET', rank: 7, wildCatchable: false },
+      ],
+      [
+        { parents: ['DUAL', 'DUAL'], child: 'MID', genderRule: null },
+        { parents: ['MID', 'MID'], child: 'TARGET', genderRule: null },
+        { parents: ['FODDER', 'FODDER2'], child: 'TARGET', genderRule: null },
+      ],
+    );
+    const dualRuleset = createCombiRank06(dualDataset);
+    const dualRoster: RosterEntry[] = [
+      { species: 'DUAL', gender: 'male', passives: ['P1', 'P2'] },
+      { species: 'DUAL', gender: 'female', passives: ['P1', 'P2'] },
+      { species: 'FODDER', gender: 'male' },
+      { species: 'FODDER', gender: 'female' },
+      { species: 'FODDER2', gender: 'male' },
+      { species: 'FODDER2', gender: 'female' },
+    ];
+
+    const baseline = planSpecies(dualRuleset, dualRoster, 'TARGET', { desiredPassives: ['P1', 'P2'] });
+    expect(baseline.passivePlan?.unassigned).toEqual(['P1', 'P2']);
+
+    const alt = findGuaranteedCarrierAlternative(dualRuleset, dualRoster, 'TARGET', baseline, {});
+    expect(alt).not.toBeNull();
+    expect(alt!.fullyRouted).toBe(true);
+    expect(alt!.routedPassives).toEqual(['P1', 'P2']);
+    // Same 2-combo shape as a single desired passive would need (DUAL self-cross -> MID,
+    // MID self-cross -> TARGET) — carrying a second passive on the same individual is free.
+    expect(alt!.plan.combinationCount).toBe(2);
+    expect(new Set(alt!.sourceIndividuals.map((s) => s.species))).toEqual(new Set(['DUAL']));
+  });
+
+  it('partially routes when the full desired set cannot be jointly reached, explaining the leftover', () => {
+    const partialDataset = synthetic(
+      [
+        { id: 'CARRIER_A', rank: 1, wildCatchable: false, standardBreedable: false },
+        { id: 'CARRIER_B', rank: 2, wildCatchable: false, standardBreedable: false },
+        { id: 'MID_A', rank: 4, wildCatchable: false },
+        { id: 'MID_B', rank: 5, wildCatchable: false },
+        { id: 'FODDER', rank: 6, standardBreedable: false },
+        { id: 'FODDER2', rank: 7, standardBreedable: false },
+        { id: 'TARGET', rank: 10, wildCatchable: false },
+        // Ranked so it's a valid roster owner, but otherObtainOnly + no rank keeps it fully
+        // isolated from every reverse()/forward() edge — an owned individual with no route,
+        // distinct from "nobody owns it at all".
+        { id: 'LONELY', rank: null, wildCatchable: false, otherObtainOnly: true },
+      ],
+      [
+        { parents: ['CARRIER_A', 'CARRIER_A'], child: 'MID_A', genderRule: null },
+        { parents: ['CARRIER_B', 'CARRIER_B'], child: 'MID_B', genderRule: null },
+        { parents: ['MID_A', 'MID_B'], child: 'TARGET', genderRule: null },
+        { parents: ['FODDER', 'FODDER2'], child: 'TARGET', genderRule: null },
+      ],
+    );
+    const partialRuleset = createCombiRank06(partialDataset);
+    const partialRoster: RosterEntry[] = [
+      { species: 'CARRIER_A', gender: 'male', passives: ['P1'] },
+      { species: 'CARRIER_A', gender: 'female', passives: ['P1'] },
+      { species: 'CARRIER_B', gender: 'male', passives: ['P2'] },
+      { species: 'CARRIER_B', gender: 'female', passives: ['P2'] },
+      { species: 'FODDER', gender: 'male' },
+      { species: 'FODDER', gender: 'female' },
+      { species: 'FODDER2', gender: 'male' },
+      { species: 'FODDER2', gender: 'female' },
+      { species: 'LONELY', gender: 'male', passives: ['P3'] },
+    ];
+
+    const baseline = planSpecies(partialRuleset, partialRoster, 'TARGET', { desiredPassives: ['P1', 'P2', 'P3'] });
+    expect(baseline.passivePlan?.unassigned).toEqual(['P1', 'P2', 'P3']);
+    // P3 IS owned — this is the "owned but unroutable" case, distinct from "nobody owns it".
+    expect(partialRoster.some((r) => r.passives?.includes('P3'))).toBe(true);
+
+    const alt = findGuaranteedCarrierAlternative(partialRuleset, partialRoster, 'TARGET', baseline, {});
+    expect(alt).not.toBeNull();
+    expect(alt!.fullyRouted).toBe(false);
+    expect(alt!.routedPassives).toEqual(['P1', 'P2']);
+    expect(alt!.requiredPassives).toEqual(['P1', 'P2', 'P3']);
+  });
+
+  it('returns null when nobody in the roster carries any of the unassigned passives', () => {
+    const baseline = planSpecies(ruleset, roster, 'TARGET', { desiredPassives: ['Nobody'] });
+    expect(baseline.passivePlan?.unassigned).toEqual(['Nobody']);
+    expect(findGuaranteedCarrierAlternative(ruleset, roster, 'TARGET', baseline, {})).toBeNull();
   });
 });

@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import type { Dataset, Species } from '../../src/data/schema';
 import { createCombiRank06 } from '../../src/ruleset/combirank';
-import { planSpecies } from '../../src/solver/speciesPlanner';
+import { planSpecies, findForcedCarrierRoute } from '../../src/solver/speciesPlanner';
 import type { RosterEntry } from '../../src/solver/types';
 
 /** Same synthetic-dataset builder pattern as the ruleset unit tests: hand-computed
@@ -181,5 +181,78 @@ describe('speciesPlanner: gender feasibility', () => {
     );
     const infeasiblePlan = planSpecies(ruleset2, [{ species: 'Dodo', gender: 'male' }], 'DodoChild');
     expect(infeasiblePlan.feasible).toBe(false);
+  });
+});
+
+describe('speciesPlanner: findForcedCarrierRoute (masked joint-carrier search)', () => {
+  // Two independent carrier lineages (CARRIER_A->MID_A, CARRIER_B->MID_B) that only ever meet
+  // at the final MID_A x MID_B -> TARGET cross — direct coverage of `findForcedCarrierRoute`
+  // itself (previously only exercised indirectly via passivePlanner.test.ts), including the
+  // case that used to come back as two separate single-passive trees (the AND/OR bug).
+  const dataset = synthetic(
+    [
+      // standardBreedable:false on every non-special-combo-child species keeps them out of
+      // the standard CombiRank formula's closest-rank pool, so the graph edges are exactly
+      // the 4 specialCombos below — no accidental formula-based shortcuts from unrelated
+      // rank-proximity pairings.
+      { id: 'CARRIER_A', rank: 1, wildCatchable: false, standardBreedable: false },
+      { id: 'CARRIER_B', rank: 2, wildCatchable: false, standardBreedable: false },
+      { id: 'MID_A', rank: 4, wildCatchable: false },
+      { id: 'MID_B', rank: 5, wildCatchable: false },
+      { id: 'FODDER', rank: 6, standardBreedable: false },
+      { id: 'FODDER2', rank: 7, standardBreedable: false },
+      { id: 'TARGET', rank: 10, wildCatchable: false },
+    ],
+    [
+      { parents: ['CARRIER_A', 'CARRIER_A'], child: 'MID_A', genderRule: null },
+      { parents: ['CARRIER_B', 'CARRIER_B'], child: 'MID_B', genderRule: null },
+      { parents: ['MID_A', 'MID_B'], child: 'TARGET', genderRule: null },
+      { parents: ['FODDER', 'FODDER2'], child: 'TARGET', genderRule: null },
+    ],
+  );
+  const ruleset = createCombiRank06(dataset);
+  const roster: RosterEntry[] = [
+    { species: 'CARRIER_A', gender: 'male', passives: ['P1'] },
+    { species: 'CARRIER_A', gender: 'female', passives: ['P1'] },
+    { species: 'CARRIER_B', gender: 'male', passives: ['P2'] },
+    { species: 'CARRIER_B', gender: 'female', passives: ['P2'] },
+    ...ownBoth('FODDER', 'FODDER2'),
+  ];
+
+  it('a single-passive request finds the forced route through CARRIER_A', () => {
+    const plan = findForcedCarrierRoute(ruleset, roster, ['P1'], 'TARGET', {});
+    expect(plan.feasible).toBe(true);
+    expect(plan.routedPassives).toEqual(['P1']);
+    expect(plan.fullyRouted).toBe(true);
+    // CARRIER_A self-cross -> MID_A, CARRIER_B self-cross (clean fodder, MID_B is a
+    // structural requirement of the only route to TARGET) -> MID_B, MID_A x MID_B -> TARGET.
+    expect(plan.combinationCount).toBe(3);
+    expect(plan.carrierLeaves.every((r) => r.species === 'CARRIER_A')).toBe(true);
+  });
+
+  it('jointly routes two different carriers into one combined lineage at no extra cost', () => {
+    const plan = findForcedCarrierRoute(ruleset, roster, ['P1', 'P2'], 'TARGET', {});
+    expect(plan.feasible).toBe(true);
+    expect(plan.fullyRouted).toBe(true);
+    expect(plan.routedPassives).toEqual(['P1', 'P2']);
+    // Same 3 combinations as the P1-only case above — CARRIER_B's self-cross was already a
+    // structural requirement, so routing its passive too is free. This is exactly what the
+    // AND/OR bug fix buys: one tree carrying both perks, not two separate 3-combo trees.
+    expect(plan.combinationCount).toBe(3);
+    const carrierSpecies = new Set(plan.carrierLeaves.map((r) => r.species));
+    expect(carrierSpecies).toEqual(new Set(['CARRIER_A', 'CARRIER_B']));
+  });
+
+  it('reports infeasible when nobody carries the requested passive at all', () => {
+    const plan = findForcedCarrierRoute(ruleset, roster, ['Nobody'], 'TARGET', {});
+    expect(plan.feasible).toBe(false);
+    expect(plan.routedPassives).toEqual([]);
+    expect(plan.fullyRouted).toBe(false);
+    expect(plan.carrierLeaves).toEqual([]);
+  });
+
+  it('rejects an out-of-range passive count', () => {
+    expect(() => findForcedCarrierRoute(ruleset, roster, [], 'TARGET', {})).toThrow();
+    expect(() => findForcedCarrierRoute(ruleset, roster, ['A', 'B', 'C', 'D', 'E'], 'TARGET', {})).toThrow();
   });
 });

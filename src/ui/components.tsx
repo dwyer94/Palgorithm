@@ -287,11 +287,13 @@ function passiveTierStyle(tier: number | undefined): PassiveTierStyle | undefine
 }
 
 /**
- * Effect-text tooltip for a passive, rendered via portal so it's never clipped by an
- * ancestor's `overflow-hidden` (several chip hosts — cards, dropdowns — have one).
- * Themed to match the `Dropdown` floating panel (white/border-card/shadow-dropdown).
+ * Generic hover/focus tooltip, rendered via portal so it's never clipped by an ancestor's
+ * `overflow-hidden` (several hosts — cards, dropdowns — have one). Themed to match the
+ * `Dropdown` floating panel (white/border-card/shadow-dropdown). Originally built for passive
+ * effect text (`PassiveChip` below); reused wherever a couple sentences of hover explanation
+ * beat cluttering the UI with permanent copy.
  */
-function PassiveTooltip({ description, children }: { description?: string | undefined; children: ReactNode }) {
+export function HoverTooltip({ description, children }: { description?: string | undefined; children: ReactNode }) {
   const [pos, setPos] = useState<{ top: number; left: number } | null>(null);
   const anchorRef = useRef<HTMLSpanElement>(null);
 
@@ -364,7 +366,7 @@ export function PassiveChip({
 
   if (tierStyle) {
     return (
-      <PassiveTooltip description={description}>
+      <HoverTooltip description={description}>
         <span
           title={description ? undefined : passiveTierTitle(tier)}
           className={`inline-flex items-center gap-1 rounded-chip border px-2 py-0.5 font-mono text-[11px] font-semibold ${PASSIVE_CHIP_VARIANT_ACCENT[variant]} ${className}`}
@@ -377,12 +379,12 @@ export function PassiveChip({
             </span>
           )}
         </span>
-      </PassiveTooltip>
+      </HoverTooltip>
     );
   }
 
   return (
-    <PassiveTooltip description={description}>
+    <HoverTooltip description={description}>
       <span
         className={`inline-flex items-center gap-1 rounded-chip border px-2 py-0.5 font-mono text-[11px] font-semibold ${PASSIVE_CHIP_STYLE[variant]} ${className}`}
       >
@@ -398,7 +400,7 @@ export function PassiveChip({
           </span>
         )}
       </span>
-    </PassiveTooltip>
+    </HoverTooltip>
   );
 }
 
