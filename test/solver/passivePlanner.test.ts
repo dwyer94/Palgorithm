@@ -53,7 +53,15 @@ describe('passivePlanner: findCarrierAlternatives (spec §7.3\'s "certainty risk
       { id: 'FODDER', rank: 5 },
       { id: 'FODDER2', rank: 6 },
       { id: 'TARGET', rank: 7, wildCatchable: false },
-      { id: 'LONELY', rank: 8, wildCatchable: false }, // owns a passive but has no path anywhere
+      // Genuinely unreachable by breeding: no rank at all (capture/event-only), so it's
+      // excluded from rankTable/breedCapable and never enters reverse()/forward() in any
+      // pairing, tainted or not. A *ranked* species is NOT a valid "no path" fixture here —
+      // combirank's formula answers a child for any two ranked species (verified against the
+      // real 1.0 dataset: virtually every possible pair produces something), so a ranked
+      // "LONELY" with other roster/catch diversity around it almost always turns out to have
+      // a real, findable path once the forced search isn't artificially narrowed to its own
+      // species alone (see speciesPlanner.ts's findForcedCarrierRoute doc comment).
+      { id: 'LONELY', rank: null, wildCatchable: false, otherObtainOnly: true },
     ],
     [
       { parents: ['EIK', 'EIK'], child: 'MID', genderRule: null },

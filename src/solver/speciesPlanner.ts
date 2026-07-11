@@ -120,6 +120,240 @@ function getGraph(ruleset: BreedingRuleset): Graph {
   return graph;
 }
 
+/**
+ * Forced-carrier search (spec §7.3's "guaranteed carrier" overlay, session 0.4c). Finds the
+ * cheapest derivation of `target` that provably threads through a specific owned individual
+ * (the "carrier"), instead of `passivePlanner`'s original approach of throwing away the rest
+ * of the roster and catching entirely to fake soundness — that over-restriction meant a
+ * carrier could only ever reach species its own self-cross could produce, which for almost
+ * every real species is nothing at all (`combirank-0.6`'s same-species shortcut always yields
+ * the same species; the ~100 self-pair special combos in the shipped 1.0 dataset are all
+ * fixed points too), making the old search return "not possible" essentially unconditionally.
+ *
+ * Instead, every (species,gender) node is split into a "clean" state and a "tainted" state
+ * (a doubled/product graph, `Taint` below). Tainted seeds are ONLY the carrier's own
+ * passive-carrying roster entries; everything else — the rest of the owned roster AND
+ * catching, per the caller's real settings — seeds clean. A combo's output is tainted iff at
+ * least one of its two inputs is tainted, so a derivation can freely use any other owned or
+ * caught species as an intermediate/partner, but the desired passive's presence in the answer
+ * is only ever true if a real edge traces back to the carrier. Catching alone can never
+ * produce a tainted result (catch seeds are always clean), which is exactly the soundness
+ * property the old narrowing was (over-aggressively) protecting — this gets the same
+ * guarantee without needing to pretend the rest of the roster doesn't exist.
+ *
+ * The doubled edge set is built once from the already-cached `Graph` (no extra `reverse()`
+ * cost) and itself cached per ruleset, since it's independent of which species ends up being
+ * the carrier.
+ */
+type Taint = 0 | 1;
+type TNode = string; // `${species}|${gender}|${taint}`
+const tnode = (species: SpeciesId, gender: Gender, t: Taint): TNode => `${species}|${gender}|${t}`;
+const isTainted = (n: TNode): boolean => n.endsWith('|1');
+
+interface DoubledEdge {
+  inputs: [TNode, TNode];
+  output: TNode;
+  via: SpeciesPlanStep;
+}
+
+function buildDoubledGraph(graph: Graph): { edges: DoubledEdge[]; edgesByInput: Map<TNode, number[]> } {
+  const edges: DoubledEdge[] = [];
+  const edgesByInput = new Map<TNode, number[]>();
+  const addEdge = (a: TNode, b: TNode, output: TNode, via: SpeciesPlanStep) => {
+    edges.push({ inputs: [a, b], output, via });
+    const idx = edges.length - 1;
+    for (const n of [a, b]) {
+      const list = edgesByInput.get(n) ?? [];
+      list.push(idx);
+      edgesByInput.set(n, list);
+    }
+  };
+
+  // Any combo where at least one input is tainted produces a tainted output; both-clean is
+  // the only combo that stays clean. The (1,1)->1 combo is NOT redundant with (1,0)/(0,1) —
+  // a node reachable only in tainted form (no clean route exists at all) still needs to be
+  // usable as an input on the tainted side of a later combo.
+  const taintCombos: [Taint, Taint, Taint][] = [
+    [0, 0, 0],
+    [1, 0, 1],
+    [0, 1, 1],
+    [1, 1, 1],
+  ];
+  for (const e of graph.edges) {
+    const [a, b] = e.inputs;
+    for (const [ta, tb, tc] of taintCombos) {
+      addEdge(`${a}|${ta}`, `${b}|${tb}`, `${e.output}|${tc}`, e.via);
+    }
+  }
+  return { edges, edgesByInput };
+}
+
+const doubledGraphCache = new WeakMap<BreedingRuleset, ReturnType<typeof buildDoubledGraph>>();
+function getDoubledGraph(ruleset: BreedingRuleset): ReturnType<typeof buildDoubledGraph> {
+  let dg = doubledGraphCache.get(ruleset);
+  if (!dg) {
+    dg = buildDoubledGraph(getGraph(ruleset));
+    doubledGraphCache.set(ruleset, dg);
+  }
+  return dg;
+}
+
+type TNodeSource = { kind: 'owned' } | { kind: 'catch' } | { kind: 'combo'; edge: DoubledEdge };
+
+function solveTainted(
+  ruleset: BreedingRuleset,
+  cleanRoster: RosterEntry[],
+  taintedRoster: RosterEntry[],
+  opts: CoreOptions,
+): { dist: Map<TNode, number>; from: Map<TNode, TNodeSource> } {
+  const { edges, edgesByInput } = getDoubledGraph(ruleset);
+  const dist = new Map<TNode, number>();
+  const from = new Map<TNode, TNodeSource>();
+  const finalized = new Set<TNode>();
+  const finalizedInputCount = new Map<number, number>();
+
+  const queue: { n: TNode; cost: number }[] = [];
+  const relax = (n: TNode, cost: number, source: TNodeSource) => {
+    if (cost >= (dist.get(n) ?? Infinity)) return;
+    dist.set(n, cost);
+    from.set(n, source);
+    queue.push({ n, cost });
+  };
+
+  for (const r of cleanRoster) relax(tnode(r.species, r.gender, 0), 0, { kind: 'owned' });
+  for (const r of taintedRoster) relax(tnode(r.species, r.gender, 1), 0, { kind: 'owned' });
+
+  if (opts.allowCatching) {
+    for (const species of ruleset.reachability.wildCatchable) {
+      if (opts.excludeFromCatching.has(species)) continue;
+      const ratio = ruleset.genderRatio(species);
+      for (const gender of ['male', 'female'] as Gender[]) {
+        if (ratio[gender] > 0) relax(tnode(species, gender, 0), opts.catchCost, { kind: 'catch' });
+      }
+    }
+  }
+
+  while (queue.length > 0) {
+    let bestIdx = 0;
+    for (let i = 1; i < queue.length; i++) if (queue[i]!.cost < queue[bestIdx]!.cost) bestIdx = i;
+    const { n, cost } = queue.splice(bestIdx, 1)[0]!;
+    if (finalized.has(n)) continue;
+    if (cost > (dist.get(n) ?? Infinity)) continue;
+    finalized.add(n);
+
+    for (const edgeIdx of edgesByInput.get(n) ?? []) {
+      const edge = edges[edgeIdx]!;
+      const count = (finalizedInputCount.get(edgeIdx) ?? 0) + 1;
+      finalizedInputCount.set(edgeIdx, count);
+      if (count < edge.inputs.length) continue;
+      const total = edge.inputs.reduce((s, inp) => s + (dist.get(inp) ?? Infinity), 0) + 1;
+      relax(edge.output, total, { kind: 'combo', edge });
+    }
+  }
+
+  return { dist, from };
+}
+
+/** Walks the tainted derivation back from `target`, deduping combos the same way `reconstruct`
+ * does, and stamps `.passives` onto exactly the `PlanIndividual`s that sit on the tainted
+ * lineage: the carrier's own leaf gets its real roster passives (so first-generation pollution
+ * is visible), every tainted produced node downstream gets `[desiredPassive]`
+ * (clean-carrier-forward, same assumption `passivePlanner`'s odds math already made). This
+ * both lets the existing graph-attribution rendering (`graphLayout.ts` reads `.passives` off
+ * leaf `PlanIndividual`s already) show the carrier wherever it actually sits — not just at a
+ * final cross — and lets odds be computed directly from `steps` by node identity instead of
+ * matching on species name (which breaks if the carrier's species also appears elsewhere in
+ * the plan as ordinary clean fodder). */
+function reconstructTainted(
+  from: Map<TNode, TNodeSource>,
+  target: TNode,
+  carrierEntries: RosterEntry[],
+  desiredPassive: PassiveId,
+): { steps: SpeciesPlanStep[]; catches: PlanIndividual[] } {
+  const steps: SpeciesPlanStep[] = [];
+  const catches: PlanIndividual[] = [];
+  const visited = new Set<TNode>();
+  const stepSeen = new Set<string>();
+
+  const individualFor = (n: TNode, base: PlanIndividual): PlanIndividual => {
+    if (!isTainted(n)) return base;
+    const isLeaf = !from.has(n) || from.get(n)?.kind === 'owned';
+    if (isLeaf) {
+      const match = carrierEntries.find((e) => e.species === base.species && e.gender === base.gender);
+      const passives = match?.passives && match.passives.length > 0 ? match.passives : [desiredPassive];
+      return { species: base.species, gender: base.gender, passives };
+    }
+    return { species: base.species, gender: base.gender, passives: [desiredPassive] };
+  };
+
+  function visit(n: TNode) {
+    if (visited.has(n)) return;
+    visited.add(n);
+    const source = from.get(n);
+    if (!source || source.kind === 'owned') return;
+    if (source.kind === 'catch') {
+      const [species, gender] = n.split('|') as [SpeciesId, Gender];
+      catches.push({ species, gender });
+      return;
+    }
+    const { edge } = source;
+    for (const input of edge.inputs) visit(input);
+    const key = comboKey(edge.via);
+    if (!stepSeen.has(key)) {
+      stepSeen.add(key);
+      const [inA, inB] = edge.inputs;
+      steps.push({
+        parentA: individualFor(inA, edge.via.parentA),
+        parentB: individualFor(inB, edge.via.parentB),
+        child: edge.via.child,
+      });
+    }
+  }
+
+  visit(target);
+  return { steps, catches };
+}
+
+/** Cheapest derivation of `target` that provably threads through `carrierEntries` (spec
+ * §7.3's "guaranteed carrier" overlay — see the block comment above `buildDoubledGraph`).
+ * `fullRoster` includes the carrier entries themselves; the rest of the roster and catching
+ * (per `options`) are legitimately available as clean intermediates/partners — only the
+ * carrier's own entries seed tainted. Returns a `SpeciesPlanResult`-shaped result (no
+ * `anchorHints`/`passivePlan` — the caller, `passivePlanner`, computes odds directly from the
+ * now passive-annotated `steps`). */
+export function findForcedCarrierRoute(
+  ruleset: BreedingRuleset,
+  fullRoster: RosterEntry[],
+  carrierEntries: RosterEntry[],
+  target: SpeciesId,
+  desiredPassive: PassiveId,
+  options: SpeciesPlannerOptions = {},
+): SpeciesPlanResult {
+  const opts = normalizeCoreOptions(options);
+  const carrierSet = new Set(carrierEntries);
+  const cleanRoster = fullRoster.filter((r) => !carrierSet.has(r));
+
+  const { dist, from } = solveTainted(ruleset, cleanRoster, carrierEntries, opts);
+
+  const maleCost = dist.get(tnode(target, 'male', 1)) ?? Infinity;
+  const femaleCost = dist.get(tnode(target, 'female', 1)) ?? Infinity;
+  const cost = Math.min(maleCost, femaleCost);
+  if (!isFinite(cost)) {
+    return { target, feasible: false, combinationCount: Infinity, cost: Infinity, steps: [], catches: [] };
+  }
+
+  const gender: Gender = maleCost <= femaleCost ? 'male' : 'female';
+  const { steps, catches } = reconstructTainted(from, tnode(target, gender, 1), carrierEntries, desiredPassive);
+  return {
+    target,
+    feasible: true,
+    combinationCount: steps.length,
+    cost: steps.length + catches.length * opts.catchCost,
+    steps,
+    catches,
+  };
+}
+
 type NodeSource = { kind: 'owned' } | { kind: 'catch' } | { kind: 'combo'; edge: Edge };
 
 interface SolveState {
