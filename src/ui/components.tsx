@@ -356,7 +356,7 @@ export function PassiveChip({
   label: string;
   tier?: number | undefined;
   description?: string | undefined;
-  variant?: PassiveChipVariant;
+  variant?: PassiveChipVariant | undefined;
   onRemove?: () => void;
   className?: string;
 }) {
