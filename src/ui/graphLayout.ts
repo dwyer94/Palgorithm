@@ -124,6 +124,28 @@ export function buildPlanGraph(
   // parent, so it wouldn't otherwise get a node — surface it as a leaf/target anyway.
   for (const c of catches) resolveParent(c);
 
+  // A target already satisfied by ownership alone (cost 0, no steps/catches at all) gets
+  // no node from either loop above — without this it renders as an empty graph even though
+  // a feasible plan was returned. Gender is unknown here (the planner doesn't surface which
+  // roster individual matched), so this leaf is gender-less; the isTarget override below
+  // still routes it into the TARGETS column like any other target node.
+  for (const t of targets) {
+    if (Array.from(nodes.values()).some((n) => n.isTarget && n.species === t)) continue;
+    nodes.set(leafKey(t, null), {
+      id: leafKey(t, null),
+      species: t,
+      gender: null,
+      kind: 'leaf',
+      isCatch: false,
+      isTarget: true,
+      isShared: false,
+      column: 0,
+      row: 0,
+      x: 0,
+      y: 0,
+    });
+  }
+
   // `SpeciesPlanStep.parentA/B` never carry `.passives` (buildGraph's edge templates don't
   // track them — see speciesPlanner.ts's clean-carrier assumption), so every leaf node above
   // was created with `passives: undefined` regardless of what the roster individual actually
