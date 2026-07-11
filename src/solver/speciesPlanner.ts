@@ -421,14 +421,48 @@ export function resultFromContext(
     };
   }
 
-  const winningGender: Gender = maleCost <= femaleCost ? 'male' : 'female';
-  const targetNode = node(target, winningGender);
+  let winningGender: Gender = maleCost <= femaleCost ? 'male' : 'female';
+  let targetNode = node(target, winningGender);
+  let effectiveCost = cost;
+
+  // Owning the species at cost 0 only satisfies `desiredPassives` if some owned individual
+  // actually carries them — otherwise "already in your pools" is a false negative: the user
+  // owns e.g. a clean catch and wants a bred one with specific perks. Fall through to the
+  // cheapest real combo producing this species (often a same-species self-cross, spec §3.2's
+  // shortcut, itself a valid graph edge) instead of the free owned node, so the final-cross
+  // selection below has an actual combination to inject perks into.
+  const desired = options.desiredPassives ?? [];
+  const ownedSatisfiesDesired =
+    desired.length > 0 && roster.some((r) => r.species === target && desired.every((p) => (r.passives ?? []).includes(p)));
+  if (desired.length > 0 && cost === 0 && !ownedSatisfiesDesired) {
+    const comboCostFor = (gender: Gender): number => {
+      let best = Infinity;
+      const n = node(target, gender);
+      for (const e of graph.edges) {
+        if (e.output !== n) continue;
+        const total = e.inputs.reduce((s, inp) => s + (state.dist.get(inp) ?? Infinity), 0) + 1;
+        if (total < best) best = total;
+      }
+      return best;
+    };
+    const maleCombo = comboCostFor('male');
+    const femaleCombo = comboCostFor('female');
+    const comboCost = Math.min(maleCombo, femaleCombo);
+    // If no combo can produce this species at all (e.g. capture-only, no rank), there's
+    // nothing to fall through to — keep reporting the owned-at-cost-0 result.
+    if (isFinite(comboCost)) {
+      effectiveCost = comboCost;
+      winningGender = maleCombo <= femaleCombo ? 'male' : 'female';
+      targetNode = node(target, winningGender);
+    }
+  }
 
   // Passive-aware final-cross selection (spec §7.3): among cost-tied final-parent
   // candidates, prefer whichever pair maximizes passive-landing odds for `desiredPassives`,
   // using actual roster passives where a slot is roster-supplied. This only re-picks WHICH
   // tied edge produces the target — it never changes `cost`/`combinationCount`, since every
-  // candidate here already achieves the minimum species cost.
+  // candidate here already achieves the minimum species cost (or, in the owned-but-mismatched
+  // case above, the minimum genuine combo cost).
   let finalSelection: ReturnType<typeof pickBestFinalSelection> = null;
   // The context's `state.from` is shared across every query answered from this context, so
   // the final-cross re-pick below (the only mutation) is saved and restored — otherwise
@@ -436,9 +470,9 @@ export function resultFromContext(
   // reconstruction. Standalone `planSpecies` discards its context, so the restore is a no-op
   // there.
   let restoreFrom: (() => void) | null = null;
-  if (options.desiredPassives && options.desiredPassives.length > 0 && cost > 0) {
-    const candidates = tiedFinalEdges(graph, state, targetNode, state.dist.get(targetNode)!);
-    finalSelection = pickBestFinalSelection(candidates, state, rosterByNode(roster), ruleset, options.desiredPassives);
+  if (desired.length > 0 && effectiveCost > 0) {
+    const candidates = tiedFinalEdges(graph, state, targetNode, effectiveCost);
+    finalSelection = pickBestFinalSelection(candidates, state, rosterByNode(roster), ruleset, desired);
     if (finalSelection) {
       const prev = state.from.get(targetNode);
       state.from.set(targetNode, { kind: 'combo', edge: finalSelection.edge });
@@ -451,7 +485,6 @@ export function resultFromContext(
 
   let passivePlan: PassivePlanResult | undefined;
   if (finalSelection && steps.length > 0) {
-    const desired = options.desiredPassives!;
     const desiredSet = new Set(desired);
     const { odds, parentA, parentB } = finalSelection;
     const suppliedByFinalCross = new Set([...(parentA.passives ?? []), ...(parentB.passives ?? [])]);

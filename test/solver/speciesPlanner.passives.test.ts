@@ -110,6 +110,53 @@ describe('speciesPlanner: passive-aware final-cross selection (spec §7.3)', () 
   });
 });
 
+describe('speciesPlanner: owning the target species does not short-circuit a passive-mismatched request', () => {
+  // Regression for the "Already in your pools — no breeding required" false negative: owning
+  // ANY individual of the target species used to report cost 0 regardless of that
+  // individual's passives, even when the user explicitly asked for perks it doesn't carry.
+  const dataset = synthetic(
+    [
+      { id: 'A', rank: 1 },
+      { id: 'B', rank: 2 },
+      { id: 'TARGET', rank: 10, wildCatchable: false },
+      { id: 'CAPTURE_ONLY', rank: null, standardBreedable: false, wildCatchable: false, otherObtainOnly: true },
+    ],
+    [{ parents: ['A', 'B'], child: 'TARGET', genderRule: null }],
+  );
+  const ruleset = createCombiRank06(dataset);
+
+  it('falls through to a real breeding plan when the owned individual lacks the desired perks', () => {
+    const roster: RosterEntry[] = [
+      { species: 'A', gender: 'male', passives: ['P1'] },
+      { species: 'A', gender: 'female', passives: ['P1'] },
+      { species: 'B', gender: 'male', passives: ['P2'] },
+      { species: 'B', gender: 'female', passives: ['P2'] },
+      { species: 'TARGET', gender: 'male', passives: ['Junk'] },
+    ];
+    const plan = planSpecies(ruleset, roster, 'TARGET', { desiredPassives: ['P1', 'P2'] });
+    expect(plan.feasible).toBe(true);
+    expect(plan.steps.length).toBeGreaterThan(0);
+    expect(plan.passivePlan).toBeDefined();
+    const chosen = [plan.passivePlan!.finalParentA.species, plan.passivePlan!.finalParentB.species].sort();
+    expect(chosen).toEqual(['A', 'B']); // prefers the perk-bearing pair over a TARGET self-cross
+  });
+
+  it('still reports "no breeding required" when an owned individual actually carries the desired perks', () => {
+    const roster: RosterEntry[] = [{ species: 'TARGET', gender: 'male', passives: ['P1', 'P2'] }];
+    const plan = planSpecies(ruleset, roster, 'TARGET', { desiredPassives: ['P1', 'P2'] });
+    expect(plan.feasible).toBe(true);
+    expect(plan.steps.length).toBe(0);
+    expect(plan.passivePlan).toBeUndefined();
+  });
+
+  it('keeps reporting "no breeding required" for an owned capture-only species with no breeding route at all', () => {
+    const roster: RosterEntry[] = [{ species: 'CAPTURE_ONLY', gender: 'male', passives: ['Junk'] }];
+    const plan = planSpecies(ruleset, roster, 'CAPTURE_ONLY', { desiredPassives: ['P1'] });
+    expect(plan.feasible).toBe(true);
+    expect(plan.steps.length).toBe(0);
+  });
+});
+
 describe('speciesPlanner: passive-aware tie-break among equally-cheap final combos ("what should I use from my roster")', () => {
   // Both (A,B)->TARGET and (C,D)->TARGET cost exactly 1 combination (all four parents
   // owned at cost 0), so species-cost alone can't choose between them. Only A/B carry the
