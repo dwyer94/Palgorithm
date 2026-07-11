@@ -25,10 +25,23 @@ export default defineConfig({
         ],
       },
       workbox: {
-        // Dataset JSON is bundled into the JS chunks; pal icons are the only large
-        // runtime-fetched asset set, and every file in it is well under the 2MB cap.
-        globPatterns: ['**/*.{js,css,html,json,png,ico,svg}'],
+        // Dataset JSON is bundled into the JS chunks. Pal icons (~290 files) are excluded
+        // from the precache manifest below and cached at runtime instead: Workbox precache
+        // installs are all-or-nothing, so one flaky/renamed icon in a 290-file atomic install
+        // would silently block the app shell (js/css/html) from ever updating.
+        globPatterns: ['**/*.{js,css,html,ico,svg}', 'icons/app/*.png'],
+        globIgnores: ['icons/pals/**'],
+        cleanupOutdatedCaches: true,
         runtimeCaching: [
+          {
+            urlPattern: /\/icons\/pals\/.*\.png$/,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'pal-icons',
+              cacheableResponse: { statuses: [0, 200] },
+              expiration: { maxEntries: 400, maxAgeSeconds: 60 * 60 * 24 * 365 },
+            },
+          },
           {
             urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
             handler: 'StaleWhileRevalidate',
