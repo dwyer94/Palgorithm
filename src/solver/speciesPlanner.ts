@@ -454,6 +454,7 @@ export function resultFromContext(
     const desired = options.desiredPassives!;
     const desiredSet = new Set(desired);
     const { odds, parentA, parentB } = finalSelection;
+    const suppliedByFinalCross = new Set([...(parentA.passives ?? []), ...(parentB.passives ?? [])]);
     passivePlan = {
       desired,
       landOdds: odds,
@@ -467,6 +468,7 @@ export function resultFromContext(
         parentA: (parentA.passives ?? []).filter((p) => !desiredSet.has(p)),
         parentB: (parentB.passives ?? []).filter((p) => !desiredSet.has(p)),
       },
+      unassigned: desired.filter((p) => !suppliedByFinalCross.has(p)),
     };
   }
 

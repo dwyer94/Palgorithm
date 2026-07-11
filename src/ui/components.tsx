@@ -715,7 +715,21 @@ export interface PalNodeProps {
   variant: PalNodeVariant;
   subLabel: ReactNode;
   subLabelClassName?: string;
-  passiveChips?: { id: string; label: string; tier?: number | undefined; description?: string | undefined }[] | undefined;
+  passiveChips?:
+    | {
+        id: string;
+        label: string;
+        tier?: number | undefined;
+        description?: string | undefined;
+        /** Which perk-landing bucket this chip belongs to (default: plain). */
+        chipVariant?: 'matched' | 'warn' | undefined;
+        /** The node id (graph-layout `PlanGraphNode.id`) that actually supplies this
+         * passive, if known — hovering the chip reports this via `onChipHover` so the
+         * caller can light up that node's lineage the same way node-hover already does. */
+        sourceNodeId?: string | undefined;
+      }[]
+    | undefined;
+  onChipHover?: ((nodeId: string | null) => void) | undefined;
   genderLabel?: string;
   style?: React.CSSProperties;
   width?: number;
@@ -733,6 +747,7 @@ export function PalNode({
   subLabel,
   subLabelClassName = 'text-muted',
   passiveChips,
+  onChipHover,
   genderLabel,
   style,
   width = 150,
@@ -759,27 +774,21 @@ export function PalNode({
       </div>
       {passiveChips && passiveChips.length > 0 ? (
         <div className="mt-1 flex flex-wrap items-center gap-1">
-          {passiveChips.map((p) => {
-            const tierStyle = passiveTierStyle(p.tier);
-            return (
-              <PassiveTooltip key={p.id} description={p.description}>
-                <span
-                  className={
-                    tierStyle
-                      ? 'inline-flex items-center gap-[3px] rounded border px-1 font-mono text-[9px] font-semibold'
-                      : 'rounded font-mono text-[9px] font-semibold text-primary-chipText bg-primary-tint3 border border-primary-border px-1'
-                  }
-                  style={
-                    tierStyle
-                      ? { background: tierStyle.background, color: tierStyle.color, borderColor: tierStyle.borderColor }
-                      : undefined
-                  }
-                >
-                  {p.label}
-                </span>
-              </PassiveTooltip>
-            );
-          })}
+          {passiveChips.map((p) => (
+            <span
+              key={p.id}
+              onMouseEnter={p.sourceNodeId && onChipHover ? () => onChipHover(p.sourceNodeId!) : undefined}
+              onMouseLeave={p.sourceNodeId && onChipHover ? () => onChipHover(null) : undefined}
+            >
+              <PassiveChip
+                label={p.label}
+                tier={p.tier}
+                description={p.description}
+                variant={p.chipVariant}
+                className="px-1 py-0 text-[9px] leading-[14px]"
+              />
+            </span>
+          ))}
         </div>
       ) : (
         <div className="mt-[3px] flex items-center gap-[5px]">
@@ -1075,6 +1084,22 @@ export function PassiveMultiSelect({
     setQuery('');
   };
 
+  // Advisory only, never a block — the game's actual tier-stacking rules aren't verified
+  // data (CLAUDE.md: don't invent domain rules), so this just surfaces "these two share a
+  // category" for the user to judge, e.g. two tiers of the same Crafting Speed line.
+  const categoryConflicts = useMemo(() => {
+    const byCategory = new Map<string, Passive[]>();
+    for (const id of value) {
+      const p = byId.get(id);
+      if (!p) continue;
+      for (const cat of p.categories.length > 0 ? p.categories : ['Other']) {
+        if (!byCategory.has(cat)) byCategory.set(cat, []);
+        byCategory.get(cat)!.push(p);
+      }
+    }
+    return Array.from(byCategory.entries()).filter(([, list]) => list.length >= 2);
+  }, [value, byId]);
+
   return (
     <div className="relative">
       <div className="flex min-h-[42px] flex-wrap items-center gap-1.5 rounded-panel border-[1.5px] border-border-input bg-white px-2 py-1.5">
@@ -1099,6 +1124,22 @@ export function PassiveMultiSelect({
           className="min-w-[110px] flex-1 border-0 bg-transparent font-mono text-[12.5px] text-ink outline-none"
         />
       </div>
+      {categoryConflicts.length > 0 && (
+        <div className="mt-1.5 flex flex-col gap-1">
+          {categoryConflicts.map(([category, list]) => (
+            <div
+              key={category}
+              className="flex items-start gap-1.5 rounded-panel border border-[#e9d9a8] bg-unresolved-bg2 px-2.5 py-1.5 font-sans text-[11.5px] font-medium text-provisional-text"
+            >
+              <span>ⓘ</span>
+              <span>
+                {list.map((p) => p.displayName).join(' and ')} are all {category} passives — confirm they can coexist on one Pal before
+                relying on this plan.
+              </span>
+            </div>
+          ))}
+        </div>
+      )}
       {open && matches.length > 0 && (
         <Dropdown>
           {grouped.map(([category, list]) => (

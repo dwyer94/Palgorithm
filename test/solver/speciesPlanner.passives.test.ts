@@ -84,6 +84,17 @@ describe('speciesPlanner: passive-aware final-cross selection (spec §7.3)', () 
     expect(pp.pollution).toEqual({ parentA: [], parentB: [] });
   });
 
+  it('reports a desired passive absent from both final parents as unassigned, without touching pollution or landOdds', () => {
+    const plan = planSpecies(ruleset, roster, 'TARGET', { desiredPassives: ['P1', 'P2', 'Ghost'] });
+    const pp = plan.passivePlan!;
+    expect(pp.unassigned).toEqual(['Ghost']);
+    expect(pp.pollution).toEqual({ parentA: [], parentB: [] });
+    // landOdds still reflects whatever the ruleset computes for the full desired set — this
+    // field only adds an explicit "no path" signal, it doesn't change the odds math.
+    const expected = ruleset.passiveModel.landOdds(['P1'], ['P2'], ['P1', 'P2', 'Ghost']);
+    expect(pp.landOdds).toEqual(expected);
+  });
+
   it('flags pollution when a selected final parent carries a passive outside the desired set', () => {
     const pollutedRoster: RosterEntry[] = [
       { species: 'A', gender: 'male', passives: ['P1', 'Junk'] },

@@ -24,17 +24,23 @@ export function PassivePlanView({
   plan,
   title = 'Perk landing · final cross',
   passivesById,
+  speciesById,
 }: {
   plan: PassivePlanResult;
   title?: string;
   passivesById?: Map<string, Passive> | undefined;
+  speciesById?: Map<string, Species> | undefined;
 }) {
   const pollutionA = plan.pollution.parentA;
   const pollutionB = plan.pollution.parentB;
   const hasPollution = pollutionA.length > 0 || pollutionB.length > 0;
+  const unassigned = plan.unassigned;
+  const hasUnassigned = unassigned.length > 0;
   const passiveName = (id: string) => passivesById?.get(id)?.displayName ?? id;
   const passiveTier = (id: string) => passivesById?.get(id)?.tier;
   const passiveDescription = (id: string) => passivesById?.get(id)?.description;
+  const parentLabel = (individual: PassivePlanResult['finalParentA']) =>
+    speciesById?.get(individual.species)?.displayName ?? individual.species;
 
   return (
     <div className="mb-[22px] overflow-hidden rounded-card border border-border-card bg-white shadow-card">
@@ -76,12 +82,27 @@ export function PassivePlanView({
           </div>
         </div>
       </div>
+      {hasUnassigned && (
+        <div className="flex flex-wrap items-center gap-2 border-t border-dashed border-border-inner bg-unresolved-bg2 px-5 py-[11px]">
+          <span className="font-sans text-[11px] font-semibold text-provisional-text">⚠ Not sourced in this plan</span>
+          <span className="flex flex-wrap items-center gap-1">
+            {unassigned.map((id) => (
+              <PassiveChip key={`u-${id}`} label={passiveName(id)} tier={passiveTier(id)} description={passiveDescription(id)} variant="warn" />
+            ))}
+          </span>
+          <span className="font-sans text-[11px] text-muted-light">
+            No ancestor in this tree carries {unassigned.length === 1 ? 'this perk' : 'these perks'} — the odds above can't include{' '}
+            {unassigned.length === 1 ? 'it' : 'them'}.
+          </span>
+        </div>
+      )}
       {hasPollution && (
         <div className="flex flex-wrap items-center gap-2 border-t border-dashed border-border-inner bg-[#fdfaf4] px-5 py-[11px]">
           <span className="font-sans text-[11px] font-semibold text-brand-hover">⚑ Pollution</span>
           {pollutionA.length > 0 && (
             <span className="flex flex-wrap items-center gap-1 font-mono text-[11px] text-muted">
-              A:
+              <PalIcon icon={speciesById?.get(plan.finalParentA.species)?.icon} size={14} />
+              {parentLabel(plan.finalParentA)}:
               {pollutionA.map((id) => (
                 <PassiveChip key={`a-${id}`} label={passiveName(id)} tier={passiveTier(id)} description={passiveDescription(id)} variant="warn" />
               ))}
@@ -89,7 +110,8 @@ export function PassivePlanView({
           )}
           {pollutionB.length > 0 && (
             <span className="flex flex-wrap items-center gap-1 font-mono text-[11px] text-muted">
-              B:
+              <PalIcon icon={speciesById?.get(plan.finalParentB.species)?.icon} size={14} />
+              {parentLabel(plan.finalParentB)}:
               {pollutionB.map((id) => (
                 <PassiveChip key={`b-${id}`} label={passiveName(id)} tier={passiveTier(id)} description={passiveDescription(id)} variant="warn" />
               ))}
@@ -177,12 +199,13 @@ export function SpeciesPlanView({
         speciesById={speciesById}
         provenance={provenance}
         desiredPassives={plan.passivePlan?.desired}
+        passivePlan={plan.passivePlan}
         passivesById={passivesById}
         selectedPlayerIds={selectedPlayerIds}
         palsByPlayer={palsByPlayer}
         displayNameByIdentifier={displayNameByIdentifier}
       />
-      {plan.passivePlan && <PassivePlanView plan={plan.passivePlan} passivesById={passivesById} />}
+      {plan.passivePlan && <PassivePlanView plan={plan.passivePlan} passivesById={passivesById} speciesById={speciesById} />}
     </div>
   );
 }
@@ -228,6 +251,7 @@ export function UnionPlanView({
           plan={t.passivePlan!}
           title={`Perk landing · ${speciesById.get(t.target)?.displayName ?? t.target} final cross`}
           passivesById={passivesById}
+          speciesById={speciesById}
         />
       ))}
 

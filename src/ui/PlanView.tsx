@@ -1,6 +1,6 @@
 import { useMemo, useState, type ReactNode } from 'react';
 import type { Species, SpeciesId, Passive } from '../data/schema';
-import type { PlanIndividual, SpeciesPlanStep } from '../solver/types';
+import type { PassivePlanResult, PlanIndividual, SpeciesPlanStep } from '../solver/types';
 import type { ProvenanceMatch } from '../live/provenance';
 import { matchProvenance } from '../live/provenance';
 import type { LivePlayerPals, PlayerIdentifier } from '../live/types';
@@ -96,6 +96,7 @@ export function PlanGraphPanel({
   speciesById,
   hubSpeciesId,
   desiredPassives,
+  passivePlan,
   passivesById,
   selectedPlayerIds,
   palsByPlayer,
@@ -107,12 +108,16 @@ export function PlanGraphPanel({
   speciesById: Map<string, Species>;
   hubSpeciesId?: string | undefined;
   desiredPassives?: string[] | undefined;
+  passivePlan?: PassivePlanResult | undefined;
   passivesById?: Map<string, Passive> | undefined;
   selectedPlayerIds?: Set<PlayerIdentifier> | undefined;
   palsByPlayer?: Record<PlayerIdentifier, LivePlayerPals | undefined> | undefined;
   displayNameByIdentifier?: Record<PlayerIdentifier, string> | undefined;
 }) {
-  const layout = useMemo(() => buildPlanGraph(steps, catches, targets), [steps, catches, targets]);
+  const layout = useMemo(
+    () => buildPlanGraph(steps, catches, targets, passivePlan),
+    [steps, catches, targets, passivePlan],
+  );
   // Match each leaf/owned node (not the raw plan steps) against the live pools, so the
   // dedup already done by `buildPlanGraph` (one node per species+gender) is respected
   // rather than re-derived — a produced intermediate that happens to share a species+gender
@@ -135,14 +140,36 @@ export function PlanGraphPanel({
     return map;
   }, [layout.nodes, selectedPlayerIds, palsByPlayer, displayNameByIdentifier]);
   const ctx: PlanGraphContext = { speciesById, hubSpeciesId, desiredPassives, passivesById, leafProvenance };
+
+  // Which leaf node (if any) actually supplies each desired passive — `buildPlanGraph`
+  // overlays real passives only onto the final-cross parent leaves, so this is at most a
+  // 2-entry scan, not a general search.
+  const passiveSourceNodeId = useMemo(() => {
+    const map = new Map<string, string>();
+    for (const node of layout.nodes) {
+      if (node.kind !== 'leaf' || !node.passives) continue;
+      for (const id of node.passives) if (!map.has(id)) map.set(id, node.id);
+    }
+    return map;
+  }, [layout.nodes]);
+  const unassignedSet = new Set(passivePlan?.unassigned ?? []);
   const targetPassiveChips = desiredPassives?.map((id) => {
     const p = passivesById?.get(id);
-    return { id, label: p?.displayName ?? id, tier: p?.tier, description: p?.description };
+    const sourceNodeId = passiveSourceNodeId.get(id);
+    return {
+      id,
+      label: p?.displayName ?? id,
+      tier: p?.tier,
+      description: p?.description,
+      ...(sourceNodeId ? { chipVariant: 'matched' as const, sourceNodeId } : unassignedSet.has(id) ? { chipVariant: 'warn' as const } : {}),
+    };
   });
 
   // Hovering a node isolates its own lineage — direct parent edge(s) in and the one child
   // edge out light up while every unrelated line/box fades, which is the only reliable way
-  // to follow one Pal's line once several curves start crossing in a busy graph.
+  // to follow one Pal's line once several curves start crossing in a busy graph. A desired
+  // perk chip on the target wires into the same mechanism (`onChipHover` below): hovering
+  // "Artisan" on the target highlights the exact ancestor leaf that supplies it.
   const [hoverId, setHoverId] = useState<string | null>(null);
   const { litEdges, litNodes } = useMemo(() => {
     if (!hoverId) return { litEdges: null as Set<number> | null, litNodes: null as Set<string> | null };
@@ -237,6 +264,7 @@ export function PlanGraphPanel({
               subLabel={label}
               subLabelClassName={className}
               passiveChips={isTarget ? targetPassiveChips : undefined}
+              onChipHover={isTarget ? setHoverId : undefined}
               style={{ position: 'absolute', left: node.x, top: node.y + 22, opacity: isDimmed ? 0.35 : 1 }}
             />
           );
@@ -339,6 +367,7 @@ export function PlanRenderer({
   provenance,
   hubSpeciesId,
   desiredPassives,
+  passivePlan,
   passivesById,
   selectedPlayerIds,
   palsByPlayer,
@@ -353,6 +382,7 @@ export function PlanRenderer({
   provenance?: Map<string, ProvenanceMatch> | undefined;
   hubSpeciesId?: string | undefined;
   desiredPassives?: string[] | undefined;
+  passivePlan?: PassivePlanResult | undefined;
   passivesById?: Map<string, Passive> | undefined;
   selectedPlayerIds?: Set<PlayerIdentifier> | undefined;
   palsByPlayer?: Record<PlayerIdentifier, LivePlayerPals | undefined> | undefined;
@@ -385,6 +415,7 @@ export function PlanRenderer({
           speciesById={speciesById}
           hubSpeciesId={hubSpeciesId}
           desiredPassives={desiredPassives}
+          passivePlan={passivePlan}
           passivesById={passivesById}
           selectedPlayerIds={selectedPlayerIds}
           palsByPlayer={palsByPlayer}

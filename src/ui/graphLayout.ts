@@ -1,5 +1,5 @@
 import type { Gender, SpeciesId } from '../data/schema';
-import type { PlanIndividual, SpeciesPlanStep } from '../solver/types';
+import type { PassivePlanResult, PlanIndividual, SpeciesPlanStep } from '../solver/types';
 
 /**
  * Deterministic layered layout for the plan graph (design handoff README, "Plan graph" —
@@ -61,6 +61,7 @@ export function buildPlanGraph(
   steps: SpeciesPlanStep[],
   catches: PlanIndividual[],
   targets: SpeciesId[],
+  passivePlan?: PassivePlanResult,
 ): PlanGraphLayout {
   const targetSet = new Set(targets);
   const catchKeys = new Set(catches.map((c) => leafKey(c.species, c.gender)));
@@ -122,6 +123,22 @@ export function buildPlanGraph(
   // A target reached purely by catching (no breeding needed) never appears as a step
   // parent, so it wouldn't otherwise get a node — surface it as a leaf/target anyway.
   for (const c of catches) resolveParent(c);
+
+  // `SpeciesPlanStep.parentA/B` never carry `.passives` (buildGraph's edge templates don't
+  // track them — see speciesPlanner.ts's clean-carrier assumption), so every leaf node above
+  // was created with `passives: undefined` regardless of what the roster individual actually
+  // holds. The one place real final-cross passives exist is `passivePlan.finalParentA/B` —
+  // overlay them onto the matching leaf node so the graph can render/attribute them. Skips
+  // silently if the final parent resolved to a produced node instead of a leaf (only possible
+  // when that species was also produced earlier in the chain — rare, and there's no
+  // meaningful "source" node to attribute onto in that case).
+  if (passivePlan) {
+    for (const parent of [passivePlan.finalParentA, passivePlan.finalParentB]) {
+      if (!parent.passives || parent.passives.length === 0) continue;
+      const node = nodes.get(leafKey(parent.species, parent.gender));
+      if (node && node.kind === 'leaf') node.passives = parent.passives;
+    }
+  }
 
   const outDegree = new Map<string, number>();
   for (const e of edges) outDegree.set(e.from, (outDegree.get(e.from) ?? 0) + 1);

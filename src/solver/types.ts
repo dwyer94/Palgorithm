@@ -99,6 +99,11 @@ export interface PassivePlanResult {
   /** Passives either final parent carries outside `desired` — lowers the odds (spec §7.3
    * "flag pollution"), surfaced rather than auto-resolved. */
   pollution: { parentA: PassiveId[]; parentB: PassiveId[] };
+  /** Desired passives present on NEITHER final parent — this planner only injects perks at
+   * the final cross (clean-carrier assumption above), so these have zero path into the plan
+   * even though `landOdds` may still report a nonzero number for the rest of the set. Surfaced
+   * explicitly rather than left as an unexplained low percentage. */
+  unassigned: PassiveId[];
 }
 
 export interface SpeciesPlanResult {

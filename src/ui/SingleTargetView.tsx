@@ -2,11 +2,12 @@ import { useMemo, useState } from 'react';
 import { useRoster, useSavedPlans, useSettings } from '../store/hooks';
 import { newId } from '../store/localStore';
 import { planSpecies } from '../solver/speciesPlanner';
+import { findCarrierAlternatives, type CarrierAlternative } from '../solver/passivePlanner';
 import type { SpeciesPlanResult } from '../solver/types';
 import { useLiveContext } from '../live/LiveContext';
 import { buildRosterForSolver } from '../live/rosterMerge';
 import { annotateSpeciesPlan } from '../live/provenance';
-import { resolvePlayerDisplayName } from '../live/nameResolution';
+import { buildDisplayNameMap } from '../live/nameResolution';
 import { useRulesetContext } from './RulesetContext';
 import { PassiveMultiSelect, SpeciesSelect, SpeciesPlanView } from './shared';
 import { PalIcon, PassiveChip } from './components';
@@ -23,6 +24,7 @@ export default function SingleTargetView() {
   const [target, setTarget] = useState(species[0]?.id ?? '');
   const [desiredPassives, setDesiredPassives] = useState<string[]>([]);
   const [result, setResult] = useState<SpeciesPlanResult | null>(null);
+  const [carrierAlternatives, setCarrierAlternatives] = useState<CarrierAlternative[]>([]);
   const [saved, setSavedFlash] = useState(false);
 
   const rosterForSolver = useMemo(
@@ -31,11 +33,8 @@ export default function SingleTargetView() {
   );
 
   const displayNameByIdentifier = useMemo(
-    () =>
-      Object.fromEntries(
-        live.players.map((p) => [p.identifier, resolvePlayerDisplayName(p, settings.live.nameOverrides, settings.live.identityLinks)]),
-      ),
-    [live.players, settings.live.nameOverrides, settings.live.identityLinks],
+    () => buildDisplayNameMap(live.players, live.selectedPlayerIds, settings.live.nameOverrides, settings.live.identityLinks),
+    [live.players, live.selectedPlayerIds, settings.live.nameOverrides, settings.live.identityLinks],
   );
 
   const provenance = useMemo(
@@ -47,13 +46,16 @@ export default function SingleTargetView() {
 
   const runPlan = () => {
     if (!target) return;
+    const speciesOptions = { catchCost: settings.catchCost, allowCatching: settings.allowCatching };
     const plan = planSpecies(ruleset, rosterForSolver, target, {
-      catchCost: settings.catchCost,
-      allowCatching: settings.allowCatching,
+      ...speciesOptions,
       ...(desiredPassives.length > 0 && { desiredPassives }),
     });
     setResult(plan);
     setSavedFlash(false);
+    setCarrierAlternatives(
+      plan.passivePlan?.unassigned.length ? findCarrierAlternatives(ruleset, rosterForSolver, target, plan, speciesOptions) : [],
+    );
   };
 
   const savePlan = () => {
@@ -181,6 +183,61 @@ export default function SingleTargetView() {
                 palsByPlayer={live.palsByPlayer}
                 displayNameByIdentifier={displayNameByIdentifier}
               />
+
+              {result.passivePlan && result.passivePlan.unassigned.length > 0 && (
+                <div className="mt-2">
+                  <div className="mb-2.5 font-sans text-[11px] font-semibold uppercase tracking-wide text-muted">
+                    Guaranteed-carrier alternates
+                  </div>
+                  <div className="flex flex-col gap-2.5">
+                    {result.passivePlan.unassigned.map((passiveId) => {
+                      const label = passivesById.get(passiveId)?.displayName ?? passiveId;
+                      const alt = carrierAlternatives.find((a) => a.passive === passiveId);
+                      if (!alt) {
+                        const owned = rosterForSolver.some((r) => r.passives?.includes(passiveId));
+                        return (
+                          <div
+                            key={passiveId}
+                            className="rounded-xl border border-dashed border-border-input bg-panel-subtle px-[18px] py-3 font-sans text-[12.5px] text-muted"
+                          >
+                            {owned
+                              ? `Even prioritizing the Pal that carries ${label}, no breeding route to ${targetSpecies?.displayName ?? target} was found under your current catch/roster settings.`
+                              : `No Pal in your roster or connected servers carries ${label} — nothing to route in.`}
+                          </div>
+                        );
+                      }
+                      const sourceSpecies = speciesById.get(alt.sourceIndividual.species);
+                      return (
+                        <details key={passiveId} className="overflow-hidden rounded-xl border border-border-card bg-white">
+                          <summary className="flex cursor-pointer list-none items-center gap-2.5 px-[18px] py-3.5">
+                            <PalIcon icon={sourceSpecies?.icon} size={22} />
+                            <span className="font-mono text-[13px] font-semibold">
+                              Routes {sourceSpecies?.displayName ?? alt.sourceIndividual.species} in for {label}
+                            </span>
+                            <span className="ml-auto flex items-center gap-2 font-mono text-[11.5px] font-semibold">
+                              <span className="text-brand-hover">
+                                +{alt.combinationDelta} combo{alt.combinationDelta === 1 ? '' : 's'}
+                              </span>
+                              <span className="text-muted">{(alt.compoundedOdds * 100).toFixed(1)}% compounded odds/egg</span>
+                            </span>
+                            <span className="font-sans text-[12px] text-muted-lighter">▾</span>
+                          </summary>
+                          <div className="border-t border-[#f2ecdf] p-[18px]">
+                            <SpeciesPlanView
+                              plan={alt.plan}
+                              speciesById={speciesById}
+                              passivesById={passivesById}
+                              selectedPlayerIds={live.selectedPlayerIds}
+                              palsByPlayer={live.palsByPlayer}
+                              displayNameByIdentifier={displayNameByIdentifier}
+                            />
+                          </div>
+                        </details>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
             </>
           )}
         </div>
