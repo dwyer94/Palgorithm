@@ -23,6 +23,7 @@ function rawPal(overrides: Partial<RawPal> & Pick<RawPal, 'PalID' | 'Gender'>): 
     Shiny: false,
     Passives: [],
     IVs: { Health: 60, AttackMelee: 60, AttackShot: 60, Defense: 60 },
+    ExtraWorkSuitabilities: {},
     ...overrides,
   };
 }
@@ -96,7 +97,14 @@ export const FIXTURE_PALS_BY_IDENTIFIER: Record<PlayerIdentifier, RawPalsRespons
     Meta: { PlayerUID: FIXTURE_NOVA_UID, Player: FIXTURE_NOVA_UID, TeamCount: 1, PalboxCount: 1, BaseCampCount: 1 },
     Pals: {
       Team: {
-        't1': rawPal({ PalID: 'Anubis', Gender: 'Male', Level: 50, Passives: ['CraftSpeed_up3', 'Deffence_up2'] }),
+        't1': rawPal({
+          PalID: 'Anubis',
+          Gender: 'Male',
+          Level: 50,
+          Passives: ['CraftSpeed_up3', 'Deffence_up2'],
+          // Condensed Pal Soul bonuses — exercises effectiveWorkSuitabilities' species+bonus merge.
+          ExtraWorkSuitabilities: { Handcraft: 2, Transport: 1 },
+        }),
       },
       Palbox: {
         'p1': rawPal({ PalID: 'GoldenHorse', Gender: 'Female', Level: 20, Passives: ['CraftSpeed_up1'] }),

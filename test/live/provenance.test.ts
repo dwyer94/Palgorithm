@@ -15,6 +15,7 @@ function livePal(overrides: Partial<LivePal> & Pick<LivePal, 'instanceId' | 'spe
     nickname: '',
     shiny: false,
     ivs: { health: 0, attackMelee: 0, attackShot: 0, defense: 0 },
+    extraWorkSuitabilities: {},
     ...overrides,
   };
 }

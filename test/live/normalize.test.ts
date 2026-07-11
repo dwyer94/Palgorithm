@@ -43,6 +43,7 @@ function rawPal(overrides: Partial<RawPal> & Pick<RawPal, 'PalID' | 'Gender'>): 
     Shiny: false,
     Passives: [],
     IVs: { Health: 50, AttackMelee: 50, AttackShot: 50, Defense: 50 },
+    ExtraWorkSuitabilities: {},
     ...overrides,
   };
 }
@@ -121,6 +122,7 @@ describe('normalizePal', () => {
       Nickname: 'Bacon',
       Passives: ['CraftSpeed_up3', 'FakePassive'],
       IVs: { Health: 1, AttackMelee: 2, AttackShot: 3, Defense: 4 },
+      ExtraWorkSuitabilities: { Handcraft: 2 },
     });
     const pal = normalizePal(raw, 'inst-1', 'owner-1', { kind: 'team' }, SPECIES, PASSIVES);
     expect(pal).toEqual({
@@ -137,6 +139,7 @@ describe('normalizePal', () => {
       nickname: 'Bacon',
       shiny: true,
       ivs: { health: 1, attackMelee: 2, attackShot: 3, defense: 4 },
+      extraWorkSuitabilities: { Handcraft: 2 },
     });
   });
 

@@ -3,9 +3,22 @@ import type { Species, Passive } from '../data/schema';
 import { useLiveContext } from '../live/LiveContext';
 import { resolvePlayerDisplayName } from '../live/nameResolution';
 import type { LivePal, PlayerIdentifier } from '../live/types';
+import { effectiveWorkSuitabilities } from '../live/workSuitability';
 import { useSettings } from '../store/hooks';
 import { useRulesetContext } from './RulesetContext';
-import { ElementDot, GenderGlyph, PalCard, PalIcon, PassiveChip, PassiveMultiSelect, SpeciesTypeahead } from './components';
+import {
+  ElementDot,
+  GenderGlyph,
+  PalCard,
+  PalIcon,
+  PassiveChip,
+  PassiveMultiSelect,
+  SpeciesTypeahead,
+  WorkSuitabilityRow,
+  WorkSuitabilityFilterEditor,
+  WorkSuitabilitySortSelect,
+  type WorkSuitabilityFilter,
+} from './components';
 
 /** Ticking "auto-poll in M:SS" label — a plain re-render of `nextPollAt` would go stale
  * between polls, so this owns its own 1s tick to keep the countdown live. */
@@ -339,22 +352,27 @@ function PlayersTab() {
                     </div>
                   )}
                   {!loading && playerPals && playerPals.pals.length > 0 && settings.iconDisplayMode !== 'full' && (
-                    <table className="w-full border-collapse font-mono">
-                      <thead>
-                        <tr className="text-left">
-                          {['Species', 'Gen', 'Lvl', 'Passives', 'IVs H/A/D', 'Location'].map((h) => (
-                            <th key={h} className="px-2.5 py-2 font-sans text-[10px] font-semibold uppercase tracking-wide text-muted-light">
-                              {h}
-                            </th>
+                    <div className="overflow-x-auto">
+                      <table className="w-full border-collapse font-mono">
+                        <thead>
+                          <tr className="text-left">
+                            {['Species', 'Gen', 'Lvl', 'Passives', 'Work', 'IVs H/A/D', 'Location'].map((h) => (
+                              <th
+                                key={h}
+                                className="whitespace-nowrap px-2.5 py-2 font-sans text-[10px] font-semibold uppercase tracking-wide text-muted-light"
+                              >
+                                {h}
+                              </th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {playerPals.pals.map((pal) => (
+                            <PalRow key={pal.instanceId} pal={pal} speciesById={speciesById} passivesById={passivesById} />
                           ))}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {playerPals.pals.map((pal) => (
-                          <PalRow key={pal.instanceId} pal={pal} speciesById={speciesById} passivesById={passivesById} />
-                        ))}
-                      </tbody>
-                    </table>
+                        </tbody>
+                      </table>
+                    </div>
                   )}
                 </div>
               )}
@@ -412,6 +430,9 @@ function PalRow({
             </span>
           )}
         </span>
+      </td>
+      <td className="px-2.5 py-2">
+        <WorkSuitabilityRow levels={effectiveWorkSuitabilities(species, pal)} />
       </td>
       <td className="px-2.5 py-2 text-[11px] text-muted">
         {pal.ivs.health}/{pal.ivs.attackMelee}/{pal.ivs.defense}
@@ -471,6 +492,7 @@ function PalFullCard({
           )}
         </div>
       )}
+      <WorkSuitabilityRow levels={effectiveWorkSuitabilities(species, pal)} />
       <div className="font-mono text-[10px] text-muted">
         IVs {pal.ivs.health}/{pal.ivs.attackMelee}/{pal.ivs.defense}
       </div>
@@ -490,6 +512,13 @@ function FindAPalTab() {
   const [scope, setScope] = useState<Set<PlayerIdentifier> | null>(null); // null = all
   const [speciesFilter, setSpeciesFilter] = useState<string | null>(null);
   const [traitFilter, setTraitFilter] = useState<string[]>([]);
+  const [workFilters, setWorkFilters] = useState<WorkSuitabilityFilter[]>([]);
+  const [sortBy, setSortBy] = useState<string | null>(null);
+  const workHighlight = useMemo(() => {
+    const s = new Set(workFilters.map((f) => f.type));
+    if (sortBy) s.add(sortBy);
+    return s.size > 0 ? s : undefined;
+  }, [workFilters, sortBy]);
 
   const inScope = (id: PlayerIdentifier) => scope === null || scope.has(id);
 
@@ -509,7 +538,7 @@ function FindAPalTab() {
   };
 
   const results = useMemo(() => {
-    const out: { owner: string; pal: LivePal }[] = [];
+    const out: { owner: string; pal: LivePal; workLevels: Record<string, number> }[] = [];
     for (const p of live.players) {
       if (!inScope(p.identifier)) continue;
       const pals = live.palsByPlayer[p.identifier]?.pals ?? [];
@@ -517,12 +546,26 @@ function FindAPalTab() {
       for (const pal of pals) {
         if (speciesFilter && pal.species !== speciesFilter) continue;
         if (!traitFilter.every((t) => pal.passives.includes(t))) continue;
-        out.push({ owner: ownerName, pal });
+        const workLevels = effectiveWorkSuitabilities(pal.species ? speciesById.get(pal.species) : undefined, pal);
+        if (!workFilters.every((f) => (workLevels[f.type] ?? 0) >= f.minLevel)) continue;
+        out.push({ owner: ownerName, pal, workLevels });
       }
     }
+    if (sortBy) out.sort((a, b) => (b.workLevels[sortBy] ?? 0) - (a.workLevels[sortBy] ?? 0));
     return out;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [live.players, live.palsByPlayer, scope, speciesFilter, traitFilter, settings.live.nameOverrides, settings.live.identityLinks]);
+  }, [
+    live.players,
+    live.palsByPlayer,
+    scope,
+    speciesFilter,
+    traitFilter,
+    workFilters,
+    sortBy,
+    speciesById,
+    settings.live.nameOverrides,
+    settings.live.identityLinks,
+  ]);
 
   const ownersInResults = new Set(results.map((r) => r.owner)).size;
 
@@ -583,6 +626,14 @@ function FindAPalTab() {
         </div>
       </div>
 
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-border-card bg-panel-subtle px-4 py-3.5">
+        <div>
+          <div className="mb-1.5 font-sans text-[10.5px] font-semibold uppercase tracking-[.5px] text-muted">Work suitability</div>
+          <WorkSuitabilityFilterEditor filters={workFilters} onChange={setWorkFilters} />
+        </div>
+        <WorkSuitabilitySortSelect value={sortBy} onChange={setSortBy} />
+      </div>
+
       <div className="mb-2.5 flex items-baseline gap-2.5">
         <span className="font-mono text-[15px] font-bold">{results.length}</span>
         <span className="font-sans text-[12.5px] font-semibold text-muted">
@@ -597,7 +648,7 @@ function FindAPalTab() {
         </div>
       ) : isFull ? (
         <div className="flex flex-wrap gap-2.5">
-          {results.map(({ owner, pal }, i) => {
+          {results.map(({ owner, pal, workLevels }, i) => {
             const sp = pal.species ? speciesById.get(pal.species) : undefined;
             return (
               <PalCard
@@ -628,6 +679,7 @@ function FindAPalTab() {
                     />
                   ))}
                 </div>
+                <WorkSuitabilityRow levels={workLevels} highlight={workHighlight} />
                 <div className="font-sans text-[10px] text-muted-light">
                   {pal.location.kind === 'baseCamp' ? `Base Camp ${pal.location.baseCampId}` : pal.location.kind === 'team' ? 'Team' : 'Palbox'}
                 </div>
@@ -639,41 +691,71 @@ function FindAPalTab() {
           })}
         </div>
       ) : (
-        <div className="flex flex-col gap-2">
-          {results.map(({ owner, pal }, i) => {
-            const sp = pal.species ? speciesById.get(pal.species) : undefined;
-            return (
-              <div key={pal.instanceId + i} className="flex flex-wrap items-center gap-3.5 rounded-[11px] border border-border-card bg-white px-3.5 py-2.5">
-                <PalIcon icon={sp?.icon} size={22} />
-                <ElementDot elements={sp?.elements} />
-                <span className="min-w-[104px] font-mono text-[13.5px] font-bold">{sp?.displayName ?? pal.rawPalId}</span>
-                <GenderGlyph gender={pal.gender} className="font-mono text-[12px] text-muted" />
-                <span className="font-mono text-[12px] text-muted">L{pal.level}</span>
-                {pal.shiny && (
-                  <span className="text-[13px] text-shiny" title="shiny">
-                    ★
-                  </span>
-                )}
-                <div className="flex flex-wrap gap-1">
-                  {pal.passives.map((id) => (
-                    <PassiveChip
-                      key={id}
-                      label={passivesById.get(id)?.displayName ?? id}
-                      tier={passivesById.get(id)?.tier}
-                      description={passivesById.get(id)?.description}
-                      variant={traitFilter.includes(id) ? 'matched' : 'dim'}
-                    />
-                  ))}
-                </div>
-                <span className="ml-auto font-mono text-[11px] text-muted-light">
-                  {pal.location.kind === 'baseCamp' ? `Base Camp ${pal.location.baseCampId}` : pal.location.kind === 'team' ? 'Team' : 'Palbox'}
-                </span>
-                <span className="inline-flex items-center gap-1.5 rounded-pill border border-primary-border3 bg-primary-tint px-2.5 py-1 font-mono text-[11px] font-semibold text-primary-dark">
-                  owned by {owner}
-                </span>
-              </div>
-            );
-          })}
+        // A real <table> rather than a flex-wrap row: with a Species/Passives/Work/Owner combo
+        // whose lengths vary wildly per Pal, a flex row reflows its whole layout row-to-row —
+        // fixed columns keep every field lined up regardless of how long a name or how many
+        // passives/work badges a given Pal happens to have (mirrors PlayersTab's table below).
+        <div className="overflow-x-auto rounded-[13px] border border-border-card bg-white">
+          <table className="w-full border-collapse font-mono">
+            <thead>
+              <tr className="text-left">
+                {['Species', 'Gen', 'Lvl', 'Passives', 'Work', 'Location', 'Owner'].map((h) => (
+                  <th key={h} className="whitespace-nowrap px-3 py-2.5 font-sans text-[10px] font-semibold uppercase tracking-wide text-muted-light">
+                    {h}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {results.map(({ owner, pal, workLevels }, i) => {
+                const sp = pal.species ? speciesById.get(pal.species) : undefined;
+                return (
+                  <tr key={pal.instanceId + i} className="border-t border-panel-header">
+                    <td className="px-3 py-2.5">
+                      <span className="inline-flex items-center gap-1.5">
+                        <PalIcon icon={sp?.icon} size={20} />
+                        <ElementDot elements={sp?.elements} />
+                        <b className="whitespace-nowrap text-[12.5px]">{sp?.displayName ?? pal.rawPalId}</b>
+                        {pal.shiny && (
+                          <span className="text-shiny" title="shiny">
+                            ★
+                          </span>
+                        )}
+                      </span>
+                    </td>
+                    <td className="px-3 py-2.5 text-muted">
+                      <GenderGlyph gender={pal.gender} />
+                    </td>
+                    <td className="px-3 py-2.5 text-ink-muted">{pal.level}</td>
+                    <td className="px-3 py-2.5">
+                      <div className="flex flex-wrap gap-1">
+                        {pal.passives.map((id) => (
+                          <PassiveChip
+                            key={id}
+                            label={passivesById.get(id)?.displayName ?? id}
+                            tier={passivesById.get(id)?.tier}
+                            description={passivesById.get(id)?.description}
+                            variant={traitFilter.includes(id) ? 'matched' : 'dim'}
+                          />
+                        ))}
+                      </div>
+                    </td>
+                    <td className="px-3 py-2.5">
+                      <WorkSuitabilityRow levels={workLevels} highlight={workHighlight} />
+                    </td>
+                    <td className="whitespace-nowrap px-3 py-2.5 text-[12px] text-ink-muted">
+                      {pal.location.kind === 'baseCamp' ? `Base Camp ${pal.location.baseCampId}` : pal.location.kind === 'team' ? 'Team' : 'Palbox'}
+                    </td>
+                    <td className="px-3 py-2.5">
+                      <span className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-pill border border-primary-border3 bg-primary-tint px-2.5 py-1 font-mono text-[11px] font-semibold text-primary-dark">
+                        {owner}
+                      </span>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
         </div>
       )}
     </div>

@@ -105,6 +105,7 @@ function normalizePalWithIndices(
       attackShot: raw.IVs.AttackShot,
       defense: raw.IVs.Defense,
     },
+    extraWorkSuitabilities: raw.ExtraWorkSuitabilities ?? {},
   };
 }
 

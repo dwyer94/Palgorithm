@@ -46,6 +46,9 @@ export interface RawPal {
   Shiny: boolean;
   Passives: string[];
   IVs: RawIVs;
+  /** Bonus work-suitability ranks from Pal Soul condensing, keyed by suitability ID — additive
+   * on top of the species' innate base level (docs/PalDefenderAPI/pals.md). */
+  ExtraWorkSuitabilities: Record<string, number>;
 }
 
 export interface RawBaseCamp {
@@ -137,6 +140,10 @@ export interface LivePal {
   nickname: string;
   shiny: boolean;
   ivs: { health: number; attackMelee: number; attackShot: number; defense: number };
+  /** Per-instance bonus work-suitability ranks (Pal Soul condensing), keyed by suitability ID.
+   * Combine with the owning species' base `workSuitabilities` (see `effectiveWorkSuitabilities`
+   * in `./workSuitability`) to get the Pal's actual in-game rank per work type. */
+  extraWorkSuitabilities: Record<string, number>;
 }
 
 export interface LivePlayerPals {

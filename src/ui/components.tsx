@@ -69,6 +69,103 @@ export function GenderGlyph({ gender, className }: { gender: Gender | null | und
 }
 
 /**
+ * Palworld's 12 work-suitability types, in the game's own UI order. Not schema-validated
+ * (species.workSuitabilities.type is a free string, so unfamiliar dataset rows still fall
+ * back gracefully in `workSuitabilityMeta` below) — this is purely a display mapping, same
+ * spirit as `ELEMENT_COLOR` above.
+ */
+export interface WorkSuitabilityMeta {
+  id: string;
+  label: string;
+  icon: string;
+}
+
+export const WORK_SUITABILITY_TYPES: WorkSuitabilityMeta[] = [
+  { id: 'EmitFlame', label: 'Kindling', icon: '🔥' },
+  { id: 'Watering', label: 'Watering', icon: '💧' },
+  { id: 'Seeding', label: 'Planting', icon: '🌱' },
+  { id: 'GenerateElectricity', label: 'Electricity', icon: '⚡' },
+  { id: 'Handcraft', label: 'Handiwork', icon: '🔨' },
+  { id: 'Collection', label: 'Gathering', icon: '🧺' },
+  { id: 'Deforest', label: 'Lumbering', icon: '🪓' },
+  { id: 'Mining', label: 'Mining', icon: '⛏' },
+  { id: 'ProductMedicine', label: 'Medicine', icon: '💊' },
+  { id: 'Transport', label: 'Transporting', icon: '📦' },
+  { id: 'MonsterFarm', label: 'Farming', icon: '🌾' },
+  { id: 'Cool', label: 'Cooling', icon: '❄' },
+];
+
+const WORK_SUITABILITY_BY_ID = new Map(WORK_SUITABILITY_TYPES.map((w) => [w.id, w]));
+
+export function workSuitabilityMeta(id: string): WorkSuitabilityMeta {
+  return WORK_SUITABILITY_BY_ID.get(id) ?? { id, label: id, icon: '❔' };
+}
+
+/** Compact "icon + level" badge for one work type. `dim` mirrors `PassiveChip`'s dim variant —
+ * used to fade out types that aren't the one currently filtered/sorted on, without hiding them. */
+export function WorkSuitabilityBadge({ id, level, dim = false }: { id: string; level: number; dim?: boolean }) {
+  const meta = workSuitabilityMeta(id);
+  return (
+    <span
+      title={`${meta.label} ${level}`}
+      className={`inline-flex items-center gap-[3px] rounded-chip border px-1.5 py-0.5 font-mono text-[10px] font-semibold ${
+        dim ? 'border-border-inner bg-[#f2ece0] text-muted opacity-60' : 'border-primary-border3 bg-primary-tint text-primary-dark'
+      }`}
+    >
+      <span aria-hidden>{meta.icon}</span>
+      {level}
+    </span>
+  );
+}
+
+/**
+ * Row of `WorkSuitabilityBadge`s for one Pal, highest level first, zero-levels omitted, capped
+ * at `max` badges (a Pal can carry up to 12 work types — left uncapped this column's width
+ * would balloon and vary wildly row to row). Any `highlight`ed type (the active filter/sort)
+ * is always kept visible even if it'd otherwise be bumped by the cap, then the remaining slots
+ * fill with the next-highest levels; everything past the cap collapses into a "+N" pill.
+ * `highlight` also dims every visible badge that isn't in the set. */
+export function WorkSuitabilityRow({
+  levels,
+  highlight,
+  max = 3,
+}: {
+  levels: Record<string, number>;
+  highlight?: Set<string> | undefined;
+  max?: number;
+}) {
+  const entries = Object.entries(levels)
+    .filter(([, level]) => level > 0)
+    .sort(([a, la], [b, lb]) => lb - la || a.localeCompare(b));
+  if (entries.length === 0) return null;
+
+  const priority = highlight
+    ? [...entries.filter(([id]) => highlight.has(id)), ...entries.filter(([id]) => !highlight.has(id))]
+    : entries;
+  const shown = priority.slice(0, max);
+  const hiddenCount = entries.length - shown.length;
+
+  return (
+    <div className="flex flex-wrap items-center gap-1">
+      {shown.map(([id, level]) => (
+        <WorkSuitabilityBadge key={id} id={id} level={level} dim={highlight ? !highlight.has(id) : false} />
+      ))}
+      {hiddenCount > 0 && (
+        <span
+          title={entries
+            .slice(shown.length)
+            .map(([id, level]) => `${workSuitabilityMeta(id).label} ${level}`)
+            .join(', ')}
+          className="rounded-chip border border-border-inner bg-[#f2ece0] px-1.5 py-0.5 font-mono text-[10px] font-semibold text-muted"
+        >
+          +{hiddenCount}
+        </span>
+      )}
+    </div>
+  );
+}
+
+/**
  * A Pal's icon (from the dataset's `species.icon`, populated by the extraction pipeline —
  * see normalize.ts). Renders a blank placeholder tile rather than nothing when a species
  * has no icon (missing extraction), so layouts never jump between icon/no-icon rows.
@@ -1020,5 +1117,121 @@ export function PassiveMultiSelect({
         </Dropdown>
       )}
     </div>
+  );
+}
+
+// --- Work suitability filter/sort controls ---------------------------------------------
+
+export interface WorkSuitabilityFilter {
+  type: string;
+  minLevel: number;
+}
+
+/** "Add a work-type requirement" editor — chips of `type ≥ N` with an inline +/− stepper,
+ * plus a dropdown to add another type not already filtered on. Mirrors `PassiveMultiSelect`'s
+ * add/remove/blur-to-close pattern, but each chip also carries its own numeric threshold. */
+export function WorkSuitabilityFilterEditor({
+  filters,
+  onChange,
+}: {
+  filters: WorkSuitabilityFilter[];
+  onChange: (next: WorkSuitabilityFilter[]) => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const usedTypes = new Set(filters.map((f) => f.type));
+  const available = WORK_SUITABILITY_TYPES.filter((w) => !usedTypes.has(w.id));
+
+  const add = (id: string) => {
+    onChange([...filters, { type: id, minLevel: 1 }]);
+    setOpen(false);
+  };
+  const remove = (type: string) => onChange(filters.filter((f) => f.type !== type));
+  const setMinLevel = (type: string, minLevel: number) =>
+    onChange(filters.map((f) => (f.type === type ? { ...f, minLevel: Math.max(1, Math.min(5, minLevel)) } : f)));
+
+  return (
+    <div className="flex flex-wrap items-center gap-1.5">
+      {filters.map((f) => {
+        const meta = workSuitabilityMeta(f.type);
+        return (
+          <span
+            key={f.type}
+            className="inline-flex items-center gap-1.5 rounded-pill border-[1.5px] border-primary-border3 bg-primary-tint px-2.5 py-1 font-mono text-[12px] font-semibold text-primary-dark"
+          >
+            <span aria-hidden>{meta.icon}</span>
+            {meta.label}
+            <span className="flex items-center gap-0.5">
+              <span
+                onClick={() => setMinLevel(f.type, f.minLevel - 1)}
+                className="cursor-pointer px-1 text-muted-light hover:text-brand-hover"
+                role="button"
+                aria-label={`Lower minimum ${meta.label} level`}
+              >
+                −
+              </span>
+              <span className="min-w-[14px] text-center">≥{f.minLevel}</span>
+              <span
+                onClick={() => setMinLevel(f.type, f.minLevel + 1)}
+                className="cursor-pointer px-1 text-muted-light hover:text-brand-hover"
+                role="button"
+                aria-label={`Raise minimum ${meta.label} level`}
+              >
+                +
+              </span>
+            </span>
+            <span
+              onClick={() => remove(f.type)}
+              className="cursor-pointer text-[14px] text-muted-lighter hover:text-brand-hover"
+              role="button"
+              aria-label={`Remove ${meta.label} filter`}
+            >
+              ×
+            </span>
+          </span>
+        );
+      })}
+      {available.length > 0 && (
+        <div className="relative">
+          <span
+            tabIndex={0}
+            onClick={() => setOpen((o) => !o)}
+            onBlur={() => setTimeout(() => setOpen(false), 120)}
+            className="cursor-pointer rounded-pill border-[1.5px] border-dashed border-border-input px-2.5 py-1 font-mono text-[12px] font-semibold text-muted outline-none hover:border-primary hover:text-primary"
+          >
+            + work type
+          </span>
+          {open && (
+            <div className="absolute left-0 top-[calc(100%+4px)] z-10 max-h-64 w-[190px] overflow-y-auto rounded-panel border border-border-card bg-white shadow-dropdown">
+              {available.map((w) => (
+                <DropdownRow key={w.id} onPick={() => add(w.id)}>
+                  <span aria-hidden>{w.icon}</span>
+                  {w.label}
+                </DropdownRow>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+/** Native `<select>` for "sort results by this work type's effective level, descending" — kept
+ * a plain select (rather than the custom `Dropdown`) since it's a single-choice, keyboard- and
+ * screen-reader-friendly control with no need for the richer chip/grouping treatment above. */
+export function WorkSuitabilitySortSelect({ value, onChange }: { value: string | null; onChange: (v: string | null) => void }) {
+  return (
+    <select
+      value={value ?? ''}
+      onChange={(e) => onChange(e.target.value || null)}
+      className="rounded-panel border-[1.5px] border-border-input bg-white px-2.5 py-[7px] font-mono text-[12px] font-semibold text-ink outline-none focus:border-primary"
+    >
+      <option value="">Sort: default order</option>
+      {WORK_SUITABILITY_TYPES.map((w) => (
+        <option key={w.id} value={w.id}>
+          Sort: {w.icon} {w.label} (high → low)
+        </option>
+      ))}
+    </select>
   );
 }
