@@ -49,12 +49,63 @@ export interface PlanGraphLayout {
 
 const NODE_WIDTH = 150;
 const COLUMN_WIDTH = 236;
-const ROW_HEIGHT = 66;
 const TOP_PAD = 26;
 const LEFT_PAD = 8;
 
+// A node with no wrapped passive chips renders at this height (icon+name row + one
+// sub-label row) — matches the old fixed ROW_HEIGHT minus the gap between rows.
+const NODE_BASE_HEIGHT = 48;
+const ROW_GAP = 18;
+// Passive chips are real gameplay data (player-chosen loadouts, live-server display names),
+// so their label text length is unbounded — a fixed row height silently lets a wrapped chip
+// bleed into the node below it in the same column. The constants below are calibrated against
+// the chips' actual rendered pixel widths (measured live: "Artisan" → 55.8px, "Siren of the
+// Void" → 109.8px), then padded up, since a long label doesn't just wrap onto a new line —
+// once it's wider than the row itself it wraps *its own text*, eating two-plus lines by
+// itself, and under-reserving for that is exactly what let a chip bleed into the node below.
+const CHIP_INNER_WIDTH = 110; // the chip row's real available width, measured live at 115px
+const CHIP_CHAR_WIDTH = 5.5; // px/char, calibrated from real chip widths (~4.9) plus margin
+const CHIP_PADDING = 24; // chip padding/border, calibrated from real chip widths plus margin
+const CHIP_LINE_HEIGHT = 22; // measured gap between stacked single-line chips is ~24px
+// Owned-leaf chips share their row with "owned · <player name> ·" text whose length isn't
+// known at layout time (provenance is resolved later, from live data). Measured live, even a
+// short name already leaves no room for a chip beside it — so leaf chips are modeled as always
+// starting on their own fresh line rather than trying to predict where the prefix text ends.
+
 function leafKey(species: SpeciesId, gender: Gender | null): string {
   return `leaf:${species}:${gender ?? 'either'}`;
+}
+
+function chipPixelWidth(label: string): number {
+  return Math.ceil(label.length * CHIP_CHAR_WIDTH) + CHIP_PADDING;
+}
+
+/** Estimates how many lines a chip row takes: each chip starts its own line (flex-wrap has no
+ * room to pack two of these short-container, often-long labels side by side in practice — see
+ * the calibration note above), and a chip wider than the row wraps its own text across
+ * `ceil(width / CHIP_INNER_WIDTH)` lines instead of just one. */
+function estimateChipLines(labels: string[], reservePrefixLine: boolean): number {
+  if (labels.length === 0) return 0;
+  let lines = reservePrefixLine ? 1 : 0;
+  for (const label of labels) {
+    lines += Math.max(1, Math.ceil(chipPixelWidth(label) / CHIP_INNER_WIDTH));
+  }
+  return lines;
+}
+
+function estimateNodeHeight(node: PlanGraphNode, desiredPassives: string[] | undefined, passiveLabel: (id: string) => string): number {
+  // Mirrors the two chip-rendering branches in PlanView's nodeSubLabel/PalNode: a target
+  // with desired perks gets a dedicated chip-only row (nodeVariant "target" in PlanView.tsx),
+  // while an owned leaf's own passives share their row with "owned · name ·" text.
+  if (node.isTarget && desiredPassives && desiredPassives.length > 0) {
+    const lines = estimateChipLines(desiredPassives.map(passiveLabel), false);
+    return NODE_BASE_HEIGHT + Math.max(0, lines - 1) * CHIP_LINE_HEIGHT;
+  }
+  if (node.kind === 'leaf' && node.passives && node.passives.length > 0) {
+    const lines = estimateChipLines(node.passives.map(passiveLabel), true);
+    return NODE_BASE_HEIGHT + Math.max(0, lines - 1) * CHIP_LINE_HEIGHT;
+  }
+  return NODE_BASE_HEIGHT;
 }
 
 export function buildPlanGraph(
@@ -62,6 +113,8 @@ export function buildPlanGraph(
   catches: PlanIndividual[],
   targets: SpeciesId[],
   passivePlan?: PassivePlanResult,
+  desiredPassives?: string[],
+  passiveLabel: (id: string) => string = (id) => id,
 ): PlanGraphLayout {
   const targetSet = new Set(targets);
   const catchKeys = new Set(catches.map((c) => leafKey(c.species, c.gender)));
@@ -209,15 +262,20 @@ export function buildPlanGraph(
     .sort((a, b) => (targetOrder.get(a.species) ?? 0) - (targetOrder.get(b.species) ?? 0));
   for (const node of targetNodes) rowsByColumn[targetColumn]!.push(node.id);
 
-  let maxRows = 0;
+  // Rows within a column stack by their *actual* estimated height rather than a uniform
+  // slot, so a node with wrapped passive chips pushes the next node down instead of
+  // overlapping it.
+  let maxColumnBottom = 0;
   rowsByColumn.forEach((col, columnIndex) => {
-    maxRows = Math.max(maxRows, col.length);
+    let y = TOP_PAD;
     col.forEach((id, row) => {
       const node = nodes.get(id)!;
       node.row = row;
       node.x = LEFT_PAD + columnIndex * COLUMN_WIDTH;
-      node.y = TOP_PAD + row * ROW_HEIGHT;
+      node.y = y;
+      y += estimateNodeHeight(node, desiredPassives, passiveLabel) + ROW_GAP;
     });
+    maxColumnBottom = Math.max(maxColumnBottom, y);
   });
 
   const columns: PlanGraphColumn[] = rowsByColumn.map((col, index) => {
@@ -230,7 +288,7 @@ export function buildPlanGraph(
     if (stepNumbers.length === 0) return { index, label: `STEP ${index}` };
     const min = Math.min(...stepNumbers);
     const max = Math.max(...stepNumbers);
-    return { index, label: min === max ? `STEP ${romanish(min)}` : `STEP ${romanish(min)}–${romanish(max)}` };
+    return { index, label: min === max ? `STEP ${min}` : `STEP ${min}–${max}` };
   });
 
   return {
@@ -239,13 +297,8 @@ export function buildPlanGraph(
     edges,
     columns,
     width: LEFT_PAD * 2 + columnCount * COLUMN_WIDTH - (COLUMN_WIDTH - NODE_WIDTH),
-    height: TOP_PAD * 2 + Math.max(1, maxRows) * ROW_HEIGHT,
+    height: TOP_PAD + Math.max(NODE_BASE_HEIGHT + ROW_GAP, maxColumnBottom),
   };
-}
-
-const CIRCLED = ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨'];
-function romanish(n: number): string {
-  return CIRCLED[n - 1] ?? String(n);
 }
 
 /** `bow` bends both control points by the same vertical amount — used to fan apart two

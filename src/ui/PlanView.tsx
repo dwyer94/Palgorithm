@@ -114,9 +114,10 @@ export function PlanGraphPanel({
   palsByPlayer?: Record<PlayerIdentifier, LivePlayerPals | undefined> | undefined;
   displayNameByIdentifier?: Record<PlayerIdentifier, string> | undefined;
 }) {
+  const passiveLabel = useMemo(() => (id: string) => passivesById?.get(id)?.displayName ?? id, [passivesById]);
   const layout = useMemo(
-    () => buildPlanGraph(steps, catches, targets, passivePlan),
-    [steps, catches, targets, passivePlan],
+    () => buildPlanGraph(steps, catches, targets, passivePlan, desiredPassives, passiveLabel),
+    [steps, catches, targets, passivePlan, desiredPassives, passiveLabel],
   );
   // Match each leaf/owned node (not the raw plan steps) against the live pools, so the
   // dedup already done by `buildPlanGraph` (one node per species+gender) is respected
@@ -240,7 +241,7 @@ export function PlanGraphPanel({
         {layout.columns.map((col) => (
           <div
             key={col.index}
-            className="absolute font-mono text-[9.5px] font-semibold tracking-[1px] text-muted-lighter"
+            className="absolute font-mono text-[10.5px] font-bold tracking-[0.5px] text-muted"
             style={{ left: col.index === 0 ? 8 : col.index * 236 + 8, top: 2 }}
           >
             {col.label}

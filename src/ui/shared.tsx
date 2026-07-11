@@ -157,6 +157,8 @@ export function SpeciesPlanView({
   selectedPlayerIds,
   palsByPlayer,
   displayNameByIdentifier,
+  title,
+  note,
 }: {
   plan: SpeciesPlanResult;
   speciesById: Map<string, Species>;
@@ -165,6 +167,11 @@ export function SpeciesPlanView({
   selectedPlayerIds?: Set<PlayerIdentifier> | undefined;
   palsByPlayer?: Record<PlayerIdentifier, LivePlayerPals | undefined> | undefined;
   displayNameByIdentifier?: Record<PlayerIdentifier, string> | undefined;
+  /** Overrides the plan panel's "Selected plan" header — used when two plan panels render
+   * side by side (single-target's guaranteed-carrier vs opportunistic) so scrolling past the
+   * section header doesn't leave two identically-titled cards indistinguishable. */
+  title?: string | undefined;
+  note?: string | undefined;
 }) {
   if (!plan.feasible) {
     return (
@@ -204,6 +211,8 @@ export function SpeciesPlanView({
         selectedPlayerIds={selectedPlayerIds}
         palsByPlayer={palsByPlayer}
         displayNameByIdentifier={displayNameByIdentifier}
+        {...(title !== undefined && { title })}
+        {...(note !== undefined && { note })}
       />
       {plan.passivePlan && <PassivePlanView plan={plan.passivePlan} passivesById={passivesById} speciesById={speciesById} />}
     </div>

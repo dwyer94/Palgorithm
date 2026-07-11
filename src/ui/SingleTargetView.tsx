@@ -190,17 +190,25 @@ export default function SingleTargetView() {
               </div>
 
               {result.passivePlan && result.passivePlan.unassigned.length > 0 && (
-                <div className="mb-5">
-                  <div className="mb-2.5 font-sans text-[11px] font-semibold uppercase tracking-wide text-muted">
+                <div className="mb-6">
+                  <div className="flex items-center gap-2.5 rounded-t-card border border-b-0 border-l-[4px] border-l-brand border-border-card bg-[#fdfaf4] px-4 py-3">
+                    <span className="flex-none rounded-[5px] bg-brand px-[7px] py-[3px] font-mono text-[9.5px] font-bold uppercase tracking-[.5px] text-white">
+                      Alternative
+                    </span>
                     <HoverTooltip description="Deliberately breeds in the Pal(s) that already carry your desired perks, so they're structurally part of the lineage instead of showing up by chance. This usually costs more breeding combinations than the cheapest path below, and the perks still aren't 100% guaranteed to land on any single egg — just far more likely.">
-                      Guaranteed-carrier · forces the perk(s) into one lineage
+                      <span className="font-sans text-[13.5px] font-bold text-ink-strong">Guaranteed-carrier</span>
                     </HoverTooltip>
+                    <span className="font-sans text-[11.5px] text-muted">forces the perk(s) into one lineage</span>
                   </div>
-                  <div className="flex flex-col gap-2.5">
+                  <div className="flex flex-col gap-2.5 rounded-b-card border border-t-0 border-l-[4px] border-l-brand border-border-card bg-panel-subtle p-3.5">
                     {guaranteedCarrierAlt && (
-                      <details className="overflow-hidden rounded-xl border border-border-card bg-white">
+                      <details open className="overflow-hidden rounded-card border border-border-card bg-white">
                         <summary className="flex cursor-pointer list-none items-center gap-2.5 px-[18px] py-3.5">
-                          <PalIcon icon={speciesById.get(guaranteedCarrierAlt.sourceIndividuals[0]?.species ?? '')?.icon} size={22} />
+                          <span className="flex flex-none items-center -space-x-1.5">
+                            {guaranteedCarrierAlt.sourceIndividuals.map((s, i) => (
+                              <PalIcon key={i} icon={speciesById.get(s.species)?.icon} size={22} />
+                            ))}
+                          </span>
                           <span className="font-mono text-[13px] font-semibold">
                             Routes{' '}
                             {guaranteedCarrierAlt.sourceIndividuals
@@ -229,6 +237,7 @@ export default function SingleTargetView() {
                             selectedPlayerIds={live.selectedPlayerIds}
                             palsByPlayer={live.palsByPlayer}
                             displayNameByIdentifier={displayNameByIdentifier}
+                            note="guaranteed-carrier route"
                           />
                         </div>
                       </details>
@@ -243,7 +252,7 @@ export default function SingleTargetView() {
                       return (
                         <div
                           key={passiveId}
-                          className="rounded-xl border border-dashed border-border-input bg-panel-subtle px-[18px] py-3 font-sans text-[12.5px] text-muted"
+                          className="rounded-card border border-dashed border-border-input bg-white px-[18px] py-3 font-sans text-[12.5px] text-muted"
                         >
                           {owned
                             ? `Even prioritizing the Pal that carries ${label}, no breeding route to ${targetSpecies?.displayName ?? target} was found under your current catch/roster settings.`
@@ -255,22 +264,41 @@ export default function SingleTargetView() {
                 </div>
               )}
 
-              {desiredPassives.length > 0 && (
-                <div className="mb-2.5 font-sans text-[11px] font-semibold uppercase tracking-wide text-muted">
-                  <HoverTooltip description="The cheapest breeding path to this Pal, full stop — no extra steps are spent trying to guarantee any perk. If a desired perk happens to sit on the final parents for free, you'll get a real shot at landing it; otherwise it only comes down to luck later on.">
-                    Opportunistic · cheapest path, perks land only if free
-                  </HoverTooltip>
+              {desiredPassives.length > 0 ? (
+                <div className="mb-5">
+                  <div className="flex items-center gap-2.5 rounded-t-card border border-b-0 border-l-[4px] border-l-primary border-border-card bg-primary-tint px-4 py-3">
+                    <span className="flex-none rounded-[5px] bg-primary px-[7px] py-[3px] font-mono text-[9.5px] font-bold uppercase tracking-[.5px] text-white">
+                      Default
+                    </span>
+                    <HoverTooltip description="The cheapest breeding path to this Pal, full stop — no extra steps are spent trying to guarantee any perk. If a desired perk happens to sit on the final parents for free, you'll get a real shot at landing it; otherwise it only comes down to luck later on.">
+                      <span className="font-sans text-[13.5px] font-bold text-ink-strong">Opportunistic</span>
+                    </HoverTooltip>
+                    <span className="font-sans text-[11.5px] text-muted">cheapest path, perks land only if free</span>
+                  </div>
+                  <div className="rounded-b-card border border-t-0 border-l-[4px] border-l-primary border-border-card bg-panel-subtle p-3.5">
+                    <SpeciesPlanView
+                      plan={result}
+                      speciesById={speciesById}
+                      provenance={provenance}
+                      passivesById={passivesById}
+                      selectedPlayerIds={live.selectedPlayerIds}
+                      palsByPlayer={live.palsByPlayer}
+                      displayNameByIdentifier={displayNameByIdentifier}
+                      note="opportunistic route"
+                    />
+                  </div>
                 </div>
+              ) : (
+                <SpeciesPlanView
+                  plan={result}
+                  speciesById={speciesById}
+                  provenance={provenance}
+                  passivesById={passivesById}
+                  selectedPlayerIds={live.selectedPlayerIds}
+                  palsByPlayer={live.palsByPlayer}
+                  displayNameByIdentifier={displayNameByIdentifier}
+                />
               )}
-              <SpeciesPlanView
-                plan={result}
-                speciesById={speciesById}
-                provenance={provenance}
-                passivesById={passivesById}
-                selectedPlayerIds={live.selectedPlayerIds}
-                palsByPlayer={live.palsByPlayer}
-                displayNameByIdentifier={displayNameByIdentifier}
-              />
             </>
           )}
         </div>
