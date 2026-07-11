@@ -28,7 +28,7 @@ export interface LiveDataSourceError {
  * network — absent for the mock source, whose "connection" is synthetic. Used by the
  * Settings "Test connection" affordance (design handoff: `✓ 200 OK · 6 players · 128ms`). */
 export type LiveResultMeta = { status: number; latencyMs: number };
-export type LiveResult<T> = { ok: true; data: T; meta?: LiveResultMeta } | { ok: false; error: LiveDataSourceError };
+export type LiveResult<T> = { ok: true; data: T; meta?: LiveResultMeta | undefined } | { ok: false; error: LiveDataSourceError };
 
 /** `/pals/<id>` embeds every guild base camp in each member's response, so it's split here
  * into the player's own Team/Palbox (`player`) and the guild's base camps (`baseCamps`) —
