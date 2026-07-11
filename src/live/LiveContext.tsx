@@ -6,7 +6,14 @@ import { selectDataSource, type LiveDataSourceError, type LiveResultMeta } from 
 import { FIXTURE_PALS_BY_IDENTIFIER, FIXTURE_PLAYERS } from './fixtures';
 import { mergeIdentityLinks } from './nameResolution';
 import { loadPalsCache, savePalsCacheEntry } from './palsCache';
-import { isBaseCampIdentifier, type LiveBaseCamp, type LivePlayer, type LivePlayerPals, type PlayerIdentifier } from './types';
+import {
+  isBaseCampIdentifier,
+  shortBaseCampLabel,
+  type LiveBaseCamp,
+  type LivePlayer,
+  type LivePlayerPals,
+  type PlayerIdentifier,
+} from './types';
 
 /**
  * Live connection state, mirroring `RulesetContext`'s "load once, expose via context"
@@ -196,7 +203,7 @@ export function LiveProvider({ children }: { children: ReactNode }) {
     const campEntries: LivePlayer[] = Object.values(baseCamps).map((camp) => ({
       identifier: camp.identifier,
       userId: '',
-      apiName: `Base Camp ${camp.campId} (Lv ${camp.level})`,
+      apiName: `Base Camp ${shortBaseCampLabel(camp.campId)} (Lv ${camp.level})`,
       guildName: camp.guildName,
       status: camp.state,
     }));

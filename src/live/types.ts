@@ -110,6 +110,17 @@ export function isBaseCampIdentifier(identifier: PlayerIdentifier): boolean {
   return identifier.startsWith('basecamp:');
 }
 
+/** PalDefender's real base camp ids are long compound GUIDs (e.g.
+ * `33A9250A-405B2528-D9A32299-67712BC9`) — accurate but not something a human should have to
+ * read in a player list or a pal's location column. Shortens to the last 8 alphanumeric
+ * characters: deterministic (the same camp always renders the same short label, unlike a
+ * discovery-order index would), and since it's sliced straight from the real id rather than
+ * invented, collision odds are negligible for however many camps one guild actually has. */
+export function shortBaseCampLabel(campId: string): string {
+  const alnum = campId.replace(/[^a-zA-Z0-9]/g, '');
+  return alnum.length > 8 ? alnum.slice(-8) : alnum;
+}
+
 export interface LiveBaseCamp {
   identifier: PlayerIdentifier;
   campId: string;

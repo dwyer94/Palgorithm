@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import type { Species, Passive } from '../data/schema';
 import { useLiveContext } from '../live/LiveContext';
 import { resolvePlayerDisplayName } from '../live/nameResolution';
-import type { LivePal, PlayerIdentifier } from '../live/types';
+import { shortBaseCampLabel, type LivePal, type PlayerIdentifier } from '../live/types';
 import { effectiveWorkSuitabilities } from '../live/workSuitability';
 import { useSettings } from '../store/hooks';
 import { useRulesetContext } from './RulesetContext';
@@ -438,7 +438,7 @@ function PalRow({
         {pal.ivs.health}/{pal.ivs.attackMelee}/{pal.ivs.defense}
       </td>
       <td className="px-2.5 py-2 text-[12px] text-ink-muted">
-        {pal.location.kind === 'baseCamp' ? `Base Camp ${pal.location.baseCampId}` : pal.location.kind === 'team' ? 'Team' : 'Palbox'}
+        {pal.location.kind === 'baseCamp' ? `Base Camp ${shortBaseCampLabel(pal.location.baseCampId)}` : pal.location.kind === 'team' ? 'Team' : 'Palbox'}
       </td>
     </tr>
   );
@@ -497,7 +497,7 @@ function PalFullCard({
         IVs {pal.ivs.health}/{pal.ivs.attackMelee}/{pal.ivs.defense}
       </div>
       <div className="font-sans text-[10px] text-muted-light">
-        {pal.location.kind === 'baseCamp' ? `Base Camp ${pal.location.baseCampId}` : pal.location.kind === 'team' ? 'Team' : 'Palbox'}
+        {pal.location.kind === 'baseCamp' ? `Base Camp ${shortBaseCampLabel(pal.location.baseCampId)}` : pal.location.kind === 'team' ? 'Team' : 'Palbox'}
       </div>
     </PalCard>
   );
@@ -681,7 +681,7 @@ function FindAPalTab() {
                 </div>
                 <WorkSuitabilityRow levels={workLevels} highlight={workHighlight} />
                 <div className="font-sans text-[10px] text-muted-light">
-                  {pal.location.kind === 'baseCamp' ? `Base Camp ${pal.location.baseCampId}` : pal.location.kind === 'team' ? 'Team' : 'Palbox'}
+                  {pal.location.kind === 'baseCamp' ? `Base Camp ${shortBaseCampLabel(pal.location.baseCampId)}` : pal.location.kind === 'team' ? 'Team' : 'Palbox'}
                 </div>
                 <span className="inline-flex items-center gap-1 rounded-pill border border-primary-border3 bg-primary-tint px-2 py-0.5 font-mono text-[10px] font-semibold text-primary-dark">
                   {owner}
@@ -744,7 +744,7 @@ function FindAPalTab() {
                       <WorkSuitabilityRow levels={workLevels} highlight={workHighlight} />
                     </td>
                     <td className="whitespace-nowrap px-3 py-2.5 text-[12px] text-ink-muted">
-                      {pal.location.kind === 'baseCamp' ? `Base Camp ${pal.location.baseCampId}` : pal.location.kind === 'team' ? 'Team' : 'Palbox'}
+                      {pal.location.kind === 'baseCamp' ? `Base Camp ${shortBaseCampLabel(pal.location.baseCampId)}` : pal.location.kind === 'team' ? 'Team' : 'Palbox'}
                     </td>
                     <td className="px-3 py-2.5">
                       <span className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-pill border border-primary-border3 bg-primary-tint px-2.5 py-1 font-mono text-[11px] font-semibold text-primary-dark">
