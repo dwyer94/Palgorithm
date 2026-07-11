@@ -110,6 +110,11 @@ export function isBaseCampIdentifier(identifier: PlayerIdentifier): boolean {
   return identifier.startsWith('basecamp:');
 }
 
+/** Inverse of `baseCampIdentifier` — only meaningful when `isBaseCampIdentifier(identifier)`. */
+export function baseCampIdFromIdentifier(identifier: PlayerIdentifier): string {
+  return identifier.slice('basecamp:'.length);
+}
+
 /** PalDefender's real base camp ids are long compound GUIDs (e.g.
  * `33A9250A-405B2528-D9A32299-67712BC9`) — accurate but not something a human should have to
  * read in a player list or a pal's location column. Shortens to the last 8 alphanumeric

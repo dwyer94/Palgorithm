@@ -6,7 +6,7 @@ import type { UnionPlanResult, HubFinderResult } from '../solver/types';
 import { useLiveContext } from '../live/LiveContext';
 import { buildRosterForSolver } from '../live/rosterMerge';
 import { annotateUnionPlan } from '../live/provenance';
-import { resolvePlayerDisplayName } from '../live/nameResolution';
+import { buildDisplayNameMap } from '../live/nameResolution';
 import { useRulesetContext } from './RulesetContext';
 import { UnionPlanView, HubList } from './shared';
 import { ComboCount, ElementDot, PalIcon, PassiveChip, PassiveMultiSelect, Pill, SpeciesTypeahead } from './components';
@@ -57,11 +57,8 @@ export default function HubView() {
   );
 
   const displayNameByIdentifier = useMemo(
-    () =>
-      Object.fromEntries(
-        live.players.map((p) => [p.identifier, resolvePlayerDisplayName(p, settings.live.nameOverrides, settings.live.identityLinks)]),
-      ),
-    [live.players, settings.live.nameOverrides, settings.live.identityLinks],
+    () => buildDisplayNameMap(live.players, live.selectedPlayerIds, settings.live.nameOverrides, settings.live.identityLinks),
+    [live.players, live.selectedPlayerIds, settings.live.nameOverrides, settings.live.identityLinks],
   );
 
   const provenance = useMemo(
@@ -152,7 +149,7 @@ export default function HubView() {
   const hubTotal = selectedHubCandidate ? selectedHubCandidate.obtainCost + hubInjectTotal : undefined;
   const hubDelta = unionResult && hubTotal !== undefined ? hubTotal - unionResult.combinationCount : undefined;
 
-  const rosterLiveNames = Array.from(live.selectedPlayerIds).map((id) => displayNameByIdentifier[id] ?? id);
+  const rosterLiveNames = Array.from(live.selectedPlayerIds).map((id) => displayNameByIdentifier[id]!);
   const rosterLivePalCount = Array.from(live.selectedPlayerIds).reduce(
     (sum, id) => sum + (live.palsByPlayer[id]?.pals.length ?? 0),
     0,

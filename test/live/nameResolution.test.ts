@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { extractSteamId64, mergeIdentityLinks, resolvePlayerDisplayName } from '../../src/live/nameResolution';
-import type { LivePlayer } from '../../src/live/types';
+import { buildDisplayNameMap, extractSteamId64, mergeIdentityLinks, resolvePlayerDisplayName } from '../../src/live/nameResolution';
+import { baseCampIdentifier, type LivePlayer } from '../../src/live/types';
 
 function player(overrides: Partial<LivePlayer> & Pick<LivePlayer, 'identifier'>): LivePlayer {
   return { userId: '', apiName: '', guildName: '', status: 'Online', ...overrides };
@@ -42,6 +42,28 @@ describe('extractSteamId64', () => {
   it('returns null for a blank or non-Steam userId', () => {
     expect(extractSteamId64('')).toBeNull();
     expect(extractSteamId64('xbox_abc123')).toBeNull();
+  });
+});
+
+describe('buildDisplayNameMap', () => {
+  it('resolves every known player via resolvePlayerDisplayName', () => {
+    const p = player({ identifier: 'id-1', apiName: 'InGameName' });
+    const map = buildDisplayNameMap([p], ['id-1'], {});
+    expect(map).toEqual({ 'id-1': 'InGameName' });
+  });
+
+  it('falls back to a short readable label for a selected base camp missing from `players`', () => {
+    // Simulates the whole guild being offline this session — the camp's `LiveBaseCamp`
+    // metadata (and thus its `LivePlayer` row) never got discovered, but its identifier is
+    // still in `selectedPlayerIds` from a previous session (persisted to localStorage).
+    const id = baseCampIdentifier('33A9250A-405B2528-D9A32299-67712BC9');
+    const map = buildDisplayNameMap([], [id], {});
+    expect(map[id]).toBe('Base Camp 67712BC9');
+  });
+
+  it('falls back to the raw identifier for a selected non-camp id missing from `players`', () => {
+    const map = buildDisplayNameMap([], ['some-uid'], {});
+    expect(map['some-uid']).toBe('some-uid');
   });
 });
 

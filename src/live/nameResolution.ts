@@ -1,4 +1,4 @@
-import type { LivePlayer, PlayerIdentifier } from './types';
+import { baseCampIdFromIdentifier, isBaseCampIdentifier, shortBaseCampLabel, type LivePlayer, type PlayerIdentifier } from './types';
 
 /**
  * Display name resolution order (docs/UI_REQUIREMENTS.md): a user-set override wins, then
@@ -25,6 +25,30 @@ export function resolvePlayerDisplayName(
 export function extractSteamId64(userId: string): string | null {
   const match = /^steam_(\d+)$/i.exec(userId.trim());
   return match?.[1] ?? null;
+}
+
+/** Builds an identifier -> display name lookup covering every currently known player/camp,
+ * plus a readable fallback for any `selectedPlayerIds` entry that isn't currently in
+ * `players` — most commonly a base camp whose entire guild is offline this session (a camp's
+ * display metadata only ever comes from a live fetch, see `LiveContext`, never from
+ * `selectedPlayerIds` alone, which is what's persisted). Without this fallback, downstream
+ * views (Hub/Single-target "Pal pools", plan provenance owner tags) render the raw
+ * `basecamp:<guid>` synthetic identifier instead of something a human can read. */
+export function buildDisplayNameMap(
+  players: LivePlayer[],
+  selectedPlayerIds: Iterable<PlayerIdentifier>,
+  overrides: Record<string, string>,
+  identityLinks: Record<PlayerIdentifier, string> = {},
+): Record<PlayerIdentifier, string> {
+  const map: Record<PlayerIdentifier, string> = {};
+  for (const p of players) {
+    map[p.identifier] = resolvePlayerDisplayName(p, overrides, identityLinks);
+  }
+  for (const id of selectedPlayerIds) {
+    if (id in map) continue;
+    map[id] = isBaseCampIdentifier(id) ? `Base Camp ${shortBaseCampLabel(baseCampIdFromIdentifier(id))}` : id;
+  }
+  return map;
 }
 
 /** Learns PlayerUID -> SteamID64 links from a fresh players list, merging into `existing`
