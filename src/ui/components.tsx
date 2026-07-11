@@ -489,8 +489,8 @@ export interface NavItem {
 }
 
 export const PLAN_NAV_ITEMS: NavItem[] = [
-  { key: 'hub', label: 'Hub planner', icon: '◈' },
   { key: 'single', label: 'Single target', icon: '◇' },
+  { key: 'hub', label: 'Hub planner', icon: '◈' },
   { key: 'saved', label: 'Saved plans', icon: '★' },
 ];
 

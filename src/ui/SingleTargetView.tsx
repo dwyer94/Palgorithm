@@ -26,6 +26,7 @@ export default function SingleTargetView() {
   const [result, setResult] = useState<SpeciesPlanResult | null>(null);
   const [carrierAlternatives, setCarrierAlternatives] = useState<CarrierAlternative[]>([]);
   const [saved, setSavedFlash] = useState(false);
+  const [isPlanning, setIsPlanning] = useState(false);
 
   const rosterForSolver = useMemo(
     () => buildRosterForSolver(roster, live.selectedPlayerIds, live.palsByPlayer),
@@ -46,16 +47,20 @@ export default function SingleTargetView() {
 
   const runPlan = () => {
     if (!target) return;
-    const speciesOptions = { catchCost: settings.catchCost, allowCatching: settings.allowCatching };
-    const plan = planSpecies(ruleset, rosterForSolver, target, {
-      ...speciesOptions,
-      ...(desiredPassives.length > 0 && { desiredPassives }),
-    });
-    setResult(plan);
-    setSavedFlash(false);
-    setCarrierAlternatives(
-      plan.passivePlan?.unassigned.length ? findCarrierAlternatives(ruleset, rosterForSolver, target, plan, speciesOptions) : [],
-    );
+    setIsPlanning(true);
+    setTimeout(() => {
+      const speciesOptions = { catchCost: settings.catchCost, allowCatching: settings.allowCatching };
+      const plan = planSpecies(ruleset, rosterForSolver, target, {
+        ...speciesOptions,
+        ...(desiredPassives.length > 0 && { desiredPassives }),
+      });
+      setResult(plan);
+      setSavedFlash(false);
+      setCarrierAlternatives(
+        plan.passivePlan?.unassigned.length ? findCarrierAlternatives(ruleset, rosterForSolver, target, plan, speciesOptions) : [],
+      );
+      setIsPlanning(false);
+    }, 0);
   };
 
   const savePlan = () => {
@@ -116,16 +121,24 @@ export default function SingleTargetView() {
         )}
 
         <div
-          onClick={runPlan}
-          className="flex cursor-pointer items-center justify-center gap-2.5 rounded-[10px] bg-sidebar-bg px-[13px] py-[13px] font-sans text-[14px] font-semibold tracking-[.3px] text-white shadow-[0_2px_5px_rgba(0,0,0,.14)] hover:bg-sidebar-hover"
+          onClick={isPlanning ? undefined : runPlan}
+          className={`flex items-center justify-center gap-2.5 rounded-[10px] bg-sidebar-bg px-[13px] py-[13px] font-sans text-[14px] font-semibold tracking-[.3px] text-white shadow-[0_2px_5px_rgba(0,0,0,.14)] ${
+            isPlanning ? 'opacity-60' : 'cursor-pointer hover:bg-sidebar-hover'
+          }`}
         >
-          ▶ Run plan
+          {isPlanning ? '⏳ Running plan…' : '▶ Run plan'}
         </div>
       </aside>
 
       <main className="flex-1 bg-canvas md:overflow-y-auto">
         <div className="mx-auto max-w-[1080px] px-4 pb-[60px] pt-[26px] md:px-[34px]">
-          {!result && (
+          {isPlanning && (
+            <div className="rounded-card border border-dashed border-border-input bg-panel-subtle p-10 text-center font-sans text-[13px] text-muted">
+              ⏳ Solving breeding paths…
+            </div>
+          )}
+
+          {!isPlanning && !result && (
             <div className="rounded-card border border-dashed border-border-input bg-panel-subtle p-10 text-center font-sans text-[13px] text-muted">
               Pick a target species, then run the plan.
             </div>

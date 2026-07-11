@@ -19,8 +19,8 @@ import SettingsView from './ui/SettingsView';
  */
 
 const VIEWS = {
-  hub: HubView,
   single: SingleTargetView,
+  hub: HubView,
   saved: SavedPlansView,
   roster: RosterView,
   server: ServerPalsView,
@@ -32,7 +32,7 @@ const VIEWS = {
 type ViewKey = keyof typeof VIEWS;
 
 function AppShell() {
-  const [active, setActive] = useState<ViewKey>('hub');
+  const [active, setActive] = useState<ViewKey>('single');
   const [roster] = useRoster();
   const [settings, setSettings] = useSettings();
   const live = useLiveContext();

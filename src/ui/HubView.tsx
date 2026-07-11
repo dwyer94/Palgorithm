@@ -50,6 +50,9 @@ export default function HubView() {
    * potentially many-second computation over every candidate species, so this drives a
    * visible loading state instead of leaving the UI looking frozen with no feedback. */
   const [searchingAllHubs, setSearchingAllHubs] = useState(false);
+  /** True while the main "Run plan" solve (union + full hub sweep) is in flight. Same
+   * synchronous-computation problem as searchingAllHubs above, just for the primary button. */
+  const [isPlanning, setIsPlanning] = useState(false);
 
   const rosterForSolver = useMemo(
     () => buildRosterForSolver(roster, live.selectedPlayerIds, live.palsByPlayer),
@@ -81,18 +84,22 @@ export default function HubView() {
 
   const runPlan = () => {
     if (targets.length === 0) return;
-    const options = {
-      catchCost: settings.catchCost,
-      allowCatching: settings.allowCatching,
-      ...(desiredPassives.length > 0 && { desiredPassives }),
-    };
-    const union = planUnion(ruleset, rosterForSolver, targets, options);
-    const hubs = findHubs(ruleset, rosterForSolver, { ...options, targets });
-    setUnionResult(union);
-    setHubResult(hubs);
-    setSelectedHub(hubs.hubs[0]?.species);
-    setHubScope('full');
-    setSavedFlash(false);
+    setIsPlanning(true);
+    setTimeout(() => {
+      const options = {
+        catchCost: settings.catchCost,
+        allowCatching: settings.allowCatching,
+        ...(desiredPassives.length > 0 && { desiredPassives }),
+      };
+      const union = planUnion(ruleset, rosterForSolver, targets, options);
+      const hubs = findHubs(ruleset, rosterForSolver, { ...options, targets });
+      setUnionResult(union);
+      setHubResult(hubs);
+      setSelectedHub(hubs.hubs[0]?.species);
+      setHubScope('full');
+      setSavedFlash(false);
+      setIsPlanning(false);
+    }, 0);
   };
 
   /** Suggestion-card quick-start (design brief: "auto jump to the next step"). Fills the
@@ -267,17 +274,25 @@ export default function HubView() {
         </div>
 
         <div
-          onClick={runPlan}
-          className="flex cursor-pointer items-center justify-center gap-2.5 rounded-[10px] bg-sidebar-bg px-[13px] py-[13px] font-sans text-[14px] font-semibold tracking-[.3px] text-white shadow-[0_2px_5px_rgba(0,0,0,.14)] hover:bg-sidebar-hover"
+          onClick={isPlanning ? undefined : runPlan}
+          className={`flex items-center justify-center gap-2.5 rounded-[10px] bg-sidebar-bg px-[13px] py-[13px] font-sans text-[14px] font-semibold tracking-[.3px] text-white shadow-[0_2px_5px_rgba(0,0,0,.14)] ${
+            isPlanning ? 'opacity-60' : 'cursor-pointer hover:bg-sidebar-hover'
+          }`}
         >
-          ▶ Run plan
+          {isPlanning ? '⏳ Running plan…' : '▶ Run plan'}
         </div>
       </aside>
 
       {/* ============ RESULT ============ */}
       <main className="flex-1 bg-canvas md:overflow-y-auto">
         <div className="mx-auto max-w-[1080px] px-4 pb-[60px] pt-[26px] md:px-[34px]">
-          {!unionResult && (
+          {isPlanning && (
+            <div className="rounded-card border border-dashed border-border-input bg-panel-subtle p-10 text-center font-sans text-[13px] text-muted">
+              ⏳ Solving breeding paths…
+            </div>
+          )}
+
+          {!isPlanning && !unionResult && (
             <div>
               <div className="rounded-card border border-dashed border-border-input bg-panel-subtle p-10 text-center font-sans text-[13px] text-muted">
                 Add at least one target species, then run the plan.
