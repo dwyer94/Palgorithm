@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import type { Species, Passive } from '../../src/data/schema';
 import {
+  normalizeBaseCamps,
   normalizeGender,
   normalizePal,
   normalizePlayer,
@@ -8,6 +9,7 @@ import {
   resolvePassiveId,
   resolveSpeciesId,
 } from '../../src/live/normalize';
+import { baseCampIdentifier } from '../../src/live/types';
 import type { RawPal, RawPalsResponse, RawPlayer } from '../../src/live/types';
 
 function species(overrides: Partial<Species> & Pick<Species, 'id'>): Species {
@@ -146,33 +148,56 @@ describe('normalizePal', () => {
   });
 });
 
-describe('normalizePlayerPals', () => {
-  it('flattens Team + Palbox + multiple BaseCamps, tagging each with its location', () => {
-    const raw: RawPalsResponse = {
-      Meta: { PlayerUID: 'owner-1', Player: 'owner-1', TeamCount: 1, PalboxCount: 1, BaseCampCount: 2 },
-      Pals: {
-        // Overlapping instance-id-looking keys across buckets — location must disambiguate.
-        Team: { same_id: rawPal({ PalID: 'Boar', Gender: 'Male' }) },
-        Palbox: { same_id: rawPal({ PalID: 'Relaxaurus_Lux', Gender: 'Female' }) },
-        BaseCamps: [
-          { id: 'camp-a', level: 1, state: 'Active', pals: { same_id: rawPal({ PalID: 'Boar', Gender: 'Female' }) } },
-          { id: 'camp-b', level: 2, state: 'Active', pals: { other_id: rawPal({ PalID: 'Boar', Gender: 'Male' }) } },
-        ],
-      },
-    };
+const RAW_WITH_BASE_CAMPS: RawPalsResponse = {
+  Meta: { PlayerUID: 'owner-1', Player: 'owner-1', TeamCount: 1, PalboxCount: 1, BaseCampCount: 2 },
+  Pals: {
+    // Overlapping instance-id-looking keys across buckets — location must disambiguate.
+    Team: { same_id: rawPal({ PalID: 'Boar', Gender: 'Male' }) },
+    Palbox: { same_id: rawPal({ PalID: 'Relaxaurus_Lux', Gender: 'Female' }) },
+    BaseCamps: [
+      { id: 'camp-a', level: 1, state: 'Active', pals: { same_id: rawPal({ PalID: 'Boar', Gender: 'Female' }) } },
+      { id: 'camp-b', level: 2, state: 'Active', pals: { other_id: rawPal({ PalID: 'Boar', Gender: 'Male' }) } },
+    ],
+  },
+};
 
-    const result = normalizePlayerPals('owner-1', raw, SPECIES, PASSIVES);
+describe('normalizePlayerPals', () => {
+  it('flattens Team + Palbox only, excluding base camps (they are not player-owned)', () => {
+    const result = normalizePlayerPals('owner-1', RAW_WITH_BASE_CAMPS, SPECIES, PASSIVES);
     expect(result.identifier).toBe('owner-1');
-    expect(result.pals).toHaveLength(4);
+    expect(result.pals).toHaveLength(2);
 
     const byLocation = result.pals.map((p) => p.location);
     expect(byLocation).toContainEqual({ kind: 'team' });
     expect(byLocation).toContainEqual({ kind: 'palbox' });
-    expect(byLocation).toContainEqual({ kind: 'baseCamp', baseCampId: 'camp-a' });
-    expect(byLocation).toContainEqual({ kind: 'baseCamp', baseCampId: 'camp-b' });
+    expect(byLocation).not.toContainEqual({ kind: 'baseCamp', baseCampId: 'camp-a' });
+  });
+});
 
-    // Same raw instance id, different buckets -> both present, distinguished by location.
-    const sameIdPals = result.pals.filter((p) => p.instanceId === 'same_id');
-    expect(sameIdPals).toHaveLength(3);
+describe('normalizeBaseCamps', () => {
+  it('extracts each base camp keyed by its own synthetic identifier, not the reporting player', () => {
+    const result = normalizeBaseCamps(RAW_WITH_BASE_CAMPS, 'The Guild', SPECIES, PASSIVES);
+    expect(result).toHaveLength(2);
+
+    const campA = result.find((r) => r.camp.campId === 'camp-a')!;
+    expect(campA.camp.identifier).toBe(baseCampIdentifier('camp-a'));
+    expect(campA.camp.level).toBe(1);
+    expect(campA.camp.state).toBe('Active');
+    expect(campA.camp.guildName).toBe('The Guild');
+    expect(campA.pals.identifier).toBe(baseCampIdentifier('camp-a'));
+    expect(campA.pals.pals).toHaveLength(1);
+    expect(campA.pals.pals[0]!.ownerIdentifier).toBe(baseCampIdentifier('camp-a'));
+    expect(campA.pals.pals[0]!.location).toEqual({ kind: 'baseCamp', baseCampId: 'camp-a' });
+
+    const campB = result.find((r) => r.camp.campId === 'camp-b')!;
+    expect(campB.pals.pals).toHaveLength(1);
+  });
+
+  it('returns an empty array when there are no base camps', () => {
+    const raw: RawPalsResponse = {
+      Meta: { PlayerUID: 'x', Player: 'x', TeamCount: 0, PalboxCount: 0, BaseCampCount: 0 },
+      Pals: { Team: {}, Palbox: {}, BaseCamps: [] },
+    };
+    expect(normalizeBaseCamps(raw, '', SPECIES, PASSIVES)).toEqual([]);
   });
 });

@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { getSettings, setSettings as writeSettings } from '../store/localStore';
 import { useSelectedPlayerIds, useSettings } from '../store/hooks';
 import { useRulesetContext } from '../ui/RulesetContext';
@@ -6,7 +6,7 @@ import { selectDataSource, type LiveDataSourceError, type LiveResultMeta } from 
 import { FIXTURE_PALS_BY_IDENTIFIER, FIXTURE_PLAYERS } from './fixtures';
 import { mergeIdentityLinks } from './nameResolution';
 import { loadPalsCache, savePalsCacheEntry } from './palsCache';
-import type { LivePlayer, LivePlayerPals, PlayerIdentifier } from './types';
+import { isBaseCampIdentifier, type LiveBaseCamp, type LivePlayer, type LivePlayerPals, type PlayerIdentifier } from './types';
 
 /**
  * Live connection state, mirroring `RulesetContext`'s "load once, expose via context"
@@ -48,7 +48,18 @@ export function LiveProvider({ children }: { children: ReactNode }) {
   const { dataset } = useRulesetContext();
 
   const [status, setStatus] = useState<ConnectionStatus>('unconfigured');
-  const [players, setPlayers] = useState<LivePlayer[]>([]);
+  const [fetchedPlayers, setFetchedPlayers] = useState<LivePlayer[]>([]);
+  // Base camps discovered while fetching players' pals — keyed by `baseCampIdentifier(id)`,
+  // deduped across however many guild members happen to report the same camp (see
+  // `LiveBaseCamp` in types.ts for why they can't stay attributed to a reporting player).
+  const [baseCamps, setBaseCamps] = useState<Record<PlayerIdentifier, LiveBaseCamp>>({});
+  // `refreshPlayerPals` needs each player's `guildName` to label any base camps it reports,
+  // but must not depend on `fetchedPlayers` directly — that would recreate it (and the
+  // `refreshPlayers`/auto-poll effect chain built on it) on every players refresh.
+  const fetchedPlayersRef = useRef<LivePlayer[]>([]);
+  useEffect(() => {
+    fetchedPlayersRef.current = fetchedPlayers;
+  }, [fetchedPlayers]);
   const [lastRefreshedAt, setLastRefreshedAt] = useState<string | null>(null);
   const [lastConnectionMeta, setLastConnectionMeta] = useState<LiveResultMeta | null>(null);
   const [error, setError] = useState<LiveDataSourceError | null>(null);
@@ -73,8 +84,13 @@ export function LiveProvider({ children }: { children: ReactNode }) {
 
   const refreshPlayerPals = useCallback(
     async (identifier: PlayerIdentifier) => {
+      // A base camp's pals arrive as a byproduct of fetching an actual guild member — it has
+      // no `/pals/<id>` endpoint of its own, so there's nothing to fetch for it directly.
+      if (isBaseCampIdentifier(identifier)) return;
+
       setPalsLoading((prev) => new Set(prev).add(identifier));
-      const result = await source.getPlayerPals(identifier);
+      const reporterGuildName = fetchedPlayersRef.current.find((p) => p.identifier === identifier)?.guildName ?? '';
+      const result = await source.getPlayerPals(identifier, reporterGuildName);
       setPalsLoading((prev) => {
         const next = new Set(prev);
         next.delete(identifier);
@@ -84,11 +100,30 @@ export function LiveProvider({ children }: { children: ReactNode }) {
       // `error` (which is for player-list-level failures) — the row can show a targeted
       // retry rather than being lumped in with a total connection failure.
       if (result.ok) {
-        setPalsByPlayer((prev) => ({ ...prev, [identifier]: result.data }));
-        setPalsError((prev) => ({ ...prev, [identifier]: undefined }));
+        const { player, baseCamps: camps } = result.data;
         const fetchedAt = new Date().toISOString();
-        setPalsFetchedAt((prev) => ({ ...prev, [identifier]: fetchedAt }));
-        savePalsCacheEntry(identifier, result.data);
+
+        setPalsByPlayer((prev) => {
+          const next = { ...prev, [identifier]: player };
+          for (const { camp, pals } of camps) next[camp.identifier] = pals;
+          return next;
+        });
+        setPalsError((prev) => ({ ...prev, [identifier]: undefined }));
+        setPalsFetchedAt((prev) => {
+          const next = { ...prev, [identifier]: fetchedAt };
+          for (const { camp } of camps) next[camp.identifier] = fetchedAt;
+          return next;
+        });
+        savePalsCacheEntry(identifier, player);
+        for (const { camp, pals } of camps) savePalsCacheEntry(camp.identifier, pals);
+
+        if (camps.length > 0) {
+          setBaseCamps((prev) => {
+            const next = { ...prev };
+            for (const { camp } of camps) next[camp.identifier] = camp;
+            return next;
+          });
+        }
       } else {
         // Deliberately leave `palsByPlayer`/`palsFetchedAt` untouched on failure — a player
         // going offline (PLAYER_NOT_FOUND) shouldn't wipe out the last-known-good box, it
@@ -103,7 +138,7 @@ export function LiveProvider({ children }: { children: ReactNode }) {
     setStatus((s) => (s === 'connected' ? s : 'connecting'));
     const result = await source.listPlayers();
     if (result.ok) {
-      setPlayers(result.data);
+      setFetchedPlayers(result.data);
       setStatus('connected');
       setError(null);
       setLastRefreshedAt(new Date().toISOString());
@@ -152,6 +187,21 @@ export function LiveProvider({ children }: { children: ReactNode }) {
     }, intervalMs);
     return () => clearInterval(interval);
   }, [settings.live.autoPollEnabled, settings.live.autoPollIntervalSeconds, refreshPlayers]);
+
+  // Each discovered base camp is surfaced as its own `LivePlayer`-shaped row, right alongside
+  // real players — this is what lets the rest of the app (selection, roster-building,
+  // Find-a-pal) treat "a guild's shared base camp" as a single selectable owner instead of
+  // silently re-attributing its workers to every member who happens to be online.
+  const players = useMemo<LivePlayer[]>(() => {
+    const campEntries: LivePlayer[] = Object.values(baseCamps).map((camp) => ({
+      identifier: camp.identifier,
+      userId: '',
+      apiName: `Base Camp ${camp.campId} (Lv ${camp.level})`,
+      guildName: camp.guildName,
+      status: camp.state,
+    }));
+    return [...fetchedPlayers, ...campEntries];
+  }, [fetchedPlayers, baseCamps]);
 
   const value: LiveContextValue = {
     status,

@@ -79,6 +79,18 @@ export const FIXTURE_PLAYERS: RawPlayer[] = [
   },
 ];
 
+// Nova and Ember are both "The Guild" — PalDefender embeds every guild base camp in *each*
+// member's `/pals/<id>` response (docs/PalDefenderAPI/pals.md), so `camp-1` deliberately
+// appears in both fixtures below, identically. This exercises the base-camp dedup path
+// (`normalizeBaseCamps` + `LiveContext`'s `baseCamps` state) rather than double-counting
+// `camp-1`'s worker once per guild member.
+const SHARED_CAMP_1 = {
+  id: 'camp-1',
+  level: 3,
+  state: 'Active',
+  pals: { 'bc1': rawPal({ PalID: 'Boar', Gender: 'Male', Level: 15 }) },
+};
+
 export const FIXTURE_PALS_BY_IDENTIFIER: Record<PlayerIdentifier, RawPalsResponse> = {
   [FIXTURE_NOVA_UID]: {
     Meta: { PlayerUID: FIXTURE_NOVA_UID, Player: FIXTURE_NOVA_UID, TeamCount: 1, PalboxCount: 1, BaseCampCount: 1 },
@@ -89,18 +101,11 @@ export const FIXTURE_PALS_BY_IDENTIFIER: Record<PlayerIdentifier, RawPalsRespons
       Palbox: {
         'p1': rawPal({ PalID: 'GoldenHorse', Gender: 'Female', Level: 20, Passives: ['CraftSpeed_up1'] }),
       },
-      BaseCamps: [
-        {
-          id: 'camp-1',
-          level: 3,
-          state: 'Active',
-          pals: { 'bc1': rawPal({ PalID: 'Boar', Gender: 'Male', Level: 15 }) },
-        },
-      ],
+      BaseCamps: [SHARED_CAMP_1],
     },
   },
   [FIXTURE_EMBER_UID]: {
-    Meta: { PlayerUID: FIXTURE_EMBER_UID, Player: FIXTURE_EMBER_UID, TeamCount: 1, PalboxCount: 1, BaseCampCount: 0 },
+    Meta: { PlayerUID: FIXTURE_EMBER_UID, Player: FIXTURE_EMBER_UID, TeamCount: 1, PalboxCount: 1, BaseCampCount: 1 },
     Pals: {
       Team: {
         't1': rawPal({ PalID: 'ElecLion', Gender: 'Female', Level: 35, Passives: ['Deffence_up3', 'FakePassive_XYZ'] }),
@@ -109,7 +114,7 @@ export const FIXTURE_PALS_BY_IDENTIFIER: Record<PlayerIdentifier, RawPalsRespons
         // Deliberately unresolvable species — exercises the "flag, don't drop" path.
         'p1': rawPal({ PalID: 'TotallyFakeSpecies_XYZ', Gender: 'Male', Level: 5 }),
       },
-      BaseCamps: [],
+      BaseCamps: [SHARED_CAMP_1],
     },
   },
   [FIXTURE_WANDERER_UID]: {

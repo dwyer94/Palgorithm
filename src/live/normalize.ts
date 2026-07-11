@@ -1,16 +1,18 @@
 import type { Species, Passive } from '../data/schema';
 import type { Gender } from '../ruleset/types';
-import type {
-  RawPal,
-  RawPalsResponse,
-  RawPlayer,
-  LivePlayer,
-  LivePal,
-  LivePalLocation,
-  LivePlayerPals,
-  PlayerIdentifier,
-  SpeciesId,
-  PassiveId,
+import {
+  baseCampIdentifier,
+  type RawPal,
+  type RawPalsResponse,
+  type RawPlayer,
+  type LivePlayer,
+  type LivePal,
+  type LivePalLocation,
+  type LivePlayerPals,
+  type LiveBaseCamp,
+  type PlayerIdentifier,
+  type SpeciesId,
+  type PassiveId,
 } from './types';
 
 /**
@@ -124,8 +126,10 @@ export function normalizePal(
   );
 }
 
-/** Flattens `Team` + `Palbox` + every `BaseCamps[].pals` into one array, tagging each with
- * its source location — the one place that understands the three-bucket `/pals/<id>` shape. */
+/** Flattens `Team` + `Palbox` into one array, tagging each with its source location. Base
+ * camps are deliberately excluded here — they're guild-wide, not owned by this player (see
+ * `LiveBaseCamp` in types.ts), and are normalized separately by `normalizeBaseCamps` so they
+ * end up attributed once per camp rather than once per guild member. */
 export function normalizePlayerPals(
   identifier: PlayerIdentifier,
   raw: RawPalsResponse,
@@ -142,20 +146,37 @@ export function normalizePlayerPals(
   for (const [instanceId, rawPal] of Object.entries(raw.Pals.Palbox)) {
     pals.push(normalizePalWithIndices(rawPal, instanceId, identifier, { kind: 'palbox' }, speciesIndex, passiveIndex));
   }
-  for (const camp of raw.Pals.BaseCamps) {
-    for (const [instanceId, rawPal] of Object.entries(camp.pals)) {
-      pals.push(
-        normalizePalWithIndices(
-          rawPal,
-          instanceId,
-          identifier,
-          { kind: 'baseCamp', baseCampId: camp.id },
-          speciesIndex,
-          passiveIndex,
-        ),
-      );
-    }
-  }
 
   return { identifier, pals };
+}
+
+/** Extracts every base camp embedded in a player's `/pals/<id>` response as its own entity,
+ * keyed by `baseCampIdentifier(camp.id)` rather than the reporting player — see `LiveBaseCamp`.
+ * `reporterGuildName` is only used for display since camps have no owner of their own. */
+export function normalizeBaseCamps(
+  raw: RawPalsResponse,
+  reporterGuildName: string,
+  speciesList: Species[],
+  passivesList: Passive[],
+): { camp: LiveBaseCamp; pals: LivePlayerPals }[] {
+  const speciesIndex = buildSpeciesIndex(speciesList);
+  const passiveIndex = buildPassiveIndex(passivesList);
+
+  return raw.Pals.BaseCamps.map((camp) => {
+    const identifier = baseCampIdentifier(camp.id);
+    const pals: LivePal[] = Object.entries(camp.pals).map(([instanceId, rawPal]) =>
+      normalizePalWithIndices(
+        rawPal,
+        instanceId,
+        identifier,
+        { kind: 'baseCamp', baseCampId: camp.id },
+        speciesIndex,
+        passiveIndex,
+      ),
+    );
+    return {
+      camp: { identifier, campId: camp.id, level: camp.level, state: camp.state, guildName: reporterGuildName },
+      pals: { identifier, pals },
+    };
+  });
 }

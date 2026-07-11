@@ -23,16 +23,19 @@ describe('createMockDataSource', () => {
     if (result.ok) expect(result.data.length).toBe(FIXTURE_PLAYERS.length);
   });
 
-  it('resolves a specific player\'s pals', async () => {
+  it('resolves a specific player\'s pals, split from its base camps', async () => {
     const source = createMockDataSource({ players: FIXTURE_PLAYERS, palsByIdentifier: FIXTURE_PALS_BY_IDENTIFIER }, dataset);
-    const result = await source.getPlayerPals(FIXTURE_NOVA_UID);
+    const result = await source.getPlayerPals(FIXTURE_NOVA_UID, 'The Guild');
     expect(result.ok).toBe(true);
-    if (result.ok) expect(result.data.pals.length).toBeGreaterThan(0);
+    if (result.ok) {
+      expect(result.data.player.pals.length).toBeGreaterThan(0);
+      expect(result.data.baseCamps.length).toBeGreaterThan(0);
+    }
   });
 
   it('returns PLAYER_NOT_FOUND for an unknown identifier', async () => {
     const source = createMockDataSource({ players: FIXTURE_PLAYERS, palsByIdentifier: FIXTURE_PALS_BY_IDENTIFIER }, dataset);
-    const result = await source.getPlayerPals('nope');
+    const result = await source.getPlayerPals('nope', '');
     expect(result.ok).toBe(false);
     if (!result.ok) expect(result.error.code).toBe('PLAYER_NOT_FOUND');
   });
@@ -70,7 +73,7 @@ describe('createHttpDataSource', () => {
       json: async () => ({ Meta: {}, Pals: { Team: {}, Palbox: {}, BaseCamps: [] } }),
     });
     const source = createHttpDataSource({ baseUrl: 'https://example.ts.net', bearerToken: 'secret', fetchImpl }, dataset);
-    await source.getPlayerPals('player-1');
+    await source.getPlayerPals('player-1', '');
 
     const [url, options] = fetchImpl.mock.calls[0]!;
     expect(url).toBe('https://example.ts.net/v1/pdapi/pals/player-1');
@@ -84,7 +87,7 @@ describe('createHttpDataSource', () => {
       json: async () => ({ Error: { Code: 'PLAYER_NOT_FOUND', Message: 'no such player', Details: {} } }),
     });
     const source = createHttpDataSource({ baseUrl: 'https://example.ts.net', fetchImpl }, dataset);
-    const result = await source.getPlayerPals('missing');
+    const result = await source.getPlayerPals('missing', '');
     expect(result.ok).toBe(false);
     if (!result.ok) expect(result.error).toEqual({ code: 'PLAYER_NOT_FOUND', message: 'no such player' });
   });

@@ -92,6 +92,31 @@ export interface LivePlayer {
 
 export type LivePalLocation = { kind: 'team' } | { kind: 'palbox' } | { kind: 'baseCamp'; baseCampId: string };
 
+/** Base camps are guild-wide, not player-owned: PalDefender's `/pals/<id>` embeds every
+ * guild base camp in *each* member's response (docs/PalDefenderAPI/pals.md: "Guild base
+ * camps and their assigned worker Pals"). So the same camp — and its worker Pals — shows up
+ * once per online guild member who gets fetched. Treating those workers as owned by whichever
+ * player happened to be fetched double- (or N-times-) counts them once more than one guild
+ * member is selected. Instead each unique camp is normalized as its own entity, keyed by this
+ * synthetic identifier, so it is fetched/deduped/selected exactly once regardless of guild size. */
+export function baseCampIdentifier(campId: string): PlayerIdentifier {
+  return `basecamp:${campId}`;
+}
+
+export function isBaseCampIdentifier(identifier: PlayerIdentifier): boolean {
+  return identifier.startsWith('basecamp:');
+}
+
+export interface LiveBaseCamp {
+  identifier: PlayerIdentifier;
+  campId: string;
+  level: number;
+  state: string;
+  /** The guild the reporting player belonged to, for display — base camps have no owner of
+   * their own, so this is inherited from whichever player's response we saw it in. */
+  guildName: string;
+}
+
 /**
  * One normalized pal. `species`/`gender` are `null` when the raw value didn't resolve
  * against the bundled dataset — never guessed (CLAUDE.md: don't invent data). Unresolved

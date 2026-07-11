@@ -1,6 +1,15 @@
 import type { Dataset } from '../data/schema';
-import { normalizePlayer, normalizePlayerPals } from './normalize';
-import type { LivePlayer, LivePlayerPals, PlayerIdentifier, RawApiError, RawPalsResponse, RawPlayer, RawPlayersResponse } from './types';
+import { normalizeBaseCamps, normalizePlayer, normalizePlayerPals } from './normalize';
+import type {
+  LiveBaseCamp,
+  LivePlayer,
+  LivePlayerPals,
+  PlayerIdentifier,
+  RawApiError,
+  RawPalsResponse,
+  RawPlayer,
+  RawPlayersResponse,
+} from './types';
 
 /**
  * The swappable seam for where live pal data comes from — a real PalDefender-mirroring
@@ -21,9 +30,17 @@ export interface LiveDataSourceError {
 export type LiveResultMeta = { status: number; latencyMs: number };
 export type LiveResult<T> = { ok: true; data: T; meta?: LiveResultMeta } | { ok: false; error: LiveDataSourceError };
 
+/** `/pals/<id>` embeds every guild base camp in each member's response, so it's split here
+ * into the player's own Team/Palbox (`player`) and the guild's base camps (`baseCamps`) —
+ * see `LiveBaseCamp` in types.ts for why camps can't stay attributed to the reporting player. */
+export interface PlayerPalsResult {
+  player: LivePlayerPals;
+  baseCamps: { camp: LiveBaseCamp; pals: LivePlayerPals }[];
+}
+
 export interface LiveDataSource {
   listPlayers(): Promise<LiveResult<LivePlayer[]>>;
-  getPlayerPals(identifier: PlayerIdentifier): Promise<LiveResult<LivePlayerPals>>;
+  getPlayerPals(identifier: PlayerIdentifier, reporterGuildName: string): Promise<LiveResult<PlayerPalsResult>>;
 }
 
 // --- HTTP implementation --------------------------------------------------------------
@@ -88,10 +105,17 @@ export function createHttpDataSource(config: HttpDataSourceConfig, dataset: Data
       if (!result.ok) return result;
       return { ok: true, data: result.data.Players.map((p: RawPlayer) => normalizePlayer(p)) };
     },
-    async getPlayerPals(identifier: PlayerIdentifier) {
+    async getPlayerPals(identifier: PlayerIdentifier, reporterGuildName: string) {
       const result = await pdFetch<RawPalsResponse>(`/v1/pdapi/pals/${encodeURIComponent(identifier)}`, config);
       if (!result.ok) return result;
-      return { ok: true, data: normalizePlayerPals(identifier, result.data, dataset.species, dataset.passives) };
+      return {
+        ok: true,
+        data: {
+          player: normalizePlayerPals(identifier, result.data, dataset.species, dataset.passives),
+          baseCamps: normalizeBaseCamps(result.data, reporterGuildName, dataset.species, dataset.passives),
+        },
+        meta: result.meta,
+      };
     },
   };
 }
@@ -116,12 +140,18 @@ export function createMockDataSource(config: MockDataSourceConfig, dataset: Data
       if (config.simulateError) return { ok: false, error: config.simulateError };
       return { ok: true, data: config.players.map((p) => normalizePlayer(p)) };
     },
-    async getPlayerPals(identifier: PlayerIdentifier) {
+    async getPlayerPals(identifier: PlayerIdentifier, reporterGuildName: string) {
       await maybeDelay(config.simulateLatencyMs);
       if (config.simulateError) return { ok: false, error: config.simulateError };
       const raw = config.palsByIdentifier[identifier];
       if (!raw) return { ok: false, error: { code: 'PLAYER_NOT_FOUND', message: `No fixture pals for ${identifier}` } };
-      return { ok: true, data: normalizePlayerPals(identifier, raw, dataset.species, dataset.passives) };
+      return {
+        ok: true,
+        data: {
+          player: normalizePlayerPals(identifier, raw, dataset.species, dataset.passives),
+          baseCamps: normalizeBaseCamps(raw, reporterGuildName, dataset.species, dataset.passives),
+        },
+      };
     },
   };
 }
