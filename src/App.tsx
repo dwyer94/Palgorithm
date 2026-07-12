@@ -11,6 +11,7 @@ import SavedPlansView from './ui/SavedPlansView';
 import ForwardCalculatorView from './ui/ForwardCalculatorView';
 import ReverseLookupView from './ui/ReverseLookupView';
 import SettingsView from './ui/SettingsView';
+import { APP_VERSION } from './version';
 
 /**
  * App shell (design handoff README: sidebar nav replaces the flat tab row). Two-pane views
@@ -70,6 +71,9 @@ function AppShell() {
             </div>
           );
         })}
+      </div>
+      <div className="pointer-events-none fixed bottom-1 right-1.5 select-none text-[10px] text-gray-400/70">
+        v{APP_VERSION}
       </div>
     </div>
   );
