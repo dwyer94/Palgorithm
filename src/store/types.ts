@@ -42,6 +42,51 @@ export interface SavedPerkSet {
   passives: PassiveId[];
 }
 
+/** One Team slot's attached plan snapshot — same shape `SingleTargetResultView` already
+ * knows how to render, but stored independently of the "Saved Plans" list (a Team slot's
+ * plan isn't a `SavedPlan`). */
+export interface TeamSlotPlan {
+  savedAt: string;
+  target: SpeciesId;
+  desiredPassives?: PassiveId[];
+  result: SpeciesPlanResult;
+  guaranteedCarrierAlt?: GuaranteedCarrierAlternative | null;
+  ownedUnassignedPassives?: PassiveId[];
+}
+
+/** One of a Team's fixed `TEAM_SLOT_COUNT` party slots. `target`/`desiredPassives` are the
+ * live picker state (always editable); `plan` is the attached/saved snapshot; `pendingPlan`
+ * is a re-run result awaiting an explicit Keep new / Keep old decision — never auto-applied
+ * over `plan`. */
+export interface TeamSlot {
+  target: SpeciesId | null;
+  desiredPassives: PassiveId[];
+  plan?: TeamSlotPlan;
+  pendingPlan?: TeamSlotPlan;
+}
+
+/** Fixed team size, mirroring Palworld's in-game party size. */
+export const TEAM_SLOT_COUNT = 5;
+
+/** A named team of `TEAM_SLOT_COUNT` breeding-plan slots (spec-adjacent: Team Builder). */
+export interface Team {
+  id: string;
+  name: string;
+  createdAt: string;
+  /** Always exactly `TEAM_SLOT_COUNT` entries, enforced by `createEmptyTeam`, not the type
+   * system — a slot's stable identity is its array index. */
+  slots: TeamSlot[];
+}
+
+export function createEmptyTeam(name: string, id: string): Team {
+  return {
+    id,
+    name,
+    createdAt: new Date().toISOString(),
+    slots: Array.from({ length: TEAM_SLOT_COUNT }, () => ({ target: null, desiredPassives: [] })),
+  };
+}
+
 /** Connection config for the live PalDefender-proxy feature (see docs/UI_REQUIREMENTS.md).
  * `baseUrl` empty means "not configured" — the live data source falls back to mock/demo
  * data rather than requiring a separate toggle. `nameOverrides` stays keyed by SteamID64
@@ -78,6 +123,7 @@ export interface Settings {
 export interface StoreState {
   roster: RosterEntry[];
   savedPlans: SavedPlan[];
+  teams: Team[];
   settings: Settings;
 }
 

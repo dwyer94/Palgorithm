@@ -9,6 +9,7 @@ import ServerPalsView from './ui/ServerPalsView';
 import SingleTargetView from './ui/SingleTargetView';
 import HubView from './ui/HubView';
 import SavedPlansView from './ui/SavedPlansView';
+import TeamsView from './ui/TeamsView';
 import ForwardCalculatorView from './ui/ForwardCalculatorView';
 import ReverseLookupView from './ui/ReverseLookupView';
 import ReferenceView from './ui/ReferenceView';
@@ -26,6 +27,7 @@ const VIEWS = {
   single: SingleTargetView,
   hub: HubView,
   saved: SavedPlansView,
+  teams: TeamsView,
   roster: RosterView,
   server: ServerPalsView,
   forward: ForwardCalculatorView,

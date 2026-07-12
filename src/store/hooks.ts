@@ -4,13 +4,15 @@ import {
   getSavedPlans,
   getSelectedPlayerIds,
   getSettings,
+  getTeams,
   setRoster,
   setSavedPlans,
   setSelectedPlayerIds,
   setSettings,
+  setTeams,
   subscribe,
 } from './localStore';
-import type { RosterEntry, SavedPlan, Settings } from './types';
+import type { RosterEntry, SavedPlan, Settings, Team } from './types';
 
 /** React bindings over the plain localStorage store (spec §4.5). Each hook returns the
  * current value and a setter; consumers re-render on any store change via subscribe(). */
@@ -25,6 +27,12 @@ export function useSavedPlans(): [SavedPlan[], (plans: SavedPlan[]) => void] {
   const plans = useSyncExternalStore(subscribe, getSavedPlans);
   const set = useCallback((next: SavedPlan[]) => setSavedPlans(next), []);
   return [plans, set];
+}
+
+export function useTeams(): [Team[], (teams: Team[]) => void] {
+  const teams = useSyncExternalStore(subscribe, getTeams);
+  const set = useCallback((next: Team[]) => setTeams(next), []);
+  return [teams, set];
 }
 
 export function useSettings(): [Settings, (settings: Settings) => void] {

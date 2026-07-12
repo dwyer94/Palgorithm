@@ -1,4 +1,4 @@
-import { DEFAULT_SETTINGS, type Settings, type RosterEntry, type SavedPlan, type StoreState } from './types';
+import { DEFAULT_SETTINGS, type Settings, type RosterEntry, type SavedPlan, type Team, type StoreState } from './types';
 
 /**
  * localStorage-backed persistence (spec §4.5). Plain read/write functions plus a tiny
@@ -12,6 +12,7 @@ import { DEFAULT_SETTINGS, type Settings, type RosterEntry, type SavedPlan, type
 const KEYS = {
   roster: 'palcalc.roster',
   savedPlans: 'palcalc.savedPlans',
+  teams: 'palcalc.teams',
   settings: 'palcalc.settings',
   selectedPlayerIds: 'palcalc.selectedPlayerIds',
 } as const;
@@ -43,12 +44,14 @@ export function subscribe(listener: Listener): () => void {
 
 let rosterCache: RosterEntry[] | null = null;
 let savedPlansCache: SavedPlan[] | null = null;
+let teamsCache: Team[] | null = null;
 let settingsCache: Settings | null = null;
 let selectedPlayerIdsCache: string[] | null = null;
 
 window.addEventListener('storage', (e) => {
   if (e.key === KEYS.roster) rosterCache = null;
   else if (e.key === KEYS.savedPlans) savedPlansCache = null;
+  else if (e.key === KEYS.teams) teamsCache = null;
   else if (e.key === KEYS.settings) settingsCache = null;
   else if (e.key === KEYS.selectedPlayerIds) selectedPlayerIdsCache = null;
   else return;
@@ -74,6 +77,17 @@ export function getSavedPlans(): SavedPlan[] {
 export function setSavedPlans(plans: SavedPlan[]): void {
   savedPlansCache = plans;
   write(KEYS.savedPlans, plans);
+  notify();
+}
+
+export function getTeams(): Team[] {
+  if (teamsCache === null) teamsCache = parse<Team[]>(localStorage.getItem(KEYS.teams), []);
+  return teamsCache;
+}
+
+export function setTeams(teams: Team[]): void {
+  teamsCache = teams;
+  write(KEYS.teams, teams);
   notify();
 }
 
@@ -104,9 +118,17 @@ export function setSelectedPlayerIds(ids: string[]): void {
 }
 
 export function getState(): StoreState {
-  return { roster: getRoster(), savedPlans: getSavedPlans(), settings: getSettings() };
+  return { roster: getRoster(), savedPlans: getSavedPlans(), teams: getTeams(), settings: getSettings() };
 }
 
 export function newId(): string {
   return crypto.randomUUID();
+}
+
+/** Best-effort ask for "persistent" storage (Storage API) so the browser is less likely to
+ * auto-evict this origin's localStorage under storage pressure. No prompt, no guarantee — it
+ * doesn't survive the user manually clearing site data, which is what the Team Builder
+ * export/import (spec-adjacent, `TeamsView`) is actually for. */
+if (typeof navigator !== 'undefined' && navigator.storage?.persist) {
+  void navigator.storage.persist();
 }

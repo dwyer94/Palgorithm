@@ -1,0 +1,222 @@
+import { useState } from 'react';
+import type { Species, Passive } from '../data/schema';
+import type { PassiveId, SpeciesId, TeamSlot } from '../store/types';
+import { PalIcon, PassiveChip } from './components';
+import { SpeciesSelect, PassiveMultiSelect } from './shared';
+
+/** One Team party slot: pick a target + desired perks, run/re-run the single-target planner
+ * against it, and resolve any pending re-run preview. Mirrors `SingleTargetView`'s
+ * picker/result shapes so a slot reads like a compact version of that planner. */
+export default function TeamSlotCard({
+  slot,
+  species,
+  passives,
+  speciesById,
+  passivesById,
+  isPlanning,
+  isOpen,
+  onPickTarget,
+  onSetDesiredPassives,
+  onRun,
+  onToggleView,
+  onKeepNew,
+  onKeepOld,
+  onClearSlot,
+}: {
+  slot: TeamSlot;
+  species: Species[];
+  passives: Passive[];
+  speciesById: Map<string, Species>;
+  passivesById: Map<string, Passive>;
+  isPlanning: boolean;
+  isOpen: boolean;
+  onPickTarget: (id: SpeciesId | null) => void;
+  onSetDesiredPassives: (ids: PassiveId[]) => void;
+  onRun: () => void;
+  onToggleView: () => void;
+  onKeepNew: () => void;
+  onKeepOld: () => void;
+  onClearSlot: () => void;
+}) {
+  const [editing, setEditing] = useState(false);
+  const [confirmingClear, setConfirmingClear] = useState(false);
+  const showPickers = !slot.plan || editing;
+  const targetSpecies = slot.target ? speciesById.get(slot.target) : undefined;
+
+  if (confirmingClear) {
+    return (
+      <div className="flex flex-col gap-3 rounded-card border border-brand-hover bg-white p-4 shadow-card">
+        <div className="font-sans text-[13px] font-semibold">
+          Remove {targetSpecies?.displayName ?? 'this Pal'} from this slot?
+        </div>
+        {slot.plan && <div className="font-sans text-[12px] text-muted">This deletes its attached plan too.</div>}
+        <div className="flex gap-1.5">
+          <span
+            onClick={() => {
+              setConfirmingClear(false);
+              onClearSlot();
+            }}
+            className="cursor-pointer rounded-panel bg-brand-hover px-2.5 py-1.5 font-sans text-[12px] font-semibold text-white hover:opacity-90"
+          >
+            Yes, remove
+          </span>
+          <span
+            onClick={() => setConfirmingClear(false)}
+            className="cursor-pointer rounded-panel border border-border-card px-2.5 py-1.5 font-sans text-[12px] font-semibold text-muted-light hover:border-muted-lighter"
+          >
+            Cancel
+          </span>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex flex-col gap-3 rounded-card border border-border-card bg-white p-4 shadow-card">
+      {showPickers && (
+        <>
+          <div className="font-sans text-[10.5px] font-semibold uppercase tracking-[.8px] text-muted">Target</div>
+          <SpeciesSelect species={species} value={slot.target ?? ''} onChange={(id) => onPickTarget(id || null)} allowEmpty />
+
+          <div className="font-sans text-[10.5px] font-semibold uppercase tracking-[.8px] text-muted">Desired perks</div>
+          <PassiveMultiSelect passives={passives} value={slot.desiredPassives} onChange={onSetDesiredPassives} />
+
+          {slot.plan && (
+            <span
+              onClick={() => setEditing(false)}
+              className="cursor-pointer self-start font-sans text-[12px] font-semibold text-muted hover:text-brand-hover"
+            >
+              Done editing
+            </span>
+          )}
+        </>
+      )}
+
+      {!showPickers && targetSpecies && (
+        <div className="flex items-start gap-2.5">
+          <PalIcon icon={targetSpecies.icon} size={34} variant="card" />
+          <div className="min-w-0 flex-1">
+            <div className="truncate font-sans text-[15px] font-bold">{targetSpecies.displayName}</div>
+            {slot.desiredPassives.length > 0 && (
+              <div className="mt-1 flex flex-wrap gap-1">
+                {slot.desiredPassives.map((id) => (
+                  <PassiveChip
+                    key={id}
+                    label={passivesById.get(id)?.displayName ?? id}
+                    tier={passivesById.get(id)?.tier}
+                    description={passivesById.get(id)?.description}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {!slot.plan && (
+        <div
+          onClick={slot.target && !isPlanning ? onRun : undefined}
+          className={`flex items-center justify-center gap-2 rounded-[10px] bg-sidebar-bg px-3 py-2.5 font-sans text-[13px] font-semibold text-white ${
+            slot.target && !isPlanning ? 'cursor-pointer hover:bg-sidebar-hover' : 'cursor-not-allowed opacity-50'
+          }`}
+        >
+          {isPlanning ? '⏳ Running…' : '▶ Run plan'}
+        </div>
+      )}
+
+      {slot.plan && !slot.pendingPlan && (
+        <>
+          <div
+            className={`font-mono text-[12px] font-semibold ${
+              slot.plan.result.feasible ? 'text-success-text' : 'text-brand-hover'
+            }`}
+          >
+            {slot.plan.result.feasible ? `${slot.plan.result.combinationCount} combos` : 'infeasible'}
+          </div>
+          {slot.plan.guaranteedCarrierAlt && (
+            <div className="font-mono text-[11px] text-muted">
+              guaranteed-carrier: +{slot.plan.guaranteedCarrierAlt.combinationDelta} combos (
+              {slot.plan.guaranteedCarrierAlt.plan.combinationCount} total)
+            </div>
+          )}
+
+          <div className="flex flex-wrap gap-1.5">
+            <span
+              onClick={onToggleView}
+              className="cursor-pointer rounded-panel border border-border-card px-2.5 py-1.5 font-sans text-[12px] font-semibold hover:border-primary hover:text-primary-dark"
+            >
+              {isOpen ? '▾ Hide' : '👁 View'}
+            </span>
+            <span
+              onClick={!isPlanning ? onRun : undefined}
+              className={`rounded-panel border border-border-card px-2.5 py-1.5 font-sans text-[12px] font-semibold ${
+                isPlanning ? 'cursor-not-allowed opacity-50' : 'cursor-pointer hover:border-primary hover:text-primary-dark'
+              }`}
+            >
+              {isPlanning ? '⏳ Running…' : '↻ Re-run'}
+            </span>
+            <span
+              onClick={() => setEditing(true)}
+              className="cursor-pointer rounded-panel border border-border-card px-2.5 py-1.5 font-sans text-[12px] font-semibold text-muted-light hover:text-brand-hover"
+            >
+              ✎ Edit target
+            </span>
+          </div>
+        </>
+      )}
+
+      {slot.pendingPlan && (
+        <div className="flex flex-col gap-2 rounded-panel border border-dashed border-primary bg-panel-subtle p-3">
+          <div className="font-sans text-[11px] font-semibold uppercase tracking-[.6px] text-muted">New re-run result</div>
+          <div className="flex items-center gap-4">
+            <div>
+              <div className="font-sans text-[10.5px] text-muted-light">Current</div>
+              <div className={`font-mono text-[13px] font-semibold ${slot.plan?.result.feasible ? 'text-success-text' : 'text-brand-hover'}`}>
+                {slot.plan?.result.feasible ? `${slot.plan.result.combinationCount} combos` : 'infeasible'}
+              </div>
+            </div>
+            <div>
+              <div className="font-sans text-[10.5px] text-muted-light">New</div>
+              <div
+                className={`font-mono text-[13px] font-semibold ${
+                  slot.pendingPlan.result.feasible ? 'text-success-text' : 'text-brand-hover'
+                }`}
+              >
+                {slot.pendingPlan.result.feasible ? `${slot.pendingPlan.result.combinationCount} combos` : 'infeasible'}
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-wrap gap-1.5">
+            <span
+              onClick={onKeepNew}
+              className="cursor-pointer rounded-panel bg-primary px-2.5 py-1.5 font-sans text-[12px] font-semibold text-white hover:bg-primary-dark"
+            >
+              ✓ Keep new
+            </span>
+            <span
+              onClick={onKeepOld}
+              className="cursor-pointer rounded-panel border border-border-card px-2.5 py-1.5 font-sans text-[12px] font-semibold text-muted-light hover:border-brand-hover hover:text-brand-hover"
+            >
+              ✕ Keep old
+            </span>
+            <span
+              onClick={onToggleView}
+              className="cursor-pointer rounded-panel border border-border-card px-2.5 py-1.5 font-sans text-[12px] font-semibold hover:border-primary hover:text-primary-dark"
+            >
+              {isOpen ? '▾ Hide compare' : '👁 Compare'}
+            </span>
+          </div>
+        </div>
+      )}
+
+      {slot.target && (
+        <span
+          onClick={() => setConfirmingClear(true)}
+          className="cursor-pointer self-start font-mono text-[11px] font-semibold text-muted-lighter hover:text-brand-hover"
+        >
+          🗑 Clear slot
+        </span>
+      )}
+    </div>
+  );
+}

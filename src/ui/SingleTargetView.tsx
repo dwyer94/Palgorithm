@@ -1,8 +1,8 @@
 import { useMemo, useState } from 'react';
 import { useRoster, useSavedPlans, useSettings } from '../store/hooks';
 import { newId } from '../store/localStore';
-import { planSpecies } from '../solver/speciesPlanner';
-import { findGuaranteedCarrierAlternative, type GuaranteedCarrierAlternative } from '../solver/passivePlanner';
+import { runSingleTargetPlan, computeOwnedUnassignedPassives } from '../solver/runSingleTargetPlan';
+import type { GuaranteedCarrierAlternative } from '../solver/passivePlanner';
 import type { SpeciesPlanResult } from '../solver/types';
 import { useLiveContext } from '../live/LiveContext';
 import { buildRosterForSolver } from '../live/rosterMerge';
@@ -47,7 +47,7 @@ export default function SingleTargetView() {
   const passivesById = useMemo(() => new Map(passives.map((p) => [p.id, p])), [passives]);
 
   const ownedUnassignedPassives = useMemo(
-    () => (result?.passivePlan?.unassigned ?? []).filter((p) => rosterForSolver.some((r) => r.passives?.includes(p))),
+    () => (result ? computeOwnedUnassignedPassives(result, rosterForSolver) : []),
     [result, rosterForSolver],
   );
 
@@ -56,17 +56,16 @@ export default function SingleTargetView() {
     setIsPlanning(true);
     setTimeout(() => {
       const speciesOptions = { catchCost: settings.catchCost, allowCatching: settings.allowCatching, ignoreGender };
-      const plan = planSpecies(ruleset, rosterForSolver, target, {
-        ...speciesOptions,
-        ...(desiredPassives.length > 0 && { desiredPassives }),
-      });
+      const { result: plan, guaranteedCarrierAlt: alt } = runSingleTargetPlan(
+        ruleset,
+        rosterForSolver,
+        target,
+        desiredPassives,
+        speciesOptions,
+      );
       setResult(plan);
       setSavedFlash(false);
-      setGuaranteedCarrierAlt(
-        plan.passivePlan?.unassigned.length
-          ? findGuaranteedCarrierAlternative(ruleset, rosterForSolver, target, plan, speciesOptions)
-          : null,
-      );
+      setGuaranteedCarrierAlt(alt);
       setIsPlanning(false);
     }, 0);
   };

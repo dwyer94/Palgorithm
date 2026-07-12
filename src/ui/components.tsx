@@ -494,6 +494,7 @@ export const PLAN_NAV_ITEMS: NavItem[] = [
   { key: 'single', label: 'Single target', icon: '◇' },
   { key: 'hub', label: 'Hub planner', icon: '◈' },
   { key: 'saved', label: 'Saved plans', icon: '★' },
+  { key: 'teams', label: 'Team builder', icon: '⛊' },
 ];
 
 const ROSTER_NAV_ITEM: NavItem = { key: 'roster', label: 'Roster', icon: '▤' };
