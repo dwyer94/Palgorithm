@@ -1,5 +1,6 @@
 import type { Gender, PassiveId, SpeciesId } from '../ruleset/types';
 import type { SpeciesPlanResult, UnionPlanResult } from '../solver/types';
+import type { GuaranteedCarrierAlternative } from '../solver/passivePlanner';
 
 export type { Gender, PassiveId, SpeciesId };
 
@@ -22,6 +23,16 @@ export interface SavedPlan {
   targets: SpeciesId[];
   desiredPassives?: PassiveId[];
   result: SpeciesPlanResult | UnionPlanResult;
+  /** Single-target only: the "guaranteed-carrier" alternative shown alongside `result` on the
+   * planner screen at save time, if any (see `SingleTargetView`'s two-mode result display).
+   * Captured so a saved plan is a snapshot of exactly what was on screen, not just the
+   * cheapest/opportunistic `result`. */
+  guaranteedCarrierAlt?: GuaranteedCarrierAlternative | null;
+  /** Single-target only: subset of `result.passivePlan.unassigned` that the roster owned at
+   * save time — reproduces the same "owned but no route found" vs "nobody owns this" messaging
+   * shown on the planner screen without needing to re-query a roster that may have since
+   * changed. */
+  ownedUnassignedPassives?: PassiveId[];
 }
 
 /** A named perk set the user can re-select across planner views (spec §8.6). */

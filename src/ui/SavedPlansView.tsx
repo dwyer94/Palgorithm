@@ -3,7 +3,7 @@ import { useSavedPlans } from '../store/hooks';
 import type { SavedPlan } from '../store/types';
 import type { SpeciesPlanResult, UnionPlanResult } from '../solver/types';
 import { useRulesetContext } from './RulesetContext';
-import { UnionPlanView, SpeciesPlanView } from './shared';
+import { UnionPlanView, SingleTargetResultView } from './shared';
 
 /** Saved plans (design handoff README: "wire up Saved Plans" — not mocked separately,
  * reuses `UnionPlanView`/`SpeciesPlanView`). Re-opening renders the stored result as-is,
@@ -143,7 +143,14 @@ function SavedPlanCard({
           {plan.kind === 'union' ? (
             <UnionPlanView plan={plan.result as UnionPlanResult} speciesById={speciesById} passivesById={passivesById} />
           ) : (
-            <SpeciesPlanView plan={plan.result as SpeciesPlanResult} speciesById={speciesById} passivesById={passivesById} />
+            <SingleTargetResultView
+              result={plan.result as SpeciesPlanResult}
+              guaranteedCarrierAlt={plan.guaranteedCarrierAlt ?? null}
+              desiredPassives={plan.desiredPassives ?? []}
+              ownedUnassignedPassives={plan.ownedUnassignedPassives ?? []}
+              speciesById={speciesById}
+              passivesById={passivesById}
+            />
           )}
         </div>
       )}
