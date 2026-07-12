@@ -35,6 +35,7 @@ import {
   type Species,
   type SpecialCombo,
   type Passive,
+  type PartnerSkill,
 } from '../data/schema.ts';
 
 // --- Paths --------------------------------------------------------------------------------
@@ -68,6 +69,27 @@ const P_SKILL_DESCS = join(IN_ROOT, 'L10N', 'en', 'Pal', 'DataTable', 'Text', 'D
 const P_ICON_TABLE = join(IN_ROOT, 'Pal', 'DataTable', 'Character', 'DT_PalCharacterIconDataTable.json');
 const P_ICON_DIR = join(IN_ROOT, 'Pal', 'Texture', 'PalIcon', 'Normal');
 const ICON_OUT_DIR = join(repoRoot, 'public', 'icons', 'pals');
+
+// Partner skills (spec: added post-1.0-ingestion once the source tables were located — see
+// EXTRACTION.md's "Partner skill data" note). DT_PartnerSkill holds ~50 shared mechanic
+// templates (keyed by mechanic id, e.g. "SearchMine"); DT_PartnerSkillParameter — despite
+// living under the PassiveSkill folder, not PartnerSkill — is the actual per-Pal row, linking
+// a species to one of those templates and its Lv.1-5 numeric progression. Effect text is
+// spread across three places found by exhaustive sweep, richest first: the Pal Gear unlock
+// item's own description, the exclusive combat move's action-skill description (for the ~13
+// Pals whose partner skill really is a Waza), or nothing (confirmed absent for the rest).
+const P_PARTNER_SKILL = join(IN_ROOT, 'Pal', 'DataTable', 'PartnerSkill', 'DT_PartnerSkill.json');
+const P_PARTNER_SKILL_PARAM = join(IN_ROOT, 'Pal', 'DataTable', 'PassiveSkill', 'DT_PartnerSkillParameter.json');
+const P_ITEM_DESC = join(IN_ROOT, 'L10N', 'en', 'Pal', 'DataTable', 'Text', 'DT_ItemDescriptionText_Common.json');
+const P_ITEM_NAMES = join(IN_ROOT, 'L10N', 'en', 'Pal', 'DataTable', 'Text', 'DT_ItemNameText_Common.json');
+// The remaining ~1/3 of Pals (SkillName "Unknown", no Pal Gear) turn out NOT to be a real
+// extraction gap after all: every one of them has either (a) a per-species drop-item row
+// (Bastet/"Gold Digger" -> Money, WoolFox/"Fluffy Wool" -> Wool — the flavor name matches the
+// drop thematically) or (b) a hidden rank-5 passive referenced via TextReferencePassiveSkills
+// (CatVampire/"Life Steal" -> real LifeSteal_1-5 EffectType/EffectValue rows, just never
+// authored a display name since Category is SortNotDisplayable). Both are real mechanical
+// data, just not in the "partner skill" tables — confirmed nothing is left unresolved.
+const P_DROP_ITEM = join(IN_ROOT, 'Pal', 'DataTable', 'Character', 'DT_PalDropItem.json');
 
 // --- Raw shapes (only the fields we read) -------------------------------------------------
 
@@ -131,9 +153,33 @@ interface PassiveSkillRow {
 interface IconRow {
   Icon?: { AssetPathName?: string };
 }
+interface PartnerSkillMechanicRow {
+  EffectTime?: number;
+  CoolDownTime?: number;
+  ExecCost?: number;
+  IdleCost?: number;
+}
+interface ActiveSkillRow {
+  SkillName?: string;
+  WazaID?: string;
+  ActiveSkill_MainValueByRank?: number[];
+}
+interface PartnerSkillParamRow {
+  CharacterID?: string;
+  RestrictionItems?: { Key: string }[];
+  ActiveSkill?: ActiveSkillRow;
+  TextReferencePassiveSkills?: { PassiveSkillIds?: { Key: string }[] }[];
+}
+interface DropItemRow {
+  CharacterID?: string;
+  [k: string]: unknown; // ItemId1-10, Rate1-10, min1-10, Max1-10
+}
 
 function loadTable<Row>(path: string): FModelTable<Row> {
-  const arr = JSON.parse(readFileSync(path, 'utf8')) as Array<FModelTable<Row>>;
+  // Ue4Export (unlike FModel) writes a UTF-8 BOM, which JSON.parse rejects outright.
+  const raw0 = readFileSync(path, 'utf8');
+  const raw = raw0.charCodeAt(0) === 0xfeff ? raw0.slice(1) : raw0;
+  const arr = JSON.parse(raw) as Array<FModelTable<Row>>;
   const tbl = arr.find((o) => o && (o as { Rows?: unknown }).Rows);
   if (!tbl) throw new Error(`No DataTable with Rows in ${path}`);
   return tbl;
@@ -295,6 +341,13 @@ function main(): void {
   const passiveTbl = loadTable<PassiveSkillRow>(P_PASSIVES);
   const skillNameTbl = loadTable<NameRow>(P_SKILL_NAMES);
   const skillDescTbl = existsSync(P_SKILL_DESCS) ? loadTable<NameRow>(P_SKILL_DESCS) : undefined;
+  const partnerSkillTbl = existsSync(P_PARTNER_SKILL) ? loadTable<PartnerSkillMechanicRow>(P_PARTNER_SKILL) : undefined;
+  const partnerSkillParamTbl = existsSync(P_PARTNER_SKILL_PARAM)
+    ? loadTable<PartnerSkillParamRow>(P_PARTNER_SKILL_PARAM)
+    : undefined;
+  const itemDescTbl = existsSync(P_ITEM_DESC) ? loadTable<NameRow>(P_ITEM_DESC) : undefined;
+  const itemNameTbl = existsSync(P_ITEM_NAMES) ? loadTable<NameRow>(P_ITEM_NAMES) : undefined;
+  const dropItemTbl = existsSync(P_DROP_ITEM) ? loadTable<DropItemRow>(P_DROP_ITEM) : undefined;
 
   // Icon textures: DT_PalCharacterIconDataTable maps species id -> texture asset path. Both
   // this table and the texture folder are optional — an export that didn't include icons
@@ -608,6 +661,190 @@ function main(): void {
     });
   }
 
+  // Partner skills. Flavor names live in the same skillNames map as passives, just under a
+  // `PARTNERSKILL_<id>` key instead of `PASSIVE_<id>` — no separate name table to load. Effect
+  // text sources, in priority order: the Pal Gear unlock item's own description
+  // (`ITEM_DESC_SkillUnlock_<id>`, often literally states the effect), the exclusive combat
+  // move's action-skill description (`ACTION_SKILL_<WazaID>`, for Pals whose skill is really a
+  // Waza), or — only when a real mechanic is assigned — a description generated from that
+  // mechanic's own cooldown/cost/effect-time numbers. Confirmed by exhaustive sweep (full
+  // DataTable + L10N text tree, plus the game's own compiled .locres — empty, Palworld doesn't
+  // use Unreal's standard localization pipeline) that no other text source exists.
+  const itemDescs = new Map<string, string>();
+  if (itemDescTbl) {
+    for (const [key, row] of Object.entries(itemDescTbl.Rows)) {
+      const s = row.TextData?.LocalizedString?.trim();
+      if (s && !isUnlocalizedPlaceholder(s)) itemDescs.set(key.toLowerCase(), s);
+    }
+  }
+  const itemNames = new Map<string, string>();
+  if (itemNameTbl) {
+    for (const [key, row] of Object.entries(itemNameTbl.Rows)) {
+      const s = row.TextData?.LocalizedString?.trim();
+      if (s && !isUnlocalizedPlaceholder(s)) itemNames.set(key.toLowerCase(), s);
+    }
+  }
+
+  // `<characterName id=|Ronin|/>` tags in unlock-item / action-skill descriptions refer to a
+  // species by internal id — substitute the real display name so the text reads naturally
+  // ("Ronin's exclusive skill...") instead of dropping the reference. Other rich-text tags
+  // (`<Status_Up>...</>`, colour tags) are stripped rather than rendered — same as passives,
+  // Phase 0 UI has no rich-text renderer for them.
+  const stripPartnerSkillText = (raw: string): string =>
+    raw
+      .replace(/<characterName id=\|([^|]+)\|\/>/g, (_, id: string) => speciesByLowerId.get(id.toLowerCase())?.displayName ?? id)
+      .replace(/<\/?[A-Za-z0-9_]*>/g, '')
+      .replace(/\r\n/g, '\n')
+      .trim();
+
+  /** Numeric fallback when no authored text exists but a real mechanic is assigned — same
+   * spirit as generateFallbackDesc for passives: format real extracted numbers, don't invent
+   * flavor text. */
+  function generateFallbackPartnerDesc(mech: PartnerSkillMechanicRow): string | undefined {
+    const clauses: string[] = [];
+    if (mech.CoolDownTime) clauses.push(`${mech.CoolDownTime}s cooldown`);
+    if (mech.EffectTime) clauses.push(`${mech.EffectTime}s effect`);
+    if (mech.ExecCost) clauses.push(`${mech.ExecCost} SP cost`);
+    return clauses.length ? clauses.join(', ') : undefined;
+  }
+
+  // Per-species drop items (defeat/capture rewards), keyed by the row's own CharacterID field
+  // rather than the row key (which carries a numeric drop-tier suffix, e.g. "CowPal000").
+  // The universal "Meat_<id>" butcher drop is excluded — every creature has it, so it's noise
+  // for a partner-skill description. What's left (Milk for Mozzarina, Wool for WoolFox, Gold
+  // Coin for Mau/"Gold Digger") lines up with the flavor name closely enough that this is
+  // almost certainly the same production the game itself is naming.
+  const dropItemsBySpecies = new Map<string, string[]>();
+  if (dropItemTbl) {
+    for (const row of Object.values(dropItemTbl.Rows)) {
+      const charId = row.CharacterID;
+      if (!charId) continue;
+      const items: string[] = [];
+      for (let i = 1; i <= 10; i++) {
+        const itemId = row[`ItemId${i}`] as string | undefined;
+        if (!itemId || itemId === 'None') continue;
+        if (itemId.toLowerCase() === `meat_${charId}`.toLowerCase()) continue;
+        items.push(itemId);
+      }
+      if (items.length === 0) continue;
+      const key = charId.toLowerCase();
+      dropItemsBySpecies.set(key, [...new Set([...(dropItemsBySpecies.get(key) ?? []), ...items])]);
+    }
+  }
+  const describeDropItems = (charId: string): string | undefined => {
+    const items = dropItemsBySpecies.get(charId.toLowerCase());
+    if (!items || items.length === 0) return undefined;
+    const names = items.map((id) => itemNames.get(`item_name_${id}`.toLowerCase()) ?? id);
+    return `Produces ${names.join(', ')}`;
+  };
+
+  // Hidden rank-based passive referenced via TextReferencePassiveSkills (e.g. CatVampire's
+  // "Life Steal" -> real LifeSteal_1-5 rows in DT_PassiveSkill_Main_Common with genuine
+  // EffectType/EffectValue data, just never given a display name — Category is
+  // SortNotDisplayable, the same internal-tuning marker that excludes them from the regular
+  // passives list). Checks ranks highest-first and uses the same formatter already used for
+  // real passives' generated fallback.
+  //
+  // `AttackUp_<Element>_PartnerSkill_<rank>` is excluded: 15 Pals (WoolFox, LazyCatfish, …)
+  // reference ONLY this pattern, and it turns out to be a generic "matching-element attack
+  // boost while active" bonus present across many unrelated Pals — real data, but not what
+  // distinguishes THIS Pal's own skill (confirmed by checking Baphomet, whose real effect
+  // already resolves via its Waza description, has zero refs at all; the 82 Pals whose flavor
+  // name actually matches their reference — LifeSteal, AttackSpeedUp_PartnerSkill_Werewolf,
+  // Fishing_StartProgressAdd_IceNarWhal_PartnerSkill — all use a skill/species-specific key).
+  const GENERIC_ATTACKUP_RE = /^AttackUp_[A-Za-z]+_PartnerSkill_\d$/;
+  const describePassiveRef = (param: PartnerSkillParamRow | undefined): string | undefined => {
+    const refs = param?.TextReferencePassiveSkills;
+    if (!refs || refs.length === 0) return undefined;
+    for (let i = refs.length - 1; i >= 0; i--) {
+      for (const { Key } of refs[i]?.PassiveSkillIds ?? []) {
+        if (GENERIC_ATTACKUP_RE.test(Key)) continue;
+        const row = passiveTbl.Rows[Key];
+        if (row) {
+          const desc = generateFallbackDesc(row);
+          if (desc) return desc;
+        }
+      }
+    }
+    return undefined;
+  };
+
+  const partnerSkills: PartnerSkill[] = [];
+  let psWithItemDesc = 0;
+  let psWithWazaDesc = 0;
+  let psWithGeneratedDesc = 0;
+  let psWithPassiveDesc = 0;
+  let psWithDropDesc = 0;
+  let psWithNoDesc = 0;
+  if (partnerSkillParamTbl) {
+    for (const s of species) {
+      const displayName = skillNames.get(`partnerskill_${s.id}`.toLowerCase());
+      if (!displayName) continue; // no partner skill for this Pal (e.g. human NPC rows)
+
+      const param = partnerSkillParamTbl.Rows[s.id] ?? partnerSkillParamTbl.Rows[s.internalName ?? ''];
+      const rawMechanic = param?.ActiveSkill?.SkillName;
+      const mechanic = rawMechanic && rawMechanic !== 'Unknown' && rawMechanic !== 'None' ? rawMechanic : undefined;
+      const mechanicRow = mechanic ? partnerSkillTbl?.Rows[mechanic] : undefined;
+      const rawWazaId = param?.ActiveSkill?.WazaID;
+      const wazaId = rawWazaId && rawWazaId !== 'EPalWazaID::None' ? enumTail(rawWazaId) : undefined;
+      const rankValuesRaw = param?.ActiveSkill?.ActiveSkill_MainValueByRank;
+      const rankValues = rankValuesRaw && rankValuesRaw.length > 0 ? rankValuesRaw : undefined;
+
+      let description: string | undefined;
+      let descriptionSource: PartnerSkill['descriptionSource'];
+      const itemDesc = itemDescs.get(`item_desc_skillunlock_${s.id}`.toLowerCase());
+      const actionDesc = mechanic === 'Waza' && wazaId ? skillDescs.get(`action_skill_${wazaId}`.toLowerCase()) : undefined;
+      if (itemDesc) {
+        description = stripPartnerSkillText(itemDesc);
+        descriptionSource = 'item';
+        psWithItemDesc++;
+      } else if (actionDesc) {
+        description = stripPartnerSkillText(actionDesc);
+        descriptionSource = 'waza';
+        psWithWazaDesc++;
+      } else if (mechanicRow) {
+        description = generateFallbackPartnerDesc(mechanicRow);
+        if (description) {
+          descriptionSource = 'generated';
+          psWithGeneratedDesc++;
+        }
+      }
+      if (!description) {
+        const passiveDesc = describePassiveRef(param);
+        if (passiveDesc) {
+          description = passiveDesc;
+          descriptionSource = 'passive';
+          psWithPassiveDesc++;
+        }
+      }
+      if (!description) {
+        const dropDesc = describeDropItems(s.id);
+        if (dropDesc) {
+          description = dropDesc;
+          descriptionSource = 'drop';
+          psWithDropDesc++;
+        }
+      }
+      if (!description) psWithNoDesc++;
+
+      const unlockItemName = itemNames.get(`item_name_skillunlock_${s.id}`.toLowerCase());
+
+      partnerSkills.push({
+        speciesId: s.id,
+        displayName,
+        mechanic,
+        description,
+        descriptionSource,
+        unlockItemName,
+        cooldownSeconds: mechanicRow?.CoolDownTime || undefined,
+        effectSeconds: mechanicRow?.EffectTime || undefined,
+        execCost: mechanicRow?.ExecCost || undefined,
+        idleCost: mechanicRow?.IdleCost || undefined,
+        rankValues,
+      });
+    }
+  }
+
   const dataset: Dataset = {
     meta: {
       version: VERSION,
@@ -637,6 +874,7 @@ function main(): void {
       mutationDist: [0.7, 0.25, 0.05],
       verified: false,
     },
+    partnerSkills,
   };
 
   // Self-validate: the pipeline must emit data that passes the same gate the loader enforces.
@@ -665,6 +903,11 @@ function main(): void {
       `(${passivesGeneratedDesc} generated from effect values; missing ${passivesMissingDesc})`,
   );
   console.log(`  gender-rules:   ${specialCombos.filter((c) => c.genderRule).length}`);
+  console.log(`  partnerSkills:  ${partnerSkills.length}`);
+  console.log(
+    `    description via: item unlock ${psWithItemDesc}, waza action ${psWithWazaDesc}, ` +
+      `generated ${psWithGeneratedDesc}, passive ref ${psWithPassiveDesc}, drop item ${psWithDropDesc}; none ${psWithNoDesc}`,
+  );
   console.log(`  excluded rows:  ${excluded.length}`);
 }
 

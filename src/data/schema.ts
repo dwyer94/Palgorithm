@@ -130,6 +130,34 @@ export const PassiveSchema = z.object({
   description: z.string().optional(),
 });
 
+export const PartnerSkillSchema = z.object({
+  speciesId: z.string().min(1), // matches Species.id
+  displayName: z.string().min(1), // flavor name, e.g. "Milk Maker"
+  // The underlying mechanic template id from DT_PartnerSkill (e.g. "SearchMine", "Waza").
+  // Omitted for the ~1/3 of Pals whose skill is a pure passive-while-in-party effect with no
+  // distinct active-skill entry in the source data (row value "Unknown"/"None" — not an
+  // extraction gap, the game itself never assigns these a mechanic).
+  mechanic: z.string().optional(),
+  // English effect text, richest source first: the unlock-item's own description (often
+  // literally states the effect), else — for the ~13 Pals whose partner skill is really an
+  // exclusive combat move — that move's own action-skill description, else — only when a real
+  // `mechanic` exists — a description generated from that mechanic's own cooldown/cost/effect
+  // numbers (same spirit as Passive.description's generated fallback: real extracted numbers,
+  // formatted, never invented flavor text). Missing entirely for Pals with no `mechanic` and no
+  // unlock item — confirmed absent from the source data, not a lookup miss (see
+  // src/pipeline/EXTRACTION.md).
+  description: z.string().optional(),
+  descriptionSource: z.enum(['item', 'waza', 'generated', 'passive', 'drop']).optional(),
+  unlockItemName: z.string().optional(), // e.g. "Melpaca Saddle" — the Pal Gear that unlocks this
+  cooldownSeconds: z.number().optional(),
+  effectSeconds: z.number().optional(),
+  execCost: z.number().optional(),
+  idleCost: z.number().optional(),
+  // Lv.1-5 numeric progression for the skill's main value (e.g. damage/heal amount), where
+  // available — raw `ActiveSkill_MainValueByRank`, extracted as-is.
+  rankValues: z.array(z.number()).optional(),
+});
+
 /**
  * Passive-inheritance odds (spec §3.3). These are NOT reliably extractable and ship as
  * flagged estimates — `verified: false` means the UI must present them as provisional.
@@ -156,6 +184,7 @@ export const DatasetSchema = z
     specialCombos: z.array(SpecialComboSchema).default([]),
     passives: z.array(PassiveSchema).default([]),
     passiveModel: PassiveModelSchema,
+    partnerSkills: z.array(PartnerSkillSchema).default([]),
   })
   .superRefine((data, ctx) => {
     // A dataset that declares itself final (not provisional) must fully populate the
@@ -198,6 +227,17 @@ export const DatasetSchema = z
         }
       }
     });
+
+    // Referential integrity: partner skills must reference known species.
+    data.partnerSkills.forEach((ps, i) => {
+      if (!ids.has(ps.speciesId)) {
+        ctx.addIssue({
+          code: 'custom',
+          path: ['partnerSkills', i, 'speciesId'],
+          message: `partnerSkill references unknown species "${ps.speciesId}"`,
+        });
+      }
+    });
   });
 
 export type Size = z.infer<typeof SizeSchema>;
@@ -210,6 +250,7 @@ export type Species = z.infer<typeof SpeciesSchema>;
 export type SpecialCombo = z.infer<typeof SpecialComboSchema>;
 export type Passive = z.infer<typeof PassiveSchema>;
 export type PassiveModel = z.infer<typeof PassiveModelSchema>;
+export type PartnerSkill = z.infer<typeof PartnerSkillSchema>;
 export type DatasetMeta = z.infer<typeof DatasetMetaSchema>;
 export type Dataset = z.infer<typeof DatasetSchema>;
 

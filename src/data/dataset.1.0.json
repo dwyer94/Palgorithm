@@ -3,8 +3,8 @@
     "version": "1.0",
     "ruleset": "combirank-0.6",
     "provisional": false,
-    "source": "FModel export of local Palworld build 22461598 (species/names: usmap Mappings.0.6.6; passives: usmap Mappings073.usmap, same game build); EN L10N names. Normalized by src/pipeline/normalize.ts. passiveModel (inherit/mutation odds) remains a flagged estimate (verified:false) — the passive list itself is real extracted data.",
-    "generatedAt": "2026-07-12T05:01:59.141Z"
+    "source": "FModel/Ue4Export export of local Palworld build (1.0, usmap Mappings100.usmap); EN L10N names. Normalized by src/pipeline/normalize.ts. Partner skill descriptions added post-ingestion (see EXTRACTION.md).",
+    "generatedAt": "2026-07-12T23:43:23.373Z"
   },
   "species": [
     {
@@ -19549,5 +19549,2541 @@
       0.05
     ],
     "verified": false
-  }
+  },
+  "partnerSkills": [
+    {
+      "speciesId": "BadCatgirl",
+      "displayName": "Shot-Nyan Mode",
+      "mechanic": "Shotgun",
+      "description": "A shotgun for Nyafia to hold.\nActivate its Partner Skill, and Nyafia will unleash a barrage of shotgun blasts at nearby enemies.",
+      "descriptionSource": "item",
+      "unlockItemName": "Nyafia's Shotgun",
+      "cooldownSeconds": 120,
+      "effectSeconds": 10,
+      "execCost": 1,
+      "idleCost": 1,
+      "rankValues": [
+        50,
+        55,
+        65,
+        80,
+        100
+      ]
+    },
+    {
+      "speciesId": "BlueberryFairy",
+      "displayName": "Prayer for Abundant Harvest",
+      "description": "Produces Low Grade Medical Supplies, Beautiful Flower, Carrot Seeds",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "BrownRabbit",
+      "displayName": "Friend of Earth",
+      "description": "Produces Leather",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "GoldenHorse",
+      "displayName": "Sandstorm's Blessing",
+      "description": "Saddle for safely riding Gildane.",
+      "descriptionSource": "item",
+      "unlockItemName": "Gildane Saddle"
+    },
+    {
+      "speciesId": "TentacleTurtle",
+      "displayName": "Spikey Carrier",
+      "description": "Produces Aquatic Pal Fluids, Bone",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "TentacleTurtle_Ground",
+      "displayName": "Shiny Hauler",
+      "description": "Produces Aquatic Pal Fluids, Bone",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "Anubis",
+      "displayName": "Guardian of the Desert",
+      "mechanic": "StatusUp_GiveElement",
+      "description": "A high-tech machine to convert the overflowing power of Anubis and distribute it to oneself.",
+      "descriptionSource": "item",
+      "unlockItemName": "Anubis's Power Converter",
+      "cooldownSeconds": 50,
+      "effectSeconds": 30,
+      "idleCost": 1
+    },
+    {
+      "speciesId": "Baphomet",
+      "displayName": "Flameclaw Hunter",
+      "mechanic": "Waza",
+      "description": "Incineram's exclusive skill.\nDraws near enemies using its left claw to slash them into the air\nbefore cutting them down with its right claw.",
+      "descriptionSource": "waza",
+      "cooldownSeconds": 30,
+      "effectSeconds": 1,
+      "execCost": 1000,
+      "rankValues": [
+        1.1,
+        1.3,
+        1.6,
+        2,
+        2.5
+      ]
+    },
+    {
+      "speciesId": "Baphomet_Dark",
+      "displayName": "Darkclaw Hunter",
+      "mechanic": "Waza",
+      "description": "Incineram Noct's exclusive skill. \nDraws near enemies using its left dark claw to slash them into the air\nbefore cutting them down with its right dark claw.",
+      "descriptionSource": "waza",
+      "cooldownSeconds": 30,
+      "effectSeconds": 1,
+      "execCost": 1000,
+      "rankValues": [
+        1.1,
+        1.3,
+        1.6,
+        2,
+        2.5
+      ]
+    },
+    {
+      "speciesId": "Bastet",
+      "displayName": "Gold Digger",
+      "description": "Produces Gold Coin, Leather",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "Bastet_Ice",
+      "displayName": "Icy Whispers",
+      "description": "Produces Ice Organ, Sapphire",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "Boar",
+      "displayName": "Hard Head",
+      "description": "Saddle for safely riding Rushoar.",
+      "descriptionSource": "item",
+      "unlockItemName": "Rushoar Saddle"
+    },
+    {
+      "speciesId": "Carbunclo",
+      "displayName": "Lifmunk Recoil",
+      "mechanic": "OnHeadShoot",
+      "description": "Submachine gun made specifically for Lifmunk.\nActivate its Partner Skill, and Lifmunk\nwill ride on your head and fire at enemies.",
+      "descriptionSource": "item",
+      "unlockItemName": "Lifmunk's Submachine Gun",
+      "cooldownSeconds": 120,
+      "effectSeconds": 20,
+      "execCost": 0.4,
+      "idleCost": 0.1,
+      "rankValues": [
+        15,
+        16,
+        18,
+        21,
+        25
+      ]
+    },
+    {
+      "speciesId": "ColorfulBird",
+      "displayName": "Eggbomb Launcher",
+      "mechanic": "Launcher",
+      "description": "Gloves for gently holding Tocotoco.\nActivate its Partner Skill to hold Tocotoco\nand use it to fire explosive eggs.",
+      "descriptionSource": "item",
+      "unlockItemName": "Tocotoco's Gloves",
+      "cooldownSeconds": 120,
+      "effectSeconds": 10,
+      "execCost": 1,
+      "idleCost": 0.1,
+      "rankValues": [
+        100,
+        110,
+        130,
+        160,
+        200
+      ]
+    },
+    {
+      "speciesId": "Deer",
+      "displayName": "Guardian of the Forest",
+      "description": "Saddle for safely riding Eikthyrdeer.",
+      "descriptionSource": "item",
+      "unlockItemName": "Eikthyrdeer Saddle"
+    },
+    {
+      "speciesId": "Deer_Ground",
+      "displayName": "Guardian of the Golden Forest",
+      "description": "Saddle for safely riding Eikthyrdeer Terra.",
+      "descriptionSource": "item",
+      "unlockItemName": "Eikthyrdeer Terra Saddle"
+    },
+    {
+      "speciesId": "DrillGame",
+      "displayName": "Drill Crusher",
+      "mechanic": "SpinningShell",
+      "description": "Headband for Digtoise.\nActivate its Partner Skill to make Digtoise spin at high speed, allowing it to more efficiently drill through rock.",
+      "descriptionSource": "item",
+      "unlockItemName": "Digtoise's Headband",
+      "cooldownSeconds": 120,
+      "effectSeconds": 30,
+      "execCost": 7.5,
+      "idleCost": 1,
+      "rankValues": [
+        1.25,
+        1.5,
+        1.875,
+        2.25,
+        3.125
+      ]
+    },
+    {
+      "speciesId": "Eagle",
+      "displayName": "Galeclaw Glider",
+      "description": "Gloves for modifying the performance of the equipped glider, if Galeclaw is in your team.",
+      "descriptionSource": "item",
+      "unlockItemName": "Galeclaw's Gloves"
+    },
+    {
+      "speciesId": "ElecPanda",
+      "displayName": "Yellow Tank",
+      "mechanic": "UniqueRideShooting_Minigun",
+      "description": "Makes Grizzbolt fire a minigun\nwhen ridden.",
+      "descriptionSource": "item",
+      "unlockItemName": "Grizzbolt's Minigun",
+      "cooldownSeconds": 200,
+      "effectSeconds": 120,
+      "execCost": 1,
+      "rankValues": [
+        6.5,
+        7,
+        7.5,
+        8.5,
+        9.5
+      ]
+    },
+    {
+      "speciesId": "Ganesha",
+      "displayName": "Soothing Shower",
+      "description": "Produces Aquatic Pal Fluids",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "Garm",
+      "displayName": "Direhowl Rider",
+      "description": "Saddle for safely riding Direhowl.",
+      "descriptionSource": "item",
+      "unlockItemName": "Direhowl's Saddled Harness"
+    },
+    {
+      "speciesId": "Gorilla",
+      "displayName": "Full-Power Gorilla Mode",
+      "mechanic": "Berserk",
+      "description": "60s cooldown, 30s effect",
+      "descriptionSource": "generated",
+      "cooldownSeconds": 60,
+      "effectSeconds": 30,
+      "idleCost": 1
+    },
+    {
+      "speciesId": "Gorilla_Ground",
+      "displayName": "Full-Power Gorilla Pound",
+      "description": "Produces Ore, Bone, Ground Radiant Gem, Decayed Ancient Relic, Dormant Ancient Relic, Gorgeous Ancient Relic, Glowing Ancient Relic, Glistening Ancient Relic",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "Hedgehog",
+      "displayName": "Jolt Bomb",
+      "mechanic": "Grenade",
+      "description": "Rubber gloves for handling Jolthog.\nActivate its Partner Skill to throw Jolthog\nas a shock grenade.",
+      "descriptionSource": "item",
+      "unlockItemName": "Jolthog's Gloves",
+      "cooldownSeconds": 60,
+      "effectSeconds": 20,
+      "execCost": 20,
+      "idleCost": 1,
+      "rankValues": [
+        100,
+        110,
+        130,
+        160,
+        200
+      ]
+    },
+    {
+      "speciesId": "Hedgehog_Ice",
+      "displayName": "Cold Bomb",
+      "mechanic": "Grenade",
+      "description": "Rubber gloves for handling Jolthog Cryst.\nActivate its Partner Skill to throw Jolthog Cryst\nas an ice grenade.",
+      "descriptionSource": "item",
+      "unlockItemName": "Jolthog Cryst's Gloves",
+      "cooldownSeconds": 60,
+      "effectSeconds": 20,
+      "execCost": 20,
+      "idleCost": 1,
+      "rankValues": [
+        100,
+        110,
+        130,
+        160,
+        200
+      ]
+    },
+    {
+      "speciesId": "Kirin",
+      "displayName": "Swift Deity",
+      "description": "Saddle for safely riding Univolt.",
+      "descriptionSource": "item",
+      "unlockItemName": "Univolt Saddle"
+    },
+    {
+      "speciesId": "Kirin_Ice",
+      "displayName": "Frigid Deity",
+      "description": "Saddle for safely riding Univolt Cryst.",
+      "descriptionSource": "item",
+      "unlockItemName": "Univolt Cryst Saddle"
+    },
+    {
+      "speciesId": "Kitsunebi",
+      "displayName": "Huggy Fire",
+      "mechanic": "Flamethrower",
+      "description": "Harness for holding Foxparks.\nActivate its Partner Skill to hold Foxparks\nand attack using it as a flamethrower.",
+      "descriptionSource": "item",
+      "unlockItemName": "Foxparks' Harness",
+      "cooldownSeconds": 100,
+      "effectSeconds": 10,
+      "execCost": 1,
+      "idleCost": 0.1,
+      "rankValues": [
+        15,
+        16,
+        18,
+        21,
+        25
+      ]
+    },
+    {
+      "speciesId": "LittleBriarRose",
+      "displayName": "Princess Gaze",
+      "description": "Produces Tomato Seeds, Beautiful Flower",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "Mutant",
+      "displayName": "Antigravity",
+      "description": "Produces Paldium Fragment",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "Penguin",
+      "displayName": "Pengullet Launcher",
+      "mechanic": "RocketLauncher",
+      "description": "Rocket launcher for launching Pengullet.\nActivate its Partner Skill to fire Pengullet and damage enemies. \nAfter firing, Pengullet will become incapacitated.",
+      "descriptionSource": "item",
+      "unlockItemName": "Pengullet Rocket Launcher",
+      "cooldownSeconds": 180,
+      "effectSeconds": 15,
+      "execCost": 15,
+      "idleCost": 1,
+      "rankValues": [
+        250,
+        285,
+        325,
+        400,
+        500
+      ]
+    },
+    {
+      "speciesId": "Penguin_Electric",
+      "displayName": "Pengullet Lux Launcher",
+      "mechanic": "RocketLauncher_Electric",
+      "description": "Rocket launcher for launching Pengullet Lux. \nActivate its Partner Skill to fire Pengullet Lux and damage enemies. \nAfter firing, Pengullet Lux will become incapacitated.",
+      "descriptionSource": "item",
+      "unlockItemName": "Pengullet Lux's Rocket Launcher",
+      "cooldownSeconds": 120,
+      "effectSeconds": 15,
+      "execCost": 15,
+      "idleCost": 1,
+      "rankValues": [
+        300,
+        335,
+        375,
+        450,
+        550
+      ]
+    },
+    {
+      "speciesId": "RaijinDaughter",
+      "displayName": "Lady of Lightning",
+      "description": "Collar for Dazzi.\nIf Dazzi is in your team,\nit will stay by your side and attack enemies in tandem.",
+      "descriptionSource": "item",
+      "unlockItemName": "Dazzi's Necklace",
+      "rankValues": [
+        1,
+        1.1,
+        1.3,
+        1.6,
+        2
+      ]
+    },
+    {
+      "speciesId": "SharkKid",
+      "displayName": "Angry Shark",
+      "mechanic": "Waza",
+      "description": "Hurls a ball of water\nstraight at an enemy.",
+      "descriptionSource": "waza",
+      "cooldownSeconds": 30,
+      "effectSeconds": 1,
+      "execCost": 1000,
+      "rankValues": [
+        1.1,
+        1.3,
+        1.6,
+        2,
+        2.5
+      ]
+    },
+    {
+      "speciesId": "SharkKid_Fire",
+      "displayName": "Angry Shark",
+      "mechanic": "Waza",
+      "description": "Shoots fireballs towards an enemy. \nThe fireballs explode after a short distance, \ngenerating smaller fireballs that spread forward.",
+      "descriptionSource": "waza",
+      "cooldownSeconds": 30,
+      "effectSeconds": 1,
+      "execCost": 1000,
+      "rankValues": [
+        1.1,
+        1.3,
+        1.6,
+        2,
+        2.5
+      ]
+    },
+    {
+      "speciesId": "SheepBall",
+      "displayName": "Fluffy Shield",
+      "mechanic": "Shiled",
+      "description": "10s cooldown, 30s effect, 1 SP cost",
+      "descriptionSource": "generated",
+      "cooldownSeconds": 10,
+      "effectSeconds": 30,
+      "execCost": 1,
+      "idleCost": 1
+    },
+    {
+      "speciesId": "Umihebi",
+      "displayName": "Stormbringer Sea Dragon",
+      "description": "Saddle for safely riding Jormuntide.",
+      "descriptionSource": "item",
+      "unlockItemName": "Jormuntide Saddle"
+    },
+    {
+      "speciesId": "Umihebi_Fire",
+      "displayName": "Stormbringer Lava Dragon",
+      "description": "Saddle for safely riding Jormuntide Ignis.",
+      "descriptionSource": "item",
+      "unlockItemName": "Jormuntide Ignis Saddle"
+    },
+    {
+      "speciesId": "Werewolf",
+      "displayName": "Dark Gleam Strike",
+      "mechanic": "Waza",
+      "description": "Loupmoon's exclusive skill.\nLeaps forward and attacks twice with vicious claws\nimbued with dark energy.",
+      "descriptionSource": "waza",
+      "cooldownSeconds": 30,
+      "effectSeconds": 1,
+      "execCost": 1000,
+      "rankValues": [
+        1.1,
+        1.3,
+        1.6,
+        2,
+        2.5
+      ]
+    },
+    {
+      "speciesId": "WindChimes",
+      "displayName": "Flying Trapeze",
+      "description": "Gloves for modifying the performance of the equipped glider, if Hangyu is in your team.",
+      "descriptionSource": "item",
+      "unlockItemName": "Hangyu's Gloves"
+    },
+    {
+      "speciesId": "WindChimes_Ice",
+      "displayName": "Winter Trapeze",
+      "description": "Gloves for modifying the performance of the equipped glider, if Hangyu Cryst is in your team.",
+      "descriptionSource": "item",
+      "unlockItemName": "Hangyu Cryst's Glove"
+    },
+    {
+      "speciesId": "Suzaku",
+      "displayName": "Wings of Flame",
+      "description": "Saddle for safely riding Suzaku.",
+      "descriptionSource": "item",
+      "unlockItemName": "Suzaku Saddle"
+    },
+    {
+      "speciesId": "Suzaku_Water",
+      "displayName": "Wings of Water",
+      "description": "Saddle for safely riding Suzaku Aqua.",
+      "descriptionSource": "item",
+      "unlockItemName": "Suzaku Aqua Saddle"
+    },
+    {
+      "speciesId": "FireKirin",
+      "displayName": "Red Hare",
+      "description": "Saddle for safely riding Pyrin.",
+      "descriptionSource": "item",
+      "unlockItemName": "Pyrin Saddle"
+    },
+    {
+      "speciesId": "FireKirin_Dark",
+      "displayName": "Black Hare",
+      "description": "Saddle for safely riding Pyrin Noct.",
+      "descriptionSource": "item",
+      "unlockItemName": "Pyrin Noct Saddle"
+    },
+    {
+      "speciesId": "FairyDragon",
+      "displayName": "Amicable Holy Dragon",
+      "description": "Saddle for safely riding Elphidran.",
+      "descriptionSource": "item",
+      "unlockItemName": "Elphidran Saddle"
+    },
+    {
+      "speciesId": "FairyDragon_Water",
+      "displayName": "Amicable Water Dragon",
+      "description": "Saddle for safely riding Elphidran Aqua.",
+      "descriptionSource": "item",
+      "unlockItemName": "Elphidran Aqua Saddle"
+    },
+    {
+      "speciesId": "SweetsSheep",
+      "displayName": "Candy Pop",
+      "description": "Food Consumption -20% (Base Pals)",
+      "descriptionSource": "passive"
+    },
+    {
+      "speciesId": "SweetsSheep_Ground",
+      "displayName": "Bitter Pop",
+      "description": "Food Consumption -20% (Base Pals)",
+      "descriptionSource": "passive"
+    },
+    {
+      "speciesId": "WhiteTiger",
+      "displayName": "Dragon Hunter",
+      "description": "ElementAddItemDrop_Ice +80% (Self & Trainer)\nElementAddItemDrop_Ice +80% (Partner Pal)",
+      "descriptionSource": "passive"
+    },
+    {
+      "speciesId": "Alpaca",
+      "displayName": "Pacapaca Wool",
+      "description": "Saddle for safely riding Melpaca.",
+      "descriptionSource": "item",
+      "unlockItemName": "Melpaca Saddle"
+    },
+    {
+      "speciesId": "Serpent",
+      "displayName": "Swift Swimmer",
+      "description": "Saddle for safely riding Surfent.",
+      "descriptionSource": "item",
+      "unlockItemName": "Surfent Saddle"
+    },
+    {
+      "speciesId": "Serpent_Ground",
+      "displayName": "Sand Swimmer",
+      "description": "Saddle for safely riding Surfent Terra.",
+      "descriptionSource": "item",
+      "unlockItemName": "Surfent Terra Saddle"
+    },
+    {
+      "speciesId": "DarkCrow",
+      "displayName": "Eerie Nightstreaker",
+      "mechanic": "NightVision",
+      "description": "5s cooldown, 1s effect, 1 SP cost",
+      "descriptionSource": "generated",
+      "cooldownSeconds": 5,
+      "effectSeconds": 1,
+      "execCost": 1
+    },
+    {
+      "speciesId": "BlueDragon",
+      "displayName": "Waterwing Dance",
+      "description": "Saddle for safely riding Azurobe.",
+      "descriptionSource": "item",
+      "unlockItemName": "Azurobe Saddle"
+    },
+    {
+      "speciesId": "BlueDragon_Ice",
+      "displayName": "Icewing Dance",
+      "description": "Saddle for safely riding Azurobe Cryst.",
+      "descriptionSource": "item",
+      "unlockItemName": "Azurobe Cryst Saddle"
+    },
+    {
+      "speciesId": "PinkCat",
+      "displayName": "Cat Helper",
+      "description": "Produces Red Berries",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "NegativeKoala",
+      "displayName": "Caffeine Inoculation",
+      "mechanic": "NightRunner",
+      "description": "60s cooldown, 30s effect",
+      "descriptionSource": "generated",
+      "cooldownSeconds": 60,
+      "effectSeconds": 30,
+      "idleCost": 1
+    },
+    {
+      "speciesId": "FengyunDeeper",
+      "displayName": "Wind and Clouds",
+      "description": "Saddle for safely riding Fenglope.",
+      "descriptionSource": "item",
+      "unlockItemName": "Fenglope Saddle"
+    },
+    {
+      "speciesId": "VolcanicMonster",
+      "displayName": "Ore-Loving Beast",
+      "description": "Saddle for safely riding Reptyro.",
+      "descriptionSource": "item",
+      "unlockItemName": "Reptyro Saddle"
+    },
+    {
+      "speciesId": "VolcanicMonster_Ice",
+      "displayName": "Ice-Loving Beast",
+      "description": "Saddle for safely riding Reptyro Cryst.",
+      "descriptionSource": "item",
+      "unlockItemName": "Reptyro Cryst Saddle"
+    },
+    {
+      "speciesId": "GhostBeast",
+      "displayName": "Messenger of Death",
+      "description": "Saddle for safely riding Maraith.",
+      "descriptionSource": "item",
+      "unlockItemName": "Maraith Saddle"
+    },
+    {
+      "speciesId": "RobinHood",
+      "displayName": "Grounded Archer",
+      "description": "Produces Potato Seeds, Arrow",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "RobinHood_Ground",
+      "displayName": "Master Archer",
+      "description": "Produces Potato Seeds, Arrow",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "LazyDragon",
+      "displayName": "Hungry Missile",
+      "mechanic": "UniqueRideShooting_MultiMissile",
+      "description": "Makes Relaxaurus fire a missile launcher\nwhen ridden.",
+      "descriptionSource": "item",
+      "unlockItemName": "Relaxaurus' Missile Launcher",
+      "cooldownSeconds": 200,
+      "effectSeconds": 35,
+      "execCost": 1,
+      "rankValues": [
+        16,
+        17,
+        20,
+        25,
+        31
+      ]
+    },
+    {
+      "speciesId": "LazyDragon_Electric",
+      "displayName": "Missile Party",
+      "mechanic": "UniqueRideShooting_MultiMissile",
+      "description": "Makes Relaxaurus Lux (Electric) fire a missile launcher\nwhen ridden.",
+      "descriptionSource": "item",
+      "unlockItemName": "Relaxaurus Lux's Missile Launcher",
+      "cooldownSeconds": 200,
+      "effectSeconds": 35,
+      "execCost": 1,
+      "rankValues": [
+        16,
+        17,
+        20,
+        25,
+        31
+      ]
+    },
+    {
+      "speciesId": "AmaterasuWolf",
+      "displayName": "Wolf of the Sun",
+      "description": "Saddle for safely riding Kitsun.",
+      "descriptionSource": "item",
+      "unlockItemName": "Kitsun Saddle"
+    },
+    {
+      "speciesId": "LizardMan",
+      "displayName": "Too Cool to be Seen",
+      "mechanic": "Stealth",
+      "description": "5s cooldown, 30s effect, 1 SP cost",
+      "descriptionSource": "generated",
+      "cooldownSeconds": 5,
+      "effectSeconds": 30,
+      "execCost": 1,
+      "idleCost": 1
+    },
+    {
+      "speciesId": "LizardMan_Fire",
+      "displayName": "Too Cool to be Seen",
+      "mechanic": "Stealth",
+      "description": "5s cooldown, 30s effect, 1 SP cost",
+      "descriptionSource": "generated",
+      "cooldownSeconds": 5,
+      "effectSeconds": 30,
+      "execCost": 1,
+      "idleCost": 1
+    },
+    {
+      "speciesId": "BluePlatypus",
+      "displayName": "Surfing Slam",
+      "mechanic": "Toboggan",
+      "description": "120s cooldown, 1s effect, 1000 SP cost",
+      "descriptionSource": "generated",
+      "cooldownSeconds": 120,
+      "effectSeconds": 1,
+      "execCost": 1000,
+      "rankValues": [
+        1.5,
+        1.6,
+        1.8,
+        2.1,
+        2.5
+      ]
+    },
+    {
+      "speciesId": "BluePlatypus_Fire",
+      "displayName": "Fire Tackle",
+      "mechanic": "Toboggan_Fire",
+      "description": "120s cooldown, 1s effect, 1000 SP cost",
+      "descriptionSource": "generated",
+      "cooldownSeconds": 120,
+      "effectSeconds": 1,
+      "execCost": 1000,
+      "rankValues": [
+        1,
+        1.1,
+        1.3,
+        1.6,
+        2
+      ]
+    },
+    {
+      "speciesId": "BirdDragon",
+      "displayName": "Aerial Marauder",
+      "description": "Saddle for safely riding Vanwyrm.",
+      "descriptionSource": "item",
+      "unlockItemName": "Vanwyrm Saddle"
+    },
+    {
+      "speciesId": "BirdDragon_Ice",
+      "displayName": "Aerial Marauder",
+      "description": "Saddle for safely riding Vanwyrm Cryst.",
+      "descriptionSource": "item",
+      "unlockItemName": "Vanwyrm Cryst Saddle"
+    },
+    {
+      "speciesId": "ChickenPal",
+      "displayName": "Egg Layer",
+      "description": "Produces Egg",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "FlowerDinosaur",
+      "displayName": "Fragrant Dragon",
+      "description": "Saddle for safely riding Dinossom.",
+      "descriptionSource": "item",
+      "unlockItemName": "Dinossom Saddle"
+    },
+    {
+      "speciesId": "FlowerDinosaur_Electric",
+      "displayName": "Thunder Dragon",
+      "description": "Saddle for safely riding Dinossom Lux.",
+      "descriptionSource": "item",
+      "unlockItemName": "Dinossom Lux Saddle"
+    },
+    {
+      "speciesId": "ElecCat",
+      "displayName": "Static Electricity",
+      "description": "Produces Electric Organ",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "IceHorse",
+      "displayName": "Icy Steed",
+      "description": "Saddle for safely riding Frostallion.",
+      "descriptionSource": "item",
+      "unlockItemName": "Frostallion Saddle"
+    },
+    {
+      "speciesId": "IceHorse_Dark",
+      "displayName": "Black Steed",
+      "description": "Saddle for safely riding Frostallion Noct.",
+      "descriptionSource": "item",
+      "unlockItemName": "Frostallion Noct Saddle"
+    },
+    {
+      "speciesId": "GrassMammoth",
+      "displayName": "Gaia Crusher",
+      "description": "Saddle for safely riding Mammorest.",
+      "descriptionSource": "item",
+      "unlockItemName": "Mammorest Saddle"
+    },
+    {
+      "speciesId": "GrassMammoth_Ice",
+      "displayName": "Ice Crusher",
+      "description": "Saddle for safely riding Mammorest Cryst.",
+      "descriptionSource": "item",
+      "unlockItemName": "Mammorest Cryst Saddle"
+    },
+    {
+      "speciesId": "CatVampire",
+      "displayName": "Life Steal",
+      "description": "Life Steal +9% (Self & Trainer)",
+      "descriptionSource": "passive"
+    },
+    {
+      "speciesId": "SakuraSaurus",
+      "displayName": "Love's First Blossom",
+      "description": "Saddle for safely riding Broncherry.",
+      "descriptionSource": "item",
+      "unlockItemName": "Broncherry Saddle"
+    },
+    {
+      "speciesId": "SakuraSaurus_Water",
+      "displayName": "Purity's Full Bloom",
+      "description": "Saddle for safely riding Broncherry Aqua.",
+      "descriptionSource": "item",
+      "unlockItemName": "Broncherry Aqua Saddle"
+    },
+    {
+      "speciesId": "Horus",
+      "displayName": "Scorching Predator",
+      "description": "Saddle for safely riding Faleris.",
+      "descriptionSource": "item",
+      "unlockItemName": "Faleris Saddle"
+    },
+    {
+      "speciesId": "KingBahamut",
+      "displayName": "Magma Kaiser",
+      "description": "Saddle for safely riding Blazamut.",
+      "descriptionSource": "item",
+      "unlockItemName": "Blazamut Saddle"
+    },
+    {
+      "speciesId": "KingBahamut_Dragon",
+      "displayName": "Dragon Kaiser",
+      "description": "Saddle for safely riding Blazamut Ryu.",
+      "descriptionSource": "item",
+      "unlockItemName": "Blazamut Ryu Saddle"
+    },
+    {
+      "speciesId": "BerryGoat",
+      "displayName": "Berry Picker",
+      "description": "Produces Red Berries, Horn",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "IceDeer",
+      "displayName": "Cool Body",
+      "description": "Saddle for safely riding Reindrix.",
+      "descriptionSource": "item",
+      "unlockItemName": "Reindrix Saddle"
+    },
+    {
+      "speciesId": "BlackGriffon",
+      "displayName": "Modified DNA",
+      "description": "Saddle for safely riding Shadowbeak.",
+      "descriptionSource": "item",
+      "unlockItemName": "Shadowbeak Saddle"
+    },
+    {
+      "speciesId": "WhiteMoth",
+      "displayName": "Silk Shroud",
+      "mechanic": "Waza",
+      "description": "Creates a giant lump of ice and hurls it at an enemy.\nIt deals damage to those in the surrounding area upon impact.",
+      "descriptionSource": "waza",
+      "cooldownSeconds": 30,
+      "effectSeconds": 1,
+      "execCost": 1000,
+      "rankValues": [
+        1.1,
+        1.3,
+        1.6,
+        2,
+        2.5
+      ]
+    },
+    {
+      "speciesId": "WhiteMoth_Neutral",
+      "displayName": "Gilded Shroud",
+      "description": "Produces High Quality Cloth, High Quality Pal Oil, World Tree Holy Water, Neutral Radiant Gem, Decayed Ancient Relic, Dormant Ancient Relic, Gorgeous Ancient Relic, Glowing Ancient Relic, Glistening Ancient Relic",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "CuteFox",
+      "displayName": "Dig Here!",
+      "description": "Produces Leather, Bone",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "FoxMage",
+      "displayName": "Lord Fox",
+      "mechanic": "StatusUp_GiveElement",
+      "description": "50s cooldown, 30s effect",
+      "descriptionSource": "generated",
+      "cooldownSeconds": 50,
+      "effectSeconds": 30,
+      "idleCost": 1
+    },
+    {
+      "speciesId": "FoxMage_Dark",
+      "displayName": "Black Fox Lord",
+      "mechanic": "StatusUp_GiveElement",
+      "description": "50s cooldown, 30s effect",
+      "descriptionSource": "generated",
+      "cooldownSeconds": 50,
+      "effectSeconds": 30,
+      "idleCost": 1
+    },
+    {
+      "speciesId": "PinkLizard",
+      "displayName": "Heart Drain",
+      "description": "Life Steal +9% (Self & Trainer)",
+      "descriptionSource": "passive"
+    },
+    {
+      "speciesId": "WizardOwl",
+      "displayName": "Dark Knowledge",
+      "description": "Produces Fiber, Advanced Technical Manual",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "Kelpie",
+      "displayName": "Aqua Spout",
+      "description": "Produces Aquatic Pal Fluids",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "Kelpie_Fire",
+      "displayName": "Lava Spout",
+      "description": "Produces Raw Kelpsea, Flame Organ",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "NegativeOctopus",
+      "displayName": "Fried Squid",
+      "description": "Gloves for modifying the performance of the equipped glider, if Killamari is in your team.",
+      "descriptionSource": "item",
+      "unlockItemName": "Killamari's Gloves"
+    },
+    {
+      "speciesId": "NegativeOctopus_Neutral",
+      "displayName": "Fried Killamari",
+      "description": "Gloves for modifying the performance of the equipped glider, if Killamari Primo is in your team.",
+      "descriptionSource": "item",
+      "unlockItemName": "Killamari Primo's Gloves"
+    },
+    {
+      "speciesId": "CowPal",
+      "displayName": "Milk Maker",
+      "description": "Produces Milk",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "Yeti",
+      "displayName": "Guardian of the Snowy Mountain",
+      "description": "Saddle for safely riding Wumpo.",
+      "descriptionSource": "item",
+      "unlockItemName": "Wumpo Saddle"
+    },
+    {
+      "speciesId": "Yeti_Grass",
+      "displayName": "Guardian of the South",
+      "description": "Saddle for safely riding Wumpo Botan.",
+      "descriptionSource": "item",
+      "unlockItemName": "Wumpo Botan Saddle"
+    },
+    {
+      "speciesId": "VioletFairy",
+      "displayName": "Purification of Gaia",
+      "description": "ElementAddItemDrop_Earth +80% (Self & Trainer)\nElementAddItemDrop_Earth +80% (Partner Pal)",
+      "descriptionSource": "passive"
+    },
+    {
+      "speciesId": "HawkBird",
+      "displayName": "Travel Companion",
+      "description": "Saddle for safely riding Nitewing.",
+      "descriptionSource": "item",
+      "unlockItemName": "Nitewing Saddle"
+    },
+    {
+      "speciesId": "FlowerRabbit",
+      "displayName": "Helper Bunny",
+      "description": "Collar for Flopie.\nIf Flopie is in your team, it will stay by your side and automatically gather nearby items.",
+      "descriptionSource": "item",
+      "unlockItemName": "Flopie's Necklace"
+    },
+    {
+      "speciesId": "LilyQueen",
+      "displayName": "Harvest Goddess",
+      "mechanic": "Heal_LilyQueen",
+      "description": "A tool to serve Lyleen.",
+      "descriptionSource": "item",
+      "unlockItemName": "Lyleen's Floral Ornament",
+      "cooldownSeconds": 300,
+      "effectSeconds": 1,
+      "execCost": 1,
+      "rankValues": [
+        80,
+        82,
+        84,
+        86,
+        90
+      ]
+    },
+    {
+      "speciesId": "LilyQueen_Dark",
+      "displayName": "Goddess of the Tranquil Light",
+      "mechanic": "Heal_LilyQueen",
+      "description": "300s cooldown, 1s effect, 1 SP cost",
+      "descriptionSource": "generated",
+      "cooldownSeconds": 300,
+      "effectSeconds": 1,
+      "execCost": 1,
+      "rankValues": [
+        85,
+        87,
+        89,
+        91,
+        95
+      ]
+    },
+    {
+      "speciesId": "QueenBee",
+      "displayName": "Queen Bee Command",
+      "description": "Produces Honey, Elizabee's Staff",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "SoldierBee",
+      "displayName": "Worker Bee",
+      "description": "Produces Honey",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "CatBat",
+      "displayName": "Ultrasonic Sensor",
+      "mechanic": "SearchDungeon",
+      "description": "60s cooldown, 1s effect, 1 SP cost",
+      "descriptionSource": "generated",
+      "cooldownSeconds": 60,
+      "effectSeconds": 1,
+      "execCost": 1
+    },
+    {
+      "speciesId": "GrassPanda",
+      "displayName": "Grenadier Panda",
+      "mechanic": "UniqueRideShooting_DualGrenadeLauncher",
+      "description": "Makes Mossanda fire a grenade launcher\nwhen ridden.",
+      "descriptionSource": "item",
+      "unlockItemName": "Mossanda's Grenade Launcher",
+      "cooldownSeconds": 210,
+      "effectSeconds": 12,
+      "execCost": 1,
+      "rankValues": [
+        110,
+        125,
+        145,
+        180,
+        225
+      ]
+    },
+    {
+      "speciesId": "GrassPanda_Electric",
+      "displayName": "Grenadier Panda",
+      "mechanic": "UniqueRideShooting_DualGrenadeLauncher",
+      "description": "Makes Mossanda Lux (Electric) fire a grenade launcher\nwhen ridden.",
+      "descriptionSource": "item",
+      "unlockItemName": "Mossanda Lux's Grenade Launcher",
+      "cooldownSeconds": 210,
+      "effectSeconds": 12,
+      "execCost": 1,
+      "rankValues": [
+        110,
+        125,
+        145,
+        180,
+        225
+      ]
+    },
+    {
+      "speciesId": "FlameBuffalo",
+      "displayName": "Warm Body",
+      "description": "Saddle for safely riding Arsox.",
+      "descriptionSource": "item",
+      "unlockItemName": "Arsox Saddle"
+    },
+    {
+      "speciesId": "ThunderDog",
+      "displayName": "Lightning Shepherd",
+      "description": "Saddle for safely riding Rayhound.",
+      "descriptionSource": "item",
+      "unlockItemName": "Rayhound Saddle"
+    },
+    {
+      "speciesId": "ThunderDog_Ice",
+      "displayName": "Snow Shepherd",
+      "description": "Saddle for safely riding Rayhound Cryst.",
+      "descriptionSource": "item",
+      "unlockItemName": "Rayhound Cryst Saddle"
+    },
+    {
+      "speciesId": "CuteMole",
+      "displayName": "Mining Assistance",
+      "description": "Produces Leather",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "BlackMetalDragon",
+      "displayName": "Black Ankylosaur",
+      "description": "Saddle for safely riding Astegon.",
+      "descriptionSource": "item",
+      "unlockItemName": "Astegon Saddle"
+    },
+    {
+      "speciesId": "GrassRabbitMan",
+      "displayName": "Grassland Gymnast",
+      "description": "Produces Leather, Bone",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "IceFox",
+      "displayName": "Aurora Guide",
+      "description": "A tool for safely riding Foxcicle.",
+      "descriptionSource": "item",
+      "unlockItemName": "en_text Saddle"
+    },
+    {
+      "speciesId": "JetDragon",
+      "displayName": "Aerial Missile",
+      "mechanic": "UniqueRideShooting_JetMissile",
+      "description": "Makes Jetragon fire missiles\nwhen ridden.",
+      "descriptionSource": "item",
+      "unlockItemName": "Jetragon's Missile Launcher",
+      "cooldownSeconds": 60,
+      "effectSeconds": 35,
+      "execCost": 1,
+      "rankValues": [
+        20,
+        22,
+        26,
+        32,
+        40
+      ]
+    },
+    {
+      "speciesId": "DreamDemon",
+      "displayName": "Dream Chaser",
+      "description": "Collar for Daedream.\nIf Daedream is in your team,\nit will stay by your side and attack enemies in tandem.",
+      "descriptionSource": "item",
+      "unlockItemName": "Daedream's Necklace",
+      "rankValues": [
+        1.5,
+        1.6,
+        1.8,
+        2.1,
+        2.5
+      ]
+    },
+    {
+      "speciesId": "Monkey",
+      "displayName": "Cheery Rifle",
+      "mechanic": "AssaultRifle",
+      "description": "Assault rifle made specifically for Tanzee.\nActivate its Partner Skill, and Tanzee will enter gunner mode\nand begin shooting at nearby enemies.",
+      "descriptionSource": "item",
+      "unlockItemName": "Tanzee's Assault Rifle",
+      "cooldownSeconds": 120,
+      "effectSeconds": 10,
+      "execCost": 1,
+      "idleCost": 1,
+      "rankValues": [
+        20,
+        22,
+        26,
+        32,
+        40
+      ]
+    },
+    {
+      "speciesId": "Monkey_Fire",
+      "displayName": "Chipper Chimp Gunfire",
+      "mechanic": "AssaultRifle",
+      "description": "Assault rifle made specifically for Tanzee Ignis.\nActivate its Partner Skill, and Tanzee Ignis will enter gunner mode\nand begin shooting at nearby enemies.",
+      "descriptionSource": "item",
+      "unlockItemName": "Tanzee Ignis's Assault Rifle",
+      "cooldownSeconds": 120,
+      "effectSeconds": 10,
+      "execCost": 1,
+      "idleCost": 1,
+      "rankValues": [
+        30,
+        32,
+        36,
+        42,
+        50
+      ]
+    },
+    {
+      "speciesId": "Manticore",
+      "displayName": "Hellflame Lion",
+      "description": "Saddle for safely riding Blazehowl.",
+      "descriptionSource": "item",
+      "unlockItemName": "Blazehowl Saddle"
+    },
+    {
+      "speciesId": "Manticore_Dark",
+      "displayName": "Darkflame Lion",
+      "description": "Saddle for safely riding Blazehowl Noct.",
+      "descriptionSource": "item",
+      "unlockItemName": "Blazehowl Noct Saddle"
+    },
+    {
+      "speciesId": "KingAlpaca",
+      "displayName": "King of Muscles",
+      "description": "Saddle for safely riding Kingpaca.",
+      "descriptionSource": "item",
+      "unlockItemName": "Kingpaca Saddle"
+    },
+    {
+      "speciesId": "KingAlpaca_Ice",
+      "displayName": "Coldhearted King",
+      "description": "Saddle for safely riding Kingpaca Cryst.",
+      "descriptionSource": "item",
+      "unlockItemName": "Kingpaca Cryst Saddle"
+    },
+    {
+      "speciesId": "PlantSlime",
+      "displayName": "Logging Assistance",
+      "description": "Produces Berry Seeds, Gumoss Leaf",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "MopBaby",
+      "displayName": "Fluffy",
+      "description": "Produces Wool, Swee Hair",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "MopKing",
+      "displayName": "King of Fluff",
+      "description": "Saddle for safely riding Sweepa.",
+      "descriptionSource": "item",
+      "unlockItemName": "Sweepa Saddle"
+    },
+    {
+      "speciesId": "CatMage",
+      "displayName": "Mystical Black Magic",
+      "description": "Produces Leather, Katress Hair, Advanced Technical Manual",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "CatMage_Fire",
+      "displayName": "Blazing Black Magic",
+      "description": "Produces Flame Organ, Katress Hair, Advanced Technical Manual",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "PinkRabbit",
+      "displayName": "Happy-Go-Lucky Bunny",
+      "description": "Produces Leather, Beautiful Flower, Ribbuny Ribbon, Berry Seeds",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "ThunderBird",
+      "displayName": "Thunderous",
+      "description": "Saddle for safely riding Beakon.",
+      "descriptionSource": "item",
+      "unlockItemName": "Beakon Saddle"
+    },
+    {
+      "speciesId": "ThunderBird_Ice",
+      "displayName": "Coldsnap",
+      "description": "Saddle for safely riding Beakon Cryst.",
+      "descriptionSource": "item",
+      "unlockItemName": "Beakon Cryst Saddle"
+    },
+    {
+      "speciesId": "HerculesBeetle",
+      "displayName": "Cast-Iron Shell",
+      "description": "Allows crafting of <itemName id=|SkillUnlock_HerculesBeetle|/> at\n<mapObjectName id=|WorkBench_SkillUnlock|/>.",
+      "descriptionSource": "item",
+      "unlockItemName": "Warsect Saddle"
+    },
+    {
+      "speciesId": "HerculesBeetle_Ground",
+      "displayName": "Fullmetal Shell",
+      "description": "Produces Honey",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "SaintCentaur",
+      "displayName": "Holy Knight of the Firmament",
+      "description": "Saddle for safely riding Paladius.",
+      "descriptionSource": "item",
+      "unlockItemName": "Paladius Saddle"
+    },
+    {
+      "speciesId": "NightFox",
+      "displayName": "Kuudere",
+      "mechanic": "StatusUp_NightFox",
+      "description": "60s cooldown, 30s effect",
+      "descriptionSource": "generated",
+      "cooldownSeconds": 60,
+      "effectSeconds": 30,
+      "idleCost": 1
+    },
+    {
+      "speciesId": "CaptainPenguin",
+      "displayName": "Brave Sailor",
+      "description": "ElementAddItemDrop_Fire +80% (Self & Trainer)\nElementAddItemDrop_Fire +80% (Partner Pal)",
+      "descriptionSource": "passive",
+      "unlockItemName": "Penking's Rocket Launcher"
+    },
+    {
+      "speciesId": "CaptainPenguin_Black",
+      "displayName": "Unyielding Storm Commander",
+      "description": "Produces Electric Organ, Penking Plume",
+      "descriptionSource": "drop",
+      "rankValues": [
+        1.5,
+        2,
+        2.5,
+        3
+      ]
+    },
+    {
+      "speciesId": "WeaselDragon",
+      "displayName": "Wriggling Weasel",
+      "description": "Saddle for safely riding Chillet.",
+      "descriptionSource": "item",
+      "unlockItemName": "Chillet Saddle"
+    },
+    {
+      "speciesId": "WeaselDragon_Fire",
+      "displayName": "Sparkling Weasel",
+      "description": "Saddle for safely riding Chillet Ignis.",
+      "descriptionSource": "item",
+      "unlockItemName": "Chillet Ignis Saddle"
+    },
+    {
+      "speciesId": "SkyDragon",
+      "displayName": "Sky Dragon Affection",
+      "description": "Saddle for safely riding Quivern.",
+      "descriptionSource": "item",
+      "unlockItemName": "Quivern Saddle"
+    },
+    {
+      "speciesId": "SkyDragon_Grass",
+      "displayName": "Grass Dragon Affection",
+      "description": "Saddle for safely riding Quivern Botan.",
+      "descriptionSource": "item",
+      "unlockItemName": "Quivern Botan Saddle"
+    },
+    {
+      "speciesId": "HadesBird",
+      "displayName": "Wings of Death",
+      "description": "Saddle for safely riding Helzephyr.",
+      "descriptionSource": "item",
+      "unlockItemName": "Helzephyr Saddle"
+    },
+    {
+      "speciesId": "HadesBird_Electric",
+      "displayName": "Wings of Thunder",
+      "description": "Saddle for safely riding Helzephyr Lux.",
+      "descriptionSource": "item",
+      "unlockItemName": "Helzephyr Lux Saddle"
+    },
+    {
+      "speciesId": "RedArmorBird",
+      "displayName": "Flame Wing",
+      "description": "Saddle for safely riding Ragnahawk.",
+      "descriptionSource": "item",
+      "unlockItemName": "Ragnahawk Saddle"
+    },
+    {
+      "speciesId": "Ronin",
+      "displayName": "Brandish Blade",
+      "mechanic": "Waza",
+      "description": "Bushi's exclusive skill.\nTaking hold of the sword, it appears in front of an enemy \nin an instant and unleashes an ultra-fast sword draw attack.",
+      "descriptionSource": "waza",
+      "cooldownSeconds": 30,
+      "effectSeconds": 1,
+      "execCost": 1000,
+      "rankValues": [
+        1.1,
+        1.3,
+        1.6,
+        2,
+        2.5
+      ]
+    },
+    {
+      "speciesId": "Ronin_Dark",
+      "displayName": "Void Blade",
+      "mechanic": "Waza",
+      "description": "Bushi's exclusive skill.\nTaking hold of the sword, it appears in front of an enemy \nin an instant and unleashes an ultra-fast sword draw attack.",
+      "descriptionSource": "waza",
+      "cooldownSeconds": 30,
+      "effectSeconds": 1,
+      "execCost": 1000,
+      "rankValues": [
+        1.1,
+        1.3,
+        1.6,
+        2,
+        2.5
+      ]
+    },
+    {
+      "speciesId": "FlyingManta",
+      "displayName": "Zephyr Glider",
+      "description": "Gloves for modifying the performance of the equipped glider, if Celaray is in your team.",
+      "descriptionSource": "item",
+      "unlockItemName": "Celaray's Gloves"
+    },
+    {
+      "speciesId": "FlyingManta_Thunder",
+      "displayName": "Jolt Glider",
+      "description": "Gloves for modifying the performance of the equipped glider, if Celaray Lux is in your team.",
+      "descriptionSource": "item",
+      "unlockItemName": "Celaray Lux's Gloves"
+    },
+    {
+      "speciesId": "BlackCentaur",
+      "displayName": "Dark Knight of the Abyss",
+      "description": "Saddle for safely riding Necromus.",
+      "descriptionSource": "item",
+      "unlockItemName": "Necromus Saddle"
+    },
+    {
+      "speciesId": "FlowerDoll",
+      "displayName": "Blessing of the Flower Spirit",
+      "mechanic": "Heal_FlowerDoll",
+      "description": "150s cooldown, 1s effect, 1 SP cost",
+      "descriptionSource": "generated",
+      "cooldownSeconds": 150,
+      "effectSeconds": 1,
+      "execCost": 1,
+      "rankValues": [
+        75,
+        77,
+        79,
+        82,
+        85
+      ]
+    },
+    {
+      "speciesId": "FlowerDoll_Fire",
+      "displayName": "Passion of the Flower Spirit",
+      "mechanic": "Heal_FlowerDoll",
+      "description": "150s cooldown, 1s effect, 1 SP cost",
+      "descriptionSource": "generated",
+      "cooldownSeconds": 150,
+      "effectSeconds": 1,
+      "execCost": 1,
+      "rankValues": [
+        80,
+        82,
+        84,
+        86,
+        90
+      ]
+    },
+    {
+      "speciesId": "NaughtyCat",
+      "displayName": "Glaring Cat's Eye",
+      "description": "Saddle for safely riding Grintale.",
+      "descriptionSource": "item",
+      "unlockItemName": "Grintale Saddle"
+    },
+    {
+      "speciesId": "CuteButterfly",
+      "displayName": "Mysterious Scales",
+      "mechanic": "Waza",
+      "description": "Generates a fog of poison in front, \ncausing the opponent to become poisoned.",
+      "descriptionSource": "waza",
+      "cooldownSeconds": 30,
+      "effectSeconds": 1,
+      "execCost": 1000,
+      "rankValues": [
+        1.1,
+        1.3,
+        1.6,
+        2,
+        2.5
+      ]
+    },
+    {
+      "speciesId": "DarkScorpion",
+      "displayName": "Steel Scorpion",
+      "description": "ElementAddItemDrop_Electricity +80% (Self & Trainer)\nElementAddItemDrop_Electricity +80% (Partner Pal)",
+      "descriptionSource": "passive"
+    },
+    {
+      "speciesId": "DarkScorpion_Ground",
+      "displayName": "Golden Scorpion",
+      "description": "ElementAddItemDrop_Electricity +80% (Self & Trainer)\nElementAddItemDrop_Electricity +80% (Partner Pal)",
+      "descriptionSource": "passive"
+    },
+    {
+      "speciesId": "ThunderDragonMan",
+      "displayName": "Ferocious Thunder Dragon",
+      "description": "Produces Electric Organ, World Tree Holy Water, Electric Radiant Gem, Decayed Ancient Relic, Dormant Ancient Relic, Gorgeous Ancient Relic, Glowing Ancient Relic, Glistening Ancient Relic, Dragon Radiant Gem",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "WoolFox",
+      "displayName": "Fluffy Wool",
+      "description": "Produces Wool",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "LazyCatfish",
+      "displayName": "Soil Improver",
+      "description": "Produces High Quality Pal Oil",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "LazyCatfish_Gold",
+      "displayName": "Golden Harvest",
+      "description": "Item Drop Rate +200% (Self & Trainer)",
+      "descriptionSource": "passive"
+    },
+    {
+      "speciesId": "LavaGirl",
+      "displayName": "Magma Tears",
+      "description": "Produces Flame Organ, High Quality Pal Oil",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "FlameBambi",
+      "displayName": "Tiny Spark",
+      "description": "Produces Flame Organ, Leather",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "NightLady",
+      "displayName": "Nightmare Iris",
+      "mechanic": "Waza",
+      "description": "Bellanoir's exclusive skill.\nDisappears suddenly, then reappears while firing a barrage of beams.",
+      "descriptionSource": "waza",
+      "cooldownSeconds": 30,
+      "effectSeconds": 1,
+      "execCost": 1000,
+      "rankValues": [
+        1.1,
+        1.3,
+        1.6,
+        2,
+        2.5
+      ]
+    },
+    {
+      "speciesId": "NightLady_Dark",
+      "displayName": "Nightmare Stare",
+      "mechanic": "Waza",
+      "description": "Bellanoir Libero's exclusive skill.\nDisappears suddenly, then reappears while firing a barrage of beams.\nThe beams spread like a beautiful flower in bloom.",
+      "descriptionSource": "waza",
+      "cooldownSeconds": 30,
+      "effectSeconds": 1,
+      "execCost": 1000,
+      "rankValues": [
+        1.1,
+        1.3,
+        1.6,
+        2,
+        2.5
+      ]
+    },
+    {
+      "speciesId": "MoonQueen",
+      "displayName": "Celestial Darkness",
+      "description": "Saddle for safely riding Selyne.",
+      "descriptionSource": "item",
+      "unlockItemName": "Selyne Saddle"
+    },
+    {
+      "speciesId": "KendoFrog",
+      "displayName": "Leap Stance",
+      "mechanic": "JumpFrog",
+      "description": "1s cooldown, 1s effect, 1 SP cost",
+      "descriptionSource": "generated",
+      "cooldownSeconds": 1,
+      "effectSeconds": 1,
+      "execCost": 1,
+      "rankValues": [
+        2500,
+        3000,
+        3500,
+        4500,
+        5500
+      ]
+    },
+    {
+      "speciesId": "KendoFrog_Dark",
+      "displayName": "Shadow Stance",
+      "mechanic": "JumpFrog",
+      "description": "1s cooldown, 1s effect, 1 SP cost",
+      "descriptionSource": "generated",
+      "cooldownSeconds": 1,
+      "effectSeconds": 1,
+      "execCost": 1,
+      "rankValues": [
+        2500,
+        3000,
+        3500,
+        4500,
+        5500
+      ]
+    },
+    {
+      "speciesId": "LeafPrincess",
+      "displayName": "Floral Boost",
+      "description": "Produces Beautiful Flower, Red Berries",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "MushroomDragon",
+      "displayName": "Rampant Spores",
+      "description": "Saddle for safely riding Shroomer.",
+      "descriptionSource": "item",
+      "unlockItemName": "Shroomer Saddle"
+    },
+    {
+      "speciesId": "MushroomDragon_Dark",
+      "displayName": "Roiling Spores",
+      "description": "Saddle for safely riding Shroomer Noct.",
+      "descriptionSource": "item",
+      "unlockItemName": "Shroomer Noct Saddle"
+    },
+    {
+      "speciesId": "SmallArmadillo",
+      "displayName": "Sandball Soccer",
+      "description": "Produces Leather, Bone, Crude Oil",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "CandleGhost",
+      "displayName": "Grave Robber",
+      "description": "Produces Medium Pal Soul, Bone, Crude Oil",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "ScorpionMan",
+      "displayName": "Phantom Venom",
+      "description": "Produces Venom Gland",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "ScorpionMan_Electric",
+      "displayName": "Scorpion Longwave",
+      "mechanic": "StatusUp_GiveElement",
+      "description": "50s cooldown, 30s effect",
+      "descriptionSource": "generated",
+      "cooldownSeconds": 50,
+      "effectSeconds": 30,
+      "idleCost": 1
+    },
+    {
+      "speciesId": "WingGolem",
+      "displayName": "Steel Guardian Mode",
+      "mechanic": "StatusUp",
+      "description": "A tool for safely riding Knocklem.",
+      "descriptionSource": "item",
+      "unlockItemName": "en_text Saddle",
+      "cooldownSeconds": 50,
+      "effectSeconds": 40,
+      "idleCost": 1
+    },
+    {
+      "speciesId": "WingGolem_Fire",
+      "displayName": "Iron Guardian Mode",
+      "mechanic": "StatusUp",
+      "description": "50s cooldown, 40s effect",
+      "descriptionSource": "generated",
+      "cooldownSeconds": 50,
+      "effectSeconds": 40,
+      "idleCost": 1
+    },
+    {
+      "speciesId": "GuardianDog",
+      "displayName": "Birds of a Feather",
+      "description": "Saddle for safely riding Yakumo.",
+      "descriptionSource": "item",
+      "unlockItemName": "Yakumo Saddle"
+    },
+    {
+      "speciesId": "SifuDog",
+      "displayName": "Homeward Prayer",
+      "mechanic": "ReturnToBaseCamp",
+      "description": "600s cooldown, 1s effect, 1 SP cost",
+      "descriptionSource": "generated",
+      "cooldownSeconds": 600,
+      "effectSeconds": 1,
+      "execCost": 1
+    },
+    {
+      "speciesId": "FeatherOstrich",
+      "displayName": "Sand Sprint",
+      "description": "Saddle for safely riding Dazemu.",
+      "descriptionSource": "item",
+      "unlockItemName": "Dazemu Saddle"
+    },
+    {
+      "speciesId": "MimicDog",
+      "displayName": "Master of Unlocking",
+      "mechanic": "OpenTreasure",
+      "description": "60s cooldown, 1s effect, 1 SP cost",
+      "descriptionSource": "generated",
+      "cooldownSeconds": 60,
+      "effectSeconds": 1,
+      "execCost": 1,
+      "rankValues": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ]
+    },
+    {
+      "speciesId": "DarkAlien",
+      "displayName": "Unknown Invader",
+      "description": "Produces Meteorite Fragment",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "WhiteAlienDragon",
+      "displayName": "Unknown Intruder",
+      "description": "Saddle for safely riding Xenogard.",
+      "descriptionSource": "item",
+      "unlockItemName": "Xenogard Saddle"
+    },
+    {
+      "speciesId": "VolcanoDragon",
+      "displayName": "Magma Overload",
+      "description": "Saddle for safely riding Moldron.",
+      "descriptionSource": "item",
+      "unlockItemName": "Moldron Saddle"
+    },
+    {
+      "speciesId": "VolcanoDragon_Ice",
+      "displayName": "Ice Overload",
+      "description": "Saddle for safely riding Moldron Cryst.",
+      "descriptionSource": "item",
+      "unlockItemName": "Moldron Cryst Saddle"
+    },
+    {
+      "speciesId": "DarkMechaDragon",
+      "displayName": "Meteor Wings",
+      "description": "Saddle for safely riding Xenolord.",
+      "descriptionSource": "item",
+      "unlockItemName": "Xenolord Saddle"
+    },
+    {
+      "speciesId": "GhostRabbit",
+      "displayName": "Soul Collector",
+      "description": "Produces Small Pal Soul",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "GhostRabbit_Grass",
+      "displayName": "Soul Binder",
+      "description": "Produces Medium Pal Soul, World Tree Holy Water, Grass Radiant Gem, Decayed Ancient Relic, Dormant Ancient Relic, Gorgeous Ancient Relic, Glowing Ancient Relic, Glistening Ancient Relic",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "NightBlueHorse",
+      "displayName": "Night Dancer",
+      "description": "Saddle for safely riding Starryon.",
+      "descriptionSource": "item",
+      "unlockItemName": "Starryon Saddle"
+    },
+    {
+      "speciesId": "NightBlueHorse_Neutral",
+      "displayName": "Light Dancer",
+      "description": "Saddle for safely riding Starryon Primo.",
+      "descriptionSource": "item",
+      "unlockItemName": "Starryon Primo Saddle"
+    },
+    {
+      "speciesId": "WhiteShieldDragon",
+      "displayName": "Aegis Shield",
+      "description": "Saddle for safely riding Silvegis.",
+      "descriptionSource": "item",
+      "unlockItemName": "Silvegis Saddle"
+    },
+    {
+      "speciesId": "BlackPuppy",
+      "displayName": "Dig, Smokie! Dig!",
+      "mechanic": "SearchDungeon",
+      "description": "Harness for Smokie.\nActivate its Partner Skill to detect the location of nearby <itemName id=|Chromium|/>.",
+      "descriptionSource": "item",
+      "unlockItemName": "Smokie's Harness",
+      "cooldownSeconds": 60,
+      "effectSeconds": 1,
+      "execCost": 1
+    },
+    {
+      "speciesId": "BlackPuppy_Ice",
+      "displayName": "Cryo Instincts",
+      "description": "Harness for Smokie Cryst. Activate its Partner Skill to detect the location of nearby <itemName id=|Chromium|/>.",
+      "descriptionSource": "item",
+      "unlockItemName": "Smokie Cryst's Harness"
+    },
+    {
+      "speciesId": "WhiteDeer",
+      "displayName": "Blessing of Purification",
+      "description": "Saddle for safely riding Celesdir.",
+      "descriptionSource": "item",
+      "unlockItemName": "Celesdir Saddle"
+    },
+    {
+      "speciesId": "WhiteDeer_Dark",
+      "displayName": "Blessing of Chaos",
+      "description": "Saddle for safely riding Celesdir Noct.",
+      "descriptionSource": "item",
+      "unlockItemName": "Celesdir Noct Saddle"
+    },
+    {
+      "speciesId": "KingWhale",
+      "displayName": "Resonant Guardian",
+      "description": "Produces Diamond, Giant Pal Soul",
+      "descriptionSource": "drop",
+      "rankValues": [
+        1.1,
+        1.3,
+        1.6,
+        2,
+        2.5
+      ]
+    },
+    {
+      "speciesId": "MysteryMask",
+      "displayName": "Masquerade Dance",
+      "description": "Produces Dark Fragment",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "HoodGhost",
+      "displayName": "Void-Dweller",
+      "description": "Produces Small Pal Soul, Horn",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "Sekhmet",
+      "displayName": "Desert Empress",
+      "description": "Produces Leather, Large Pal Soul, Ground Radiant Gem, Decayed Ancient Relic, Dormant Ancient Relic, Gorgeous Ancient Relic, Glowing Ancient Relic, Glistening Ancient Relic",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "ElecLizard",
+      "displayName": "Chillswitch",
+      "description": "Produces Aquatic Pal Fluids, Electric Organ",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "GrimGirl",
+      "displayName": "Blade of Uncontrolled Passion",
+      "description": "MeatCutAddItemDrop +200% (Trainer)",
+      "descriptionSource": "passive"
+    },
+    {
+      "speciesId": "PurpleSpider",
+      "displayName": "Tarantriss’ Web",
+      "mechanic": "UniqueRideShooting_Grappling",
+      "description": "Saddle for safely riding Tarantriss.",
+      "descriptionSource": "item",
+      "unlockItemName": "Tarantriss Saddle",
+      "effectSeconds": 1,
+      "execCost": 1
+    },
+    {
+      "speciesId": "BlueThunderHorse",
+      "displayName": "Plasma Dash",
+      "mechanic": "UniqueRide_ShortDash",
+      "description": "Saddle for safely riding Azurmane.",
+      "descriptionSource": "item",
+      "unlockItemName": "Azurmane Saddle",
+      "cooldownSeconds": 5,
+      "effectSeconds": 1,
+      "execCost": 1,
+      "rankValues": [
+        4,
+        4.2,
+        4.4,
+        4.6,
+        5
+      ]
+    },
+    {
+      "speciesId": "RockBeast",
+      "displayName": "Power Stone",
+      "description": "Produces Ore, Coal, Sulfur",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "RockBeast_Ice",
+      "displayName": "Power Crystal",
+      "description": "Produces Soralite, Ice Organ, Pure Quartz, World Tree Holy Water, Ice Radiant Gem, Decayed Ancient Relic, Dormant Ancient Relic, Gorgeous Ancient Relic, Glowing Ancient Relic, Glistening Ancient Relic",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "OctopusGirl",
+      "displayName": "Sticky Princess",
+      "description": "Produces Aquatic Pal Fluids",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "OctopusGirl_Neutral",
+      "displayName": "Cephalo-Princess",
+      "description": "Produces Aquatic Pal Fluids, Gloopie Tentacle",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "IceNarwhal",
+      "displayName": "Chilled Whale Cruiser",
+      "description": "Saddle for safely riding Whalaska.",
+      "descriptionSource": "item",
+      "unlockItemName": "Whalaska Saddle"
+    },
+    {
+      "speciesId": "IceNarwhal_Fire",
+      "displayName": "Cozy Whale Cruiser",
+      "description": "Saddle for safely riding Whalaska Ignis.",
+      "descriptionSource": "item",
+      "unlockItemName": "Whalaska Ignis Saddle"
+    },
+    {
+      "speciesId": "JellyfishFairy",
+      "displayName": "Jelliette Drop",
+      "description": "Produces Aquatic Pal Fluids",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "Kitsunebi_Ice",
+      "displayName": "Huggy Frost",
+      "mechanic": "Flamethrower_Ice",
+      "description": "Harness for holding Foxparks Cryst.\nActivate its Partner Skill to hold Foxparks Cryst\nand release freezing air to attack.",
+      "descriptionSource": "item",
+      "unlockItemName": "Foxparks Cryst's Harness",
+      "cooldownSeconds": 100,
+      "effectSeconds": 10,
+      "execCost": 1,
+      "idleCost": 0.1,
+      "rankValues": [
+        15,
+        16,
+        18,
+        21,
+        25
+      ]
+    },
+    {
+      "speciesId": "BerryGoat_Dark",
+      "displayName": "Venom Picker",
+      "description": "Produces Caprity Meat, Red Berries, Horn, Venom Gland",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "PinkRabbit_Grass",
+      "displayName": "Ground 'n' Pound",
+      "description": "Produces Leather, Ribbuny Ribbon, Carrot Seeds, Carrot",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "Werewolf_Ice",
+      "displayName": "Frozen Gleam Strike",
+      "mechanic": "Waza",
+      "description": "Loupmoon Cryst's exclusive skill.\nLeaps forward and attacks twice with vicious claws\nimbued with ice element.",
+      "descriptionSource": "waza",
+      "cooldownSeconds": 30,
+      "effectSeconds": 1,
+      "execCost": 1000,
+      "rankValues": [
+        1.1,
+        1.3,
+        1.6,
+        2,
+        2.5
+      ]
+    },
+    {
+      "speciesId": "AmaterasuWolf_Dark",
+      "displayName": "Gloomhowl",
+      "description": "Saddle for safely riding Kitsun Noct.",
+      "descriptionSource": "item",
+      "unlockItemName": "Kitsun Noct Saddle"
+    },
+    {
+      "speciesId": "RaijinDaughter_Water",
+      "displayName": "Lady of Dark Lightning",
+      "description": "Collar for Dazzi Noct.\nIf Dazzi Noct is in your team,\nit will stay by your side and attack enemies in tandem.",
+      "descriptionSource": "item",
+      "unlockItemName": "Dazzi Noct's Necklace",
+      "rankValues": [
+        1,
+        1.1,
+        1.3,
+        1.6,
+        2
+      ]
+    },
+    {
+      "speciesId": "WhiteTiger_Ground",
+      "displayName": "Explosive Strength",
+      "description": "Produces Ore",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "FengyunDeeper_Electric",
+      "displayName": "Stormcloud",
+      "description": "Saddle for safely riding Fenglope Lux.",
+      "descriptionSource": "item",
+      "unlockItemName": "Fenglope Lux Saddle"
+    },
+    {
+      "speciesId": "Horus_Water",
+      "displayName": "Tidal Predator",
+      "description": "Saddle for safely riding Faleris Aqua.",
+      "descriptionSource": "item",
+      "unlockItemName": "Faleris Aqua Saddle"
+    },
+    {
+      "speciesId": "SnowTigerBeastman",
+      "displayName": "Blizzard Crash",
+      "mechanic": "UniqueRideMelee_SnowHammer",
+      "description": "Saddle for safely riding Bastigor.",
+      "descriptionSource": "item",
+      "unlockItemName": "Bastigor's Hammer",
+      "cooldownSeconds": 5,
+      "effectSeconds": 1,
+      "execCost": 1,
+      "rankValues": [
+        100,
+        120,
+        140,
+        160,
+        200
+      ]
+    },
+    {
+      "speciesId": "SnakeGirl",
+      "displayName": "Snake's Sagacity",
+      "description": "Produces Aquatic Pal Fluids, Venom Gland, World Tree Holy Water, Electric Radiant Gem, Decayed Ancient Relic, Dormant Ancient Relic, Gorgeous Ancient Relic, Glowing Ancient Relic, Glistening Ancient Relic",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "GhostAnglerfish",
+      "displayName": "Master of Darkness",
+      "description": "Saddle for safely riding Ghangler.",
+      "descriptionSource": "item",
+      "unlockItemName": "Ghangler Saddle"
+    },
+    {
+      "speciesId": "GhostAnglerfish_Fire",
+      "displayName": "Abyssal Celebrity Chef",
+      "description": "Saddle for safely riding Ghangler Ignis.",
+      "descriptionSource": "item",
+      "unlockItemName": "Ghangler Ignis Saddle"
+    },
+    {
+      "speciesId": "IceWitch",
+      "displayName": "Witch's Icy Veil",
+      "mechanic": "StatusUp_GiveElement",
+      "description": "50s cooldown, 30s effect",
+      "descriptionSource": "generated",
+      "cooldownSeconds": 50,
+      "effectSeconds": 30,
+      "idleCost": 1
+    },
+    {
+      "speciesId": "ClownRabbit",
+      "displayName": "Trick-Loving Fluffle",
+      "description": "Produces Leather, Flame Organ, World Tree Holy Water, Fire Radiant Gem, Decayed Ancient Relic, Dormant Ancient Relic, Gorgeous Ancient Relic, Glowing Ancient Relic, Glistening Ancient Relic",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "LegendDeer",
+      "displayName": "Sacred Barrier",
+      "mechanic": "UniqueRide_Barrier",
+      "description": "Saddle for safely riding Hartalis.\nGrants the ability to generate a barrier that blocks incoming attacks.",
+      "descriptionSource": "item",
+      "unlockItemName": "Hartalis Saddle",
+      "cooldownSeconds": 5,
+      "effectSeconds": 15,
+      "idleCost": 1
+    },
+    {
+      "speciesId": "LeafMomonga",
+      "displayName": "Herbil Pulse",
+      "mechanic": "RevivePlayer",
+      "description": "Harness for Herbil. \nHerbil can use its healing power to revive the player when incapacitated.",
+      "descriptionSource": "item",
+      "unlockItemName": "Herbil's Harness",
+      "cooldownSeconds": 5,
+      "effectSeconds": 1,
+      "execCost": 1,
+      "rankValues": [
+        30,
+        36,
+        42,
+        48,
+        60
+      ]
+    },
+    {
+      "speciesId": "SmallYeti",
+      "displayName": "Invisible Eye",
+      "description": "Produces Leather, Wool, World Tree Holy Water, Ice Radiant Gem, Decayed Ancient Relic, Dormant Ancient Relic, Gorgeous Ancient Relic, Glowing Ancient Relic, Glistening Ancient Relic",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "IceCrocodile",
+      "displayName": "Icy Maw",
+      "description": "Produces Aquatic Pal Fluids, Ice Organ",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "CactusDoll",
+      "displayName": "Hug Me Please",
+      "description": "Produces Fiber",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "CactusDoll_Dark",
+      "displayName": "Hug You So Much",
+      "description": "Produces Fiber, Venom Gland",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "MushroomLady",
+      "displayName": "Charming Spore",
+      "description": "Produces Mushroom, Mysterious Mushroom, World Tree Holy Water, Ground Radiant Gem, Decayed Ancient Relic, Dormant Ancient Relic, Gorgeous Ancient Relic, Glowing Ancient Relic, Glistening Ancient Relic",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "StuffedShark",
+      "displayName": "Water Gun",
+      "mechanic": "StatusUp_GiveElement",
+      "description": "50s cooldown, 30s effect",
+      "descriptionSource": "generated",
+      "cooldownSeconds": 50,
+      "effectSeconds": 30,
+      "idleCost": 1
+    },
+    {
+      "speciesId": "StuffedShark_Fire",
+      "displayName": "Ember Chamber",
+      "description": "Produces Leather, Small Pal Soul, Flame Organ",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "FoxExorcist",
+      "displayName": "Burning Future",
+      "description": "Produces Leather, Flame Organ, World Tree Holy Water, Fire Radiant Gem, Decayed Ancient Relic, Dormant Ancient Relic, Gorgeous Ancient Relic, Glowing Ancient Relic, Glistening Ancient Relic",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "IceSeal",
+      "displayName": "Rider of the Snowy Mountain",
+      "mechanic": "UniqueRide_ShortDash",
+      "description": "Saddle for safely riding Polapup.",
+      "descriptionSource": "item",
+      "unlockItemName": "Polapup Saddle",
+      "cooldownSeconds": 5,
+      "effectSeconds": 1,
+      "execCost": 1,
+      "rankValues": [
+        250,
+        500,
+        750,
+        1000,
+        1250
+      ]
+    },
+    {
+      "speciesId": "IceSeal_Ground",
+      "displayName": "Snowy Mountain Slider",
+      "mechanic": "UniqueRide_ShortDash",
+      "description": "Saddle for safely riding Polapup Terra.",
+      "descriptionSource": "item",
+      "unlockItemName": "Polapup Terra Saddle",
+      "cooldownSeconds": 5,
+      "effectSeconds": 1,
+      "execCost": 1,
+      "rankValues": [
+        300,
+        550,
+        800,
+        1050,
+        1300
+      ]
+    },
+    {
+      "speciesId": "CloverFairy",
+      "displayName": "Happy Clover",
+      "description": "Produces Berry Seeds",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "ElecPomeranian",
+      "displayName": "Crackle Booster",
+      "description": "Produces Electric Organ",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "GhostBlackCat",
+      "displayName": "Death-Cheating Feline",
+      "description": "Produces Small Pal Soul, Leather, World Tree Holy Water, Ground Radiant Gem, Decayed Ancient Relic, Dormant Ancient Relic, Gorgeous Ancient Relic, Glowing Ancient Relic, Glistening Ancient Relic",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "ThiefBird",
+      "displayName": "Dark-Nester",
+      "description": "Saddle for safely riding Roujay.",
+      "descriptionSource": "item",
+      "unlockItemName": "Roujay Saddle"
+    },
+    {
+      "speciesId": "OniGhostGirl",
+      "displayName": "Grinning Death",
+      "description": "Produces Cloth, Horn, Small Pal Soul",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "Plesiosaur",
+      "displayName": "Balmy Weather",
+      "description": "Saddle for safely riding Braloha.",
+      "descriptionSource": "item",
+      "unlockItemName": "Braloha Saddle"
+    },
+    {
+      "speciesId": "TropicalOstrich",
+      "displayName": "Samba Step",
+      "description": "Saddle for safely riding Palumba.",
+      "descriptionSource": "item",
+      "unlockItemName": "Palumba Saddle"
+    },
+    {
+      "speciesId": "GrassGolem",
+      "displayName": "Forest Laser",
+      "mechanic": "UniqueRideShooting_ArmLaser",
+      "description": "Saddle for safely riding Dualith. \nGrants the ability to fire a powerful Grass-element laser while mounted.",
+      "descriptionSource": "item",
+      "unlockItemName": "Dualith Saddle",
+      "cooldownSeconds": 120,
+      "effectSeconds": 1,
+      "execCost": 1
+    },
+    {
+      "speciesId": "GrassGolem_Dark",
+      "displayName": "Corruption Laser",
+      "mechanic": "UniqueRideShooting_ArmLaser_GrassGolem_Dark",
+      "description": "Saddle for safely riding Dualith Noct. \nGrants the ability to fire a powerful Dark-element laser while mounted.",
+      "descriptionSource": "item",
+      "unlockItemName": "Dualith Noct Saddle",
+      "cooldownSeconds": 120,
+      "effectSeconds": 1,
+      "execCost": 1
+    },
+    {
+      "speciesId": "SnowPeafowl",
+      "displayName": "Peacock Pounce",
+      "description": "Produces Ice Organ",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "CubeTurtle",
+      "displayName": "Masonry Archelon",
+      "description": "Saddle for safely riding Tetroise.",
+      "descriptionSource": "item",
+      "unlockItemName": "Tetroise Saddle"
+    },
+    {
+      "speciesId": "CubeTurtle_Neutral",
+      "displayName": "Stone-Chaser Archelon",
+      "description": "Saddle for safely riding Tetroise Primo.",
+      "descriptionSource": "item",
+      "unlockItemName": "Tetroise Primo Saddle"
+    },
+    {
+      "speciesId": "LongCat",
+      "displayName": "Big Stretch",
+      "description": "Produces Leather",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "JellyfishGhost",
+      "displayName": "Jellroy Drop",
+      "description": "Produces Aquatic Pal Fluids",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "ThunderFluffyBird",
+      "displayName": "Electro-Massage Incubation",
+      "description": "Saddle for safely riding Dynamoff.",
+      "descriptionSource": "item",
+      "unlockItemName": "Dynamoff Saddle"
+    },
+    {
+      "speciesId": "MoonChild",
+      "displayName": "Hidden Dark Energy",
+      "description": "Produces Nightstar Sand, Small Pal Soul, World Tree Holy Water, Electric Radiant Gem, Decayed Ancient Relic, Dormant Ancient Relic, Gorgeous Ancient Relic, Glowing Ancient Relic, Glistening Ancient Relic",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "SamuraiDog",
+      "displayName": "Best Boy",
+      "description": "DamageRateByEquippedWeapon +35% (Trainer)",
+      "descriptionSource": "passive"
+    },
+    {
+      "speciesId": "PoseidonOrca",
+      "displayName": "Sentinel of the Great Sea",
+      "mechanic": "UniqueRide_ShortDash_PoseidonOrca",
+      "description": "Saddle for safely riding Neptilius.",
+      "descriptionSource": "item",
+      "unlockItemName": "Neptilius Saddle",
+      "cooldownSeconds": 5,
+      "effectSeconds": 1,
+      "execCost": 1
+    },
+    {
+      "speciesId": "SwordCutlassfish",
+      "displayName": "Fish Fillet",
+      "mechanic": "SwordCutlassfish_Katana",
+      "description": "10s cooldown, 10s effect, 1 SP cost",
+      "descriptionSource": "generated",
+      "cooldownSeconds": 10,
+      "effectSeconds": 10,
+      "execCost": 1,
+      "idleCost": 1,
+      "rankValues": [
+        2600,
+        2700,
+        3000,
+        3400,
+        3900
+      ]
+    },
+    {
+      "speciesId": "SwordCutlassfish_Fire",
+      "displayName": "Seared Fish Fillet",
+      "mechanic": "SwordCutlassfish_Katana",
+      "description": "10s cooldown, 10s effect, 1 SP cost",
+      "descriptionSource": "generated",
+      "cooldownSeconds": 10,
+      "effectSeconds": 10,
+      "execCost": 1,
+      "idleCost": 1,
+      "rankValues": [
+        2900,
+        3000,
+        3300,
+        3700,
+        4200
+      ]
+    },
+    {
+      "speciesId": "MummyPal",
+      "displayName": "Resurrection",
+      "mechanic": "RevivePal",
+      "description": "5s cooldown, 1s effect, 1 SP cost",
+      "descriptionSource": "generated",
+      "cooldownSeconds": 5,
+      "effectSeconds": 1,
+      "execCost": 1
+    },
+    {
+      "speciesId": "KingSunfish",
+      "displayName": "Charming Fish",
+      "description": "Saddle for safely riding Solmora.",
+      "descriptionSource": "item",
+      "unlockItemName": "Solmora Saddle"
+    },
+    {
+      "speciesId": "KingSunfish_Thunder",
+      "displayName": "Shocking Fish",
+      "description": "Saddle for safely riding Solmora Lux.",
+      "descriptionSource": "item",
+      "unlockItemName": "Solmora Lux Saddle"
+    },
+    {
+      "speciesId": "MonochromeQueen",
+      "displayName": "Untainted Maiden",
+      "description": "Produces Dark Fragment, High Quality Recovery Meds, World Tree Holy Water, Neutral Radiant Gem, Decayed Ancient Relic, Dormant Ancient Relic, Gorgeous Ancient Relic, Glowing Ancient Relic, Glistening Ancient Relic",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "ElecSnail",
+      "displayName": "Charging Shell",
+      "description": "Produces Electric Organ, Aquatic Pal Fluids",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "ElecSnail_Ground",
+      "displayName": "Grounding Shell",
+      "description": "Produces Electric Organ, High Quality Pal Oil, World Tree Holy Water, Electric Radiant Gem, Decayed Ancient Relic, Dormant Ancient Relic, Gorgeous Ancient Relic, Glowing Ancient Relic, Glistening Ancient Relic",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "LanternButler",
+      "displayName": "Lantern Enchantment",
+      "description": "Produces High Quality Pal Oil, Leather, Venom Gland, World Tree Holy Water, Dark Radiant Gem, Decayed Ancient Relic, Dormant Ancient Relic, Gorgeous Ancient Relic, Glowing Ancient Relic, Glistening Ancient Relic",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "SumoDog",
+      "displayName": "Yokozuna's Presence",
+      "description": "Saddle for safely riding Bulldosu.",
+      "descriptionSource": "item",
+      "unlockItemName": "Bulldosu Saddle"
+    },
+    {
+      "speciesId": "VenusFlytrap",
+      "displayName": "Entangling Tongue",
+      "description": "Produces Venom Gland, Fiber, World Tree Holy Water, Grass Radiant Gem, Decayed Ancient Relic, Dormant Ancient Relic, Gorgeous Ancient Relic, Glowing Ancient Relic, Glistening Ancient Relic",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "FluffyBird",
+      "displayName": "Fluffy Flutterer",
+      "description": "Produces Ice Organ",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "DandelionGirl",
+      "displayName": "Fuzzy Fairy",
+      "description": "Produces Wheat Seeds",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "ClioneTwins",
+      "displayName": "Magical Twin Powers",
+      "description": "Produces Aquatic Pal Fluids",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "DarkFlameFox",
+      "displayName": "Phantasmal Arcana",
+      "description": "Produces Leather, Flame Organ, World Tree Holy Water, Dark Radiant Gem, Decayed Ancient Relic, Dormant Ancient Relic, Gorgeous Ancient Relic, Glowing Ancient Relic, Glistening Ancient Relic",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "RedFlowerBird",
+      "displayName": "Flower Dance",
+      "description": "Produces Beautiful Flower, Fiber",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "SleeveRabbit",
+      "displayName": "Long-Sleeved Hurray",
+      "description": "Produces Leather",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "LotusDragon",
+      "displayName": "Glorious Mist",
+      "description": "Saddle for safely riding Ophydia.",
+      "descriptionSource": "item",
+      "unlockItemName": "Ophydia Saddle"
+    },
+    {
+      "speciesId": "BlueSkyDragon",
+      "displayName": "Azure Sovereign",
+      "description": "Saddle for safely riding Shaolong.",
+      "descriptionSource": "item",
+      "unlockItemName": "Shaolong Saddle"
+    },
+    {
+      "speciesId": "PandaGirl",
+      "displayName": "Selfless Discipline",
+      "description": "Produces Leather",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "GrassMinotaur",
+      "displayName": "Mother Nature's Menace",
+      "mechanic": "StatusUp_GiveElement",
+      "description": "50s cooldown, 30s effect",
+      "descriptionSource": "generated",
+      "cooldownSeconds": 50,
+      "effectSeconds": 30,
+      "idleCost": 1
+    },
+    {
+      "speciesId": "GrassMinotaur_Ice",
+      "displayName": "Father Winter's Threat",
+      "description": "Produces Horn, Leather, Ice Organ, World Tree Holy Water, Ice Radiant Gem, Decayed Ancient Relic, Dormant Ancient Relic, Gorgeous Ancient Relic, Glowing Ancient Relic, Glistening Ancient Relic",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "Mothman",
+      "displayName": "Spore Stalwart",
+      "description": "Produces Giant Pal Soul, Ancient Civilization Core, World Tree Holy Water, Grass Radiant Gem, Decayed Ancient Relic, Dormant Ancient Relic, Gorgeous Ancient Relic, Glowing Ancient Relic, Glistening Ancient Relic",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "GhostDragon",
+      "displayName": "Liberated Pterosaur",
+      "description": "Saddle for safely riding Eidrolon.",
+      "descriptionSource": "item",
+      "unlockItemName": "Eidrolon Saddle"
+    },
+    {
+      "speciesId": "GhostDragon_Fire",
+      "displayName": "Resentful Pterosaur",
+      "description": "Saddle for safely riding Eidrolon Ignis.",
+      "descriptionSource": "item",
+      "unlockItemName": "Eidrolon Ignis Saddle"
+    },
+    {
+      "speciesId": "FlowerPrince",
+      "displayName": "Mist Stalwart",
+      "mechanic": "StatusUp_AddEffect",
+      "description": "50s cooldown, 30s effect",
+      "descriptionSource": "generated",
+      "cooldownSeconds": 50,
+      "effectSeconds": 30,
+      "idleCost": 1
+    },
+    {
+      "speciesId": "WorldTreeDragon",
+      "displayName": "-",
+      "description": "Produces Leather, High Quality Pal Oil",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "KabukiMan",
+      "displayName": "Stage Combat",
+      "description": "Produces Leather, Flame Organ, World Tree Holy Water, Fire Radiant Gem, Decayed Ancient Relic, Dormant Ancient Relic, Gorgeous Ancient Relic, Glowing Ancient Relic, Glistening Ancient Relic",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "DomeArmorDragon",
+      "displayName": "Indestructible Fortress",
+      "description": "Saddle for safely riding Aegidron.",
+      "descriptionSource": "item",
+      "unlockItemName": "Aegidron Saddle"
+    }
+  ]
 }
