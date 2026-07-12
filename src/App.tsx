@@ -31,25 +31,45 @@ const VIEWS = {
 
 type ViewKey = keyof typeof VIEWS;
 
+const VIEW_KEYS = Object.keys(VIEWS) as ViewKey[];
+
+/** Tabs stay mounted once visited (instead of unmounting on switch) so their local state —
+ * filled-in fields, computed plans, filters, scroll position — survives navigating away and
+ * back. Inactive tabs are hidden via `hidden`/`contents`, not removed from the tree; only the
+ * active one contributes to layout (`contents` makes its wrapper transparent to the flex row
+ * below, since two-pane views render sibling <aside>+<main> that need to be direct flex items). */
 function AppShell() {
   const [active, setActive] = useState<ViewKey>('single');
+  const [visited, setVisited] = useState<Set<ViewKey>>(() => new Set(['single']));
   const [roster] = useRoster();
   const [settings, setSettings] = useSettings();
   const live = useLiveContext();
-  const ActiveView = VIEWS[active];
+
+  const handleSelect = (key: string) => {
+    const viewKey = key as ViewKey;
+    setActive(viewKey);
+    setVisited((prev) => (prev.has(viewKey) ? prev : new Set(prev).add(viewKey)));
+  };
 
   return (
     <div className="flex h-screen w-full flex-col overflow-hidden font-sans md:flex-row">
       <Sidebar
         active={active}
-        onSelect={(key) => setActive(key as ViewKey)}
+        onSelect={handleSelect}
         rosterCount={roster.length}
         serverOnCount={live.selectedPlayerIds.size}
         iconMode={settings.iconDisplayMode}
         onIconModeChange={(iconDisplayMode) => setSettings({ ...settings, iconDisplayMode })}
       />
       <div className="flex flex-1 flex-col overflow-y-auto md:flex-row md:overflow-hidden">
-        <ActiveView />
+        {VIEW_KEYS.filter((key) => visited.has(key)).map((key) => {
+          const View = VIEWS[key];
+          return (
+            <div key={key} className={key === active ? 'contents' : 'hidden'}>
+              <View />
+            </div>
+          );
+        })}
       </div>
     </div>
   );

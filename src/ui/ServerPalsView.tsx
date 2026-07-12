@@ -95,7 +95,14 @@ export default function ServerPalsView() {
           </div>
         </div>
 
-        {tab === 'players' ? <PlayersTab /> : <FindAPalTab />}
+        {/* Both stay mounted once visited so switching sub-tabs doesn't lose expanded rows
+            or search filters — see the same pattern in App.tsx for the outer view tabs. */}
+        <div className={tab === 'players' ? undefined : 'hidden'}>
+          <PlayersTab />
+        </div>
+        <div className={tab === 'search' ? undefined : 'hidden'}>
+          <FindAPalTab />
+        </div>
       </div>
     </main>
   );
