@@ -184,6 +184,68 @@ describe('speciesPlanner: gender feasibility', () => {
   });
 });
 
+describe('speciesPlanner: ignoreGender', () => {
+  it('lets two different species with the same owned gender breed once ignoreGender is on', () => {
+    const ruleset = createCombiRank06(
+      synthetic(
+        [
+          { id: 'A', rank: 50, wildCatchable: false },
+          { id: 'B', rank: 50, wildCatchable: false },
+          { id: 'TARGET', rank: 60, wildCatchable: false },
+        ],
+        [{ parents: ['A', 'B'], child: 'TARGET', genderRule: null }],
+      ),
+    );
+    const roster: RosterEntry[] = [
+      { species: 'A', gender: 'male' },
+      { species: 'B', gender: 'male' },
+    ];
+
+    // Both owned individuals are male — the default (gender-accurate) planner has no
+    // opposite-gender pairing available and must fail.
+    const withoutToggle = planSpecies(ruleset, roster, 'TARGET');
+    expect(withoutToggle.feasible).toBe(false);
+
+    // With ignoreGender, one of the two can be flipped, unlocking the combo at the same
+    // single-combination cost a mixed-gender pair would have had.
+    const withToggle = planSpecies(ruleset, roster, 'TARGET', { ignoreGender: true });
+    expect(withToggle.feasible).toBe(true);
+    expect(withToggle.combinationCount).toBe(1);
+  });
+
+  it('does not let a single owned individual satisfy both sides of a self-cross', () => {
+    // Self-crossing needs two distinct physical Pals no matter what — a gender-changing
+    // item can flip one Pal's gender, but it can't clone it. ignoreGender must NOT treat
+    // owning exactly one Dodo as enough to self-cross it.
+    const ruleset = createCombiRank06(
+      synthetic(
+        [
+          { id: 'Dodo', rank: 50, wildCatchable: false },
+          { id: 'DodoChild', rank: 60, wildCatchable: false },
+        ],
+        [{ parents: ['Dodo', 'Dodo'], child: 'DodoChild', genderRule: null }],
+      ),
+    );
+    const plan = planSpecies(ruleset, [{ species: 'Dodo', gender: 'male' }], 'DodoChild', { ignoreGender: true });
+    expect(plan.feasible).toBe(false);
+  });
+
+  it('self-cross still works normally when both genders are genuinely owned', () => {
+    const ruleset = createCombiRank06(
+      synthetic(
+        [
+          { id: 'Dodo', rank: 50, wildCatchable: false },
+          { id: 'DodoChild', rank: 60, wildCatchable: false },
+        ],
+        [{ parents: ['Dodo', 'Dodo'], child: 'DodoChild', genderRule: null }],
+      ),
+    );
+    const plan = planSpecies(ruleset, ownBoth('Dodo'), 'DodoChild', { ignoreGender: true });
+    expect(plan.feasible).toBe(true);
+    expect(plan.combinationCount).toBe(1);
+  });
+});
+
 describe('speciesPlanner: findForcedCarrierRoute (masked joint-carrier search)', () => {
   // Two independent carrier lineages (CARRIER_A->MID_A, CARRIER_B->MID_B) that only ever meet
   // at the final MID_A x MID_B -> TARGET cross — direct coverage of `findForcedCarrierRoute`

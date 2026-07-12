@@ -10,7 +10,7 @@ import { annotateSpeciesPlan } from '../live/provenance';
 import { buildDisplayNameMap } from '../live/nameResolution';
 import { useRulesetContext } from './RulesetContext';
 import { PassiveMultiSelect, SpeciesSelect, SpeciesPlanView } from './shared';
-import { HoverTooltip, PalIcon, PassiveChip } from './components';
+import { HoverTooltip, PalIcon, PassiveChip, Toggle } from './components';
 
 /** Single-target planner (design handoff README: reuses the Hub planner's shared pieces —
  * input rail shape, `SpeciesPlanView`'s graph/steps rendering, perk overlay). No hub
@@ -23,6 +23,7 @@ export default function SingleTargetView() {
   const live = useLiveContext();
   const [target, setTarget] = useState(species[0]?.id ?? '');
   const [desiredPassives, setDesiredPassives] = useState<string[]>([]);
+  const [ignoreGender, setIgnoreGender] = useState(false);
   const [result, setResult] = useState<SpeciesPlanResult | null>(null);
   const [guaranteedCarrierAlt, setGuaranteedCarrierAlt] = useState<GuaranteedCarrierAlternative | null>(null);
   const [saved, setSavedFlash] = useState(false);
@@ -49,7 +50,7 @@ export default function SingleTargetView() {
     if (!target) return;
     setIsPlanning(true);
     setTimeout(() => {
-      const speciesOptions = { catchCost: settings.catchCost, allowCatching: settings.allowCatching };
+      const speciesOptions = { catchCost: settings.catchCost, allowCatching: settings.allowCatching, ignoreGender };
       const plan = planSpecies(ruleset, rosterForSolver, target, {
         ...speciesOptions,
         ...(desiredPassives.length > 0 && { desiredPassives }),
@@ -121,6 +122,16 @@ export default function SingleTargetView() {
             Including pals from {live.selectedPlayerIds.size} connected player(s).
           </div>
         )}
+
+        <div className="mb-[18px] flex items-center gap-3 rounded-panel border border-border-inner bg-white px-3 py-[11px]">
+          <div>
+            <div className="font-sans text-[13px] font-semibold">Ignore gender</div>
+            <div className="font-sans text-[11.5px] text-muted-light">Assume any Pal can be gender-swapped before breeding.</div>
+          </div>
+          <div className="ml-auto">
+            <Toggle on={ignoreGender} onChange={setIgnoreGender} />
+          </div>
+        </div>
 
         <div
           onClick={isPlanning ? undefined : runPlan}

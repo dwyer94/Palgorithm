@@ -52,6 +52,15 @@ export interface SpeciesPlannerOptions {
    * Omit to get the passive-agnostic plan (0.3 behavior).
    */
   desiredPassives?: PassiveId[];
+  /**
+   * Treat gender as a non-constraint: Palworld has an item that changes a Pal's gender, so
+   * any owned/caught/bred individual can be flipped to whichever gender a combo needs before
+   * breeding it. Default false (gender-accurate planning, spec's normal reachability model) —
+   * on, this stops a species being short one gender (either naturally, per `genderRatio`, or
+   * just because the roster/catch/produced individual happened to hatch the "wrong" one) from
+   * ever gating reachability or forcing an extra breed purely to get the right gender.
+   */
+  ignoreGender?: boolean;
 }
 
 /** A specific individual required as one side of a combination. */

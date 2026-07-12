@@ -155,6 +155,7 @@ export function findHubs(ruleset: BreedingRuleset, roster: RosterEntry[], option
   const speciesOpts: SpeciesPlannerOptions = {
     ...(options.catchCost !== undefined && { catchCost: options.catchCost }),
     ...(options.allowCatching !== undefined && { allowCatching: options.allowCatching }),
+    ...(options.ignoreGender !== undefined && { ignoreGender: options.ignoreGender }),
     ...(options.desiredPassives !== undefined && { desiredPassives: options.desiredPassives }),
     ...(options.excludeFromCatching !== undefined && { excludeFromCatching: options.excludeFromCatching }),
   };
@@ -179,6 +180,7 @@ export function findHubs(ruleset: BreedingRuleset, roster: RosterEntry[], option
     const injectBaseOptions: SpeciesPlannerOptions = {
       ...(options.catchCost !== undefined && { catchCost: options.catchCost }),
       ...(options.allowCatching !== undefined && { allowCatching: options.allowCatching }),
+      ...(options.ignoreGender !== undefined && { ignoreGender: options.ignoreGender }),
       excludeFromCatching: baseExclude,
     };
 

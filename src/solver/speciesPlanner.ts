@@ -32,12 +32,17 @@ import { MinHeap } from './minHeap';
  * nodes are finalized. This is exactly the "distinct combinations, shared intermediates
  * counted once" objective (CLAUDE.md invariant #4): a node is finalized once, and every
  * later user of it reuses that same finalized cost.
+ *
+ * `ignoreGender` (a per-call option, see `buildGraph`'s doc comment) widens which gender
+ * pairings a CROSS-species combo accepts, modeling Palworld's gender-changing item without
+ * touching node cost/reachability at all — see `buildGraph` for why self-cross combos are
+ * deliberately excluded from the widening.
  */
 
 /** Species-cost options only — `desiredPassives` is handled separately in `planSpecies`
  * since it has no meaningful "required" default and doesn't participate in the core
  * species-cost solve. */
-type CoreOptions = Required<Pick<SpeciesPlannerOptions, 'catchCost' | 'allowCatching'>> & {
+type CoreOptions = Required<Pick<SpeciesPlannerOptions, 'catchCost' | 'allowCatching' | 'ignoreGender'>> & {
   excludeFromCatching: Set<SpeciesId>;
 };
 
@@ -57,8 +62,23 @@ interface Graph {
 
 /** Build the full combination hypergraph once: every (parentA,parentB)->child combo the
  * ruleset can produce, expanded into gender-assignment hyperedges. Cheap at this graph
- * size (spec §7.1: "evaluating forward() on candidate pairs is cheap"). */
-function buildGraph(ruleset: BreedingRuleset): Graph {
+ * size (spec §7.1: "evaluating forward() on candidate pairs is cheap").
+ *
+ * `ignoreGender` (Palworld's gender-changing item lets you flip any individual's gender
+ * before breeding it) widens every CROSS-species combo (parentA's species !== parentB's) to
+ * also fire on the two SAME-gender pairings, alongside the two opposite-gender pairings that
+ * already covered every "you happen to have opposite genders" case. This is what actually
+ * unblocks: "I own two different species and both happen to be male" — genuinely
+ * unbreedable without a flip today, trivially fixed by flipping either one. Deliberately
+ * does NOT touch same-species (self-cross) combos: those still require an actual male AND
+ * an actual female of that one species, same as always. A self-cross's two parent slots are
+ * the SAME node type, so "widening" it the same way would let a single owned/caught
+ * individual satisfy both slots by flipping itself into two — i.e. breeding a Pal with
+ * itself, which no gender-changing item makes possible; you still need two distinct Pals.
+ * Cross-species combos have no such risk (the two slots are always two different species,
+ * hence provably two different individuals), so widening only cross-species keeps every
+ * dist value gender-accurate and multiplicity-safe with zero extra bookkeeping. */
+function buildGraph(ruleset: BreedingRuleset, ignoreGender: boolean): Graph {
   const edges: Edge[] = [];
   const edgesByInput = new Map<Node, number[]>();
 
@@ -99,6 +119,18 @@ function buildGraph(ruleset: BreedingRuleset): Graph {
             parentB: { species: b, gender: 'male' },
             child,
           });
+          if (ignoreGender) {
+            addEdge(node(a, 'male'), node(b, 'male'), node(child, childGender), {
+              parentA: { species: a, gender: 'male' },
+              parentB: { species: b, gender: 'male' },
+              child,
+            });
+            addEdge(node(a, 'female'), node(b, 'female'), node(child, childGender), {
+              parentA: { species: a, gender: 'female' },
+              parentB: { species: b, gender: 'female' },
+              child,
+            });
+          }
         }
       }
     }
@@ -107,17 +139,24 @@ function buildGraph(ruleset: BreedingRuleset): Graph {
   return { edges, edgesByInput };
 }
 
-/** `buildGraph` is a pure function of the ruleset alone (not the roster), and expensive at
- * real dataset scale (`reverse()` is an exhaustive O(n^2) scan per 0.2, called once per
- * species). `planSpecies` is called repeatedly against the same ruleset instance — most
- * heavily from `hubFinder`, which calls it once per candidate hub — so rebuilding the graph
- * every call turns a few-hundred-ms cost into minutes. Cache it per ruleset instance. */
-const graphCache = new WeakMap<BreedingRuleset, Graph>();
-function getGraph(ruleset: BreedingRuleset): Graph {
-  let graph = graphCache.get(ruleset);
+/** `buildGraph` is a pure function of the ruleset and the `ignoreGender` toggle, and
+ * expensive at real dataset scale (`reverse()` is an exhaustive O(n^2) scan per 0.2, called
+ * once per species). `planSpecies` is called repeatedly against the same ruleset instance —
+ * most heavily from `hubFinder`, which calls it once per candidate hub — so rebuilding the
+ * graph every call turns a few-hundred-ms cost into minutes. Cache it per (ruleset,
+ * ignoreGender) pair — the two toggle states are genuinely different graphs (widened vs not),
+ * not just different solves over the same one. */
+const graphCache = new WeakMap<BreedingRuleset, Map<boolean, Graph>>();
+function getGraph(ruleset: BreedingRuleset, ignoreGender: boolean): Graph {
+  let byToggle = graphCache.get(ruleset);
+  if (!byToggle) {
+    byToggle = new Map();
+    graphCache.set(ruleset, byToggle);
+  }
+  let graph = byToggle.get(ignoreGender);
   if (!graph) {
-    graph = buildGraph(ruleset);
-    graphCache.set(ruleset, graph);
+    graph = buildGraph(ruleset, ignoreGender);
+    byToggle.set(ignoreGender, graph);
   }
   return graph;
 }
@@ -196,7 +235,7 @@ function solveMasked(
   requiredPassives: PassiveId[],
   opts: CoreOptions,
 ): { dist: Map<TNode, number>; from: Map<TNode, TNodeSource>; leafEntryByTNode: Map<TNode, RosterEntry> } {
-  const graph = getGraph(ruleset); // the plain, unmodified base graph — no doubling
+  const graph = getGraph(ruleset, opts.ignoreGender); // ignoreGender widens cross-species edges; see buildGraph
   const dist = new Map<TNode, number>();
   const from = new Map<TNode, TNodeSource>();
   const finalized = new Set<TNode>();
@@ -618,7 +657,7 @@ function findAnchorHints(
   // target doesn't trivially "unlock itself".
   const candidates = Object.keys(ruleset.rankTable).filter((s) => s !== target && !alreadyReachable.has(s));
   const hints: AnchorHint[] = [];
-  const graph = getGraph(ruleset);
+  const graph = getGraph(ruleset, opts.ignoreGender);
 
   for (const species of candidates) {
     const hypotheticalRoster: RosterEntry[] = [
@@ -656,6 +695,7 @@ export function normalizeCoreOptions(options: SpeciesPlannerOptions = {}): CoreO
   return {
     catchCost: options.catchCost ?? 1,
     allowCatching: options.allowCatching ?? false,
+    ignoreGender: options.ignoreGender ?? false,
     excludeFromCatching: new Set(options.excludeFromCatching ?? []),
   };
 }
@@ -673,7 +713,7 @@ export interface SolveContext {
 /** Solve a roster once, ready to answer any number of target queries via `resultFromContext`. */
 export function solveContext(ruleset: BreedingRuleset, roster: RosterEntry[], options: SpeciesPlannerOptions = {}): SolveContext {
   const opts = normalizeCoreOptions(options);
-  const graph = getGraph(ruleset);
+  const graph = getGraph(ruleset, opts.ignoreGender);
   return { graph, state: solve(graph, roster, ruleset, opts), opts };
 }
 
