@@ -255,7 +255,7 @@ export default function SingleTargetView() {
                     )}
 
                     {(guaranteedCarrierAlt
-                      ? result.passivePlan.unassigned.filter((p) => !guaranteedCarrierAlt.routedPassives.includes(p))
+                      ? guaranteedCarrierAlt.requiredPassives.filter((p) => !guaranteedCarrierAlt.routedPassives.includes(p))
                       : result.passivePlan.unassigned
                     ).map((passiveId) => {
                       const label = passivesById.get(passiveId)?.displayName ?? passiveId;
@@ -266,7 +266,7 @@ export default function SingleTargetView() {
                           className="rounded-card border border-dashed border-border-input bg-white px-[18px] py-3 font-sans text-[12.5px] text-muted"
                         >
                           {owned
-                            ? `Even prioritizing the Pal that carries ${label}, no breeding route to ${targetSpecies?.displayName ?? target} was found under your current catch/roster settings.`
+                            ? `Even prioritizing the Pal that carries ${label}, no breeding route that jointly carries it alongside the rest of your desired perks was found under your current catch/roster settings.`
                             : `No Pal in your roster or connected servers carries ${label} — nothing to route in.`}
                         </div>
                       );

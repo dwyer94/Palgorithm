@@ -30,10 +30,11 @@ import type {
  * Two call shapes onto the same underlying search:
  * - `findCarrierAlternatives` — one alternative PER unassigned passive (legacy shape, kept
  *   unchanged for existing callers/tests): each call routes exactly one passive (k=1).
- * - `findGuaranteedCarrierAlternative` — the actual mode-2b fix: routes ALL unassigned
- *   passives jointly into ONE lineage when a route exists (spec §7.3: "must combine all of P
- *   into one lineage/tree whenever a route exists" — the AND, not OR, requirement), degrading
- *   to the largest jointly-routable subset when it can't (spec's "partial routing").
+ * - `findGuaranteedCarrierAlternative` — the actual mode-2b fix: routes ALL of P (the baseline's
+ *   full `desired` set, not just its `unassigned` residue — see that function's doc comment)
+ *   jointly into ONE lineage when a route exists (spec §7.3: "must combine all of P into one
+ *   lineage/tree whenever a route exists" — the AND, not OR, requirement), degrading to the
+ *   largest jointly-routable subset when it can't (spec's "partial routing").
  */
 
 export interface CarrierAlternative {
@@ -53,10 +54,13 @@ export interface CarrierAlternative {
   combinationDelta: number;
 }
 
-/** Mode 2b's actual result shape (spec §7.3): ONE plan jointly routing as many of the
- * baseline's unassigned passives as a single lineage can carry. */
+/** Mode 2b's actual result shape (spec §7.3): ONE plan jointly routing as much of the
+ * baseline's full desired passive set P as a single lineage can carry. */
 export interface GuaranteedCarrierAlternative {
-  /** The full set this was asked to route — `baseline.passivePlan.unassigned` at call time. */
+  /** The full set this was asked to route — `baseline.passivePlan.desired` at call time (all
+   * of P, not just the baseline's own `unassigned` residue — a passive the baseline happened
+   * to source for free on its own lineage isn't automatically present on this independently
+   * re-derived one). */
   requiredPassives: PassiveId[];
   /** Subset actually jointly routed into the one lineage below. */
   routedPassives: PassiveId[];
@@ -112,13 +116,17 @@ export function findCarrierAlternatives(
   return alternatives;
 }
 
-/** Mode 2b (spec §7.3): routes ALL of `baseline.passivePlan.unassigned` jointly into ONE
- * lineage when a route exists, instead of `findCarrierAlternatives`' one-tree-per-passive
- * shape — this is what fixes the AND/OR bug (two desired passives on two different owned Pals
- * now come back as a single combined tree, not two independent ones). Returns `null` when
- * there's nothing to route (no unassigned passives, nobody owns any of them, or the joint
- * search is fully infeasible) — the caller already has `baseline.passivePlan.unassigned` to
- * explain the "nothing to show" case. */
+/** Mode 2b (spec §7.3): routes ALL of `baseline.passivePlan.desired` (the full desired set P,
+ * not just the baseline's own `unassigned` residue) jointly into ONE lineage when a route
+ * exists, instead of `findCarrierAlternatives`' one-tree-per-passive shape — this is what
+ * fixes the AND/OR bug (two desired passives on two different owned Pals now come back as a
+ * single combined tree, not two independent ones). Gated on the baseline having at least one
+ * genuinely unassigned passive (otherwise there's nothing for a guaranteed tree to add over
+ * the baseline), but once triggered, forces the FULL set — a passive the baseline picked up
+ * for free on its own lineage isn't guaranteed to also sit on this independently re-derived
+ * one, so it must still be threaded through here rather than assumed. Returns `null` when
+ * there's nothing to route (baseline already covers everything, nobody owns any of P, or the
+ * joint search is fully infeasible). */
 export function findGuaranteedCarrierAlternative(
   ruleset: BreedingRuleset,
   roster: RosterEntry[],
@@ -126,7 +134,19 @@ export function findGuaranteedCarrierAlternative(
   baseline: SpeciesPlanResult,
   options: SpeciesPlannerOptions,
 ): GuaranteedCarrierAlternative | null {
-  const requiredPassives = baseline.passivePlan?.unassigned ?? [];
+  // Route the FULL desired set P (spec §7.3 mode 2b: "must combine all of P into one
+  // lineage... whenever a route exists"), not just `baseline.passivePlan.unassigned`. The
+  // baseline's "unassigned" split is scoped to the baseline's OWN final cross — a passive it
+  // marks "assigned" only did so on that specific lineage, which this alternate plan may not
+  // share at all (it's an independently re-derived tree). Forcing only the residue meant a
+  // passive the baseline happened to pick up for free could be silently absent from this
+  // tree, with nothing in `routedPassives`/`compoundedOdds` accounting for it either way —
+  // exactly the "silently drops a desired perk" failure §7.3's UI requirement forbids.
+  // `findForcedCarrierRoute`'s masked search still finds it for free wherever a roster leaf
+  // already carries it (spec's "prefer combining at the final cross"), so this doesn't cost
+  // more than necessary when the baseline's free pick is still reachable.
+  if (baseline.passivePlan?.unassigned.length === 0) return null;
+  const requiredPassives = baseline.passivePlan?.desired ?? [];
   if (requiredPassives.length === 0) return null;
   if (!requiredPassives.some((p) => roster.some((r) => r.passives?.includes(p)))) return null;
 

@@ -282,4 +282,60 @@ describe('passivePlanner: findGuaranteedCarrierAlternative (joint multi-passive 
     expect(baseline.passivePlan?.unassigned).toEqual(['Nobody']);
     expect(findGuaranteedCarrierAlternative(ruleset, roster, 'TARGET', baseline, {})).toBeNull();
   });
+
+  // Regression: the baseline's own final cross can pick up one of P for free (real-world
+  // case reported live — Sekhmet with two desired perks, where the opportunistic plan's tied
+  // final cross happened to already carry one of them). The guaranteed-carrier tree is an
+  // INDEPENDENTLY re-derived lineage, not an extension of the baseline's — so a passive the
+  // baseline sourced "for free" on its own tree isn't automatically present on this one. Before
+  // the fix, `findGuaranteedCarrierAlternative` only forced `baseline.passivePlan.unassigned`
+  // (the residue), so the already-assigned passive silently never entered `requiredPassives`,
+  // `routedPassives`, or the `compoundOdds` calculation at all — even when, as here, it was
+  // structurally present on the guaranteed tree's own final parent the whole time.
+  it('still routes (and reports) a passive the baseline already got for free, not just its unassigned residue', () => {
+    const freeDataset = synthetic(
+      [
+        { id: 'FODDER', rank: 5, standardBreedable: false },
+        { id: 'FODDER2', rank: 6, standardBreedable: false },
+        { id: 'CARRIER_B', rank: 1, wildCatchable: false, standardBreedable: false },
+        { id: 'MID_B', rank: 4, wildCatchable: false },
+        { id: 'TARGET', rank: 10, wildCatchable: false },
+      ],
+      [
+        { parents: ['FODDER', 'FODDER2'], child: 'TARGET', genderRule: null },
+        { parents: ['CARRIER_B', 'CARRIER_B'], child: 'MID_B', genderRule: null },
+        { parents: ['MID_B', 'FODDER'], child: 'TARGET', genderRule: null },
+      ],
+    );
+    const freeRuleset = createCombiRank06(freeDataset);
+    const freeRoster: RosterEntry[] = [
+      { species: 'FODDER', gender: 'male', passives: ['P1'] },
+      { species: 'FODDER', gender: 'female', passives: ['P1'] },
+      { species: 'FODDER2', gender: 'male' },
+      { species: 'FODDER2', gender: 'female' },
+      { species: 'CARRIER_B', gender: 'male', passives: ['P2'] },
+      { species: 'CARRIER_B', gender: 'female', passives: ['P2'] },
+    ];
+
+    const baseline = planSpecies(freeRuleset, freeRoster, 'TARGET', { desiredPassives: ['P1', 'P2'] });
+    expect(baseline.combinationCount).toBe(1); // cheap FODDER+FODDER2 baseline
+    expect(baseline.passivePlan?.desired).toEqual(['P1', 'P2']);
+    // P1 lands for free on the baseline's own final cross (FODDER carries it); P2 doesn't.
+    expect(baseline.passivePlan?.unassigned).toEqual(['P2']);
+
+    const alt = findGuaranteedCarrierAlternative(freeRuleset, freeRoster, 'TARGET', baseline, {});
+    expect(alt).not.toBeNull();
+    // Must still be asked to route BOTH — not just P2 — since this is an independently
+    // re-derived tree, not an extension of the baseline's.
+    expect(alt!.requiredPassives).toEqual(['P1', 'P2']);
+    expect(alt!.fullyRouted).toBe(true);
+    expect(alt!.routedPassives).toEqual(['P1', 'P2']);
+    expect(alt!.plan.combinationCount).toBe(2); // CARRIER_B self-cross -> MID_B, MID_B+FODDER -> TARGET
+
+    // The odds must account for BOTH passives at the final cross (FODDER x MID_B), not just
+    // the one that was "unassigned" — otherwise the reported compounded odds silently ignore
+    // a passive that's actually sitting right there on the final parent.
+    const finalCrossOdds = freeRuleset.passiveModel.landOdds(['P1'], ['P2'], ['P1', 'P2']).supersetContaining;
+    expect(alt!.compoundedOdds).toBeCloseTo(finalCrossOdds, 10);
+  });
 });
