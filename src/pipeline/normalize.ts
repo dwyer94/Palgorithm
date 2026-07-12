@@ -30,6 +30,7 @@ import { fileURLToPath } from 'node:url';
 import {
   DatasetSchema,
   ELEMENTS,
+  SIZES,
   type Dataset,
   type Species,
   type SpecialCombo,
@@ -88,6 +89,19 @@ interface MonsterRow {
   CombiRank?: number;
   MaleProbability?: number;
   IgnoreCombi?: Bool;
+  Size?: string;
+  Stamina?: number;
+  MaxFullStomach?: number;
+  FoodAmount?: number;
+  CaptureRateCorrect?: number;
+  Nocturnal?: Bool;
+  SlowWalkSpeed?: number;
+  WalkSpeed?: number;
+  RunSpeed?: number;
+  RideSprintSpeed?: number;
+  TransportSpeed?: number;
+  SwimSpeed?: number;
+  SwimDashSpeed?: number;
   [k: string]: unknown; // WorkSuitability_* etc.
 }
 interface CombiRow {
@@ -148,6 +162,14 @@ function mapElement(raw: string | undefined): (typeof ELEMENTS)[number] | null {
   const mapped = ELEMENT_MAP[tail];
   if (!mapped) throw new Error(`Unmapped element "${tail}" — extend ELEMENT_MAP`);
   return mapped;
+}
+
+/** Raw EPalSizeType tails (XS/S/M/L/XL) already match our closed SIZES set 1:1. */
+function mapSize(raw: string | undefined): (typeof SIZES)[number] | undefined {
+  const tail = enumTail(raw);
+  if (!tail || tail === 'None') return undefined;
+  if (!(SIZES as readonly string[]).includes(tail)) throw new Error(`Unmapped size "${tail}" — extend SIZES`);
+  return tail as (typeof SIZES)[number];
 }
 
 /** Raw EPalPassiveSkillEffectType tails → a human category for the UI's passive filter
@@ -396,6 +418,20 @@ function main(): void {
       rarity: typeof row.Rarity === 'number' ? row.Rarity : undefined,
       workSuitabilities: workSuits(row),
       baseStats: { hp: row.Hp, attack: row.ShotAttack, defense: row.Defense },
+      movement: {
+        slowWalk: row.SlowWalkSpeed,
+        walk: row.WalkSpeed,
+        run: row.RunSpeed,
+        rideSprint: row.RideSprintSpeed,
+        transport: row.TransportSpeed,
+        swim: row.SwimSpeed,
+        swimDash: row.SwimDashSpeed,
+      },
+      size: mapSize(row.Size),
+      stamina: row.Stamina,
+      food: { maxFullStomach: row.MaxFullStomach, foodAmount: row.FoodAmount },
+      captureRateCorrect: row.CaptureRateCorrect,
+      nocturnal: row.Nocturnal,
       icon,
       internalName: charId,
     });

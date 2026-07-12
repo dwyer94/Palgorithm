@@ -24,6 +24,10 @@ export const ELEMENTS = [
 ] as const;
 export const ElementSchema = z.enum(ELEMENTS);
 
+/** Palworld size classes (EPalSizeType, closed set). */
+export const SIZES = ['XS', 'S', 'M', 'L', 'XL'] as const;
+export const SizeSchema = z.enum(SIZES);
+
 export const GenderSchema = z.enum(['male', 'female']);
 
 export const GenderRatioSchema = z.object({
@@ -40,6 +44,23 @@ export const BaseStatsSchema = z.object({
   hp: z.number().optional(),
   attack: z.number().optional(),
   defense: z.number().optional(),
+});
+
+/** Raw movement speeds (SlowWalkSpeed/WalkSpeed/RunSpeed/RideSprintSpeed/TransportSpeed/
+ * SwimSpeed/SwimDashSpeed) — UI reference/filtering only, never breeding-critical. */
+export const MovementSchema = z.object({
+  slowWalk: z.number().optional(),
+  walk: z.number().optional(),
+  run: z.number().optional(),
+  rideSprint: z.number().optional(),
+  transport: z.number().optional(),
+  swim: z.number().optional(),
+  swimDash: z.number().optional(),
+});
+
+export const FoodSchema = z.object({
+  maxFullStomach: z.number().optional(),
+  foodAmount: z.number().optional(),
 });
 
 export const SpeciesSchema = z.object({
@@ -65,6 +86,12 @@ export const SpeciesSchema = z.object({
   rarity: z.number().int().optional(),
   workSuitabilities: z.array(WorkSuitabilitySchema).optional(),
   baseStats: BaseStatsSchema.optional(),
+  movement: MovementSchema.optional(),
+  size: SizeSchema.optional(),
+  stamina: z.number().optional(),
+  food: FoodSchema.optional(),
+  captureRateCorrect: z.number().optional(),
+  nocturnal: z.boolean().optional(),
   icon: z.string().optional(), // image path — UI only, not used by the solver
   internalName: z.string().optional(), // raw game name, for matching across sources
   aliases: z.array(z.string()).optional(),
@@ -173,6 +200,9 @@ export const DatasetSchema = z
     });
   });
 
+export type Size = z.infer<typeof SizeSchema>;
+export type Movement = z.infer<typeof MovementSchema>;
+export type Food = z.infer<typeof FoodSchema>;
 export type Element = z.infer<typeof ElementSchema>;
 export type Gender = z.infer<typeof GenderSchema>;
 export type GenderRatio = z.infer<typeof GenderRatioSchema>;

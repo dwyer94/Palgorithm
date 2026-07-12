@@ -3,8 +3,8 @@
     "version": "1.0",
     "ruleset": "combirank-0.6",
     "provisional": false,
-    "source": "FModel export of local Palworld 1.0 build (post Genetic Recombination patch, launched July 10 2026); usmap Mappings100.usmap; EN L10N names. Normalized by src/pipeline/normalize.ts. passiveModel (inherit/mutation odds) remains a flagged estimate (verified:false) — 1.0 added Mutation rolls and World Tree Passive Skills with no published odds yet (see project memory), not represented here.",
-    "generatedAt": "2026-07-10T19:54:07.537Z"
+    "source": "FModel export of local Palworld build 22461598 (species/names: usmap Mappings.0.6.6; passives: usmap Mappings073.usmap, same game build); EN L10N names. Normalized by src/pipeline/normalize.ts. passiveModel (inherit/mutation odds) remains a flagged estimate (verified:false) — the passive list itself is real extracted data.",
+    "generatedAt": "2026-07-12T05:01:59.141Z"
   },
   "species": [
     {
@@ -47,6 +47,23 @@
         "attack": 100,
         "defense": 100
       },
+      "movement": {
+        "slowWalk": 50,
+        "walk": 100,
+        "run": 600,
+        "rideSprint": 900,
+        "transport": 400,
+        "swim": 180,
+        "swimDash": 600
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 560,
+        "foodAmount": 6
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/BadCatgirl.png",
       "internalName": "BadCatgirl",
       "aliases": [
@@ -98,6 +115,23 @@
         "attack": 95,
         "defense": 100
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 150,
+        "run": 550,
+        "rideSprint": 700,
+        "transport": 350,
+        "swim": 550,
+        "swimDash": 550
+      },
+      "size": "S",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 380,
+        "foodAmount": 5
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/BlueberryFairy.png",
       "internalName": "BlueberryFairy",
       "aliases": [
@@ -144,6 +178,23 @@
         "attack": 75,
         "defense": 80
       },
+      "movement": {
+        "slowWalk": 50,
+        "walk": 100,
+        "run": 480,
+        "rideSprint": 720,
+        "transport": 220,
+        "swim": 864,
+        "swimDash": 1296
+      },
+      "size": "S",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 300,
+        "foodAmount": 4
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/BrownRabbit.png",
       "internalName": "BrownRabbit",
       "aliases": [
@@ -178,6 +229,23 @@
         "attack": 110,
         "defense": 110
       },
+      "movement": {
+        "slowWalk": 170,
+        "walk": 270,
+        "run": 840,
+        "rideSprint": 1260,
+        "transport": -1,
+        "swim": 252,
+        "swimDash": 378
+      },
+      "size": "L",
+      "stamina": 200,
+      "food": {
+        "maxFullStomach": 550,
+        "foodAmount": 8
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/GoldenHorse.png",
       "internalName": "GoldenHorse",
       "aliases": [
@@ -221,6 +289,23 @@
         "attack": 75,
         "defense": 115
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 150,
+        "run": 320,
+        "rideSprint": 500,
+        "transport": 190,
+        "swim": 320,
+        "swimDash": 320
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 280,
+        "foodAmount": 3
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/TentacleTurtle.png",
       "internalName": "TentacleTurtle",
       "aliases": [
@@ -264,6 +349,23 @@
         "attack": 85,
         "defense": 125
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 150,
+        "run": 320,
+        "rideSprint": 500,
+        "transport": 190,
+        "swim": 320,
+        "swimDash": 320
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 280,
+        "foodAmount": 3
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/TentacleTurtle_Ground.png",
       "internalName": "TentacleTurtle_Ground",
       "aliases": [
@@ -306,6 +408,23 @@
         "attack": 130,
         "defense": 100
       },
+      "movement": {
+        "slowWalk": 80,
+        "walk": 160,
+        "run": 800,
+        "rideSprint": 1000,
+        "transport": 480,
+        "swim": 240,
+        "swimDash": 300
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 540,
+        "foodAmount": 8
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/Anubis.png",
       "internalName": "Anubis",
       "aliases": [
@@ -353,6 +472,23 @@
         "attack": 100,
         "defense": 85
       },
+      "movement": {
+        "slowWalk": 80,
+        "walk": 160,
+        "run": 700,
+        "rideSprint": 960,
+        "transport": 320,
+        "swim": 75,
+        "swimDash": 75
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 380,
+        "foodAmount": 5
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/Baphomet.png",
       "internalName": "Baphomet",
       "aliases": [
@@ -395,6 +531,23 @@
         "attack": 105,
         "defense": 85
       },
+      "movement": {
+        "slowWalk": 80,
+        "walk": 160,
+        "run": 700,
+        "rideSprint": 960,
+        "transport": 320,
+        "swim": 75,
+        "swimDash": 75
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 380,
+        "foodAmount": 5
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/Baphomet_Dark.png",
       "internalName": "Baphomet_Dark",
       "aliases": [
@@ -435,6 +588,23 @@
         "attack": 60,
         "defense": 70
       },
+      "movement": {
+        "slowWalk": 52,
+        "walk": 105,
+        "run": 475,
+        "rideSprint": 550,
+        "transport": 317,
+        "swim": 142,
+        "swimDash": 165
+      },
+      "size": "XS",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 100,
+        "foodAmount": 1
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/Bastet.png",
       "internalName": "Bastet",
       "aliases": [
@@ -473,6 +643,23 @@
         "attack": 65,
         "defense": 70
       },
+      "movement": {
+        "slowWalk": 52,
+        "walk": 105,
+        "run": 475,
+        "rideSprint": 550,
+        "transport": 317,
+        "swim": 142,
+        "swimDash": 165
+      },
+      "size": "XS",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 100,
+        "foodAmount": 1
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/Bastet_Ice.png",
       "internalName": "Bastet_Ice",
       "aliases": [
@@ -507,6 +694,23 @@
         "attack": 70,
         "defense": 70
       },
+      "movement": {
+        "slowWalk": 70,
+        "walk": 150,
+        "run": 500,
+        "rideSprint": 800,
+        "transport": 300,
+        "swim": 150,
+        "swimDash": 240
+      },
+      "size": "S",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 100,
+        "foodAmount": 1
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/Boar.png",
       "internalName": "Boar",
       "aliases": [
@@ -557,6 +761,23 @@
         "attack": 70,
         "defense": 70
       },
+      "movement": {
+        "slowWalk": 20,
+        "walk": 40,
+        "run": 400,
+        "rideSprint": 550,
+        "transport": 250,
+        "swim": 120,
+        "swimDash": 165
+      },
+      "size": "XS",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 100,
+        "foodAmount": 1
+      },
+      "captureRateCorrect": 0.9,
+      "nocturnal": false,
       "icon": "/icons/pals/Carbunclo.png",
       "internalName": "Carbunclo",
       "aliases": [
@@ -591,6 +812,23 @@
         "attack": 75,
         "defense": 70
       },
+      "movement": {
+        "slowWalk": 30,
+        "walk": 60,
+        "run": 300,
+        "rideSprint": 550,
+        "transport": 170,
+        "swim": 90,
+        "swimDash": 165
+      },
+      "size": "S",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 150,
+        "foodAmount": 2
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/ColorfulBird.png",
       "internalName": "ColorfulBird",
       "aliases": [
@@ -625,6 +863,23 @@
         "attack": 80,
         "defense": 80
       },
+      "movement": {
+        "slowWalk": 80,
+        "walk": 120,
+        "run": 700,
+        "rideSprint": 900,
+        "transport": 390,
+        "swim": 210,
+        "swimDash": 270
+      },
+      "size": "L",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 140,
+        "foodAmount": 2
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/Deer.png",
       "internalName": "Deer",
       "aliases": [
@@ -659,6 +914,23 @@
         "attack": 80,
         "defense": 80
       },
+      "movement": {
+        "slowWalk": 80,
+        "walk": 120,
+        "run": 700,
+        "rideSprint": 900,
+        "transport": 390,
+        "swim": 105,
+        "swimDash": 135
+      },
+      "size": "L",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 140,
+        "foodAmount": 2
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/Deer_Ground.png",
       "internalName": "Deer_Ground",
       "aliases": [
@@ -693,6 +965,23 @@
         "attack": 95,
         "defense": 120
       },
+      "movement": {
+        "slowWalk": 75,
+        "walk": 120,
+        "run": 300,
+        "rideSprint": 420,
+        "transport": 190,
+        "swim": 90,
+        "swimDash": 126
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 350,
+        "foodAmount": 5
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/DrillGame.png",
       "internalName": "DrillGame",
       "aliases": [
@@ -728,6 +1017,23 @@
         "attack": 85,
         "defense": 60
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 200,
+        "run": 600,
+        "rideSprint": 700,
+        "transport": 400,
+        "swim": 600,
+        "swimDash": 600
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 150,
+        "foodAmount": 2
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/Eagle.png",
       "internalName": "Eagle",
       "aliases": [
@@ -774,6 +1080,23 @@
         "attack": 105,
         "defense": 105
       },
+      "movement": {
+        "slowWalk": 80,
+        "walk": 140,
+        "run": 600,
+        "rideSprint": 1000,
+        "transport": 210,
+        "swim": 180,
+        "swimDash": 300
+      },
+      "size": "L",
+      "stamina": 180,
+      "food": {
+        "maxFullStomach": 410,
+        "foodAmount": 6
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/ElecPanda.png",
       "internalName": "ElecPanda",
       "aliases": [
@@ -809,6 +1132,23 @@
         "attack": 60,
         "defense": 70
       },
+      "movement": {
+        "slowWalk": 30,
+        "walk": 60,
+        "run": 300,
+        "rideSprint": 400,
+        "transport": 180,
+        "swim": 90,
+        "swimDash": 120
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 100,
+        "foodAmount": 1
+      },
+      "captureRateCorrect": 1.3,
+      "nocturnal": false,
       "icon": "/icons/pals/Ganesha.png",
       "internalName": "Ganesha",
       "aliases": [
@@ -843,6 +1183,23 @@
         "attack": 90,
         "defense": 75
       },
+      "movement": {
+        "slowWalk": 90,
+        "walk": 180,
+        "run": 800,
+        "rideSprint": 1050,
+        "transport": 460,
+        "swim": 240,
+        "swimDash": 315
+      },
+      "size": "S",
+      "stamina": 70,
+      "food": {
+        "maxFullStomach": 150,
+        "foodAmount": 2
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/Garm.png",
       "internalName": "Garm",
       "aliases": [
@@ -886,6 +1243,23 @@
         "attack": 95,
         "defense": 90
       },
+      "movement": {
+        "slowWalk": 66,
+        "walk": 100,
+        "run": 550,
+        "rideSprint": 720,
+        "transport": 250,
+        "swim": 165,
+        "swimDash": 216
+      },
+      "size": "S",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 230,
+        "foodAmount": 3
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/Gorilla.png",
       "internalName": "Gorilla",
       "aliases": [
@@ -929,6 +1303,23 @@
         "attack": 100,
         "defense": 90
       },
+      "movement": {
+        "slowWalk": 66,
+        "walk": 100,
+        "run": 550,
+        "rideSprint": 720,
+        "transport": 250,
+        "swim": 82,
+        "swimDash": 108
+      },
+      "size": "S",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 230,
+        "foodAmount": 3
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/Gorilla_Ground.png",
       "internalName": "Gorilla_Ground",
       "aliases": [
@@ -963,6 +1354,23 @@
         "attack": 75,
         "defense": 70
       },
+      "movement": {
+        "slowWalk": 30,
+        "walk": 60,
+        "run": 400,
+        "rideSprint": 550,
+        "transport": 215,
+        "swim": 120,
+        "swimDash": 165
+      },
+      "size": "XS",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 100,
+        "foodAmount": 1
+      },
+      "captureRateCorrect": 1.2,
+      "nocturnal": false,
       "icon": "/icons/pals/Hedgehog.png",
       "internalName": "Hedgehog",
       "aliases": [
@@ -997,6 +1405,23 @@
         "attack": 75,
         "defense": 80
       },
+      "movement": {
+        "slowWalk": 30,
+        "walk": 60,
+        "run": 400,
+        "rideSprint": 550,
+        "transport": 215,
+        "swim": 120,
+        "swimDash": 165
+      },
+      "size": "XS",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 100,
+        "foodAmount": 1
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/Hedgehog_Ice.png",
       "internalName": "Hedgehog_Ice",
       "aliases": [
@@ -1035,6 +1460,23 @@
         "attack": 105,
         "defense": 105
       },
+      "movement": {
+        "slowWalk": 80,
+        "walk": 130,
+        "run": 720,
+        "rideSprint": 1100,
+        "transport": 425,
+        "swim": 216,
+        "swimDash": 330
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 210,
+        "foodAmount": 3
+      },
+      "captureRateCorrect": 0.9,
+      "nocturnal": false,
       "icon": "/icons/pals/Kirin.png",
       "internalName": "Kirin",
       "aliases": [
@@ -1073,6 +1515,23 @@
         "attack": 105,
         "defense": 110
       },
+      "movement": {
+        "slowWalk": 80,
+        "walk": 130,
+        "run": 720,
+        "rideSprint": 1100,
+        "transport": 425,
+        "swim": 216,
+        "swimDash": 330
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 210,
+        "foodAmount": 3
+      },
+      "captureRateCorrect": 0.9,
+      "nocturnal": false,
       "icon": "/icons/pals/Kirin_Ice.png",
       "internalName": "Kirin_Ice",
       "aliases": [
@@ -1107,6 +1566,23 @@
         "attack": 75,
         "defense": 70
       },
+      "movement": {
+        "slowWalk": 40,
+        "walk": 80,
+        "run": 400,
+        "rideSprint": 550,
+        "transport": 240,
+        "swim": 120,
+        "swimDash": 165
+      },
+      "size": "XS",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 100,
+        "foodAmount": 1
+      },
+      "captureRateCorrect": 1.1,
+      "nocturnal": false,
       "icon": "/icons/pals/Kitsunebi.png",
       "internalName": "Kitsunebi",
       "aliases": [
@@ -1157,6 +1633,23 @@
         "attack": 80,
         "defense": 80
       },
+      "movement": {
+        "slowWalk": 50,
+        "walk": 100,
+        "run": 400,
+        "rideSprint": 550,
+        "transport": 250,
+        "swim": 120,
+        "swimDash": 165
+      },
+      "size": "S",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 140,
+        "foodAmount": 2
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/LittleBriarRose.png",
       "internalName": "LittleBriarRose",
       "aliases": [
@@ -1199,6 +1692,23 @@
         "attack": 100,
         "defense": 90
       },
+      "movement": {
+        "slowWalk": 80,
+        "walk": 130,
+        "run": 500,
+        "rideSprint": 650,
+        "transport": 315,
+        "swim": 500,
+        "swimDash": 500
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 300,
+        "foodAmount": 4
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/Mutant.png",
       "internalName": "Mutant",
       "aliases": [
@@ -1246,6 +1756,23 @@
         "attack": 75,
         "defense": 70
       },
+      "movement": {
+        "slowWalk": 30,
+        "walk": 60,
+        "run": 500,
+        "rideSprint": 650,
+        "transport": 265,
+        "swim": 900,
+        "swimDash": 1170
+      },
+      "size": "XS",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 100,
+        "foodAmount": 1
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/Penguin.png",
       "internalName": "Penguin",
       "aliases": [
@@ -1293,6 +1820,23 @@
         "attack": 80,
         "defense": 70
       },
+      "movement": {
+        "slowWalk": 30,
+        "walk": 60,
+        "run": 500,
+        "rideSprint": 650,
+        "transport": 265,
+        "swim": 500,
+        "swimDash": 650
+      },
+      "size": "XS",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 100,
+        "foodAmount": 1
+      },
+      "captureRateCorrect": 0.9,
+      "nocturnal": false,
       "icon": "/icons/pals/Penguin_Electric.png",
       "internalName": "Penguin_Electric",
       "aliases": [
@@ -1335,6 +1879,23 @@
         "attack": 80,
         "defense": 70
       },
+      "movement": {
+        "slowWalk": 120,
+        "walk": 200,
+        "run": 400,
+        "rideSprint": 550,
+        "transport": 300,
+        "swim": 400,
+        "swimDash": 400
+      },
+      "size": "XS",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 150,
+        "foodAmount": 2
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/RaijinDaughter.png",
       "internalName": "RaijinDaughter",
       "aliases": [
@@ -1377,6 +1938,23 @@
         "attack": 90,
         "defense": 75
       },
+      "movement": {
+        "slowWalk": 50,
+        "walk": 80,
+        "run": 400,
+        "rideSprint": 500,
+        "transport": 120,
+        "swim": 720,
+        "swimDash": 900
+      },
+      "size": "S",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 150,
+        "foodAmount": 2
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/SharkKid.png",
       "internalName": "SharkKid",
       "aliases": [
@@ -1419,6 +1997,23 @@
         "attack": 90,
         "defense": 75
       },
+      "movement": {
+        "slowWalk": 50,
+        "walk": 80,
+        "run": 400,
+        "rideSprint": 500,
+        "transport": 120,
+        "swim": 400,
+        "swimDash": 500
+      },
+      "size": "S",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 150,
+        "foodAmount": 2
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/SharkKid_Fire.png",
       "internalName": "SharkKid_Fire",
       "aliases": [
@@ -1461,6 +2056,23 @@
         "attack": 70,
         "defense": 70
       },
+      "movement": {
+        "slowWalk": 23,
+        "walk": 40,
+        "run": 400,
+        "rideSprint": 550,
+        "transport": 160,
+        "swim": 120,
+        "swimDash": 165
+      },
+      "size": "XS",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 100,
+        "foodAmount": 1
+      },
+      "captureRateCorrect": 1.5,
+      "nocturnal": false,
       "icon": "/icons/pals/SheepBall.png",
       "internalName": "SheepBall",
       "aliases": [
@@ -1496,6 +2108,23 @@
         "attack": 120,
         "defense": 100
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 175,
+        "run": 600,
+        "rideSprint": 1000,
+        "transport": 350,
+        "swim": 1080,
+        "swimDash": 1800
+      },
+      "size": "XL",
+      "stamina": 150,
+      "food": {
+        "maxFullStomach": 550,
+        "foodAmount": 8
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/Umihebi.png",
       "internalName": "Umihebi",
       "aliases": [
@@ -1531,6 +2160,23 @@
         "attack": 130,
         "defense": 100
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 175,
+        "run": 600,
+        "rideSprint": 1000,
+        "transport": 350,
+        "swim": 600,
+        "swimDash": 1000
+      },
+      "size": "XL",
+      "stamina": 150,
+      "food": {
+        "maxFullStomach": 550,
+        "foodAmount": 8
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/Umihebi_Fire.png",
       "internalName": "Umihebi_Fire",
       "aliases": [
@@ -1566,6 +2212,23 @@
         "attack": 100,
         "defense": 80
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 175,
+        "run": 600,
+        "rideSprint": 800,
+        "transport": 375,
+        "swim": 75,
+        "swimDash": 75
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 210,
+        "foodAmount": 3
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/Werewolf.png",
       "internalName": "Werewolf",
       "aliases": [
@@ -1608,6 +2271,23 @@
         "attack": 70,
         "defense": 70
       },
+      "movement": {
+        "slowWalk": 50,
+        "walk": 100,
+        "run": 400,
+        "rideSprint": 550,
+        "transport": 250,
+        "swim": 400,
+        "swimDash": 400
+      },
+      "size": "XS",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 100,
+        "foodAmount": 1
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/WindChimes.png",
       "internalName": "WindChimes",
       "aliases": [
@@ -1654,6 +2334,23 @@
         "attack": 80,
         "defense": 70
       },
+      "movement": {
+        "slowWalk": 50,
+        "walk": 100,
+        "run": 400,
+        "rideSprint": 550,
+        "transport": 250,
+        "swim": 400,
+        "swimDash": 400
+      },
+      "size": "XS",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 100,
+        "foodAmount": 1
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/WindChimes_Ice.png",
       "internalName": "WindChimes_Ice",
       "aliases": [
@@ -1688,6 +2385,23 @@
         "attack": 105,
         "defense": 105
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 200,
+        "run": 850,
+        "rideSprint": 1100,
+        "transport": 450,
+        "swim": 850,
+        "swimDash": 850
+      },
+      "size": "XL",
+      "stamina": 350,
+      "food": {
+        "maxFullStomach": 460,
+        "foodAmount": 7
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/Suzaku.png",
       "internalName": "Suzaku",
       "aliases": [
@@ -1723,6 +2437,23 @@
         "attack": 105,
         "defense": 105
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 200,
+        "run": 850,
+        "rideSprint": 1100,
+        "transport": 450,
+        "swim": 850,
+        "swimDash": 850
+      },
+      "size": "XL",
+      "stamina": 350,
+      "food": {
+        "maxFullStomach": 460,
+        "foodAmount": 7
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/Suzaku_Water.png",
       "internalName": "Suzaku_Water",
       "aliases": [
@@ -1761,6 +2492,23 @@
         "attack": 95,
         "defense": 90
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 150,
+        "run": 850,
+        "rideSprint": 1300,
+        "transport": 500,
+        "swim": 255,
+        "swimDash": 390
+      },
+      "size": "L",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 280,
+        "foodAmount": 4
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/FireKirin.png",
       "internalName": "FireKirin",
       "aliases": [
@@ -1800,6 +2548,23 @@
         "attack": 95,
         "defense": 90
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 150,
+        "run": 850,
+        "rideSprint": 1300,
+        "transport": 500,
+        "swim": 255,
+        "swimDash": 390
+      },
+      "size": "L",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 280,
+        "foodAmount": 4
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/FireKirin_Dark.png",
       "internalName": "FireKirin_Dark",
       "aliases": [
@@ -1834,6 +2599,23 @@
         "attack": 80,
         "defense": 90
       },
+      "movement": {
+        "slowWalk": 83,
+        "walk": 83,
+        "run": 630,
+        "rideSprint": 800,
+        "transport": 456,
+        "swim": 189,
+        "swimDash": 240
+      },
+      "size": "L",
+      "stamina": 130,
+      "food": {
+        "maxFullStomach": 200,
+        "foodAmount": 3
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/FairyDragon.png",
       "internalName": "FairyDragon",
       "aliases": [
@@ -1874,6 +2656,23 @@
         "attack": 80,
         "defense": 95
       },
+      "movement": {
+        "slowWalk": 83,
+        "walk": 83,
+        "run": 630,
+        "rideSprint": 800,
+        "transport": 456,
+        "swim": 1134,
+        "swimDash": 1440
+      },
+      "size": "L",
+      "stamina": 130,
+      "food": {
+        "maxFullStomach": 200,
+        "foodAmount": 3
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/FairyDragon_Water.png",
       "internalName": "FairyDragon_Water",
       "aliases": [
@@ -1908,6 +2707,23 @@
         "attack": 70,
         "defense": 90
       },
+      "movement": {
+        "slowWalk": 50,
+        "walk": 100,
+        "run": 300,
+        "rideSprint": 400,
+        "transport": 200,
+        "swim": 300,
+        "swimDash": 400
+      },
+      "size": "S",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 100,
+        "foodAmount": 1
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/SweetsSheep.png",
       "internalName": "SweetsSheep",
       "aliases": [
@@ -1942,6 +2758,23 @@
         "attack": 70,
         "defense": 95
       },
+      "movement": {
+        "slowWalk": 50,
+        "walk": 100,
+        "run": 300,
+        "rideSprint": 400,
+        "transport": 200,
+        "swim": 300,
+        "swimDash": 400
+      },
+      "size": "S",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 100,
+        "foodAmount": 1
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/SweetsSheep_Ground.png",
       "internalName": "SweetsSheep_Ground",
       "aliases": [
@@ -1988,6 +2821,23 @@
         "attack": 100,
         "defense": 110
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 280,
+        "run": 720,
+        "rideSprint": 900,
+        "transport": 460,
+        "swim": 100,
+        "swimDash": 100
+      },
+      "size": "L",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 480,
+        "foodAmount": 7
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/WhiteTiger.png",
       "internalName": "WhiteTiger",
       "aliases": [
@@ -2022,6 +2872,23 @@
         "attack": 75,
         "defense": 90
       },
+      "movement": {
+        "slowWalk": 62,
+        "walk": 62,
+        "run": 500,
+        "rideSprint": 900,
+        "transport": 261,
+        "swim": 150,
+        "swimDash": 270
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 150,
+        "foodAmount": 2
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/Alpaca.png",
       "internalName": "Alpaca",
       "aliases": [
@@ -2060,6 +2927,23 @@
         "attack": 90,
         "defense": 80
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 200,
+        "run": 500,
+        "rideSprint": 800,
+        "transport": 350,
+        "swim": 900,
+        "swimDash": 1440
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 210,
+        "foodAmount": 3
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/Serpent.png",
       "internalName": "Serpent",
       "aliases": [
@@ -2094,6 +2978,23 @@
         "attack": 90,
         "defense": 100
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 200,
+        "run": 500,
+        "rideSprint": 800,
+        "transport": 350,
+        "swim": 500,
+        "swimDash": 500
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 210,
+        "foodAmount": 3
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/Serpent_Ground.png",
       "internalName": "Serpent_Ground",
       "aliases": [
@@ -2132,6 +3033,23 @@
         "attack": 95,
         "defense": 80
       },
+      "movement": {
+        "slowWalk": 85,
+        "walk": 170,
+        "run": 920,
+        "rideSprint": 1200,
+        "transport": 545,
+        "swim": 276,
+        "swimDash": 360
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 210,
+        "foodAmount": 3
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/DarkCrow.png",
       "internalName": "DarkCrow",
       "aliases": [
@@ -2167,6 +3085,23 @@
         "attack": 100,
         "defense": 100
       },
+      "movement": {
+        "slowWalk": 75,
+        "walk": 150,
+        "run": 600,
+        "rideSprint": 900,
+        "transport": 350,
+        "swim": 920,
+        "swimDash": 1000
+      },
+      "size": "L",
+      "stamina": 160,
+      "food": {
+        "maxFullStomach": 340,
+        "foodAmount": 5
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/BlueDragon.png",
       "internalName": "BlueDragon",
       "aliases": [
@@ -2202,6 +3137,23 @@
         "attack": 105,
         "defense": 105
       },
+      "movement": {
+        "slowWalk": 75,
+        "walk": 150,
+        "run": 600,
+        "rideSprint": 900,
+        "transport": 350,
+        "swim": 920,
+        "swimDash": 1000
+      },
+      "size": "L",
+      "stamina": 160,
+      "food": {
+        "maxFullStomach": 340,
+        "foodAmount": 5
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/BlueDragon_Ice.png",
       "internalName": "BlueDragon_Ice",
       "aliases": [
@@ -2248,6 +3200,23 @@
         "attack": 70,
         "defense": 70
       },
+      "movement": {
+        "slowWalk": 30,
+        "walk": 60,
+        "run": 400,
+        "rideSprint": 550,
+        "transport": 160,
+        "swim": 50,
+        "swimDash": 50
+      },
+      "size": "XS",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 100,
+        "foodAmount": 1
+      },
+      "captureRateCorrect": 1.5,
+      "nocturnal": false,
       "icon": "/icons/pals/PinkCat.png",
       "internalName": "PinkCat",
       "aliases": [
@@ -2294,6 +3263,23 @@
         "attack": 70,
         "defense": 70
       },
+      "movement": {
+        "slowWalk": 20,
+        "walk": 20,
+        "run": 300,
+        "rideSprint": 400,
+        "transport": 100,
+        "swim": 90,
+        "swimDash": 120
+      },
+      "size": "XS",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 100,
+        "foodAmount": 1
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/NegativeKoala.png",
       "internalName": "NegativeKoala",
       "aliases": [
@@ -2328,6 +3314,23 @@
         "attack": 110,
         "defense": 90
       },
+      "movement": {
+        "slowWalk": 85,
+        "walk": 100,
+        "run": 750,
+        "rideSprint": 1050,
+        "transport": 417,
+        "swim": 225,
+        "swimDash": 315
+      },
+      "size": "S",
+      "stamina": 140,
+      "food": {
+        "maxFullStomach": 340,
+        "foodAmount": 5
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/FengyunDeeper.png",
       "internalName": "FengyunDeeper",
       "aliases": [
@@ -2367,6 +3370,23 @@
         "attack": 105,
         "defense": 120
       },
+      "movement": {
+        "slowWalk": 50,
+        "walk": 80,
+        "run": 550,
+        "rideSprint": 1000,
+        "transport": 235,
+        "swim": 165,
+        "swimDash": 300
+      },
+      "size": "L",
+      "stamina": 220,
+      "food": {
+        "maxFullStomach": 490,
+        "foodAmount": 7
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/VolcanicMonster.png",
       "internalName": "VolcanicMonster",
       "aliases": [
@@ -2406,6 +3426,23 @@
         "attack": 105,
         "defense": 130
       },
+      "movement": {
+        "slowWalk": 50,
+        "walk": 80,
+        "run": 550,
+        "rideSprint": 1000,
+        "transport": 235,
+        "swim": 165,
+        "swimDash": 300
+      },
+      "size": "L",
+      "stamina": 220,
+      "food": {
+        "maxFullStomach": 490,
+        "foodAmount": 7
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/VolcanicMonster_Ice.png",
       "internalName": "VolcanicMonster_Ice",
       "aliases": [
@@ -2445,6 +3482,23 @@
         "attack": 105,
         "defense": 80
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 160,
+        "run": 700,
+        "rideSprint": 1100,
+        "transport": 365,
+        "swim": 210,
+        "swimDash": 330
+      },
+      "size": "M",
+      "stamina": 130,
+      "food": {
+        "maxFullStomach": 380,
+        "foodAmount": 5
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/GhostBeast.png",
       "internalName": "GhostBeast",
       "aliases": [
@@ -2500,6 +3554,23 @@
         "attack": 105,
         "defense": 80
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 100,
+        "run": 600,
+        "rideSprint": 750,
+        "transport": 400,
+        "swim": 180,
+        "swimDash": 225
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 230,
+        "foodAmount": 3
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/RobinHood.png",
       "internalName": "RobinHood",
       "aliases": [
@@ -2551,6 +3622,23 @@
         "attack": 105,
         "defense": 80
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 100,
+        "run": 600,
+        "rideSprint": 750,
+        "transport": 400,
+        "swim": 90,
+        "swimDash": 112
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 230,
+        "foodAmount": 3
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/RobinHood_Ground.png",
       "internalName": "RobinHood_Ground",
       "aliases": [
@@ -2590,6 +3678,23 @@
         "attack": 115,
         "defense": 110
       },
+      "movement": {
+        "slowWalk": 40,
+        "walk": 60,
+        "run": 650,
+        "rideSprint": 1000,
+        "transport": 150,
+        "swim": 1170,
+        "swimDash": 1800
+      },
+      "size": "XL",
+      "stamina": 200,
+      "food": {
+        "maxFullStomach": 480,
+        "foodAmount": 7
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/LazyDragon.png",
       "internalName": "LazyDragon",
       "aliases": [
@@ -2630,6 +3735,23 @@
         "attack": 120,
         "defense": 110
       },
+      "movement": {
+        "slowWalk": 40,
+        "walk": 60,
+        "run": 650,
+        "rideSprint": 1000,
+        "transport": 150,
+        "swim": 650,
+        "swimDash": 1000
+      },
+      "size": "XL",
+      "stamina": 200,
+      "food": {
+        "maxFullStomach": 480,
+        "foodAmount": 7
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/LazyDragon_Electric.png",
       "internalName": "LazyDragon_Electric",
       "aliases": [
@@ -2664,6 +3786,23 @@
         "attack": 115,
         "defense": 100
       },
+      "movement": {
+        "slowWalk": 80,
+        "walk": 130,
+        "run": 700,
+        "rideSprint": 1100,
+        "transport": 415,
+        "swim": 210,
+        "swimDash": 330
+      },
+      "size": "M",
+      "stamina": 140,
+      "food": {
+        "maxFullStomach": 380,
+        "foodAmount": 5
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/AmaterasuWolf.png",
       "internalName": "AmaterasuWolf",
       "aliases": [
@@ -2707,6 +3846,23 @@
         "attack": 80,
         "defense": 50
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 140,
+        "run": 600,
+        "rideSprint": 800,
+        "transport": 270,
+        "swim": 150,
+        "swimDash": 150
+      },
+      "size": "S",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 150,
+        "foodAmount": 2
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/LizardMan.png",
       "internalName": "LizardMan",
       "aliases": [
@@ -2754,6 +3910,23 @@
         "attack": 80,
         "defense": 50
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 140,
+        "run": 400,
+        "rideSprint": 550,
+        "transport": 270,
+        "swim": 75,
+        "swimDash": 75
+      },
+      "size": "S",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 150,
+        "foodAmount": 2
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/LizardMan_Fire.png",
       "internalName": "LizardMan_Fire",
       "aliases": [
@@ -2796,6 +3969,23 @@
         "attack": 80,
         "defense": 60
       },
+      "movement": {
+        "slowWalk": 70,
+        "walk": 105,
+        "run": 300,
+        "rideSprint": 400,
+        "transport": 202,
+        "swim": 540,
+        "swimDash": 720
+      },
+      "size": "XS",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 100,
+        "foodAmount": 1
+      },
+      "captureRateCorrect": 1.1,
+      "nocturnal": false,
       "icon": "/icons/pals/BluePlatypus.png",
       "internalName": "BluePlatypus",
       "aliases": [
@@ -2843,6 +4033,23 @@
         "attack": 85,
         "defense": 60
       },
+      "movement": {
+        "slowWalk": 70,
+        "walk": 105,
+        "run": 300,
+        "rideSprint": 400,
+        "transport": 202,
+        "swim": 300,
+        "swimDash": 300
+      },
+      "size": "XS",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 100,
+        "foodAmount": 1
+      },
+      "captureRateCorrect": 1.1,
+      "nocturnal": false,
       "icon": "/icons/pals/BluePlatypus_Fire.png",
       "internalName": "BluePlatypus_Fire",
       "aliases": [
@@ -2882,6 +4089,23 @@
         "attack": 115,
         "defense": 90
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 350,
+        "run": 700,
+        "rideSprint": 850,
+        "transport": 475,
+        "swim": 700,
+        "swimDash": 700
+      },
+      "size": "L",
+      "stamina": 150,
+      "food": {
+        "maxFullStomach": 340,
+        "foodAmount": 5
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/BirdDragon.png",
       "internalName": "BirdDragon",
       "aliases": [
@@ -2922,6 +4146,23 @@
         "attack": 120,
         "defense": 95
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 350,
+        "run": 700,
+        "rideSprint": 850,
+        "transport": 475,
+        "swim": 700,
+        "swimDash": 700
+      },
+      "size": "L",
+      "stamina": 150,
+      "food": {
+        "maxFullStomach": 340,
+        "foodAmount": 5
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/BirdDragon_Ice.png",
       "internalName": "BirdDragon_Ice",
       "aliases": [
@@ -2960,6 +4201,23 @@
         "attack": 60,
         "defense": 60
       },
+      "movement": {
+        "slowWalk": 50,
+        "walk": 50,
+        "run": 375,
+        "rideSprint": 550,
+        "transport": 212,
+        "swim": 50,
+        "swimDash": 50
+      },
+      "size": "XS",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 100,
+        "foodAmount": 1
+      },
+      "captureRateCorrect": 1.5,
+      "nocturnal": false,
       "icon": "/icons/pals/ChickenPal.png",
       "internalName": "ChickenPal",
       "aliases": [
@@ -2999,6 +4257,23 @@
         "attack": 85,
         "defense": 90
       },
+      "movement": {
+        "slowWalk": 70,
+        "walk": 120,
+        "run": 700,
+        "rideSprint": 1030,
+        "transport": 335,
+        "swim": 210,
+        "swimDash": 309
+      },
+      "size": "L",
+      "stamina": 130,
+      "food": {
+        "maxFullStomach": 270,
+        "foodAmount": 4
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/FlowerDinosaur.png",
       "internalName": "FlowerDinosaur",
       "aliases": [
@@ -3039,6 +4314,23 @@
         "attack": 90,
         "defense": 90
       },
+      "movement": {
+        "slowWalk": 70,
+        "walk": 120,
+        "run": 700,
+        "rideSprint": 1030,
+        "transport": 335,
+        "swim": 210,
+        "swimDash": 309
+      },
+      "size": "L",
+      "stamina": 130,
+      "food": {
+        "maxFullStomach": 270,
+        "foodAmount": 4
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/FlowerDinosaur_Electric.png",
       "internalName": "FlowerDinosaur_Electric",
       "aliases": [
@@ -3085,6 +4377,23 @@
         "attack": 75,
         "defense": 70
       },
+      "movement": {
+        "slowWalk": 40,
+        "walk": 80,
+        "run": 350,
+        "rideSprint": 500,
+        "transport": 270,
+        "swim": 105,
+        "swimDash": 150
+      },
+      "size": "XS",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 100,
+        "foodAmount": 1
+      },
+      "captureRateCorrect": 1.1,
+      "nocturnal": false,
       "icon": "/icons/pals/ElecCat.png",
       "internalName": "ElecCat",
       "aliases": [
@@ -3119,6 +4428,23 @@
         "attack": 140,
         "defense": 120
       },
+      "movement": {
+        "slowWalk": 120,
+        "walk": 120,
+        "run": 1200,
+        "rideSprint": 1800,
+        "transport": 440,
+        "swim": 360,
+        "swimDash": 540
+      },
+      "size": "L",
+      "stamina": 300,
+      "food": {
+        "maxFullStomach": 620,
+        "foodAmount": 9
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/IceHorse.png",
       "internalName": "IceHorse",
       "aliases": [
@@ -3153,6 +4479,23 @@
         "attack": 140,
         "defense": 135
       },
+      "movement": {
+        "slowWalk": 120,
+        "walk": 120,
+        "run": 1200,
+        "rideSprint": 1800,
+        "transport": 440,
+        "swim": 360,
+        "swimDash": 540
+      },
+      "size": "L",
+      "stamina": 300,
+      "food": {
+        "maxFullStomach": 620,
+        "foodAmount": 9
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/IceHorse_Dark.png",
       "internalName": "IceHorse_Dark",
       "aliases": [
@@ -3196,6 +4539,23 @@
         "attack": 85,
         "defense": 90
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 135,
+        "run": 600,
+        "rideSprint": 1030,
+        "transport": 282,
+        "swim": 180,
+        "swimDash": 309
+      },
+      "size": "XL",
+      "stamina": 180,
+      "food": {
+        "maxFullStomach": 400,
+        "foodAmount": 6
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/GrassMammoth.png",
       "internalName": "GrassMammoth",
       "aliases": [
@@ -3239,6 +4599,23 @@
         "attack": 85,
         "defense": 90
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 135,
+        "run": 600,
+        "rideSprint": 1030,
+        "transport": 282,
+        "swim": 180,
+        "swimDash": 309
+      },
+      "size": "XL",
+      "stamina": 180,
+      "food": {
+        "maxFullStomach": 400,
+        "foodAmount": 6
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/GrassMammoth_Ice.png",
       "internalName": "GrassMammoth_Ice",
       "aliases": [
@@ -3274,6 +4651,23 @@
         "attack": 105,
         "defense": 110
       },
+      "movement": {
+        "slowWalk": 60,
+        "walk": 100,
+        "run": 550,
+        "rideSprint": 700,
+        "transport": 325,
+        "swim": 550,
+        "swimDash": 550
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 490,
+        "foodAmount": 7
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/CatVampire.png",
       "internalName": "CatVampire",
       "aliases": [
@@ -3308,6 +4702,23 @@
         "attack": 90,
         "defense": 100
       },
+      "movement": {
+        "slowWalk": 50,
+        "walk": 75,
+        "run": 550,
+        "rideSprint": 1020,
+        "transport": 200,
+        "swim": 165,
+        "swimDash": 306
+      },
+      "size": "XL",
+      "stamina": 150,
+      "food": {
+        "maxFullStomach": 410,
+        "foodAmount": 6
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/SakuraSaurus.png",
       "internalName": "SakuraSaurus",
       "aliases": [
@@ -3343,6 +4754,23 @@
         "attack": 95,
         "defense": 100
       },
+      "movement": {
+        "slowWalk": 50,
+        "walk": 75,
+        "run": 550,
+        "rideSprint": 1020,
+        "transport": 200,
+        "swim": 550,
+        "swimDash": 1020
+      },
+      "size": "XL",
+      "stamina": 150,
+      "food": {
+        "maxFullStomach": 410,
+        "foodAmount": 6
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/SakuraSaurus_Water.png",
       "internalName": "SakuraSaurus_Water",
       "aliases": [
@@ -3381,6 +4809,23 @@
         "attack": 110,
         "defense": 115
       },
+      "movement": {
+        "slowWalk": 150,
+        "walk": 200,
+        "run": 1000,
+        "rideSprint": 1400,
+        "transport": 500,
+        "swim": 1000,
+        "swimDash": 1000
+      },
+      "size": "L",
+      "stamina": 230,
+      "food": {
+        "maxFullStomach": 600,
+        "foodAmount": 9
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/Horus.png",
       "internalName": "Horus",
       "aliases": [
@@ -3421,6 +4866,23 @@
         "attack": 125,
         "defense": 120
       },
+      "movement": {
+        "slowWalk": 150,
+        "walk": 400,
+        "run": 800,
+        "rideSprint": 1200,
+        "transport": 500,
+        "swim": 100,
+        "swimDash": 100
+      },
+      "size": "XL",
+      "stamina": 190,
+      "food": {
+        "maxFullStomach": 600,
+        "foodAmount": 9
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/KingBahamut.png",
       "internalName": "KingBahamut",
       "aliases": [
@@ -3460,6 +4922,23 @@
         "attack": 130,
         "defense": 125
       },
+      "movement": {
+        "slowWalk": 150,
+        "walk": 400,
+        "run": 800,
+        "rideSprint": 1200,
+        "transport": 500,
+        "swim": 100,
+        "swimDash": 100
+      },
+      "size": "XL",
+      "stamina": 190,
+      "food": {
+        "maxFullStomach": 600,
+        "foodAmount": 9
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/KingBahamut_Dragon.png",
       "internalName": "KingBahamut_Dragon",
       "aliases": [
@@ -3499,6 +4978,23 @@
         "attack": 70,
         "defense": 90
       },
+      "movement": {
+        "slowWalk": 70,
+        "walk": 70,
+        "run": 400,
+        "rideSprint": 550,
+        "transport": 235,
+        "swim": 120,
+        "swimDash": 165
+      },
+      "size": "S",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 150,
+        "foodAmount": 2
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/BerryGoat.png",
       "internalName": "BerryGoat",
       "aliases": [
@@ -3537,6 +5033,23 @@
         "attack": 85,
         "defense": 110
       },
+      "movement": {
+        "slowWalk": 35,
+        "walk": 70,
+        "run": 700,
+        "rideSprint": 1070,
+        "transport": 310,
+        "swim": 210,
+        "swimDash": 321
+      },
+      "size": "M",
+      "stamina": 140,
+      "food": {
+        "maxFullStomach": 280,
+        "foodAmount": 4
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/IceDeer.png",
       "internalName": "IceDeer",
       "aliases": [
@@ -3571,6 +5084,23 @@
         "attack": 120,
         "defense": 140
       },
+      "movement": {
+        "slowWalk": 80,
+        "walk": 80,
+        "run": 850,
+        "rideSprint": 1200,
+        "transport": 465,
+        "swim": 255,
+        "swimDash": 360
+      },
+      "size": "L",
+      "stamina": 250,
+      "food": {
+        "maxFullStomach": 530,
+        "foodAmount": 8
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/BlackGriffon.png",
       "internalName": "BlackGriffon",
       "aliases": [
@@ -3614,6 +5144,23 @@
         "attack": 90,
         "defense": 100
       },
+      "movement": {
+        "slowWalk": 50,
+        "walk": 100,
+        "run": 400,
+        "rideSprint": 550,
+        "transport": 250,
+        "swim": 400,
+        "swimDash": 400
+      },
+      "size": "L",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 350,
+        "foodAmount": 5
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/WhiteMoth.png",
       "internalName": "WhiteMoth",
       "aliases": [
@@ -3652,6 +5199,23 @@
         "attack": 90,
         "defense": 100
       },
+      "movement": {
+        "slowWalk": 50,
+        "walk": 100,
+        "run": 400,
+        "rideSprint": 550,
+        "transport": 250,
+        "swim": 400,
+        "swimDash": 400
+      },
+      "size": "L",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 350,
+        "foodAmount": 5
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/WhiteMoth_Neutral.png",
       "internalName": "WhiteMoth_Neutral",
       "aliases": [
@@ -3690,6 +5254,23 @@
         "attack": 70,
         "defense": 70
       },
+      "movement": {
+        "slowWalk": 30,
+        "walk": 60,
+        "run": 350,
+        "rideSprint": 450,
+        "transport": 190,
+        "swim": 105,
+        "swimDash": 135
+      },
+      "size": "XS",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 100,
+        "foodAmount": 1
+      },
+      "captureRateCorrect": 1.3,
+      "nocturnal": false,
       "icon": "/icons/pals/CuteFox.png",
       "internalName": "CuteFox",
       "aliases": [
@@ -3732,6 +5313,23 @@
         "attack": 110,
         "defense": 80
       },
+      "movement": {
+        "slowWalk": 70,
+        "walk": 145,
+        "run": 440,
+        "rideSprint": 620,
+        "transport": 292,
+        "swim": 440,
+        "swimDash": 620
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 280,
+        "foodAmount": 4
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/FoxMage.png",
       "internalName": "FoxMage",
       "aliases": [
@@ -3775,6 +5373,23 @@
         "attack": 110,
         "defense": 85
       },
+      "movement": {
+        "slowWalk": 70,
+        "walk": 145,
+        "run": 440,
+        "rideSprint": 620,
+        "transport": 292,
+        "swim": 440,
+        "swimDash": 620
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 280,
+        "foodAmount": 4
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/FoxMage_Dark.png",
       "internalName": "FoxMage_Dark",
       "aliases": [
@@ -3821,6 +5436,23 @@
         "attack": 70,
         "defense": 70
       },
+      "movement": {
+        "slowWalk": 90,
+        "walk": 170,
+        "run": 750,
+        "rideSprint": 850,
+        "transport": 460,
+        "swim": 300,
+        "swimDash": 300
+      },
+      "size": "L",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 280,
+        "foodAmount": 4
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/PinkLizard.png",
       "internalName": "PinkLizard",
       "aliases": [
@@ -3856,6 +5488,23 @@
         "attack": 70,
         "defense": 80
       },
+      "movement": {
+        "slowWalk": 26,
+        "walk": 70,
+        "run": 380,
+        "rideSprint": 550,
+        "transport": 225,
+        "swim": 100,
+        "swimDash": 100
+      },
+      "size": "XS",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 100,
+        "foodAmount": 1
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/WizardOwl.png",
       "internalName": "WizardOwl",
       "aliases": [
@@ -3894,6 +5543,23 @@
         "attack": 70,
         "defense": 70
       },
+      "movement": {
+        "slowWalk": 50,
+        "walk": 100,
+        "run": 700,
+        "rideSprint": 900,
+        "transport": 400,
+        "swim": 1260,
+        "swimDash": 1620
+      },
+      "size": "XS",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 100,
+        "foodAmount": 1
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/Kelpie.png",
       "internalName": "Kelpie",
       "aliases": [
@@ -3932,6 +5598,23 @@
         "attack": 70,
         "defense": 70
       },
+      "movement": {
+        "slowWalk": 50,
+        "walk": 100,
+        "run": 700,
+        "rideSprint": 900,
+        "transport": 400,
+        "swim": 700,
+        "swimDash": 700
+      },
+      "size": "XS",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 100,
+        "foodAmount": 1
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/Kelpie_Fire.png",
       "internalName": "Kelpie_Fire",
       "aliases": [
@@ -3975,6 +5658,23 @@
         "attack": 60,
         "defense": 70
       },
+      "movement": {
+        "slowWalk": 60,
+        "walk": 120,
+        "run": 400,
+        "rideSprint": 550,
+        "transport": 260,
+        "swim": 400,
+        "swimDash": 550
+      },
+      "size": "XS",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 150,
+        "foodAmount": 2
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/NegativeOctopus.png",
       "internalName": "NegativeOctopus",
       "aliases": [
@@ -4018,6 +5718,23 @@
         "attack": 60,
         "defense": 70
       },
+      "movement": {
+        "slowWalk": 60,
+        "walk": 120,
+        "run": 400,
+        "rideSprint": 550,
+        "transport": 260,
+        "swim": 400,
+        "swimDash": 400
+      },
+      "size": "XS",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 150,
+        "foodAmount": 2
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/NegativeOctopus_Neutral.png",
       "internalName": "NegativeOctopus_Neutral",
       "aliases": [
@@ -4052,6 +5769,23 @@
         "attack": 50,
         "defense": 80
       },
+      "movement": {
+        "slowWalk": 55,
+        "walk": 55,
+        "run": 580,
+        "rideSprint": 700,
+        "transport": 317,
+        "swim": 174,
+        "swimDash": 210
+      },
+      "size": "S",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 150,
+        "foodAmount": 2
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/CowPal.png",
       "internalName": "CowPal",
       "aliases": [
@@ -4098,6 +5832,23 @@
         "attack": 80,
         "defense": 100
       },
+      "movement": {
+        "slowWalk": 70,
+        "walk": 100,
+        "run": 600,
+        "rideSprint": 1050,
+        "transport": 150,
+        "swim": 180,
+        "swimDash": 315
+      },
+      "size": "L",
+      "stamina": 240,
+      "food": {
+        "maxFullStomach": 460,
+        "foodAmount": 7
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/Yeti.png",
       "internalName": "Yeti",
       "aliases": [
@@ -4145,6 +5896,23 @@
         "attack": 80,
         "defense": 110
       },
+      "movement": {
+        "slowWalk": 70,
+        "walk": 100,
+        "run": 600,
+        "rideSprint": 1050,
+        "transport": 150,
+        "swim": 180,
+        "swimDash": 315
+      },
+      "size": "L",
+      "stamina": 240,
+      "food": {
+        "maxFullStomach": 460,
+        "foodAmount": 7
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/Yeti_Grass.png",
       "internalName": "Yeti_Grass",
       "aliases": [
@@ -4199,6 +5967,23 @@
         "attack": 100,
         "defense": 120
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 150,
+        "run": 400,
+        "rideSprint": 550,
+        "transport": 275,
+        "swim": 400,
+        "swimDash": 400
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 380,
+        "foodAmount": 5
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/VioletFairy.png",
       "internalName": "VioletFairy",
       "aliases": [
@@ -4233,6 +6018,23 @@
         "attack": 95,
         "defense": 80
       },
+      "movement": {
+        "slowWalk": 150,
+        "walk": 150,
+        "run": 600,
+        "rideSprint": 750,
+        "transport": 450,
+        "swim": 600,
+        "swimDash": 600
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 140,
+        "foodAmount": 2
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/HawkBird.png",
       "internalName": "HawkBird",
       "aliases": [
@@ -4283,6 +6085,23 @@
         "attack": 65,
         "defense": 70
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 100,
+        "run": 400,
+        "rideSprint": 550,
+        "transport": 250,
+        "swim": 400,
+        "swimDash": 400
+      },
+      "size": "XS",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 150,
+        "foodAmount": 2
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/FlowerRabbit.png",
       "internalName": "FlowerRabbit",
       "aliases": [
@@ -4329,6 +6148,23 @@
         "attack": 120,
         "defense": 110
       },
+      "movement": {
+        "slowWalk": 60,
+        "walk": 100,
+        "run": 450,
+        "rideSprint": 550,
+        "transport": 275,
+        "swim": 450,
+        "swimDash": 450
+      },
+      "size": "L",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 540,
+        "foodAmount": 8
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/LilyQueen.png",
       "internalName": "LilyQueen",
       "aliases": [
@@ -4372,6 +6208,23 @@
         "attack": 120,
         "defense": 115
       },
+      "movement": {
+        "slowWalk": 60,
+        "walk": 100,
+        "run": 450,
+        "rideSprint": 550,
+        "transport": 275,
+        "swim": 450,
+        "swimDash": 450
+      },
+      "size": "L",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 540,
+        "foodAmount": 8
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/LilyQueen_Dark.png",
       "internalName": "LilyQueen_Dark",
       "aliases": [
@@ -4422,6 +6275,23 @@
         "attack": 105,
         "defense": 100
       },
+      "movement": {
+        "slowWalk": 150,
+        "walk": 250,
+        "run": 450,
+        "rideSprint": 550,
+        "transport": 350,
+        "swim": 450,
+        "swimDash": 450
+      },
+      "size": "L",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 340,
+        "foodAmount": 5
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/QueenBee.png",
       "internalName": "QueenBee",
       "aliases": [
@@ -4480,6 +6350,23 @@
         "attack": 90,
         "defense": 90
       },
+      "movement": {
+        "slowWalk": 125,
+        "walk": 250,
+        "run": 450,
+        "rideSprint": 550,
+        "transport": 350,
+        "swim": 450,
+        "swimDash": 450
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 230,
+        "foodAmount": 3
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/SoldierBee.png",
       "internalName": "SoldierBee",
       "aliases": [
@@ -4522,6 +6409,23 @@
         "attack": 95,
         "defense": 80
       },
+      "movement": {
+        "slowWalk": 80,
+        "walk": 140,
+        "run": 400,
+        "rideSprint": 550,
+        "transport": 270,
+        "swim": 400,
+        "swimDash": 400
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 140,
+        "foodAmount": 2
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/CatBat.png",
       "internalName": "CatBat",
       "aliases": [
@@ -4568,6 +6472,23 @@
         "attack": 90,
         "defense": 90
       },
+      "movement": {
+        "slowWalk": 50,
+        "walk": 100,
+        "run": 600,
+        "rideSprint": 1000,
+        "transport": 275,
+        "swim": 180,
+        "swimDash": 300
+      },
+      "size": "L",
+      "stamina": 130,
+      "food": {
+        "maxFullStomach": 280,
+        "foodAmount": 4
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/GrassPanda.png",
       "internalName": "GrassPanda",
       "aliases": [
@@ -4615,6 +6536,23 @@
         "attack": 100,
         "defense": 100
       },
+      "movement": {
+        "slowWalk": 50,
+        "walk": 100,
+        "run": 600,
+        "rideSprint": 1000,
+        "transport": 275,
+        "swim": 180,
+        "swimDash": 300
+      },
+      "size": "L",
+      "stamina": 130,
+      "food": {
+        "maxFullStomach": 280,
+        "foodAmount": 4
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/GrassPanda_Electric.png",
       "internalName": "GrassPanda_Electric",
       "aliases": [
@@ -4653,6 +6591,23 @@
         "attack": 95,
         "defense": 95
       },
+      "movement": {
+        "slowWalk": 87,
+        "walk": 87,
+        "run": 700,
+        "rideSprint": 1050,
+        "transport": 343,
+        "swim": 210,
+        "swimDash": 315
+      },
+      "size": "M",
+      "stamina": 120,
+      "food": {
+        "maxFullStomach": 210,
+        "foodAmount": 3
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/FlameBuffalo.png",
       "internalName": "FlameBuffalo",
       "aliases": [
@@ -4687,6 +6642,23 @@
         "attack": 100,
         "defense": 80
       },
+      "movement": {
+        "slowWalk": 110,
+        "walk": 210,
+        "run": 700,
+        "rideSprint": 1150,
+        "transport": 455,
+        "swim": 210,
+        "swimDash": 345
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 280,
+        "foodAmount": 4
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/ThunderDog.png",
       "internalName": "ThunderDog",
       "aliases": [
@@ -4722,6 +6694,23 @@
         "attack": 105,
         "defense": 80
       },
+      "movement": {
+        "slowWalk": 110,
+        "walk": 210,
+        "run": 700,
+        "rideSprint": 1150,
+        "transport": 455,
+        "swim": 210,
+        "swimDash": 345
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 280,
+        "foodAmount": 4
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/ThunderDog_Ice.png",
       "internalName": "ThunderDog_Ice",
       "aliases": [
@@ -4764,6 +6753,23 @@
         "attack": 80,
         "defense": 50
       },
+      "movement": {
+        "slowWalk": 30,
+        "walk": 60,
+        "run": 300,
+        "rideSprint": 550,
+        "transport": 240,
+        "swim": 50,
+        "swimDash": 50
+      },
+      "size": "XS",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 150,
+        "foodAmount": 2
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/CuteMole.png",
       "internalName": "CuteMole",
       "aliases": [
@@ -4803,6 +6809,23 @@
         "attack": 125,
         "defense": 125
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 150,
+        "run": 700,
+        "rideSprint": 1100,
+        "transport": 375,
+        "swim": 210,
+        "swimDash": 330
+      },
+      "size": "XL",
+      "stamina": 300,
+      "food": {
+        "maxFullStomach": 470,
+        "foodAmount": 7
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/BlackMetalDragon.png",
       "internalName": "BlackMetalDragon",
       "aliases": [
@@ -4853,6 +6876,23 @@
         "attack": 115,
         "defense": 90
       },
+      "movement": {
+        "slowWalk": 50,
+        "walk": 195,
+        "run": 500,
+        "rideSprint": 700,
+        "transport": 275,
+        "swim": 500,
+        "swimDash": 700
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 450,
+        "foodAmount": 6
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/GrassRabbitMan.png",
       "internalName": "GrassRabbitMan",
       "aliases": [
@@ -4891,6 +6931,23 @@
         "attack": 95,
         "defense": 105
       },
+      "movement": {
+        "slowWalk": 65,
+        "walk": 130,
+        "run": 600,
+        "rideSprint": 750,
+        "transport": 315,
+        "swim": 180,
+        "swimDash": 225
+      },
+      "size": "S",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 300,
+        "foodAmount": 4
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/IceFox.png",
       "internalName": "IceFox",
       "aliases": [
@@ -4925,6 +6982,23 @@
         "attack": 140,
         "defense": 120
       },
+      "movement": {
+        "slowWalk": 200,
+        "walk": 800,
+        "run": 1700,
+        "rideSprint": 3300,
+        "transport": 1250,
+        "swim": 510,
+        "swimDash": 990
+      },
+      "size": "XL",
+      "stamina": 110,
+      "food": {
+        "maxFullStomach": 600,
+        "foodAmount": 9
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/JetDragon.png",
       "internalName": "JetDragon",
       "aliases": [
@@ -4967,6 +7041,23 @@
         "attack": 75,
         "defense": 60
       },
+      "movement": {
+        "slowWalk": 70,
+        "walk": 140,
+        "run": 300,
+        "rideSprint": 550,
+        "transport": 220,
+        "swim": 300,
+        "swimDash": 300
+      },
+      "size": "XS",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 100,
+        "foodAmount": 1
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/DreamDemon.png",
       "internalName": "DreamDemon",
       "aliases": [
@@ -5017,6 +7108,23 @@
         "attack": 70,
         "defense": 70
       },
+      "movement": {
+        "slowWalk": 48,
+        "walk": 48,
+        "run": 300,
+        "rideSprint": 400,
+        "transport": 174,
+        "swim": 90,
+        "swimDash": 120
+      },
+      "size": "XS",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 100,
+        "foodAmount": 1
+      },
+      "captureRateCorrect": 1.1,
+      "nocturnal": false,
       "icon": "/icons/pals/Monkey.png",
       "internalName": "Monkey",
       "aliases": [
@@ -5063,6 +7171,23 @@
         "attack": 75,
         "defense": 70
       },
+      "movement": {
+        "slowWalk": 48,
+        "walk": 48,
+        "run": 300,
+        "rideSprint": 400,
+        "transport": 174,
+        "swim": 90,
+        "swimDash": 120
+      },
+      "size": "XS",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 100,
+        "foodAmount": 1
+      },
+      "captureRateCorrect": 1.1,
+      "nocturnal": false,
       "icon": "/icons/pals/Monkey_Fire.png",
       "internalName": "Monkey_Fire",
       "aliases": [
@@ -5101,6 +7226,23 @@
         "attack": 110,
         "defense": 80
       },
+      "movement": {
+        "slowWalk": 90,
+        "walk": 180,
+        "run": 800,
+        "rideSprint": 1200,
+        "transport": 465,
+        "swim": 240,
+        "swimDash": 360
+      },
+      "size": "L",
+      "stamina": 150,
+      "food": {
+        "maxFullStomach": 410,
+        "foodAmount": 6
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/Manticore.png",
       "internalName": "Manticore",
       "aliases": [
@@ -5140,6 +7282,23 @@
         "attack": 115,
         "defense": 80
       },
+      "movement": {
+        "slowWalk": 60,
+        "walk": 90,
+        "run": 800,
+        "rideSprint": 1200,
+        "transport": 420,
+        "swim": 240,
+        "swimDash": 360
+      },
+      "size": "L",
+      "stamina": 150,
+      "food": {
+        "maxFullStomach": 410,
+        "foodAmount": 6
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/Manticore_Dark.png",
       "internalName": "Manticore_Dark",
       "aliases": [
@@ -5175,6 +7334,23 @@
         "attack": 85,
         "defense": 90
       },
+      "movement": {
+        "slowWalk": 80,
+        "walk": 80,
+        "run": 700,
+        "rideSprint": 1040,
+        "transport": 290,
+        "swim": 210,
+        "swimDash": 312
+      },
+      "size": "XL",
+      "stamina": 170,
+      "food": {
+        "maxFullStomach": 280,
+        "foodAmount": 4
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/KingAlpaca.png",
       "internalName": "KingAlpaca",
       "aliases": [
@@ -5213,6 +7389,23 @@
         "attack": 85,
         "defense": 90
       },
+      "movement": {
+        "slowWalk": 80,
+        "walk": 80,
+        "run": 700,
+        "rideSprint": 1040,
+        "transport": 290,
+        "swim": 210,
+        "swimDash": 312
+      },
+      "size": "XL",
+      "stamina": 170,
+      "food": {
+        "maxFullStomach": 280,
+        "foodAmount": 4
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/KingAlpaca_Ice.png",
       "internalName": "KingAlpaca_Ice",
       "aliases": [
@@ -5248,6 +7441,23 @@
         "attack": 70,
         "defense": 70
       },
+      "movement": {
+        "slowWalk": 50,
+        "walk": 50,
+        "run": 300,
+        "rideSprint": 400,
+        "transport": 175,
+        "swim": 90,
+        "swimDash": 120
+      },
+      "size": "XS",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 100,
+        "foodAmount": 1
+      },
+      "captureRateCorrect": 1.3,
+      "nocturnal": false,
       "icon": "/icons/pals/PlantSlime.png",
       "internalName": "PlantSlime",
       "aliases": [
@@ -5283,6 +7493,23 @@
         "attack": 70,
         "defense": 70
       },
+      "movement": {
+        "slowWalk": 50,
+        "walk": 50,
+        "run": 300,
+        "rideSprint": 400,
+        "transport": 175,
+        "swim": 90,
+        "swimDash": 120
+      },
+      "size": "XS",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 100,
+        "foodAmount": 1
+      },
+      "captureRateCorrect": 1.3,
+      "nocturnal": false,
       "internalName": "PlantSlime_Flower",
       "aliases": [
         "BOSS_PlantSlime_Flower"
@@ -5320,6 +7547,23 @@
         "attack": 60,
         "defense": 60
       },
+      "movement": {
+        "slowWalk": 55,
+        "walk": 100,
+        "run": 250,
+        "rideSprint": 400,
+        "transport": 175,
+        "swim": 75,
+        "swimDash": 120
+      },
+      "size": "XS",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 100,
+        "foodAmount": 1
+      },
+      "captureRateCorrect": 1.1,
+      "nocturnal": false,
       "icon": "/icons/pals/MopBaby.png",
       "internalName": "MopBaby",
       "aliases": [
@@ -5358,6 +7602,23 @@
         "attack": 90,
         "defense": 90
       },
+      "movement": {
+        "slowWalk": 60,
+        "walk": 120,
+        "run": 650,
+        "rideSprint": 1020,
+        "transport": 210,
+        "swim": 195,
+        "swimDash": 306
+      },
+      "size": "L",
+      "stamina": 120,
+      "food": {
+        "maxFullStomach": 300,
+        "foodAmount": 4
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/MopKing.png",
       "internalName": "MopKing",
       "aliases": [
@@ -5400,6 +7661,23 @@
         "attack": 105,
         "defense": 90
       },
+      "movement": {
+        "slowWalk": 70,
+        "walk": 145,
+        "run": 440,
+        "rideSprint": 620,
+        "transport": 292,
+        "swim": 440,
+        "swimDash": 620
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 280,
+        "foodAmount": 4
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/CatMage.png",
       "internalName": "CatMage",
       "aliases": [
@@ -5447,6 +7725,23 @@
         "attack": 105,
         "defense": 90
       },
+      "movement": {
+        "slowWalk": 70,
+        "walk": 145,
+        "run": 440,
+        "rideSprint": 620,
+        "transport": 292,
+        "swim": 440,
+        "swimDash": 620
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 280,
+        "foodAmount": 4
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/CatMage_Fire.png",
       "internalName": "CatMage_Fire",
       "aliases": [
@@ -5489,6 +7784,23 @@
         "attack": 65,
         "defense": 70
       },
+      "movement": {
+        "slowWalk": 50,
+        "walk": 100,
+        "run": 245,
+        "rideSprint": 350,
+        "transport": 172,
+        "swim": 73,
+        "swimDash": 105
+      },
+      "size": "XS",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 100,
+        "foodAmount": 1
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/PinkRabbit.png",
       "internalName": "PinkRabbit",
       "aliases": [
@@ -5531,6 +7843,23 @@
         "attack": 115,
         "defense": 80
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 200,
+        "run": 750,
+        "rideSprint": 1200,
+        "transport": 375,
+        "swim": 750,
+        "swimDash": 750
+      },
+      "size": "L",
+      "stamina": 160,
+      "food": {
+        "maxFullStomach": 340,
+        "foodAmount": 5
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/ThunderBird.png",
       "internalName": "ThunderBird",
       "aliases": [
@@ -5573,6 +7902,23 @@
         "attack": 115,
         "defense": 85
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 200,
+        "run": 750,
+        "rideSprint": 1200,
+        "transport": 375,
+        "swim": 750,
+        "swimDash": 750
+      },
+      "size": "L",
+      "stamina": 160,
+      "food": {
+        "maxFullStomach": 340,
+        "foodAmount": 5
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/ThunderBird_Ice.png",
       "internalName": "ThunderBird_Ice",
       "aliases": [
@@ -5620,6 +7966,23 @@
         "attack": 100,
         "defense": 120
       },
+      "movement": {
+        "slowWalk": 55,
+        "walk": 110,
+        "run": 500,
+        "rideSprint": 600,
+        "transport": 110,
+        "swim": 500,
+        "swimDash": 500
+      },
+      "size": "L",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 400,
+        "foodAmount": 6
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/HerculesBeetle.png",
       "internalName": "HerculesBeetle",
       "aliases": [
@@ -5662,6 +8025,23 @@
         "attack": 105,
         "defense": 120
       },
+      "movement": {
+        "slowWalk": 55,
+        "walk": 110,
+        "run": 500,
+        "rideSprint": 600,
+        "transport": 110,
+        "swim": 500,
+        "swimDash": 500
+      },
+      "size": "L",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 400,
+        "foodAmount": 6
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/HerculesBeetle_Ground.png",
       "internalName": "HerculesBeetle_Ground",
       "aliases": [
@@ -5700,6 +8080,23 @@
         "attack": 120,
         "defense": 145
       },
+      "movement": {
+        "slowWalk": 50,
+        "walk": 100,
+        "run": 800,
+        "rideSprint": 1800,
+        "transport": 450,
+        "swim": 240,
+        "swimDash": 540
+      },
+      "size": "L",
+      "stamina": 400,
+      "food": {
+        "maxFullStomach": 600,
+        "foodAmount": 9
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/SaintCentaur.png",
       "internalName": "SaintCentaur",
       "aliases": [
@@ -5734,6 +8131,23 @@
         "attack": 85,
         "defense": 70
       },
+      "movement": {
+        "slowWalk": 30,
+        "walk": 60,
+        "run": 300,
+        "rideSprint": 500,
+        "transport": 164,
+        "swim": 90,
+        "swimDash": 150
+      },
+      "size": "XS",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 100,
+        "foodAmount": 1
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/NightFox.png",
       "internalName": "NightFox",
       "aliases": [
@@ -5785,6 +8199,23 @@
         "attack": 95,
         "defense": 95
       },
+      "movement": {
+        "slowWalk": 50,
+        "walk": 110,
+        "run": 450,
+        "rideSprint": 600,
+        "transport": 280,
+        "swim": 810,
+        "swimDash": 1080
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 270,
+        "foodAmount": 4
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/CaptainPenguin.png",
       "internalName": "CaptainPenguin",
       "aliases": [
@@ -5836,6 +8267,23 @@
         "attack": 100,
         "defense": 100
       },
+      "movement": {
+        "slowWalk": 50,
+        "walk": 110,
+        "run": 450,
+        "rideSprint": 600,
+        "transport": 280,
+        "swim": 810,
+        "swimDash": 1080
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 270,
+        "foodAmount": 4
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/CaptainPenguin_Black.png",
       "internalName": "CaptainPenguin_Black",
       "aliases": [
@@ -5875,6 +8323,23 @@
         "attack": 80,
         "defense": 80
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 180,
+        "run": 750,
+        "rideSprint": 1050,
+        "transport": 390,
+        "swim": 1350,
+        "swimDash": 1890
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 230,
+        "foodAmount": 3
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/WeaselDragon.png",
       "internalName": "WeaselDragon",
       "aliases": [
@@ -5914,6 +8379,23 @@
         "attack": 85,
         "defense": 80
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 180,
+        "run": 750,
+        "rideSprint": 1050,
+        "transport": 390,
+        "swim": 750,
+        "swimDash": 1050
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 230,
+        "foodAmount": 3
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/WeaselDragon_Fire.png",
       "internalName": "WeaselDragon_Fire",
       "aliases": [
@@ -5960,6 +8442,23 @@
         "attack": 100,
         "defense": 100
       },
+      "movement": {
+        "slowWalk": 120,
+        "walk": 240,
+        "run": 800,
+        "rideSprint": 950,
+        "transport": 470,
+        "swim": 240,
+        "swimDash": 285
+      },
+      "size": "L",
+      "stamina": 220,
+      "food": {
+        "maxFullStomach": 450,
+        "foodAmount": 6
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/SkyDragon.png",
       "internalName": "SkyDragon",
       "aliases": [
@@ -6011,6 +8510,23 @@
         "attack": 105,
         "defense": 100
       },
+      "movement": {
+        "slowWalk": 120,
+        "walk": 240,
+        "run": 800,
+        "rideSprint": 950,
+        "transport": 470,
+        "swim": 240,
+        "swimDash": 285
+      },
+      "size": "L",
+      "stamina": 220,
+      "food": {
+        "maxFullStomach": 450,
+        "foodAmount": 6
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/SkyDragon_Grass.png",
       "internalName": "SkyDragon_Grass",
       "aliases": [
@@ -6045,6 +8561,23 @@
         "attack": 125,
         "defense": 100
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 100,
+        "run": 700,
+        "rideSprint": 1100,
+        "transport": 450,
+        "swim": 700,
+        "swimDash": 700
+      },
+      "size": "L",
+      "stamina": 170,
+      "food": {
+        "maxFullStomach": 460,
+        "foodAmount": 7
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/HadesBird.png",
       "internalName": "HadesBird",
       "aliases": [
@@ -6085,6 +8618,23 @@
         "attack": 125,
         "defense": 100
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 100,
+        "run": 700,
+        "rideSprint": 1100,
+        "transport": 450,
+        "swim": 700,
+        "swimDash": 700
+      },
+      "size": "L",
+      "stamina": 170,
+      "food": {
+        "maxFullStomach": 460,
+        "foodAmount": 7
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/HadesBird_Electric.png",
       "internalName": "HadesBird_Electric",
       "aliases": [
@@ -6124,6 +8674,23 @@
         "attack": 105,
         "defense": 120
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 200,
+        "run": 800,
+        "rideSprint": 1300,
+        "transport": 375,
+        "swim": 800,
+        "swimDash": 800
+      },
+      "size": "L",
+      "stamina": 150,
+      "food": {
+        "maxFullStomach": 480,
+        "foodAmount": 7
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/RedArmorBird.png",
       "internalName": "RedArmorBird",
       "aliases": [
@@ -6175,6 +8742,23 @@
         "attack": 125,
         "defense": 80
       },
+      "movement": {
+        "slowWalk": 80,
+        "walk": 160,
+        "run": 600,
+        "rideSprint": 900,
+        "transport": 320,
+        "swim": 50,
+        "swimDash": 50
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 380,
+        "foodAmount": 5
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/Ronin.png",
       "internalName": "Ronin",
       "aliases": [
@@ -6226,6 +8810,23 @@
         "attack": 130,
         "defense": 80
       },
+      "movement": {
+        "slowWalk": 80,
+        "walk": 160,
+        "run": 600,
+        "rideSprint": 900,
+        "transport": 320,
+        "swim": 50,
+        "swimDash": 50
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 380,
+        "foodAmount": 5
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/Ronin_Dark.png",
       "internalName": "Ronin_Dark",
       "aliases": [
@@ -6265,6 +8866,23 @@
         "attack": 70,
         "defense": 80
       },
+      "movement": {
+        "slowWalk": 30,
+        "walk": 150,
+        "run": 550,
+        "rideSprint": 700,
+        "transport": 350,
+        "swim": 550,
+        "swimDash": 550
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 150,
+        "foodAmount": 2
+      },
+      "captureRateCorrect": 1.1,
+      "nocturnal": false,
       "icon": "/icons/pals/FlyingManta.png",
       "internalName": "FlyingManta",
       "aliases": [
@@ -6308,6 +8926,23 @@
         "attack": 75,
         "defense": 80
       },
+      "movement": {
+        "slowWalk": 30,
+        "walk": 150,
+        "run": 550,
+        "rideSprint": 700,
+        "transport": 350,
+        "swim": 550,
+        "swimDash": 550
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 150,
+        "foodAmount": 2
+      },
+      "captureRateCorrect": 1.1,
+      "nocturnal": false,
       "icon": "/icons/pals/FlyingManta_Thunder.png",
       "internalName": "FlyingManta_Thunder",
       "aliases": [
@@ -6346,6 +8981,23 @@
         "attack": 145,
         "defense": 120
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 350,
+        "run": 1300,
+        "rideSprint": 1900,
+        "transport": 625,
+        "swim": 390,
+        "swimDash": 570
+      },
+      "size": "L",
+      "stamina": 350,
+      "food": {
+        "maxFullStomach": 600,
+        "foodAmount": 9
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/BlackCentaur.png",
       "internalName": "BlackCentaur",
       "aliases": [
@@ -6396,6 +9048,23 @@
         "attack": 95,
         "defense": 100
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 150,
+        "run": 550,
+        "rideSprint": 700,
+        "transport": 350,
+        "swim": 550,
+        "swimDash": 550
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 450,
+        "foodAmount": 6
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/FlowerDoll.png",
       "internalName": "FlowerDoll",
       "aliases": [
@@ -6447,6 +9116,23 @@
         "attack": 105,
         "defense": 100
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 150,
+        "run": 550,
+        "rideSprint": 700,
+        "transport": 350,
+        "swim": 550,
+        "swimDash": 550
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 450,
+        "foodAmount": 6
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/FlowerDoll_Fire.png",
       "internalName": "FlowerDoll_Fire",
       "aliases": [
@@ -6481,6 +9167,23 @@
         "attack": 80,
         "defense": 80
       },
+      "movement": {
+        "slowWalk": 32,
+        "walk": 64,
+        "run": 650,
+        "rideSprint": 1000,
+        "transport": 332,
+        "swim": 195,
+        "swimDash": 300
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 300,
+        "foodAmount": 4
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/NaughtyCat.png",
       "internalName": "NaughtyCat",
       "aliases": [
@@ -6523,6 +9226,23 @@
         "attack": 80,
         "defense": 80
       },
+      "movement": {
+        "slowWalk": 30,
+        "walk": 150,
+        "run": 550,
+        "rideSprint": 700,
+        "transport": 350,
+        "swim": 550,
+        "swimDash": 550
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 150,
+        "foodAmount": 2
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/CuteButterfly.png",
       "internalName": "CuteButterfly",
       "aliases": [
@@ -6562,6 +9282,23 @@
         "attack": 100,
         "defense": 130
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 200,
+        "run": 1000,
+        "rideSprint": 1200,
+        "transport": 600,
+        "swim": 300,
+        "swimDash": 360
+      },
+      "size": "L",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 410,
+        "foodAmount": 6
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/DarkScorpion.png",
       "internalName": "DarkScorpion",
       "aliases": [
@@ -6601,6 +9338,23 @@
         "attack": 105,
         "defense": 130
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 200,
+        "run": 1000,
+        "rideSprint": 1200,
+        "transport": 600,
+        "swim": 150,
+        "swimDash": 180
+      },
+      "size": "L",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 410,
+        "foodAmount": 6
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/DarkScorpion_Ground.png",
       "internalName": "DarkScorpion_Ground",
       "aliases": [
@@ -6644,6 +9398,23 @@
         "attack": 130,
         "defense": 115
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 185,
+        "run": 900,
+        "rideSprint": 1200,
+        "transport": 250,
+        "swim": 1620,
+        "swimDash": 2160
+      },
+      "size": "L",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 620,
+        "foodAmount": 9
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/ThunderDragonMan.png",
       "internalName": "ThunderDragonMan",
       "aliases": [
@@ -6683,6 +9454,23 @@
         "attack": 70,
         "defense": 75
       },
+      "movement": {
+        "slowWalk": 20,
+        "walk": 40,
+        "run": 300,
+        "rideSprint": 450,
+        "transport": 170,
+        "swim": 90,
+        "swimDash": 135
+      },
+      "size": "XS",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 100,
+        "foodAmount": 1
+      },
+      "captureRateCorrect": 1.3,
+      "nocturnal": false,
       "icon": "/icons/pals/WoolFox.png",
       "internalName": "WoolFox",
       "aliases": [
@@ -6730,6 +9518,23 @@
         "attack": 70,
         "defense": 95
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 150,
+        "run": 450,
+        "rideSprint": 600,
+        "transport": 300,
+        "swim": 810,
+        "swimDash": 1080
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 230,
+        "foodAmount": 3
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/LazyCatfish.png",
       "internalName": "LazyCatfish",
       "aliases": [
@@ -6777,6 +9582,23 @@
         "attack": 75,
         "defense": 100
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 150,
+        "run": 450,
+        "rideSprint": 600,
+        "transport": 300,
+        "swim": 810,
+        "swimDash": 1080
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 230,
+        "foodAmount": 3
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/LazyCatfish_Gold.png",
       "internalName": "LazyCatfish_Gold",
       "aliases": [
@@ -6823,6 +9645,23 @@
         "attack": 70,
         "defense": 80
       },
+      "movement": {
+        "slowWalk": 65,
+        "walk": 98,
+        "run": 250,
+        "rideSprint": 375,
+        "transport": 140,
+        "swim": 46,
+        "swimDash": 46
+      },
+      "size": "XS",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 150,
+        "foodAmount": 2
+      },
+      "captureRateCorrect": 1.1,
+      "nocturnal": false,
       "icon": "/icons/pals/LavaGirl.png",
       "internalName": "LavaGirl",
       "aliases": [
@@ -6861,6 +9700,23 @@
         "attack": 70,
         "defense": 75
       },
+      "movement": {
+        "slowWalk": 70,
+        "walk": 100,
+        "run": 400,
+        "rideSprint": 550,
+        "transport": -1,
+        "swim": 120,
+        "swimDash": 165
+      },
+      "size": "S",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 100,
+        "foodAmount": 1
+      },
+      "captureRateCorrect": 1.1,
+      "nocturnal": false,
       "icon": "/icons/pals/FlameBambi.png",
       "internalName": "FlameBambi",
       "aliases": [
@@ -6903,6 +9759,23 @@
         "attack": 150,
         "defense": 100
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 150,
+        "run": 600,
+        "rideSprint": 800,
+        "transport": 400,
+        "swim": 600,
+        "swimDash": 600
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 530,
+        "foodAmount": 7
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/NightLady.png",
       "internalName": "NightLady",
       "aliases": [
@@ -6946,6 +9819,23 @@
         "attack": 150,
         "defense": 100
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 150,
+        "run": 600,
+        "rideSprint": 800,
+        "transport": 400,
+        "swim": 600,
+        "swimDash": 600
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 530,
+        "foodAmount": 7
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/NightLady_Dark.png",
       "internalName": "NightLady_Dark",
       "aliases": [
@@ -6990,6 +9880,23 @@
         "attack": 115,
         "defense": 110
       },
+      "movement": {
+        "slowWalk": 60,
+        "walk": 150,
+        "run": 1000,
+        "rideSprint": 1600,
+        "transport": 275,
+        "swim": 1000,
+        "swimDash": 1000
+      },
+      "size": "L",
+      "stamina": 300,
+      "food": {
+        "maxFullStomach": 680,
+        "foodAmount": 9
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/MoonQueen.png",
       "internalName": "MoonQueen",
       "aliases": [
@@ -7037,6 +9944,23 @@
         "attack": 100,
         "defense": 85
       },
+      "movement": {
+        "slowWalk": 33,
+        "walk": 66,
+        "run": 300,
+        "rideSprint": 450,
+        "transport": 300,
+        "swim": 540,
+        "swimDash": 810
+      },
+      "size": "XS",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 150,
+        "foodAmount": 2
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/KendoFrog.png",
       "internalName": "KendoFrog",
       "aliases": [
@@ -7084,6 +10008,23 @@
         "attack": 110,
         "defense": 90
       },
+      "movement": {
+        "slowWalk": 33,
+        "walk": 66,
+        "run": 300,
+        "rideSprint": 450,
+        "transport": 300,
+        "swim": 540,
+        "swimDash": 810
+      },
+      "size": "XS",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 150,
+        "foodAmount": 2
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/KendoFrog_Dark.png",
       "internalName": "KendoFrog_Dark",
       "aliases": [
@@ -7130,6 +10071,23 @@
         "attack": 90,
         "defense": 80
       },
+      "movement": {
+        "slowWalk": 50,
+        "walk": 100,
+        "run": 400,
+        "rideSprint": 800,
+        "transport": 250,
+        "swim": 400,
+        "swimDash": 400
+      },
+      "size": "S",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 300,
+        "foodAmount": 4
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/LeafPrincess.png",
       "internalName": "LeafPrincess",
       "aliases": [
@@ -7180,6 +10138,23 @@
         "attack": 80,
         "defense": 90
       },
+      "movement": {
+        "slowWalk": 50,
+        "walk": 80,
+        "run": 740,
+        "rideSprint": 1050,
+        "transport": -1,
+        "swim": 222,
+        "swimDash": 315
+      },
+      "size": "S",
+      "stamina": 220,
+      "food": {
+        "maxFullStomach": 450,
+        "foodAmount": 5
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/MushroomDragon.png",
       "internalName": "MushroomDragon",
       "aliases": [
@@ -7228,6 +10203,23 @@
         "attack": 85,
         "defense": 90
       },
+      "movement": {
+        "slowWalk": 50,
+        "walk": 80,
+        "run": 740,
+        "rideSprint": 1050,
+        "transport": -1,
+        "swim": 222,
+        "swimDash": 315
+      },
+      "size": "S",
+      "stamina": 220,
+      "food": {
+        "maxFullStomach": 450,
+        "foodAmount": 5
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/MushroomDragon_Dark.png",
       "internalName": "MushroomDragon_Dark",
       "aliases": [
@@ -7262,6 +10254,23 @@
         "attack": 70,
         "defense": 90
       },
+      "movement": {
+        "slowWalk": 50,
+        "walk": 100,
+        "run": 800,
+        "rideSprint": 900,
+        "transport": 300,
+        "swim": 100,
+        "swimDash": 100
+      },
+      "size": "XS",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 340,
+        "foodAmount": 3
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/SmallArmadillo.png",
       "internalName": "SmallArmadillo",
       "aliases": [
@@ -7313,6 +10322,23 @@
         "attack": 125,
         "defense": 90
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 250,
+        "run": 800,
+        "rideSprint": 1000,
+        "transport": 450,
+        "swim": 800,
+        "swimDash": 1000
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 480,
+        "foodAmount": 7
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/CandleGhost.png",
       "internalName": "CandleGhost",
       "aliases": [
@@ -7357,6 +10383,23 @@
         "attack": 110,
         "defense": 90
       },
+      "movement": {
+        "slowWalk": 90,
+        "walk": 180,
+        "run": 720,
+        "rideSprint": -1,
+        "transport": -1,
+        "swim": 50,
+        "swimDash": 50
+      },
+      "size": "S",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 380,
+        "foodAmount": 5
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/ScorpionMan.png",
       "internalName": "ScorpionMan",
       "aliases": [
@@ -7405,6 +10448,23 @@
         "attack": 115,
         "defense": 90
       },
+      "movement": {
+        "slowWalk": 90,
+        "walk": 180,
+        "run": 720,
+        "rideSprint": -1,
+        "transport": -1,
+        "swim": 50,
+        "swimDash": 50
+      },
+      "size": "S",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 380,
+        "foodAmount": 5
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/ScorpionMan_Electric.png",
       "internalName": "ScorpionMan_Electric",
       "aliases": [
@@ -7447,6 +10507,23 @@
         "attack": 110,
         "defense": 135
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 190,
+        "run": 550,
+        "rideSprint": 700,
+        "transport": 400,
+        "swim": 165,
+        "swimDash": 210
+      },
+      "size": "L",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 600,
+        "foodAmount": 9
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/WingGolem.png",
       "internalName": "WingGolem",
       "aliases": [
@@ -7490,6 +10567,23 @@
         "attack": 115,
         "defense": 135
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 190,
+        "run": 550,
+        "rideSprint": 700,
+        "transport": 400,
+        "swim": 165,
+        "swimDash": 210
+      },
+      "size": "L",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 600,
+        "foodAmount": 9
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/WingGolem_Fire.png",
       "internalName": "WingGolem_Fire",
       "aliases": [
@@ -7524,6 +10618,23 @@
         "attack": 85,
         "defense": 85
       },
+      "movement": {
+        "slowWalk": 70,
+        "walk": 110,
+        "run": 750,
+        "rideSprint": 1080,
+        "transport": 165,
+        "swim": 225,
+        "swimDash": 324
+      },
+      "size": "XS",
+      "stamina": 140,
+      "food": {
+        "maxFullStomach": 270,
+        "foodAmount": 3
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/GuardianDog.png",
       "internalName": "GuardianDog",
       "aliases": [
@@ -7574,6 +10685,23 @@
         "attack": 100,
         "defense": 100
       },
+      "movement": {
+        "slowWalk": 45,
+        "walk": 75,
+        "run": 300,
+        "rideSprint": 550,
+        "transport": 187,
+        "swim": 300,
+        "swimDash": 300
+      },
+      "size": "S",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 380,
+        "foodAmount": 5
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/SifuDog.png",
       "internalName": "SifuDog",
       "aliases": [
@@ -7609,6 +10737,23 @@
         "attack": 90,
         "defense": 80
       },
+      "movement": {
+        "slowWalk": 80,
+        "walk": 160,
+        "run": 900,
+        "rideSprint": 1200,
+        "transport": -1,
+        "swim": 270,
+        "swimDash": 360
+      },
+      "size": "S",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 230,
+        "foodAmount": 3
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/FeatherOstrich.png",
       "internalName": "FeatherOstrich",
       "aliases": [
@@ -7648,6 +10793,23 @@
         "attack": 60,
         "defense": 130
       },
+      "movement": {
+        "slowWalk": 40,
+        "walk": 80,
+        "run": 2000,
+        "rideSprint": -1,
+        "transport": 450,
+        "swim": 600,
+        "swimDash": 0
+      },
+      "size": "XS",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 230,
+        "foodAmount": 3
+      },
+      "captureRateCorrect": 0.8,
+      "nocturnal": false,
       "icon": "/icons/pals/MimicDog.png",
       "internalName": "MimicDog",
       "aliases": [
@@ -7686,6 +10848,23 @@
         "attack": 125,
         "defense": 85
       },
+      "movement": {
+        "slowWalk": 125,
+        "walk": 245,
+        "run": 550,
+        "rideSprint": 700,
+        "transport": 400,
+        "swim": 990,
+        "swimDash": 1260
+      },
+      "size": "S",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 280,
+        "foodAmount": 4
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/DarkAlien.png",
       "internalName": "DarkAlien",
       "aliases": [
@@ -7722,6 +10901,23 @@
         "attack": 120,
         "defense": 130
       },
+      "movement": {
+        "slowWalk": 115,
+        "walk": 230,
+        "run": 790,
+        "rideSprint": 1200,
+        "transport": 500,
+        "swim": 237,
+        "swimDash": 360
+      },
+      "size": "L",
+      "stamina": 250,
+      "food": {
+        "maxFullStomach": 470,
+        "foodAmount": 7
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/WhiteAlienDragon.png",
       "internalName": "WhiteAlienDragon",
       "aliases": [
@@ -7762,6 +10958,23 @@
         "attack": 125,
         "defense": 115
       },
+      "movement": {
+        "slowWalk": 55,
+        "walk": 220,
+        "run": 650,
+        "rideSprint": 850,
+        "transport": -1,
+        "swim": 195,
+        "swimDash": 255
+      },
+      "size": "L",
+      "stamina": 270,
+      "food": {
+        "maxFullStomach": 530,
+        "foodAmount": 8
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/VolcanoDragon.png",
       "internalName": "VolcanoDragon",
       "aliases": [
@@ -7802,6 +11015,23 @@
         "attack": 125,
         "defense": 120
       },
+      "movement": {
+        "slowWalk": 55,
+        "walk": 220,
+        "run": 650,
+        "rideSprint": 850,
+        "transport": -1,
+        "swim": 195,
+        "swimDash": 255
+      },
+      "size": "L",
+      "stamina": 270,
+      "food": {
+        "maxFullStomach": 530,
+        "foodAmount": 8
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/VolcanoDragon_Ice.png",
       "internalName": "VolcanoDragon_Ice",
       "aliases": [
@@ -7837,6 +11067,23 @@
         "attack": 120,
         "defense": 120
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 200,
+        "run": 550,
+        "rideSprint": 660,
+        "transport": -1,
+        "swim": 165,
+        "swimDash": 198
+      },
+      "size": "L",
+      "stamina": 300,
+      "food": {
+        "maxFullStomach": 570,
+        "foodAmount": 8
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/DarkMechaDragon.png",
       "internalName": "DarkMechaDragon",
       "aliases": [
@@ -7876,6 +11123,23 @@
         "attack": 95,
         "defense": 105
       },
+      "movement": {
+        "slowWalk": 70,
+        "walk": 130,
+        "run": 380,
+        "rideSprint": 500,
+        "transport": 180,
+        "swim": 380,
+        "swimDash": 380
+      },
+      "size": "S",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 510,
+        "foodAmount": 6
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/GhostRabbit.png",
       "internalName": "GhostRabbit",
       "aliases": [
@@ -7918,6 +11182,23 @@
         "attack": 95,
         "defense": 105
       },
+      "movement": {
+        "slowWalk": 70,
+        "walk": 130,
+        "run": 380,
+        "rideSprint": 500,
+        "transport": 180,
+        "swim": 380,
+        "swimDash": 380
+      },
+      "size": "S",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 510,
+        "foodAmount": 6
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/GhostRabbit_Grass.png",
       "internalName": "GhostRabbit_Grass",
       "aliases": [
@@ -7952,6 +11233,23 @@
         "attack": 100,
         "defense": 100
       },
+      "movement": {
+        "slowWalk": 150,
+        "walk": 150,
+        "run": 900,
+        "rideSprint": 1250,
+        "transport": -1,
+        "swim": 270,
+        "swimDash": 375
+      },
+      "size": "M",
+      "stamina": 230,
+      "food": {
+        "maxFullStomach": 440,
+        "foodAmount": 6
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/NightBlueHorse.png",
       "internalName": "NightBlueHorse",
       "aliases": [
@@ -7987,6 +11285,23 @@
         "attack": 105,
         "defense": 100
       },
+      "movement": {
+        "slowWalk": 150,
+        "walk": 150,
+        "run": 900,
+        "rideSprint": 1250,
+        "transport": -1,
+        "swim": 270,
+        "swimDash": 375
+      },
+      "size": "M",
+      "stamina": 230,
+      "food": {
+        "maxFullStomach": 440,
+        "foodAmount": 6
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/NightBlueHorse_Neutral.png",
       "internalName": "NightBlueHorse_Neutral",
       "aliases": [
@@ -8021,6 +11336,23 @@
         "attack": 110,
         "defense": 115
       },
+      "movement": {
+        "slowWalk": 90,
+        "walk": 150,
+        "run": 700,
+        "rideSprint": 1050,
+        "transport": -1,
+        "swim": 210,
+        "swimDash": 315
+      },
+      "size": "L",
+      "stamina": 280,
+      "food": {
+        "maxFullStomach": 600,
+        "foodAmount": 8
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/WhiteShieldDragon.png",
       "internalName": "WhiteShieldDragon",
       "aliases": [
@@ -8055,6 +11387,23 @@
         "attack": 90,
         "defense": 85
       },
+      "movement": {
+        "slowWalk": 40,
+        "walk": 80,
+        "run": 550,
+        "rideSprint": 700,
+        "transport": -1,
+        "swim": 100,
+        "swimDash": 100
+      },
+      "size": "XS",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 170,
+        "foodAmount": 3
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/BlackPuppy.png",
       "internalName": "BlackPuppy",
       "aliases": [
@@ -8094,6 +11443,23 @@
         "attack": 90,
         "defense": 90
       },
+      "movement": {
+        "slowWalk": 40,
+        "walk": 80,
+        "run": 550,
+        "rideSprint": 700,
+        "transport": -1,
+        "swim": 100,
+        "swimDash": 100
+      },
+      "size": "XS",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 170,
+        "foodAmount": 3
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/BlackPuppy_Ice.png",
       "internalName": "BlackPuppy_Ice",
       "aliases": [
@@ -8132,6 +11498,23 @@
         "attack": 110,
         "defense": 100
       },
+      "movement": {
+        "slowWalk": 70,
+        "walk": 140,
+        "run": 800,
+        "rideSprint": 1200,
+        "transport": 400,
+        "swim": 240,
+        "swimDash": 360
+      },
+      "size": "M",
+      "stamina": 260,
+      "food": {
+        "maxFullStomach": 550,
+        "foodAmount": 8
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/WhiteDeer.png",
       "internalName": "WhiteDeer",
       "aliases": [
@@ -8170,6 +11553,23 @@
         "attack": 115,
         "defense": 100
       },
+      "movement": {
+        "slowWalk": 70,
+        "walk": 140,
+        "run": 800,
+        "rideSprint": 1200,
+        "transport": 400,
+        "swim": 240,
+        "swimDash": 360
+      },
+      "size": "M",
+      "stamina": 260,
+      "food": {
+        "maxFullStomach": 550,
+        "foodAmount": 8
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/WhiteDeer_Dark.png",
       "internalName": "WhiteDeer_Dark",
       "aliases": [
@@ -8198,6 +11598,23 @@
         "attack": 120,
         "defense": 200
       },
+      "movement": {
+        "slowWalk": 3000,
+        "walk": 3000,
+        "run": 3000,
+        "rideSprint": 3000,
+        "transport": 3000,
+        "swim": 3000,
+        "swimDash": 3000
+      },
+      "size": "XL",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 600,
+        "foodAmount": 9
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/KingWhale.png",
       "internalName": "KingWhale",
       "aliases": [
@@ -8232,6 +11649,23 @@
         "attack": 105,
         "defense": 100
       },
+      "movement": {
+        "slowWalk": 40,
+        "walk": 70,
+        "run": 400,
+        "rideSprint": 520,
+        "transport": -1,
+        "swim": 720,
+        "swimDash": 936
+      },
+      "size": "S",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 400,
+        "foodAmount": 5
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/MysteryMask.png",
       "internalName": "MysteryMask",
       "aliases": [
@@ -8271,6 +11705,23 @@
         "attack": 85,
         "defense": 80
       },
+      "movement": {
+        "slowWalk": 50,
+        "walk": 100,
+        "run": 400,
+        "rideSprint": 550,
+        "transport": 200,
+        "swim": 120,
+        "swimDash": 165
+      },
+      "size": "XS",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 230,
+        "foodAmount": 3
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/HoodGhost.png",
       "internalName": "HoodGhost",
       "aliases": [
@@ -8313,6 +11764,23 @@
         "attack": 115,
         "defense": 100
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 200,
+        "run": 600,
+        "rideSprint": 900,
+        "transport": 375,
+        "swim": 180,
+        "swimDash": 270
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 530,
+        "foodAmount": 7
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/Sekhmet.png",
       "internalName": "Sekhmet",
       "aliases": [
@@ -8347,6 +11815,23 @@
         "attack": 75,
         "defense": 70
       },
+      "movement": {
+        "slowWalk": 55,
+        "walk": 110,
+        "run": 300,
+        "rideSprint": 390,
+        "transport": -1,
+        "swim": 90,
+        "swimDash": 117
+      },
+      "size": "S",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 300,
+        "foodAmount": 4
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/ElecLizard.png",
       "internalName": "ElecLizard",
       "aliases": [
@@ -8393,6 +11878,23 @@
         "attack": 115,
         "defense": 105
       },
+      "movement": {
+        "slowWalk": 60,
+        "walk": 120,
+        "run": 550,
+        "rideSprint": 660,
+        "transport": 180,
+        "swim": 165,
+        "swimDash": 198
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 530,
+        "foodAmount": 7
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/GrimGirl.png",
       "internalName": "GrimGirl",
       "aliases": [
@@ -8440,6 +11942,23 @@
         "attack": 100,
         "defense": 100
       },
+      "movement": {
+        "slowWalk": 80,
+        "walk": 160,
+        "run": 640,
+        "rideSprint": 1000,
+        "transport": 200,
+        "swim": 192,
+        "swimDash": 300
+      },
+      "size": "S",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 320,
+        "foodAmount": 4
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/PurpleSpider.png",
       "internalName": "PurpleSpider",
       "aliases": [
@@ -8475,6 +11994,23 @@
         "attack": 120,
         "defense": 110
       },
+      "movement": {
+        "slowWalk": 90,
+        "walk": 180,
+        "run": 900,
+        "rideSprint": 1260,
+        "transport": -1,
+        "swim": 270,
+        "swimDash": 378
+      },
+      "size": "L",
+      "stamina": 220,
+      "food": {
+        "maxFullStomach": 550,
+        "foodAmount": 8
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/BlueThunderHorse.png",
       "internalName": "BlueThunderHorse",
       "aliases": [
@@ -8509,6 +12045,23 @@
         "attack": 105,
         "defense": 120
       },
+      "movement": {
+        "slowWalk": 70,
+        "walk": 140,
+        "run": 350,
+        "rideSprint": 550,
+        "transport": 230,
+        "swim": 105,
+        "swimDash": 165
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 580,
+        "foodAmount": 8
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/RockBeast.png",
       "internalName": "RockBeast",
       "aliases": [
@@ -8547,6 +12100,23 @@
         "attack": 110,
         "defense": 120
       },
+      "movement": {
+        "slowWalk": 70,
+        "walk": 140,
+        "run": 350,
+        "rideSprint": 550,
+        "transport": 230,
+        "swim": 350,
+        "swimDash": 350
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 580,
+        "foodAmount": 8
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/RockBeast_Ice.png",
       "internalName": "RockBeast_Ice",
       "aliases": [
@@ -8590,6 +12160,23 @@
         "attack": 85,
         "defense": 70
       },
+      "movement": {
+        "slowWalk": 50,
+        "walk": 120,
+        "run": 300,
+        "rideSprint": 500,
+        "transport": 210,
+        "swim": 540,
+        "swimDash": 900
+      },
+      "size": "S",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 280,
+        "foodAmount": 3
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/OctopusGirl.png",
       "internalName": "OctopusGirl",
       "aliases": [
@@ -8633,6 +12220,23 @@
         "attack": 85,
         "defense": 70
       },
+      "movement": {
+        "slowWalk": 50,
+        "walk": 120,
+        "run": 300,
+        "rideSprint": 500,
+        "transport": 210,
+        "swim": 540,
+        "swimDash": 900
+      },
+      "size": "S",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 280,
+        "foodAmount": 3
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/OctopusGirl_Neutral.png",
       "internalName": "OctopusGirl_Neutral",
       "aliases": [
@@ -8672,6 +12276,23 @@
         "attack": 115,
         "defense": 110
       },
+      "movement": {
+        "slowWalk": 125,
+        "walk": 250,
+        "run": 600,
+        "rideSprint": 750,
+        "transport": 400,
+        "swim": 850,
+        "swimDash": 950
+      },
+      "size": "XL",
+      "stamina": 200,
+      "food": {
+        "maxFullStomach": 560,
+        "foodAmount": 8
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/IceNarwhal.png",
       "internalName": "IceNarwhal",
       "aliases": [
@@ -8711,6 +12332,23 @@
         "attack": 120,
         "defense": 110
       },
+      "movement": {
+        "slowWalk": 125,
+        "walk": 250,
+        "run": 600,
+        "rideSprint": 750,
+        "transport": 400,
+        "swim": 850,
+        "swimDash": 950
+      },
+      "size": "XL",
+      "stamina": 200,
+      "food": {
+        "maxFullStomach": 560,
+        "foodAmount": 8
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/IceNarwhal_Fire.png",
       "internalName": "IceNarwhal_Fire",
       "aliases": [
@@ -8753,6 +12391,23 @@
         "attack": 90,
         "defense": 70
       },
+      "movement": {
+        "slowWalk": 40,
+        "walk": 80,
+        "run": 240,
+        "rideSprint": 450,
+        "transport": 160,
+        "swim": 432,
+        "swimDash": 810
+      },
+      "size": "S",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 220,
+        "foodAmount": 3
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/JellyfishFairy.png",
       "internalName": "JellyfishFairy",
       "aliases": [
@@ -8787,6 +12442,23 @@
         "attack": 80,
         "defense": 70
       },
+      "movement": {
+        "slowWalk": 40,
+        "walk": 80,
+        "run": 400,
+        "rideSprint": 550,
+        "transport": 240,
+        "swim": 120,
+        "swimDash": 165
+      },
+      "size": "XS",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 100,
+        "foodAmount": 1
+      },
+      "captureRateCorrect": 1.1,
+      "nocturnal": false,
       "icon": "/icons/pals/Kitsunebi_Ice.png",
       "internalName": "Kitsunebi_Ice",
       "aliases": [
@@ -8825,6 +12497,23 @@
         "attack": 75,
         "defense": 90
       },
+      "movement": {
+        "slowWalk": 70,
+        "walk": 70,
+        "run": 400,
+        "rideSprint": 550,
+        "transport": 235,
+        "swim": 120,
+        "swimDash": 165
+      },
+      "size": "S",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 150,
+        "foodAmount": 2
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/BerryGoat_Dark.png",
       "internalName": "BerryGoat_Dark",
       "aliases": [
@@ -8871,6 +12560,23 @@
         "attack": 65,
         "defense": 70
       },
+      "movement": {
+        "slowWalk": 50,
+        "walk": 100,
+        "run": 245,
+        "rideSprint": 350,
+        "transport": 172,
+        "swim": 73,
+        "swimDash": 105
+      },
+      "size": "XS",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 100,
+        "foodAmount": 1
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/PinkRabbit_Grass.png",
       "internalName": "PinkRabbit_Grass",
       "aliases": [
@@ -8909,6 +12615,23 @@
         "attack": 105,
         "defense": 80
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 175,
+        "run": 600,
+        "rideSprint": 800,
+        "transport": 375,
+        "swim": 180,
+        "swimDash": 240
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 210,
+        "foodAmount": 3
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/Werewolf_Ice.png",
       "internalName": "Werewolf_Ice",
       "aliases": [
@@ -8944,6 +12667,23 @@
         "attack": 115,
         "defense": 105
       },
+      "movement": {
+        "slowWalk": 80,
+        "walk": 130,
+        "run": 700,
+        "rideSprint": 1100,
+        "transport": 415,
+        "swim": 210,
+        "swimDash": 330
+      },
+      "size": "M",
+      "stamina": 140,
+      "food": {
+        "maxFullStomach": 380,
+        "foodAmount": 5
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/AmaterasuWolf_Dark.png",
       "internalName": "AmaterasuWolf_Dark",
       "aliases": [
@@ -8991,6 +12731,23 @@
         "attack": 80,
         "defense": 75
       },
+      "movement": {
+        "slowWalk": 120,
+        "walk": 200,
+        "run": 400,
+        "rideSprint": 550,
+        "transport": 300,
+        "swim": 720,
+        "swimDash": 990
+      },
+      "size": "XS",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 150,
+        "foodAmount": 2
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/RaijinDaughter_Water.png",
       "internalName": "RaijinDaughter_Water",
       "aliases": [
@@ -9037,6 +12794,23 @@
         "attack": 105,
         "defense": 110
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 280,
+        "run": 720,
+        "rideSprint": 900,
+        "transport": 460,
+        "swim": 50,
+        "swimDash": 50
+      },
+      "size": "L",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 480,
+        "foodAmount": 7
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/WhiteTiger_Ground.png",
       "internalName": "WhiteTiger_Ground",
       "aliases": [
@@ -9076,6 +12850,23 @@
         "attack": 115,
         "defense": 90
       },
+      "movement": {
+        "slowWalk": 85,
+        "walk": 100,
+        "run": 750,
+        "rideSprint": 1050,
+        "transport": 417,
+        "swim": 225,
+        "swimDash": 315
+      },
+      "size": "S",
+      "stamina": 140,
+      "food": {
+        "maxFullStomach": 340,
+        "foodAmount": 5
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/FengyunDeeper_Electric.png",
       "internalName": "FengyunDeeper_Electric",
       "aliases": [
@@ -9114,6 +12905,23 @@
         "attack": 110,
         "defense": 115
       },
+      "movement": {
+        "slowWalk": 150,
+        "walk": 200,
+        "run": 1000,
+        "rideSprint": 1400,
+        "transport": 500,
+        "swim": 1800,
+        "swimDash": 2520
+      },
+      "size": "L",
+      "stamina": 230,
+      "food": {
+        "maxFullStomach": 600,
+        "foodAmount": 9
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/Horus_Water.png",
       "internalName": "Horus_Water",
       "aliases": [
@@ -9157,6 +12965,23 @@
         "attack": 130,
         "defense": 120
       },
+      "movement": {
+        "slowWalk": 120,
+        "walk": 225,
+        "run": 750,
+        "rideSprint": 1100,
+        "transport": -1,
+        "swim": 225,
+        "swimDash": 330
+      },
+      "size": "M",
+      "stamina": 270,
+      "food": {
+        "maxFullStomach": 730,
+        "foodAmount": 9
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/SnowTigerBeastman.png",
       "internalName": "SnowTigerBeastman",
       "aliases": [
@@ -9204,6 +13029,23 @@
         "attack": 85,
         "defense": 90
       },
+      "movement": {
+        "slowWalk": 50,
+        "walk": 100,
+        "run": 450,
+        "rideSprint": 600,
+        "transport": 200,
+        "swim": 450,
+        "swimDash": 450
+      },
+      "size": "S",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 340,
+        "foodAmount": 6
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/SnakeGirl.png",
       "internalName": "SnakeGirl",
       "aliases": [
@@ -9244,6 +13086,23 @@
         "attack": 125,
         "defense": 105
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 200,
+        "run": 500,
+        "rideSprint": 800,
+        "transport": 300,
+        "swim": 1200,
+        "swimDash": 1350
+      },
+      "size": "M",
+      "stamina": 320,
+      "food": {
+        "maxFullStomach": 480,
+        "foodAmount": 7
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/GhostAnglerfish.png",
       "internalName": "GhostAnglerfish",
       "aliases": [
@@ -9287,6 +13146,23 @@
         "attack": 130,
         "defense": 105
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 200,
+        "run": 500,
+        "rideSprint": 800,
+        "transport": 300,
+        "swim": 1200,
+        "swimDash": 1350
+      },
+      "size": "M",
+      "stamina": 320,
+      "food": {
+        "maxFullStomach": 480,
+        "foodAmount": 7
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/GhostAnglerfish_Fire.png",
       "internalName": "GhostAnglerfish_Fire",
       "aliases": [
@@ -9333,6 +13209,23 @@
         "attack": 115,
         "defense": 105
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 150,
+        "run": 400,
+        "rideSprint": 600,
+        "transport": 200,
+        "swim": 400,
+        "swimDash": 400
+      },
+      "size": "S",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 270,
+        "foodAmount": 5
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/IceWitch.png",
       "internalName": "IceWitch",
       "aliases": [
@@ -9379,6 +13272,23 @@
         "attack": 110,
         "defense": 100
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 150,
+        "run": 500,
+        "rideSprint": 750,
+        "transport": 350,
+        "swim": 500,
+        "swimDash": 500
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 600,
+        "foodAmount": 8
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/ClownRabbit.png",
       "internalName": "ClownRabbit",
       "aliases": [
@@ -9417,6 +13327,23 @@
         "attack": 130,
         "defense": 110
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 150,
+        "run": 900,
+        "rideSprint": 1900,
+        "transport": 450,
+        "swim": 360,
+        "swimDash": 540
+      },
+      "size": "L",
+      "stamina": 400,
+      "food": {
+        "maxFullStomach": 710,
+        "foodAmount": 9
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/LegendDeer.png",
       "internalName": "LegendDeer",
       "aliases": [
@@ -9461,6 +13388,23 @@
         "attack": 75,
         "defense": 75
       },
+      "movement": {
+        "slowWalk": 15,
+        "walk": 30,
+        "run": 350,
+        "rideSprint": 600,
+        "transport": 350,
+        "swim": 105,
+        "swimDash": 180
+      },
+      "size": "XS",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 100,
+        "foodAmount": 1
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/LeafMomonga.png",
       "internalName": "LeafMomonga",
       "aliases": [
@@ -9507,6 +13451,23 @@
         "attack": 75,
         "defense": 85
       },
+      "movement": {
+        "slowWalk": 50,
+        "walk": 85,
+        "run": 400,
+        "rideSprint": 600,
+        "transport": 100,
+        "swim": 120,
+        "swimDash": 180
+      },
+      "size": "S",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 380,
+        "foodAmount": 5
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/SmallYeti.png",
       "internalName": "SmallYeti",
       "aliases": [
@@ -9550,6 +13511,23 @@
         "attack": 80,
         "defense": 85
       },
+      "movement": {
+        "slowWalk": 20,
+        "walk": 40,
+        "run": 300,
+        "rideSprint": 450,
+        "transport": 40,
+        "swim": 90,
+        "swimDash": 135
+      },
+      "size": "S",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 310,
+        "foodAmount": 3
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/IceCrocodile.png",
       "internalName": "IceCrocodile",
       "aliases": [
@@ -9592,6 +13570,23 @@
         "attack": 85,
         "defense": 70
       },
+      "movement": {
+        "slowWalk": 50,
+        "walk": 100,
+        "run": 525,
+        "rideSprint": 630,
+        "transport": 200,
+        "swim": 157,
+        "swimDash": 189
+      },
+      "size": "XS",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 150,
+        "foodAmount": 2
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/CactusDoll.png",
       "internalName": "CactusDoll",
       "aliases": [
@@ -9635,6 +13630,23 @@
         "attack": 90,
         "defense": 70
       },
+      "movement": {
+        "slowWalk": 50,
+        "walk": 100,
+        "run": 525,
+        "rideSprint": 630,
+        "transport": 200,
+        "swim": 157,
+        "swimDash": 189
+      },
+      "size": "XS",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 150,
+        "foodAmount": 2
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/CactusDoll_Dark.png",
       "internalName": "CactusDoll_Dark",
       "aliases": [
@@ -9681,6 +13693,23 @@
         "attack": 95,
         "defense": 90
       },
+      "movement": {
+        "slowWalk": 25,
+        "walk": 50,
+        "run": 300,
+        "rideSprint": 600,
+        "transport": 100,
+        "swim": 90,
+        "swimDash": 180
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 530,
+        "foodAmount": 7
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/MushroomLady.png",
       "internalName": "MushroomLady",
       "aliases": [
@@ -9719,6 +13748,23 @@
         "attack": 85,
         "defense": 80
       },
+      "movement": {
+        "slowWalk": 25,
+        "walk": 50,
+        "run": 250,
+        "rideSprint": 400,
+        "transport": 250,
+        "swim": 450,
+        "swimDash": 720
+      },
+      "size": "S",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 140,
+        "foodAmount": 2
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/StuffedShark.png",
       "internalName": "StuffedShark",
       "aliases": [
@@ -9762,6 +13808,23 @@
         "attack": 90,
         "defense": 80
       },
+      "movement": {
+        "slowWalk": 25,
+        "walk": 50,
+        "run": 250,
+        "rideSprint": 400,
+        "transport": 250,
+        "swim": 250,
+        "swimDash": 250
+      },
+      "size": "S",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 140,
+        "foodAmount": 2
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/StuffedShark_Fire.png",
       "internalName": "StuffedShark_Fire",
       "aliases": [
@@ -9804,6 +13867,23 @@
         "attack": 125,
         "defense": 105
       },
+      "movement": {
+        "slowWalk": 70,
+        "walk": 130,
+        "run": 500,
+        "rideSprint": 600,
+        "transport": 300,
+        "swim": 150,
+        "swimDash": 180
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 600,
+        "foodAmount": 8
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/FoxExorcist.png",
       "internalName": "FoxExorcist",
       "aliases": [
@@ -9843,6 +13923,23 @@
         "attack": 105,
         "defense": 105
       },
+      "movement": {
+        "slowWalk": 20,
+        "walk": 45,
+        "run": 250,
+        "rideSprint": 375,
+        "transport": 250,
+        "swim": 450,
+        "swimDash": 675
+      },
+      "size": "S",
+      "stamina": 120,
+      "food": {
+        "maxFullStomach": 220,
+        "foodAmount": 4
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/IceSeal.png",
       "internalName": "IceSeal",
       "aliases": [
@@ -9882,6 +13979,23 @@
         "attack": 105,
         "defense": 110
       },
+      "movement": {
+        "slowWalk": 20,
+        "walk": 45,
+        "run": 250,
+        "rideSprint": 375,
+        "transport": 250,
+        "swim": 450,
+        "swimDash": 675
+      },
+      "size": "S",
+      "stamina": 120,
+      "food": {
+        "maxFullStomach": 220,
+        "foodAmount": 4
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/IceSeal_Ground.png",
       "internalName": "IceSeal_Ground",
       "aliases": [
@@ -9921,6 +14035,23 @@
         "attack": 65,
         "defense": 65
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 150,
+        "run": 400,
+        "rideSprint": 550,
+        "transport": 200,
+        "swim": 400,
+        "swimDash": 400
+      },
+      "size": "XS",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 100,
+        "foodAmount": 1
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/CloverFairy.png",
       "internalName": "CloverFairy",
       "aliases": [
@@ -9959,6 +14090,23 @@
         "attack": 80,
         "defense": 70
       },
+      "movement": {
+        "slowWalk": 35,
+        "walk": 70,
+        "run": 200,
+        "rideSprint": 400,
+        "transport": 200,
+        "swim": 200,
+        "swimDash": 400
+      },
+      "size": "XS",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 170,
+        "foodAmount": 3
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/ElecPomeranian.png",
       "internalName": "ElecPomeranian",
       "aliases": [
@@ -10005,6 +14153,23 @@
         "attack": 95,
         "defense": 70
       },
+      "movement": {
+        "slowWalk": 60,
+        "walk": 120,
+        "run": 360,
+        "rideSprint": 540,
+        "transport": 240,
+        "swim": 108,
+        "swimDash": 162
+      },
+      "size": "S",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 450,
+        "foodAmount": 6
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/GhostBlackCat.png",
       "internalName": "GhostBlackCat",
       "aliases": [
@@ -10043,6 +14208,23 @@
         "attack": 115,
         "defense": 95
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 170,
+        "run": 950,
+        "rideSprint": 1350,
+        "transport": 450,
+        "swim": 950,
+        "swimDash": 950
+      },
+      "size": "M",
+      "stamina": 200,
+      "food": {
+        "maxFullStomach": 560,
+        "foodAmount": 8
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/ThiefBird.png",
       "internalName": "ThiefBird",
       "aliases": [
@@ -10085,6 +14267,23 @@
         "attack": 85,
         "defense": 80
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 150,
+        "run": 400,
+        "rideSprint": 600,
+        "transport": 300,
+        "swim": 400,
+        "swimDash": 400
+      },
+      "size": "S",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 290,
+        "foodAmount": 5
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/OniGhostGirl.png",
       "internalName": "OniGhostGirl",
       "aliases": [
@@ -10128,6 +14327,23 @@
         "attack": 95,
         "defense": 120
       },
+      "movement": {
+        "slowWalk": 70,
+        "walk": 95,
+        "run": 600,
+        "rideSprint": 1020,
+        "transport": -1,
+        "swim": 180,
+        "swimDash": 306
+      },
+      "size": "XL",
+      "stamina": 270,
+      "food": {
+        "maxFullStomach": 460,
+        "foodAmount": 7
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/Plesiosaur.png",
       "internalName": "Plesiosaur",
       "aliases": [
@@ -10170,6 +14386,23 @@
         "attack": 110,
         "defense": 115
       },
+      "movement": {
+        "slowWalk": 150,
+        "walk": 180,
+        "run": 550,
+        "rideSprint": 1000,
+        "transport": 400,
+        "swim": 165,
+        "swimDash": 300
+      },
+      "size": "M",
+      "stamina": 180,
+      "food": {
+        "maxFullStomach": 410,
+        "foodAmount": 6
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/TropicalOstrich.png",
       "internalName": "TropicalOstrich",
       "aliases": [
@@ -10221,6 +14454,23 @@
         "attack": 105,
         "defense": 125
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 200,
+        "run": 600,
+        "rideSprint": 800,
+        "transport": 350,
+        "swim": 180,
+        "swimDash": 240
+      },
+      "size": "XL",
+      "stamina": 210,
+      "food": {
+        "maxFullStomach": 550,
+        "foodAmount": 8
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/GrassGolem.png",
       "internalName": "GrassGolem",
       "aliases": [
@@ -10272,6 +14522,23 @@
         "attack": 110,
         "defense": 125
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 200,
+        "run": 600,
+        "rideSprint": 800,
+        "transport": 350,
+        "swim": 600,
+        "swimDash": 600
+      },
+      "size": "XL",
+      "stamina": 210,
+      "food": {
+        "maxFullStomach": 550,
+        "foodAmount": 8
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/GrassGolem_Dark.png",
       "internalName": "GrassGolem_Dark",
       "aliases": [
@@ -10310,6 +14577,23 @@
         "attack": 100,
         "defense": 100
       },
+      "movement": {
+        "slowWalk": 50,
+        "walk": 100,
+        "run": 500,
+        "rideSprint": 750,
+        "transport": -1,
+        "swim": 150,
+        "swimDash": 225
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 300,
+        "foodAmount": 5
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/SnowPeafowl.png",
       "internalName": "SnowPeafowl",
       "aliases": [
@@ -10344,6 +14628,23 @@
         "attack": 100,
         "defense": 135
       },
+      "movement": {
+        "slowWalk": 80,
+        "walk": 80,
+        "run": 360,
+        "rideSprint": 540,
+        "transport": 360,
+        "swim": 360,
+        "swimDash": 360
+      },
+      "size": "XL",
+      "stamina": 200,
+      "food": {
+        "maxFullStomach": 580,
+        "foodAmount": 8
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/CubeTurtle.png",
       "internalName": "CubeTurtle",
       "aliases": [
@@ -10378,6 +14679,23 @@
         "attack": 100,
         "defense": 140
       },
+      "movement": {
+        "slowWalk": 80,
+        "walk": 80,
+        "run": 360,
+        "rideSprint": 540,
+        "transport": 360,
+        "swim": 360,
+        "swimDash": 360
+      },
+      "size": "XL",
+      "stamina": 200,
+      "food": {
+        "maxFullStomach": 550,
+        "foodAmount": 8
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/CubeTurtle_Neutral.png",
       "internalName": "CubeTurtle_Neutral",
       "aliases": [
@@ -10412,6 +14730,23 @@
         "attack": 80,
         "defense": 70
       },
+      "movement": {
+        "slowWalk": 50,
+        "walk": 70,
+        "run": 700,
+        "rideSprint": 900,
+        "transport": 150,
+        "swim": 210,
+        "swimDash": 270
+      },
+      "size": "S",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 230,
+        "foodAmount": 4
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/LongCat.png",
       "internalName": "LongCat",
       "aliases": [
@@ -10459,6 +14794,23 @@
         "attack": 75,
         "defense": 75
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 200,
+        "run": 400,
+        "rideSprint": 600,
+        "transport": 300,
+        "swim": 720,
+        "swimDash": 1080
+      },
+      "size": "S",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 220,
+        "foodAmount": 3
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/JellyfishGhost.png",
       "internalName": "JellyfishGhost",
       "aliases": [
@@ -10501,6 +14853,23 @@
         "attack": 85,
         "defense": 80
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 150,
+        "run": 700,
+        "rideSprint": 1000,
+        "transport": 300,
+        "swim": 210,
+        "swimDash": 300
+      },
+      "size": "M",
+      "stamina": 140,
+      "food": {
+        "maxFullStomach": 450,
+        "foodAmount": 6
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/ThunderFluffyBird.png",
       "internalName": "ThunderFluffyBird",
       "aliases": [
@@ -10543,6 +14912,23 @@
         "attack": 90,
         "defense": 60
       },
+      "movement": {
+        "slowWalk": 90,
+        "walk": 130,
+        "run": 450,
+        "rideSprint": 600,
+        "transport": 300,
+        "swim": 450,
+        "swimDash": 450
+      },
+      "size": "S",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 380,
+        "foodAmount": 5
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/MoonChild.png",
       "internalName": "MoonChild",
       "aliases": [
@@ -10585,6 +14971,23 @@
         "attack": 80,
         "defense": 70
       },
+      "movement": {
+        "slowWalk": 25,
+        "walk": 45,
+        "run": 400,
+        "rideSprint": 600,
+        "transport": 200,
+        "swim": 120,
+        "swimDash": 180
+      },
+      "size": "XS",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 100,
+        "foodAmount": 1
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/SamuraiDog.png",
       "internalName": "SamuraiDog",
       "aliases": [
@@ -10619,6 +15022,23 @@
         "attack": 145,
         "defense": 125
       },
+      "movement": {
+        "slowWalk": 150,
+        "walk": 300,
+        "run": 750,
+        "rideSprint": 1120,
+        "transport": 450,
+        "swim": 1800,
+        "swimDash": 2000
+      },
+      "size": "XL",
+      "stamina": 410,
+      "food": {
+        "maxFullStomach": 620,
+        "foodAmount": 9
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/PoseidonOrca.png",
       "internalName": "PoseidonOrca",
       "aliases": [
@@ -10661,6 +15081,23 @@
         "attack": 100,
         "defense": 80
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 200,
+        "run": 500,
+        "rideSprint": 800,
+        "transport": 300,
+        "swim": 900,
+        "swimDash": 1440
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 340,
+        "foodAmount": 5
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/SwordCutlassfish.png",
       "internalName": "SwordCutlassfish",
       "aliases": [
@@ -10708,6 +15145,23 @@
         "attack": 105,
         "defense": 80
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 200,
+        "run": 500,
+        "rideSprint": 800,
+        "transport": 300,
+        "swim": 900,
+        "swimDash": 1440
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 340,
+        "foodAmount": 5
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/SwordCutlassfish_Fire.png",
       "internalName": "SwordCutlassfish_Fire",
       "aliases": [
@@ -10751,6 +15205,23 @@
         "attack": 120,
         "defense": 105
       },
+      "movement": {
+        "slowWalk": 75,
+        "walk": 150,
+        "run": 480,
+        "rideSprint": 720,
+        "transport": 350,
+        "swim": 144,
+        "swimDash": 216
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 450,
+        "foodAmount": 6
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/MummyPal.png",
       "internalName": "MummyPal",
       "aliases": [
@@ -10786,6 +15257,23 @@
         "attack": 90,
         "defense": 85
       },
+      "movement": {
+        "slowWalk": 30,
+        "walk": 50,
+        "run": 500,
+        "rideSprint": 900,
+        "transport": 150,
+        "swim": 1100,
+        "swimDash": 1300
+      },
+      "size": "M",
+      "stamina": 220,
+      "food": {
+        "maxFullStomach": 450,
+        "foodAmount": 6
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/KingSunfish.png",
       "internalName": "KingSunfish",
       "aliases": [
@@ -10825,6 +15313,23 @@
         "attack": 95,
         "defense": 85
       },
+      "movement": {
+        "slowWalk": 30,
+        "walk": 50,
+        "run": 500,
+        "rideSprint": 900,
+        "transport": 150,
+        "swim": 1100,
+        "swimDash": 1300
+      },
+      "size": "M",
+      "stamina": 220,
+      "food": {
+        "maxFullStomach": 450,
+        "foodAmount": 6
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/KingSunfish_Thunder.png",
       "internalName": "KingSunfish_Thunder",
       "aliases": [
@@ -10868,6 +15373,23 @@
         "attack": 115,
         "defense": 115
       },
+      "movement": {
+        "slowWalk": 50,
+        "walk": 100,
+        "run": 450,
+        "rideSprint": 600,
+        "transport": 250,
+        "swim": 450,
+        "swimDash": 450
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 680,
+        "foodAmount": 9
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/MonochromeQueen.png",
       "internalName": "MonochromeQueen",
       "aliases": [
@@ -10903,6 +15425,23 @@
         "attack": 70,
         "defense": 75
       },
+      "movement": {
+        "slowWalk": 30,
+        "walk": 50,
+        "run": 360,
+        "rideSprint": 945,
+        "transport": 120,
+        "swim": 50,
+        "swimDash": 50
+      },
+      "size": "S",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 300,
+        "foodAmount": 4
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/ElecSnail.png",
       "internalName": "ElecSnail",
       "aliases": [
@@ -10938,6 +15477,23 @@
         "attack": 70,
         "defense": 80
       },
+      "movement": {
+        "slowWalk": 30,
+        "walk": 50,
+        "run": 360,
+        "rideSprint": 945,
+        "transport": 120,
+        "swim": 50,
+        "swimDash": 50
+      },
+      "size": "S",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 300,
+        "foodAmount": 4
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/ElecSnail_Ground.png",
       "internalName": "ElecSnail_Ground",
       "aliases": [
@@ -10981,6 +15537,23 @@
         "attack": 100,
         "defense": 95
       },
+      "movement": {
+        "slowWalk": 25,
+        "walk": 50,
+        "run": 300,
+        "rideSprint": 450,
+        "transport": 175,
+        "swim": 300,
+        "swimDash": 300
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 530,
+        "foodAmount": 7
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/LanternButler.png",
       "internalName": "LanternButler",
       "aliases": [
@@ -11019,6 +15592,23 @@
         "attack": 95,
         "defense": 100
       },
+      "movement": {
+        "slowWalk": 60,
+        "walk": 120,
+        "run": 600,
+        "rideSprint": 810,
+        "transport": 120,
+        "swim": 180,
+        "swimDash": 243
+      },
+      "size": "M",
+      "stamina": 110,
+      "food": {
+        "maxFullStomach": 420,
+        "foodAmount": 6
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/SumoDog.png",
       "internalName": "SumoDog",
       "aliases": [
@@ -11065,6 +15655,23 @@
         "attack": 90,
         "defense": 85
       },
+      "movement": {
+        "slowWalk": 50,
+        "walk": 100,
+        "run": 600,
+        "rideSprint": 750,
+        "transport": 330,
+        "swim": 180,
+        "swimDash": 225
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 530,
+        "foodAmount": 7
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/VenusFlytrap.png",
       "internalName": "VenusFlytrap",
       "aliases": [
@@ -11103,6 +15710,23 @@
         "attack": 80,
         "defense": 55
       },
+      "movement": {
+        "slowWalk": 50,
+        "walk": 110,
+        "run": 300,
+        "rideSprint": 450,
+        "transport": 75,
+        "swim": 90,
+        "swimDash": 135
+      },
+      "size": "XS",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 230,
+        "foodAmount": 3
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/FluffyBird.png",
       "internalName": "FluffyBird",
       "aliases": [
@@ -11141,6 +15765,23 @@
         "attack": 75,
         "defense": 60
       },
+      "movement": {
+        "slowWalk": 50,
+        "walk": 100,
+        "run": 300,
+        "rideSprint": 450,
+        "transport": 50,
+        "swim": 300,
+        "swimDash": 300
+      },
+      "size": "S",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 230,
+        "foodAmount": 3
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/DandelionGirl.png",
       "internalName": "DandelionGirl",
       "aliases": [
@@ -11183,6 +15824,23 @@
         "attack": 70,
         "defense": 65
       },
+      "movement": {
+        "slowWalk": 50,
+        "walk": 100,
+        "run": 450,
+        "rideSprint": 600,
+        "transport": 150,
+        "swim": 450,
+        "swimDash": 450
+      },
+      "size": "XS",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 230,
+        "foodAmount": 3
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/ClioneTwins.png",
       "internalName": "ClioneTwins",
       "aliases": [
@@ -11230,6 +15888,23 @@
         "attack": 115,
         "defense": 90
       },
+      "movement": {
+        "slowWalk": 75,
+        "walk": 150,
+        "run": 500,
+        "rideSprint": 750,
+        "transport": 150,
+        "swim": 150,
+        "swimDash": 225
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 600,
+        "foodAmount": 8
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/DarkFlameFox.png",
       "internalName": "DarkFlameFox",
       "aliases": [
@@ -11268,6 +15943,23 @@
         "attack": 85,
         "defense": 90
       },
+      "movement": {
+        "slowWalk": 80,
+        "walk": 150,
+        "run": 600,
+        "rideSprint": 600,
+        "transport": 200,
+        "swim": 180,
+        "swimDash": 180
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 450,
+        "foodAmount": 6
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/RedFlowerBird.png",
       "internalName": "RedFlowerBird",
       "aliases": [
@@ -11307,6 +15999,23 @@
         "attack": 100,
         "defense": 100
       },
+      "movement": {
+        "slowWalk": 40,
+        "walk": 40,
+        "run": 600,
+        "rideSprint": 700,
+        "transport": 100,
+        "swim": 600,
+        "swimDash": 600
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 400,
+        "foodAmount": 7
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/SleeveRabbit.png",
       "internalName": "SleeveRabbit",
       "aliases": [
@@ -11346,6 +16055,23 @@
         "attack": 115,
         "defense": 120
       },
+      "movement": {
+        "slowWalk": 50,
+        "walk": 175,
+        "run": 700,
+        "rideSprint": 1500,
+        "transport": 200,
+        "swim": 1600,
+        "swimDash": 1900
+      },
+      "size": "L",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 620,
+        "foodAmount": 9
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/LotusDragon.png",
       "internalName": "LotusDragon",
       "aliases": [
@@ -11385,6 +16111,23 @@
         "attack": 135,
         "defense": 120
       },
+      "movement": {
+        "slowWalk": 50,
+        "walk": 300,
+        "run": 1400,
+        "rideSprint": 2800,
+        "transport": 450,
+        "swim": 1400,
+        "swimDash": 1400
+      },
+      "size": "XL",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 620,
+        "foodAmount": 9
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/BlueSkyDragon.png",
       "internalName": "BlueSkyDragon",
       "aliases": [
@@ -11432,6 +16175,23 @@
         "attack": 115,
         "defense": 95
       },
+      "movement": {
+        "slowWalk": 60,
+        "walk": 120,
+        "run": 600,
+        "rideSprint": 750,
+        "transport": 300,
+        "swim": 180,
+        "swimDash": 225
+      },
+      "size": "S",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 530,
+        "foodAmount": 7
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/PandaGirl.png",
       "internalName": "PandaGirl",
       "aliases": [
@@ -11483,6 +16243,23 @@
         "attack": 105,
         "defense": 105
       },
+      "movement": {
+        "slowWalk": 75,
+        "walk": 150,
+        "run": 700,
+        "rideSprint": 1000,
+        "transport": 200,
+        "swim": 210,
+        "swimDash": 300
+      },
+      "size": "L",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 560,
+        "foodAmount": 8
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/GrassMinotaur.png",
       "internalName": "GrassMinotaur",
       "aliases": [
@@ -11529,6 +16306,23 @@
         "attack": 100,
         "defense": 105
       },
+      "movement": {
+        "slowWalk": 75,
+        "walk": 150,
+        "run": 700,
+        "rideSprint": 1000,
+        "transport": 200,
+        "swim": 210,
+        "swimDash": 300
+      },
+      "size": "L",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 560,
+        "foodAmount": 8
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/GrassMinotaur_Ice.png",
       "internalName": "GrassMinotaur_Ice",
       "aliases": [
@@ -11580,6 +16374,23 @@
         "attack": 120,
         "defense": 110
       },
+      "movement": {
+        "slowWalk": 60,
+        "walk": 120,
+        "run": 500,
+        "rideSprint": 750,
+        "transport": 500,
+        "swim": 500,
+        "swimDash": 500
+      },
+      "size": "L",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 630,
+        "foodAmount": 9
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/Mothman.png",
       "internalName": "Mothman",
       "aliases": [
@@ -11615,6 +16426,23 @@
         "attack": 125,
         "defense": 120
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 200,
+        "run": 1400,
+        "rideSprint": 2750,
+        "transport": 400,
+        "swim": 1400,
+        "swimDash": 1400
+      },
+      "size": "L",
+      "stamina": 130,
+      "food": {
+        "maxFullStomach": 620,
+        "foodAmount": 9
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/GhostDragon.png",
       "internalName": "GhostDragon",
       "aliases": [
@@ -11654,6 +16482,23 @@
         "attack": 130,
         "defense": 120
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 200,
+        "run": 1400,
+        "rideSprint": 2750,
+        "transport": 400,
+        "swim": 1400,
+        "swimDash": 1400
+      },
+      "size": "L",
+      "stamina": 130,
+      "food": {
+        "maxFullStomach": 620,
+        "foodAmount": 9
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/GhostDragon_Fire.png",
       "internalName": "GhostDragon_Fire",
       "aliases": [
@@ -11705,6 +16550,23 @@
         "attack": 135,
         "defense": 110
       },
+      "movement": {
+        "slowWalk": 50,
+        "walk": 160,
+        "run": 1000,
+        "rideSprint": 1000,
+        "transport": 300,
+        "swim": 1000,
+        "swimDash": 1000
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 630,
+        "foodAmount": 9
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
       "icon": "/icons/pals/FlowerPrince.png",
       "internalName": "FlowerPrince",
       "aliases": [
@@ -11731,6 +16593,23 @@
         "attack": 200,
         "defense": 200
       },
+      "movement": {
+        "slowWalk": -1,
+        "walk": 400,
+        "run": -1,
+        "rideSprint": -1,
+        "transport": -1,
+        "swim": -1,
+        "swimDash": -1
+      },
+      "size": "XL",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 600,
+        "foodAmount": 9
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/WorldTreeDragon.png",
       "internalName": "WorldTreeDragon",
       "aliases": [
@@ -11778,6 +16657,23 @@
         "attack": 120,
         "defense": 100
       },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 200,
+        "run": 400,
+        "rideSprint": 500,
+        "transport": 250,
+        "swim": 400,
+        "swimDash": 500
+      },
+      "size": "L",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 560,
+        "foodAmount": 8
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/KabukiMan.png",
       "internalName": "KabukiMan",
       "aliases": [
@@ -11813,6 +16709,23 @@
         "attack": 125,
         "defense": 140
       },
+      "movement": {
+        "slowWalk": 115,
+        "walk": 230,
+        "run": 850,
+        "rideSprint": 1100,
+        "transport": 360,
+        "swim": 255,
+        "swimDash": 330
+      },
+      "size": "XL",
+      "stamina": 300,
+      "food": {
+        "maxFullStomach": 600,
+        "foodAmount": 9
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "icon": "/icons/pals/DomeArmorDragon.png",
       "internalName": "DomeArmorDragon",
       "aliases": [
@@ -11859,6 +16772,23 @@
         "attack": 100,
         "defense": 100
       },
+      "movement": {
+        "slowWalk": 50,
+        "walk": 100,
+        "run": 600,
+        "rideSprint": 1000,
+        "transport": 275,
+        "swim": 180,
+        "swimDash": 300
+      },
+      "size": "L",
+      "stamina": 130,
+      "food": {
+        "maxFullStomach": 350,
+        "foodAmount": 5
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "internalName": "GrassPanda_Electric_Tower"
     },
     {
@@ -11894,6 +16824,23 @@
         "attack": 120,
         "defense": 110
       },
+      "movement": {
+        "slowWalk": 40,
+        "walk": 60,
+        "run": 650,
+        "rideSprint": 1000,
+        "transport": 150,
+        "swim": 650,
+        "swimDash": 1000
+      },
+      "size": "XL",
+      "stamina": 200,
+      "food": {
+        "maxFullStomach": 475,
+        "foodAmount": 7
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
       "internalName": "LazyDragon_Electric_Tower"
     }
   ],

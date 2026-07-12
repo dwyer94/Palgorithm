@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { RulesetProvider } from './ui/RulesetContext';
 import { LiveProvider, useLiveContext } from './live/LiveContext';
+import { ReferenceProvider, useReferenceContext } from './ui/ReferenceContext';
 import { useRoster, useSettings } from './store/hooks';
 import { Sidebar } from './ui/components';
 import RosterView from './ui/RosterView';
@@ -10,6 +11,8 @@ import HubView from './ui/HubView';
 import SavedPlansView from './ui/SavedPlansView';
 import ForwardCalculatorView from './ui/ForwardCalculatorView';
 import ReverseLookupView from './ui/ReverseLookupView';
+import ReferenceView from './ui/ReferenceView';
+import ReferenceBubbles from './ui/ReferenceBubbles';
 import SettingsView from './ui/SettingsView';
 import { APP_VERSION } from './version';
 
@@ -27,6 +30,7 @@ const VIEWS = {
   server: ServerPalsView,
   forward: ForwardCalculatorView,
   reverse: ReverseLookupView,
+  reference: ReferenceView,
   settings: SettingsView,
 } as const;
 
@@ -45,12 +49,23 @@ function AppShell() {
   const [roster] = useRoster();
   const [settings, setSettings] = useSettings();
   const live = useLiveContext();
+  const reference = useReferenceContext();
 
   const handleSelect = (key: string) => {
     const viewKey = key as ViewKey;
     setActive(viewKey);
     setVisited((prev) => (prev.has(viewKey) ? prev : new Set(prev).add(viewKey)));
   };
+
+  // ReferenceProvider sits above AppShell, so a bubble's "maximize" click can't call
+  // setActive directly — it sets maximizeRequest instead, and this effect consumes it.
+  useEffect(() => {
+    if (reference.maximizeRequest) {
+      handleSelect('reference');
+      reference.clearMaximizeRequest();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [reference.maximizeRequest]);
 
   return (
     <div className="flex h-screen w-full flex-col overflow-hidden font-sans md:flex-row">
@@ -72,6 +87,7 @@ function AppShell() {
           );
         })}
       </div>
+      <ReferenceBubbles hidden={active === 'reference'} />
       <div className="pointer-events-none fixed bottom-1 right-1.5 select-none text-[10px] text-gray-400/70">
         v{APP_VERSION}
       </div>
@@ -83,7 +99,9 @@ export default function App() {
   return (
     <RulesetProvider>
       <LiveProvider>
-        <AppShell />
+        <ReferenceProvider>
+          <AppShell />
+        </ReferenceProvider>
       </LiveProvider>
     </RulesetProvider>
   );

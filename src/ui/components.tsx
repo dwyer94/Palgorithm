@@ -320,7 +320,7 @@ export function HoverTooltip({ description, children }: { description?: string |
         createPortal(
           <div
             role="tooltip"
-            className="pointer-events-none fixed z-50 max-w-[240px] -translate-x-1/2 -translate-y-full whitespace-pre-line rounded-panel border border-border-card bg-white px-3 py-2 font-sans text-[11.5px] leading-snug text-ink shadow-dropdown"
+            className="pointer-events-none fixed z-[70] max-w-[240px] -translate-x-1/2 -translate-y-full whitespace-pre-line rounded-panel border border-border-card bg-white px-3 py-2 font-sans text-[11.5px] leading-snug text-ink shadow-dropdown"
             style={{ top: pos.top, left: pos.left }}
           >
             {description}
@@ -503,6 +503,7 @@ export const DATA_NAV_ITEMS: NavItem[] = [ROSTER_NAV_ITEM, SERVER_NAV_ITEM];
 export const UTILITY_NAV_ITEMS: NavItem[] = [
   { key: 'forward', label: 'Forward calc', icon: '→' },
   { key: 'reverse', label: 'Reverse lookup', icon: '←' },
+  { key: 'reference', label: 'Reference', icon: '⌕' },
 ];
 
 function NavRow({
