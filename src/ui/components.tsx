@@ -1054,9 +1054,7 @@ export function PassiveMultiSelect({
 
   const matches = useMemo(() => {
     const q = query.toLowerCase();
-    return passives
-      .filter((p) => !selected.has(p.id) && (!q || p.displayName.toLowerCase().includes(q)))
-      .slice(0, query ? 40 : 60);
+    return passives.filter((p) => !selected.has(p.id) && (!q || p.displayName.toLowerCase().includes(q)));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query, passives, value]);
 
