@@ -1,7 +1,10 @@
-import { useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
+import type { Species, Passive } from '../data/schema';
 import { useTeams } from '../store/hooks';
 import { newId } from '../store/localStore';
-import { createEmptyTeam, TEAM_SLOT_COUNT, type Team } from '../store/types';
+import { createEmptyTeam, TEAM_SLOT_COUNT, type Team, type TeamSlot } from '../store/types';
+import { PalIcon, PassiveChip } from './components';
+import { useRulesetContext } from './RulesetContext';
 import TeamDetailView from './TeamDetailView';
 
 /** Loose structural check on parsed JSON before it's trusted as `Team[]` — enough to reject
@@ -29,13 +32,25 @@ function isTeamArray(data: unknown): data is Team[] {
 /** Team Builder: a list of named 5-slot teams (design mirrors `SavedPlansView`'s list+card
  * shape), each slot independently tracking its own attached breeding plan. */
 export default function TeamsView() {
+  const { passives, speciesById } = useRulesetContext();
+  const passivesById = useMemo(() => new Map(passives.map((p) => [p.id, p])), [passives]);
   const [teams, setTeams] = useTeams();
   const [selectedTeamId, setSelectedTeamId] = useState<string | null>(null);
+  const [initialOpenIndex, setInitialOpenIndex] = useState<number | null>(null);
   const [draftName, setDraftName] = useState('');
   const [importError, setImportError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const selectedTeam = teams.find((t) => t.id === selectedTeamId) ?? null;
+
+  const openTeam = (id: string, slotIndex: number | null = null) => {
+    setSelectedTeamId(id);
+    setInitialOpenIndex(slotIndex);
+  };
+  const backToList = () => {
+    setSelectedTeamId(null);
+    setInitialOpenIndex(null);
+  };
 
   const exportTeams = () => {
     const blob = new Blob([JSON.stringify(teams, null, 2)], { type: 'application/json' });
@@ -73,12 +88,12 @@ export default function TeamsView() {
     const team = createEmptyTeam(name, newId());
     setTeams([...teams, team]);
     setDraftName('');
-    setSelectedTeamId(team.id);
+    openTeam(team.id);
   };
 
   const removeTeam = (id: string) => {
     setTeams(teams.filter((t) => t.id !== id));
-    if (selectedTeamId === id) setSelectedTeamId(null);
+    if (selectedTeamId === id) backToList();
   };
 
   const renameTeam = (id: string, name: string) => {
@@ -90,7 +105,14 @@ export default function TeamsView() {
   };
 
   if (selectedTeam) {
-    return <TeamDetailView team={selectedTeam} onUpdateTeam={updateTeam} onBack={() => setSelectedTeamId(null)} />;
+    return (
+      <TeamDetailView
+        team={selectedTeam}
+        onUpdateTeam={updateTeam}
+        onBack={backToList}
+        initialOpenIndex={initialOpenIndex}
+      />
+    );
   }
 
   return (
@@ -156,7 +178,10 @@ export default function TeamsView() {
             <TeamCard
               key={team.id}
               team={team}
-              onOpen={() => setSelectedTeamId(team.id)}
+              speciesById={speciesById}
+              passivesById={passivesById}
+              onOpen={() => openTeam(team.id)}
+              onOpenSlot={(index) => openTeam(team.id, index)}
               onRemove={() => removeTeam(team.id)}
               onRename={(name) => renameTeam(team.id, name)}
             />
@@ -169,12 +194,18 @@ export default function TeamsView() {
 
 function TeamCard({
   team,
+  speciesById,
+  passivesById,
   onOpen,
+  onOpenSlot,
   onRemove,
   onRename,
 }: {
   team: Team;
+  speciesById: Map<string, Species>;
+  passivesById: Map<string, Passive>;
   onOpen: () => void;
+  onOpenSlot: (index: number) => void;
   onRemove: () => void;
   onRename: (name: string) => void;
 }) {
@@ -184,7 +215,8 @@ function TeamCard({
   const plannedCount = team.slots.filter((s) => s.plan).length;
 
   return (
-    <div className="flex flex-wrap items-center gap-3 rounded-card border border-border-card bg-white px-5 py-4 shadow-card">
+    <div className="flex flex-col gap-3 rounded-card border border-border-card bg-white px-5 py-4 shadow-card">
+      <div className="flex flex-wrap items-center gap-3">
       {editingName ? (
         <div className="flex items-center gap-1.5">
           <input
@@ -263,7 +295,71 @@ function TeamCard({
             </span>
           </>
         )}
+        </div>
       </div>
+
+      <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-5">
+        {team.slots.map((slot, index) => (
+          <TeamSlotPreview
+            key={index}
+            slot={slot}
+            speciesById={speciesById}
+            passivesById={passivesById}
+            onClick={() => onOpenSlot(index)}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function TeamSlotPreview({
+  slot,
+  speciesById,
+  passivesById,
+  onClick,
+}: {
+  slot: TeamSlot;
+  speciesById: Map<string, Species>;
+  passivesById: Map<string, Passive>;
+  onClick: () => void;
+}) {
+  const targetSpecies = slot.target ? speciesById.get(slot.target) : undefined;
+
+  if (!slot.target || !targetSpecies) {
+    return (
+      <div
+        onClick={onClick}
+        className="flex min-h-[92px] cursor-pointer flex-col items-center justify-center gap-1 rounded-card border border-dashed border-border-input bg-panel-subtle p-3 text-center hover:border-muted-lighter"
+      >
+        <span className="font-sans text-[11px] text-muted-light">Empty slot</span>
+      </div>
+    );
+  }
+
+  return (
+    <div
+      onClick={onClick}
+      className="flex cursor-pointer flex-col items-center gap-1.5 rounded-card border border-border-card bg-white p-3 text-center shadow-card hover:border-primary"
+    >
+      <PalIcon icon={targetSpecies.icon} size={34} variant="card" />
+      <div className="w-full truncate font-sans text-[12.5px] font-bold">{targetSpecies.displayName}</div>
+      {slot.desiredPassives.length > 0 && (
+        <div className="flex flex-wrap justify-center gap-1">
+          {slot.desiredPassives.map((id) => (
+            <PassiveChip key={id} label={passivesById.get(id)?.displayName ?? id} tier={passivesById.get(id)?.tier} />
+          ))}
+        </div>
+      )}
+      {slot.plan && (
+        <span
+          className={`font-mono text-[10.5px] font-semibold ${
+            slot.plan.result.feasible ? 'text-success-text' : 'text-brand-hover'
+          }`}
+        >
+          {slot.plan.result.feasible ? `${slot.plan.result.combinationCount} combos` : 'infeasible'}
+        </span>
+      )}
     </div>
   );
 }

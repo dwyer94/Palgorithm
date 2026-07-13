@@ -16,17 +16,19 @@ export default function TeamDetailView({
   team,
   onUpdateTeam,
   onBack,
+  initialOpenIndex,
 }: {
   team: Team;
   onUpdateTeam: (team: Team) => void;
   onBack: () => void;
+  initialOpenIndex?: number | null;
 }) {
   const { ruleset, species, passives, speciesById } = useRulesetContext();
   const [roster] = useRoster();
   const [settings] = useSettings();
   const live = useLiveContext();
   const [planningIndices, setPlanningIndices] = useState<Set<number>>(new Set());
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [openIndex, setOpenIndex] = useState<number | null>(initialOpenIndex ?? null);
 
   const rosterForSolver = useMemo(
     () => buildRosterForSolver(roster, live.selectedPlayerIds, live.palsByPlayer),
