@@ -10,6 +10,7 @@ function emptyDataset(): Dataset {
     specialCombos: [],
     passives: [],
     passiveModel: { maxSlots: 4, inheritCountDist: [1], mutationDist: [1], verified: false },
+    partnerSkills: [],
   };
 }
 

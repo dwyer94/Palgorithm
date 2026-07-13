@@ -3,7 +3,7 @@ import rawDataset from '../data/dataset.1.0.json';
 import { parseDataset } from '../data/loader';
 import { createRuleset } from '../ruleset';
 import type { BreedingRuleset } from '../ruleset/types';
-import type { Dataset, Species, Passive } from '../data/schema';
+import type { Dataset, Species, Passive, PartnerSkill } from '../data/schema';
 
 /** Loads + validates the bundled dataset once and builds the live ruleset (spec §4.1/§4.2).
  * Every view reads species/passives/ruleset from here rather than touching the dataset
@@ -15,6 +15,8 @@ interface RulesetContextValue {
   species: Species[];
   passives: Passive[];
   speciesById: Map<string, Species>;
+  partnerSkills: PartnerSkill[];
+  partnerSkillBySpecies: Map<string, PartnerSkill>;
 }
 
 const RulesetContext = createContext<RulesetContextValue | null>(null);
@@ -24,7 +26,16 @@ export function RulesetProvider({ children }: { children: ReactNode }) {
     const dataset = parseDataset(rawDataset);
     const ruleset = createRuleset(dataset);
     const speciesById = new Map(dataset.species.map((s) => [s.id, s]));
-    return { dataset, ruleset, species: dataset.species, passives: dataset.passives, speciesById };
+    const partnerSkillBySpecies = new Map(dataset.partnerSkills.map((ps) => [ps.speciesId, ps]));
+    return {
+      dataset,
+      ruleset,
+      species: dataset.species,
+      passives: dataset.passives,
+      speciesById,
+      partnerSkills: dataset.partnerSkills,
+      partnerSkillBySpecies,
+    };
   }, []);
 
   return <RulesetContext.Provider value={value}>{children}</RulesetContext.Provider>;

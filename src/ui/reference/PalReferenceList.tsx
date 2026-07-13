@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { ELEMENTS, SIZES } from '../../data/schema';
-import type { Element, Species } from '../../data/schema';
+import type { Element, PartnerSkill, Species } from '../../data/schema';
 import { useRulesetContext } from '../RulesetContext';
 import { useSettings } from '../../store/hooks';
 import { useReferenceContext, type PalsSortBy, type ReachFilter } from '../ReferenceContext';
@@ -14,6 +14,7 @@ import {
   WorkSuitabilityRow,
   WorkSuitabilityFilterEditor,
   WORK_SUITABILITY_TYPES,
+  HoverTooltip,
   elementColor,
 } from '../components';
 
@@ -50,11 +51,36 @@ function workLevels(species: Species): Record<string, number> {
   return out;
 }
 
-function matchesSearch(species: Species, query: string): boolean {
+function matchesSearch(species: Species, query: string, partnerSkill: PartnerSkill | undefined): boolean {
   if (!query) return true;
   const q = query.toLowerCase();
   if (species.displayName.toLowerCase().includes(q)) return true;
+  if (partnerSkill?.displayName.toLowerCase().includes(q)) return true;
   return (species.aliases ?? []).some((a) => a.toLowerCase().includes(q));
+}
+
+function partnerSkillTooltip(ps: PartnerSkill): string {
+  const lines = [ps.description].filter((l): l is string => !!l);
+  const meta: string[] = [];
+  if (ps.unlockItemName) meta.push(`Unlock: ${ps.unlockItemName}`);
+  if (ps.cooldownSeconds !== undefined) meta.push(`Cooldown: ${ps.cooldownSeconds}s`);
+  if (meta.length > 0) lines.push(meta.join(' · '));
+  return lines.join('\n\n');
+}
+
+/** Compact "🤝 <skill name>" badge, hover for the full effect text/unlock item/cooldown.
+ * Renders nothing for the handful of Pals with no partner skill on record. */
+function PartnerSkillBadge({ skill, className = '' }: { skill: PartnerSkill | undefined; className?: string }) {
+  if (!skill) return null;
+  return (
+    <HoverTooltip description={partnerSkillTooltip(skill)}>
+      <span
+        className={`inline-flex items-center gap-1 rounded-chip border border-border-inner bg-[#f2ece0] px-1.5 py-0.5 font-mono text-[10px] font-semibold text-muted ${className}`}
+      >
+        🤝 {skill.displayName}
+      </span>
+    </HoverTooltip>
+  );
 }
 
 /** Search/filter/sort over the full Pal roster (all 291 species, not the user's owned roster).
@@ -62,7 +88,7 @@ function matchesSearch(species: Species, query: string): boolean {
  * switches between the bubble's narrow single-column list and the roomier grid/table used
  * everywhere else, matching `settings.iconDisplayMode` like every other view. */
 export default function PalReferenceList({ dense = false }: { dense?: boolean }) {
-  const { species } = useRulesetContext();
+  const { species, partnerSkillBySpecies } = useRulesetContext();
   const [settings] = useSettings();
   const { palsQuery, setPalsQuery } = useReferenceContext();
   const { search, elements, reach, sizes, nocturnalOnly, rankMin, rankMax, minRunSpeed, workFilters, sortBy } =
@@ -78,7 +104,7 @@ export default function PalReferenceList({ dense = false }: { dense?: boolean })
 
   const results = useMemo(() => {
     let list = species.filter((s) => {
-      if (!matchesSearch(s, search)) return false;
+      if (!matchesSearch(s, search, partnerSkillBySpecies.get(s.id))) return false;
       if (elements.length > 0 && !s.elements.some((e) => elements.includes(e))) return false;
       if (reach !== 'all' && speciesReachability(s) !== reach) return false;
       if (sizes.length > 0 && (!s.size || !sizes.includes(s.size))) return false;
@@ -110,7 +136,20 @@ export default function PalReferenceList({ dense = false }: { dense?: boolean })
       }
     });
     return list;
-  }, [species, search, elements, reach, sizes, nocturnalOnly, rankMin, rankMax, minRunSpeed, workFilters, sortBy]);
+  }, [
+    species,
+    partnerSkillBySpecies,
+    search,
+    elements,
+    reach,
+    sizes,
+    nocturnalOnly,
+    rankMin,
+    rankMax,
+    minRunSpeed,
+    workFilters,
+    sortBy,
+  ]);
 
   const isFull = !dense && settings.iconDisplayMode === 'full';
 
@@ -251,6 +290,11 @@ export default function PalReferenceList({ dense = false }: { dense?: boolean })
               <div className="mt-1">
                 <WorkSuitabilityRow levels={workLevels(s)} max={2} />
               </div>
+              {partnerSkillBySpecies.get(s.id) && (
+                <div className="mt-1">
+                  <PartnerSkillBadge skill={partnerSkillBySpecies.get(s.id)} />
+                </div>
+              )}
             </div>
           ))}
         </div>
@@ -275,6 +319,7 @@ export default function PalReferenceList({ dense = false }: { dense?: boolean })
                 {s.captureRateCorrect !== undefined && <span>🎯 ×{s.captureRateCorrect}</span>}
                 {s.nocturnal && <span title="Nocturnal">🌙</span>}
               </div>
+              <PartnerSkillBadge skill={partnerSkillBySpecies.get(s.id)} />
             </PalCard>
           ))}
         </div>
@@ -283,7 +328,7 @@ export default function PalReferenceList({ dense = false }: { dense?: boolean })
           <table className="w-full border-collapse font-mono">
             <thead>
               <tr className="text-left">
-                {['Species', 'Rank', 'Rarity', 'Size', 'Work', 'Run', 'Stamina', 'Capture', 'Noct'].map((h) => (
+                {['Species', 'Rank', 'Rarity', 'Size', 'Work', 'Run', 'Stamina', 'Capture', 'Noct', 'Partner Skill'].map((h) => (
                   <th key={h} className="whitespace-nowrap px-3 py-2.5 font-sans text-[10px] font-semibold uppercase tracking-wide text-muted-light">
                     {h}
                   </th>
@@ -312,6 +357,9 @@ export default function PalReferenceList({ dense = false }: { dense?: boolean })
                   <td className="px-3 py-2.5 text-ink-muted">{s.stamina ?? '—'}</td>
                   <td className="px-3 py-2.5 text-ink-muted">{s.captureRateCorrect ?? '—'}</td>
                   <td className="px-3 py-2.5 text-center text-ink-muted">{s.nocturnal ? '🌙' : ''}</td>
+                  <td className="px-3 py-2.5">
+                    <PartnerSkillBadge skill={partnerSkillBySpecies.get(s.id)} />
+                  </td>
                 </tr>
               ))}
             </tbody>

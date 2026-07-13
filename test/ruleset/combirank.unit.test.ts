@@ -32,6 +32,7 @@ function synthetic(species: Partial<Species>[], specialCombos: Dataset['specialC
     specialCombos,
     passives: [],
     passiveModel: { maxSlots: 4, inheritCountDist: [0, 0.5, 0.3, 0.15, 0.05], mutationDist: [0.8, 0.2], verified: false },
+    partnerSkills: [],
   } as Dataset;
 }
 
