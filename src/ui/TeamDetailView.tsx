@@ -48,7 +48,7 @@ export default function TeamDetailView({
     setPlanningIndices((prev) => new Set(prev).add(index));
     setTimeout(() => {
       const speciesOptions = { catchCost: settings.catchCost, allowCatching: settings.allowCatching };
-      const { result, guaranteedCarrierAlt } = runSingleTargetPlan(
+      const { result, guaranteedCarrierOutcome } = runSingleTargetPlan(
         ruleset,
         rosterForSolver,
         target,
@@ -60,8 +60,8 @@ export default function TeamDetailView({
         target,
         desiredPassives: slot.desiredPassives,
         result,
-        guaranteedCarrierAlt,
-        ownedUnassignedPassives: computeOwnedUnassignedPassives(result, rosterForSolver),
+        guaranteedCarrierOutcome,
+        ownedUnassignedPassives: computeOwnedUnassignedPassives(guaranteedCarrierOutcome, rosterForSolver),
       };
       updateSlot(index, (s) => (s.plan ? { ...s, pendingPlan: newPlan } : { ...s, plan: newPlan }));
       setPlanningIndices((prev) => {
@@ -157,7 +157,7 @@ export default function TeamDetailView({
                 <div className="rounded-card border border-primary bg-panel-inset p-5">
                   <SingleTargetResultView
                     result={openSlot.pendingPlan.result}
-                    guaranteedCarrierAlt={openSlot.pendingPlan.guaranteedCarrierAlt ?? null}
+                    guaranteedCarrierOutcome={openSlot.pendingPlan.guaranteedCarrierOutcome ?? { status: 'not-requested' }}
                     desiredPassives={openSlot.pendingPlan.desiredPassives ?? []}
                     ownedUnassignedPassives={openSlot.pendingPlan.ownedUnassignedPassives ?? []}
                     speciesById={speciesById}
@@ -176,7 +176,7 @@ export default function TeamDetailView({
                 <div className="rounded-card border border-border-divider bg-panel-inset p-5">
                   <SingleTargetResultView
                     result={openSlot.plan.result}
-                    guaranteedCarrierAlt={openSlot.plan.guaranteedCarrierAlt ?? null}
+                    guaranteedCarrierOutcome={openSlot.plan.guaranteedCarrierOutcome ?? { status: 'not-requested' }}
                     desiredPassives={openSlot.plan.desiredPassives ?? []}
                     ownedUnassignedPassives={openSlot.plan.ownedUnassignedPassives ?? []}
                     speciesById={speciesById}

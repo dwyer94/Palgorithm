@@ -1,6 +1,6 @@
 import type { Species, Passive } from '../data/schema';
 import type { SpeciesPlanResult, PassivePlanResult, UnionPlanResult, HubCandidate } from '../solver/types';
-import type { GuaranteedCarrierAlternative } from '../solver/passivePlanner';
+import type { GuaranteedCarrierOutcome } from '../solver/passivePlanner';
 import type { PassiveId } from '../ruleset/types';
 import type { ProvenanceMatch } from '../live/provenance';
 import type { LivePlayerPals, PlayerIdentifier } from '../live/types';
@@ -221,13 +221,21 @@ export function SpeciesPlanView({
   );
 }
 
-/** Single-target planner's full two-mode result display (guaranteed-carrier alternative, if
- * any, above the opportunistic/default baseline). Shared between `SingleTargetView` (live) and
- * `SavedPlansView` (snapshot) so a saved plan renders identically to what was on screen when it
- * was saved — see `SavedPlan.guaranteedCarrierAlt`. */
+/** Single-target planner's full two-mode result display (guaranteed-carrier outcome above the
+ * opportunistic/default baseline). Shared between `SingleTargetView` (live) and `SavedPlansView`
+ * (snapshot) so a saved plan renders identically to what was on screen when it was saved — see
+ * `SavedPlan.guaranteedCarrierOutcome`.
+ *
+ * Both sections are unconditional whenever `desiredPassives.length > 0 && result.feasible` —
+ * neither one silently disappears just because it didn't find a "positive" result. Every
+ * `BaselinePassiveNote`/`GuaranteedCarrierOutcome` status renders a specific sentence explaining
+ * itself (single-target transparency pass) instead of leaving the user to guess why a number
+ * looks off or a section is missing. Owning the target with the exact desired perk set is
+ * deliberately NOT treated as "nothing more to show" — it gets a top banner AND the
+ * guaranteed-carrier section still renders its (degenerate, 0-combo) route below. */
 export function SingleTargetResultView({
   result,
-  guaranteedCarrierAlt,
+  guaranteedCarrierOutcome,
   desiredPassives,
   ownedUnassignedPassives,
   speciesById,
@@ -238,9 +246,10 @@ export function SingleTargetResultView({
   displayNameByIdentifier,
 }: {
   result: SpeciesPlanResult;
-  guaranteedCarrierAlt: GuaranteedCarrierAlternative | null;
+  guaranteedCarrierOutcome: GuaranteedCarrierOutcome;
   desiredPassives: PassiveId[];
-  /** Subset of `result.passivePlan.unassigned` the roster owned when this was rendered. */
+  /** Subset of the guaranteed-carrier outcome's still-unrouted passives the roster owned when
+   * this was rendered. */
   ownedUnassignedPassives: PassiveId[];
   speciesById: Map<string, Species>;
   passivesById?: Map<string, Passive> | undefined;
@@ -249,79 +258,113 @@ export function SingleTargetResultView({
   palsByPlayer?: Record<PlayerIdentifier, LivePlayerPals | undefined> | undefined;
   displayNameByIdentifier?: Record<PlayerIdentifier, string> | undefined;
 }) {
+  const targetLabel = speciesById.get(result.target)?.displayName ?? result.target;
+  const passiveLabel = (id: PassiveId) => passivesById?.get(id)?.displayName ?? id;
+
   return (
     <>
-      {result.passivePlan && result.passivePlan.unassigned.length > 0 && (
+      {result.passiveNote?.status === 'owned-exact-match' && (
+        <div className="mb-4 rounded-card border border-l-[4px] border-l-success-border border-border-card bg-success-bg px-4 py-3 font-sans text-[13px] text-success-text">
+          ✓ You already own {targetLabel} with every desired perk — 0 combinations needed.
+        </div>
+      )}
+      {result.passiveNote?.status === 'owned-partial-match' && (
+        <div className="mb-4 rounded-card border border-l-[4px] border-l-brand border-border-card bg-white px-4 py-3 font-sans text-[13px] text-ink-strong">
+          You own {targetLabel}, but not with these perks
+          {result.passiveNote.ownedPassives.length > 0 &&
+            ` — currently has: ${result.passiveNote.ownedPassives.map(passiveLabel).join(', ')}`}
+          . See the route below for the best way to breed one with the perks you want.
+        </div>
+      )}
+
+      {desiredPassives.length > 0 && result.feasible && (
         <div className="mb-6">
           <div className="flex items-center gap-2.5 rounded-t-card border border-b-0 border-l-[4px] border-l-brand border-border-card bg-[#fdfaf4] px-4 py-3">
             <span className="flex-none rounded-[5px] bg-brand px-[7px] py-[3px] font-mono text-[9.5px] font-bold uppercase tracking-[.5px] text-white">
               Alternative
             </span>
-            <HoverTooltip description="Deliberately breeds in the Pal(s) that already carry your desired perks, so they're structurally part of the lineage instead of showing up by chance. This usually costs more breeding combinations than the cheapest path below, and the perks still aren't 100% guaranteed to land on any single egg — just far more likely.">
+            <HoverTooltip description="The best real breeding route for these specific perks, computed independently of the cheapest path below — deliberately breeds in the Pal(s) that carry your desired perks so they're structurally part of the lineage instead of showing up by chance.">
               <span className="font-sans text-[13.5px] font-bold text-ink-strong">Guaranteed-carrier</span>
             </HoverTooltip>
-            <span className="font-sans text-[11.5px] text-muted">forces the perk(s) into one lineage</span>
+            <span className="font-sans text-[11.5px] text-muted">best route for these perks</span>
           </div>
           <div className="flex flex-col gap-2.5 rounded-b-card border border-t-0 border-l-[4px] border-l-brand border-border-card bg-panel-subtle p-3.5">
-            {guaranteedCarrierAlt && (
-              <details open className="overflow-hidden rounded-card border border-border-card bg-white">
-                <summary className="flex cursor-pointer list-none items-center gap-2.5 px-[18px] py-3.5">
-                  <span className="flex flex-none items-center -space-x-1.5">
-                    {guaranteedCarrierAlt.sourceIndividuals.map((s, i) => (
-                      <PalIcon key={i} icon={speciesById.get(s.species)?.icon} size={22} />
-                    ))}
-                  </span>
-                  <span className="font-mono text-[13px] font-semibold">
-                    Routes{' '}
-                    {guaranteedCarrierAlt.sourceIndividuals
-                      .map((s) => speciesById.get(s.species)?.displayName ?? s.species)
-                      .join(', ')}{' '}
-                    in for{' '}
-                    {guaranteedCarrierAlt.routedPassives
-                      .map((id) => passivesById?.get(id)?.displayName ?? id)
-                      .join(' + ')}
-                  </span>
-                  <span className="ml-auto flex items-center gap-2 font-mono text-[11.5px] font-semibold">
-                    <span className="text-brand-hover">
-                      +{guaranteedCarrierAlt.combinationDelta} combo{guaranteedCarrierAlt.combinationDelta === 1 ? '' : 's'}
-                    </span>
-                    <span className="text-muted">
-                      {(guaranteedCarrierAlt.compoundedOdds * 100).toFixed(1)}% compounded odds/egg
-                    </span>
-                  </span>
-                  <span className="font-sans text-[12px] text-muted-lighter">▾</span>
-                </summary>
-                <div className="border-t border-[#f2ecdf] p-[18px]">
-                  <SpeciesPlanView
-                    plan={guaranteedCarrierAlt.plan}
-                    speciesById={speciesById}
-                    passivesById={passivesById}
-                    selectedPlayerIds={selectedPlayerIds}
-                    palsByPlayer={palsByPlayer}
-                    displayNameByIdentifier={displayNameByIdentifier}
-                    note="guaranteed-carrier route"
-                  />
-                </div>
-              </details>
+            {guaranteedCarrierOutcome.status === 'no-owner' && (
+              <div className="rounded-card border border-dashed border-border-input bg-white px-[18px] py-3 font-sans text-[12.5px] text-muted">
+                No Pal in your roster or connected servers carries any of your desired perks — nothing to route in yet.
+              </div>
             )}
+            {guaranteedCarrierOutcome.status === 'infeasible' && (
+              <div className="rounded-card border border-dashed border-border-input bg-white px-[18px] py-3 font-sans text-[12.5px] text-muted">
+                {guaranteedCarrierOutcome.reason === 'no-standard-breeding-route'
+                  ? `${targetLabel} has no standard breeding recipe — it's capture/event-only, so these perks can only come from what you catch directly.`
+                  : `Found an owner of at least one desired perk, but no breeding route currently reaches ${targetLabel} from them — you may be missing a required parent (e.g. the opposite gender), or catching may be disabled.`}
+              </div>
+            )}
+            {guaranteedCarrierOutcome.status === 'routed' && (
+              <>
+                <details open className="overflow-hidden rounded-card border border-border-card bg-white">
+                  <summary className="flex cursor-pointer list-none items-center gap-2.5 px-[18px] py-3.5">
+                    <span className="flex flex-none items-center -space-x-1.5">
+                      {guaranteedCarrierOutcome.alt.sourceIndividuals.map((s, i) => (
+                        <PalIcon key={i} icon={speciesById.get(s.species)?.icon} size={22} />
+                      ))}
+                    </span>
+                    <span className="font-mono text-[13px] font-semibold">
+                      {guaranteedCarrierOutcome.alt.plan.combinationCount === 0 ? (
+                        'Matches what you already own — 0 combinations needed'
+                      ) : (
+                        <>
+                          Routes{' '}
+                          {guaranteedCarrierOutcome.alt.sourceIndividuals
+                            .map((s) => speciesById.get(s.species)?.displayName ?? s.species)
+                            .join(', ')}{' '}
+                          in for {guaranteedCarrierOutcome.alt.routedPassives.map(passiveLabel).join(' + ')}
+                        </>
+                      )}
+                    </span>
+                    <span className="ml-auto flex items-center gap-2 font-mono text-[11.5px] font-semibold">
+                      <span className="text-brand-hover">
+                        +{guaranteedCarrierOutcome.alt.combinationDelta} combo
+                        {guaranteedCarrierOutcome.alt.combinationDelta === 1 ? '' : 's'}
+                      </span>
+                      <span className="text-muted">
+                        {(guaranteedCarrierOutcome.alt.compoundedOdds * 100).toFixed(1)}% compounded odds/egg
+                      </span>
+                    </span>
+                    <span className="font-sans text-[12px] text-muted-lighter">▾</span>
+                  </summary>
+                  <div className="border-t border-[#f2ecdf] p-[18px]">
+                    <SpeciesPlanView
+                      plan={guaranteedCarrierOutcome.alt.plan}
+                      speciesById={speciesById}
+                      passivesById={passivesById}
+                      selectedPlayerIds={selectedPlayerIds}
+                      palsByPlayer={palsByPlayer}
+                      displayNameByIdentifier={displayNameByIdentifier}
+                      note="guaranteed-carrier route"
+                    />
+                  </div>
+                </details>
 
-            {(guaranteedCarrierAlt
-              ? guaranteedCarrierAlt.requiredPassives.filter((p) => !guaranteedCarrierAlt.routedPassives.includes(p))
-              : result.passivePlan.unassigned
-            ).map((passiveId) => {
-              const label = passivesById?.get(passiveId)?.displayName ?? passiveId;
-              const owned = ownedUnassignedPassives.includes(passiveId);
-              return (
-                <div
-                  key={passiveId}
-                  className="rounded-card border border-dashed border-border-input bg-white px-[18px] py-3 font-sans text-[12.5px] text-muted"
-                >
-                  {owned
-                    ? `Even prioritizing the Pal that carries ${label}, no breeding route that jointly carries it alongside the rest of your desired perks was found under your current catch/roster settings.`
-                    : `No Pal in your roster or connected servers carries ${label} — nothing to route in.`}
-                </div>
-              );
-            })}
+                {guaranteedCarrierOutcome.alt.requiredPassives
+                  .filter((p) => !guaranteedCarrierOutcome.alt.routedPassives.includes(p))
+                  .map((passiveId) => {
+                    const label = passiveLabel(passiveId);
+                    const owned = ownedUnassignedPassives.includes(passiveId);
+                    return (
+                      <div
+                        key={passiveId}
+                        className="rounded-card border border-dashed border-border-input bg-white px-[18px] py-3 font-sans text-[12.5px] text-muted"
+                      >
+                        {owned
+                          ? `Even prioritizing the Pal that carries ${label}, no breeding route that jointly carries it alongside the rest of your desired perks was found under your current catch/roster settings.`
+                          : `No Pal in your roster or connected servers carries ${label} — nothing to route in.`}
+                      </div>
+                    );
+                  })}
+              </>
+            )}
           </div>
         </div>
       )}
@@ -338,6 +381,12 @@ export function SingleTargetResultView({
             <span className="font-sans text-[11.5px] text-muted">cheapest path, perks land only if free</span>
           </div>
           <div className="rounded-b-card border border-t-0 border-l-[4px] border-l-primary border-border-card bg-panel-subtle p-3.5">
+            {result.passiveNote?.status === 'cheapest-route-is-catch' && (
+              <div className="mb-2.5 rounded-card border border-dashed border-border-input bg-white px-[18px] py-3 font-sans text-[12.5px] text-muted">
+                The cheapest route here is catching {targetLabel} directly — no breeding combination involved, so no
+                perks can land for free on this path. See the Guaranteed-carrier section above for a bred alternative.
+              </div>
+            )}
             <SpeciesPlanView
               plan={result}
               speciesById={speciesById}

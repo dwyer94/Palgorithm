@@ -11,13 +11,14 @@ import type {
 } from './types';
 
 /**
- * passivePlanner (spec §7.3, session 0.4; two-mode rewrite session) — the "guaranteed carrier"
- * overlay (mode 2b): for desired passives the baseline plan's final cross couldn't source
- * (`SpeciesPlanResult.passivePlan.unassigned`), find the cheapest alternate plan that forces
- * the owning Pal(s)' lineage into the ancestry, with the combination-count cost and compounded
- * per-generation odds reported honestly. Never replaces the baseline plan (CLAUDE.md:
- * combination-count stays primary unless the user opts into the tradeoff) — this is strictly
- * an additional, separately-surfaced alternative (mode 2a stays the baseline plan itself).
+ * passivePlanner (spec §7.3, session 0.4; two-mode rewrite session; single-target transparency
+ * pass) — the "guaranteed carrier" overlay (mode 2b): find the cheapest real breeding route that
+ * forces the owning Pal(s)' lineage into the ancestry for a caller's desired passives, with the
+ * combination-count cost and compounded per-generation odds reported honestly. Never replaces the
+ * baseline plan (CLAUDE.md: combination-count stays primary unless the user opts into the
+ * tradeoff) — this is strictly an additional, separately-surfaced result, run unconditionally
+ * whenever passives are requested (including when the baseline already owns an exact match —
+ * that just makes the search trivially resolve to a 0-combination route, not a reason to skip it).
  *
  * Mechanism: `speciesPlanner.findForcedCarrierRoute()` runs a masked search over the FULL
  * roster (plus catching, per the caller's real settings) that provably threads the result
@@ -30,11 +31,11 @@ import type {
  * Two call shapes onto the same underlying search:
  * - `findCarrierAlternatives` — one alternative PER unassigned passive (legacy shape, kept
  *   unchanged for existing callers/tests): each call routes exactly one passive (k=1).
- * - `findGuaranteedCarrierAlternative` — the actual mode-2b fix: routes ALL of P (the baseline's
- *   full `desired` set, not just its `unassigned` residue — see that function's doc comment)
- *   jointly into ONE lineage when a route exists (spec §7.3: "must combine all of P into one
- *   lineage/tree whenever a route exists" — the AND, not OR, requirement), degrading to the
- *   largest jointly-routable subset when it can't (spec's "partial routing").
+ * - `computeGuaranteedCarrierOutcome` — the actual mode-2b fix: routes ALL of the caller's
+ *   `requiredPassives` jointly into ONE lineage when a route exists (spec §7.3: "must combine
+ *   all of P into one lineage/tree whenever a route exists" — the AND, not OR, requirement),
+ *   degrading to the largest jointly-routable subset when it can't (spec's "partial routing"),
+ *   and always returning a self-explanatory `GuaranteedCarrierOutcome` status otherwise.
  */
 
 export interface CarrierAlternative {
@@ -116,51 +117,64 @@ export function findCarrierAlternatives(
   return alternatives;
 }
 
-/** Mode 2b (spec §7.3): routes ALL of `baseline.passivePlan.desired` (the full desired set P,
- * not just the baseline's own `unassigned` residue) jointly into ONE lineage when a route
- * exists, instead of `findCarrierAlternatives`' one-tree-per-passive shape — this is what
- * fixes the AND/OR bug (two desired passives on two different owned Pals now come back as a
- * single combined tree, not two independent ones). Gated on the baseline having at least one
- * genuinely unassigned passive (otherwise there's nothing for a guaranteed tree to add over
- * the baseline), but once triggered, forces the FULL set — a passive the baseline picked up
- * for free on its own lineage isn't guaranteed to also sit on this independently re-derived
- * one, so it must still be threaded through here rather than assumed. Returns `null` when
- * there's nothing to route (baseline already covers everything, nobody owns any of P, or the
- * joint search is fully infeasible). */
-export function findGuaranteedCarrierAlternative(
+/** Mode 2b's outcome (spec §7.3), always self-explanatory instead of collapsing every "couldn't
+ * produce an alternative" case to `null` — the single-target UI renders one of these whenever
+ * perks were requested, never silently omitting the section (session: single-target
+ * transparency pass). `not-requested` and `no-owner` are cheap short-circuits before ever
+ * running the search; `infeasible`'s `reason` distinguishes "this species can never be bred at
+ * all" (roster-independent — `ruleset.reachability.standardBreedable` says so) from "breedable
+ * in principle, but nothing in the current roster/catch settings reaches it". */
+export type GuaranteedCarrierOutcome =
+  | { status: 'not-requested' }
+  | { status: 'no-owner' }
+  | { status: 'infeasible'; reason: 'no-standard-breeding-route' | 'unreachable-with-current-roster' }
+  | { status: 'routed'; alt: GuaranteedCarrierAlternative };
+
+/** Mode 2b (spec §7.3): routes ALL of `requiredPassives` jointly into ONE lineage when a route
+ * exists, instead of `findCarrierAlternatives`' one-tree-per-passive shape — this is what fixes
+ * the AND/OR bug (two desired passives on two different owned Pals now come back as a single
+ * combined tree, not two independent ones). Always attempted whenever the caller has any desired
+ * passives at all (no gating on the baseline's own `passivePlan`/`unassigned` shape — the
+ * baseline may not have built one at all, e.g. when the species is owned or caught outright, and
+ * this search is exactly how that case still gets a real "best route to breed one with these
+ * perks" answer instead of being skipped). An owned individual that already carries every
+ * `requiredPassives` entry needs no special-casing here: `findForcedCarrierRoute`'s masked
+ * search seeds it at cost 0 with the full mask already set, so it naturally comes back
+ * `status: 'routed'` with `combinationDelta: 0` — "you already own an exact match" falls out of
+ * the same search, it isn't a separate code path. */
+export function computeGuaranteedCarrierOutcome(
   ruleset: BreedingRuleset,
   roster: RosterEntry[],
   target: SpeciesId,
-  baseline: SpeciesPlanResult,
-  options: SpeciesPlannerOptions,
-): GuaranteedCarrierAlternative | null {
-  // Route the FULL desired set P (spec §7.3 mode 2b: "must combine all of P into one
-  // lineage... whenever a route exists"), not just `baseline.passivePlan.unassigned`. The
-  // baseline's "unassigned" split is scoped to the baseline's OWN final cross — a passive it
-  // marks "assigned" only did so on that specific lineage, which this alternate plan may not
-  // share at all (it's an independently re-derived tree). Forcing only the residue meant a
-  // passive the baseline happened to pick up for free could be silently absent from this
-  // tree, with nothing in `routedPassives`/`compoundedOdds` accounting for it either way —
-  // exactly the "silently drops a desired perk" failure §7.3's UI requirement forbids.
-  // `findForcedCarrierRoute`'s masked search still finds it for free wherever a roster leaf
-  // already carries it (spec's "prefer combining at the final cross"), so this doesn't cost
-  // more than necessary when the baseline's free pick is still reachable.
-  if (baseline.passivePlan?.unassigned.length === 0) return null;
-  const requiredPassives = baseline.passivePlan?.desired ?? [];
-  if (requiredPassives.length === 0) return null;
-  if (!requiredPassives.some((p) => roster.some((r) => r.passives?.includes(p)))) return null;
+  requiredPassives: PassiveId[],
+  baselineCombinationCount: number,
+  options: SpeciesPlannerOptions = {},
+): GuaranteedCarrierOutcome {
+  const desired = [...new Set(requiredPassives)];
+  if (desired.length === 0) return { status: 'not-requested' };
+  if (!desired.some((p) => roster.some((r) => r.passives?.includes(p)))) return { status: 'no-owner' };
 
-  const plan = findForcedCarrierRoute(ruleset, roster, requiredPassives, target, options);
-  if (!plan.feasible) return null;
+  const plan = findForcedCarrierRoute(ruleset, roster, desired, target, options);
+  if (!plan.feasible) {
+    return {
+      status: 'infeasible',
+      reason: ruleset.reachability.standardBreedable.has(target)
+        ? 'unreachable-with-current-roster'
+        : 'no-standard-breeding-route',
+    };
+  }
 
   return {
-    requiredPassives,
-    routedPassives: plan.routedPassives,
-    fullyRouted: plan.fullyRouted,
-    sourceIndividuals: plan.carrierLeaves,
-    plan,
-    compoundedOdds: compoundOdds(ruleset, plan, plan.routedPassives),
-    combinationDelta: plan.combinationCount - baseline.combinationCount,
+    status: 'routed',
+    alt: {
+      requiredPassives: desired,
+      routedPassives: plan.routedPassives,
+      fullyRouted: plan.fullyRouted,
+      sourceIndividuals: plan.carrierLeaves,
+      plan,
+      compoundedOdds: compoundOdds(ruleset, plan, plan.routedPassives),
+      combinationDelta: plan.combinationCount - baselineCombinationCount,
+    },
   };
 }
 

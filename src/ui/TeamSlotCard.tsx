@@ -133,10 +133,10 @@ export default function TeamSlotCard({
           >
             {slot.plan.result.feasible ? `${slot.plan.result.combinationCount} combos` : 'infeasible'}
           </div>
-          {slot.plan.guaranteedCarrierAlt && (
+          {slot.plan.guaranteedCarrierOutcome?.status === 'routed' && (
             <div className="font-mono text-[11px] text-muted">
-              guaranteed-carrier: +{slot.plan.guaranteedCarrierAlt.combinationDelta} combos (
-              {slot.plan.guaranteedCarrierAlt.plan.combinationCount} total)
+              guaranteed-carrier: +{slot.plan.guaranteedCarrierOutcome.alt.combinationDelta} combos (
+              {slot.plan.guaranteedCarrierOutcome.alt.plan.combinationCount} total)
             </div>
           )}
 

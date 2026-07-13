@@ -115,6 +115,19 @@ export interface PassivePlanResult {
   unassigned: PassiveId[];
 }
 
+/** Explains how the baseline (cheapest, "full stop") plan relates to `desiredPassives` when
+ * it couldn't attach a `passivePlan` — always present alongside `passivePlan` being absent, so
+ * "no passivePlan" never means "silently figure out why yourself" (session: single-target
+ * transparency pass). `owned-exact-match` and `owned-partial-match` are deliberately NOT treated
+ * as "nothing more to compute" — even an exact match still gets a real answer from
+ * `computeGuaranteedCarrierOutcome` (passivePlanner.ts) for "what's the best route to breed
+ * another one", just annotated here so the UI can also say "you already own this" up top. */
+export type BaselinePassiveNote =
+  | { status: 'owned-exact-match' }
+  | { status: 'owned-partial-match'; ownedPassives: PassiveId[] }
+  | { status: 'cheapest-route-is-catch' }
+  | { status: 'planned' };
+
 export interface SpeciesPlanResult {
   target: SpeciesId;
   feasible: boolean;
@@ -134,6 +147,10 @@ export interface SpeciesPlanResult {
   /** Present only when the planner was given `desiredPassives` and the target needs at
    * least one combination (spec §7.3). */
   passivePlan?: PassivePlanResult;
+  /** Present iff `desiredPassives.length > 0 && feasible` — explains the baseline's
+   * relationship to the desired perks, always populated even when `passivePlan` isn't (see
+   * `BaselinePassiveNote`'s doc comment). */
+  passiveNote?: BaselinePassiveNote;
 }
 
 /** Result of `findForcedCarrierRoute` (spec §7.3 mode 2b, the guaranteed-carrier overlay).

@@ -111,10 +111,17 @@ describe('speciesPlanner: passive-aware final-cross selection (spec §7.3)', () 
   });
 });
 
-describe('speciesPlanner: owning the target species does not short-circuit a passive-mismatched request', () => {
+describe('speciesPlanner: owning the target species never silently claims a passive-mismatched request is done', () => {
   // Regression for the "Already in your pools — no breeding required" false negative: owning
-  // ANY individual of the target species used to report cost 0 regardless of that
-  // individual's passives, even when the user explicitly asked for perks it doesn't carry.
+  // ANY individual of the target species used to report cost 0 regardless of that individual's
+  // passives, even when the user explicitly asked for perks it doesn't carry. The baseline
+  // planner (this file) no longer tries to paper over the mismatch by substituting a real combo
+  // itself — that both violated its own "cheapest path, full stop" contract when it succeeded,
+  // and silently fell back to the misleading owned-at-cost-0 result when it didn't. It now stays
+  // honestly at cost 0 and attaches `passiveNote` explaining the mismatch; the real "what's the
+  // best route to breed one with these perks" answer always comes from
+  // `computeGuaranteedCarrierOutcome` (passivePlanner.ts — see its own tests, and
+  // runSingleTargetPlan.test.ts for the end-to-end version of the `A`/`B` fallback case below).
   const dataset = synthetic(
     [
       { id: 'A', rank: 1 },
@@ -126,7 +133,7 @@ describe('speciesPlanner: owning the target species does not short-circuit a pas
   );
   const ruleset = createCombiRank06(dataset);
 
-  it('falls through to a real breeding plan when the owned individual lacks the desired perks', () => {
+  it('stays at the true cheapest cost (0, owned) and flags the mismatch via passiveNote instead of silently substituting a combo', () => {
     const roster: RosterEntry[] = [
       { species: 'A', gender: 'male', passives: ['P1'] },
       { species: 'A', gender: 'female', passives: ['P1'] },
@@ -136,10 +143,9 @@ describe('speciesPlanner: owning the target species does not short-circuit a pas
     ];
     const plan = planSpecies(ruleset, roster, 'TARGET', { desiredPassives: ['P1', 'P2'] });
     expect(plan.feasible).toBe(true);
-    expect(plan.steps.length).toBeGreaterThan(0);
-    expect(plan.passivePlan).toBeDefined();
-    const chosen = [plan.passivePlan!.finalParentA.species, plan.passivePlan!.finalParentB.species].sort();
-    expect(chosen).toEqual(['A', 'B']); // prefers the perk-bearing pair over a TARGET self-cross
+    expect(plan.combinationCount).toBe(0);
+    expect(plan.passivePlan).toBeUndefined();
+    expect(plan.passiveNote).toEqual({ status: 'owned-partial-match', ownedPassives: ['Junk'] });
   });
 
   it('still reports "no breeding required" when an owned individual actually carries the desired perks', () => {
@@ -148,13 +154,18 @@ describe('speciesPlanner: owning the target species does not short-circuit a pas
     expect(plan.feasible).toBe(true);
     expect(plan.steps.length).toBe(0);
     expect(plan.passivePlan).toBeUndefined();
+    expect(plan.passiveNote).toEqual({ status: 'owned-exact-match' });
   });
 
-  it('keeps reporting "no breeding required" for an owned capture-only species with no breeding route at all', () => {
+  it('flags the mismatch the same way for an owned capture-only species with no breeding route at all', () => {
     const roster: RosterEntry[] = [{ species: 'CAPTURE_ONLY', gender: 'male', passives: ['Junk'] }];
     const plan = planSpecies(ruleset, roster, 'CAPTURE_ONLY', { desiredPassives: ['P1'] });
     expect(plan.feasible).toBe(true);
     expect(plan.steps.length).toBe(0);
+    // The baseline doesn't need to know this species can never be bred at all — that
+    // distinction (`no-standard-breeding-route` vs `unreachable-with-current-roster`) lives in
+    // `computeGuaranteedCarrierOutcome`'s `infeasible.reason` instead.
+    expect(plan.passiveNote).toEqual({ status: 'owned-partial-match', ownedPassives: ['Junk'] });
   });
 });
 

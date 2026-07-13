@@ -145,7 +145,7 @@ function SavedPlanCard({
           ) : (
             <SingleTargetResultView
               result={plan.result as SpeciesPlanResult}
-              guaranteedCarrierAlt={plan.guaranteedCarrierAlt ?? null}
+              guaranteedCarrierOutcome={plan.guaranteedCarrierOutcome ?? { status: 'not-requested' }}
               desiredPassives={plan.desiredPassives ?? []}
               ownedUnassignedPassives={plan.ownedUnassignedPassives ?? []}
               speciesById={speciesById}

@@ -1,6 +1,6 @@
 import type { Gender, PassiveId, SpeciesId } from '../ruleset/types';
 import type { SpeciesPlanResult, UnionPlanResult } from '../solver/types';
-import type { GuaranteedCarrierAlternative } from '../solver/passivePlanner';
+import type { GuaranteedCarrierOutcome } from '../solver/passivePlanner';
 
 export type { Gender, PassiveId, SpeciesId };
 
@@ -23,15 +23,17 @@ export interface SavedPlan {
   targets: SpeciesId[];
   desiredPassives?: PassiveId[];
   result: SpeciesPlanResult | UnionPlanResult;
-  /** Single-target only: the "guaranteed-carrier" alternative shown alongside `result` on the
-   * planner screen at save time, if any (see `SingleTargetView`'s two-mode result display).
-   * Captured so a saved plan is a snapshot of exactly what was on screen, not just the
-   * cheapest/opportunistic `result`. */
-  guaranteedCarrierAlt?: GuaranteedCarrierAlternative | null;
-  /** Single-target only: subset of `result.passivePlan.unassigned` that the roster owned at
-   * save time — reproduces the same "owned but no route found" vs "nobody owns this" messaging
-   * shown on the planner screen without needing to re-query a roster that may have since
-   * changed. */
+  /** Single-target only: the "guaranteed-carrier" outcome shown alongside `result` on the
+   * planner screen at save time (see `SingleTargetView`'s two-mode result display). Captured so
+   * a saved plan is a snapshot of exactly what was on screen, not just the cheapest/opportunistic
+   * `result`. Absent on plans saved before this field existed — `SingleTargetResultView` treats
+   * that the same as `{status: 'not-requested'}` (no migration; see CLAUDE.md's single-user,
+   * local-only framing). */
+  guaranteedCarrierOutcome?: GuaranteedCarrierOutcome;
+  /** Single-target only: subset of the guaranteed-carrier outcome's still-unrouted passives that
+   * the roster owned at save time — reproduces the same "owned but no route found" vs "nobody
+   * owns this" messaging shown on the planner screen without needing to re-query a roster that
+   * may have since changed. */
   ownedUnassignedPassives?: PassiveId[];
 }
 
@@ -50,7 +52,7 @@ export interface TeamSlotPlan {
   target: SpeciesId;
   desiredPassives?: PassiveId[];
   result: SpeciesPlanResult;
-  guaranteedCarrierAlt?: GuaranteedCarrierAlternative | null;
+  guaranteedCarrierOutcome?: GuaranteedCarrierOutcome;
   ownedUnassignedPassives?: PassiveId[];
 }
 

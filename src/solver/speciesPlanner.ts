@@ -1,6 +1,7 @@
 import type { BreedingRuleset } from '../ruleset/types';
 import type {
   AnchorHint,
+  BaselinePassiveNote,
   ForcedCarrierResult,
   Gender,
   PassiveId,
@@ -763,41 +764,24 @@ export function resultFromContext(
     };
   }
 
-  let winningGender: Gender = maleCost <= femaleCost ? 'male' : 'female';
-  let targetNode = node(target, winningGender);
-  let effectiveCost = cost;
-
-  // Owning the species at cost 0 only satisfies `desiredPassives` if some owned individual
-  // actually carries them — otherwise "already in your pools" is a false negative: the user
-  // owns e.g. a clean catch and wants a bred one with specific perks. Fall through to the
-  // cheapest real combo producing this species (often a same-species self-cross, spec §3.2's
-  // shortcut, itself a valid graph edge) instead of the free owned node, so the final-cross
-  // selection below has an actual combination to inject perks into.
+  const winningGender: Gender = maleCost <= femaleCost ? 'male' : 'female';
+  const targetNode = node(target, winningGender);
+  const effectiveCost = cost;
   const desired = options.desiredPassives ?? [];
+  // "Owning it" only satisfies `desiredPassives` if some owned individual actually carries
+  // them — otherwise "already in your pools" would be a false negative. This planner no longer
+  // tries to paper over a mismatch by silently substituting a real combo here (that used to
+  // both violate the baseline's own "cheapest path, full stop" contract when it succeeded, and
+  // silently fall back to the misleading owned-at-cost-0 result when it didn't) — the real
+  // "what's the best route to breed one with these perks" answer now always comes from
+  // `computeGuaranteedCarrierOutcome` (passivePlanner.ts), which every caller runs unconditionally.
+  // `passiveNote` below records which of these cases applies so nothing is silently dropped.
   const ownedSatisfiesDesired =
     desired.length > 0 && roster.some((r) => r.species === target && desired.every((p) => (r.passives ?? []).includes(p)));
-  if (desired.length > 0 && cost === 0 && !ownedSatisfiesDesired) {
-    const comboCostFor = (gender: Gender): number => {
-      let best = Infinity;
-      const n = node(target, gender);
-      for (const e of graph.edges) {
-        if (e.output !== n) continue;
-        const total = e.inputs.reduce((s, inp) => s + (state.dist.get(inp) ?? Infinity), 0) + 1;
-        if (total < best) best = total;
-      }
-      return best;
-    };
-    const maleCombo = comboCostFor('male');
-    const femaleCombo = comboCostFor('female');
-    const comboCost = Math.min(maleCombo, femaleCombo);
-    // If no combo can produce this species at all (e.g. capture-only, no rank), there's
-    // nothing to fall through to — keep reporting the owned-at-cost-0 result.
-    if (isFinite(comboCost)) {
-      effectiveCost = comboCost;
-      winningGender = maleCombo <= femaleCombo ? 'male' : 'female';
-      targetNode = node(target, winningGender);
-    }
-  }
+  // Captured now — before the final-cross re-pick below may temporarily overwrite
+  // `state.from.get(targetNode)` — so `passiveNote` can tell whether the cheapest route was
+  // reached by owning it, catching it, or actually breeding it.
+  const reachedVia = state.from.get(targetNode)?.kind;
 
   // Passive-aware final-cross selection (spec §7.3): among cost-tied final-parent
   // candidates, prefer whichever pair maximizes passive-landing odds for `desiredPassives`,
@@ -847,6 +831,24 @@ export function resultFromContext(
     };
   }
 
+  // Explains the baseline's relationship to `desired` whenever `passivePlan` didn't get built
+  // (BaselinePassiveNote's doc comment, types.ts) — never leave that silently unexplained.
+  let passiveNote: BaselinePassiveNote | undefined;
+  if (desired.length > 0) {
+    if (passivePlan) {
+      passiveNote = { status: 'planned' };
+    } else if (reachedVia === 'owned') {
+      passiveNote = ownedSatisfiesDesired
+        ? { status: 'owned-exact-match' }
+        : {
+            status: 'owned-partial-match',
+            ownedPassives: [...new Set(roster.filter((r) => r.species === target).flatMap((r) => r.passives ?? []))],
+          };
+    } else if (reachedVia === 'catch') {
+      passiveNote = { status: 'cheapest-route-is-catch' };
+    }
+  }
+
   // Report cost from the deduped plan, not the raw Dijkstra distance: `dist` sums the
   // additive derivation and double-counts a shared intermediate reused by two branches
   // (the exactness caveat, spec §7.1) — `steps`/`catches` are already deduped, so their
@@ -859,6 +861,7 @@ export function resultFromContext(
     steps,
     catches,
     ...(passivePlan ? { passivePlan } : {}),
+    ...(passiveNote ? { passiveNote } : {}),
   };
 }
 

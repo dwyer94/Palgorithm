@@ -2,8 +2,16 @@ import { describe, it, expect } from 'vitest';
 import type { Dataset, Species } from '../../src/data/schema';
 import { createCombiRank06 } from '../../src/ruleset/combirank';
 import { planSpecies } from '../../src/solver/speciesPlanner';
-import { findCarrierAlternatives, findGuaranteedCarrierAlternative } from '../../src/solver/passivePlanner';
+import { findCarrierAlternatives, computeGuaranteedCarrierOutcome } from '../../src/solver/passivePlanner';
+import type { GuaranteedCarrierOutcome } from '../../src/solver/passivePlanner';
 import type { RosterEntry } from '../../src/solver/types';
+
+/** Type-narrows a `GuaranteedCarrierOutcome` to its `routed` variant's `alt`, failing loudly
+ * (rather than a silent `undefined`) when a test's fixture stops actually routing. */
+function expectRouted(outcome: GuaranteedCarrierOutcome) {
+  if (outcome.status !== 'routed') throw new Error(`expected a 'routed' outcome, got '${outcome.status}'`);
+  return outcome.alt;
+}
 
 /**
  * Session 0.4b — passivePlanner's "guaranteed carrier" overlay (spec §7.3's "flag any branch
@@ -128,12 +136,12 @@ describe('passivePlanner: findCarrierAlternatives (spec §7.3\'s "certainty risk
 });
 
 /**
- * findGuaranteedCarrierAlternative — the actual AND/OR bug fix (spec §7.3 mode 2b). Two
+ * computeGuaranteedCarrierOutcome — the actual AND/OR bug fix (spec §7.3 mode 2b). Two
  * independent carrier lineages that only meet at the final cross, so a correct fix must
  * report ONE tree carrying both desired passives, not the old behavior of two separate
  * single-passive trees from `findCarrierAlternatives`.
  */
-describe('passivePlanner: findGuaranteedCarrierAlternative (joint multi-passive routing)', () => {
+describe('passivePlanner: computeGuaranteedCarrierOutcome (joint multi-passive routing)', () => {
   const dataset = synthetic(
     [
       // standardBreedable:false on every non-special-combo-child species below is
@@ -175,15 +183,15 @@ describe('passivePlanner: findGuaranteedCarrierAlternative (joint multi-passive 
     expect(baseline.combinationCount).toBe(1); // cheap FODDER+FODDER2 baseline
     expect(baseline.passivePlan?.unassigned).toEqual(['P1', 'P2']);
 
-    const alt = findGuaranteedCarrierAlternative(ruleset, roster, 'TARGET', baseline, {});
-    expect(alt).not.toBeNull();
-    expect(alt!.fullyRouted).toBe(true);
-    expect(alt!.routedPassives).toEqual(['P1', 'P2']);
-    expect(alt!.plan.combinationCount).toBe(3);
-    expect(alt!.combinationDelta).toBe(2);
-    const sourceSpecies = new Set(alt!.sourceIndividuals.map((s) => s.species));
+    const outcome = computeGuaranteedCarrierOutcome(ruleset, roster, 'TARGET', ['P1', 'P2'], baseline.combinationCount, {});
+    const alt = expectRouted(outcome);
+    expect(alt.fullyRouted).toBe(true);
+    expect(alt.routedPassives).toEqual(['P1', 'P2']);
+    expect(alt.plan.combinationCount).toBe(3);
+    expect(alt.combinationDelta).toBe(2);
+    const sourceSpecies = new Set(alt.sourceIndividuals.map((s) => s.species));
     expect(sourceSpecies).toEqual(new Set(['CARRIER_A', 'CARRIER_B']));
-    expect(alt!.compoundedOdds).toBeGreaterThan(0);
+    expect(alt.compoundedOdds).toBeGreaterThan(0);
 
     // Contrast with the legacy per-passive shape this replaces in the UI: it still exists
     // (unchanged, for backward compat) but produces two independent trees, each paying the
@@ -221,14 +229,14 @@ describe('passivePlanner: findGuaranteedCarrierAlternative (joint multi-passive 
     const baseline = planSpecies(dualRuleset, dualRoster, 'TARGET', { desiredPassives: ['P1', 'P2'] });
     expect(baseline.passivePlan?.unassigned).toEqual(['P1', 'P2']);
 
-    const alt = findGuaranteedCarrierAlternative(dualRuleset, dualRoster, 'TARGET', baseline, {});
-    expect(alt).not.toBeNull();
-    expect(alt!.fullyRouted).toBe(true);
-    expect(alt!.routedPassives).toEqual(['P1', 'P2']);
+    const outcome = computeGuaranteedCarrierOutcome(dualRuleset, dualRoster, 'TARGET', ['P1', 'P2'], baseline.combinationCount, {});
+    const alt = expectRouted(outcome);
+    expect(alt.fullyRouted).toBe(true);
+    expect(alt.routedPassives).toEqual(['P1', 'P2']);
     // Same 2-combo shape as a single desired passive would need (DUAL self-cross -> MID,
     // MID self-cross -> TARGET) — carrying a second passive on the same individual is free.
-    expect(alt!.plan.combinationCount).toBe(2);
-    expect(new Set(alt!.sourceIndividuals.map((s) => s.species))).toEqual(new Set(['DUAL']));
+    expect(alt.plan.combinationCount).toBe(2);
+    expect(new Set(alt.sourceIndividuals.map((s) => s.species))).toEqual(new Set(['DUAL']));
   });
 
   it('partially routes when the full desired set cannot be jointly reached, explaining the leftover', () => {
@@ -271,17 +279,46 @@ describe('passivePlanner: findGuaranteedCarrierAlternative (joint multi-passive 
     // P3 IS owned — this is the "owned but unroutable" case, distinct from "nobody owns it".
     expect(partialRoster.some((r) => r.passives?.includes('P3'))).toBe(true);
 
-    const alt = findGuaranteedCarrierAlternative(partialRuleset, partialRoster, 'TARGET', baseline, {});
-    expect(alt).not.toBeNull();
-    expect(alt!.fullyRouted).toBe(false);
-    expect(alt!.routedPassives).toEqual(['P1', 'P2']);
-    expect(alt!.requiredPassives).toEqual(['P1', 'P2', 'P3']);
+    const outcome = computeGuaranteedCarrierOutcome(
+      partialRuleset,
+      partialRoster,
+      'TARGET',
+      ['P1', 'P2', 'P3'],
+      baseline.combinationCount,
+      {},
+    );
+    const alt = expectRouted(outcome);
+    expect(alt.fullyRouted).toBe(false);
+    expect(alt.routedPassives).toEqual(['P1', 'P2']);
+    expect(alt.requiredPassives).toEqual(['P1', 'P2', 'P3']);
   });
 
-  it('returns null when nobody in the roster carries any of the unassigned passives', () => {
+  it('reports "no-owner" when nobody in the roster carries any of the requested passives', () => {
     const baseline = planSpecies(ruleset, roster, 'TARGET', { desiredPassives: ['Nobody'] });
     expect(baseline.passivePlan?.unassigned).toEqual(['Nobody']);
-    expect(findGuaranteedCarrierAlternative(ruleset, roster, 'TARGET', baseline, {})).toBeNull();
+    const outcome = computeGuaranteedCarrierOutcome(ruleset, roster, 'TARGET', ['Nobody'], baseline.combinationCount, {});
+    expect(outcome).toEqual({ status: 'no-owner' });
+  });
+
+  // Explicit user correction during design: owning the target with the exact desired perk set
+  // must NOT be treated as "nothing left to compute" — `computeGuaranteedCarrierOutcome` still
+  // runs and still returns a real (degenerate) `routed` outcome, not a skip. This falls out of
+  // `findForcedCarrierRoute`'s masked search on its own (an owned individual seeds its node with
+  // every requested passive already in its mask, at cost 0) — no special-casing needed.
+  it('routes an owned exact match as a real (0-combination) outcome instead of skipping it', () => {
+    const ownedRoster: RosterEntry[] = [...roster, { species: 'TARGET', gender: 'male', passives: ['P1', 'P2'] }];
+    const baseline = planSpecies(ruleset, ownedRoster, 'TARGET', { desiredPassives: ['P1', 'P2'] });
+    expect(baseline.combinationCount).toBe(0);
+    expect(baseline.passivePlan).toBeUndefined();
+    expect(baseline.passiveNote).toEqual({ status: 'owned-exact-match' });
+
+    const outcome = computeGuaranteedCarrierOutcome(ruleset, ownedRoster, 'TARGET', ['P1', 'P2'], baseline.combinationCount, {});
+    const alt = expectRouted(outcome);
+    expect(alt.fullyRouted).toBe(true);
+    expect(alt.routedPassives).toEqual(['P1', 'P2']);
+    expect(alt.plan.combinationCount).toBe(0);
+    expect(alt.combinationDelta).toBe(0);
+    expect(alt.compoundedOdds).toBe(1); // no breeding steps at all — nothing to roll odds on
   });
 
   // Regression: the baseline's own final cross can pick up one of P for free (real-world
@@ -289,10 +326,12 @@ describe('passivePlanner: findGuaranteedCarrierAlternative (joint multi-passive 
   // final cross happened to already carry one of them). The guaranteed-carrier tree is an
   // INDEPENDENTLY re-derived lineage, not an extension of the baseline's — so a passive the
   // baseline sourced "for free" on its own tree isn't automatically present on this one. Before
-  // the fix, `findGuaranteedCarrierAlternative` only forced `baseline.passivePlan.unassigned`
-  // (the residue), so the already-assigned passive silently never entered `requiredPassives`,
-  // `routedPassives`, or the `compoundOdds` calculation at all — even when, as here, it was
-  // structurally present on the guaranteed tree's own final parent the whole time.
+  // the fix, `findGuaranteedCarrierAlternative` (now `computeGuaranteedCarrierOutcome`, which
+  // takes the caller's full `requiredPassives` directly rather than deriving it from
+  // `baseline.passivePlan.unassigned`) only forced the residue, so the already-assigned passive
+  // silently never entered `requiredPassives`, `routedPassives`, or the `compoundOdds`
+  // calculation at all — even when, as here, it was structurally present on the guaranteed
+  // tree's own final parent the whole time.
   it('still routes (and reports) a passive the baseline already got for free, not just its unassigned residue', () => {
     const freeDataset = synthetic(
       [
@@ -324,19 +363,19 @@ describe('passivePlanner: findGuaranteedCarrierAlternative (joint multi-passive 
     // P1 lands for free on the baseline's own final cross (FODDER carries it); P2 doesn't.
     expect(baseline.passivePlan?.unassigned).toEqual(['P2']);
 
-    const alt = findGuaranteedCarrierAlternative(freeRuleset, freeRoster, 'TARGET', baseline, {});
-    expect(alt).not.toBeNull();
+    const outcome = computeGuaranteedCarrierOutcome(freeRuleset, freeRoster, 'TARGET', ['P1', 'P2'], baseline.combinationCount, {});
+    const alt = expectRouted(outcome);
     // Must still be asked to route BOTH — not just P2 — since this is an independently
     // re-derived tree, not an extension of the baseline's.
-    expect(alt!.requiredPassives).toEqual(['P1', 'P2']);
-    expect(alt!.fullyRouted).toBe(true);
-    expect(alt!.routedPassives).toEqual(['P1', 'P2']);
-    expect(alt!.plan.combinationCount).toBe(2); // CARRIER_B self-cross -> MID_B, MID_B+FODDER -> TARGET
+    expect(alt.requiredPassives).toEqual(['P1', 'P2']);
+    expect(alt.fullyRouted).toBe(true);
+    expect(alt.routedPassives).toEqual(['P1', 'P2']);
+    expect(alt.plan.combinationCount).toBe(2); // CARRIER_B self-cross -> MID_B, MID_B+FODDER -> TARGET
 
     // The odds must account for BOTH passives at the final cross (FODDER x MID_B), not just
     // the one that was "unassigned" — otherwise the reported compounded odds silently ignore
     // a passive that's actually sitting right there on the final parent.
     const finalCrossOdds = freeRuleset.passiveModel.landOdds(['P1'], ['P2'], ['P1', 'P2']).supersetContaining;
-    expect(alt!.compoundedOdds).toBeCloseTo(finalCrossOdds, 10);
+    expect(alt.compoundedOdds).toBeCloseTo(finalCrossOdds, 10);
   });
 });

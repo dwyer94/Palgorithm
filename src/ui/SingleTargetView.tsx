@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import { useRoster, useSavedPlans, useSettings } from '../store/hooks';
 import { newId } from '../store/localStore';
 import { runSingleTargetPlan, computeOwnedUnassignedPassives } from '../solver/runSingleTargetPlan';
-import type { GuaranteedCarrierAlternative } from '../solver/passivePlanner';
+import type { GuaranteedCarrierOutcome } from '../solver/passivePlanner';
 import type { SpeciesPlanResult } from '../solver/types';
 import { useLiveContext } from '../live/LiveContext';
 import { buildRosterForSolver } from '../live/rosterMerge';
@@ -25,7 +25,7 @@ export default function SingleTargetView() {
   const [desiredPassives, setDesiredPassives] = useState<string[]>([]);
   const [ignoreGender, setIgnoreGender] = useState(false);
   const [result, setResult] = useState<SpeciesPlanResult | null>(null);
-  const [guaranteedCarrierAlt, setGuaranteedCarrierAlt] = useState<GuaranteedCarrierAlternative | null>(null);
+  const [guaranteedCarrierOutcome, setGuaranteedCarrierOutcome] = useState<GuaranteedCarrierOutcome>({ status: 'not-requested' });
   const [saved, setSavedFlash] = useState(false);
   const [isPlanning, setIsPlanning] = useState(false);
 
@@ -47,8 +47,8 @@ export default function SingleTargetView() {
   const passivesById = useMemo(() => new Map(passives.map((p) => [p.id, p])), [passives]);
 
   const ownedUnassignedPassives = useMemo(
-    () => (result ? computeOwnedUnassignedPassives(result, rosterForSolver) : []),
-    [result, rosterForSolver],
+    () => computeOwnedUnassignedPassives(guaranteedCarrierOutcome, rosterForSolver),
+    [guaranteedCarrierOutcome, rosterForSolver],
   );
 
   const runPlan = () => {
@@ -56,7 +56,7 @@ export default function SingleTargetView() {
     setIsPlanning(true);
     setTimeout(() => {
       const speciesOptions = { catchCost: settings.catchCost, allowCatching: settings.allowCatching, ignoreGender };
-      const { result: plan, guaranteedCarrierAlt: alt } = runSingleTargetPlan(
+      const { result: plan, guaranteedCarrierOutcome: outcome } = runSingleTargetPlan(
         ruleset,
         rosterForSolver,
         target,
@@ -65,7 +65,7 @@ export default function SingleTargetView() {
       );
       setResult(plan);
       setSavedFlash(false);
-      setGuaranteedCarrierAlt(alt);
+      setGuaranteedCarrierOutcome(outcome);
       setIsPlanning(false);
     }, 0);
   };
@@ -82,7 +82,7 @@ export default function SingleTargetView() {
         targets: [target],
         ...(desiredPassives.length > 0 && { desiredPassives }),
         result,
-        guaranteedCarrierAlt,
+        guaranteedCarrierOutcome,
         ownedUnassignedPassives,
       },
     ]);
@@ -91,7 +91,7 @@ export default function SingleTargetView() {
 
   const exportPlan = () => {
     if (!result) return;
-    const exported = { result, guaranteedCarrierAlt, ownedUnassignedPassives };
+    const exported = { result, guaranteedCarrierOutcome, ownedUnassignedPassives };
     const blob = new Blob([JSON.stringify(exported, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -209,7 +209,7 @@ export default function SingleTargetView() {
 
               <SingleTargetResultView
                 result={result}
-                guaranteedCarrierAlt={guaranteedCarrierAlt}
+                guaranteedCarrierOutcome={guaranteedCarrierOutcome}
                 desiredPassives={desiredPassives}
                 ownedUnassignedPassives={ownedUnassignedPassives}
                 speciesById={speciesById}
