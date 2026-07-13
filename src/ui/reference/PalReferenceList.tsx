@@ -91,8 +91,19 @@ export default function PalReferenceList({ dense = false }: { dense?: boolean })
   const { species, partnerSkillBySpecies } = useRulesetContext();
   const [settings] = useSettings();
   const { palsQuery, setPalsQuery } = useReferenceContext();
-  const { search, elements, reach, sizes, nocturnalOnly, rankMin, rankMax, minRunSpeed, workFilters, sortBy } =
-    palsQuery;
+  const {
+    search,
+    elements,
+    reach,
+    sizes,
+    nocturnalOnly,
+    mountableOnly,
+    rankMin,
+    rankMax,
+    minRunSpeed,
+    workFilters,
+    sortBy,
+  } = palsQuery;
 
   const toggleElement = (el: Element) =>
     setPalsQuery({
@@ -109,6 +120,7 @@ export default function PalReferenceList({ dense = false }: { dense?: boolean })
       if (reach !== 'all' && speciesReachability(s) !== reach) return false;
       if (sizes.length > 0 && (!s.size || !sizes.includes(s.size))) return false;
       if (nocturnalOnly && !s.nocturnal) return false;
+      if (mountableOnly && !s.mountable) return false;
       if (rankMin !== null && (s.rank ?? Infinity) < rankMin) return false;
       if (rankMax !== null && (s.rank ?? -Infinity) > rankMax) return false;
       if (minRunSpeed !== null && (s.movement?.run ?? -Infinity) < minRunSpeed) return false;
@@ -144,6 +156,7 @@ export default function PalReferenceList({ dense = false }: { dense?: boolean })
     reach,
     sizes,
     nocturnalOnly,
+    mountableOnly,
     rankMin,
     rankMax,
     minRunSpeed,
@@ -208,6 +221,16 @@ export default function PalReferenceList({ dense = false }: { dense?: boolean })
           }`}
         >
           🌙 Nocturnal
+        </span>
+        <span
+          onClick={() => setPalsQuery({ ...palsQuery, mountableOnly: !mountableOnly })}
+          className={`cursor-pointer rounded-pill border-[1.5px] px-2 py-0.5 font-sans text-[10.5px] font-semibold ${
+            mountableOnly
+              ? 'border-primary bg-primary-tint text-primary-dark'
+              : 'border-border-card bg-white text-muted-light hover:border-muted-lighter'
+          }`}
+        >
+          🐴 Mountable
         </span>
         <span className="flex items-center gap-1 font-sans text-[11px] font-semibold text-muted-light">
           Rank
@@ -286,6 +309,7 @@ export default function PalReferenceList({ dense = false }: { dense?: boolean })
                 {s.stamina !== undefined && <span>⚡ {s.stamina}</span>}
                 {s.captureRateCorrect !== undefined && <span>🎯 ×{s.captureRateCorrect}</span>}
                 {s.nocturnal && <span title="Nocturnal">🌙</span>}
+                {s.mountable && <span title="Mountable">🐴</span>}
               </div>
               <div className="mt-1">
                 <WorkSuitabilityRow levels={workLevels(s)} max={2} />
@@ -318,6 +342,7 @@ export default function PalReferenceList({ dense = false }: { dense?: boolean })
                 {s.stamina !== undefined && <span>⚡ {s.stamina}</span>}
                 {s.captureRateCorrect !== undefined && <span>🎯 ×{s.captureRateCorrect}</span>}
                 {s.nocturnal && <span title="Nocturnal">🌙</span>}
+                {s.mountable && <span title="Mountable">🐴</span>}
               </div>
               <PartnerSkillBadge skill={partnerSkillBySpecies.get(s.id)} />
             </PalCard>
@@ -328,7 +353,7 @@ export default function PalReferenceList({ dense = false }: { dense?: boolean })
           <table className="w-full border-collapse font-mono">
             <thead>
               <tr className="text-left">
-                {['Species', 'Rank', 'Rarity', 'Size', 'Work', 'Run', 'Stamina', 'Capture', 'Noct', 'Partner Skill'].map((h) => (
+                {['Species', 'Rank', 'Rarity', 'Size', 'Work', 'Run', 'Stamina', 'Capture', 'Noct', 'Mount', 'Partner Skill'].map((h) => (
                   <th key={h} className="whitespace-nowrap px-3 py-2.5 font-sans text-[10px] font-semibold uppercase tracking-wide text-muted-light">
                     {h}
                   </th>
@@ -357,6 +382,7 @@ export default function PalReferenceList({ dense = false }: { dense?: boolean })
                   <td className="px-3 py-2.5 text-ink-muted">{s.stamina ?? '—'}</td>
                   <td className="px-3 py-2.5 text-ink-muted">{s.captureRateCorrect ?? '—'}</td>
                   <td className="px-3 py-2.5 text-center text-ink-muted">{s.nocturnal ? '🌙' : ''}</td>
+                  <td className="px-3 py-2.5 text-center text-ink-muted">{s.mountable ? '🐴' : ''}</td>
                   <td className="px-3 py-2.5">
                     <PartnerSkillBadge skill={partnerSkillBySpecies.get(s.id)} />
                   </td>

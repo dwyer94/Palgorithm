@@ -92,6 +92,10 @@ export const SpeciesSchema = z.object({
   food: FoodSchema.optional(),
   captureRateCorrect: z.number().optional(),
   nocturnal: z.boolean().optional(),
+  // Derived from this species' own partner-skill unlock (saddle item name / "safely riding"
+  // description text) in the normalizer, not a raw extracted field — true when the Pal has a
+  // rideable-mount saddle. UI only, never breeding-critical.
+  mountable: z.boolean().optional(),
   icon: z.string().optional(), // image path — UI only, not used by the solver
   internalName: z.string().optional(), // raw game name, for matching across sources
   aliases: z.array(z.string()).optional(),

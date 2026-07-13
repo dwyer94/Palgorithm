@@ -829,6 +829,15 @@ function main(): void {
 
       const unlockItemName = itemNames.get(`item_name_skillunlock_${s.id}`.toLowerCase());
 
+      // Mountable: this Pal's own partner skill unlocks a saddle for riding itself. Detected
+      // from the unlock item name ("<Pal> Saddle") or the item description ("Saddle for safely
+      // riding <Pal>") rather than a dedicated source field — no structured "is a mount" flag
+      // was found in the extracted tables (see EXTRACTION.md). Verified against all 291
+      // species: these two signals agree on every case but one, where only one is present.
+      if ((unlockItemName && /saddle/i.test(unlockItemName)) || (description && /\briding\b/i.test(description))) {
+        s.mountable = true;
+      }
+
       partnerSkills.push({
         speciesId: s.id,
         displayName,

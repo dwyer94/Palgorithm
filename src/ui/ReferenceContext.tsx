@@ -20,6 +20,7 @@ export interface PalsQuery {
   reach: ReachFilter;
   sizes: string[];
   nocturnalOnly: boolean;
+  mountableOnly: boolean;
   rankMin: number | null;
   rankMax: number | null;
   minRunSpeed: number | null;
@@ -39,6 +40,7 @@ const DEFAULT_PALS_QUERY: PalsQuery = {
   reach: 'all',
   sizes: [],
   nocturnalOnly: false,
+  mountableOnly: false,
   rankMin: null,
   rankMax: null,
   minRunSpeed: null,

@@ -4,7 +4,7 @@
     "ruleset": "combirank-0.6",
     "provisional": false,
     "source": "FModel/Ue4Export export of local Palworld build (1.0, usmap Mappings100.usmap); EN L10N names. Normalized by src/pipeline/normalize.ts. Partner skill descriptions added post-ingestion (see EXTRACTION.md).",
-    "generatedAt": "2026-07-12T23:43:23.373Z"
+    "generatedAt": "2026-07-13T01:41:29.988Z"
   },
   "species": [
     {
@@ -246,6 +246,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/GoldenHorse.png",
       "internalName": "GoldenHorse",
       "aliases": [
@@ -711,6 +712,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/Boar.png",
       "internalName": "Boar",
       "aliases": [
@@ -880,6 +882,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/Deer.png",
       "internalName": "Deer",
       "aliases": [
@@ -931,6 +934,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/Deer_Ground.png",
       "internalName": "Deer_Ground",
       "aliases": [
@@ -1200,6 +1204,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/Garm.png",
       "internalName": "Garm",
       "aliases": [
@@ -1477,6 +1482,7 @@
       },
       "captureRateCorrect": 0.9,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/Kirin.png",
       "internalName": "Kirin",
       "aliases": [
@@ -1532,6 +1538,7 @@
       },
       "captureRateCorrect": 0.9,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/Kirin_Ice.png",
       "internalName": "Kirin_Ice",
       "aliases": [
@@ -2125,6 +2132,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/Umihebi.png",
       "internalName": "Umihebi",
       "aliases": [
@@ -2177,6 +2185,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/Umihebi_Fire.png",
       "internalName": "Umihebi_Fire",
       "aliases": [
@@ -2402,6 +2411,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/Suzaku.png",
       "internalName": "Suzaku",
       "aliases": [
@@ -2454,6 +2464,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/Suzaku_Water.png",
       "internalName": "Suzaku_Water",
       "aliases": [
@@ -2509,6 +2520,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/FireKirin.png",
       "internalName": "FireKirin",
       "aliases": [
@@ -2565,6 +2577,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": true,
+      "mountable": true,
       "icon": "/icons/pals/FireKirin_Dark.png",
       "internalName": "FireKirin_Dark",
       "aliases": [
@@ -2616,6 +2629,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/FairyDragon.png",
       "internalName": "FairyDragon",
       "aliases": [
@@ -2673,6 +2687,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/FairyDragon_Water.png",
       "internalName": "FairyDragon_Water",
       "aliases": [
@@ -2889,6 +2904,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/Alpaca.png",
       "internalName": "Alpaca",
       "aliases": [
@@ -2944,6 +2960,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/Serpent.png",
       "internalName": "Serpent",
       "aliases": [
@@ -2995,6 +3012,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/Serpent_Ground.png",
       "internalName": "Serpent_Ground",
       "aliases": [
@@ -3102,6 +3120,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/BlueDragon.png",
       "internalName": "BlueDragon",
       "aliases": [
@@ -3154,6 +3173,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/BlueDragon_Ice.png",
       "internalName": "BlueDragon_Ice",
       "aliases": [
@@ -3331,6 +3351,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/FengyunDeeper.png",
       "internalName": "FengyunDeeper",
       "aliases": [
@@ -3387,6 +3408,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/VolcanicMonster.png",
       "internalName": "VolcanicMonster",
       "aliases": [
@@ -3443,6 +3465,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/VolcanicMonster_Ice.png",
       "internalName": "VolcanicMonster_Ice",
       "aliases": [
@@ -3499,6 +3522,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": true,
+      "mountable": true,
       "icon": "/icons/pals/GhostBeast.png",
       "internalName": "GhostBeast",
       "aliases": [
@@ -3803,6 +3827,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/AmaterasuWolf.png",
       "internalName": "AmaterasuWolf",
       "aliases": [
@@ -4106,6 +4131,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": true,
+      "mountable": true,
       "icon": "/icons/pals/BirdDragon.png",
       "internalName": "BirdDragon",
       "aliases": [
@@ -4163,6 +4189,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": true,
+      "mountable": true,
       "icon": "/icons/pals/BirdDragon_Ice.png",
       "internalName": "BirdDragon_Ice",
       "aliases": [
@@ -4274,6 +4301,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/FlowerDinosaur.png",
       "internalName": "FlowerDinosaur",
       "aliases": [
@@ -4331,6 +4359,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/FlowerDinosaur_Electric.png",
       "internalName": "FlowerDinosaur_Electric",
       "aliases": [
@@ -4445,6 +4474,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/IceHorse.png",
       "internalName": "IceHorse",
       "aliases": [
@@ -4496,6 +4526,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": true,
+      "mountable": true,
       "icon": "/icons/pals/IceHorse_Dark.png",
       "internalName": "IceHorse_Dark",
       "aliases": [
@@ -4556,6 +4587,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/GrassMammoth.png",
       "internalName": "GrassMammoth",
       "aliases": [
@@ -4616,6 +4648,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/GrassMammoth_Ice.png",
       "internalName": "GrassMammoth_Ice",
       "aliases": [
@@ -4719,6 +4752,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/SakuraSaurus.png",
       "internalName": "SakuraSaurus",
       "aliases": [
@@ -4771,6 +4805,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/SakuraSaurus_Water.png",
       "internalName": "SakuraSaurus_Water",
       "aliases": [
@@ -4826,6 +4861,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/Horus.png",
       "internalName": "Horus",
       "aliases": [
@@ -4883,6 +4919,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/KingBahamut.png",
       "internalName": "KingBahamut",
       "aliases": [
@@ -4939,6 +4976,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/KingBahamut_Dragon.png",
       "internalName": "KingBahamut_Dragon",
       "aliases": [
@@ -5050,6 +5088,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/IceDeer.png",
       "internalName": "IceDeer",
       "aliases": [
@@ -5101,6 +5140,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": true,
+      "mountable": true,
       "icon": "/icons/pals/BlackGriffon.png",
       "internalName": "BlackGriffon",
       "aliases": [
@@ -5849,6 +5889,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/Yeti.png",
       "internalName": "Yeti",
       "aliases": [
@@ -5913,6 +5954,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/Yeti_Grass.png",
       "internalName": "Yeti_Grass",
       "aliases": [
@@ -6035,6 +6077,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/HawkBird.png",
       "internalName": "HawkBird",
       "aliases": [
@@ -6608,6 +6651,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/FlameBuffalo.png",
       "internalName": "FlameBuffalo",
       "aliases": [
@@ -6659,6 +6703,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/ThunderDog.png",
       "internalName": "ThunderDog",
       "aliases": [
@@ -6711,6 +6756,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/ThunderDog_Ice.png",
       "internalName": "ThunderDog_Ice",
       "aliases": [
@@ -6826,6 +6872,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": true,
+      "mountable": true,
       "icon": "/icons/pals/BlackMetalDragon.png",
       "internalName": "BlackMetalDragon",
       "aliases": [
@@ -6948,6 +6995,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/IceFox.png",
       "internalName": "IceFox",
       "aliases": [
@@ -7243,6 +7291,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/Manticore.png",
       "internalName": "Manticore",
       "aliases": [
@@ -7299,6 +7348,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": true,
+      "mountable": true,
       "icon": "/icons/pals/Manticore_Dark.png",
       "internalName": "Manticore_Dark",
       "aliases": [
@@ -7351,6 +7401,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/KingAlpaca.png",
       "internalName": "KingAlpaca",
       "aliases": [
@@ -7406,6 +7457,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/KingAlpaca_Ice.png",
       "internalName": "KingAlpaca_Ice",
       "aliases": [
@@ -7619,6 +7671,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/MopKing.png",
       "internalName": "MopKing",
       "aliases": [
@@ -7860,6 +7913,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/ThunderBird.png",
       "internalName": "ThunderBird",
       "aliases": [
@@ -7919,6 +7973,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/ThunderBird_Ice.png",
       "internalName": "ThunderBird_Ice",
       "aliases": [
@@ -7983,6 +8038,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/HerculesBeetle.png",
       "internalName": "HerculesBeetle",
       "aliases": [
@@ -8097,6 +8153,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/SaintCentaur.png",
       "internalName": "SaintCentaur",
       "aliases": [
@@ -8340,6 +8397,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/WeaselDragon.png",
       "internalName": "WeaselDragon",
       "aliases": [
@@ -8396,6 +8454,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/WeaselDragon_Fire.png",
       "internalName": "WeaselDragon_Fire",
       "aliases": [
@@ -8459,6 +8518,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/SkyDragon.png",
       "internalName": "SkyDragon",
       "aliases": [
@@ -8527,6 +8587,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/SkyDragon_Grass.png",
       "internalName": "SkyDragon_Grass",
       "aliases": [
@@ -8578,6 +8639,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": true,
+      "mountable": true,
       "icon": "/icons/pals/HadesBird.png",
       "internalName": "HadesBird",
       "aliases": [
@@ -8635,6 +8697,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": true,
+      "mountable": true,
       "icon": "/icons/pals/HadesBird_Electric.png",
       "internalName": "HadesBird_Electric",
       "aliases": [
@@ -8691,6 +8754,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/RedArmorBird.png",
       "internalName": "RedArmorBird",
       "aliases": [
@@ -8998,6 +9062,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": true,
+      "mountable": true,
       "icon": "/icons/pals/BlackCentaur.png",
       "internalName": "BlackCentaur",
       "aliases": [
@@ -9184,6 +9249,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/NaughtyCat.png",
       "internalName": "NaughtyCat",
       "aliases": [
@@ -9897,6 +9963,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": true,
+      "mountable": true,
       "icon": "/icons/pals/MoonQueen.png",
       "internalName": "MoonQueen",
       "aliases": [
@@ -10155,6 +10222,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/MushroomDragon.png",
       "internalName": "MushroomDragon",
       "aliases": [
@@ -10220,6 +10288,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": true,
+      "mountable": true,
       "icon": "/icons/pals/MushroomDragon_Dark.png",
       "internalName": "MushroomDragon_Dark",
       "aliases": [
@@ -10524,6 +10593,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/WingGolem.png",
       "internalName": "WingGolem",
       "aliases": [
@@ -10635,6 +10705,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/GuardianDog.png",
       "internalName": "GuardianDog",
       "aliases": [
@@ -10754,6 +10825,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/FeatherOstrich.png",
       "internalName": "FeatherOstrich",
       "aliases": [
@@ -10918,6 +10990,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/WhiteAlienDragon.png",
       "internalName": "WhiteAlienDragon",
       "aliases": [
@@ -10975,6 +11048,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/VolcanoDragon.png",
       "internalName": "VolcanoDragon",
       "aliases": [
@@ -11032,6 +11106,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/VolcanoDragon_Ice.png",
       "internalName": "VolcanoDragon_Ice",
       "aliases": [
@@ -11084,6 +11159,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": true,
+      "mountable": true,
       "icon": "/icons/pals/DarkMechaDragon.png",
       "internalName": "DarkMechaDragon",
       "aliases": [
@@ -11250,6 +11326,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": true,
+      "mountable": true,
       "icon": "/icons/pals/NightBlueHorse.png",
       "internalName": "NightBlueHorse",
       "aliases": [
@@ -11302,6 +11379,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/NightBlueHorse_Neutral.png",
       "internalName": "NightBlueHorse_Neutral",
       "aliases": [
@@ -11353,6 +11431,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/WhiteShieldDragon.png",
       "internalName": "WhiteShieldDragon",
       "aliases": [
@@ -11515,6 +11594,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/WhiteDeer.png",
       "internalName": "WhiteDeer",
       "aliases": [
@@ -11570,6 +11650,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": true,
+      "mountable": true,
       "icon": "/icons/pals/WhiteDeer_Dark.png",
       "internalName": "WhiteDeer_Dark",
       "aliases": [
@@ -11959,6 +12040,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": true,
+      "mountable": true,
       "icon": "/icons/pals/PurpleSpider.png",
       "internalName": "PurpleSpider",
       "aliases": [
@@ -12011,6 +12093,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/BlueThunderHorse.png",
       "internalName": "BlueThunderHorse",
       "aliases": [
@@ -12293,6 +12376,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/IceNarwhal.png",
       "internalName": "IceNarwhal",
       "aliases": [
@@ -12349,6 +12433,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/IceNarwhal_Fire.png",
       "internalName": "IceNarwhal_Fire",
       "aliases": [
@@ -12684,6 +12769,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": true,
+      "mountable": true,
       "icon": "/icons/pals/AmaterasuWolf_Dark.png",
       "internalName": "AmaterasuWolf_Dark",
       "aliases": [
@@ -12867,6 +12953,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/FengyunDeeper_Electric.png",
       "internalName": "FengyunDeeper_Electric",
       "aliases": [
@@ -12922,6 +13009,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/Horus_Water.png",
       "internalName": "Horus_Water",
       "aliases": [
@@ -12982,6 +13070,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/SnowTigerBeastman.png",
       "internalName": "SnowTigerBeastman",
       "aliases": [
@@ -13103,6 +13192,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": true,
+      "mountable": true,
       "icon": "/icons/pals/GhostAnglerfish.png",
       "internalName": "GhostAnglerfish",
       "aliases": [
@@ -13163,6 +13253,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/GhostAnglerfish_Fire.png",
       "internalName": "GhostAnglerfish_Fire",
       "aliases": [
@@ -13344,6 +13435,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/LegendDeer.png",
       "internalName": "LegendDeer",
       "aliases": [
@@ -13940,6 +14032,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/IceSeal.png",
       "internalName": "IceSeal",
       "aliases": [
@@ -13996,6 +14089,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/IceSeal_Ground.png",
       "internalName": "IceSeal_Ground",
       "aliases": [
@@ -14225,6 +14319,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": true,
+      "mountable": true,
       "icon": "/icons/pals/ThiefBird.png",
       "internalName": "ThiefBird",
       "aliases": [
@@ -14344,6 +14439,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/Plesiosaur.png",
       "internalName": "Plesiosaur",
       "aliases": [
@@ -14403,6 +14499,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/TropicalOstrich.png",
       "internalName": "TropicalOstrich",
       "aliases": [
@@ -14471,6 +14568,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/GrassGolem.png",
       "internalName": "GrassGolem",
       "aliases": [
@@ -14539,6 +14637,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": true,
+      "mountable": true,
       "icon": "/icons/pals/GrassGolem_Dark.png",
       "internalName": "GrassGolem_Dark",
       "aliases": [
@@ -14645,6 +14744,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/CubeTurtle.png",
       "internalName": "CubeTurtle",
       "aliases": [
@@ -14696,6 +14796,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/CubeTurtle_Neutral.png",
       "internalName": "CubeTurtle_Neutral",
       "aliases": [
@@ -14870,6 +14971,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/ThunderFluffyBird.png",
       "internalName": "ThunderFluffyBird",
       "aliases": [
@@ -15039,6 +15141,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/PoseidonOrca.png",
       "internalName": "PoseidonOrca",
       "aliases": [
@@ -15274,6 +15377,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/KingSunfish.png",
       "internalName": "KingSunfish",
       "aliases": [
@@ -15330,6 +15434,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/KingSunfish_Thunder.png",
       "internalName": "KingSunfish_Thunder",
       "aliases": [
@@ -15609,6 +15714,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/SumoDog.png",
       "internalName": "SumoDog",
       "aliases": [
@@ -16072,6 +16178,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/LotusDragon.png",
       "internalName": "LotusDragon",
       "aliases": [
@@ -16128,6 +16235,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/BlueSkyDragon.png",
       "internalName": "BlueSkyDragon",
       "aliases": [
@@ -16443,6 +16551,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": true,
+      "mountable": true,
       "icon": "/icons/pals/GhostDragon.png",
       "internalName": "GhostDragon",
       "aliases": [
@@ -16499,6 +16608,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/GhostDragon_Fire.png",
       "internalName": "GhostDragon_Fire",
       "aliases": [
@@ -16726,6 +16836,7 @@
       },
       "captureRateCorrect": 1,
       "nocturnal": false,
+      "mountable": true,
       "icon": "/icons/pals/DomeArmorDragon.png",
       "internalName": "DomeArmorDragon",
       "aliases": [
