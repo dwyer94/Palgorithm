@@ -40,6 +40,25 @@ type ViewKey = keyof typeof VIEWS;
 
 const VIEW_KEYS = Object.keys(VIEWS) as ViewKey[];
 
+/** ReferenceProvider sits above AppShell, so a bubble's "maximize" click can't call
+ * AppShell's setActive directly — it sets maximizeRequest instead, and this effect consumes
+ * it. Isolated into its own component (rather than read in AppShell itself) so that typing in
+ * the reference search boxes — which updates the same context on every keystroke — doesn't
+ * re-render AppShell and, with it, every other visited tab's view. */
+function ReferenceMaximizeWatcher({ onMaximize }: { onMaximize: (key: ViewKey) => void }) {
+  const { maximizeRequest, clearMaximizeRequest } = useReferenceContext();
+
+  useEffect(() => {
+    if (maximizeRequest) {
+      onMaximize('reference');
+      clearMaximizeRequest();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [maximizeRequest]);
+
+  return null;
+}
+
 /** Tabs stay mounted once visited (instead of unmounting on switch) so their local state —
  * filled-in fields, computed plans, filters, scroll position — survives navigating away and
  * back. Inactive tabs are hidden via `hidden`/`contents`, not removed from the tree; only the
@@ -51,7 +70,6 @@ function AppShell() {
   const [roster] = useRoster();
   const [settings, setSettings] = useSettings();
   const live = useLiveContext();
-  const reference = useReferenceContext();
 
   const handleSelect = (key: string) => {
     const viewKey = key as ViewKey;
@@ -59,18 +77,9 @@ function AppShell() {
     setVisited((prev) => (prev.has(viewKey) ? prev : new Set(prev).add(viewKey)));
   };
 
-  // ReferenceProvider sits above AppShell, so a bubble's "maximize" click can't call
-  // setActive directly — it sets maximizeRequest instead, and this effect consumes it.
-  useEffect(() => {
-    if (reference.maximizeRequest) {
-      handleSelect('reference');
-      reference.clearMaximizeRequest();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [reference.maximizeRequest]);
-
   return (
     <div className="flex h-screen w-full flex-col overflow-hidden font-sans md:flex-row">
+      <ReferenceMaximizeWatcher onMaximize={handleSelect} />
       <Sidebar
         active={active}
         onSelect={handleSelect}

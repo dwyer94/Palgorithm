@@ -32,7 +32,7 @@ function Bubble({ kind, children }: { kind: ReferenceKind; children: ReactNode }
     >
       <div className="relative flex flex-col items-end">
         {expanded && (
-          <div className="absolute bottom-[calc(100%+8px)] right-0 flex max-h-[70vh] w-[min(92vw,360px)] flex-col overflow-hidden rounded-card border border-border-card bg-white shadow-dropdown">
+          <div className="absolute bottom-[calc(100%+8px)] right-0 flex h-[70vh] w-[min(92vw,360px)] flex-col overflow-hidden rounded-card border border-border-card bg-white shadow-dropdown">
             <div className="flex flex-none items-center gap-2 bg-sidebar-bg px-3.5 py-2.5 text-sidebar-text">
               <span aria-hidden>{meta.icon}</span>
               <span className="font-sans text-[13px] font-semibold">{meta.label} reference</span>
