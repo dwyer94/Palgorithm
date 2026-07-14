@@ -687,6 +687,9 @@ function FindAPalTab() {
                   ))}
                 </div>
                 <WorkSuitabilityRow levels={workLevels} highlight={workHighlight} />
+                <div className="font-mono text-[10px] text-muted">
+                  IVs {pal.ivs.health}/{pal.ivs.attackMelee}/{pal.ivs.defense}
+                </div>
                 <div className="font-sans text-[10px] text-muted-light">
                   {pal.location.kind === 'baseCamp' ? `Base Camp ${shortBaseCampLabel(pal.location.baseCampId)}` : pal.location.kind === 'team' ? 'Team' : 'Palbox'}
                 </div>
@@ -706,7 +709,7 @@ function FindAPalTab() {
           <table className="w-full border-collapse font-mono">
             <thead>
               <tr className="text-left">
-                {['Species', 'Gen', 'Lvl', 'Passives', 'Work', 'Location', 'Owner'].map((h) => (
+                {['Species', 'Gen', 'Lvl', 'Passives', 'Work', 'IVs H/A/D', 'Location', 'Owner'].map((h) => (
                   <th key={h} className="whitespace-nowrap px-3 py-2.5 font-sans text-[10px] font-semibold uppercase tracking-wide text-muted-light">
                     {h}
                   </th>
@@ -749,6 +752,9 @@ function FindAPalTab() {
                     </td>
                     <td className="px-3 py-2.5">
                       <WorkSuitabilityRow levels={workLevels} highlight={workHighlight} />
+                    </td>
+                    <td className="px-3 py-2.5 text-[11px] text-muted">
+                      {pal.ivs.health}/{pal.ivs.attackMelee}/{pal.ivs.defense}
                     </td>
                     <td className="whitespace-nowrap px-3 py-2.5 text-[12px] text-ink-muted">
                       {pal.location.kind === 'baseCamp' ? `Base Camp ${shortBaseCampLabel(pal.location.baseCampId)}` : pal.location.kind === 'team' ? 'Team' : 'Palbox'}
