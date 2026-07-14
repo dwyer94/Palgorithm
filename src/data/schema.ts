@@ -67,7 +67,7 @@ export const SpeciesSchema = z.object({
   // --- Structural identity (always present, source-independent) ---
   id: z.string().min(1), // stable internal id, e.g. "Relaxaurus_Lux"
   displayName: z.string().min(1),
-  index: z.number().int().min(0), // game-file order; tie-break for the closest-rank rule
+  index: z.number().int().min(0), // game-file order; fallback tie-break when combiPriority is absent
 
   // --- Reachability (three-way split, spec §3.2) ---
   standardBreedable: z.boolean(), // can appear as a breeding output
@@ -77,6 +77,11 @@ export const SpeciesSchema = z.object({
   // --- Game values our model needs. Nullable ONLY while provisional (see DatasetSchema
   //     refinement): a dataset that declares itself final must populate these. ---
   rank: z.number().int().nullable(), // CombiRank / breeding power; lower = rarer
+  // CombiDuplicatePriority (game's own field, previously unextracted): the real tie-break for
+  // two candidates equidistant from the computed childRank — highest priority wins (spec §3.2).
+  // Optional/absent on pre-1.0 datasets that predate this field's extraction; the ruleset falls
+  // back to `index` when absent so older datasets keep their oracle-verified behavior.
+  combiPriority: z.number().int().optional(),
   genderRatio: GenderRatioSchema.nullable(),
   elements: z.array(ElementSchema).default([]),
 

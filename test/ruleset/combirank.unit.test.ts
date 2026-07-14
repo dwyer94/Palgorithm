@@ -26,6 +26,7 @@ function synthetic(species: Partial<Species>[], specialCombos: Dataset['specialC
       wildCatchable: s.wildCatchable ?? true,
       otherObtainOnly: s.otherObtainOnly ?? false,
       rank: s.rank ?? null,
+      combiPriority: s.combiPriority,
       genderRatio: s.genderRatio ?? { male: 0.5, female: 0.5 },
       elements: [],
     })),
@@ -74,6 +75,50 @@ describe('combirank-0.6 formula + tie-break', () => {
       ]),
     );
     expect(rs.forward('A', 'B').outcomes).toEqual([{ child: 'TWIN_LO', p: 1 }]);
+  });
+
+  it('breaks equidistant-rank ties by HIGHEST CombiDuplicatePriority when present, overriding index', () => {
+    // Real-world regression: Robinquill (2260) x Cryolinx Terra (470) -> childRank 1365, tied
+    // between Blazehowl (1360, index 125) and Solmora (1370, index 263). The 1.0 game (and
+    // PalCalc's post-1.0-patch fix, `ThenByDescending(BreedingPowerPriority)`) picks Solmora —
+    // the higher-priority/higher-rank side — even though it has the higher game-file index.
+    const rs = createCombiRank06(
+      synthetic([
+        { id: 'A', rank: 2260 },
+        { id: 'B', rank: 470 },
+        { id: 'LOWER_RANK', rank: 1360, index: 125, combiPriority: 136000 },
+        { id: 'HIGHER_RANK', rank: 1370, index: 263, combiPriority: 137000 },
+      ]),
+    );
+    expect(rs.forward('A', 'B').outcomes).toEqual([{ child: 'HIGHER_RANK', p: 1 }]);
+  });
+
+  it('falls back to lowest index when priority is absent on a dataset (pre-1.0)', () => {
+    // Same shape as above but no combiPriority data — must reproduce the oracle-verified
+    // pre-1.0 behavior (lowest index wins) rather than defaulting to "highest rank".
+    const rs = createCombiRank06(
+      synthetic([
+        { id: 'A', rank: 10 },
+        { id: 'B', rank: 20 },
+        { id: 'RANK_13', rank: 13, index: 5 },
+        { id: 'RANK_17', rank: 17, index: 99 },
+      ]),
+    );
+    expect(rs.forward('A', 'B').outcomes).toEqual([{ child: 'RANK_13', p: 1 }]);
+  });
+
+  it('reproduces real 1.0 tie-break results confirmed live and against paldb.cc', () => {
+    // Regression for the bug reported 2026-07-14: Robinquill x Cryolinx Terra was computing
+    // Blazehowl (lowest-index tie-break) but the real 1.0 game produces Solmora. Confirmed via
+    // paldb.cc's breeding calculator (also 1.0-verified) for two independent tie sites.
+    const dataset1_0 = parseDataset(JSON.parse(readFileSync('src/data/dataset.1.0.json', 'utf8')));
+    const rs1_0 = createCombiRank06(dataset1_0);
+    expect(rs1_0.forward('RobinHood', 'WhiteTiger_Ground').outcomes).toEqual([
+      { child: 'KingSunfish', p: 1 }, // Solmora
+    ]);
+    expect(rs1_0.forward('GoldenHorse', 'LilyQueen').outcomes).toEqual([
+      { child: 'BlackMetalDragon', p: 1 }, // Astegon
+    ]);
   });
 
   it('does NOT prune when both parents rank higher (less rare) than the target (spec §7.1)', () => {

@@ -4,7 +4,7 @@
     "ruleset": "combirank-0.6",
     "provisional": false,
     "source": "FModel/Ue4Export export of local Palworld build (1.0, usmap Mappings100.usmap); EN L10N names. Normalized by src/pipeline/normalize.ts. Partner skill descriptions added post-ingestion (see EXTRACTION.md).",
-    "generatedAt": "2026-07-13T01:41:29.988Z"
+    "generatedAt": "2026-07-14T11:54:01.962Z"
   },
   "species": [
     {
@@ -15,6 +15,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1250,
+      "combiPriority": 125000,
       "genderRatio": {
         "male": 0.4,
         "female": 0.6
@@ -78,6 +79,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1390,
+      "combiPriority": 139000,
       "genderRatio": {
         "male": 0.4,
         "female": 0.6
@@ -146,6 +148,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1680,
+      "combiPriority": 168000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -209,6 +212,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 730,
+      "combiPriority": 73000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -262,6 +266,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2410,
+      "combiPriority": 241000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -321,6 +326,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1330,
+      "combiPriority": 577,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -381,6 +387,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 480,
+      "combiPriority": 48000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -440,6 +447,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1470,
+      "combiPriority": 147000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -504,6 +512,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1310,
+      "combiPriority": 131000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -565,6 +574,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 3040,
+      "combiPriority": 304000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -620,6 +630,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2750,
+      "combiPriority": 275000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -675,6 +686,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2880,
+      "combiPriority": 288000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -727,6 +739,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 3020,
+      "combiPriority": 302000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -794,6 +807,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2730,
+      "combiPriority": 273000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -845,6 +859,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2710,
+      "combiPriority": 271000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -897,6 +912,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2580,
+      "combiPriority": 258000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -949,6 +965,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1550,
+      "combiPriority": 155000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -1001,6 +1018,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2570,
+      "combiPriority": 257000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -1052,6 +1070,7 @@
       "wildCatchable": false,
       "otherObtainOnly": true,
       "rank": 1020,
+      "combiPriority": 102000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -1116,6 +1135,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 3070,
+      "combiPriority": 307000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -1167,6 +1187,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2680,
+      "combiPriority": 268000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -1220,6 +1241,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2140,
+      "combiPriority": 214000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -1280,6 +1302,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1880,
+      "combiPriority": 188000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -1339,6 +1362,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 3030,
+      "combiPriority": 303000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -1390,6 +1414,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2850,
+      "combiPriority": 285000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -1441,6 +1466,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2270,
+      "combiPriority": 227000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -1497,6 +1523,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 540,
+      "combiPriority": 54000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -1553,6 +1580,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2990,
+      "combiPriority": 299000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -1604,6 +1632,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2690,
+      "combiPriority": 269000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -1671,6 +1700,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2010,
+      "combiPriority": 201000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -1730,6 +1760,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2960,
+      "combiPriority": 296000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -1794,6 +1825,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2490,
+      "combiPriority": 572,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -1858,6 +1890,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2400,
+      "combiPriority": 240000,
       "genderRatio": {
         "male": 0.2,
         "female": 0.8
@@ -1917,6 +1950,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2550,
+      "combiPriority": 255000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -1976,6 +2010,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2430,
+      "combiPriority": 243000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -2035,6 +2070,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 3050,
+      "combiPriority": 305000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -2094,6 +2130,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 590,
+      "combiPriority": 59000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -2147,6 +2184,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 170,
+      "combiPriority": 17000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -2201,6 +2239,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2110,
+      "combiPriority": 211000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -2252,6 +2291,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2780,
+      "combiPriority": 278000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -2311,6 +2351,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2510,
+      "combiPriority": 251000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -2374,6 +2415,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1200,
+      "combiPriority": 120000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -2427,6 +2469,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 740,
+      "combiPriority": 74000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -2479,6 +2522,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1980,
+      "combiPriority": 198000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -2535,6 +2579,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1870,
+      "combiPriority": 187000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -2592,6 +2637,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2280,
+      "combiPriority": 228000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -2645,6 +2691,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1640,
+      "combiPriority": 164000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -2702,6 +2749,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2820,
+      "combiPriority": 282000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -2753,6 +2801,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2030,
+      "combiPriority": 203000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -2804,6 +2853,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1040,
+      "combiPriority": 104000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -2867,6 +2917,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2720,
+      "combiPriority": 272000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -2919,6 +2970,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2440,
+      "combiPriority": 244000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -2975,6 +3027,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1840,
+      "combiPriority": 184000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -3027,6 +3080,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2370,
+      "combiPriority": 237000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -3082,6 +3136,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1830,
+      "combiPriority": 183000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -3135,6 +3190,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1220,
+      "combiPriority": 578,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -3188,6 +3244,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2760,
+      "combiPriority": 276000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -3251,6 +3308,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 3000,
+      "combiPriority": 300000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -3314,6 +3372,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1960,
+      "combiPriority": 196000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -3366,6 +3425,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1060,
+      "combiPriority": 106000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -3423,6 +3483,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 600,
+      "combiPriority": 60000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -3481,6 +3542,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1710,
+      "combiPriority": 171000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -3538,6 +3600,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2260,
+      "combiPriority": 226000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -3609,6 +3672,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2050,
+      "combiPriority": 205000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -3677,6 +3741,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1090,
+      "combiPriority": 109000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -3734,6 +3799,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 770,
+      "combiPriority": 77000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -3790,6 +3856,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1670,
+      "combiPriority": 167000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -3843,6 +3910,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2670,
+      "combiPriority": 267000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -3903,6 +3971,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2640,
+      "combiPriority": 264000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -3966,6 +4035,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2980,
+      "combiPriority": 298000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -4025,6 +4095,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2300,
+      "combiPriority": 575,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -4089,6 +4160,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1650,
+      "combiPriority": 165000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -4147,6 +4219,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1430,
+      "combiPriority": 143000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -4204,6 +4277,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 3080,
+      "combiPriority": 308000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -4259,6 +4333,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2100,
+      "combiPriority": 210000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -4317,6 +4392,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1890,
+      "combiPriority": 189000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -4374,6 +4450,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 3010,
+      "combiPriority": 301000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -4437,6 +4514,7 @@
       "wildCatchable": false,
       "otherObtainOnly": true,
       "rank": 150,
+      "combiPriority": 15000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -4489,6 +4567,7 @@
       "wildCatchable": false,
       "otherObtainOnly": true,
       "rank": 110,
+      "combiPriority": 11000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -4541,6 +4620,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1340,
+      "combiPriority": 134000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -4602,6 +4682,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1070,
+      "combiPriority": 107000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -4664,6 +4745,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1570,
+      "combiPriority": 157000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -4715,6 +4797,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1380,
+      "combiPriority": 138000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -4767,6 +4850,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1080,
+      "combiPriority": 108000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -4820,6 +4904,7 @@
       "wildCatchable": false,
       "otherObtainOnly": true,
       "rank": 500,
+      "combiPriority": 50000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -4878,6 +4963,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 410,
+      "combiPriority": 41000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -4934,6 +5020,7 @@
       "wildCatchable": false,
       "otherObtainOnly": true,
       "rank": 100,
+      "combiPriority": 10000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -4992,6 +5079,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2610,
+      "combiPriority": 261000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -5047,6 +5135,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1930,
+      "combiPriority": 193000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -5103,6 +5192,7 @@
       "wildCatchable": false,
       "otherObtainOnly": true,
       "rank": 550,
+      "combiPriority": 55000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -5156,6 +5246,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1810,
+      "combiPriority": 181000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -5215,6 +5306,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 650,
+      "combiPriority": 65000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -5270,6 +5362,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 3060,
+      "combiPriority": 306000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -5325,6 +5418,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2080,
+      "combiPriority": 208000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -5384,6 +5478,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1490,
+      "combiPriority": 149000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -5444,6 +5539,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2090,
+      "combiPriority": 209000,
       "genderRatio": {
         "male": 0.3,
         "female": 0.7
@@ -5508,6 +5604,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2940,
+      "combiPriority": 294000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -5559,6 +5656,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2810,
+      "combiPriority": 281000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -5614,6 +5712,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2470,
+      "combiPriority": 247000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -5669,6 +5768,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2770,
+      "combiPriority": 277000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -5729,6 +5829,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2540,
+      "combiPriority": 571,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -5789,6 +5890,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2800,
+      "combiPriority": 280000,
       "genderRatio": {
         "male": 0.2,
         "female": 0.8
@@ -5840,6 +5942,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 830,
+      "combiPriority": 83000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -5905,6 +6008,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 610,
+      "combiPriority": 61000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -5969,6 +6073,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1480,
+      "combiPriority": 148000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -6040,6 +6145,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2560,
+      "combiPriority": 256000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -6092,6 +6198,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2660,
+      "combiPriority": 266000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -6159,6 +6266,7 @@
       "wildCatchable": false,
       "otherObtainOnly": true,
       "rank": 240,
+      "combiPriority": 24000,
       "genderRatio": {
         "male": 0.3,
         "female": 0.7
@@ -6223,6 +6331,7 @@
       "wildCatchable": false,
       "otherObtainOnly": true,
       "rank": 220,
+      "combiPriority": 22000,
       "genderRatio": {
         "male": 0.3,
         "female": 0.7
@@ -6282,6 +6391,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1790,
+      "combiPriority": 179000,
       "genderRatio": {
         "male": 0.1,
         "female": 0.9
@@ -6349,6 +6459,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2350,
+      "combiPriority": 235000,
       "genderRatio": {
         "male": 0.1,
         "female": 0.9
@@ -6424,6 +6535,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2340,
+      "combiPriority": 234000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -6483,6 +6595,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2060,
+      "combiPriority": 206000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -6547,6 +6660,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1440,
+      "combiPriority": 144000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -6610,6 +6724,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2320,
+      "combiPriority": 232000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -6666,6 +6781,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1920,
+      "combiPriority": 192000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -6719,6 +6835,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1600,
+      "combiPriority": 160000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -6771,6 +6888,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2790,
+      "combiPriority": 279000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -6830,6 +6948,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 490,
+      "combiPriority": 49000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -6887,6 +7006,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1160,
+      "combiPriority": 116000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -6954,6 +7074,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1970,
+      "combiPriority": 197000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -7010,6 +7131,7 @@
       "wildCatchable": false,
       "otherObtainOnly": true,
       "rank": 70,
+      "combiPriority": 7000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -7061,6 +7183,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2910,
+      "combiPriority": 291000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -7120,6 +7243,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2900,
+      "combiPriority": 290000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -7187,6 +7311,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2830,
+      "combiPriority": 283000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -7250,6 +7375,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1360,
+      "combiPriority": 136000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -7306,6 +7432,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1270,
+      "combiPriority": 127000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -7364,6 +7491,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2220,
+      "combiPriority": 222000,
       "genderRatio": {
         "male": 0.9,
         "female": 0.09999999999999998
@@ -7416,6 +7544,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1530,
+      "combiPriority": 153000,
       "genderRatio": {
         "male": 0.9,
         "female": 0.09999999999999998
@@ -7472,6 +7601,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2950,
+      "combiPriority": 295000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -7524,6 +7654,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2950,
+      "combiPriority": 295000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -7575,6 +7706,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2840,
+      "combiPriority": 284000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -7630,6 +7762,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2150,
+      "combiPriority": 215000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -7686,6 +7819,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2040,
+      "combiPriority": 204000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -7745,6 +7879,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1800,
+      "combiPriority": 180000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -7809,6 +7944,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2860,
+      "combiPriority": 286000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -7868,6 +8004,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1690,
+      "combiPriority": 169000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -7928,6 +8065,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 580,
+      "combiPriority": 58000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -7988,6 +8126,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1280,
+      "combiPriority": 128000,
       "genderRatio": {
         "male": 0.85,
         "female": 0.15000000000000002
@@ -8053,6 +8192,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 630,
+      "combiPriority": 63000,
       "genderRatio": {
         "male": 0.85,
         "female": 0.15000000000000002
@@ -8112,6 +8252,7 @@
       "wildCatchable": false,
       "otherObtainOnly": true,
       "rank": 180,
+      "combiPriority": 18000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -8168,6 +8309,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2920,
+      "combiPriority": 292000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -8219,6 +8361,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2070,
+      "combiPriority": 207000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -8287,6 +8430,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1850,
+      "combiPriority": 573,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -8355,6 +8499,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2330,
+      "combiPriority": 233000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -8412,6 +8557,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1950,
+      "combiPriority": 195000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -8469,6 +8615,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1210,
+      "combiPriority": 121000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -8533,6 +8680,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1300,
+      "combiPriority": 130000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -8602,6 +8750,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1130,
+      "combiPriority": 113000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -8655,6 +8804,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 960,
+      "combiPriority": 96000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -8713,6 +8863,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1050,
+      "combiPriority": 105000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -8770,6 +8921,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1560,
+      "combiPriority": 156000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -8837,6 +8989,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 840,
+      "combiPriority": 84000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -8906,6 +9059,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2740,
+      "combiPriority": 274000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -8961,6 +9115,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2380,
+      "combiPriority": 574,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -9021,6 +9176,7 @@
       "wildCatchable": false,
       "otherObtainOnly": true,
       "rank": 190,
+      "combiPriority": 19000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -9077,6 +9233,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1720,
+      "combiPriority": 172000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -9144,6 +9301,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 820,
+      "combiPriority": 82000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -9212,6 +9370,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2120,
+      "combiPriority": 212000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -9264,6 +9423,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2620,
+      "combiPriority": 262000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -9323,6 +9483,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1120,
+      "combiPriority": 112000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -9380,6 +9541,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 640,
+      "combiPriority": 64000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -9435,6 +9597,7 @@
       "wildCatchable": false,
       "otherObtainOnly": true,
       "rank": 120,
+      "combiPriority": 12000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -9496,6 +9659,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2890,
+      "combiPriority": 289000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -9551,6 +9715,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2290,
+      "combiPriority": 229000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -9615,6 +9780,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1620,
+      "combiPriority": 576,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -9679,6 +9845,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2700,
+      "combiPriority": 270000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -9742,6 +9909,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2870,
+      "combiPriority": 287000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -9797,6 +9965,7 @@
       "wildCatchable": false,
       "otherObtainOnly": true,
       "rank": 620,
+      "combiPriority": 62000,
       "genderRatio": {
         "male": 0.1,
         "female": 0.9
@@ -9857,6 +10026,7 @@
       "wildCatchable": false,
       "otherObtainOnly": true,
       "rank": 130,
+      "combiPriority": 13000,
       "genderRatio": {
         "male": 0.1,
         "female": 0.9
@@ -9917,6 +10087,7 @@
       "wildCatchable": false,
       "otherObtainOnly": true,
       "rank": 360,
+      "combiPriority": 36000,
       "genderRatio": {
         "male": 0.2,
         "female": 0.8
@@ -9979,6 +10150,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2600,
+      "combiPriority": 260000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -10042,6 +10214,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1860,
+      "combiPriority": 186000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -10106,6 +10279,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1990,
+      "combiPriority": 199000,
       "genderRatio": {
         "male": 0.3,
         "female": 0.7
@@ -10169,6 +10343,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1520,
+      "combiPriority": 152000,
       "genderRatio": {
         "male": 0.55,
         "female": 0.44999999999999996
@@ -10238,6 +10413,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1450,
+      "combiPriority": 145000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -10303,6 +10479,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2310,
+      "combiPriority": 231000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -10354,6 +10531,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 980,
+      "combiPriority": 98000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -10423,6 +10601,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1510,
+      "combiPriority": 151000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -10484,6 +10663,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 850,
+      "combiPriority": 85000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -10548,6 +10728,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 260,
+      "combiPriority": 26000,
       "genderRatio": {
         "male": 0.7,
         "female": 0.30000000000000004
@@ -10609,6 +10790,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 210,
+      "combiPriority": 21000,
       "genderRatio": {
         "male": 0.7,
         "female": 0.30000000000000004
@@ -10668,6 +10850,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2230,
+      "combiPriority": 223000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -10720,6 +10903,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1460,
+      "combiPriority": 146000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -10788,6 +10972,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2210,
+      "combiPriority": 221000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -10841,6 +11026,7 @@
       "wildCatchable": false,
       "otherObtainOnly": true,
       "rank": 1740,
+      "combiPriority": 174000,
       "genderRatio": {
         "male": 0.8,
         "female": 0.19999999999999996
@@ -10896,6 +11082,7 @@
       "wildCatchable": false,
       "otherObtainOnly": true,
       "rank": 1820,
+      "combiPriority": 182000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -10953,6 +11140,7 @@
       "wildCatchable": false,
       "otherObtainOnly": true,
       "rank": 990,
+      "combiPriority": 99000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -11006,6 +11194,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 750,
+      "combiPriority": 75000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -11064,6 +11253,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 380,
+      "combiPriority": 38000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -11121,6 +11311,7 @@
       "wildCatchable": false,
       "otherObtainOnly": true,
       "rank": 400,
+      "combiPriority": 40000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -11175,6 +11366,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1230,
+      "combiPriority": 123000,
       "genderRatio": {
         "male": 0.4,
         "female": 0.6
@@ -11230,6 +11422,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1320,
+      "combiPriority": 132000,
       "genderRatio": {
         "male": 0.4,
         "female": 0.6
@@ -11289,6 +11482,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1150,
+      "combiPriority": 115000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -11342,6 +11536,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 430,
+      "combiPriority": 43000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -11394,6 +11589,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 560,
+      "combiPriority": 56000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -11446,6 +11642,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1760,
+      "combiPriority": 176000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -11497,6 +11694,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1610,
+      "combiPriority": 161000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -11553,6 +11751,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 570,
+      "combiPriority": 57000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -11609,6 +11808,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 270,
+      "combiPriority": 27000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -11665,6 +11865,7 @@
       "wildCatchable": false,
       "otherObtainOnly": true,
       "rank": 20,
+      "combiPriority": 2000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -11710,6 +11911,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1140,
+      "combiPriority": 114000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -11762,6 +11964,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1770,
+      "combiPriority": 177000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -11817,6 +12020,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 870,
+      "combiPriority": 87000,
       "genderRatio": {
         "male": 0.3,
         "female": 0.7
@@ -11876,6 +12080,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1750,
+      "combiPriority": 175000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -11927,6 +12132,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 780,
+      "combiPriority": 78000,
       "genderRatio": {
         "male": 0.38,
         "female": 0.62
@@ -11991,6 +12197,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1730,
+      "combiPriority": 173000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -12056,6 +12263,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 420,
+      "combiPriority": 42000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -12108,6 +12316,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1110,
+      "combiPriority": 111000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -12159,6 +12368,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 460,
+      "combiPriority": 46000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -12214,6 +12424,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2530,
+      "combiPriority": 253000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -12274,6 +12485,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1630,
+      "combiPriority": 163000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -12334,6 +12546,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 710,
+      "combiPriority": 71000,
       "genderRatio": {
         "male": 0.58,
         "female": 0.42000000000000004
@@ -12391,6 +12604,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 370,
+      "combiPriority": 37000,
       "genderRatio": {
         "male": 0.42,
         "female": 0.5800000000000001
@@ -12448,6 +12662,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2650,
+      "combiPriority": 265000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -12507,6 +12722,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2500,
+      "combiPriority": 250000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -12558,6 +12774,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1940,
+      "combiPriority": 194000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -12613,6 +12830,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2460,
+      "combiPriority": 246000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -12676,6 +12894,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1290,
+      "combiPriority": 129000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -12732,6 +12951,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 800,
+      "combiPriority": 80000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -12784,6 +13004,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1910,
+      "combiPriority": 191000,
       "genderRatio": {
         "male": 0.2,
         "female": 0.8
@@ -12848,6 +13069,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 470,
+      "combiPriority": 47000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -12912,6 +13134,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 900,
+      "combiPriority": 90000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -12968,6 +13191,7 @@
       "wildCatchable": false,
       "otherObtainOnly": true,
       "rank": 450,
+      "combiPriority": 45000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -13025,6 +13249,7 @@
       "wildCatchable": false,
       "otherObtainOnly": true,
       "rank": 50,
+      "combiPriority": 5000,
       "genderRatio": {
         "male": 0.6,
         "female": 0.4
@@ -13086,6 +13311,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 970,
+      "combiPriority": 97000,
       "genderRatio": {
         "male": 0.4,
         "female": 0.6
@@ -13150,6 +13376,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 880,
+      "combiPriority": 88000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -13207,6 +13434,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 720,
+      "combiPriority": 72000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -13268,6 +13496,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1260,
+      "combiPriority": 126000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -13331,6 +13560,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 520,
+      "combiPriority": 52000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -13394,6 +13624,7 @@
       "wildCatchable": false,
       "otherObtainOnly": true,
       "rank": 90,
+      "combiPriority": 9000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -13451,6 +13682,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2630,
+      "combiPriority": 263000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -13511,6 +13743,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2390,
+      "combiPriority": 239000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -13574,6 +13807,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2130,
+      "combiPriority": 213000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -13634,6 +13868,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2420,
+      "combiPriority": 242000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -13693,6 +13928,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1580,
+      "combiPriority": 158000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -13753,6 +13989,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 760,
+      "combiPriority": 76000,
       "genderRatio": {
         "male": 0.3,
         "female": 0.7
@@ -13816,6 +14053,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2450,
+      "combiPriority": 245000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -13871,6 +14109,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2240,
+      "combiPriority": 581,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -13931,6 +14170,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 390,
+      "combiPriority": 39000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -13990,6 +14230,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1660,
+      "combiPriority": 166000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -14047,6 +14288,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1100,
+      "combiPriority": 110000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -14104,6 +14346,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2970,
+      "combiPriority": 297000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -14160,6 +14403,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2360,
+      "combiPriority": 236000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -14215,6 +14459,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2250,
+      "combiPriority": 225000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -14278,6 +14523,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 530,
+      "combiPriority": 53000,
       "genderRatio": {
         "male": 0.6,
         "female": 0.4
@@ -14334,6 +14580,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1540,
+      "combiPriority": 154000,
       "genderRatio": {
         "male": 0.4,
         "female": 0.6
@@ -14393,6 +14640,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1030,
+      "combiPriority": 103000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -14454,6 +14702,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1240,
+      "combiPriority": 124000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -14514,6 +14763,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 510,
+      "combiPriority": 51000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -14583,6 +14833,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 250,
+      "combiPriority": 25000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -14652,6 +14903,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 860,
+      "combiPriority": 86000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -14707,6 +14959,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 790,
+      "combiPriority": 79000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -14759,6 +15012,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 200,
+      "combiPriority": 20000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -14811,6 +15065,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1900,
+      "combiPriority": 190000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -14862,6 +15117,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2590,
+      "combiPriority": 259000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -14926,6 +15182,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1400,
+      "combiPriority": 140000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -14986,6 +15243,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1180,
+      "combiPriority": 118000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -15045,6 +15303,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2930,
+      "combiPriority": 293000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -15104,6 +15363,7 @@
       "wildCatchable": false,
       "otherObtainOnly": true,
       "rank": 160,
+      "combiPriority": 16000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -15156,6 +15416,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1420,
+      "combiPriority": 142000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -15215,6 +15476,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1590,
+      "combiPriority": 159000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -15279,6 +15541,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1170,
+      "combiPriority": 117000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -15340,6 +15603,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1370,
+      "combiPriority": 137000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -15392,6 +15656,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1000,
+      "combiPriority": 100000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -15449,6 +15714,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 280,
+      "combiPriority": 28000,
       "genderRatio": {
         "male": 0.3,
         "female": 0.7
@@ -15510,6 +15776,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1780,
+      "combiPriority": 178000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -15561,6 +15828,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1500,
+      "combiPriority": 150000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -15613,6 +15881,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 890,
+      "combiPriority": 89000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -15673,6 +15942,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1190,
+      "combiPriority": 119000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -15729,6 +15999,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1700,
+      "combiPriority": 170000,
       "genderRatio": {
         "male": 0.4,
         "female": 0.6
@@ -15792,6 +16063,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2480,
+      "combiPriority": 248000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -15847,6 +16119,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2000,
+      "combiPriority": 200000,
       "genderRatio": {
         "male": 0.4,
         "female": 0.6
@@ -15902,6 +16175,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2520,
+      "combiPriority": 252000,
       "genderRatio": {
         "male": 0.4,
         "female": 0.6
@@ -15961,6 +16235,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1010,
+      "combiPriority": 101000,
       "genderRatio": {
         "male": 0.4,
         "female": 0.6
@@ -16025,6 +16300,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1350,
+      "combiPriority": 135000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -16081,6 +16357,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 810,
+      "combiPriority": 81000,
       "genderRatio": {
         "male": 0.4,
         "female": 0.6
@@ -16136,6 +16413,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 230,
+      "combiPriority": 23000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -16193,6 +16471,7 @@
       "wildCatchable": false,
       "otherObtainOnly": true,
       "rank": 40,
+      "combiPriority": 4000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -16251,6 +16530,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 1410,
+      "combiPriority": 141000,
       "genderRatio": {
         "male": 0.4,
         "female": 0.6
@@ -16315,6 +16595,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 2020,
+      "combiPriority": 202000,
       "genderRatio": {
         "male": 0.6,
         "female": 0.4
@@ -16382,6 +16663,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 440,
+      "combiPriority": 44000,
       "genderRatio": {
         "male": 0.6,
         "female": 0.4
@@ -16446,6 +16728,7 @@
       "wildCatchable": false,
       "otherObtainOnly": true,
       "rank": 80,
+      "combiPriority": 8000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -16513,6 +16796,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 300,
+      "combiPriority": 30000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -16566,6 +16850,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 140,
+      "combiPriority": 14000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -16623,6 +16908,7 @@
       "wildCatchable": false,
       "otherObtainOnly": true,
       "rank": 60,
+      "combiPriority": 6000,
       "genderRatio": {
         "male": 0.6,
         "female": 0.4
@@ -16691,6 +16977,7 @@
       "wildCatchable": false,
       "otherObtainOnly": true,
       "rank": 10,
+      "combiPriority": 1000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -16735,6 +17022,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 290,
+      "combiPriority": 29000,
       "genderRatio": {
         "male": 0.6,
         "female": 0.4
@@ -16798,6 +17086,7 @@
       "wildCatchable": true,
       "otherObtainOnly": false,
       "rank": 30,
+      "combiPriority": 3000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -16851,6 +17140,7 @@
       "wildCatchable": false,
       "otherObtainOnly": true,
       "rank": 1440,
+      "combiPriority": 144000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5
@@ -16910,6 +17200,7 @@
       "wildCatchable": false,
       "otherObtainOnly": true,
       "rank": 770,
+      "combiPriority": 77000,
       "genderRatio": {
         "male": 0.5,
         "female": 0.5

@@ -109,6 +109,7 @@ interface MonsterRow {
   ShotAttack?: number;
   Defense?: number;
   CombiRank?: number;
+  CombiDuplicatePriority?: number;
   MaleProbability?: number;
   IgnoreCombi?: Bool;
   Size?: string;
@@ -465,6 +466,7 @@ function main(): void {
       wildCatchable: standardBreedable,
       otherObtainOnly: !standardBreedable,
       rank: row.CombiRank ?? null,
+      combiPriority: row.CombiDuplicatePriority,
       genderRatio: { male, female: 1 - male },
       elements,
       paldexNo,
