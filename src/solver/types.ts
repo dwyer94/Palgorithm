@@ -108,11 +108,22 @@ export interface PassivePlanResult {
   /** Passives either final parent carries outside `desired` — lowers the odds (spec §7.3
    * "flag pollution"), surfaced rather than auto-resolved. */
   pollution: { parentA: PassiveId[]; parentB: PassiveId[] };
-  /** Desired passives present on NEITHER final parent — this planner only injects perks at
-   * the final cross (clean-carrier assumption above), so these have zero path into the plan
-   * even though `landOdds` may still report a nonzero number for the rest of the set. Surfaced
-   * explicitly rather than left as an unexplained low percentage. */
+  /** Desired passives on NEITHER final parent AND carried by no owned Pal anywhere in this tree —
+   * they have zero engineered path into the plan (only chance mutation or a later re-roll).
+   * Surfaced explicitly rather than left as an unexplained low percentage. Note the narrowed
+   * meaning: a desired perk that IS carried by an owned leaf deeper in the tree is NOT here — it
+   * moves to `opportunisticDeeper` instead, since it can actually ride down for free. */
   unassigned: PassiveId[];
+  /**
+   * Desired passives absent from the final cross but carried by an owned individual whose species
+   * ALREADY sits as a leaf somewhere in this cheapest tree — so they can be brought in
+   * opportunistically at zero added combinations, riding down through the intermediate breeds
+   * with compounding per-generation odds (never guaranteed — that's the guaranteed-carrier
+   * overlay's job). Each entry names the carrying leaf species, how many breeding generations the
+   * perk must survive on the shortest in-tree path to the target, and the compounded
+   * superset-landing odds over those generations. Provisional like all `landOdds` output. Empty
+   * when no such deeper carrier exists. */
+  opportunisticDeeper: { passive: PassiveId; viaSpecies: SpeciesId; generations: number; compoundedOdds: number }[];
 }
 
 /** Explains how the baseline (cheapest, "full stop") plan relates to `desiredPassives` when

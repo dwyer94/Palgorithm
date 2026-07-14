@@ -148,6 +148,7 @@ function SavedPlanCard({
               guaranteedCarrierOutcome={plan.guaranteedCarrierOutcome ?? { status: 'not-requested' }}
               desiredPassives={plan.desiredPassives ?? []}
               ownedUnassignedPassives={plan.ownedUnassignedPassives ?? []}
+              nextBestWhenOwned={plan.nextBestWhenOwned}
               speciesById={speciesById}
               passivesById={passivesById}
             />

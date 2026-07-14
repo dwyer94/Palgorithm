@@ -150,7 +150,12 @@ export function computeGuaranteedCarrierOutcome(
   baselineCombinationCount: number,
   options: SpeciesPlannerOptions = {},
 ): GuaranteedCarrierOutcome {
-  const desired = [...new Set(requiredPassives)];
+  // Clamp to the ruleset's slot cap before the (1-4 bounded) masked search — the desired-perk
+  // picker is advisory and can hand us more than fit in a Pal's slots; `findForcedCarrierRoute`
+  // hard-throws above 4, and `landOdds` already slices to `maxSlots`, so silently keeping the
+  // first `maxSlots` is both consistent with the baseline and safer than letting a stray
+  // over-long set crash the whole run.
+  const desired = [...new Set(requiredPassives)].slice(0, ruleset.passiveModel.maxSlots);
   if (desired.length === 0) return { status: 'not-requested' };
   if (!desired.some((p) => roster.some((r) => r.passives?.includes(p)))) return { status: 'no-owner' };
 

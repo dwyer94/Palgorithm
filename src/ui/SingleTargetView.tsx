@@ -4,6 +4,7 @@ import { newId } from '../store/localStore';
 import { runSingleTargetPlan, computeOwnedUnassignedPassives } from '../solver/runSingleTargetPlan';
 import type { GuaranteedCarrierOutcome } from '../solver/passivePlanner';
 import type { SpeciesPlanResult } from '../solver/types';
+import type { NextBestWhenOwnedSnapshot } from '../store/types';
 import { useLiveContext } from '../live/LiveContext';
 import { buildRosterForSolver } from '../live/rosterMerge';
 import { annotateSpeciesPlan } from '../live/provenance';
@@ -26,8 +27,10 @@ export default function SingleTargetView() {
   const [ignoreGender, setIgnoreGender] = useState(false);
   const [result, setResult] = useState<SpeciesPlanResult | null>(null);
   const [guaranteedCarrierOutcome, setGuaranteedCarrierOutcome] = useState<GuaranteedCarrierOutcome>({ status: 'not-requested' });
+  const [nextBestWhenOwned, setNextBestWhenOwned] = useState<NextBestWhenOwnedSnapshot | undefined>(undefined);
   const [saved, setSavedFlash] = useState(false);
   const [isPlanning, setIsPlanning] = useState(false);
+  const [planError, setPlanError] = useState<string | null>(null);
 
   const rosterForSolver = useMemo(
     () => buildRosterForSolver(roster, live.selectedPlayerIds, live.palsByPlayer),
@@ -54,19 +57,39 @@ export default function SingleTargetView() {
   const runPlan = () => {
     if (!target) return;
     setIsPlanning(true);
+    setPlanError(null);
     setTimeout(() => {
-      const speciesOptions = { catchCost: settings.catchCost, allowCatching: settings.allowCatching, ignoreGender };
-      const { result: plan, guaranteedCarrierOutcome: outcome } = runSingleTargetPlan(
-        ruleset,
-        rosterForSolver,
-        target,
-        desiredPassives,
-        speciesOptions,
-      );
-      setResult(plan);
-      setSavedFlash(false);
-      setGuaranteedCarrierOutcome(outcome);
-      setIsPlanning(false);
+      try {
+        const speciesOptions = { catchCost: settings.catchCost, allowCatching: settings.allowCatching, ignoreGender };
+        const { result: plan, guaranteedCarrierOutcome: outcome, nextBestWhenOwned: nextBest } = runSingleTargetPlan(
+          ruleset,
+          rosterForSolver,
+          target,
+          desiredPassives,
+          speciesOptions,
+        );
+        setResult(plan);
+        setSavedFlash(false);
+        setGuaranteedCarrierOutcome(outcome);
+        setNextBestWhenOwned(
+          nextBest
+            ? {
+                result: nextBest.result,
+                guaranteedCarrierOutcome: nextBest.guaranteedCarrierOutcome,
+                ownedUnassignedPassives: computeOwnedUnassignedPassives(nextBest.guaranteedCarrierOutcome, rosterForSolver),
+              }
+            : undefined,
+        );
+      } catch (err) {
+        // Never leave the view stuck on "Solving…" — surface the failure so the user (and we)
+        // can see why no plan came back, rather than an infinite spinner.
+        setResult(null);
+        setNextBestWhenOwned(undefined);
+        setGuaranteedCarrierOutcome({ status: 'not-requested' });
+        setPlanError(err instanceof Error ? err.message : String(err));
+      } finally {
+        setIsPlanning(false);
+      }
     }, 0);
   };
 
@@ -84,6 +107,7 @@ export default function SingleTargetView() {
         result,
         guaranteedCarrierOutcome,
         ownedUnassignedPassives,
+        ...(nextBestWhenOwned && { nextBestWhenOwned }),
       },
     ]);
     setSavedFlash(true);
@@ -91,7 +115,7 @@ export default function SingleTargetView() {
 
   const exportPlan = () => {
     if (!result) return;
-    const exported = { result, guaranteedCarrierOutcome, ownedUnassignedPassives };
+    const exported = { result, guaranteedCarrierOutcome, ownedUnassignedPassives, nextBestWhenOwned };
     const blob = new Blob([JSON.stringify(exported, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -121,7 +145,7 @@ export default function SingleTargetView() {
 
         <div className="mb-[9px] font-sans text-[10.5px] font-semibold uppercase tracking-[.8px] text-muted">Desired perks</div>
         <div className="mb-[22px]">
-          <PassiveMultiSelect passives={passives} value={desiredPassives} onChange={setDesiredPassives} />
+          <PassiveMultiSelect passives={passives} value={desiredPassives} onChange={setDesiredPassives} maxSelections={4} />
         </div>
 
         {live.selectedPlayerIds.size > 0 && (
@@ -158,7 +182,17 @@ export default function SingleTargetView() {
             </div>
           )}
 
-          {!isPlanning && !result && (
+          {!isPlanning && planError && (
+            <div className="rounded-card border border-l-[4px] border-l-brand-hover border-border-card bg-white p-6 font-sans text-[13px] text-ink-strong">
+              <div className="mb-1 font-semibold text-brand-hover">⚠ Couldn't compute a plan</div>
+              <div className="text-muted">{planError}</div>
+              <div className="mt-2 text-[12px] text-muted-light">
+                This is unexpected — if it keeps happening, the target/perk combination above is worth reporting.
+              </div>
+            </div>
+          )}
+
+          {!isPlanning && !result && !planError && (
             <div className="rounded-card border border-dashed border-border-input bg-panel-subtle p-10 text-center font-sans text-[13px] text-muted">
               Pick a target species, then run the plan.
             </div>
@@ -212,6 +246,7 @@ export default function SingleTargetView() {
                 guaranteedCarrierOutcome={guaranteedCarrierOutcome}
                 desiredPassives={desiredPassives}
                 ownedUnassignedPassives={ownedUnassignedPassives}
+                nextBestWhenOwned={nextBestWhenOwned}
                 speciesById={speciesById}
                 provenance={provenance}
                 passivesById={passivesById}

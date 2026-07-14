@@ -47,28 +47,39 @@ export default function TeamDetailView({
     const target = slot.target;
     setPlanningIndices((prev) => new Set(prev).add(index));
     setTimeout(() => {
-      const speciesOptions = { catchCost: settings.catchCost, allowCatching: settings.allowCatching };
-      const { result, guaranteedCarrierOutcome } = runSingleTargetPlan(
-        ruleset,
-        rosterForSolver,
-        target,
-        slot.desiredPassives,
-        speciesOptions,
-      );
-      const newPlan: TeamSlotPlan = {
-        savedAt: new Date().toISOString(),
-        target,
-        desiredPassives: slot.desiredPassives,
-        result,
-        guaranteedCarrierOutcome,
-        ownedUnassignedPassives: computeOwnedUnassignedPassives(guaranteedCarrierOutcome, rosterForSolver),
-      };
-      updateSlot(index, (s) => (s.plan ? { ...s, pendingPlan: newPlan } : { ...s, plan: newPlan }));
-      setPlanningIndices((prev) => {
-        const next = new Set(prev);
-        next.delete(index);
-        return next;
-      });
+      try {
+        const speciesOptions = { catchCost: settings.catchCost, allowCatching: settings.allowCatching };
+        const { result, guaranteedCarrierOutcome, nextBestWhenOwned } = runSingleTargetPlan(
+          ruleset,
+          rosterForSolver,
+          target,
+          slot.desiredPassives,
+          speciesOptions,
+        );
+        const newPlan: TeamSlotPlan = {
+          savedAt: new Date().toISOString(),
+          target,
+          desiredPassives: slot.desiredPassives,
+          result,
+          guaranteedCarrierOutcome,
+          ownedUnassignedPassives: computeOwnedUnassignedPassives(guaranteedCarrierOutcome, rosterForSolver),
+          ...(nextBestWhenOwned && {
+            nextBestWhenOwned: {
+              result: nextBestWhenOwned.result,
+              guaranteedCarrierOutcome: nextBestWhenOwned.guaranteedCarrierOutcome,
+              ownedUnassignedPassives: computeOwnedUnassignedPassives(nextBestWhenOwned.guaranteedCarrierOutcome, rosterForSolver),
+            },
+          }),
+        };
+        updateSlot(index, (s) => (s.plan ? { ...s, pendingPlan: newPlan } : { ...s, plan: newPlan }));
+      } finally {
+        // Always clear the planning flag, even if the solve threw — never strand a slot spinner.
+        setPlanningIndices((prev) => {
+          const next = new Set(prev);
+          next.delete(index);
+          return next;
+        });
+      }
     }, 0);
   };
 
@@ -160,6 +171,7 @@ export default function TeamDetailView({
                     guaranteedCarrierOutcome={openSlot.pendingPlan.guaranteedCarrierOutcome ?? { status: 'not-requested' }}
                     desiredPassives={openSlot.pendingPlan.desiredPassives ?? []}
                     ownedUnassignedPassives={openSlot.pendingPlan.ownedUnassignedPassives ?? []}
+                    nextBestWhenOwned={openSlot.pendingPlan.nextBestWhenOwned}
                     speciesById={speciesById}
                     passivesById={passivesById}
                   />
@@ -179,6 +191,7 @@ export default function TeamDetailView({
                     guaranteedCarrierOutcome={openSlot.plan.guaranteedCarrierOutcome ?? { status: 'not-requested' }}
                     desiredPassives={openSlot.plan.desiredPassives ?? []}
                     ownedUnassignedPassives={openSlot.plan.ownedUnassignedPassives ?? []}
+                    nextBestWhenOwned={openSlot.plan.nextBestWhenOwned}
                     speciesById={speciesById}
                     passivesById={passivesById}
                   />

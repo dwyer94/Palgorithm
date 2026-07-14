@@ -216,3 +216,70 @@ describe('speciesPlanner: passive-aware tie-break among equally-cheap final comb
     expect(stepSpecies).toEqual(['A', 'B']);
   });
 });
+
+describe('speciesPlanner: deeper opportunistic carriers (perk carried deeper in the cheapest tree)', () => {
+  // Forced 2-generation tree: CARRIER×FODDER->MID, MID×FODDER2->TARGET. The perk-carrying Pal
+  // (CARRIER, P1) is a leaf deeper than the final cross — so it isn't on the final parents, but
+  // it CAN ride down the tree for free. That must be reported as `opportunisticDeeper`, not a
+  // flat `unassigned`.
+  const dataset = synthetic(
+    [
+      { id: 'CARRIER', rank: 1, standardBreedable: false },
+      { id: 'FODDER', rank: 2, standardBreedable: false },
+      { id: 'FODDER2', rank: 3, standardBreedable: false },
+      { id: 'MID', rank: 4, wildCatchable: false },
+      { id: 'TARGET', rank: 10, wildCatchable: false },
+    ],
+    [
+      { parents: ['CARRIER', 'FODDER'], child: 'MID', genderRule: null },
+      { parents: ['MID', 'FODDER2'], child: 'TARGET', genderRule: null },
+    ],
+  );
+  const ruleset = createCombiRank06(dataset);
+  const roster: RosterEntry[] = [
+    { species: 'CARRIER', gender: 'male', passives: ['P1'] },
+    { species: 'CARRIER', gender: 'female', passives: ['P1'] },
+    { species: 'FODDER', gender: 'male' },
+    { species: 'FODDER', gender: 'female' },
+    { species: 'FODDER2', gender: 'male' },
+    { species: 'FODDER2', gender: 'female' },
+  ];
+
+  it('reports a deeper-tree carrier as opportunistic (rides down), not unassigned', () => {
+    const plan = planSpecies(ruleset, roster, 'TARGET', { desiredPassives: ['P1'] });
+    expect(plan.combinationCount).toBe(2);
+    const pp = plan.passivePlan!;
+    expect(pp.unassigned).toEqual([]); // P1 is present deeper, so NOT "not sourced"
+    expect(pp.opportunisticDeeper).toHaveLength(1);
+    const d = pp.opportunisticDeeper[0]!;
+    expect(d.passive).toBe('P1');
+    expect(d.viaSpecies).toBe('CARRIER');
+    expect(d.generations).toBe(2); // CARRIER -> MID -> TARGET
+    // Parity with the ruleset's own odds model (invariant #3): superset-landing per generation,
+    // compounded over the 2 generations the perk must survive.
+    const perGen = ruleset.passiveModel.landOdds(['P1'], [], ['P1']).supersetContaining;
+    expect(d.compoundedOdds).toBeCloseTo(perGen * perGen, 10);
+  });
+
+  it('a perk owned by nobody stays unassigned; a deeper-carried one moves to opportunisticDeeper', () => {
+    const plan = planSpecies(ruleset, roster, 'TARGET', { desiredPassives: ['P1', 'Ghost'] });
+    const pp = plan.passivePlan!;
+    expect(pp.unassigned).toEqual(['Ghost']);
+    expect(pp.opportunisticDeeper.map((d) => d.passive)).toEqual(['P1']);
+  });
+
+  it('a perk on a final-cross parent is not double-counted as a deeper carrier', () => {
+    // FODDER2 is a final-cross parent; give it P1 and the final-cross detection owns it, so it
+    // must NOT also appear under opportunisticDeeper.
+    const rosterWithFinalPerk: RosterEntry[] = [
+      ...roster,
+      { species: 'FODDER2', gender: 'male', passives: ['P1'] },
+      { species: 'FODDER2', gender: 'female', passives: ['P1'] },
+    ];
+    const plan = planSpecies(ruleset, rosterWithFinalPerk, 'TARGET', { desiredPassives: ['P1'] });
+    const pp = plan.passivePlan!;
+    // P1 now lands on the final cross (FODDER2), so it's neither unassigned nor deeper.
+    expect(pp.unassigned).toEqual([]);
+    expect(pp.opportunisticDeeper).toEqual([]);
+  });
+});

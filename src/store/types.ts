@@ -4,6 +4,16 @@ import type { GuaranteedCarrierOutcome } from '../solver/passivePlanner';
 
 export type { Gender, PassiveId, SpeciesId };
 
+/** Owned-target "next best" snapshot stored alongside a single-target plan — the cheapest route
+ * to obtain ANOTHER copy when the target is already owned outright, captured so a reopened saved
+ * plan / team slot shows exactly what was on screen. Absent on plans saved before this existed,
+ * and on any plan whose target wasn't owned outright. */
+export interface NextBestWhenOwnedSnapshot {
+  result: SpeciesPlanResult;
+  guaranteedCarrierOutcome: GuaranteedCarrierOutcome;
+  ownedUnassignedPassives: PassiveId[];
+}
+
 /** One owned individual, persisted (spec §6.3 shape, §8.1 roster manager). */
 export interface RosterEntry {
   id: string;
@@ -35,6 +45,9 @@ export interface SavedPlan {
    * owns this" messaging shown on the planner screen without needing to re-query a roster that
    * may have since changed. */
   ownedUnassignedPassives?: PassiveId[];
+  /** Single-target only: the "obtain another" route shown when the target was owned outright at
+   * save time (see `NextBestWhenOwnedSnapshot`). */
+  nextBestWhenOwned?: NextBestWhenOwnedSnapshot;
 }
 
 /** A named perk set the user can re-select across planner views (spec §8.6). */
@@ -54,6 +67,9 @@ export interface TeamSlotPlan {
   result: SpeciesPlanResult;
   guaranteedCarrierOutcome?: GuaranteedCarrierOutcome;
   ownedUnassignedPassives?: PassiveId[];
+  /** The "obtain another" route shown when this slot's target was owned outright at run time
+   * (see `NextBestWhenOwnedSnapshot`). */
+  nextBestWhenOwned?: NextBestWhenOwnedSnapshot;
 }
 
 /** One of a Team's fixed `TEAM_SLOT_COUNT` party slots. `target`/`desiredPassives` are the

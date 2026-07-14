@@ -79,7 +79,7 @@ export default function TeamSlotCard({
           <SpeciesSelect species={species} value={slot.target ?? ''} onChange={(id) => onPickTarget(id || null)} allowEmpty />
 
           <div className="font-sans text-[10.5px] font-semibold uppercase tracking-[.8px] text-muted">Desired perks</div>
-          <PassiveMultiSelect passives={passives} value={slot.desiredPassives} onChange={onSetDesiredPassives} />
+          <PassiveMultiSelect passives={passives} value={slot.desiredPassives} onChange={onSetDesiredPassives} maxSelections={4} />
 
           {slot.plan && (
             <span

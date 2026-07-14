@@ -136,3 +136,81 @@ describe('runSingleTargetPlan: always-diagnosed transparency', () => {
     expect(guaranteedCarrierOutcome).toEqual({ status: 'not-requested' });
   });
 });
+
+describe('runSingleTargetPlan: next-best-when-owned (ownership never dead-ends the answer)', () => {
+  const dataset = synthetic(
+    [
+      { id: 'A', rank: 1 },
+      { id: 'B', rank: 2 },
+      { id: 'TARGET', rank: 10, wildCatchable: false },
+    ],
+    [{ parents: ['A', 'B'], child: 'TARGET', genderRule: null }],
+  );
+  const ruleset = createCombiRank06(dataset);
+
+  it('no perks, target owned outright: baseline is 0 combos, next-best breeds another (1 combo)', () => {
+    const roster: RosterEntry[] = [
+      { species: 'A', gender: 'male' },
+      { species: 'A', gender: 'female' },
+      { species: 'B', gender: 'male' },
+      { species: 'B', gender: 'female' },
+      { species: 'TARGET', gender: 'male' },
+    ];
+    const run = runSingleTargetPlan(ruleset, roster, 'TARGET', [], {});
+    expect(run.result.combinationCount).toBe(0); // you own one
+    expect(run.nextBestWhenOwned).toBeDefined();
+    expect(run.nextBestWhenOwned!.result.feasible).toBe(true);
+    expect(run.nextBestWhenOwned!.result.combinationCount).toBe(1); // A×B → another TARGET
+  });
+
+  it('perks, owned exact match: next-best still routes the perks via carriers (not a 0-combo collapse)', () => {
+    const roster: RosterEntry[] = [
+      { species: 'A', gender: 'male', passives: ['P1'] },
+      { species: 'A', gender: 'female', passives: ['P1'] },
+      { species: 'B', gender: 'male', passives: ['P2'] },
+      { species: 'B', gender: 'female', passives: ['P2'] },
+      { species: 'TARGET', gender: 'male', passives: ['P1', 'P2'] },
+    ];
+    const run = runSingleTargetPlan(ruleset, roster, 'TARGET', ['P1', 'P2'], {});
+    expect(run.result.passiveNote).toEqual({ status: 'owned-exact-match' });
+    const next = run.nextBestWhenOwned;
+    expect(next).toBeDefined();
+    expect(next!.result.combinationCount).toBe(1);
+    // The next-best's own guaranteed-carrier is a REAL 1-combo route through A+B, not the
+    // degenerate 0-combo "matches what you own" the full-roster search would have returned.
+    if (next!.guaranteedCarrierOutcome.status !== 'routed') throw new Error('expected routed next-best carrier');
+    expect(next!.guaranteedCarrierOutcome.alt.plan.combinationCount).toBe(1);
+    expect(new Set(next!.guaranteedCarrierOutcome.alt.sourceIndividuals.map((s) => s.species))).toEqual(new Set(['A', 'B']));
+  });
+
+  it('owned but no other route reachable: next-best is attached and infeasible, so the UI can explain why', () => {
+    // Own the only TARGET; nothing can breed another (no A/B), catching off.
+    const roster: RosterEntry[] = [{ species: 'TARGET', gender: 'male' }];
+    const run = runSingleTargetPlan(ruleset, roster, 'TARGET', [], { allowCatching: false });
+    expect(run.result.combinationCount).toBe(0);
+    expect(run.nextBestWhenOwned).toBeDefined();
+    expect(run.nextBestWhenOwned!.result.feasible).toBe(false);
+  });
+
+  it('target NOT owned: no next-best section (the normal plan already is the answer)', () => {
+    const roster: RosterEntry[] = [
+      { species: 'A', gender: 'male' },
+      { species: 'A', gender: 'female' },
+      { species: 'B', gender: 'male' },
+      { species: 'B', gender: 'female' },
+    ];
+    const run = runSingleTargetPlan(ruleset, roster, 'TARGET', [], {});
+    expect(run.result.combinationCount).toBe(1);
+    expect(run.nextBestWhenOwned).toBeUndefined();
+  });
+
+  it('does not throw on an over-long desired-perk set (picker is advisory; solver clamps)', () => {
+    const roster: RosterEntry[] = [
+      { species: 'A', gender: 'male', passives: ['P1'] },
+      { species: 'A', gender: 'female', passives: ['P1'] },
+      { species: 'B', gender: 'male', passives: ['P2'] },
+      { species: 'B', gender: 'female', passives: ['P2'] },
+    ];
+    expect(() => runSingleTargetPlan(ruleset, roster, 'TARGET', ['P1', 'P2', 'P3', 'P4', 'P5'], {})).not.toThrow();
+  });
+});

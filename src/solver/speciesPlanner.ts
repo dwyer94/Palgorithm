@@ -162,6 +162,14 @@ function getGraph(ruleset: BreedingRuleset, ignoreGender: boolean): Graph {
   return graph;
 }
 
+/** Eagerly build (and cache) the combination hypergraph for `ruleset` so the first plan doesn't
+ * pay the O(n² per species) `reverse()` build synchronously on a user click — at real dataset
+ * scale that build is a multi-hundred-ms main-thread freeze. Safe to call repeatedly (it's just a
+ * cache warm). Call from app init off the critical path (e.g. `requestIdleCallback`). */
+export function warmGraphCache(ruleset: BreedingRuleset, ignoreGender = false): void {
+  getGraph(ruleset, ignoreGender);
+}
+
 /**
  * Forced-carrier search (spec §7.3's "guaranteed carrier" overlay, session 0.4c; generalized
  * to joint multi-passive routing in the two-mode §7.3 rewrite). Finds the cheapest derivation
@@ -642,6 +650,79 @@ function pickBestFinalSelection(
   return best;
 }
 
+/** Shortest number of breeding generations from a leaf species to `target` along `steps`
+ * (each step is one generation: parent species -> child species). BFS over the species-level
+ * production graph the plan's steps induce; returns `Infinity` if no path (shouldn't happen for
+ * a species that's genuinely a parent in the tree, but guarded so a malformed tree can't hang). */
+function generationsToTarget(steps: SpeciesPlanStep[], from: SpeciesId, target: SpeciesId): number {
+  if (from === target) return 0;
+  const adj = new Map<SpeciesId, SpeciesId[]>();
+  for (const s of steps) {
+    for (const parent of [s.parentA.species, s.parentB.species]) {
+      const list = adj.get(parent) ?? [];
+      list.push(s.child);
+      adj.set(parent, list);
+    }
+  }
+  const queue: { species: SpeciesId; depth: number }[] = [{ species: from, depth: 0 }];
+  const seen = new Set<SpeciesId>([from]);
+  while (queue.length > 0) {
+    const { species, depth } = queue.shift()!;
+    for (const child of adj.get(species) ?? []) {
+      if (child === target) return depth + 1;
+      if (!seen.has(child)) {
+        seen.add(child);
+        queue.push({ species: child, depth: depth + 1 });
+      }
+    }
+  }
+  return Infinity;
+}
+
+/** Desired perks that aren't on the final cross but ARE carried by an owned roster individual
+ * whose species already appears as a produced-from leaf in `steps` — they can ride down the
+ * existing cheapest tree opportunistically (no added combinations), just with compounding odds.
+ * One entry per such perk, shortest leaf->target generation count, compounded superset-landing
+ * odds over that many generations (spec §7.3's "perks compound per step"). This is what turns a
+ * flat "not sourced in this plan" into an honest "present deeper, rides down with these odds"
+ * (user requirement: detect opportunistic sourcing beyond just the final cross). */
+function findDeeperOpportunisticCarriers(
+  steps: SpeciesPlanStep[],
+  target: SpeciesId,
+  roster: RosterEntry[],
+  remainingDesired: PassiveId[],
+  ruleset: BreedingRuleset,
+): { passive: PassiveId; viaSpecies: SpeciesId; generations: number; compoundedOdds: number }[] {
+  if (steps.length === 0 || remainingDesired.length === 0) return [];
+  const producedSpecies = new Set(steps.map((s) => s.child));
+  // Leaves = species used as a parent but produced by no step (owned/caught bases).
+  const leafSpecies = new Set<SpeciesId>();
+  for (const s of steps) {
+    for (const parent of [s.parentA.species, s.parentB.species]) {
+      if (!producedSpecies.has(parent)) leafSpecies.add(parent);
+    }
+  }
+
+  const out: { passive: PassiveId; viaSpecies: SpeciesId; generations: number; compoundedOdds: number }[] = [];
+  for (const passive of remainingDesired) {
+    // Best (fewest-generation) owned leaf carrying this perk — fewer generations = higher odds.
+    let best: { viaSpecies: SpeciesId; generations: number } | null = null;
+    for (const leaf of leafSpecies) {
+      if (!roster.some((r) => r.species === leaf && r.passives?.includes(passive))) continue;
+      const generations = generationsToTarget(steps, leaf, target);
+      if (!isFinite(generations)) continue;
+      if (!best || generations < best.generations) best = { viaSpecies: leaf, generations };
+    }
+    if (!best) continue;
+    // Uniform per-generation superset-landing odds for one carried perk against clean fodder —
+    // combining only the ruleset's own loaded dists (CLAUDE.md invariant #3), compounded over the
+    // generations the perk must survive.
+    const perGen = ruleset.passiveModel.landOdds([passive], [], [passive]).supersetContaining;
+    out.push({ passive, viaSpecies: best.viaSpecies, generations: best.generations, compoundedOdds: perGen ** best.generations });
+  }
+  return out;
+}
+
 /** Try seeding a single extra species (both genders, cost 0) and see whether the target
  * becomes reachable — the sound way to answer "what anchor would unlock this" without
  * relying on an unsound rank-based prune (spec §7.1). Exhaustive over rank-bearing
@@ -814,6 +895,13 @@ export function resultFromContext(
     const desiredSet = new Set(desired);
     const { odds, parentA, parentB } = finalSelection;
     const suppliedByFinalCross = new Set([...(parentA.passives ?? []), ...(parentB.passives ?? [])]);
+    // Perks not on the final cross split two ways: those an owned Pal carries deeper in this same
+    // tree (ride down opportunistically — `opportunisticDeeper`) vs. those carried nowhere in the
+    // tree at all (truly `unassigned`, only chance/re-roll). Splitting them keeps "not sourced"
+    // honest instead of lumping a free-but-deeper perk in with a genuinely absent one.
+    const notFinalCross = desired.filter((p) => !suppliedByFinalCross.has(p));
+    const opportunisticDeeper = findDeeperOpportunisticCarriers(steps, target, roster, notFinalCross, ruleset);
+    const deeperPassives = new Set(opportunisticDeeper.map((d) => d.passive));
     passivePlan = {
       desired,
       landOdds: odds,
@@ -827,7 +915,8 @@ export function resultFromContext(
         parentA: (parentA.passives ?? []).filter((p) => !desiredSet.has(p)),
         parentB: (parentB.passives ?? []).filter((p) => !desiredSet.has(p)),
       },
-      unassigned: desired.filter((p) => !suppliedByFinalCross.has(p)),
+      unassigned: notFinalCross.filter((p) => !deeperPassives.has(p)),
+      opportunisticDeeper,
     };
   }
 

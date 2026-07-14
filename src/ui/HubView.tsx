@@ -241,7 +241,7 @@ export default function HubView() {
         </div>
 
         <div className="mb-[9px] font-sans text-[10.5px] font-semibold uppercase tracking-[.8px] text-muted">Shared perks</div>
-        <PassiveMultiSelect passives={passives} value={desiredPassives} onChange={setDesiredPassives} />
+        <PassiveMultiSelect passives={passives} value={desiredPassives} onChange={setDesiredPassives} maxSelections={4} />
         {settings.savedPerkSets.length > 0 && (
           <select
             defaultValue=""

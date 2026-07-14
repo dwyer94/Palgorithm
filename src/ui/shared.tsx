@@ -38,6 +38,8 @@ export function PassivePlanView({
   const hasPollution = pollutionA.length > 0 || pollutionB.length > 0;
   const unassigned = plan.unassigned;
   const hasUnassigned = unassigned.length > 0;
+  const deeper = plan.opportunisticDeeper ?? [];
+  const hasDeeper = deeper.length > 0;
   const passiveName = (id: string) => passivesById?.get(id)?.displayName ?? id;
   const passiveTier = (id: string) => passivesById?.get(id)?.tier;
   const passiveDescription = (id: string) => passivesById?.get(id)?.description;
@@ -84,6 +86,27 @@ export function PassivePlanView({
           </div>
         </div>
       </div>
+      {hasDeeper && (
+        <div className="flex flex-col gap-1.5 border-t border-dashed border-border-inner bg-[#f2f6ef] px-5 py-[11px]">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="font-sans text-[11px] font-semibold text-[#4a6b3f]">△ Rides down for free (deeper in tree)</span>
+            <span className="font-sans text-[11px] text-muted-light">
+              Carried by a Pal already in this plan — no extra steps, but survival compounds each generation.
+            </span>
+          </div>
+          <div className="flex flex-col gap-1">
+            {deeper.map((d) => (
+              <span key={`d-${d.passive}`} className="flex flex-wrap items-center gap-1.5 font-mono text-[11px] text-muted">
+                <PassiveChip label={passiveName(d.passive)} tier={passiveTier(d.passive)} description={passiveDescription(d.passive)} />
+                <span>
+                  via {speciesById?.get(d.viaSpecies)?.displayName ?? d.viaSpecies} · {d.generations} gen
+                  {d.generations === 1 ? '' : 's'} · ≈ {(d.compoundedOdds * 100).toFixed(1)}% to ride all the way down
+                </span>
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
       {hasUnassigned && (
         <div className="flex flex-wrap items-center gap-2 border-t border-dashed border-border-inner bg-unresolved-bg2 px-5 py-[11px]">
           <span className="font-sans text-[11px] font-semibold text-provisional-text">⚠ Not sourced in this plan</span>
@@ -233,11 +256,21 @@ export function SpeciesPlanView({
  * looks off or a section is missing. Owning the target with the exact desired perk set is
  * deliberately NOT treated as "nothing more to show" — it gets a top banner AND the
  * guaranteed-carrier section still renders its (degenerate, 0-combo) route below. */
+/** The owned-target "next best" bundle a `SingleTargetResultView` renders below its banners —
+ * `runSingleTargetPlan`'s `nextBestWhenOwned` core plus the `ownedUnassignedPassives` its
+ * guaranteed-carrier messaging needs (computed by the caller, since it depends on the roster). */
+export interface NextBestWhenOwned {
+  result: SpeciesPlanResult;
+  guaranteedCarrierOutcome: GuaranteedCarrierOutcome;
+  ownedUnassignedPassives: PassiveId[];
+}
+
 export function SingleTargetResultView({
   result,
   guaranteedCarrierOutcome,
   desiredPassives,
   ownedUnassignedPassives,
+  nextBestWhenOwned,
   speciesById,
   passivesById,
   provenance,
@@ -251,6 +284,10 @@ export function SingleTargetResultView({
   /** Subset of the guaranteed-carrier outcome's still-unrouted passives the roster owned when
    * this was rendered. */
   ownedUnassignedPassives: PassiveId[];
+  /** Present only when the target is owned outright — the cheapest route to obtain ANOTHER one,
+   * rendered as its own nested result below the "you already own this" banner so ownership never
+   * dead-ends the answer. */
+  nextBestWhenOwned?: NextBestWhenOwned | undefined;
   speciesById: Map<string, Species>;
   passivesById?: Map<string, Passive> | undefined;
   provenance?: Map<string, ProvenanceMatch> | undefined;
@@ -265,7 +302,7 @@ export function SingleTargetResultView({
     <>
       {result.passiveNote?.status === 'owned-exact-match' && (
         <div className="mb-4 rounded-card border border-l-[4px] border-l-success-border border-border-card bg-success-bg px-4 py-3 font-sans text-[13px] text-success-text">
-          ✓ You already own {targetLabel} with every desired perk — 0 combinations needed.
+          ✓ You already own {targetLabel} with every desired perk — 0 combinations needed. The next-best way to breed another is below.
         </div>
       )}
       {result.passiveNote?.status === 'owned-partial-match' && (
@@ -276,8 +313,45 @@ export function SingleTargetResultView({
           . See the route below for the best way to breed one with the perks you want.
         </div>
       )}
+      {/* No perks requested but the target is owned outright: the baseline carries no
+          passiveNote, so state the ownership explicitly here before the next-best route. */}
+      {desiredPassives.length === 0 && nextBestWhenOwned && (
+        <div className="mb-4 rounded-card border border-l-[4px] border-l-success-border border-border-card bg-success-bg px-4 py-3 font-sans text-[13px] text-success-text">
+          ✓ You already own {targetLabel}. The next-best way to obtain another is below.
+        </div>
+      )}
 
-      {desiredPassives.length > 0 && result.feasible && (
+      {nextBestWhenOwned && (
+        <div className="mb-6">
+          <div className="mb-2.5 flex items-center gap-2.5 rounded-t-card border border-b-0 border-l-[4px] border-l-primary border-border-card bg-primary-tint px-4 py-3">
+            <span className="flex-none rounded-[5px] bg-primary px-[7px] py-[3px] font-mono text-[9.5px] font-bold uppercase tracking-[.5px] text-white">
+              Next best
+            </span>
+            <span className="font-sans text-[13.5px] font-bold text-ink-strong">Obtain another {targetLabel}</span>
+            <span className="font-sans text-[11.5px] text-muted">cheapest route ignoring the one you own</span>
+          </div>
+          <div className="rounded-b-card border border-t-0 border-l-[4px] border-l-primary border-border-card bg-panel-subtle p-3.5">
+            <SingleTargetResultView
+              result={nextBestWhenOwned.result}
+              guaranteedCarrierOutcome={nextBestWhenOwned.guaranteedCarrierOutcome}
+              desiredPassives={desiredPassives}
+              ownedUnassignedPassives={nextBestWhenOwned.ownedUnassignedPassives}
+              speciesById={speciesById}
+              passivesById={passivesById}
+              provenance={provenance}
+              selectedPlayerIds={selectedPlayerIds}
+              palsByPlayer={palsByPlayer}
+              displayNameByIdentifier={displayNameByIdentifier}
+            />
+          </div>
+        </div>
+      )}
+
+      {/* When the target is owned outright, the primary `result` is the degenerate 0-combo
+          "you have one" plan — the actionable content is the next-best route above, so the
+          primary opportunistic/guaranteed sections are suppressed to avoid rendering an empty
+          "0 combinations" tree underneath it. */}
+      {!nextBestWhenOwned && desiredPassives.length > 0 && result.feasible && (
         <div className="mb-6">
           <div className="flex items-center gap-2.5 rounded-t-card border border-b-0 border-l-[4px] border-l-brand border-border-card bg-[#fdfaf4] px-4 py-3">
             <span className="flex-none rounded-[5px] bg-brand px-[7px] py-[3px] font-mono text-[9.5px] font-bold uppercase tracking-[.5px] text-white">
@@ -369,7 +443,7 @@ export function SingleTargetResultView({
         </div>
       )}
 
-      {desiredPassives.length > 0 ? (
+      {!nextBestWhenOwned && (desiredPassives.length > 0 ? (
         <div className="mb-5">
           <div className="flex items-center gap-2.5 rounded-t-card border border-b-0 border-l-[4px] border-l-primary border-border-card bg-primary-tint px-4 py-3">
             <span className="flex-none rounded-[5px] bg-primary px-[7px] py-[3px] font-mono text-[9.5px] font-bold uppercase tracking-[.5px] text-white">
@@ -409,7 +483,7 @@ export function SingleTargetResultView({
           palsByPlayer={palsByPlayer}
           displayNameByIdentifier={displayNameByIdentifier}
         />
-      )}
+      ))}
     </>
   );
 }

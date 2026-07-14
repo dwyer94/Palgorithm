@@ -1045,14 +1045,20 @@ export function PassiveMultiSelect({
   passives,
   value,
   onChange,
+  maxSelections,
 }: {
   passives: Passive[];
   value: string[];
   onChange: (ids: string[]) => void;
+  /** Hard cap on how many perks can be selected (a Pal has 4 passive slots — the planner's odds
+   * model and the guaranteed-carrier search both top out there). Once reached, the input is
+   * replaced by a "max reached" note so an over-long set can't be built and crash the solver. */
+  maxSelections?: number;
 }) {
   const [query, setQuery] = useState('');
   const [open, setOpen] = useState(false);
   const selected = new Set(value);
+  const atCap = maxSelections !== undefined && value.length >= maxSelections;
 
   const matches = useMemo(() => {
     const q = query.toLowerCase();
@@ -1082,6 +1088,7 @@ export function PassiveMultiSelect({
   const byId = useMemo(() => new Map(passives.map((p) => [p.id, p])), [passives]);
   const remove = (id: string) => onChange(value.filter((v) => v !== id));
   const add = (id: string) => {
+    if (atCap) return;
     onChange([...value, id]);
     setQuery('');
   };
@@ -1114,17 +1121,21 @@ export function PassiveMultiSelect({
             onRemove={() => remove(id)}
           />
         ))}
-        <input
-          value={query}
-          onChange={(e) => {
-            setQuery(e.target.value);
-            setOpen(true);
-          }}
-          onFocus={() => setOpen(true)}
-          onBlur={() => setTimeout(() => setOpen(false), 120)}
-          placeholder="add a trait…"
-          className="min-w-[110px] flex-1 border-0 bg-transparent font-mono text-[12.5px] text-ink outline-none"
-        />
+        {atCap ? (
+          <span className="min-w-[110px] flex-1 font-mono text-[11.5px] text-muted-light">max {maxSelections} perks — remove one to add another</span>
+        ) : (
+          <input
+            value={query}
+            onChange={(e) => {
+              setQuery(e.target.value);
+              setOpen(true);
+            }}
+            onFocus={() => setOpen(true)}
+            onBlur={() => setTimeout(() => setOpen(false), 120)}
+            placeholder="add a trait…"
+            className="min-w-[110px] flex-1 border-0 bg-transparent font-mono text-[12.5px] text-ink outline-none"
+          />
+        )}
       </div>
       {categoryConflicts.length > 0 && (
         <div className="mt-1.5 flex flex-col gap-1">
@@ -1142,7 +1153,7 @@ export function PassiveMultiSelect({
           ))}
         </div>
       )}
-      {open && matches.length > 0 && (
+      {open && !atCap && matches.length > 0 && (
         <Dropdown>
           {grouped.map(([category, list]) => (
             <div key={category}>
