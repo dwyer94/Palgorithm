@@ -1,10 +1,12 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { useRoster, useSettings } from '../store/hooks';
 import { useLiveContext } from '../live/LiveContext';
 import { buildRosterForSolver } from '../live/rosterMerge';
-import { runSingleTargetPlan, computeOwnedUnassignedPassives } from '../solver/runSingleTargetPlan';
+import { computeOwnedUnassignedPassives } from '../solver/runSingleTargetPlan';
+import { solverWorker } from '../solver/worker/client';
 import type { PassiveId, SpeciesId, Team, TeamSlot, TeamSlotPlan } from '../store/types';
 import { useRulesetContext } from './RulesetContext';
+import { useKeyedSolverTasks } from './useSolverTask';
 import { SingleTargetResultView } from './shared';
 import TeamSlotCard from './TeamSlotCard';
 
@@ -23,12 +25,23 @@ export default function TeamDetailView({
   onBack: () => void;
   initialOpenIndex?: number | null;
 }) {
-  const { ruleset, species, passives, speciesById } = useRulesetContext();
+  const { species, passives, speciesById } = useRulesetContext();
   const [roster] = useRoster();
   const [settings] = useSettings();
   const live = useLiveContext();
-  const [planningIndices, setPlanningIndices] = useState<Set<number>>(new Set());
+  // Keyed by slot index, since each slot's solve is independent — cancelling/erroring one slot
+  // must never touch another slot's (or another view's) in-flight request.
+  const tasks = useKeyedSolverTasks<number>();
   const [openIndex, setOpenIndex] = useState<number | null>(initialOpenIndex ?? null);
+  // Since multiple slots can now solve concurrently (worker-backed, no longer main-thread-
+  // blocking), a slower slot's `updateSlot` call can fire after a faster slot's already landed
+  // and re-rendered this component with a new `team` prop. Reading `team` directly here would
+  // apply that update against the *stale* team snapshot captured when this slot's solve
+  // started, silently discarding the other slot's already-committed plan. `teamRef` is kept in
+  // sync with the latest prop on every render so `updateSlot` always bases its patch on the
+  // most current team, however it got there.
+  const teamRef = useRef(team);
+  teamRef.current = team;
 
   const rosterForSolver = useMemo(
     () => buildRosterForSolver(roster, live.selectedPlayerIds, live.palsByPlayer),
@@ -38,24 +51,17 @@ export default function TeamDetailView({
   const passivesById = useMemo(() => new Map(passives.map((p) => [p.id, p])), [passives]);
 
   const updateSlot = (index: number, updater: (slot: TeamSlot) => TeamSlot) => {
-    onUpdateTeam({ ...team, slots: team.slots.map((s, i) => (i === index ? updater(s) : s)) });
+    const current = teamRef.current;
+    onUpdateTeam({ ...current, slots: current.slots.map((s, i) => (i === index ? updater(s) : s)) });
   };
 
   const runSlot = (index: number) => {
     const slot = team.slots[index];
-    if (!slot || !slot.target || planningIndices.has(index)) return;
+    if (!slot || !slot.target || tasks.isPlanning(index)) return;
     const target = slot.target;
-    setPlanningIndices((prev) => new Set(prev).add(index));
-    setTimeout(() => {
-      try {
-        const speciesOptions = { catchCost: settings.catchCost, allowCatching: settings.allowCatching };
-        const { result, guaranteedCarrierOutcome, nextBestWhenOwned } = runSingleTargetPlan(
-          ruleset,
-          rosterForSolver,
-          target,
-          slot.desiredPassives,
-          speciesOptions,
-        );
+    const speciesOptions = { catchCost: settings.catchCost, allowCatching: settings.allowCatching };
+    tasks.run(index, () => solverWorker.runSingleTarget(rosterForSolver, target, slot.desiredPassives, speciesOptions), {
+      onSuccess: ({ result, guaranteedCarrierOutcome, nextBestWhenOwned }) => {
         const newPlan: TeamSlotPlan = {
           savedAt: new Date().toISOString(),
           target,
@@ -72,16 +78,12 @@ export default function TeamDetailView({
           }),
         };
         updateSlot(index, (s) => (s.plan ? { ...s, pendingPlan: newPlan } : { ...s, plan: newPlan }));
-      } finally {
-        // Always clear the planning flag, even if the solve threw — never strand a slot spinner.
-        setPlanningIndices((prev) => {
-          const next = new Set(prev);
-          next.delete(index);
-          return next;
-        });
-      }
-    }, 0);
+      },
+      onError: (err) => console.error(`Team slot ${index} plan failed:`, err),
+    });
   };
+
+  const cancelSlot = (index: number) => tasks.cancel(index);
 
   const keepNew = (index: number) => {
     updateSlot(index, (s) => {
@@ -145,11 +147,13 @@ export default function TeamDetailView({
               passives={passives}
               speciesById={speciesById}
               passivesById={passivesById}
-              isPlanning={planningIndices.has(index)}
+              isPlanning={tasks.isPlanning(index)}
+              error={tasks.error(index)}
               isOpen={openIndex === index}
               onPickTarget={(id) => pickTarget(index, id)}
               onSetDesiredPassives={(ids) => setDesiredPassives(index, ids)}
               onRun={() => runSlot(index)}
+              onCancel={() => cancelSlot(index)}
               onToggleView={() => toggleView(index)}
               onKeepNew={() => keepNew(index)}
               onKeepOld={() => keepOld(index)}

@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react';
 import type { Species, Passive } from '../data/schema';
 import type { SpeciesPlanResult, PassivePlanResult, UnionPlanResult, HubCandidate } from '../solver/types';
 import type { GuaranteedCarrierOutcome } from '../solver/passivePlanner';
@@ -6,11 +7,18 @@ import type { ProvenanceMatch } from '../live/provenance';
 import type { LivePlayerPals, PlayerIdentifier } from '../live/types';
 import { useSettings } from '../store/hooks';
 import { ComboCount, ProvisionalTag, ElementDot, HoverTooltip, PalCard, PalIcon, PassiveChip, RankPill } from './components';
-import { PlanRenderer } from './PlanView';
 
 /** Shared, data-bound view composites reused across the planner screens (design handoff
  * README's "Reuse map"). Visual atoms live in `./components`; the layered graph rendering
  * lives in `./PlanView`. This file wires plan data to both. */
+
+// `./PlanView` pulls in `graphLayout.ts`'s DAG-layout math, which only matters once a plan
+// has actually solved (PERFORMANCE_REMEDIATION_PLAN.md Phase 5) — split out of the main bundle.
+const PlanRenderer = lazy(() => import('./PlanView').then((m) => ({ default: m.PlanRenderer })));
+
+function PlanRendererFallback() {
+  return <p className="p-5 font-sans text-[13px] text-muted">Loading plan graph…</p>;
+}
 
 export { SpeciesSelect, PassiveMultiSelect } from './components';
 
@@ -224,21 +232,23 @@ export function SpeciesPlanView({
           meta={`cost ${plan.cost}${plan.catches.length > 0 ? ` · ${plan.catches.length} catch${plan.catches.length === 1 ? '' : 'es'}` : ''}`}
         />
       </div>
-      <PlanRenderer
-        steps={plan.steps}
-        catches={plan.catches}
-        targets={[plan.target]}
-        speciesById={speciesById}
-        provenance={provenance}
-        desiredPassives={plan.passivePlan?.desired}
-        passivePlan={plan.passivePlan}
-        passivesById={passivesById}
-        selectedPlayerIds={selectedPlayerIds}
-        palsByPlayer={palsByPlayer}
-        displayNameByIdentifier={displayNameByIdentifier}
-        {...(title !== undefined && { title })}
-        {...(note !== undefined && { note })}
-      />
+      <Suspense fallback={<PlanRendererFallback />}>
+        <PlanRenderer
+          steps={plan.steps}
+          catches={plan.catches}
+          targets={[plan.target]}
+          speciesById={speciesById}
+          provenance={provenance}
+          desiredPassives={plan.passivePlan?.desired}
+          passivePlan={plan.passivePlan}
+          passivesById={passivesById}
+          selectedPlayerIds={selectedPlayerIds}
+          palsByPlayer={palsByPlayer}
+          displayNameByIdentifier={displayNameByIdentifier}
+          {...(title !== undefined && { title })}
+          {...(note !== undefined && { note })}
+        />
+      </Suspense>
       {plan.passivePlan && <PassivePlanView plan={plan.passivePlan} passivesById={passivesById} speciesById={speciesById} />}
     </div>
   );
@@ -511,18 +521,20 @@ export function UnionPlanView({
 
   return (
     <div>
-      <PlanRenderer
-        steps={plan.steps}
-        catches={plan.catches}
-        targets={plan.targets}
-        speciesById={speciesById}
-        provenance={provenance}
-        hubSpeciesId={hubSpeciesId}
-        passivesById={passivesById}
-        selectedPlayerIds={selectedPlayerIds}
-        palsByPlayer={palsByPlayer}
-        displayNameByIdentifier={displayNameByIdentifier}
-      />
+      <Suspense fallback={<PlanRendererFallback />}>
+        <PlanRenderer
+          steps={plan.steps}
+          catches={plan.catches}
+          targets={plan.targets}
+          speciesById={speciesById}
+          provenance={provenance}
+          hubSpeciesId={hubSpeciesId}
+          passivesById={passivesById}
+          selectedPlayerIds={selectedPlayerIds}
+          palsByPlayer={palsByPlayer}
+          displayNameByIdentifier={displayNameByIdentifier}
+        />
+      </Suspense>
       {targetsWithPassivePlan.map((t) => (
         <PassivePlanView
           key={t.target}

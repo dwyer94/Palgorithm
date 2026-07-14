@@ -1,7 +1,8 @@
 import { useMemo, useState } from 'react';
 import { useRoster, useSavedPlans, useSettings } from '../store/hooks';
 import { newId } from '../store/localStore';
-import { runSingleTargetPlan, computeOwnedUnassignedPassives } from '../solver/runSingleTargetPlan';
+import { computeOwnedUnassignedPassives } from '../solver/runSingleTargetPlan';
+import { solverWorker } from '../solver/worker/client';
 import type { GuaranteedCarrierOutcome } from '../solver/passivePlanner';
 import type { SpeciesPlanResult } from '../solver/types';
 import type { NextBestWhenOwnedSnapshot } from '../store/types';
@@ -10,6 +11,7 @@ import { buildRosterForSolver } from '../live/rosterMerge';
 import { annotateSpeciesPlan } from '../live/provenance';
 import { buildDisplayNameMap } from '../live/nameResolution';
 import { useRulesetContext } from './RulesetContext';
+import { useSolverTask } from './useSolverTask';
 import { PassiveMultiSelect, SpeciesSelect, SingleTargetResultView } from './shared';
 import { PalIcon, PassiveChip, Toggle } from './components';
 
@@ -17,7 +19,7 @@ import { PalIcon, PassiveChip, Toggle } from './components';
  * input rail shape, `SpeciesPlanView`'s graph/steps rendering, perk overlay). No hub
  * comparison here; that's Hub planner-only. */
 export default function SingleTargetView() {
-  const { ruleset, species, passives, speciesById } = useRulesetContext();
+  const { species, passives, speciesById } = useRulesetContext();
   const [roster] = useRoster();
   const [settings] = useSettings();
   const [savedPlans, setSavedPlans] = useSavedPlans();
@@ -29,8 +31,7 @@ export default function SingleTargetView() {
   const [guaranteedCarrierOutcome, setGuaranteedCarrierOutcome] = useState<GuaranteedCarrierOutcome>({ status: 'not-requested' });
   const [nextBestWhenOwned, setNextBestWhenOwned] = useState<NextBestWhenOwnedSnapshot | undefined>(undefined);
   const [saved, setSavedFlash] = useState(false);
-  const [isPlanning, setIsPlanning] = useState(false);
-  const [planError, setPlanError] = useState<string | null>(null);
+  const task = useSolverTask();
 
   const rosterForSolver = useMemo(
     () => buildRosterForSolver(roster, live.selectedPlayerIds, live.palsByPlayer),
@@ -56,18 +57,9 @@ export default function SingleTargetView() {
 
   const runPlan = () => {
     if (!target) return;
-    setIsPlanning(true);
-    setPlanError(null);
-    setTimeout(() => {
-      try {
-        const speciesOptions = { catchCost: settings.catchCost, allowCatching: settings.allowCatching, ignoreGender };
-        const { result: plan, guaranteedCarrierOutcome: outcome, nextBestWhenOwned: nextBest } = runSingleTargetPlan(
-          ruleset,
-          rosterForSolver,
-          target,
-          desiredPassives,
-          speciesOptions,
-        );
+    const speciesOptions = { catchCost: settings.catchCost, allowCatching: settings.allowCatching, ignoreGender };
+    task.run(() => solverWorker.runSingleTarget(rosterForSolver, target, desiredPassives, speciesOptions), {
+      onSuccess: ({ result: plan, guaranteedCarrierOutcome: outcome, nextBestWhenOwned: nextBest }) => {
         setResult(plan);
         setSavedFlash(false);
         setGuaranteedCarrierOutcome(outcome);
@@ -80,18 +72,18 @@ export default function SingleTargetView() {
               }
             : undefined,
         );
-      } catch (err) {
-        // Never leave the view stuck on "Solving…" — surface the failure so the user (and we)
-        // can see why no plan came back, rather than an infinite spinner.
+      },
+      // Never leave the view stuck on "Solving…" — surface the failure so the user (and we)
+      // can see why no plan came back, rather than an infinite spinner.
+      onError: () => {
         setResult(null);
         setNextBestWhenOwned(undefined);
         setGuaranteedCarrierOutcome({ status: 'not-requested' });
-        setPlanError(err instanceof Error ? err.message : String(err));
-      } finally {
-        setIsPlanning(false);
-      }
-    }, 0);
+      },
+    });
   };
+
+  const cancelPlan = () => task.cancel();
 
   const savePlan = () => {
     if (!result) return;
@@ -165,34 +157,40 @@ export default function SingleTargetView() {
         </div>
 
         <div
-          onClick={isPlanning ? undefined : runPlan}
+          onClick={task.isPlanning ? undefined : runPlan}
           className={`flex items-center justify-center gap-2.5 rounded-[10px] bg-sidebar-bg px-[13px] py-[13px] font-sans text-[14px] font-semibold tracking-[.3px] text-white shadow-[0_2px_5px_rgba(0,0,0,.14)] ${
-            isPlanning ? 'opacity-60' : 'cursor-pointer hover:bg-sidebar-hover'
+            task.isPlanning ? 'opacity-60' : 'cursor-pointer hover:bg-sidebar-hover'
           }`}
         >
-          {isPlanning ? '⏳ Running plan…' : '▶ Run plan'}
+          {task.isPlanning ? '⏳ Running plan…' : '▶ Run plan'}
         </div>
       </aside>
 
       <main className="flex-1 bg-canvas md:overflow-y-auto">
         <div className="mx-auto max-w-[1080px] px-4 pb-[60px] pt-[26px] md:px-[34px]">
-          {isPlanning && (
+          {task.isPlanning && (
             <div className="rounded-card border border-dashed border-border-input bg-panel-subtle p-10 text-center font-sans text-[13px] text-muted">
-              ⏳ Solving breeding paths…
+              <div className="mb-3">⏳ Solving breeding paths…</div>
+              <div
+                onClick={cancelPlan}
+                className="inline-flex cursor-pointer items-center gap-1.5 rounded-panel border border-border-card bg-white px-3.5 py-2 font-sans text-[12.5px] font-semibold text-[#6b655c] hover:border-muted-lighter"
+              >
+                ✕ Cancel
+              </div>
             </div>
           )}
 
-          {!isPlanning && planError && (
+          {!task.isPlanning && task.error && (
             <div className="rounded-card border border-l-[4px] border-l-brand-hover border-border-card bg-white p-6 font-sans text-[13px] text-ink-strong">
               <div className="mb-1 font-semibold text-brand-hover">⚠ Couldn't compute a plan</div>
-              <div className="text-muted">{planError}</div>
+              <div className="text-muted">{task.error}</div>
               <div className="mt-2 text-[12px] text-muted-light">
                 This is unexpected — if it keeps happening, the target/perk combination above is worth reporting.
               </div>
             </div>
           )}
 
-          {!isPlanning && !result && !planError && (
+          {!task.isPlanning && !result && !task.error && (
             <div className="rounded-card border border-dashed border-border-input bg-panel-subtle p-10 text-center font-sans text-[13px] text-muted">
               Pick a target species, then run the plan.
             </div>

@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useRef } from 'react';
 import { ELEMENTS, SIZES } from '../../data/schema';
 import type { Element, PartnerSkill, Species } from '../../data/schema';
 import { useRulesetContext } from '../RulesetContext';
@@ -15,8 +15,14 @@ import {
   WorkSuitabilityFilterEditor,
   WORK_SUITABILITY_TYPES,
   HoverTooltip,
+  VirtualizedList,
+  VirtualizedTable,
+  useIsDesktop,
   elementColor,
 } from '../components';
+
+const PAL_TABLE_COLUMNS =
+  'minmax(160px,1.3fr) 64px 60px 56px minmax(120px,1fr) 56px 64px 64px 48px 48px minmax(140px,1.2fr)';
 
 const searchInputClass =
   'w-full rounded-panel border-[1.5px] border-border-input px-3 py-2 font-mono text-[13px] text-ink outline-none focus:border-primary';
@@ -165,9 +171,11 @@ export default function PalReferenceList({ dense = false }: { dense?: boolean })
   ]);
 
   const isFull = !dense && settings.iconDisplayMode === 'full';
+  const isDesktop = useIsDesktop();
+  const resultsRef = useRef<HTMLDivElement>(null);
 
-  return (
-    <div>
+  const filtersSection = (
+    <>
       <input
         value={search}
         onChange={(e) => setPalsQuery({ ...palsQuery, search: e.target.value })}
@@ -286,15 +294,21 @@ export default function PalReferenceList({ dense = false }: { dense?: boolean })
       </div>
 
       <div className="mb-2 font-sans text-[11.5px] font-semibold text-muted">{results.length} pals</div>
+    </>
+  );
 
-      {results.length === 0 ? (
-        <div className="rounded-card border-[1.5px] border-dashed border-[#d8cfbf] bg-panel-subtle p-6 text-center font-sans text-[12.5px] text-muted-light">
-          No pals match these filters.
-        </div>
-      ) : dense ? (
-        <div className="flex max-h-[420px] flex-col gap-1.5 overflow-y-auto pr-1">
-          {results.map((s) => (
-            <div key={s.id} className="rounded-panel border border-border-card bg-white p-2">
+  const resultsSection =
+    results.length === 0 ? (
+      <div className="rounded-card border-[1.5px] border-dashed border-[#d8cfbf] bg-panel-subtle p-6 text-center font-sans text-[12.5px] text-muted-light">
+        No pals match these filters.
+      </div>
+    ) : dense ? (
+        <VirtualizedList
+          items={results}
+          getKey={(s) => s.id}
+          estimateSize={86}
+          renderItem={(s) => (
+            <div className="rounded-panel border border-border-card bg-white p-2">
               <div className="flex items-center gap-2">
                 <PalIcon icon={s.icon} size={26} variant="card" />
                 <span className="truncate font-mono text-[12.5px] font-semibold">{s.displayName}</span>
@@ -320,8 +334,8 @@ export default function PalReferenceList({ dense = false }: { dense?: boolean })
                 </div>
               )}
             </div>
-          ))}
-        </div>
+          )}
+        />
       ) : isFull ? (
         <div className="flex flex-wrap gap-2.5">
           {results.map((s) => (
@@ -348,6 +362,46 @@ export default function PalReferenceList({ dense = false }: { dense?: boolean })
             </PalCard>
           ))}
         </div>
+      ) : isDesktop ? (
+        <VirtualizedTable
+          items={results}
+          getKey={(s) => s.id}
+          columns={PAL_TABLE_COLUMNS}
+          header={['Species', 'Rank', 'Rarity', 'Size', 'Work', 'Run', 'Stamina', 'Capture', 'Noct', 'Mount', 'Partner Skill']}
+          getScrollElement={() => resultsRef.current}
+          estimateSize={45}
+          renderRow={(s) => [
+            <span key="species" className="inline-flex items-center gap-1.5">
+              <PalIcon icon={s.icon} size={20} />
+              <ElementDot elements={s.elements} />
+              <b className="whitespace-nowrap text-[12.5px]">{s.displayName}</b>
+            </span>,
+            <RankPill key="rank" rank={s.rank} />,
+            <span key="rarity" className="text-ink-muted">
+              {s.rarity ?? '—'}
+            </span>,
+            <span key="size" className="text-ink-muted">
+              {s.size ?? '—'}
+            </span>,
+            <WorkSuitabilityRow key="work" levels={workLevels(s)} />,
+            <span key="run" className="text-ink-muted">
+              {s.movement?.run ?? '—'}
+            </span>,
+            <span key="stamina" className="text-ink-muted">
+              {s.stamina ?? '—'}
+            </span>,
+            <span key="capture" className="text-ink-muted">
+              {s.captureRateCorrect ?? '—'}
+            </span>,
+            <div key="noct" className="text-center text-ink-muted">
+              {s.nocturnal ? '🌙' : ''}
+            </div>,
+            <div key="mount" className="text-center text-ink-muted">
+              {s.mountable ? '🐴' : ''}
+            </div>,
+            <PartnerSkillBadge key="partner" skill={partnerSkillBySpecies.get(s.id)} />,
+          ]}
+        />
       ) : (
         <div className="overflow-x-auto rounded-[13px] border border-border-card bg-white">
           <table className="w-full border-collapse font-mono">
@@ -391,7 +445,23 @@ export default function PalReferenceList({ dense = false }: { dense?: boolean })
             </tbody>
           </table>
         </div>
-      )}
+      );
+
+  if (dense) {
+    return (
+      <div>
+        {filtersSection}
+        {resultsSection}
+      </div>
+    );
+  }
+
+  return (
+    <div className="md:flex md:h-full md:flex-col">
+      <div className="md:flex-none">{filtersSection}</div>
+      <div ref={resultsRef} className="md:min-h-0 md:flex-1 md:overflow-y-auto">
+        {resultsSection}
+      </div>
     </div>
   );
 }

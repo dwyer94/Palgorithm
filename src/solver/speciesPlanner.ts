@@ -61,6 +61,17 @@ interface Graph {
   edgesByInput: Map<Node, number[]>; // node -> indices into edges[] where it's an input
 }
 
+/** The cost of finalizing a combo's output node once both its inputs are finalized: the sum
+ * of however each input was itself reached, plus one for the combo itself. Graph bookkeeping,
+ * not breeding math (CLAUDE.md invariant #1 governs `BreedingRuleset`-owned rules, not this),
+ * but still centralized per the post-Phase-5 code review — this exact formula was
+ * independently duplicated across `solveMasked`, `solve`, `tiedFinalEdges`, `anchorProbeCost`,
+ * and `injectProbe`; a future ruleset making combo cost non-constant would otherwise have to
+ * find and update all five consistently. */
+function combinationCost(costA: number, costB: number): number {
+  return costA + costB + 1;
+}
+
 /** Build the full combination hypergraph once: every (parentA,parentB)->child combo the
  * ruleset can produce, expanded into gender-assignment hyperedges. Cheap at this graph
  * size (spec §7.1: "evaluating forward() on candidate pairs is cheap").
@@ -311,7 +322,7 @@ function solveMasked(
         const costB = dist.get(tnode(pB.species, pB.gender, maskB));
         if (costA === undefined || costB === undefined) continue;
         const po = parseNode(edge.output);
-        relax(tnode(po.species, po.gender, maskA | maskB), costA + costB + 1, { kind: 'combo', edge, maskA, maskB });
+        relax(tnode(po.species, po.gender, maskA | maskB), combinationCost(costA, costB), { kind: 'combo', edge, maskA, maskB });
       }
     }
   }
@@ -520,7 +531,8 @@ function solve(graph: Graph, roster: RosterEntry[], ruleset: BreedingRuleset, op
       const count = (finalizedInputCount.get(edgeIdx) ?? 0) + 1;
       finalizedInputCount.set(edgeIdx, count);
       if (count < edge.inputs.length) continue; // still waiting on the other parent
-      const total = edge.inputs.reduce((s, inp) => s + (dist.get(inp) ?? Infinity), 0) + 1;
+      const [inA, inB] = edge.inputs;
+      const total = combinationCost(dist.get(inA) ?? Infinity, dist.get(inB) ?? Infinity);
       relax(edge.output, total, { kind: 'combo', edge });
     }
   }
@@ -593,7 +605,8 @@ function rosterByNode(roster: RosterEntry[]): Map<Node, RosterEntry[]> {
 function tiedFinalEdges(graph: Graph, state: SolveState, targetNode: Node, minCost: number): Edge[] {
   return graph.edges.filter((edge) => {
     if (edge.output !== targetNode) return false;
-    const total = edge.inputs.reduce((s, inp) => s + (state.dist.get(inp) ?? Infinity), 0) + 1;
+    const [inA, inB] = edge.inputs;
+    const total = combinationCost(state.dist.get(inA) ?? Infinity, state.dist.get(inB) ?? Infinity);
     return total === minCost;
   });
 }
@@ -723,16 +736,187 @@ function findDeeperOpportunisticCarriers(
   return out;
 }
 
+/** Incremental Dijkstra warm-started from an already-solved `baseState.dist`, used by
+ * `findAnchorHints` to test one candidate anchor at a time and read off just the target's
+ * resulting cost. The naive approach re-solves the whole graph from `roster` alone for
+ * every candidate — since Dijkstra with non-negative weights never needs to "un-finalize"
+ * a node once it's optimal, adding one more zero-cost seed (the candidate) can only ever
+ * improve downstream dists, so relaxation can resume from the base fixpoint instead of
+ * re-deriving the roster's entire base-reachable region from scratch ~289 times over.
+ *
+ * Mutates `baseState.dist` directly rather than copying it (copying + restoring ~580
+ * entries per candidate turned out to cost about as much as the redundant work it was
+ * meant to save) — every touched entry's prior value is recorded and restored before
+ * returning, so the shared base state is pristine again for the next candidate and for
+ * whatever query created it. Work — both the relax loop and the undo — is bounded by the
+ * subgraph this specific candidate's addition actually affects, never more than copying or
+ * re-solving the whole graph would cost. Uses a real binary heap (`MinHeap`, otherwise
+ * reserved for `solveMasked`'s larger state space) since this runs once per candidate and
+ * a linear extract-min would add back exactly the per-call overhead this is meant to
+ * remove. `from`/step reconstruction isn't needed here — only the resulting cost number is
+ * — so unlike `solve()` this never builds it. */
+function anchorProbeCost(graph: Graph, baseState: SolveState, extraSeeds: RosterEntry[], targetNodes: [Node, Node]): number {
+  const dist = baseState.dist;
+  const prior = new Map<Node, number | undefined>();
+  const finalized = new Set<Node>();
+  const heap = new MinHeap<{ n: Node; cost: number }>((x) => x.cost);
+
+  const relax = (n: Node, cost: number) => {
+    if (cost >= (dist.get(n) ?? Infinity)) return;
+    if (!prior.has(n)) prior.set(n, dist.get(n));
+    dist.set(n, cost);
+    heap.push({ n, cost });
+  };
+
+  for (const r of extraSeeds) relax(node(r.species, r.gender), 0);
+
+  // Unlike `solve()`, this only ever needs one target-side answer per call, so it can stop
+  // the instant either target-gender node is finalized — by then its cost is already final
+  // (Dijkstra finalizes in non-decreasing cost order, so the first target node reached is
+  // the cheaper/equal one, i.e. exactly `min(male, female)`), instead of always draining the
+  // whole reachable closure like a full solve does even after the answer is already known.
+  let result = Infinity;
+  try {
+    while (!heap.isEmpty()) {
+      const { n, cost } = heap.pop()!;
+      if (finalized.has(n)) continue;
+      if (cost > (dist.get(n) ?? Infinity)) continue; // stale entry
+      finalized.add(n);
+      if (n === targetNodes[0] || n === targetNodes[1]) {
+        result = cost;
+        break;
+      }
+
+      for (const edgeIdx of graph.edgesByInput.get(n) ?? []) {
+        const edge = graph.edges[edgeIdx]!;
+        const [inA, inB] = edge.inputs;
+        const costA = dist.get(inA) ?? Infinity;
+        const costB = dist.get(inB) ?? Infinity;
+        // Unlike a from-scratch solve, an edge's OTHER input may already be finalized from
+        // the base state without ever being touched in this run — checked directly via
+        // `dist` rather than an incremental "both inputs seen this run" counter, which
+        // would wrongly wait forever for an input that has no reason to be re-relaxed.
+        if (!isFinite(costA) || !isFinite(costB)) continue;
+        relax(edge.output, combinationCost(costA, costB));
+      }
+    }
+  } finally {
+    // Runs even if the loop above throws (a malformed edge, a broken graph invariant), so a
+    // mid-probe exception can never leave the shared `baseState` corrupted for whichever
+    // candidate probes it next (post-Phase-5 code review finding #2).
+    for (const [n, prevCost] of prior) {
+      if (prevCost === undefined) dist.delete(n);
+      else dist.set(n, prevCost);
+    }
+  }
+
+  return result;
+}
+
+/** Like `anchorProbeCost`, but for `hubFinder`'s inject-cost sweep: seeds a candidate hub
+ * species (both genders, cost 0) into a warm-started `baseState` and reads off the DEDUPED
+ * combination count — not the raw additive `dist` — for one or more `targetSpecies` from the
+ * same probe, since a shared intermediate reused by two branches is still one combination
+ * (CLAUDE.md invariant #4; see `reconstruct`'s doc comment on why raw `dist` overcounts).
+ * `anchorProbeCost` only ever needed a bare cost number (feasibility), so it never bothered
+ * tracking `from`; this one does, so `reconstruct()` can walk the mutated state before it's
+ * undone. Keeps relaxing until every wanted target's both gender-nodes are finalized (not
+ * just the first, since a hub candidate is scored against several targets at once) — a target
+ * that `baseState` already reaches optimally and that the new seeds don't improve is never
+ * pushed onto the heap, so it's never explicitly "found" mid-loop; it's still read correctly
+ * because every wanted target's cost is read straight off `dist` unconditionally after the
+ * loop, not gated on having triggered the early exit. Mutates `baseState.dist`/`.from` directly
+ * and restores every touched entry before
+ * returning, same undo discipline as `anchorProbeCost`. */
+export function injectProbe(
+  graph: SolveContext['graph'],
+  baseState: SolveContext['state'],
+  extraSeeds: RosterEntry[],
+  targetSpecies: SpeciesId[],
+): Map<SpeciesId, number> {
+  const dist = baseState.dist;
+  const from = baseState.from;
+  const priorDist = new Map<Node, number | undefined>();
+  const priorFrom = new Map<Node, NodeSource | undefined>();
+  const finalized = new Set<Node>();
+  const heap = new MinHeap<{ n: Node; cost: number }>((x) => x.cost);
+
+  const relax = (n: Node, cost: number, source: NodeSource) => {
+    if (cost >= (dist.get(n) ?? Infinity)) return;
+    if (!priorDist.has(n)) {
+      priorDist.set(n, dist.get(n));
+      priorFrom.set(n, from.get(n));
+    }
+    dist.set(n, cost);
+    from.set(n, source);
+    heap.push({ n, cost });
+  };
+
+  for (const r of extraSeeds) relax(node(r.species, r.gender), 0, { kind: 'owned' });
+
+  const wantedNodes = new Set<Node>();
+  for (const s of targetSpecies) {
+    wantedNodes.add(node(s, 'male'));
+    wantedNodes.add(node(s, 'female'));
+  }
+
+  const combos = new Map<SpeciesId, number>();
+  try {
+    while (!heap.isEmpty() && wantedNodes.size > 0) {
+      const { n, cost } = heap.pop()!;
+      if (finalized.has(n)) continue;
+      if (cost > (dist.get(n) ?? Infinity)) continue; // stale entry
+      finalized.add(n);
+      wantedNodes.delete(n);
+
+      for (const edgeIdx of graph.edgesByInput.get(n) ?? []) {
+        const edge = graph.edges[edgeIdx]!;
+        const [inA, inB] = edge.inputs;
+        const costA = dist.get(inA) ?? Infinity;
+        const costB = dist.get(inB) ?? Infinity;
+        if (!isFinite(costA) || !isFinite(costB)) continue;
+        relax(edge.output, combinationCost(costA, costB), { kind: 'combo', edge });
+      }
+    }
+
+    for (const s of targetSpecies) {
+      const maleCost = dist.get(node(s, 'male')) ?? Infinity;
+      const femaleCost = dist.get(node(s, 'female')) ?? Infinity;
+      const cost = Math.min(maleCost, femaleCost);
+      if (isFinite(cost)) {
+        const winningNode = maleCost <= femaleCost ? node(s, 'male') : node(s, 'female');
+        combos.set(s, reconstruct(baseState, winningNode).steps.length);
+      } else {
+        combos.set(s, Infinity);
+      }
+    }
+  } finally {
+    // Runs even if the loop/reconstruct above throws, so a mid-probe exception can never leave
+    // the shared `baseState` corrupted for whichever candidate probes it next (post-Phase-5
+    // code review finding #2) — up to ~260 hub candidates share one `baseState` per sweep.
+    for (const [n, prevCost] of priorDist) {
+      if (prevCost === undefined) dist.delete(n);
+      else dist.set(n, prevCost);
+    }
+    for (const [n, prevSrc] of priorFrom) {
+      if (prevSrc === undefined) from.delete(n);
+      else from.set(n, prevSrc);
+    }
+  }
+
+  return combos;
+}
+
 /** Try seeding a single extra species (both genders, cost 0) and see whether the target
  * becomes reachable — the sound way to answer "what anchor would unlock this" without
  * relying on an unsound rank-based prune (spec §7.1). Exhaustive over rank-bearing
- * species is cheap at this graph size. */
+ * species is cheap at this graph size, especially warm-started per `anchorProbeCost` above. */
 function findAnchorHints(
   ruleset: BreedingRuleset,
-  roster: RosterEntry[],
   target: SpeciesId,
   opts: CoreOptions,
   alreadyReachable: Set<SpeciesId>,
+  baseState: SolveState,
 ): AnchorHint[] {
   const targetRank = ruleset.rankTable[target] ?? null;
   // Owning the target directly isn't a derivation hint — exclude it so an unreachable
@@ -740,17 +924,14 @@ function findAnchorHints(
   const candidates = Object.keys(ruleset.rankTable).filter((s) => s !== target && !alreadyReachable.has(s));
   const hints: AnchorHint[] = [];
   const graph = getGraph(ruleset, opts.ignoreGender);
+  const targetNodes: [Node, Node] = [node(target, 'male'), node(target, 'female')];
 
   for (const species of candidates) {
-    const hypotheticalRoster: RosterEntry[] = [
-      ...roster,
+    const extraSeeds: RosterEntry[] = [
       { species, gender: 'male' },
       { species, gender: 'female' },
     ];
-    const state = solve(graph, hypotheticalRoster, ruleset, opts);
-    const male = state.dist.get(node(target, 'male')) ?? Infinity;
-    const female = state.dist.get(node(target, 'female')) ?? Infinity;
-    const resultingCost = Math.min(male, female);
+    const resultingCost = anchorProbeCost(graph, baseState, extraSeeds, targetNodes);
     if (isFinite(resultingCost)) {
       const ratio = ruleset.genderRatio(species);
       const gender: Gender = ratio.male >= ratio.female ? 'male' : 'female';
@@ -832,7 +1013,7 @@ export function resultFromContext(
         }),
       );
       for (const r of roster) alreadyReachable.add(r.species);
-      anchorHints = findAnchorHints(ruleset, roster, target, opts, alreadyReachable);
+      anchorHints = findAnchorHints(ruleset, target, opts, alreadyReachable, state);
     }
     return {
       target,

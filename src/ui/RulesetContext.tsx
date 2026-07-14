@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useMemo, type ReactNode } from 'r
 import rawDataset from '../data/dataset.1.0.json';
 import { parseDataset } from '../data/loader';
 import { createRuleset } from '../ruleset';
-import { warmGraphCache } from '../solver/speciesPlanner';
+import { solverWorker } from '../solver/worker/client';
 import type { BreedingRuleset } from '../ruleset/types';
 import type { Dataset, Species, Passive, PartnerSkill } from '../data/schema';
 
@@ -39,11 +39,18 @@ export function RulesetProvider({ children }: { children: ReactNode }) {
     };
   }, []);
 
-  // Warm the combination-hypergraph cache off the critical path once the ruleset is ready, so the
-  // user's first "Run plan" click doesn't pay the (multi-hundred-ms) build synchronously and
-  // freeze the tab. `requestIdleCallback` where available, else a deferred timeout.
+  // Spin up + warm the solver worker off the critical path, so the user's first "Run plan"
+  // click doesn't pay for worker startup + ruleset/graph-cache build (a one-time ~2s JIT
+  // warmup per findings-doc #6) on top of the solve itself. All solving now happens in that
+  // worker (findings-doc P0 fix) — the main thread's own ruleset (`value.ruleset` above) is
+  // used for rendering only and never solves, so there's nothing to warm here anymore.
+  // `requestIdleCallback` where available, else a deferred timeout.
   useEffect(() => {
-    const warm = () => warmGraphCache(value.ruleset);
+    const warm = () => {
+      solverWorker.warmup().promise.catch(() => {
+        // Best-effort warm-up; a real solve request will build everything fresh anyway.
+      });
+    };
     const ric = (globalThis as { requestIdleCallback?: (cb: () => void) => number }).requestIdleCallback;
     if (ric) {
       const id = ric(warm);
@@ -51,7 +58,7 @@ export function RulesetProvider({ children }: { children: ReactNode }) {
     }
     const t = setTimeout(warm, 200);
     return () => clearTimeout(t);
-  }, [value.ruleset]);
+  }, []);
 
   return <RulesetContext.Provider value={value}>{children}</RulesetContext.Provider>;
 }

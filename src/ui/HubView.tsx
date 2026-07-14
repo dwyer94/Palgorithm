@@ -1,13 +1,14 @@
 import { useMemo, useState } from 'react';
 import { useRoster, useSavedPlans, useSettings } from '../store/hooks';
 import { newId } from '../store/localStore';
-import { planUnion, findHubs } from '../solver/hubFinder';
+import { solverWorker } from '../solver/worker/client';
 import type { UnionPlanResult, HubFinderResult } from '../solver/types';
 import { useLiveContext } from '../live/LiveContext';
 import { buildRosterForSolver } from '../live/rosterMerge';
 import { annotateUnionPlan } from '../live/provenance';
 import { buildDisplayNameMap } from '../live/nameResolution';
 import { useRulesetContext } from './RulesetContext';
+import { useSolverTask } from './useSolverTask';
 import { UnionPlanView, HubList } from './shared';
 import { ComboCount, ElementDot, PalIcon, PassiveChip, PassiveMultiSelect, Pill, SpeciesTypeahead, Toggle } from './components';
 import rawSuggestedHubs from '../data/suggestedHubs.1.0.json';
@@ -47,13 +48,14 @@ export default function HubView() {
    * silent — the two answer genuinely different questions (spec discussion: quick-pick
    * can miss a hub the real roster makes cheaper). */
   const [hubScope, setHubScope] = useState<'quick' | 'full' | undefined>(undefined);
-  /** True while the "search all hubs" full sweep is running — it's a synchronous,
-   * potentially many-second computation over every candidate species, so this drives a
-   * visible loading state instead of leaving the UI looking frozen with no feedback. */
-  const [searchingAllHubs, setSearchingAllHubs] = useState(false);
-  /** True while the main "Run plan" solve (union + full hub sweep) is in flight. Same
-   * synchronous-computation problem as searchingAllHubs above, just for the primary button. */
-  const [isPlanning, setIsPlanning] = useState(false);
+  /** Tracks the "search all hubs" full sweep — a potentially many-second computation over
+   * every candidate species, so this drives a visible loading state instead of leaving the UI
+   * looking frozen with no feedback. */
+  const searchTask = useSolverTask();
+  /** Tracks the primary "Run plan" solve (union + full hub sweep) and the suggestion-card
+   * quick-start (applySuggestion) — the two share one instance since the UI only ever offers
+   * one of them at a time (suggestion cards are hidden once `isPlanning` or a result exists). */
+  const planTask = useSolverTask();
 
   const rosterForSolver = useMemo(
     () => buildRosterForSolver(roster, live.selectedPlayerIds, live.palsByPlayer),
@@ -85,24 +87,32 @@ export default function HubView() {
 
   const runPlan = () => {
     if (targets.length === 0) return;
-    setIsPlanning(true);
-    setTimeout(() => {
-      const options = {
-        catchCost: settings.catchCost,
-        allowCatching: settings.allowCatching,
-        ignoreGender,
-        ...(desiredPassives.length > 0 && { desiredPassives }),
-      };
-      const union = planUnion(ruleset, rosterForSolver, targets, options);
-      const hubs = findHubs(ruleset, rosterForSolver, { ...options, targets });
-      setUnionResult(union);
-      setHubResult(hubs);
-      setSelectedHub(hubs.hubs[0]?.species);
-      setHubScope('full');
-      setSavedFlash(false);
-      setIsPlanning(false);
-    }, 0);
+    const options = {
+      catchCost: settings.catchCost,
+      allowCatching: settings.allowCatching,
+      ignoreGender,
+      ...(desiredPassives.length > 0 && { desiredPassives }),
+    };
+    planTask.run(
+      () => {
+        const unionTask = solverWorker.runUnion(rosterForSolver, targets, options);
+        const hubsTask = solverWorker.runHubs(rosterForSolver, { ...options, targets });
+        return { promise: Promise.all([unionTask.promise, hubsTask.promise]), cancel: () => { unionTask.cancel(); hubsTask.cancel(); } };
+      },
+      {
+        onSuccess: ([union, hubs]) => {
+          setUnionResult(union);
+          setHubResult(hubs);
+          setSelectedHub(hubs.hubs[0]?.species);
+          setHubScope('full');
+          setSavedFlash(false);
+        },
+        onError: (err) => console.error('Hub plan failed:', err),
+      },
+    );
   };
+
+  const cancelPlan = () => planTask.cancel();
 
   /** Suggestion-card quick-start (design brief: "auto jump to the next step"). Fills the
    * curated target list and immediately shows results, but only re-scores the 3
@@ -120,17 +130,27 @@ export default function HubView() {
     setTargets(roleData.targets);
     setDesiredPassives([]);
     const options = { allowCatching: true, excludeTargetsFromCatching: true };
-    const union = planUnion(ruleset, rosterForSolver, roleData.targets, options);
-    const hubs = findHubs(ruleset, rosterForSolver, {
-      ...options,
-      targets: roleData.targets,
-      candidates: roleData.topHubs.map((h) => h.species),
-    });
-    setUnionResult(union);
-    setHubResult(hubs);
-    setSelectedHub(hubs.hubs[0]?.species);
-    setHubScope('quick');
-    setSavedFlash(false);
+    planTask.run(
+      () => {
+        const unionTask = solverWorker.runUnion(rosterForSolver, roleData.targets, options);
+        const hubsTask = solverWorker.runHubs(rosterForSolver, {
+          ...options,
+          targets: roleData.targets,
+          candidates: roleData.topHubs.map((h) => h.species),
+        });
+        return { promise: Promise.all([unionTask.promise, hubsTask.promise]), cancel: () => { unionTask.cancel(); hubsTask.cancel(); } };
+      },
+      {
+        onSuccess: ([union, hubs]) => {
+          setUnionResult(union);
+          setHubResult(hubs);
+          setSelectedHub(hubs.hubs[0]?.species);
+          setHubScope('quick');
+          setSavedFlash(false);
+        },
+        onError: (err) => console.error('Hub plan failed:', err),
+      },
+    );
   };
 
   /** Upgrades a quick-pick to the full exhaustive sweep — deliberately its own handler,
@@ -142,15 +162,15 @@ export default function HubView() {
    * is typically well under a second; the setTimeout defer + "searching…" state is kept as
    * cheap insurance for the rare target set that still forces per-candidate solves. */
   const searchAllHubsFromSuggestion = () => {
-    setSearchingAllHubs(true);
-    setTimeout(() => {
-      const options = { allowCatching: true, excludeTargetsFromCatching: true };
-      const hubs = findHubs(ruleset, rosterForSolver, { ...options, targets });
-      setHubResult(hubs);
-      setSelectedHub(hubs.hubs[0]?.species);
-      setHubScope('full');
-      setSearchingAllHubs(false);
-    }, 0);
+    const options = { allowCatching: true, excludeTargetsFromCatching: true };
+    searchTask.run(() => solverWorker.runHubs(rosterForSolver, { ...options, targets }), {
+      onSuccess: (hubs) => {
+        setHubResult(hubs);
+        setSelectedHub(hubs.hubs[0]?.species);
+        setHubScope('full');
+      },
+      onError: (err) => console.error('Hub search failed:', err),
+    });
   };
 
   const selectedHubCandidate = hubResult?.hubs.find((h) => h.species === selectedHub);
@@ -286,25 +306,31 @@ export default function HubView() {
         </div>
 
         <div
-          onClick={isPlanning ? undefined : runPlan}
+          onClick={planTask.isPlanning ? undefined : runPlan}
           className={`flex items-center justify-center gap-2.5 rounded-[10px] bg-sidebar-bg px-[13px] py-[13px] font-sans text-[14px] font-semibold tracking-[.3px] text-white shadow-[0_2px_5px_rgba(0,0,0,.14)] ${
-            isPlanning ? 'opacity-60' : 'cursor-pointer hover:bg-sidebar-hover'
+            planTask.isPlanning ? 'opacity-60' : 'cursor-pointer hover:bg-sidebar-hover'
           }`}
         >
-          {isPlanning ? '⏳ Running plan…' : '▶ Run plan'}
+          {planTask.isPlanning ? '⏳ Running plan…' : '▶ Run plan'}
         </div>
       </aside>
 
       {/* ============ RESULT ============ */}
       <main className="flex-1 bg-canvas md:overflow-y-auto">
         <div className="mx-auto max-w-[1080px] px-4 pb-[60px] pt-[26px] md:px-[34px]">
-          {isPlanning && (
+          {planTask.isPlanning && (
             <div className="rounded-card border border-dashed border-border-input bg-panel-subtle p-10 text-center font-sans text-[13px] text-muted">
-              ⏳ Solving breeding paths…
+              <div className="mb-3">⏳ Solving breeding paths…</div>
+              <div
+                onClick={cancelPlan}
+                className="inline-flex cursor-pointer items-center gap-1.5 rounded-panel border border-border-card bg-white px-3.5 py-2 font-sans text-[12.5px] font-semibold text-[#6b655c] hover:border-muted-lighter"
+              >
+                ✕ Cancel
+              </div>
             </div>
           )}
 
-          {!isPlanning && !unionResult && (
+          {!planTask.isPlanning && !unionResult && (
             <div>
               <div className="rounded-card border border-dashed border-border-input bg-panel-subtle p-10 text-center font-sans text-[13px] text-muted">
                 Add at least one target species, then run the plan.
@@ -421,12 +447,12 @@ export default function HubView() {
                         <>
                           <Pill className="bg-[#fdf1d8] text-[#9a7b3a]">quick pick</Pill>
                           <span
-                            onClick={searchingAllHubs ? undefined : searchAllHubsFromSuggestion}
+                            onClick={searchTask.isPlanning ? undefined : searchAllHubsFromSuggestion}
                             className={`ml-auto font-sans text-[11px] font-semibold text-primary-dark ${
-                              searchingAllHubs ? 'opacity-60' : 'cursor-pointer hover:underline'
+                              searchTask.isPlanning ? 'opacity-60' : 'cursor-pointer hover:underline'
                             }`}
                           >
-                            {searchingAllHubs ? '⏳ searching every hub…' : '🔍 search all hubs'}
+                            {searchTask.isPlanning ? '⏳ searching every hub…' : '🔍 search all hubs'}
                           </span>
                         </>
                       )}

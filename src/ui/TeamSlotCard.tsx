@@ -14,10 +14,12 @@ export default function TeamSlotCard({
   speciesById,
   passivesById,
   isPlanning,
+  error,
   isOpen,
   onPickTarget,
   onSetDesiredPassives,
   onRun,
+  onCancel,
   onToggleView,
   onKeepNew,
   onKeepOld,
@@ -29,10 +31,12 @@ export default function TeamSlotCard({
   speciesById: Map<string, Species>;
   passivesById: Map<string, Passive>;
   isPlanning: boolean;
+  error?: string | undefined;
   isOpen: boolean;
   onPickTarget: (id: SpeciesId | null) => void;
   onSetDesiredPassives: (ids: PassiveId[]) => void;
   onRun: () => void;
+  onCancel: () => void;
   onToggleView: () => void;
   onKeepNew: () => void;
   onKeepOld: () => void;
@@ -113,14 +117,21 @@ export default function TeamSlotCard({
         </div>
       )}
 
+      {!isPlanning && error && (
+        <div className="rounded-panel border border-l-[3px] border-l-brand-hover border-border-card bg-white px-2.5 py-2 font-sans text-[11.5px] text-ink-strong">
+          <div className="font-semibold text-brand-hover">⚠ Plan failed</div>
+          <div className="text-muted">{error}</div>
+        </div>
+      )}
+
       {!slot.plan && (
         <div
-          onClick={slot.target && !isPlanning ? onRun : undefined}
+          onClick={isPlanning ? onCancel : slot.target ? onRun : undefined}
           className={`flex items-center justify-center gap-2 rounded-[10px] bg-sidebar-bg px-3 py-2.5 font-sans text-[13px] font-semibold text-white ${
-            slot.target && !isPlanning ? 'cursor-pointer hover:bg-sidebar-hover' : 'cursor-not-allowed opacity-50'
+            slot.target || isPlanning ? 'cursor-pointer hover:bg-sidebar-hover' : 'cursor-not-allowed opacity-50'
           }`}
         >
-          {isPlanning ? '⏳ Running…' : '▶ Run plan'}
+          {isPlanning ? '✕ Cancel' : '▶ Run plan'}
         </div>
       )}
 
@@ -148,12 +159,10 @@ export default function TeamSlotCard({
               {isOpen ? '▾ Hide' : '👁 View'}
             </span>
             <span
-              onClick={!isPlanning ? onRun : undefined}
-              className={`rounded-panel border border-border-card px-2.5 py-1.5 font-sans text-[12px] font-semibold ${
-                isPlanning ? 'cursor-not-allowed opacity-50' : 'cursor-pointer hover:border-primary hover:text-primary-dark'
-              }`}
+              onClick={isPlanning ? onCancel : onRun}
+              className="cursor-pointer rounded-panel border border-border-card px-2.5 py-1.5 font-sans text-[12px] font-semibold hover:border-primary hover:text-primary-dark"
             >
-              {isPlanning ? '⏳ Running…' : '↻ Re-run'}
+              {isPlanning ? '✕ Cancel' : '↻ Re-run'}
             </span>
             <span
               onClick={() => setEditing(true)}

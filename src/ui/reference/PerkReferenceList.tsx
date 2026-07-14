@@ -1,9 +1,11 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import type { Passive } from '../../data/schema';
 import { useRulesetContext } from '../RulesetContext';
 import { useSettings } from '../../store/hooks';
 import { useReferenceContext } from '../ReferenceContext';
-import { PassiveChip } from '../components';
+import { PassiveChip, VirtualizedList, VirtualizedTable, useIsDesktop } from '../components';
+
+const PERK_TABLE_COLUMNS = 'minmax(180px,1fr) 56px minmax(160px,1fr) minmax(200px,1.6fr)';
 
 const searchInputClass =
   'w-full rounded-panel border-[1.5px] border-border-input px-3 py-2 font-mono text-[13px] text-ink outline-none focus:border-primary';
@@ -110,9 +112,11 @@ export default function PerkReferenceList({ dense = false }: { dense?: boolean }
   }, [passives, search, categories, sortBy]);
 
   const isFull = !dense && settings.iconDisplayMode === 'full';
+  const isDesktop = useIsDesktop();
+  const resultsRef = useRef<HTMLDivElement>(null);
 
-  return (
-    <div>
+  const filtersSection = (
+    <>
       <input
         value={search}
         onChange={(e) => setPerksQuery({ ...perksQuery, search: e.target.value })}
@@ -139,15 +143,21 @@ export default function PerkReferenceList({ dense = false }: { dense?: boolean }
           <option value="tier">Sort: Tier (high → low)</option>
         </select>
       </div>
+    </>
+  );
 
-      {results.length === 0 ? (
+  const resultsSection =
+    results.length === 0 ? (
         <div className="rounded-card border-[1.5px] border-dashed border-[#d8cfbf] bg-panel-subtle p-6 text-center font-sans text-[12.5px] text-muted-light">
           No perks match these filters.
         </div>
       ) : dense ? (
-        <div className="flex max-h-[420px] flex-col gap-1.5 overflow-y-auto pr-1">
-          {results.map((p) => (
-            <div key={p.id} className="rounded-panel border border-border-card bg-white p-2">
+        <VirtualizedList
+          items={results}
+          getKey={(p) => p.id}
+          estimateSize={50}
+          renderItem={(p) => (
+            <div className="rounded-panel border border-border-card bg-white p-2">
               <div className="flex flex-wrap items-center gap-1.5">
                 <PassiveChip label={p.displayName} tier={p.tier} description={p.description} />
                 {p.categories.map((c) => (
@@ -157,8 +167,8 @@ export default function PerkReferenceList({ dense = false }: { dense?: boolean }
                 ))}
               </div>
             </div>
-          ))}
-        </div>
+          )}
+        />
       ) : isFull ? (
         <div className="flex flex-wrap gap-2.5">
           {results.map((p) => (
@@ -174,6 +184,33 @@ export default function PerkReferenceList({ dense = false }: { dense?: boolean }
             </div>
           ))}
         </div>
+      ) : isDesktop ? (
+        <VirtualizedTable
+          items={results}
+          getKey={(p) => p.id}
+          columns={PERK_TABLE_COLUMNS}
+          header={['Perk', 'Tier', 'Categories', 'Description']}
+          getScrollElement={() => resultsRef.current}
+          estimateSize={44}
+          renderRow={(p) => [
+            <span key="perk" className="whitespace-nowrap">
+              <PassiveChip label={p.displayName} tier={p.tier} description={p.description} />
+            </span>,
+            <span key="tier" className="text-ink-muted">
+              {p.tier ?? '—'}
+            </span>,
+            <div key="categories" className="flex flex-wrap gap-1">
+              {p.categories.map((c) => (
+                <span key={c} className="rounded-chip bg-panel-header px-1.5 py-0.5 font-mono text-[10px] text-muted-light">
+                  {c}
+                </span>
+              ))}
+            </div>,
+            <span key="description" className="text-[11.5px] text-ink-muted">
+              {p.description ?? ''}
+            </span>,
+          ]}
+        />
       ) : (
         <div className="overflow-x-auto rounded-[13px] border border-border-card bg-white">
           <table className="w-full border-collapse font-mono">
@@ -208,7 +245,23 @@ export default function PerkReferenceList({ dense = false }: { dense?: boolean }
             </tbody>
           </table>
         </div>
-      )}
+      );
+
+  if (dense) {
+    return (
+      <div>
+        {filtersSection}
+        {resultsSection}
+      </div>
+    );
+  }
+
+  return (
+    <div className="md:flex md:h-full md:flex-col">
+      <div className="md:flex-none">{filtersSection}</div>
+      <div ref={resultsRef} className="md:min-h-0 md:flex-1 md:overflow-y-auto">
+        {resultsSection}
+      </div>
     </div>
   );
 }

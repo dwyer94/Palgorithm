@@ -1,5 +1,5 @@
 import type { BreedingRuleset } from '../ruleset/types';
-import { planSpecies, solveContext, resultFromContext } from './speciesPlanner.ts';
+import { planSpecies, solveContext, resultFromContext, injectProbe } from './speciesPlanner.ts';
 import type {
   HubCandidate,
   HubFinderOptions,
@@ -249,46 +249,77 @@ export function findHubs(ruleset: BreedingRuleset, roster: RosterEntry[], option
       acceptedScores.splice(lo, 0, score);
     };
 
+    // Every variable target's injectCost(H → T) used to cost a full `solveContext` over the
+    // augmented (roster + H) graph per candidate — ~260 full Dijkstra solves, the sweep's
+    // dominant cost (PERFORMANCE_REMEDIATION_PLAN.md Phase 3). Non-dedicated variable targets
+    // all read off the SAME base (the un-augmented roster solved once with `injectBaseOptions`),
+    // so `injectProbe` (speciesPlanner.ts) can warm-start from that one shared fixpoint per
+    // candidate instead: seed H's two individuals at cost 0, relax only the subgraph that
+    // actually improves, read every wanted target's deduped combo count, then undo — the same
+    // "Dijkstra never needs to un-finalize a node" trick Phase 2's `anchorProbeCost` used, just
+    // extended to also track `from` so exact (deduped, not raw-`dist`) combo counts come out.
+    // Each dedicated target needs its own base (a different catching-exclusion roster), solved
+    // once here rather than once per candidate.
+    const nonDedicatedVariable = [...variable].filter((T) => !needsDedicated(T));
+    const dedicatedVariable = [...variable].filter((T) => needsDedicated(T));
+    const sharedInjectBase = nonDedicatedVariable.length > 0 ? solveContext(ruleset, roster, injectBaseOptions) : null;
+    const dedicatedInjectBase = new Map<SpeciesId, ReturnType<typeof solveContext>>();
+    for (const T of dedicatedVariable) {
+      const opt: SpeciesPlannerOptions = { ...injectBaseOptions, excludeFromCatching: [...baseExclude, T] };
+      dedicatedInjectBase.set(T, solveContext(ruleset, roster, opt));
+    }
+
     const hubs: HubCandidate[] = [];
     for (const { H, obtainPlan } of obtainable) {
-      const augmented: RosterEntry[] = [...roster, { species: H, gender: 'male' }, { species: H, gender: 'female' }];
-      let sharedInjectCtx: ReturnType<typeof solveContext> | null = null;
-
       // Constant-target injectCosts are known up front, so seed them into the running score;
-      // only variable targets need a per-candidate solve (usually none).
+      // only variable targets need a per-candidate probe.
       let runningScore = obtainPlan.cost + constOffset;
-      let remainingVarFloor = totalVarFloor;
-      const injectCost: NonNullable<HubCandidate['injectCost']> = [];
+      // Optimistic total if EVERY variable target hits its floor — provably can't make the top
+      // list, so skip every probe for this candidate entirely (no graph work at all).
+      if (runningScore + totalVarFloor > worst()) continue;
+
+      const extraSeeds: RosterEntry[] = [{ species: H, gender: 'male' }, { species: H, gender: 'female' }];
+      const combosByTarget = new Map<SpeciesId, number>();
+      // Bail as soon as ANY variable target proves unreachable through this candidate, instead
+      // of unconditionally probing every dedicated target first and only checking feasibility
+      // afterward — with 2+ dedicated (catching-excluded) targets, an already-infeasible
+      // candidate used to still pay for every remaining dedicated target's full relaxation pass
+      // before ever bailing, reintroducing some of the redundant-work pattern Phase 3 aimed to
+      // eliminate (post-Phase-5 code review finding #8). The shared batch call itself can't be
+      // short-circuited mid-call (that's the whole point of probing every non-dedicated target
+      // in one relaxation pass), but checking its results before touching any dedicated probe —
+      // and stopping the dedicated loop at the first infeasible one — still skips real work.
       let viable = true;
+      if (sharedInjectBase) {
+        for (const [T, combos] of injectProbe(sharedInjectBase.graph, sharedInjectBase.state, extraSeeds, nonDedicatedVariable)) {
+          combosByTarget.set(T, combos);
+          if (!isFinite(combos)) viable = false;
+        }
+      }
+      if (viable) {
+        for (const T of dedicatedVariable) {
+          const dedicatedBase = dedicatedInjectBase.get(T)!;
+          const combos = injectProbe(dedicatedBase.graph, dedicatedBase.state, extraSeeds, [T]).get(T)!;
+          combosByTarget.set(T, combos);
+          if (!isFinite(combos)) {
+            viable = false;
+            break;
+          }
+        }
+      }
+      if (!viable) continue; // can't reach every target even with this anchor
+
+      const injectCost: NonNullable<HubCandidate['injectCost']> = [];
       for (const T of targets) {
         if (!variable.has(T)) {
           const combos = base.get(T)!;
           injectCost.push({ target: T, combos, direct: combos === 1 });
           continue;
         }
-        // Optimistic total if this and every not-yet-solved variable target hit its floor.
-        if (runningScore + remainingVarFloor > worst()) {
-          viable = false; // provably can't make the top list — stop solving for this hub
-          break;
-        }
-        let plan;
-        if (needsDedicated(T)) {
-          const opt: SpeciesPlannerOptions = { ...injectBaseOptions, excludeFromCatching: [...baseExclude, T] };
-          plan = resultFromContext(ruleset, augmented, T, solveContext(ruleset, augmented, opt), opt, false);
-        } else {
-          sharedInjectCtx ??= solveContext(ruleset, augmented, injectBaseOptions);
-          plan = resultFromContext(ruleset, augmented, T, sharedInjectCtx, injectBaseOptions, false);
-        }
-        const combos = plan.feasible ? plan.combinationCount : Infinity;
-        if (!isFinite(combos)) {
-          viable = false; // can't reach every target even with this anchor
-          break;
-        }
+        const combos = combosByTarget.get(T)!;
         injectCost.push({ target: T, combos, direct: combos === 1 });
         runningScore += combos;
-        remainingVarFloor -= floorOf(T);
       }
-      if (!viable) continue;
 
       hubs.push({
         species: H,

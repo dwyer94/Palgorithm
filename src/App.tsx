@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { RulesetProvider } from './ui/RulesetContext';
 import { LiveProvider, useLiveContext } from './live/LiveContext';
 import { ReferenceProvider, useReferenceContext } from './ui/ReferenceContext';
@@ -12,10 +12,24 @@ import SavedPlansView from './ui/SavedPlansView';
 import TeamsView from './ui/TeamsView';
 import ForwardCalculatorView from './ui/ForwardCalculatorView';
 import ReverseLookupView from './ui/ReverseLookupView';
-import ReferenceView from './ui/ReferenceView';
-import ReferenceBubbles from './ui/ReferenceBubbles';
-import SettingsView from './ui/SettingsView';
 import { APP_VERSION } from './version';
+
+// Split out of the main bundle (PERFORMANCE_REMEDIATION_PLAN.md Phase 5) — neither view
+// is needed for the app's default landing tab, so they shouldn't cost first-load bytes.
+const ReferenceView = lazy(() => import('./ui/ReferenceView'));
+const SettingsView = lazy(() => import('./ui/SettingsView'));
+// ReferenceBubbles is rendered unconditionally (not gated behind `visited` like the tab
+// views above) — it was still a static import despite Phase 5's stated goal, dragging
+// PalReferenceList/PerkReferenceList and @tanstack/react-virtual into the main chunk for
+// every user regardless of whether they ever open the Reference tab (post-Phase-5 code
+// review finding #5). Lazy-loading it the same way doesn't skip the fetch for a typical
+// session (the bubbles render on first paint), but it does move that weight into its own
+// cacheable chunk instead of index.js — the actual thing Phase 5's numbers were measuring.
+const ReferenceBubbles = lazy(() => import('./ui/ReferenceBubbles'));
+
+function ViewLoadingFallback() {
+  return <div className="p-5 font-sans text-[13px] text-muted">Loading…</div>;
+}
 
 /**
  * App shell (design handoff README: sidebar nav replaces the flat tab row). Two-pane views
@@ -93,12 +107,16 @@ function AppShell() {
           const View = VIEWS[key];
           return (
             <div key={key} className={key === active ? 'contents' : 'hidden'}>
-              <View />
+              <Suspense fallback={<ViewLoadingFallback />}>
+                <View />
+              </Suspense>
             </div>
           );
         })}
       </div>
-      <ReferenceBubbles hidden={active === 'reference'} />
+      <Suspense fallback={null}>
+        <ReferenceBubbles hidden={active === 'reference'} />
+      </Suspense>
       <div className="pointer-events-none fixed bottom-1 right-1.5 select-none text-[10px] text-gray-400/70">
         v{APP_VERSION}
       </div>

@@ -1,5 +1,6 @@
-import { useMemo, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
+import { useVirtualizer } from '@tanstack/react-virtual';
 import { ELEMENTS } from '../data/schema';
 import type { Element, Gender, Species, Passive } from '../data/schema';
 
@@ -436,6 +437,163 @@ export function ComboCount({
       <div className="pb-1.5">
         <div className="text-[12px] text-muted">{caption}</div>
         {meta && <div className="font-mono text-[12px] font-medium text-muted">{meta}</div>}
+      </div>
+    </div>
+  );
+}
+
+/** Virtualizes a fixed-height scrollable list of variable-height rows (`@tanstack/react-virtual`,
+ * measuring actual DOM height per row rather than assuming a fixed one). Built for the bubble
+ * reference panels' `max-h-[420px]` dense lists (PERFORMANCE_REMEDIATION_PLAN.md Phase 4) — only
+ * ~15-20 rows are ever mounted regardless of how many `items` there are. */
+export function VirtualizedList<T>({
+  items,
+  getKey,
+  renderItem,
+  estimateSize = 84,
+  gap = 6,
+  className = 'max-h-[420px] overflow-y-auto pr-1',
+}: {
+  items: T[];
+  getKey: (item: T, index: number) => string | number;
+  renderItem: (item: T, index: number) => ReactNode;
+  estimateSize?: number;
+  gap?: number;
+  className?: string;
+}) {
+  const parentRef = useRef<HTMLDivElement>(null);
+  const virtualizer = useVirtualizer({
+    count: items.length,
+    getScrollElement: () => parentRef.current,
+    estimateSize: () => estimateSize,
+    overscan: 8,
+  });
+
+  return (
+    <div ref={parentRef} className={className}>
+      <div style={{ height: virtualizer.getTotalSize(), position: 'relative', width: '100%' }}>
+        {virtualizer.getVirtualItems().map((virtualRow) => {
+          const item = items[virtualRow.index];
+          if (item === undefined) return null;
+          return (
+            <div
+              key={getKey(item, virtualRow.index)}
+              data-index={virtualRow.index}
+              ref={virtualizer.measureElement}
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                transform: `translateY(${virtualRow.start}px)`,
+                paddingBottom: gap,
+              }}
+            >
+              {renderItem(item, virtualRow.index)}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+/** True at >= Tailwind's `md` breakpoint (768px). Full-screen Reference results only pin
+ * filters/virtualize below `md:`-prefixed classes on the same elements, so this must stay in
+ * lockstep with those classes rather than drift as a separately-tuned number
+ * (PERFORMANCE_REMEDIATION_PLAN.md Phase 4). */
+export function useIsDesktop(): boolean {
+  const query = '(min-width: 768px)';
+  const [isDesktop, setIsDesktop] = useState(() => window.matchMedia(query).matches);
+  useEffect(() => {
+    const mq = window.matchMedia(query);
+    const onChange = () => setIsDesktop(mq.matches);
+    mq.addEventListener('change', onChange);
+    return () => mq.removeEventListener('change', onChange);
+  }, []);
+  return isDesktop;
+}
+
+/** Virtualizes a `<table>`-equivalent (CSS grid standing in for `<table>`, since absolutely
+ * positioning virtualized rows for the windowing trick isn't compatible with real table layout)
+ * against an ancestor's scroll container rather than owning one itself — pass the bounded,
+ * `overflow-y-auto` results panel from the caller via `getScrollElement`. Sticky-positions the
+ * header row within that same ancestor. Desktop-only caller (see `useIsDesktop`); mobile keeps
+ * the plain unvirtualized `<table>` (PERFORMANCE_REMEDIATION_PLAN.md Phase 4). */
+export function VirtualizedTable<T>({
+  items,
+  getKey,
+  columns,
+  header,
+  renderRow,
+  getScrollElement,
+  estimateSize = 44,
+}: {
+  items: T[];
+  getKey: (item: T, index: number) => string | number;
+  columns: string;
+  header: ReactNode[];
+  renderRow: (item: T, index: number) => ReactNode[];
+  getScrollElement: () => HTMLElement | null;
+  estimateSize?: number;
+}) {
+  const virtualizer = useVirtualizer({
+    count: items.length,
+    getScrollElement,
+    estimateSize: () => estimateSize,
+    overscan: 10,
+  });
+
+  return (
+    // A CSS-grid stand-in for `<table>` (needed for the absolute-positioning virtualization
+    // trick, incompatible with real table layout) — `role="table"`/"row"/"columnheader"/"cell"
+    // give it the same accessibility-tree shape a real `<table>` gets for free, so desktop
+    // screen-reader users still get row/column announcement here (post-Phase-5 code review
+    // finding #4; mobile's unvirtualized `<table>` never needed this).
+    <div className="rounded-[13px] border border-border-card bg-white font-mono" role="table">
+      <div
+        className="sticky top-0 z-10 grid border-b border-panel-header bg-white"
+        style={{ gridTemplateColumns: columns }}
+        role="row"
+      >
+        {header.map((h, i) => (
+          <div
+            key={i}
+            className="whitespace-nowrap px-3 py-2.5 font-sans text-[10px] font-semibold uppercase tracking-wide text-muted-light"
+            role="columnheader"
+          >
+            {h}
+          </div>
+        ))}
+      </div>
+      <div style={{ height: virtualizer.getTotalSize(), position: 'relative', width: '100%' }}>
+        {virtualizer.getVirtualItems().map((virtualRow) => {
+          const item = items[virtualRow.index];
+          if (item === undefined) return null;
+          return (
+            <div
+              key={getKey(item, virtualRow.index)}
+              data-index={virtualRow.index}
+              ref={virtualizer.measureElement}
+              className="grid border-t border-panel-header"
+              role="row"
+              style={{
+                gridTemplateColumns: columns,
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                transform: `translateY(${virtualRow.start}px)`,
+              }}
+            >
+              {renderRow(item, virtualRow.index).map((cell, i) => (
+                <div key={i} className="min-w-0 px-3 py-2.5" role="cell">
+                  {cell}
+                </div>
+              ))}
+            </div>
+          );
+        })}
       </div>
     </div>
   );

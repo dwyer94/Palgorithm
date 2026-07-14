@@ -122,6 +122,52 @@ describe('hubFinder: findHubs — fixed-target mode', () => {
   });
 });
 
+describe('hubFinder: findHubs — injectProbe multi-hop dedup (post-Phase-5 code review finding #3)', () => {
+  // HUB is NOT a direct parent of either target here — it only unlocks them through a
+  // shared multi-step intermediate (HUB+X->MID, then MID+S1->TargetA / MID+S2->TargetB).
+  // Every other findHubs fixture in this file only exercises the trivial direct-parent
+  // (combos: 1) shape; this one exercises injectProbe's own riskiest claim (its doc
+  // comment in speciesPlanner.ts): deduping a shared multi-hop intermediate's combo count
+  // via `reconstruct()` on mutated, warm-started state.
+  const ruleset = createCombiRank06(
+    synthetic(
+      [
+        { id: 'X1', rank: 1 },
+        { id: 'X2', rank: 2 },
+        { id: 'HUB', rank: 5, wildCatchable: false },
+        { id: 'X', rank: 6 },
+        { id: 'MID', rank: 7, wildCatchable: false },
+        { id: 'S1', rank: 8 },
+        { id: 'S2', rank: 9 },
+        { id: 'TargetA', rank: 10, wildCatchable: false },
+        { id: 'TargetB', rank: 11, wildCatchable: false },
+      ],
+      [
+        { parents: ['X1', 'X2'], child: 'HUB', genderRule: null },
+        { parents: ['HUB', 'X'], child: 'MID', genderRule: null },
+        { parents: ['MID', 'S1'], child: 'TargetA', genderRule: null },
+        { parents: ['MID', 'S2'], child: 'TargetB', genderRule: null },
+      ],
+    ),
+  );
+  // HUB itself isn't owned — the roster can only reach it (and thus MID/the targets) by
+  // paying for the (X1,X2)->HUB combo, which is exactly the combo injectProbe's "seed HUB
+  // at cost 0" trick should shave off each target's reconstructed path.
+  const roster: RosterEntry[] = ownBoth('X1', 'X2', 'X', 'S1', 'S2');
+
+  it('reports the deduped 2-combo multi-hop path (HUB->MID->Target) for both targets, not the base 3-combo path or an overcount', () => {
+    const result = findHubs(ruleset, roster, { targets: ['TargetA', 'TargetB'], maxHubs: 10 });
+    const hub = result.hubs.find((h) => h.species === 'HUB');
+    expect(hub).toBeDefined();
+    expect(hub!.injectCost).toEqual([
+      { target: 'TargetA', combos: 2, direct: false },
+      { target: 'TargetB', combos: 2, direct: false },
+    ]);
+    expect(hub!.obtainCost).toBe(1); // (X1,X2)->HUB
+    expect(hub!.score).toBe(5); // obtainCost(1) + injectCost(2) + injectCost(2)
+  });
+});
+
 describe('hubFinder: findHubs — general-reach mode (no fixed targets)', () => {
   // BROAD can directly parent two other species; NARROW only one. With no target list,
   // ranking should favor structural breadth, matching "what's a good general-purpose
