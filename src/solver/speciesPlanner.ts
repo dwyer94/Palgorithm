@@ -104,8 +104,19 @@ function buildGraph(ruleset: BreedingRuleset, ignoreGender: boolean): Graph {
     }
   };
 
+  // Special-combo children (e.g. Frostallion Noct from Frostallion x Helzephyr) are
+  // deliberately `standardBreedable: false` in the dataset — the formula can't produce them,
+  // only their exact override pair can (combirank.ts's `specialChildIds`). Gating this loop on
+  // `standardBreedable` alone would silently drop every special-combo-only species from the
+  // graph, regardless of what `reverse()` says, making them unreachable no matter the roster.
+  const specialChildIds = new Set<string>();
+  for (const c of ruleset.specialCombos) {
+    specialChildIds.add(c.child);
+    if (c.genderRule) specialChildIds.add(c.genderRule.child);
+  }
+
   for (const child of Object.keys(ruleset.rankTable)) {
-    if (!ruleset.reachability.standardBreedable.has(child)) continue;
+    if (!ruleset.reachability.standardBreedable.has(child) && !specialChildIds.has(child)) continue;
     const childRatio = ruleset.genderRatio(child);
     const childGenders: Gender[] = (['male', 'female'] as Gender[]).filter(
       (g) => childRatio[g] > 0,
