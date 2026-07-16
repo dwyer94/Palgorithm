@@ -141,7 +141,13 @@ export type GuaranteedCarrierOutcome =
  * `requiredPassives` entry needs no special-casing here: `findForcedCarrierRoute`'s masked
  * search seeds it at cost 0 with the full mask already set, so it naturally comes back
  * `status: 'routed'` with `combinationDelta: 0` — "you already own an exact match" falls out of
- * the same search, it isn't a separate code path. */
+ * the same search, it isn't a separate code path.
+ *
+ * `excludeDirectOwnership` (default false) is `runSingleTargetPlan`'s "next-best-when-owned"
+ * mode: passed straight through to `findForcedCarrierRoute` (see its doc comment) so "you
+ * already own an exact match" is never the reported route there — it never touches `roster`, so
+ * an owned `target`-species individual remains fully available as breeding stock (e.g. a
+ * self-cross with a second owned individual). */
 export function computeGuaranteedCarrierOutcome(
   ruleset: BreedingRuleset,
   roster: RosterEntry[],
@@ -149,6 +155,7 @@ export function computeGuaranteedCarrierOutcome(
   requiredPassives: PassiveId[],
   baselineCombinationCount: number,
   options: SpeciesPlannerOptions = {},
+  excludeDirectOwnership = false,
 ): GuaranteedCarrierOutcome {
   // Clamp to the ruleset's slot cap before the (1-4 bounded) masked search — the desired-perk
   // picker is advisory and can hand us more than fit in a Pal's slots; `findForcedCarrierRoute`
@@ -159,7 +166,7 @@ export function computeGuaranteedCarrierOutcome(
   if (desired.length === 0) return { status: 'not-requested' };
   if (!desired.some((p) => roster.some((r) => r.passives?.includes(p)))) return { status: 'no-owner' };
 
-  const plan = findForcedCarrierRoute(ruleset, roster, desired, target, options);
+  const plan = findForcedCarrierRoute(ruleset, roster, desired, target, options, excludeDirectOwnership);
   if (!plan.feasible) {
     return {
       status: 'infeasible',

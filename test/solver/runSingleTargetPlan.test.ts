@@ -214,3 +214,80 @@ describe('runSingleTargetPlan: next-best-when-owned (ownership never dead-ends t
     expect(() => runSingleTargetPlan(ruleset, roster, 'TARGET', ['P1', 'P2', 'P3', 'P4', 'P5'], {})).not.toThrow();
   });
 });
+
+/**
+ * Regression (live report, 2026-07-16): a user owned two individuals of a self-cross-capable
+ * TARGET species, each carrying one of two desired passives, plus a broad roster of unrelated
+ * species (some of which also happened to carry the same two passives). `nextBestWhenOwned`
+ * used to solve against `roster` with every owned TARGET individual filtered out entirely — so
+ * it never considered crossing the two owned TARGETs with each other, and instead built a
+ * needlessly convoluted plan through the unrelated decoy carriers. Fixed by
+ * `planSpeciesForAnotherCopy`/`excludeDirectOwnership`, which excludes only the trivial "you
+ * already hold the finished answer" shortcut, never the roster itself.
+ */
+describe('runSingleTargetPlan: next-best-when-owned must not discard the target species as breeding stock', () => {
+  // TARGET self-crosses into itself in 1 combo (its own cheapest source). A DECOY_A/DECOY_B
+  // route also reaches TARGET, but only via an extra MID/FODDER generation (2 combos) — strictly
+  // more expensive, so a correct solver must prefer the direct self-cross whenever it's actually
+  // usable (opposite genders), and only fall back to the decoy route when it truly isn't
+  // (same-gender TARGETs, which can never be crossed with each other).
+  const dataset = synthetic(
+    [
+      { id: 'TARGET', rank: 1, wildCatchable: false },
+      { id: 'DECOY_A', rank: 1, standardBreedable: false },
+      { id: 'DECOY_B', rank: 2, standardBreedable: false },
+      { id: 'MID', rank: 4, wildCatchable: false },
+      { id: 'FODDER', rank: 6, standardBreedable: false },
+    ],
+    [
+      { parents: ['TARGET', 'TARGET'], child: 'TARGET', genderRule: null },
+      { parents: ['DECOY_A', 'DECOY_B'], child: 'MID', genderRule: null },
+      { parents: ['MID', 'FODDER'], child: 'TARGET', genderRule: null },
+    ],
+  );
+  const ruleset = createCombiRank06(dataset);
+
+  it('opposite-gender owned TARGETs: crosses them directly (1 combo), not through the decoys', () => {
+    const roster: RosterEntry[] = [
+      { species: 'TARGET', gender: 'male', passives: ['P1'] },
+      { species: 'TARGET', gender: 'female', passives: ['P2'] },
+      { species: 'DECOY_A', gender: 'male', passives: ['P1'] },
+      { species: 'DECOY_B', gender: 'female', passives: ['P2'] },
+      { species: 'FODDER', gender: 'male' },
+      { species: 'FODDER', gender: 'female' },
+    ];
+    const run = runSingleTargetPlan(ruleset, roster, 'TARGET', ['P1', 'P2'], {});
+    expect(run.result.combinationCount).toBe(0); // owns one already
+    const next = run.nextBestWhenOwned;
+    expect(next).toBeDefined();
+    expect(next!.result.combinationCount).toBe(1);
+    if (next!.guaranteedCarrierOutcome.status !== 'routed') throw new Error('expected routed');
+    const alt = next!.guaranteedCarrierOutcome.alt;
+    expect(alt.fullyRouted).toBe(true);
+    expect(alt.plan.combinationCount).toBe(1);
+    // Must use the two real TARGETs as the final cross, not the strictly-more-expensive
+    // DECOY_A/DECOY_B/MID/FODDER route.
+    expect(new Set(alt.sourceIndividuals.map((s) => s.species))).toEqual(new Set(['TARGET']));
+    expect(new Set([alt.plan.steps[0]!.parentA.species, alt.plan.steps[0]!.parentB.species])).toEqual(new Set(['TARGET']));
+  });
+
+  it('same-gender owned TARGETs (cannot be crossed with each other): still finds the real 2-combo decoy route, not a false infeasible', () => {
+    const roster: RosterEntry[] = [
+      { species: 'TARGET', gender: 'male', passives: ['P1'] },
+      { species: 'TARGET', gender: 'male', passives: ['P2'] },
+      { species: 'DECOY_A', gender: 'male', passives: ['P1'] },
+      { species: 'DECOY_B', gender: 'female', passives: ['P2'] },
+      { species: 'FODDER', gender: 'male' },
+      { species: 'FODDER', gender: 'female' },
+    ];
+    const run = runSingleTargetPlan(ruleset, roster, 'TARGET', ['P1', 'P2'], {});
+    const next = run.nextBestWhenOwned!;
+    expect(next.result.feasible).toBe(true);
+    if (next.guaranteedCarrierOutcome.status !== 'routed') throw new Error('expected routed');
+    expect(next.guaranteedCarrierOutcome.alt.fullyRouted).toBe(true);
+    // Same-gender TARGETs genuinely can't be crossed with each other, so the honest cheapest
+    // route here is the DECOY_A/DECOY_B/MID/FODDER chain — the important thing is it's found
+    // and reported (2 combos), not silently blocked or reported as infeasible.
+    expect(next.guaranteedCarrierOutcome.alt.plan.combinationCount).toBe(2);
+  });
+});

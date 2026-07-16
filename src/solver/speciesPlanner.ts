@@ -345,11 +345,22 @@ function solveMasked(
  * spec §7.3 "partial routing" behavior: if all `requiredPassives` can't be jointly routed,
  * report the largest subset that can. Deliberately excludes mask 0 (mirrors the old code only
  * ever checking the tainted node, never the clean one) so "feasible" keeps meaning "at least
- * one of the desired passives got routed," not "the plain baseline plan exists." */
+ * one of the desired passives got routed," not "the plain baseline plan exists."
+ *
+ * `excludeDirectOwnership` (the "next-best-when-owned" mode, see `planSpeciesForAnotherCopy`'s
+ * doc comment for the full rationale) skips any `(mask, gender)` candidate whose `from` source
+ * is a bare roster individual (`kind: 'owned'`) — i.e. some single owned Pal already carries
+ * exactly that mask's passives on the target species itself, which "already own it" isn't a
+ * real *new* route. This can only ever exclude a genuine single-individual exact match (a combo
+ * output is never cost-tagged `'owned'`, and a mask can only be seeded `'owned'` by one specific
+ * roster entry's own passives — see `passiveMask`), so it never discards a real bred/caught
+ * route, only a trivial "you're already holding one" shortcut. */
 function bestReachableMask(
   dist: Map<TNode, number>,
+  from: Map<TNode, TNodeSource>,
   target: SpeciesId,
   k: number,
+  excludeDirectOwnership: boolean,
 ): { mask: number; gender: Gender; cost: number } | null {
   const fullMask = (1 << k) - 1;
   let bestPopcount = 0;
@@ -359,7 +370,9 @@ function bestReachableMask(
   for (let mask = 1; mask <= fullMask; mask++) {
     const pc = popcount(mask);
     for (const gender of ['male', 'female'] as Gender[]) {
-      const cost = dist.get(tnode(target, gender, mask)) ?? Infinity;
+      const tn = tnode(target, gender, mask);
+      if (excludeDirectOwnership && from.get(tn)?.kind === 'owned') continue;
+      const cost = dist.get(tn) ?? Infinity;
       if (!isFinite(cost)) continue;
       if (pc > bestPopcount || (pc === bestPopcount && cost < bestCost)) {
         bestPopcount = pc;
@@ -447,13 +460,20 @@ function reconstructMasked(
  * a route exists; when the full set can't be jointly reached, the result carries whichever
  * largest subset can be (`routedPassives`/`fullyRouted`, spec's "partial routing"). `fullRoster`
  * supplies every seed — carriers and ordinary fodder alike, distinguished only by their
- * `passives` mask, not by a caller-supplied carrier list. */
+ * `passives` mask, not by a caller-supplied carrier list.
+ *
+ * `excludeDirectOwnership` (default false) is the "next-best-when-owned" mode: skip any
+ * candidate mask that's satisfied by a single already-owned target-species individual (see
+ * `bestReachableMask`'s doc comment). It never removes anything from `fullRoster` — an owned
+ * target-species individual is still fully eligible as a bred PARENT (e.g. a self-cross), just
+ * not as a free "you already hold the finished answer" shortcut. */
 export function findForcedCarrierRoute(
   ruleset: BreedingRuleset,
   fullRoster: RosterEntry[],
   requiredPassives: PassiveId[],
   target: SpeciesId,
   options: SpeciesPlannerOptions = {},
+  excludeDirectOwnership = false,
 ): ForcedCarrierResult {
   const opts = normalizeCoreOptions(options);
   const desired = [...new Set(requiredPassives)];
@@ -463,7 +483,7 @@ export function findForcedCarrierRoute(
   }
 
   const { dist, from, leafEntryByTNode } = solveMasked(ruleset, fullRoster, desired, opts);
-  const best = bestReachableMask(dist, target, k);
+  const best = bestReachableMask(dist, from, target, k, excludeDirectOwnership);
   if (!best) {
     return {
       target,
@@ -1158,4 +1178,93 @@ export function planSpecies(
 ): SpeciesPlanResult {
   const ctx = solveContext(ruleset, roster, options);
   return resultFromContext(ruleset, roster, target, ctx, options, true);
+}
+
+/** The cheapest real bred-or-caught route to `target`'s own `(species, gender)` node, ignoring
+ * whatever `dist` already has recorded there — used only to answer "if owning one didn't count,
+ * what's the next cheapest way?" `dist`/`graph` are otherwise a normal, fully-solved fixpoint
+ * over the UNMODIFIED roster, so every input this scans (including other owned individuals of
+ * `target`'s own species feeding a self-cross, e.g. a second individual of a different gender)
+ * is still fully available — only the direct "this exact node was free" answer is set aside. */
+function cheapestNonOwnedNodeCost(
+  graph: Graph,
+  dist: Map<Node, number>,
+  targetNode: Node,
+  ruleset: BreedingRuleset,
+  opts: CoreOptions,
+): { cost: number; source: NodeSource } | null {
+  let best: { cost: number; source: NodeSource } | null = null;
+  for (const edge of graph.edges) {
+    if (edge.output !== targetNode) continue;
+    const [inA, inB] = edge.inputs;
+    const costA = dist.get(inA) ?? Infinity;
+    const costB = dist.get(inB) ?? Infinity;
+    if (!isFinite(costA) || !isFinite(costB)) continue;
+    const cost = combinationCost(costA, costB);
+    if (!best || cost < best.cost) best = { cost, source: { kind: 'combo', edge } };
+  }
+  const { species, gender } = parseNode(targetNode);
+  if (opts.allowCatching && !opts.excludeFromCatching.has(species) && ruleset.reachability.wildCatchable.has(species)) {
+    const ratio = ruleset.genderRatio(species);
+    if (ratio[gender] > 0 && (!best || opts.catchCost < best.cost)) best = { cost: opts.catchCost, source: { kind: 'catch' } };
+  }
+  return best;
+}
+
+/** Like `planSpecies`, but "you already own one" is never treated as the answer — the "next
+ * best" half of `runSingleTargetPlan`'s owned-outright handling (spec §7.1/§7.3). Session
+ * 2026-07-16 replaced the previous approach (re-solving against `roster` with every owned
+ * `target`-species individual filtered out entirely) after a live report: filtering the roster
+ * doesn't just block the trivial "you own it" shortcut, it also throws away those individuals
+ * as legitimate breeding PARENTS — which silently broke the common case of two owned
+ * individuals of the target species (each carrying a different desired passive, or just two
+ * plain ones of opposite gender) that should simply be crossed with each other. That forced the
+ * solver into needlessly convoluted routes through unrelated species whenever the target
+ * species can (as most species can) produce itself.
+ *
+ * This solves the FULL, unmodified roster exactly like `planSpecies`, then — only if `target`'s
+ * own node(s) were reached "for free" by direct ownership — overrides just those node(s) with
+ * the cheapest route that comes from an actual combo or catch (`cheapestNonOwnedNodeCost`),
+ * computed from the very same solved `dist` map (so an owned `target`-species individual of the
+ * other gender is still right there as a valid self-cross input, at its real cost of 0). Both
+ * overrides are computed from the pre-override snapshot before either is applied, so resolving
+ * one gender's replacement can't be corrupted by the other's already having been overwritten.
+ * The context is discarded after this call, so the restore-before-returning below is pure
+ * hygiene, not required for correctness here — kept anyway to match the codebase's existing
+ * shared-context-safe pattern (`anchorProbeCost`, `injectProbe`, the final-cross re-pick above). */
+export function planSpeciesForAnotherCopy(
+  ruleset: BreedingRuleset,
+  roster: RosterEntry[],
+  target: SpeciesId,
+  options: SpeciesPlannerOptions = {},
+): SpeciesPlanResult {
+  const ctx = solveContext(ruleset, roster, options);
+  const { graph, state, opts } = ctx;
+
+  const targetNodes = (['male', 'female'] as Gender[]).map((g) => node(target, g));
+  const ownedNodes = targetNodes.filter((tn) => state.from.get(tn)?.kind === 'owned');
+  const replacements = new Map(ownedNodes.map((tn) => [tn, cheapestNonOwnedNodeCost(graph, state.dist, tn, ruleset, opts)]));
+
+  const prior = new Map<Node, { dist: number | undefined; from: NodeSource | undefined }>();
+  for (const [tn, repl] of replacements) {
+    prior.set(tn, { dist: state.dist.get(tn), from: state.from.get(tn) });
+    if (repl) {
+      state.dist.set(tn, repl.cost);
+      state.from.set(tn, repl.source);
+    } else {
+      state.dist.delete(tn);
+      state.from.delete(tn);
+    }
+  }
+
+  try {
+    return resultFromContext(ruleset, roster, target, ctx, options, true);
+  } finally {
+    for (const [tn, p] of prior) {
+      if (p.dist === undefined) state.dist.delete(tn);
+      else state.dist.set(tn, p.dist);
+      if (p.from === undefined) state.from.delete(tn);
+      else state.from.set(tn, p.from);
+    }
+  }
 }
