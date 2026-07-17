@@ -4,7 +4,8 @@ import { newId } from '../store/localStore';
 import { computeOwnedUnassignedPassives } from '../solver/runSingleTargetPlan';
 import { solverWorker } from '../solver/worker/client';
 import type { GuaranteedCarrierOutcome } from '../solver/passivePlanner';
-import type { SpeciesPlanResult } from '../solver/types';
+import type { ProfileSpan } from '../solver/profiler';
+import type { RosterEntry, SpeciesPlannerOptions, SpeciesPlanResult } from '../solver/types';
 import type { NextBestWhenOwnedSnapshot } from '../store/types';
 import { useLiveContext } from '../live/LiveContext';
 import { buildRosterForSolver } from '../live/rosterMerge';
@@ -32,6 +33,17 @@ export default function SingleTargetView() {
   const [nextBestWhenOwned, setNextBestWhenOwned] = useState<NextBestWhenOwnedSnapshot | undefined>(undefined);
   const [saved, setSavedFlash] = useState(false);
   const task = useSolverTask();
+  // Captured at the moment `runPlan` actually fires, not re-read at export time — so a debug
+  // bundle always matches the exact call that produced `result`, even if the user tweaks the
+  // target/roster afterward but before clicking Debug Export.
+  const [lastRunInputs, setLastRunInputs] = useState<{
+    target: string;
+    desiredPassives: string[];
+    ignoreGender: boolean;
+    options: SpeciesPlannerOptions;
+    roster: RosterEntry[];
+  } | null>(null);
+  const [lastProfile, setLastProfile] = useState<ProfileSpan[] | null>(null);
 
   const rosterForSolver = useMemo(
     () => buildRosterForSolver(roster, live.selectedPlayerIds, live.palsByPlayer),
@@ -58,6 +70,7 @@ export default function SingleTargetView() {
   const runPlan = () => {
     if (!target) return;
     const speciesOptions = { catchCost: settings.catchCost, allowCatching: settings.allowCatching, ignoreGender };
+    setLastRunInputs({ target, desiredPassives, ignoreGender, options: speciesOptions, roster: rosterForSolver });
     task.run(() => solverWorker.runSingleTarget(rosterForSolver, target, desiredPassives, speciesOptions), {
       onSuccess: ({ result: plan, guaranteedCarrierOutcome: outcome, nextBestWhenOwned: nextBest }) => {
         setResult(plan);
@@ -72,6 +85,7 @@ export default function SingleTargetView() {
               }
             : undefined,
         );
+        setLastProfile(solverWorker.getLastSingleTargetProfile());
       },
       // Never leave the view stuck on "Solving…" — surface the failure so the user (and we)
       // can see why no plan came back, rather than an infinite spinner.
@@ -79,6 +93,7 @@ export default function SingleTargetView() {
         setResult(null);
         setNextBestWhenOwned(undefined);
         setGuaranteedCarrierOutcome({ status: 'not-requested' });
+        setLastProfile(null);
       },
     });
   };
@@ -113,6 +128,29 @@ export default function SingleTargetView() {
     const a = document.createElement('a');
     a.href = url;
     a.download = 'palgorithm-single-plan.json';
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  /** Full repro bundle for "something looked wrong" reports: the exact inputs that produced
+   * `result` (target/perks/options/roster — `lastRunInputs`, captured at the moment `runPlan`
+   * fired, not re-read now), the output, and the profiler trace for that run. `roster` here is
+   * already the solver-facing shape (`buildRosterForSolver` output: `{species, gender,
+   * passives}` only) — no player names/SteamIDs, which live solely in `settings.live` and
+   * `live.players`, neither of which this touches. */
+  const debugExport = () => {
+    if (!result || !lastRunInputs) return;
+    const bundle = {
+      exportedAt: new Date().toISOString(),
+      inputs: lastRunInputs,
+      output: { result, guaranteedCarrierOutcome, ownedUnassignedPassives, nextBestWhenOwned },
+      profile: lastProfile,
+    };
+    const blob = new Blob([JSON.stringify(bundle, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `palgorithm-debug-${Date.now()}.json`;
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -235,6 +273,13 @@ export default function SingleTargetView() {
                     className="flex cursor-pointer items-center gap-1.5 rounded-panel border border-border-card bg-white px-3.5 py-2.5 font-sans text-[13px] font-semibold text-[#6b655c] hover:border-muted-lighter"
                   >
                     ⤓ Export
+                  </div>
+                  <div
+                    onClick={debugExport}
+                    title="Download inputs, roster, timing, and output for troubleshooting"
+                    className="flex cursor-pointer items-center gap-1.5 rounded-panel border border-border-card bg-white px-3.5 py-2.5 font-sans text-[13px] font-semibold text-[#6b655c] hover:border-muted-lighter"
+                  >
+                    🐞 Debug Export
                   </div>
                 </div>
               </div>

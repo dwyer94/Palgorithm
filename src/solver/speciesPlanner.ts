@@ -14,6 +14,7 @@ import type {
   SpeciesPlanStep,
 } from './types';
 import { MinHeap } from './minHeap';
+import { time } from './profiler';
 
 /**
  * speciesPlanner (spec §7.1) — minimum-combination derivation over the species AND/OR
@@ -178,7 +179,7 @@ function getGraph(ruleset: BreedingRuleset, ignoreGender: boolean): Graph {
   }
   let graph = byToggle.get(ignoreGender);
   if (!graph) {
-    graph = buildGraph(ruleset, ignoreGender);
+    graph = time('buildGraph', () => buildGraph(ruleset, ignoreGender));
     byToggle.set(ignoreGender, graph);
   }
   return graph;
@@ -482,7 +483,7 @@ export function findForcedCarrierRoute(
     throw new Error(`findForcedCarrierRoute: requiredPassives must have 1-4 entries, got ${k}`);
   }
 
-  const { dist, from, leafEntryByTNode } = solveMasked(ruleset, fullRoster, desired, opts);
+  const { dist, from, leafEntryByTNode } = time('solveMasked', () => solveMasked(ruleset, fullRoster, desired, opts));
   const best = bestReachableMask(dist, from, target, k, excludeDirectOwnership);
   if (!best) {
     return {
@@ -498,7 +499,9 @@ export function findForcedCarrierRoute(
     };
   }
 
-  const { steps, catches, carrierLeaves } = reconstructMasked(from, leafEntryByTNode, tnode(target, best.gender, best.mask), desired);
+  const { steps, catches, carrierLeaves } = time('reconstructMasked', () =>
+    reconstructMasked(from, leafEntryByTNode, tnode(target, best.gender, best.mask), desired),
+  );
   return {
     target,
     feasible: true,
@@ -1008,7 +1011,7 @@ export interface SolveContext {
 export function solveContext(ruleset: BreedingRuleset, roster: RosterEntry[], options: SpeciesPlannerOptions = {}): SolveContext {
   const opts = normalizeCoreOptions(options);
   const graph = getGraph(ruleset, opts.ignoreGender);
-  return { graph, state: solve(graph, roster, ruleset, opts), opts };
+  return { graph, state: time('solve', () => solve(graph, roster, ruleset, opts)), opts };
 }
 
 /**
@@ -1044,7 +1047,7 @@ export function resultFromContext(
         }),
       );
       for (const r of roster) alreadyReachable.add(r.species);
-      anchorHints = findAnchorHints(ruleset, target, opts, alreadyReachable, state);
+      anchorHints = time('anchorHints', () => findAnchorHints(ruleset, target, opts, alreadyReachable, state));
     }
     return {
       target,
@@ -1090,16 +1093,24 @@ export function resultFromContext(
   // there.
   let restoreFrom: (() => void) | null = null;
   if (desired.length > 0 && effectiveCost > 0) {
-    const candidates = tiedFinalEdges(graph, state, targetNode, effectiveCost);
-    finalSelection = pickBestFinalSelection(candidates, state, rosterByNode(roster), ruleset, desired);
-    if (finalSelection) {
+    // Assign the outer `let`s from the callback's return value rather than mutating them from
+    // inside the closure — TS's control-flow narrowing doesn't trace assignments made inside a
+    // callback passed to `time()` back onto the enclosing scope, so a direct assignment here
+    // keeps `finalSelection`/`restoreFrom` correctly narrowed below instead of falling back to
+    // their (stale, pre-call) declared type.
+    const picked = time('finalCrossRepick', () => {
+      const candidates = tiedFinalEdges(graph, state, targetNode, effectiveCost);
+      const selection = pickBestFinalSelection(candidates, state, rosterByNode(roster), ruleset, desired);
+      if (!selection) return { selection: null, restore: null };
       const prev = state.from.get(targetNode);
-      state.from.set(targetNode, { kind: 'combo', edge: finalSelection.edge });
-      restoreFrom = () => (prev ? state.from.set(targetNode, prev) : state.from.delete(targetNode));
-    }
+      state.from.set(targetNode, { kind: 'combo', edge: selection.edge });
+      return { selection, restore: () => (prev ? state.from.set(targetNode, prev) : state.from.delete(targetNode)) };
+    });
+    finalSelection = picked.selection;
+    restoreFrom = picked.restore;
   }
 
-  const { steps, catches } = reconstruct(state, targetNode);
+  const { steps, catches } = time('reconstruct', () => reconstruct(state, targetNode));
   restoreFrom?.();
 
   let passivePlan: PassivePlanResult | undefined;

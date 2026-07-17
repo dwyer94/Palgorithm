@@ -1,5 +1,6 @@
 import type { BreedingRuleset } from '../ruleset/types';
 import { findForcedCarrierRoute } from './speciesPlanner.ts';
+import { time } from './profiler';
 import type {
   ForcedCarrierResult,
   PassiveId,
@@ -166,7 +167,9 @@ export function computeGuaranteedCarrierOutcome(
   if (desired.length === 0) return { status: 'not-requested' };
   if (!desired.some((p) => roster.some((r) => r.passives?.includes(p)))) return { status: 'no-owner' };
 
-  const plan = findForcedCarrierRoute(ruleset, roster, desired, target, options, excludeDirectOwnership);
+  const plan = time('guaranteedCarrierSearch', () =>
+    findForcedCarrierRoute(ruleset, roster, desired, target, options, excludeDirectOwnership),
+  );
   if (!plan.feasible) {
     return {
       status: 'infeasible',

@@ -1,5 +1,6 @@
 import type { HubFinderOptions, HubFinderResult, RosterEntry, SpeciesId, PassiveId, SpeciesPlannerOptions, UnionPlanResult } from '../types';
 import type { SingleTargetPlanRun } from '../runSingleTargetPlan';
+import type { ProfileSpan } from '../profiler';
 
 /** Message protocol for `solver.worker.ts` (findings-doc P0 fix: solver moved off the main
  * thread). Every request carries a caller-assigned id so out-of-order/late responses (e.g.
@@ -20,7 +21,7 @@ export type SolverRequest =
 export type SolverRequestPayload = SolverRequest extends infer R ? (R extends { id: number } ? Omit<R, 'id'> : never) : never;
 
 export type SolverResponse =
-  | { id: number; ok: true; kind: 'singleTarget'; result: SingleTargetPlanRun }
+  | { id: number; ok: true; kind: 'singleTarget'; result: SingleTargetPlanRun; profile: ProfileSpan[] }
   | { id: number; ok: true; kind: 'union'; result: UnionPlanResult }
   | { id: number; ok: true; kind: 'hubs'; result: HubFinderResult }
   | { id: number; ok: true; kind: 'warmup' }

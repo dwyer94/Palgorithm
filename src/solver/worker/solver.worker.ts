@@ -4,6 +4,7 @@ import { createRuleset } from '../../ruleset';
 import { warmGraphCache } from '../speciesPlanner';
 import { runSingleTargetPlan } from '../runSingleTargetPlan';
 import { planUnion, findHubs } from '../hubFinder';
+import { withProfiling } from '../profiler';
 import type { SolverRequest, SolverResponse } from './protocol';
 
 /** Dedicated worker for every solve (findings-doc P0 fix). Builds its own ruleset from the
@@ -29,14 +30,13 @@ ctx.onmessage = (event) => {
   try {
     let response: SolverResponse;
     switch (req.kind) {
-      case 'singleTarget':
-        response = {
-          id: req.id,
-          ok: true,
-          kind: 'singleTarget',
-          result: runSingleTargetPlan(ruleset, req.roster, req.target, req.desiredPassives, req.options),
-        };
+      case 'singleTarget': {
+        const { result, profile } = withProfiling(() =>
+          runSingleTargetPlan(ruleset, req.roster, req.target, req.desiredPassives, req.options),
+        );
+        response = { id: req.id, ok: true, kind: 'singleTarget', result, profile };
         break;
+      }
       case 'union':
         response = { id: req.id, ok: true, kind: 'union', result: planUnion(ruleset, req.roster, req.targets, req.options) };
         break;

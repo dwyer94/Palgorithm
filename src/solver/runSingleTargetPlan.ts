@@ -2,6 +2,7 @@ import type { BreedingRuleset } from '../ruleset/types';
 import { planSpecies, planSpeciesForAnotherCopy } from './speciesPlanner';
 import { computeGuaranteedCarrierOutcome, type GuaranteedCarrierOutcome } from './passivePlanner';
 import type { PassiveId, RosterEntry, SpeciesId, SpeciesPlannerOptions, SpeciesPlanResult } from './types';
+import { time } from './profiler';
 
 /** The baseline plan + its guaranteed-carrier overlay for one target/roster/options triple —
  * the pair every caller (`SingleTargetView`, Team Builder, saved plans) renders together. */
@@ -46,19 +47,23 @@ function computeCore(
   excludeDirectOwnership = false,
 ): SingleTargetPlanCore {
   const speciesOpts = { ...speciesOptions, ...(desiredPassives.length > 0 && { desiredPassives }) };
-  const result = excludeDirectOwnership
-    ? planSpeciesForAnotherCopy(ruleset, roster, target, speciesOpts)
-    : planSpecies(ruleset, roster, target, speciesOpts);
+  const result = time('speciesPlan', () =>
+    excludeDirectOwnership
+      ? planSpeciesForAnotherCopy(ruleset, roster, target, speciesOpts)
+      : planSpecies(ruleset, roster, target, speciesOpts),
+  );
   const guaranteedCarrierOutcome: GuaranteedCarrierOutcome =
     desiredPassives.length > 0 && result.feasible
-      ? computeGuaranteedCarrierOutcome(
-          ruleset,
-          roster,
-          target,
-          desiredPassives,
-          result.combinationCount,
-          speciesOptions,
-          excludeDirectOwnership,
+      ? time('guaranteedCarrier', () =>
+          computeGuaranteedCarrierOutcome(
+            ruleset,
+            roster,
+            target,
+            desiredPassives,
+            result.combinationCount,
+            speciesOptions,
+            excludeDirectOwnership,
+          ),
         )
       : { status: 'not-requested' };
   return { result, guaranteedCarrierOutcome };
@@ -81,7 +86,7 @@ export function runSingleTargetPlan(
   desiredPassives: PassiveId[],
   speciesOptions: SpeciesPlannerOptions,
 ): SingleTargetPlanRun {
-  const core = computeCore(ruleset, roster, target, desiredPassives, speciesOptions);
+  const core = time('baseline', () => computeCore(ruleset, roster, target, desiredPassives, speciesOptions));
 
   // "Owned outright" is the only way to reach cost 0 with no catches (a bare catch costs
   // `catchCost` and leaves a catch; every combo costs ≥ 1). In that case the baseline is just
@@ -94,7 +99,9 @@ export function runSingleTargetPlan(
     roster.some((r) => r.species === target);
   if (!ownedOutright) return core;
 
-  const nextBestWhenOwned = computeCore(ruleset, roster, target, desiredPassives, speciesOptions, true);
+  const nextBestWhenOwned = time('nextBestWhenOwned', () =>
+    computeCore(ruleset, roster, target, desiredPassives, speciesOptions, true),
+  );
   return { ...core, nextBestWhenOwned };
 }
 
