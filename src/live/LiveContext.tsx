@@ -94,6 +94,7 @@ export function LiveProvider({ children }: { children: ReactNode }) {
       // A base camp's pals arrive as a byproduct of fetching an actual guild member — it has
       // no `/pals/<id>` endpoint of its own, so there's nothing to fetch for it directly.
       if (isBaseCampIdentifier(identifier)) return;
+      if (!source) return;
 
       setPalsLoading((prev) => new Set(prev).add(identifier));
       const reporterGuildName = fetchedPlayersRef.current.find((p) => p.identifier === identifier)?.guildName ?? '';
@@ -142,6 +143,10 @@ export function LiveProvider({ children }: { children: ReactNode }) {
   );
 
   const refreshPlayers = useCallback(async () => {
+    if (!source) {
+      setStatus('unconfigured');
+      return;
+    }
     setStatus((s) => (s === 'connected' ? s : 'connecting'));
     const result = await source.listPlayers();
     if (result.ok) {

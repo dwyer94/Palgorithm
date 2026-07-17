@@ -1,10 +1,11 @@
 import { useRef, useState } from 'react';
 import { useRoster, useSettings } from '../store/hooks';
 import { newId } from '../store/localStore';
-import type { RosterEntry } from '../store/types';
+import { CLOUD_ROW_CAPS, type RosterEntry } from '../store/types';
 import { useRulesetContext } from './RulesetContext';
+import { useAuthContext } from './AuthContext';
 import { PassiveMultiSelect, SpeciesSelect } from './shared';
-import { ElementDot, GenderGlyph, PalCard, PalIcon, PassiveChip } from './components';
+import { ElementDot, GenderGlyph, PalCard, PalIcon, PassiveChip, RowCapBadge } from './components';
 
 /** Roster manager: add/edit/remove owned Pals, import/export JSON. Not part of the design
  * handoff bundle (session 0.D covered Hub/Server Pals/Settings) — styled to sit
@@ -13,6 +14,7 @@ export default function RosterView() {
   const { species, passives, speciesById } = useRulesetContext();
   const [roster, setRoster] = useRoster();
   const [settings] = useSettings();
+  const { user } = useAuthContext();
   const isFull = settings.iconDisplayMode === 'full';
   const [draftSpecies, setDraftSpecies] = useState(species[0]?.id ?? '');
   const [draftGender, setDraftGender] = useState<'male' | 'female'>('male');
@@ -120,7 +122,10 @@ export default function RosterView() {
   return (
     <main className="flex-1 overflow-y-auto bg-canvas">
       <div className="mx-auto max-w-[1080px] px-4 pb-[60px] pt-[26px] md:px-[34px]">
-        <div className="mb-0.5 font-sans text-[22px] font-bold tracking-[-.4px]">Roster</div>
+        <div className="mb-0.5 flex items-center gap-2">
+          <div className="font-sans text-[22px] font-bold tracking-[-.4px]">Roster</div>
+          {user && <RowCapBadge count={roster.length} cap={CLOUD_ROW_CAPS.roster} />}
+        </div>
         <div className="mb-6 font-sans text-[13px] text-muted">Pals you own — feeds every planner at cost 0.</div>
 
         <div className="mb-4 rounded-card border border-border-card bg-white p-5 shadow-card">

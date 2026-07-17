@@ -2,9 +2,10 @@ import { useMemo, useRef, useState } from 'react';
 import type { Species, Passive } from '../data/schema';
 import { useTeams } from '../store/hooks';
 import { newId } from '../store/localStore';
-import { createEmptyTeam, TEAM_SLOT_COUNT, type Team, type TeamSlot } from '../store/types';
-import { PalIcon, PassiveChip } from './components';
+import { CLOUD_ROW_CAPS, createEmptyTeam, TEAM_SLOT_COUNT, type Team, type TeamSlot } from '../store/types';
+import { PalIcon, PassiveChip, RowCapBadge } from './components';
 import { useRulesetContext } from './RulesetContext';
+import { useAuthContext } from './AuthContext';
 import TeamDetailView from './TeamDetailView';
 
 /** Loose structural check on parsed JSON before it's trusted as `Team[]` — enough to reject
@@ -35,6 +36,7 @@ export default function TeamsView() {
   const { passives, speciesById } = useRulesetContext();
   const passivesById = useMemo(() => new Map(passives.map((p) => [p.id, p])), [passives]);
   const [teams, setTeams] = useTeams();
+  const { user } = useAuthContext();
   const [selectedTeamId, setSelectedTeamId] = useState<string | null>(null);
   const [initialOpenIndex, setInitialOpenIndex] = useState<number | null>(null);
   const [draftName, setDraftName] = useState('');
@@ -119,7 +121,10 @@ export default function TeamsView() {
     <main className="flex-1 overflow-y-auto bg-canvas">
       <div className="mx-auto max-w-[1080px] px-4 pb-[60px] pt-[26px] md:px-[34px]">
         <div className="mb-0.5 flex flex-wrap items-baseline justify-between gap-2">
-          <div className="font-sans text-[22px] font-bold tracking-[-.4px]">Team builder</div>
+          <div className="flex items-center gap-2">
+            <div className="font-sans text-[22px] font-bold tracking-[-.4px]">Team builder</div>
+            {user && <RowCapBadge count={teams.length} cap={CLOUD_ROW_CAPS.teams} />}
+          </div>
           <div className="flex gap-2">
             <span
               onClick={exportTeams}

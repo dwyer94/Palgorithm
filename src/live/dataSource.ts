@@ -158,15 +158,24 @@ export function createMockDataSource(config: MockDataSourceConfig, dataset: Data
 
 // --- Selection -------------------------------------------------------------------------
 
-/** Empty base URL -> mock data source; otherwise the real HTTP client. No manual toggle in
- * the UI — the moment a base URL is entered, the real thing is used. */
+/** Empty base URL -> mock data source in dev, otherwise the real HTTP client. No manual
+ * toggle in the UI — the moment a base URL is entered, the real thing is used.
+ *
+ * The mock fallback only exists for local development and the `test/live/*` suite — a
+ * stranger using the public production build with no proxy configured should see a clear
+ * "not connected" empty state (`ServerPalsView`), not silently-fake Pals that look real
+ * (docs/PRODUCTION_READINESS_PLAN.md Phase 1). `source: null` signals that case; callers
+ * must treat it as "nothing to fetch," not attempt a request. */
 export function selectDataSource(
   settings: { live: { baseUrl: string; bearerToken: string } },
   dataset: Dataset,
   mockConfig: MockDataSourceConfig,
-): { source: LiveDataSource; isMock: boolean } {
+): { source: LiveDataSource | null; isMock: boolean } {
   if (!settings.live.baseUrl.trim()) {
-    return { source: createMockDataSource(mockConfig, dataset), isMock: true };
+    if (import.meta.env.DEV) {
+      return { source: createMockDataSource(mockConfig, dataset), isMock: true };
+    }
+    return { source: null, isMock: false };
   }
   return {
     source: createHttpDataSource(

@@ -7,7 +7,13 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
-      registerType: 'autoUpdate',
+      // 'prompt' + injectRegister: false so PwaUpdateToast.tsx (via virtual:pwa-register/react)
+      // owns registration and can show a visible "reload to update" toast instead of the
+      // default 'autoUpdate' behavior's silent takeover — a signed-in user could otherwise
+      // keep running a stale bundle against a newer backend schema without ever knowing
+      // (docs/PRODUCTION_READINESS_PLAN.md Phase 3).
+      registerType: 'prompt',
+      injectRegister: false,
       includeAssets: ['favicon.ico'],
       devOptions: { enabled: true, type: 'module' },
       manifest: {
@@ -73,5 +79,8 @@ export default defineConfig({
     environment: 'jsdom',
     globals: true,
     include: ['test/**/*.{test,spec}.{ts,tsx}', 'src/**/*.{test,spec}.{ts,tsx}'],
+    // RLS tests need a live local Supabase instance (`npm run test:rls`, see
+    // test/rls/README.md) — excluded here so `npm run test`/CI don't fail without one.
+    exclude: ['test/rls/**', 'node_modules/**'],
   },
 });

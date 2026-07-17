@@ -1,9 +1,11 @@
 import { useMemo, useState } from 'react';
 import { useSavedPlans } from '../store/hooks';
-import type { SavedPlan } from '../store/types';
+import { CLOUD_ROW_CAPS, type SavedPlan } from '../store/types';
 import type { SpeciesPlanResult, UnionPlanResult } from '../solver/types';
 import { useRulesetContext } from './RulesetContext';
+import { useAuthContext } from './AuthContext';
 import { UnionPlanView, SingleTargetResultView } from './shared';
+import { RowCapBadge } from './components';
 
 /** Saved plans (design handoff README: "wire up Saved Plans" — not mocked separately,
  * reuses `UnionPlanView`/`SpeciesPlanView`). Re-opening renders the stored result as-is,
@@ -11,6 +13,7 @@ import { UnionPlanView, SingleTargetResultView } from './shared';
 export default function SavedPlansView() {
   const [plans, setPlans] = useSavedPlans();
   const [openId, setOpenId] = useState<string | null>(null);
+  const { user } = useAuthContext();
 
   const remove = (id: string) => {
     setPlans(plans.filter((p) => p.id !== id));
@@ -24,7 +27,10 @@ export default function SavedPlansView() {
   return (
     <main className="flex-1 overflow-y-auto bg-canvas">
       <div className="mx-auto max-w-[1080px] px-4 pb-[60px] pt-[26px] md:px-[34px]">
-        <div className="mb-0.5 font-sans text-[22px] font-bold tracking-[-.4px]">Saved plans</div>
+        <div className="mb-0.5 flex items-center gap-2">
+          <div className="font-sans text-[22px] font-bold tracking-[-.4px]">Saved plans</div>
+          {user && <RowCapBadge count={plans.length} cap={CLOUD_ROW_CAPS.savedPlans} />}
+        </div>
         <div className="mb-6 font-sans text-[13px] text-muted">
           Snapshots from the Hub and Single-target planners — reopening replays the stored result, it never recomputes.
         </div>
