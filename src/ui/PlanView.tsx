@@ -33,13 +33,31 @@ interface PlanGraphContext {
   leafProvenance?: Map<string, ProvenanceMatch> | undefined;
 }
 
+/** Base camp owner names bake in a live level ("Base Camp F017474B (Lv 24)") that's useful in
+ * a roster list but is just wrapping-clutter in a leaf node's compact "owned by" tag, which
+ * already shares its line with 4+ passive chips — drop it here (full name still lands in the
+ * `title` tooltip via `leafSourceLabel`'s caller). */
+function compactOwnerLabel(name: string): string {
+  return name.replace(/\s+\(Lv\s*\d+\)$/i, '');
+}
+
 /** Small inline "whose box is this from" tag for an owned leaf node — `Roster` when no
  * live pal of that species+gender matched (which, since candidates are only drawn from
  * connected live players, unambiguously means it came from the local roster instead). */
 function leafSourceLabel(node: PlanGraphNode, ctx: PlanGraphContext): string {
   const match = ctx.leafProvenance?.get(node.id);
   if (!match) return ' · Roster';
-  return match.confident ? ` · ${match.ownerDisplayName}` : ` · ${match.ownerDisplayName}?`;
+  const name = compactOwnerLabel(match.ownerDisplayName);
+  return match.confident ? ` · ${name}` : ` · ${name}?`;
+}
+
+/** The untruncated owner name, for a `title` tooltip — `undefined` when `leafSourceLabel`
+ * didn't shorten anything, so the browser tooltip only appears where it adds information. */
+function leafSourceTitle(node: PlanGraphNode, ctx: PlanGraphContext): string | undefined {
+  const match = ctx.leafProvenance?.get(node.id);
+  if (!match) return undefined;
+  const full = match.ownerDisplayName;
+  return compactOwnerLabel(full) === full ? undefined : full;
 }
 
 function nodeVariant(node: PlanGraphNode, ctx: PlanGraphContext): PalNodeVariant {
@@ -57,12 +75,18 @@ function nodeSubLabel(node: PlanGraphNode, ctx: PlanGraphContext): { label: Reac
       return { label: `catch${rank !== null && rank !== undefined ? ` · r${rank}` : ''}`, className: 'text-brand-hover' };
     }
     if (!node.passives || node.passives.length === 0) {
-      return { label: `owned${leafSourceLabel(node, ctx)}`, className: 'text-success-text' };
+      return {
+        label: <span title={leafSourceTitle(node, ctx)}>owned{leafSourceLabel(node, ctx)}</span>,
+        className: 'text-success-text',
+      };
     }
     return {
       label: (
         <span className="inline-flex flex-wrap items-center gap-1">
-          owned{leafSourceLabel(node, ctx)} ·
+          <span title={leafSourceTitle(node, ctx)}>
+            owned{leafSourceLabel(node, ctx)}
+          </span>{' '}
+          ·
           {node.passives.map((id) => {
             const p = ctx.passivesById?.get(id);
             return (

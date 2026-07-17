@@ -927,7 +927,10 @@ export function PalNode({
       <div className="flex items-center justify-between gap-1.5">
         <span className="flex min-w-0 items-center gap-1.5">
           <PalIcon icon={icon} size={18} />
-          <span className={`truncate font-mono text-[12.5px] font-semibold ${isTarget ? 'text-ink-strong' : 'text-ink-strong'}`}>
+          <span
+            title={species}
+            className={`truncate font-mono text-[12.5px] font-semibold ${isTarget ? 'text-ink-strong' : 'text-ink-strong'}`}
+          >
             {species}
             {isTarget && ' ✦'}
           </span>
