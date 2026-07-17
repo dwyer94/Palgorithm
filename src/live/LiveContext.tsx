@@ -210,23 +210,46 @@ export function LiveProvider({ children }: { children: ReactNode }) {
     return [...fetchedPlayers, ...campEntries];
   }, [fetchedPlayers, baseCamps]);
 
-  const value: LiveContextValue = {
-    status,
-    isUsingMock: isMock,
-    players,
-    lastRefreshedAt,
-    lastConnectionMeta,
-    error,
-    palsByPlayer,
-    palsLoading,
-    palsError,
-    palsFetchedAt,
-    refreshPlayers,
-    refreshPlayerPals,
-    selectedPlayerIds,
-    setSelectedPlayerIds,
-    nextPollAt,
-  };
+  // Memoized so consumers (every view under ServerPalsView, plus anything reading
+  // useLiveContext elsewhere) only re-render when something they'd actually observe changes —
+  // without this, a plain object literal here gets a new identity every render, forcing every
+  // context consumer to re-render on any LiveProvider state change, however unrelated.
+  const value: LiveContextValue = useMemo(
+    () => ({
+      status,
+      isUsingMock: isMock,
+      players,
+      lastRefreshedAt,
+      lastConnectionMeta,
+      error,
+      palsByPlayer,
+      palsLoading,
+      palsError,
+      palsFetchedAt,
+      refreshPlayers,
+      refreshPlayerPals,
+      selectedPlayerIds,
+      setSelectedPlayerIds,
+      nextPollAt,
+    }),
+    [
+      status,
+      isMock,
+      players,
+      lastRefreshedAt,
+      lastConnectionMeta,
+      error,
+      palsByPlayer,
+      palsLoading,
+      palsError,
+      palsFetchedAt,
+      refreshPlayers,
+      refreshPlayerPals,
+      selectedPlayerIds,
+      setSelectedPlayerIds,
+      nextPollAt,
+    ],
+  );
 
   return <LiveContext.Provider value={value}>{children}</LiveContext.Provider>;
 }

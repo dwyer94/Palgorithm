@@ -528,6 +528,7 @@ export function VirtualizedTable<T>({
   renderRow,
   getScrollElement,
   estimateSize = 44,
+  getRowClassName,
 }: {
   items: T[];
   getKey: (item: T, index: number) => string | number;
@@ -536,6 +537,9 @@ export function VirtualizedTable<T>({
   renderRow: (item: T, index: number) => ReactNode[];
   getScrollElement: () => HTMLElement | null;
   estimateSize?: number;
+  /** Optional per-row class (e.g. highlighting an unresolved species) applied alongside the
+   * grid-row's own layout classes. */
+  getRowClassName?: (item: T, index: number) => string;
 }) {
   const virtualizer = useVirtualizer({
     count: items.length,
@@ -575,7 +579,7 @@ export function VirtualizedTable<T>({
               key={getKey(item, virtualRow.index)}
               data-index={virtualRow.index}
               ref={virtualizer.measureElement}
-              className="grid border-t border-panel-header"
+              className={`grid border-t border-panel-header ${getRowClassName?.(item, virtualRow.index) ?? ''}`}
               role="row"
               style={{
                 gridTemplateColumns: columns,

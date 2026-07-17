@@ -1,8 +1,8 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import type { Species, Passive } from '../data/schema';
 import { useLiveContext } from '../live/LiveContext';
 import { resolvePlayerDisplayName } from '../live/nameResolution';
-import { shortBaseCampLabel, type LivePal, type PlayerIdentifier } from '../live/types';
+import { shortBaseCampLabel, type LivePal, type LivePlayer, type PlayerIdentifier } from '../live/types';
 import { effectiveWorkSuitabilities } from '../live/workSuitability';
 import { useSettings } from '../store/hooks';
 import { useRulesetContext } from './RulesetContext';
@@ -14,11 +14,21 @@ import {
   PassiveChip,
   PassiveMultiSelect,
   SpeciesTypeahead,
+  VirtualizedTable,
   WorkSuitabilityRow,
   WorkSuitabilityFilterEditor,
   WorkSuitabilitySortSelect,
+  useIsDesktop,
   type WorkSuitabilityFilter,
 } from './components';
+
+// A player's own pal table (Players tab) has no Owner column; Find-a-pal's cross-player
+// results table adds one on the end. Kept as separate constants (not derived from one
+// another) since the two tables' column weighting differs slightly.
+const PLAYER_PAL_TABLE_COLUMNS =
+  'minmax(150px,1.3fr) 48px 48px minmax(140px,1fr) minmax(120px,1fr) 90px minmax(110px,1fr)';
+const FIND_A_PAL_TABLE_COLUMNS =
+  'minmax(150px,1.2fr) 48px 48px minmax(130px,1fr) minmax(110px,1fr) 90px minmax(100px,1fr) minmax(100px,1fr)';
 
 /** Ticking "auto-poll in M:SS" label — a plain re-render of `nextPollAt` would go stale
  * between polls, so this owns its own 1s tick to keep the countdown live. */
@@ -111,54 +121,10 @@ export default function ServerPalsView() {
 function PlayersTab() {
   const { speciesById, passives } = useRulesetContext();
   const passivesById = useMemo(() => new Map(passives.map((p) => [p.id, p])), [passives]);
-  const [settings, setSettings] = useSettings();
   const live = useLiveContext();
-  const [expanded, setExpanded] = useState<Set<string>>(new Set());
-  const [editingId, setEditingId] = useState<string | null>(null);
-  const [draftName, setDraftName] = useState('');
-
-  const setLive = (patch: Partial<typeof settings.live>) => setSettings({ ...settings, live: { ...settings.live, ...patch } });
-
-  // PalDefender's `Status` field is "saved player account state," not live connectivity —
-  // it does not flip when a player logs off, so it can't gate whether to attempt a fetch.
-  // Just try; a stale/offline player naturally 404s (see `notFound` below).
-  const ensurePalsLoaded = (identifier: string) => {
-    if (!live.palsByPlayer[identifier]) void live.refreshPlayerPals(identifier);
-  };
-
-  const toggleExpand = (identifier: string) => {
-    setExpanded((prev) => {
-      const next = new Set(prev);
-      if (next.has(identifier)) next.delete(identifier);
-      else {
-        next.add(identifier);
-        ensurePalsLoaded(identifier);
-      }
-      return next;
-    });
-  };
-
-  const toggleSelected = (identifier: string) => {
-    const next = new Set(live.selectedPlayerIds);
-    if (next.has(identifier)) next.delete(identifier);
-    else {
-      next.add(identifier);
-      ensurePalsLoaded(identifier);
-    }
-    live.setSelectedPlayerIds(next);
-  };
 
   const selectAll = () => live.setSelectedPlayerIds(new Set(live.players.map((p) => p.identifier)));
   const selectNone = () => live.setSelectedPlayerIds(new Set());
-
-  const startOverride = (identifier: string, current: string) => {
-    setEditingId(identifier);
-    setDraftName(current);
-  };
-  const saveOverride = (identifier: string) => {
-    if (draftName.trim()) setLive({ nameOverrides: { ...settings.live.nameOverrides, [identifier]: draftName.trim() } });
-    setEditingId(null);
-  };
 
   const totalSelectedPals = Array.from(live.selectedPlayerIds).reduce(
     (sum, id) => sum + (live.palsByPlayer[id]?.pals.length ?? 0),
@@ -207,188 +173,344 @@ function PlayersTab() {
       )}
 
       <div className="flex flex-col gap-2.5">
-        {live.players.map((p) => {
-          const isSelected = live.selectedPlayerIds.has(p.identifier);
-          const isExpanded = expanded.has(p.identifier);
-          const override = settings.live.nameOverrides[p.identifier];
-          const name = resolvePlayerDisplayName(p, settings.live.nameOverrides, settings.live.identityLinks);
-          const hasName = !!override || !!p.apiName;
-          const playerPals = live.palsByPlayer[p.identifier];
-          const fetchedAt = live.palsFetchedAt[p.identifier];
-          const loading = live.palsLoading.has(p.identifier);
-          const palError = live.palsError[p.identifier];
-          // PLAYER_NOT_FOUND is PalDefender's way of saying "not currently online" — that's
-          // expected and handled by the muted offline/cached notice below, not a real error.
-          // Any other error code (auth, network, timeout) is a genuine failure worth flagging.
-          const notFound = palError?.code === 'PLAYER_NOT_FOUND';
-          const hardError = !!palError && !notFound;
-          const rowError = isExpanded && !loading && hardError;
-
-          return (
-            <details
-              key={p.identifier}
-              open={isExpanded}
-              onToggle={(e) => {
-                const nowOpen = (e.target as HTMLDetailsElement).open;
-                if (nowOpen !== isExpanded) toggleExpand(p.identifier);
-              }}
-              className={`overflow-hidden rounded-[13px] bg-white ${
-                isSelected ? 'border-[1.5px] border-primary shadow-elevated-blue' : rowError ? 'border border-danger-border' : 'border border-border-card'
-              }`}
-            >
-              <summary className="flex cursor-pointer list-none items-center gap-3.5 px-4 py-3.5">
-                <div
-                  onClick={(e) => {
-                    e.preventDefault();
-                    toggleSelected(p.identifier);
-                  }}
-                  className={`flex h-[18px] w-[18px] flex-none items-center justify-center rounded-[5px] border-[1.5px] ${
-                    isSelected ? 'border-primary bg-primary text-white' : 'border-border-input bg-white'
-                  }`}
-                >
-                  {isSelected && <span className="text-[11px]">✓</span>}
-                </div>
-                <span className={`h-2 w-2 flex-none rounded-full ${notFound ? 'bg-offline' : 'bg-success-dot'}`} />
-                {editingId === p.identifier ? (
-                  <div className="flex items-center gap-1.5" onClick={(e) => e.preventDefault()}>
-                    <input
-                      autoFocus
-                      value={draftName}
-                      onChange={(e) => setDraftName(e.target.value)}
-                      className="w-[130px] rounded-[7px] border-[1.5px] border-primary px-2 py-1 font-sans text-[13px] font-semibold text-ink outline-none"
-                    />
-                    <span
-                      onClick={() => saveOverride(p.identifier)}
-                      className="cursor-pointer rounded-[6px] bg-primary px-2 py-1 font-mono text-[11px] font-semibold text-white"
-                    >
-                      Save
-                    </span>
-                    <span onClick={() => setEditingId(null)} className="cursor-pointer px-1 py-1 font-mono text-[11px] font-semibold text-muted">
-                      Cancel
-                    </span>
-                  </div>
-                ) : hasName ? (
-                  <>
-                    <span className="font-sans text-[15px] font-bold">{name}</span>
-                    <span
-                      onClick={(e) => {
-                        e.preventDefault();
-                        startOverride(p.identifier, name);
-                      }}
-                      className="cursor-pointer rounded-[5px] bg-[#f2ece0] px-1.5 py-0.5 font-mono text-[10px] font-medium text-muted-light hover:text-brand-hover"
-                    >
-                      ✎ override
-                    </span>
-                  </>
-                ) : (
-                  <>
-                    <span className="font-mono text-[12.5px] font-semibold text-muted">{p.identifier}</span>
-                    <span
-                      onClick={(e) => {
-                        e.preventDefault();
-                        startOverride(p.identifier, '');
-                      }}
-                      className="cursor-pointer rounded-[5px] bg-unresolved-bg px-1.5 py-0.5 font-mono text-[10px] font-medium text-provisional-text underline"
-                    >
-                      no name — add override
-                    </span>
-                  </>
-                )}
-                {p.guildName && <span className="font-mono text-[12px] text-muted">{p.guildName}</span>}
-                <span className="ml-auto font-mono text-[12px] text-muted">
-                  {notFound
-                    ? playerPals
-                      ? `offline · ${playerPals.pals.length} cached`
-                      : 'offline'
-                    : playerPals
-                      ? `${playerPals.pals.length} pals`
-                      : loading
-                        ? 'loading…'
-                        : '— pals'}
-                </span>
-                <span className="font-mono text-[12px] font-semibold text-muted">{isExpanded ? '▾ hide' : '▸ show'}</span>
-              </summary>
-
-              {isExpanded && (
-                <div className="border-t border-border-divider">
-                  {loading && (
-                    <div className="flex flex-col gap-2 px-4 py-3">
-                      <div className="h-[11px] w-[60%] animate-pulse rounded-[5px] bg-[#f0ece2]" />
-                      <div className="h-[11px] w-[80%] animate-pulse rounded-[5px] bg-[#f0ece2]" />
-                      <div className="font-mono text-[11px] text-muted-light">Loading pals…</div>
-                    </div>
-                  )}
-                  {!loading && rowError && (
-                    <div className="flex items-center gap-3 bg-danger-bg px-4 py-3">
-                      <span className="font-mono text-[12.5px] text-danger-text">
-                        {palError?.code ?? 'ERROR'} — {palError?.message ?? 'failed to fetch this player’s pals.'}
-                      </span>
-                      <span
-                        onClick={() => void live.refreshPlayerPals(p.identifier)}
-                        className="ml-auto cursor-pointer rounded-panel border border-danger-border bg-white px-2.5 py-1 font-mono text-[12px] font-semibold text-danger-text hover:bg-[#fdeee5]"
-                      >
-                        ⟳ Retry
-                      </span>
-                    </div>
-                  )}
-                  {!loading && notFound && (
-                    <div className="flex items-center gap-3 bg-panel-subtle px-4 py-2.5">
-                      <span className="font-mono text-[11px] text-muted">
-                        {playerPals
-                          ? `Offline — showing ${playerPals.pals.length} cached pal${playerPals.pals.length === 1 ? '' : 's'}${
-                              fetchedAt ? ` from ${new Date(fetchedAt).toLocaleString()}` : ''
-                            }.`
-                          : 'Offline — no cached pals yet. They need to log in once while the proxy is running.'}
-                      </span>
-                      <span
-                        onClick={() => void live.refreshPlayerPals(p.identifier)}
-                        className="ml-auto cursor-pointer rounded-panel border border-border-input bg-white px-2.5 py-1 font-mono text-[12px] font-semibold text-muted hover:bg-panel-subtle"
-                      >
-                        ⟳ Check now
-                      </span>
-                    </div>
-                  )}
-                  {!loading && playerPals && playerPals.pals.length === 0 && (
-                    <div className="px-4 py-3 font-sans text-[12.5px] text-muted">No pals.</div>
-                  )}
-                  {!loading && playerPals && playerPals.pals.length > 0 && settings.iconDisplayMode === 'full' && (
-                    <div className="flex flex-wrap gap-2.5 p-3.5">
-                      {playerPals.pals.map((pal) => (
-                        <PalFullCard key={pal.instanceId} pal={pal} speciesById={speciesById} passivesById={passivesById} />
-                      ))}
-                    </div>
-                  )}
-                  {!loading && playerPals && playerPals.pals.length > 0 && settings.iconDisplayMode !== 'full' && (
-                    <div className="overflow-x-auto">
-                      <table className="w-full border-collapse font-mono">
-                        <thead>
-                          <tr className="text-left">
-                            {['Species', 'Gen', 'Lvl', 'Passives', 'Work', 'IVs H/A/D', 'Location'].map((h) => (
-                              <th
-                                key={h}
-                                className="whitespace-nowrap px-2.5 py-2 font-sans text-[10px] font-semibold uppercase tracking-wide text-muted-light"
-                              >
-                                {h}
-                              </th>
-                            ))}
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {playerPals.pals.map((pal) => (
-                            <PalRow key={pal.instanceId} pal={pal} speciesById={speciesById} passivesById={passivesById} />
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-                  )}
-                </div>
-              )}
-            </details>
-          );
-        })}
+        {live.players.map((p) => (
+          <PlayerRow key={p.identifier} p={p} speciesById={speciesById} passivesById={passivesById} />
+        ))}
       </div>
     </div>
   );
+}
+
+/** One player's row (checkbox/name/pal table), broken out of `PlayersTab` so each row owns
+ * its own expand-state and pal-table rendering. Critically, the name-override *editing* state
+ * lives one level further down in `NameOverrideEditor` — see that component's doc comment for
+ * why that extra split matters, not just this one. */
+function PlayerRow({
+  p,
+  speciesById,
+  passivesById,
+}: {
+  p: LivePlayer;
+  speciesById: Map<string, Species>;
+  passivesById: Map<string, Passive>;
+}) {
+  const live = useLiveContext();
+  const [settings, setSettings] = useSettings();
+  const [isExpanded, setIsExpanded] = useState(false);
+  const isDesktop = useIsDesktop();
+  const tableScrollRef = useRef<HTMLDivElement>(null);
+
+  const setLive = (patch: Partial<typeof settings.live>) => setSettings({ ...settings, live: { ...settings.live, ...patch } });
+
+  // PalDefender's `Status` field is "saved player account state," not live connectivity —
+  // it does not flip when a player logs off, so it can't gate whether to attempt a fetch.
+  // Just try; a stale/offline player naturally 404s (see `notFound` below).
+  const ensurePalsLoaded = () => {
+    if (!live.palsByPlayer[p.identifier]) void live.refreshPlayerPals(p.identifier);
+  };
+
+  const toggleExpand = () => {
+    setIsExpanded((prev) => {
+      const next = !prev;
+      if (next) ensurePalsLoaded();
+      return next;
+    });
+  };
+
+  const isSelected = live.selectedPlayerIds.has(p.identifier);
+  const toggleSelected = () => {
+    const next = new Set(live.selectedPlayerIds);
+    if (next.has(p.identifier)) next.delete(p.identifier);
+    else {
+      next.add(p.identifier);
+      ensurePalsLoaded();
+    }
+    live.setSelectedPlayerIds(next);
+  };
+
+  const override = settings.live.nameOverrides[p.identifier];
+  const name = resolvePlayerDisplayName(p, settings.live.nameOverrides, settings.live.identityLinks);
+  const hasName = !!override || !!p.apiName;
+  const playerPals = live.palsByPlayer[p.identifier];
+  const fetchedAt = live.palsFetchedAt[p.identifier];
+  const loading = live.palsLoading.has(p.identifier);
+  const palError = live.palsError[p.identifier];
+  // PLAYER_NOT_FOUND is PalDefender's way of saying "not currently online" — that's
+  // expected and handled by the muted offline/cached notice below, not a real error.
+  // Any other error code (auth, network, timeout) is a genuine failure worth flagging.
+  const notFound = palError?.code === 'PLAYER_NOT_FOUND';
+  const hardError = !!palError && !notFound;
+  const rowError = isExpanded && !loading && hardError;
+
+  return (
+    <details
+      open={isExpanded}
+      onToggle={(e) => {
+        const nowOpen = (e.target as HTMLDetailsElement).open;
+        if (nowOpen !== isExpanded) toggleExpand();
+      }}
+      className={`overflow-hidden rounded-[13px] bg-white ${
+        isSelected ? 'border-[1.5px] border-primary shadow-elevated-blue' : rowError ? 'border border-danger-border' : 'border border-border-card'
+      }`}
+    >
+      <summary className="flex cursor-pointer list-none items-center gap-3.5 px-4 py-3.5">
+        <div
+          onClick={(e) => {
+            e.preventDefault();
+            toggleSelected();
+          }}
+          className={`flex h-[18px] w-[18px] flex-none items-center justify-center rounded-[5px] border-[1.5px] ${
+            isSelected ? 'border-primary bg-primary text-white' : 'border-border-input bg-white'
+          }`}
+        >
+          {isSelected && <span className="text-[11px]">✓</span>}
+        </div>
+        <span className={`h-2 w-2 flex-none rounded-full ${notFound ? 'bg-offline' : 'bg-success-dot'}`} />
+        <NameOverrideEditor
+          displayName={name}
+          identifier={p.identifier}
+          hasName={hasName}
+          onSave={(newName) => setLive({ nameOverrides: { ...settings.live.nameOverrides, [p.identifier]: newName } })}
+        />
+        {p.guildName && <span className="font-mono text-[12px] text-muted">{p.guildName}</span>}
+        <span className="ml-auto font-mono text-[12px] text-muted">
+          {notFound
+            ? playerPals
+              ? `offline · ${playerPals.pals.length} cached`
+              : 'offline'
+            : playerPals
+              ? `${playerPals.pals.length} pals`
+              : loading
+                ? 'loading…'
+                : '— pals'}
+        </span>
+        <span className="font-mono text-[12px] font-semibold text-muted">{isExpanded ? '▾ hide' : '▸ show'}</span>
+      </summary>
+
+      {isExpanded && (
+        <div className="border-t border-border-divider">
+          {loading && (
+            <div className="flex flex-col gap-2 px-4 py-3">
+              <div className="h-[11px] w-[60%] animate-pulse rounded-[5px] bg-[#f0ece2]" />
+              <div className="h-[11px] w-[80%] animate-pulse rounded-[5px] bg-[#f0ece2]" />
+              <div className="font-mono text-[11px] text-muted-light">Loading pals…</div>
+            </div>
+          )}
+          {!loading && rowError && (
+            <div className="flex items-center gap-3 bg-danger-bg px-4 py-3">
+              <span className="font-mono text-[12.5px] text-danger-text">
+                {palError?.code ?? 'ERROR'} — {palError?.message ?? 'failed to fetch this player’s pals.'}
+              </span>
+              <span
+                onClick={() => void live.refreshPlayerPals(p.identifier)}
+                className="ml-auto cursor-pointer rounded-panel border border-danger-border bg-white px-2.5 py-1 font-mono text-[12px] font-semibold text-danger-text hover:bg-[#fdeee5]"
+              >
+                ⟳ Retry
+              </span>
+            </div>
+          )}
+          {!loading && notFound && (
+            <div className="flex items-center gap-3 bg-panel-subtle px-4 py-2.5">
+              <span className="font-mono text-[11px] text-muted">
+                {playerPals
+                  ? `Offline — showing ${playerPals.pals.length} cached pal${playerPals.pals.length === 1 ? '' : 's'}${
+                      fetchedAt ? ` from ${new Date(fetchedAt).toLocaleString()}` : ''
+                    }.`
+                  : 'Offline — no cached pals yet. They need to log in once while the proxy is running.'}
+              </span>
+              <span
+                onClick={() => void live.refreshPlayerPals(p.identifier)}
+                className="ml-auto cursor-pointer rounded-panel border border-border-input bg-white px-2.5 py-1 font-mono text-[12px] font-semibold text-muted hover:bg-panel-subtle"
+              >
+                ⟳ Check now
+              </span>
+            </div>
+          )}
+          {!loading && playerPals && playerPals.pals.length === 0 && (
+            <div className="px-4 py-3 font-sans text-[12.5px] text-muted">No pals.</div>
+          )}
+          {!loading && playerPals && playerPals.pals.length > 0 && settings.iconDisplayMode === 'full' && (
+            <div className="flex flex-wrap gap-2.5 p-3.5">
+              {playerPals.pals.map((pal) => (
+                <PalFullCard key={pal.instanceId} pal={pal} speciesById={speciesById} passivesById={passivesById} />
+              ))}
+            </div>
+          )}
+          {!loading && playerPals && playerPals.pals.length > 0 && settings.iconDisplayMode !== 'full' && (
+            isDesktop ? (
+              <div ref={tableScrollRef} className="max-h-[480px] overflow-y-auto">
+                <VirtualizedTable
+                  items={playerPals.pals}
+                  getKey={(pal) => pal.instanceId}
+                  columns={PLAYER_PAL_TABLE_COLUMNS}
+                  header={['Species', 'Gen', 'Lvl', 'Passives', 'Work', 'IVs H/A/D', 'Location']}
+                  getScrollElement={() => tableScrollRef.current}
+                  estimateSize={44}
+                  getRowClassName={(pal) => (pal.species === null ? 'bg-unresolved-bg2' : '')}
+                  renderRow={(pal) => buildPalRowCells(pal, speciesById, passivesById)}
+                />
+              </div>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full border-collapse font-mono">
+                  <thead>
+                    <tr className="text-left">
+                      {['Species', 'Gen', 'Lvl', 'Passives', 'Work', 'IVs H/A/D', 'Location'].map((h) => (
+                        <th
+                          key={h}
+                          className="whitespace-nowrap px-2.5 py-2 font-sans text-[10px] font-semibold uppercase tracking-wide text-muted-light"
+                        >
+                          {h}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {playerPals.pals.map((pal) => (
+                      <PalRow key={pal.instanceId} pal={pal} speciesById={speciesById} passivesById={passivesById} />
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )
+          )}
+        </div>
+      )}
+    </details>
+  );
+}
+
+/** The player-name-override editor, split out as its own component with its own local
+ * `editing`/`draft` state — not just for tidiness. Before this split, that state lived
+ * directly in the per-player row alongside its (potentially very large, unvirtualized) pal
+ * table; every keystroke while editing a name re-rendered and reconciled the *entire* row,
+ * table included. Measured at ~100ms/keystroke with a ~1,500-pal roster expanded — the same
+ * class of bug PERFORMANCE_REMEDIATION_PLAN.md's Phase 4 found and fixed for the Reference
+ * view (33-82ms/keystroke at just 291 items). Isolating this input's state to its own
+ * component means a keystroke here only ever re-renders these two spans. */
+function NameOverrideEditor({
+  identifier,
+  displayName,
+  hasName,
+  onSave,
+}: {
+  identifier: string;
+  displayName: string;
+  hasName: boolean;
+  onSave: (name: string) => void;
+}) {
+  const [editing, setEditing] = useState(false);
+  const [draft, setDraft] = useState('');
+
+  if (editing) {
+    return (
+      <div className="flex items-center gap-1.5" onClick={(e) => e.preventDefault()}>
+        <input
+          autoFocus
+          value={draft}
+          onChange={(e) => setDraft(e.target.value)}
+          className="w-[130px] rounded-[7px] border-[1.5px] border-primary px-2 py-1 font-sans text-[13px] font-semibold text-ink outline-none"
+        />
+        <span
+          onClick={() => {
+            if (draft.trim()) onSave(draft.trim());
+            setEditing(false);
+          }}
+          className="cursor-pointer rounded-[6px] bg-primary px-2 py-1 font-mono text-[11px] font-semibold text-white"
+        >
+          Save
+        </span>
+        <span onClick={() => setEditing(false)} className="cursor-pointer px-1 py-1 font-mono text-[11px] font-semibold text-muted">
+          Cancel
+        </span>
+      </div>
+    );
+  }
+
+  if (hasName) {
+    return (
+      <>
+        <span className="font-sans text-[15px] font-bold">{displayName}</span>
+        <span
+          onClick={(e) => {
+            e.preventDefault();
+            setDraft(displayName);
+            setEditing(true);
+          }}
+          className="cursor-pointer rounded-[5px] bg-[#f2ece0] px-1.5 py-0.5 font-mono text-[10px] font-medium text-muted-light hover:text-brand-hover"
+        >
+          ✎ override
+        </span>
+      </>
+    );
+  }
+
+  return (
+    <>
+      <span className="font-mono text-[12.5px] font-semibold text-muted">{identifier}</span>
+      <span
+        onClick={(e) => {
+          e.preventDefault();
+          setDraft('');
+          setEditing(true);
+        }}
+        className="cursor-pointer rounded-[5px] bg-unresolved-bg px-1.5 py-0.5 font-mono text-[10px] font-medium text-provisional-text underline"
+      >
+        no name — add override
+      </span>
+    </>
+  );
+}
+
+/** Cell contents (no `<td>`/wrapper) shared by the plain `<table>` fallback (`PalRow`, mobile)
+ * and `VirtualizedTable`'s `renderRow` (desktop) — one column list to keep in sync instead of
+ * two copies drifting apart. Order matches the `header` arrays passed to each caller. */
+function buildPalRowCells(pal: LivePal, speciesById: Map<string, Species>, passivesById: Map<string, Passive>): ReactNode[] {
+  const species = pal.species ? speciesById.get(pal.species) : undefined;
+  const unresolved = pal.species === null;
+  return [
+    <span key="species" className="inline-flex items-center gap-1.5">
+      <PalIcon icon={species?.icon} size={20} />
+      <ElementDot elements={species?.elements} />
+      <b className={`text-[12.5px] ${unresolved ? 'text-provisional-text' : ''}`}>
+        {species?.displayName ?? `${pal.rawPalId} (unresolved)`}
+      </b>
+      {pal.shiny && <span className="text-shiny">★</span>}
+      {unresolved && (
+        <span className="rounded-[4px] bg-unresolved-bg px-1.5 py-px font-mono text-[9px] font-semibold text-provisional-text">
+          unresolved
+        </span>
+      )}
+    </span>,
+    <span key="gender" className="text-muted">
+      {pal.gender ? <GenderGlyph gender={pal.gender} /> : '?'}
+    </span>,
+    <span key="level" className="text-ink-muted">
+      {pal.level}
+    </span>,
+    <span key="passives" className="flex flex-wrap gap-1">
+      {pal.passives.map((id) => (
+        <PassiveChip
+          key={id}
+          label={passivesById.get(id)?.displayName ?? id}
+          tier={passivesById.get(id)?.tier}
+          description={passivesById.get(id)?.description}
+        />
+      ))}
+      {pal.unresolvedPassives.length > 0 && (
+        <span className="rounded-[4px] bg-unresolved-bg px-1.5 py-px font-mono text-[10px] font-semibold text-provisional-text">
+          +{pal.unresolvedPassives.length} unresolved
+        </span>
+      )}
+    </span>,
+    <WorkSuitabilityRow key="work" levels={effectiveWorkSuitabilities(species, pal)} />,
+    <span key="ivs" className="text-[11px] text-muted">
+      {pal.ivs.health}/{pal.ivs.attackMelee}/{pal.ivs.defense}
+    </span>,
+    <span key="location" className="text-[12px] text-ink-muted">
+      {pal.location.kind === 'baseCamp' ? `Base Camp ${shortBaseCampLabel(pal.location.baseCampId)}` : pal.location.kind === 'team' ? 'Team' : 'Palbox'}
+    </span>,
+  ];
 }
 
 function PalRow({
@@ -400,53 +522,14 @@ function PalRow({
   speciesById: Map<string, Species>;
   passivesById: Map<string, Passive>;
 }) {
-  const species = pal.species ? speciesById.get(pal.species) : undefined;
   const unresolved = pal.species === null;
   return (
     <tr className={`border-t border-panel-header ${unresolved ? 'bg-unresolved-bg2' : ''}`}>
-      <td className="px-2.5 py-2">
-        <span className="inline-flex items-center gap-1.5">
-          <PalIcon icon={species?.icon} size={20} />
-          <ElementDot elements={species?.elements} />
-          <b className={`text-[12.5px] ${unresolved ? 'text-provisional-text' : ''}`}>
-            {species?.displayName ?? `${pal.rawPalId} (unresolved)`}
-          </b>
-          {pal.shiny && <span className="text-shiny">★</span>}
-          {unresolved && (
-            <span className="rounded-[4px] bg-unresolved-bg px-1.5 py-px font-mono text-[9px] font-semibold text-provisional-text">
-              unresolved
-            </span>
-          )}
-        </span>
-      </td>
-      <td className="px-2.5 py-2 text-muted">{pal.gender ? <GenderGlyph gender={pal.gender} /> : '?'}</td>
-      <td className="px-2.5 py-2 text-ink-muted">{pal.level}</td>
-      <td className="px-2.5 py-2">
-        <span className="flex flex-wrap gap-1">
-          {pal.passives.map((id) => (
-            <PassiveChip
-              key={id}
-              label={passivesById.get(id)?.displayName ?? id}
-              tier={passivesById.get(id)?.tier}
-              description={passivesById.get(id)?.description}
-            />
-          ))}
-          {pal.unresolvedPassives.length > 0 && (
-            <span className="rounded-[4px] bg-unresolved-bg px-1.5 py-px font-mono text-[10px] font-semibold text-provisional-text">
-              +{pal.unresolvedPassives.length} unresolved
-            </span>
-          )}
-        </span>
-      </td>
-      <td className="px-2.5 py-2">
-        <WorkSuitabilityRow levels={effectiveWorkSuitabilities(species, pal)} />
-      </td>
-      <td className="px-2.5 py-2 text-[11px] text-muted">
-        {pal.ivs.health}/{pal.ivs.attackMelee}/{pal.ivs.defense}
-      </td>
-      <td className="px-2.5 py-2 text-[12px] text-ink-muted">
-        {pal.location.kind === 'baseCamp' ? `Base Camp ${shortBaseCampLabel(pal.location.baseCampId)}` : pal.location.kind === 'team' ? 'Team' : 'Palbox'}
-      </td>
+      {buildPalRowCells(pal, speciesById, passivesById).map((cell, i) => (
+        <td key={i} className="px-2.5 py-2">
+          {cell}
+        </td>
+      ))}
     </tr>
   );
 }
@@ -510,6 +593,61 @@ function PalFullCard({
   );
 }
 
+/** Cell contents shared by the mobile plain `<table>` fallback and the desktop
+ * `VirtualizedTable` — same rationale as `buildPalRowCells` above. */
+function buildFindAPalRowCells(
+  entry: { owner: string; pal: LivePal; workLevels: Record<string, number> },
+  speciesById: Map<string, Species>,
+  passivesById: Map<string, Passive>,
+  traitFilter: string[],
+  workHighlight: Set<string> | undefined,
+): ReactNode[] {
+  const { owner, pal, workLevels } = entry;
+  const sp = pal.species ? speciesById.get(pal.species) : undefined;
+  return [
+    <span key="species" className="inline-flex items-center gap-1.5">
+      <PalIcon icon={sp?.icon} size={20} />
+      <ElementDot elements={sp?.elements} />
+      <b className="whitespace-nowrap text-[12.5px]">{sp?.displayName ?? pal.rawPalId}</b>
+      {pal.shiny && (
+        <span className="text-shiny" title="shiny">
+          ★
+        </span>
+      )}
+    </span>,
+    <span key="gender" className="text-muted">
+      <GenderGlyph gender={pal.gender} />
+    </span>,
+    <span key="level" className="text-ink-muted">
+      {pal.level}
+    </span>,
+    <div key="passives" className="flex flex-wrap gap-1">
+      {pal.passives.map((id) => (
+        <PassiveChip
+          key={id}
+          label={passivesById.get(id)?.displayName ?? id}
+          tier={passivesById.get(id)?.tier}
+          description={passivesById.get(id)?.description}
+          variant={traitFilter.includes(id) ? 'matched' : 'dim'}
+        />
+      ))}
+    </div>,
+    <WorkSuitabilityRow key="work" levels={workLevels} highlight={workHighlight} />,
+    <span key="ivs" className="text-[11px] text-muted">
+      {pal.ivs.health}/{pal.ivs.attackMelee}/{pal.ivs.defense}
+    </span>,
+    <span key="location" className="whitespace-nowrap text-[12px] text-ink-muted">
+      {pal.location.kind === 'baseCamp' ? `Base Camp ${shortBaseCampLabel(pal.location.baseCampId)}` : pal.location.kind === 'team' ? 'Team' : 'Palbox'}
+    </span>,
+    <span
+      key="owner"
+      className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-pill border border-primary-border3 bg-primary-tint px-2.5 py-1 font-mono text-[11px] font-semibold text-primary-dark"
+    >
+      {owner}
+    </span>,
+  ];
+}
+
 function FindAPalTab() {
   const { species, passives, speciesById } = useRulesetContext();
   const passivesById = useMemo(() => new Map(passives.map((p) => [p.id, p])), [passives]);
@@ -526,6 +664,8 @@ function FindAPalTab() {
     if (sortBy) s.add(sortBy);
     return s.size > 0 ? s : undefined;
   }, [workFilters, sortBy]);
+  const isDesktop = useIsDesktop();
+  const resultsRef = useRef<HTMLDivElement>(null);
 
   const inScope = (id: PlayerIdentifier) => scope === null || scope.has(id);
 
@@ -700,11 +840,27 @@ function FindAPalTab() {
             );
           })}
         </div>
+      ) : isDesktop ? (
+        // Virtualized (PERFORMANCE_REMEDIATION_PLAN.md Phase 4 pattern): only the rows in
+        // view are ever mounted, regardless of how many pals `results` holds — a live roster
+        // can run into the thousands, unlike the fixed ~291-species reference dataset Phase 4
+        // was built for.
+        <div ref={resultsRef} className="max-h-[600px] overflow-y-auto">
+          <VirtualizedTable
+            items={results}
+            getKey={(r, i) => r.pal.instanceId + i}
+            columns={FIND_A_PAL_TABLE_COLUMNS}
+            header={['Species', 'Gen', 'Lvl', 'Passives', 'Work', 'IVs H/A/D', 'Location', 'Owner']}
+            getScrollElement={() => resultsRef.current}
+            estimateSize={45}
+            renderRow={(r) => buildFindAPalRowCells(r, speciesById, passivesById, traitFilter, workHighlight)}
+          />
+        </div>
       ) : (
-        // A real <table> rather than a flex-wrap row: with a Species/Passives/Work/Owner combo
-        // whose lengths vary wildly per Pal, a flex row reflows its whole layout row-to-row —
-        // fixed columns keep every field lined up regardless of how long a name or how many
-        // passives/work badges a given Pal happens to have (mirrors PlayersTab's table below).
+        // Mobile fallback: a real <table> rather than a flex-wrap row (with a
+        // Species/Passives/Work/Owner combo whose lengths vary wildly per Pal, a flex row
+        // reflows its whole layout row-to-row) — not virtualized, matching Phase 4's mobile
+        // fallback (the CSS-grid virtualization trick isn't compatible with real table layout).
         <div className="overflow-x-auto rounded-[13px] border border-border-card bg-white">
           <table className="w-full border-collapse font-mono">
             <thead>
