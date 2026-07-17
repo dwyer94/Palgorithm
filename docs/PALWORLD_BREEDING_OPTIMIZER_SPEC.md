@@ -407,6 +407,9 @@ Patch → regenerate `.usmap` (verify UE4SS compatibility *first*) → extract �
 ### Phase 2 — post-launch
 Cross-check the formula against the Palworld Modding Discord; add the server-config UI if outcomes prove server-dependent; iterate on hub heuristics; fold in the styled UI from 0.D.
 
+*Taking the app public (accounts, hosting, onboarding) is a separate track with its own phase
+numbering — see §13. It does not extend or renumber the Phase 0/1/2 sequence above.*
+
 ---
 
 ## 11. Data sources & validation oracles
@@ -430,6 +433,19 @@ Note: the data is Pocketpair IP extracted from the game; keep it as a bundled lo
 - **Anchor availability** — the rarest-parent bound means some targets are simply unreachable without a specific rare catch; the tool should state this plainly rather than return nothing. Only `wildCatchable` species may be suggested as anchors (§3.2/#5).
 - **Gender feasibility** — every breed needs both genders; single-gender holdings and heavily-skewed `genderRatio` species can make an otherwise cheap species path infeasible or egg-expensive (§7.1/#3). Surfaced as a first-class result, factored into expected eggs.
 - **Perk survival across branches** — perks injected upstream of the final cross must survive an inheritance roll per intermediate breed (odds compound); the guaranteed-carrier mode prefers final-cross injection and flags multi-step carries (§7.3, mode 2b).
+
+---
+
+## 13. Public launch track
+
+Taking PalCalc from a solo local tool to a public web app with optional accounts (Supabase
+auth + cloud sync, guest-first — local/no-sign-in use is unchanged) is planned but **not yet
+greenlit**. Full detail — schema, phased sequencing, what stays out of scope (the
+self-hosted PalDefender proxy, social/sharing features, native mobile) — lives entirely in
+`docs/PRODUCTION_READINESS_PLAN.md`, which is the source of truth for that track. It has its
+own phase numbering, deliberately separate from this spec's Phase 0/1/2 (§10) — those track
+breeding-mechanics work (the 1.0 migration and beyond) and continue independently of whether
+or when the public-launch track proceeds.
 
 ---
 

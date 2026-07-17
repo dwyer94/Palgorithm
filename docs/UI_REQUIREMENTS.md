@@ -15,10 +15,12 @@ doc is the UI-scoped companion. Where the two disagree on *mechanics*, the spec 
 
 ## 1. What this app is (context for the designer)
 
-A **goal-driven Palworld breeding-path planner** for a single technical user, run locally or
-on a home server. You tell it the Pals you own (species, gender, passive skills) and one or
-more target Pals (optionally with a desired set of passives), and it returns the breeding
-plan that reaches the target(s) in the **fewest distinct breeding combinations**.
+A **goal-driven Palworld breeding-path planner**, run locally or on a home server, guest-first
+(zero sign-in required — an opt-in account layer for cross-device sync is planned, see
+`docs/PRODUCTION_READINESS_PLAN.md`, not yet implemented). You tell it the Pals you own
+(species, gender, passive skills) and one or more target Pals (optionally with a desired set
+of passives), and it returns the breeding plan that reaches the target(s) in the **fewest
+distinct breeding combinations**.
 
 Key ideas the UI has to make legible:
 
@@ -35,9 +37,10 @@ Key ideas the UI has to make legible:
 Scale: ~138 species today, growing to ~200 after the July 10 2026 "1.0" patch. ~120 passive
 skills. A roster of dozens to low-hundreds of owned pals. Plans are typically 1–8 steps.
 
-Audience of one, but not a toy — the user understands the domain deeply and wants
-information density and correctness over hand-holding. Not a public product; no onboarding,
-no marketing surface.
+Today's audience is one technical user who understands the domain deeply and wants
+information density and correctness over hand-holding — that experience doesn't go away.
+Onboarding/marketing surface for strangers is planned but not yet built (readiness plan
+Phase 2); until then, still no onboarding, no marketing surface.
 
 ---
 
@@ -418,7 +421,9 @@ design can assume art is a possibility, not forbidden.
 ## 7. Explicitly out of scope
 
 - **No backend, no analytics, no auth, no accounts.** Fully client-side; data in
-  `localStorage`.
+  `localStorage`. True today — planned to change (accounts as an opt-in Supabase-backed sync
+  layer, local-only path unchanged) under `docs/PRODUCTION_READINESS_PLAN.md`, not yet
+  implemented.
 - **Live feature:** no write/mutation endpoints, no per-user identity scoping (everyone on
   the tailnet reads everyone's pals), no live Steam Web API — name mapping is manual override
   only.
