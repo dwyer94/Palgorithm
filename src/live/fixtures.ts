@@ -89,7 +89,7 @@ const SHARED_CAMP_1 = {
   id: 'camp-1',
   level: 3,
   state: 'Active',
-  pals: { 'bc1': rawPal({ PalID: 'Boar', Gender: 'Male', Level: 15 }) },
+  pals: { 'bc1': /* @__PURE__ */ rawPal({ PalID: 'Boar', Gender: 'Male', Level: 15 }) },
 };
 
 export const FIXTURE_PALS_BY_IDENTIFIER: Record<PlayerIdentifier, RawPalsResponse> = {
@@ -97,7 +97,7 @@ export const FIXTURE_PALS_BY_IDENTIFIER: Record<PlayerIdentifier, RawPalsRespons
     Meta: { PlayerUID: FIXTURE_NOVA_UID, Player: FIXTURE_NOVA_UID, TeamCount: 1, PalboxCount: 1, BaseCampCount: 1 },
     Pals: {
       Team: {
-        't1': rawPal({
+        't1': /* @__PURE__ */ rawPal({
           PalID: 'Anubis',
           Gender: 'Male',
           Level: 50,
@@ -107,7 +107,7 @@ export const FIXTURE_PALS_BY_IDENTIFIER: Record<PlayerIdentifier, RawPalsRespons
         }),
       },
       Palbox: {
-        'p1': rawPal({ PalID: 'GoldenHorse', Gender: 'Female', Level: 20, Passives: ['CraftSpeed_up1'] }),
+        'p1': /* @__PURE__ */ rawPal({ PalID: 'GoldenHorse', Gender: 'Female', Level: 20, Passives: ['CraftSpeed_up1'] }),
       },
       BaseCamps: [SHARED_CAMP_1],
     },
@@ -116,11 +116,11 @@ export const FIXTURE_PALS_BY_IDENTIFIER: Record<PlayerIdentifier, RawPalsRespons
     Meta: { PlayerUID: FIXTURE_EMBER_UID, Player: FIXTURE_EMBER_UID, TeamCount: 1, PalboxCount: 1, BaseCampCount: 1 },
     Pals: {
       Team: {
-        't1': rawPal({ PalID: 'ElecLion', Gender: 'Female', Level: 35, Passives: ['Deffence_up3', 'FakePassive_XYZ'] }),
+        't1': /* @__PURE__ */ rawPal({ PalID: 'ElecLion', Gender: 'Female', Level: 35, Passives: ['Deffence_up3', 'FakePassive_XYZ'] }),
       },
       Palbox: {
         // Deliberately unresolvable species — exercises the "flag, don't drop" path.
-        'p1': rawPal({ PalID: 'TotallyFakeSpecies_XYZ', Gender: 'Male', Level: 5 }),
+        'p1': /* @__PURE__ */ rawPal({ PalID: 'TotallyFakeSpecies_XYZ', Gender: 'Male', Level: 5 }),
       },
       BaseCamps: [SHARED_CAMP_1],
     },
@@ -130,7 +130,7 @@ export const FIXTURE_PALS_BY_IDENTIFIER: Record<PlayerIdentifier, RawPalsRespons
     Pals: {
       Team: {
         // lowercase gender string — exercises case-insensitive gender normalization.
-        't1': rawPal({ PalID: 'Carbunclo', Gender: 'male', Level: 25, Passives: ['CraftSpeed_up2'] }),
+        't1': /* @__PURE__ */ rawPal({ PalID: 'Carbunclo', Gender: 'male', Level: 25, Passives: ['CraftSpeed_up2'] }),
       },
       Palbox: {},
       BaseCamps: [],

@@ -1,4 +1,5 @@
 import type { Dataset } from '../data/schema';
+import { FIXTURE_PALS_BY_IDENTIFIER, FIXTURE_PLAYERS } from './fixtures';
 import { normalizeBaseCamps, normalizePlayer, normalizePlayerPals } from './normalize';
 import type {
   LiveBaseCamp,
@@ -165,14 +166,19 @@ export function createMockDataSource(config: MockDataSourceConfig, dataset: Data
  * stranger using the public production build with no proxy configured should see a clear
  * "not connected" empty state (`ServerPalsView`), not silently-fake Pals that look real
  * (docs/PRODUCTION_READINESS_PLAN.md Phase 1). `source: null` signals that case; callers
- * must treat it as "nothing to fetch," not attempt a request. */
+ * must treat it as "nothing to fetch," not attempt a request.
+ *
+ * The `FIXTURE_*` reference is confined to this `import.meta.env.DEV` branch (rather than
+ * being passed in by the caller) so the production build's dead-code elimination can drop
+ * the fixture data — fake player names/ids — from the shipped bundle entirely, not just
+ * make the mock path unreachable at runtime. */
 export function selectDataSource(
   settings: { live: { baseUrl: string; bearerToken: string } },
   dataset: Dataset,
-  mockConfig: MockDataSourceConfig,
 ): { source: LiveDataSource | null; isMock: boolean } {
   if (!settings.live.baseUrl.trim()) {
     if (import.meta.env.DEV) {
+      const mockConfig: MockDataSourceConfig = { players: FIXTURE_PLAYERS, palsByIdentifier: FIXTURE_PALS_BY_IDENTIFIER };
       return { source: createMockDataSource(mockConfig, dataset), isMock: true };
     }
     return { source: null, isMock: false };

@@ -3,7 +3,6 @@ import { getSettings, setSettings as writeSettings } from '../store/localStore';
 import { useSelectedPlayerIds, useSettings } from '../store/hooks';
 import { useRulesetContext } from '../ui/RulesetContext';
 import { selectDataSource, type LiveDataSourceError, type LiveResultMeta } from './dataSource';
-import { FIXTURE_PALS_BY_IDENTIFIER, FIXTURE_PLAYERS } from './fixtures';
 import { mergeIdentityLinks } from './nameResolution';
 import { loadPalsCache, savePalsCacheEntry } from './palsCache';
 import {
@@ -84,7 +83,7 @@ export function LiveProvider({ children }: { children: ReactNode }) {
   const [nextPollAt, setNextPollAt] = useState<number | null>(null);
 
   const { source, isMock } = useMemo(
-    () => selectDataSource(settings, dataset, { players: FIXTURE_PLAYERS, palsByIdentifier: FIXTURE_PALS_BY_IDENTIFIER }),
+    () => selectDataSource(settings, dataset),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [settings.live.baseUrl, settings.live.bearerToken, dataset],
   );
