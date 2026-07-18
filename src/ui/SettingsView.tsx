@@ -313,7 +313,11 @@ export default function SettingsView() {
             API, so Server Pals and shared planning can draw on <b className="font-semibold text-ink-muted">everyone's real boxes</b>{' '}
             instead of just your own roster. It's read-only — nothing is ever written back to your
             server. Leave the base URL blank to keep using local/demo data; ask whoever hosts your
-            server for the proxy URL and bearer token to connect.
+            server for the proxy URL and bearer token to connect. Hosting your own? See{' '}
+            <code className="font-mono text-[11.5px]">proxy/README.md</code> in the repo for setup.
+            Pointing this at PalDefender directly is technically possible but not recommended —
+            no CORS, localhost-only, admin-scoped token — the proxy is what makes this work
+            reliably.
           </div>
 
           <div className="mb-3.5 grid grid-cols-1 gap-3.5 sm:grid-cols-2">

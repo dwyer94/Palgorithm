@@ -9,8 +9,10 @@ for the full design and [`CLAUDE.md`](CLAUDE.md) for the working invariants.
 
 React + TypeScript + Tailwind, built with Vite. No backend is required to use it — game
 data ships as a bundled static JSON dataset, and your roster/plans/settings live in
-`localStorage`. An optional FastAPI **proxy** (see below) lets it pull live pal data from
-a running Palworld server instead of manual entry.
+`localStorage`. Two optional backends extend that: a FastAPI **proxy** (see below) that
+pulls live pal data from a running Palworld server instead of manual entry, and a
+**Supabase** account layer that syncs your data across devices instead of keeping it
+local-only (see below).
 
 ## Features
 
@@ -27,8 +29,11 @@ a running Palworld server instead of manual entry.
   running Palworld server via a proxy in front of PalDefender, and use them as planner
   inputs alongside (or instead of) your manually-entered roster. See
   [Live server connection](#live-server-connection-optional-proxy) below.
+- **Optional accounts / cloud sync** — sign in (email+password, Google, or Discord) to
+  sync your roster/plans/teams/settings across devices. Fully opt-in — see
+  [Accounts and cloud sync](#accounts-and-cloud-sync-optional) below.
 - **Settings** — allowed-catch policy, perk sets, live-connection config, display-name
-  overrides for the proxy's live data.
+  overrides for the proxy's live data, account sign-in.
 
 All views live in [`src/ui`](src/ui); Phase 0 UI is intentionally functional/unstyled
 (visual design is a separate later pass — see `CLAUDE.md` invariant 5).
@@ -46,7 +51,34 @@ npm run format
 ```
 
 No live-server setup is required to use the app — with an empty proxy base URL in
-Settings, it runs entirely against the bundled dataset and your local roster.
+Settings, it runs entirely against the bundled dataset and your local roster. Likewise, no
+account is required — see below.
+
+## Accounts and cloud sync (optional)
+
+The app is guest-first by design (`CLAUDE.md`): with no sign-in, everything — roster,
+saved plans, teams, settings — lives in `localStorage` only, same as always. On top of
+that, an opt-in account layer (Supabase auth + Postgres, RLS-scoped per user) lets your
+data follow you across devices instead.
+
+- **Sign in** from the sidebar's Account entry (`src/ui/AuthView.tsx`) — email+password,
+  or OAuth via Google/Discord.
+- Signing in switches reads/writes from `localStorage` to Supabase
+  (`src/store/remoteStore.ts`), transparently to every view — none of them talk to storage
+  directly, they all go through `src/store/hooks.ts`.
+- **Guest -> account migration**: the first time you sign into an account with empty cloud
+  tables, you're offered a one-time import of whatever's in this browser's local storage
+  (`src/ui/GuestMigrationPrompt.tsx`). There's no merge/conflict resolution beyond that —
+  if a second device also has local guest data, it's flagged rather than silently dropped.
+- **Account deletion** cascades to every synced table via a `delete_user()` Postgres RPC
+  (`supabase/migrations/0002_delete_account_rpc.sql`).
+
+This layer only activates if the deployment is configured for it — copy `.env.example` to
+`.env.local` and fill in `VITE_SUPABASE_URL` / `VITE_SUPABASE_ANON_KEY` from your own
+Supabase project's Settings → API page (`src/store/supabaseClient.ts`). Leave them unset
+and the app runs exactly as it did before this feature existed: fully local, no sign-in UI
+gating anything. Schema/RLS policies live in `supabase/migrations/`. Full design notes:
+[`docs/PRODUCTION_READINESS_PLAN.md`](docs/PRODUCTION_READINESS_PLAN.md) (Phase 1).
 
 ## Live server connection (optional proxy)
 
@@ -56,14 +88,18 @@ in every player's real pals from a running Palworld dedicated server instead of 
 entry. This is entirely optional — leave the proxy base URL blank in Settings and the app
 runs on your local roster only.
 
-**Why a proxy instead of connecting directly to PalDefender:** PalDefender only listens
-on `127.0.0.1` on the server, holds an admin-equivalent bearer token, and has no CORS
-support for a browser client. The proxy (`proxy/` in this repo, FastAPI) is the only
-piece that ever holds that token; it exposes a read-only mirror of PalDefender's API
-(`/v1/pdapi/players`, `/v1/pdapi/pals/{id}`) with CORS enabled, an optional caller token,
-and a short-TTL cache, and is the only component ever exposed off the server (via
-Tailscale). Connecting the app directly to PalDefender itself is not supported — the app
-only speaks the proxy's contract.
+**Why a proxy instead of connecting directly to PalDefender:** nothing in the app hardcodes
+the proxy's contract specifically — it just `fetch`es whatever base URL you give it, and
+the proxy mirrors PalDefender's own paths and response shapes 1:1. The blocker is
+PalDefender itself: it only listens on `127.0.0.1` on the server, holds an admin-equivalent
+bearer token, and has no CORS support for a browser client, so a direct app→PalDefender
+connection is never actually reachable from a real browser tab regardless of hosting. The
+proxy (`proxy/` in this repo, FastAPI) is the only piece that ever holds that token; it
+exposes a read-only mirror of PalDefender's API (`/v1/pdapi/players`, `/v1/pdapi/pals/{id}`)
+with CORS enabled, an optional caller token, and a short-TTL cache, and is the only
+component ever exposed off the server (via Tailscale). See
+[`proxy/README.md`](proxy/README.md#can-i-point-the-app-at-paldefender-directly-skipping-the-proxy)
+for the full breakdown of why.
 
 ```
 Palworld Dedicated Server + PalDefender (127.0.0.1, holds the real token)
@@ -171,13 +207,14 @@ a manual follow-up step.
 /src/data      dataset.<version>.json + loader/validator
 /src/ruleset   BreedingRuleset interface + the CombiRank (0.6) implementation
 /src/solver    speciesPlanner, hubFinder, passivePlanner, shared types
-/src/store     localStorage roster/plans/settings
-/src/ui        views + components (roster, planners, forward/reverse lookup, live, settings)
+/src/store     localStorage roster/plans/settings + optional Supabase remoteStore (accounts)
+/src/ui        views + components (roster, planners, forward/reverse lookup, live, settings, auth)
 /src/live      PalDefender-proxy connection: data source, normalizer, LiveContext
 /src/pipeline  offline Node CLI: normalizer + suggested-hubs precompute + diff scripts
 /test          ruleset-vs-oracle + solver unit tests
 /proxy         FastAPI proxy mirroring PalDefender's REST API (see above)
-/docs          admin/friends setup guides + UI requirements
+/supabase      migrations + RLS policies for the optional account layer (see above)
+/docs          admin/friends setup guides + UI requirements + production readiness plan
 ```
 
 ## Testing

@@ -1,14 +1,43 @@
 # PalCalc PalDefender proxy
 
 A thin FastAPI proxy that mirrors PalDefender's REST API (`../docs/PalDefenderAPI/*.md`,
-https://ultimeit.github.io/PalDefender/RESTAPI/) as closely as possible, so the PalCalc app
-never has to know PalDefender exists — it just talks to this proxy using the exact same
-paths and response shapes. See `../docs/UI_REQUIREMENTS.md` for the feature this serves and
+https://ultimeit.github.io/PalDefender/RESTAPI/ — see the [PalDefender wiki](https://ultimeit.github.io/PalDefender/)
+for the mod itself) as closely as possible, so the PalCalc app never has to know
+PalDefender exists — it just talks to this proxy using the exact same paths and response
+shapes. See `../docs/UI_REQUIREMENTS.md` for the feature this serves and
 `../docs/SETUP_admin_runbook.md` for the full PalDefender + Tailscale deployment picture
 (note: that doc still describes an earlier, more complex design with per-friend
 `/mypals` scoping — this proxy deliberately does **not** implement that; every caller who
 can reach it gets full read access, since there's nothing here that lets anyone change
 anything).
+
+## Can I point the app at PalDefender directly, skipping the proxy?
+
+Nothing in the app forces it through this proxy specifically — `src/live/dataSource.ts`
+just does `fetch(baseUrl + '/v1/pdapi/...')` against whatever base URL you put in Settings,
+and since this proxy mirrors PalDefender's paths and response shapes 1:1, PalDefender would
+answer those same requests. So yes, if you can get a browser to actually reach PalDefender
+and read its response, pointing "Proxy base URL" straight at it works today. That's just a
+hard "if" in practice, for three reasons:
+
+- **No CORS.** PalDefender doesn't send `Access-Control-Allow-Origin`, so a browser blocks
+  the app's cross-origin requests to it outright, regardless of network reachability.
+- **It only binds `127.0.0.1`** by design, so it isn't reachable from another device at all
+  without extra tunneling of your own.
+- **Its bearer token is admin-equivalent.** Shipping it to a browser client (visible in
+  devtools, network tab, localStorage) hands that same power to anyone who opens the page.
+
+This proxy exists to solve exactly those three problems — see "What it adds on top of
+PalDefender" below — so it's the recommended path, not a hardcoded requirement. None of the
+three blockers above are specific to a locally-run app either — they're just as true today
+against `npm run dev` as they would be against a publicly hosted build. What changes once
+the app is deployed publicly (`docs/PRODUCTION_READINESS_PLAN.md`) is scale, not mechanism:
+today it's one proxy shared by you and a Tailscale-connected friend group, but a public
+instance will be used by unrelated admins each running their own separate Palworld server.
+Every one of them needs their own proxy + tunnel pointed at from the same shared app, since
+there's no way to embed or discover an arbitrary admin's PalDefender instance directly — the
+proxy pattern is what generalizes to many independent server owners, not a constraint that
+only bites later.
 
 ## What it adds on top of PalDefender
 
@@ -41,9 +70,10 @@ copy .env.example .env                              # then edit .env
 ```
 
 Leave `PALDEFENDER_TOKEN` blank in `.env` to run in demo mode — `GET /health` will report
-`{"ok": true, "mode": "demo"}` and `/v1/pdapi/players` / `/v1/pdapi/pals/<id>` will serve the
-fixtures in `demo_data.py`. Point the PalCalc app's Settings → "Proxy base URL" at
-`http://127.0.0.1:8080` to test the real HTTP path end-to-end without PalDefender running.
+`{"ok": true, "mode": "demo"}` and `/v1/pdapi/players`, `/v1/pdapi/player/<id>`, and
+`/v1/pdapi/pals/<id>` will all serve the fixtures in `demo_data.py`. Point the PalCalc app's
+Settings → "Proxy base URL" at `http://127.0.0.1:8080` to test the real HTTP path
+end-to-end without PalDefender running.
 
 Fill in `PALDEFENDER_TOKEN` (and `PALDEFENDER_BASE` if it's not on the default port — verify
 against your PalDefender config, ports vary by version) to switch to live mode.
@@ -63,12 +93,15 @@ and caching.
 Once PalDefender + Tailscale are set up per `../docs/SETUP_admin_runbook.md` Parts A and C:
 
 1. Copy this `proxy/` directory to the server (or clone the repo there).
-2. Set real env vars — `PALDEFENDER_TOKEN` at minimum — via a `.env` file or your service
+2. Set up the venv and install deps as in "Run it" above (`requirements.txt` is enough for
+   a deployment — skip `requirements-dev.txt`/pytest unless you also want to run the tests
+   on the server).
+3. Set real env vars — `PALDEFENDER_TOKEN` at minimum — via a `.env` file or your service
    manager's env config (NSSM, Task Scheduler). Never put the token in a client build.
-3. Run `uvicorn app:app --host 127.0.0.1 --port 8080` as a service so it survives reboots.
-4. `tailscale serve --bg 8080` to expose it over the tailnet (HTTPS, tailnet-only — not
+4. Run `uvicorn app:app --host 127.0.0.1 --port 8080` as a service so it survives reboots.
+5. `tailscale serve --bg 8080` to expose it over the tailnet (HTTPS, tailnet-only — not
    `tailscale funnel`).
-5. Point the app's Settings → "Proxy base URL" at the resulting `https://<magicdns>.<tailnet>.ts.net`.
+6. Point the app's Settings → "Proxy base URL" at the resulting `https://<magicdns>.<tailnet>.ts.net`.
 
 This proxy binds `127.0.0.1` only (see `uvicorn` command above) — it is never directly
 reachable from the LAN/WAN, matching the admin runbook's security posture even though the
