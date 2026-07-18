@@ -81,6 +81,9 @@ export interface TeamSlot {
   desiredPassives: PassiveId[];
   plan?: TeamSlotPlan;
   pendingPlan?: TeamSlotPlan;
+  /** Purely cosmetic "grey this one out" marker the user can toggle from the team list card —
+   * no solver/store logic reads it; it only changes how the card renders. */
+  disabled?: boolean;
 }
 
 /** Fixed team size, mirroring Palworld's in-game party size. */

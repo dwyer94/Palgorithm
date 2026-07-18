@@ -3,7 +3,7 @@ import { TriangleAlert, X, Play, Eye, RotateCcw, Pencil, Check, Trash2 } from 'l
 import type { Species, Passive } from '../data/schema';
 import type { PassiveId, SpeciesId, TeamSlot } from '../store/types';
 import { PalIcon, PassiveChip } from './components';
-import { SpeciesSelect, PassiveMultiSelect } from './shared';
+import { SpeciesSelect, PassiveMultiSelect, effectiveSlotCombos } from './shared';
 
 /** One Team party slot: pick a target + desired perks, run/re-run the single-target planner
  * against it, and resolve any pending re-run preview. Mirrors `SingleTargetView`'s
@@ -47,6 +47,9 @@ export default function TeamSlotCard({
   const [confirmingClear, setConfirmingClear] = useState(false);
   const showPickers = !slot.plan || editing;
   const targetSpecies = slot.target ? speciesById.get(slot.target) : undefined;
+
+  const currentCombos = slot.plan ? effectiveSlotCombos(slot.plan) : undefined;
+  const pendingCombos = slot.pendingPlan ? effectiveSlotCombos(slot.pendingPlan) : undefined;
 
   if (confirmingClear) {
     return (
@@ -150,12 +153,17 @@ export default function TeamSlotCard({
         <>
           <div
             className={`font-mono text-[12px] font-semibold ${
-              slot.plan.result.feasible ? 'text-success-text' : 'text-brand-hover'
+              currentCombos!.feasible ? 'text-success-text' : 'text-brand-hover'
             }`}
           >
-            {slot.plan.result.feasible ? `${slot.plan.result.combinationCount} combos` : 'infeasible'}
+            {currentCombos!.qualifier}
+            {currentCombos!.feasible ? `${currentCombos!.combinationCount} combos` : 'infeasible'}
           </div>
-          {slot.plan.guaranteedCarrierOutcome?.status === 'routed' && (
+          {/* Suppressed when owned outright — the main badge above already reflects
+              `nextBestWhenOwned`'s own guaranteed-carrier route in that case (via
+              `effectiveSlotCombos`), so this would just show a second, differently-scoped
+              number for the same "guaranteed-perk" question. */}
+          {!slot.plan.nextBestWhenOwned && slot.plan.guaranteedCarrierOutcome?.status === 'routed' && (
             <div className="font-mono text-[11px] text-muted">
               guaranteed-carrier: +{slot.plan.guaranteedCarrierOutcome.alt.combinationDelta} combos (
               {slot.plan.guaranteedCarrierOutcome.alt.plan.combinationCount} total)
@@ -203,18 +211,26 @@ export default function TeamSlotCard({
           <div className="flex items-center gap-4">
             <div>
               <div className="font-sans text-[10.5px] text-muted-light">Current</div>
-              <div className={`font-mono text-[13px] font-semibold ${slot.plan?.result.feasible ? 'text-success-text' : 'text-brand-hover'}`}>
-                {slot.plan?.result.feasible ? `${slot.plan.result.combinationCount} combos` : 'infeasible'}
+              <div className={`font-mono text-[13px] font-semibold ${currentCombos && currentCombos.feasible ? 'text-success-text' : 'text-brand-hover'}`}>
+                {currentCombos ? (
+                  <>
+                    {currentCombos.qualifier}
+                    {currentCombos.feasible ? `${currentCombos.combinationCount} combos` : 'infeasible'}
+                  </>
+                ) : (
+                  '—'
+                )}
               </div>
             </div>
             <div>
               <div className="font-sans text-[10.5px] text-muted-light">New</div>
               <div
                 className={`font-mono text-[13px] font-semibold ${
-                  slot.pendingPlan.result.feasible ? 'text-success-text' : 'text-brand-hover'
+                  pendingCombos!.feasible ? 'text-success-text' : 'text-brand-hover'
                 }`}
               >
-                {slot.pendingPlan.result.feasible ? `${slot.pendingPlan.result.combinationCount} combos` : 'infeasible'}
+                {pendingCombos!.qualifier}
+                {pendingCombos!.feasible ? `${pendingCombos!.combinationCount} combos` : 'infeasible'}
               </div>
             </div>
           </div>

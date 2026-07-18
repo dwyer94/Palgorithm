@@ -6,6 +6,7 @@ import type { GuaranteedCarrierOutcome } from '../solver/passivePlanner';
 import type { PassiveId } from '../ruleset/types';
 import type { ProvenanceMatch } from '../live/provenance';
 import type { LivePlayerPals, PlayerIdentifier } from '../live/types';
+import type { TeamSlotPlan } from '../store/types';
 import { useSettings } from '../store/hooks';
 import { ComboCount, ProvisionalTag, ElementDot, HoverTooltip, InfoTooltip, PalCard, PalIcon, PassiveChip, RankPill } from './components';
 
@@ -32,6 +33,40 @@ export { SpeciesSelect, PassiveMultiSelect } from './components';
 
 export function speciesLabel(species: Species | undefined, id: string): string {
   return species ? `${species.displayName} (${id})` : id;
+}
+
+export interface EffectiveSlotCombos {
+  feasible: boolean;
+  combinationCount: number;
+  /** Prefixed onto the badge to explain what this number reflects whenever it isn't the plain
+   * opportunistic baseline — e.g. "owned · next " when sourced from `nextBestWhenOwned`,
+   * "guaranteed-perk " when sourced from a routed `guaranteedCarrierOutcome`. Empty string when
+   * the plain baseline number is shown as-is. */
+  qualifier: string;
+}
+
+/** What a Team Builder slot's compact combo-count badge should actually show. The plain
+ * baseline `result.combinationCount` answers "cheapest route, full stop" — not "how many combos
+ * to get one with the perks I asked for", which is the question a slot with `desiredPassives`
+ * set is actually there to answer. It's the wrong number in two ways: it settles at 0 whenever
+ * the target's already owned (the real "how do I get another" number lives in
+ * `nextBestWhenOwned`), and it ignores desired perks entirely — it may pick a cheap route (even
+ * a plain catch) that doesn't carry them at all, while the real perked route lives in
+ * `guaranteedCarrierOutcome`. Whenever perks were requested and a guaranteed-carrier route was
+ * found, that route's count is shown instead of the opportunistic baseline's — that's the plan
+ * the slot's perks actually depend on. */
+export function effectiveSlotCombos(plan: TeamSlotPlan): EffectiveSlotCombos {
+  const hasPerks = (plan.desiredPassives ?? []).length > 0;
+  const owned = plan.nextBestWhenOwned;
+  const base = owned
+    ? { result: owned.result, outcome: owned.guaranteedCarrierOutcome, qualifier: 'owned · next ' }
+    : { result: plan.result, outcome: plan.guaranteedCarrierOutcome, qualifier: '' };
+
+  if (hasPerks && base.outcome?.status === 'routed') {
+    const { feasible, combinationCount } = base.outcome.alt.plan;
+    return { feasible, combinationCount, qualifier: `${base.qualifier}guaranteed-perk ` };
+  }
+  return { feasible: base.result.feasible, combinationCount: base.result.combinationCount, qualifier: base.qualifier };
 }
 
 function formatEggs(n: number): string {
