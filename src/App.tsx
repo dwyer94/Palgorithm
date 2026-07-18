@@ -113,6 +113,7 @@ function AppShell() {
           iconMode={settings.iconDisplayMode}
           onIconModeChange={(iconDisplayMode) => setSettings({ ...settings, iconDisplayMode })}
           accountLabel={user ? user.email ?? 'Account' : 'Sign in'}
+          signedIn={!!user}
         />
         <div className="flex flex-1 flex-col overflow-y-auto md:flex-row md:overflow-hidden">
           {VIEW_KEYS.filter((key) => visited.has(key)).map((key) => {

@@ -31,6 +31,8 @@ import {
   Sparkle,
   TriangleAlert,
   Info,
+  Cloud,
+  CloudCheck,
 } from 'lucide-react';
 import { ELEMENTS } from '../data/schema';
 import type { Element, Gender, Species, Passive } from '../data/schema';
@@ -851,6 +853,7 @@ export function Sidebar({
   iconMode,
   onIconModeChange,
   accountLabel,
+  signedIn,
 }: {
   active: string;
   onSelect: (key: string) => void;
@@ -859,6 +862,7 @@ export function Sidebar({
   iconMode: 'compact' | 'full';
   onIconModeChange: (mode: 'compact' | 'full') => void;
   accountLabel: string;
+  signedIn: boolean;
 }) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -954,7 +958,7 @@ export function Sidebar({
               active === 'account' ? 'bg-brand font-semibold text-sidebar-bg' : 'text-muted hover:bg-sidebar-hover'
             }`}
           >
-            <span>☁</span>
+            {signedIn ? <CloudCheck size={NAV_ICON_SIZE} /> : <Cloud size={NAV_ICON_SIZE} />}
             <span className="truncate">{accountLabel}</span>
           </div>
           <div
