@@ -6,7 +6,14 @@ import type { PassiveId } from '../ruleset/types';
 import type { ProvenanceMatch } from '../live/provenance';
 import type { LivePlayerPals, PlayerIdentifier } from '../live/types';
 import { useSettings } from '../store/hooks';
-import { ComboCount, ProvisionalTag, ElementDot, HoverTooltip, PalCard, PalIcon, PassiveChip, RankPill } from './components';
+import { ComboCount, ProvisionalTag, ElementDot, HoverTooltip, InfoTooltip, PalCard, PalIcon, PassiveChip, RankPill } from './components';
+
+/** Jargon explanations for hub-related UI (Phase 2, docs/PRODUCTION_READINESS_PLAN.md) —
+ * colocated here since both HubView and this file's HubList/hubMeta need them. */
+export const HUB_EXPLANATION =
+  'A hub is a shared intermediate Pal bred once and then crossed into each target — cheaper than breeding every target from scratch when several targets can share one. Always optional: the union plan (breeding each target directly) never needs a hub.';
+export const HUB_SCORE_EXPLANATION =
+  "A hub candidate's score balances how many targets it reaches against its own obtain cost — higher is better, but it's a ranking heuristic, not a combination count.";
 
 /** Shared, data-bound view composites reused across the planner screens (design handoff
  * README's "Reuse map"). Visual atoms live in `./components`; the layered graph rendering
@@ -647,8 +654,9 @@ export function HubList({
   if (isFull) {
     return (
       <div className="overflow-hidden rounded-card border border-border-card bg-white shadow-card">
-        <div className="px-[15px] pb-2 pt-3 font-sans text-[10.5px] font-semibold uppercase tracking-wide text-muted">
+        <div className="flex items-center gap-1.5 px-[15px] pb-2 pt-3 font-sans text-[10.5px] font-semibold uppercase tracking-wide text-muted">
           {scopeLabel ?? 'Ranked hubs'}
+          <InfoTooltip description={HUB_EXPLANATION} />
         </div>
         <div className="flex flex-wrap gap-2.5 border-t border-border-divider p-[15px]">
           {hubs.map((h) => {

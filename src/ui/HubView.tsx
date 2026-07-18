@@ -9,8 +9,8 @@ import { annotateUnionPlan } from '../live/provenance';
 import { buildDisplayNameMap } from '../live/nameResolution';
 import { useRulesetContext } from './RulesetContext';
 import { useSolverTask } from './useSolverTask';
-import { UnionPlanView, HubList } from './shared';
-import { ComboCount, ElementDot, PalIcon, PassiveChip, PassiveMultiSelect, Pill, SpeciesTypeahead, Toggle } from './components';
+import { UnionPlanView, HubList, HUB_EXPLANATION, HUB_SCORE_EXPLANATION } from './shared';
+import { ComboCount, ElementDot, InfoTooltip, PalIcon, PassiveChip, PassiveMultiSelect, Pill, SpeciesTypeahead, Toggle } from './components';
 import rawSuggestedHubs from '../data/suggestedHubs.1.0.json';
 import { SuggestedHubsSchema, type RoleSuggestion } from '../data/suggestedHubsSchema';
 
@@ -229,6 +229,11 @@ export default function HubView() {
 
         <div className="mb-[9px] font-sans text-[10.5px] font-semibold uppercase tracking-[.8px] text-muted">Targets</div>
         <div className="mb-[10px] flex flex-col gap-[7px]">
+          {targets.length === 0 && (
+            <div className="rounded-card border border-dashed border-border-input bg-panel-subtle p-4 text-center font-sans text-[12px] text-muted">
+              No targets added yet — search below.
+            </div>
+          )}
           {targets.map((t) => {
             const s = speciesById.get(t);
             return (
@@ -394,7 +399,10 @@ export default function HubView() {
                       />
                     ))}
                   </div>
-                  <div className="mt-0.5 font-sans text-[22px] font-bold tracking-[-.4px]">Union vs. hub strategy</div>
+                  <div className="mt-0.5 flex items-center gap-2 font-sans text-[22px] font-bold tracking-[-.4px]">
+                    Union vs. hub strategy
+                    <InfoTooltip description={HUB_EXPLANATION} />
+                  </div>
                 </div>
                 <div className="flex gap-2">
                   <div
@@ -470,9 +478,15 @@ export default function HubView() {
                         )
                       }
                       meta={
-                        <span className="text-[#5a7fb8]">
+                        <span className="inline-flex items-center gap-1 text-[#5a7fb8]">
                           obtain {selectedHubCandidate.obtainCost}
-                          {selectedHubCandidate.score !== undefined && ` · score ${selectedHubCandidate.score}`}
+                          {selectedHubCandidate.score !== undefined && (
+                            <>
+                              {' '}
+                              · score {selectedHubCandidate.score}
+                              <InfoTooltip description={HUB_SCORE_EXPLANATION} />
+                            </>
+                          )}
                         </span>
                       }
                     />
