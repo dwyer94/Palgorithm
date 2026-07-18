@@ -21,6 +21,11 @@ export interface PlanGraphNode {
   isShared: boolean;
   passives?: string[] | undefined;
   stepIndex?: number | undefined;
+  /** True only for a standalone terminal marker in the TARGETS column (a target satisfied by
+   * an owned/caught leaf, or one whose producing step is shared with another consumer). A
+   * target whose producing step has no other consumer skips the marker entirely — see the
+   * merge logic in the target loop below — so most single-step plans never populate this. */
+  isTargetMarker?: boolean;
   column: number;
   row: number;
   x: number;
@@ -116,7 +121,6 @@ export function buildPlanGraph(
   desiredPassives?: string[],
   passiveLabel: (id: string) => string = (id) => id,
 ): PlanGraphLayout {
-  const targetSet = new Set(targets);
   const catchKeys = new Set(catches.map((c) => leafKey(c.species, c.gender)));
 
   const nodes = new Map<string, PlanGraphNode>();
@@ -138,7 +142,7 @@ export function buildPlanGraph(
         gender: individual.gender,
         kind: 'leaf',
         isCatch: catchKeys.has(key),
-        isTarget: targetSet.has(individual.species),
+        isTarget: false,
         isShared: false,
         passives: individual.passives && individual.passives.length > 0 ? individual.passives : undefined,
         column: 0,
@@ -162,7 +166,7 @@ export function buildPlanGraph(
       gender: null,
       kind: 'produced',
       isCatch: false,
-      isTarget: targetSet.has(step.child),
+      isTarget: false,
       isShared: false,
       stepIndex: i,
       column: 0,
@@ -176,28 +180,6 @@ export function buildPlanGraph(
   // A target reached purely by catching (no breeding needed) never appears as a step
   // parent, so it wouldn't otherwise get a node — surface it as a leaf/target anyway.
   for (const c of catches) resolveParent(c);
-
-  // A target already satisfied by ownership alone (cost 0, no steps/catches at all) gets
-  // no node from either loop above — without this it renders as an empty graph even though
-  // a feasible plan was returned. Gender is unknown here (the planner doesn't surface which
-  // roster individual matched), so this leaf is gender-less; the isTarget override below
-  // still routes it into the TARGETS column like any other target node.
-  for (const t of targets) {
-    if (Array.from(nodes.values()).some((n) => n.isTarget && n.species === t)) continue;
-    nodes.set(leafKey(t, null), {
-      id: leafKey(t, null),
-      species: t,
-      gender: null,
-      kind: 'leaf',
-      isCatch: false,
-      isTarget: true,
-      isShared: false,
-      column: 0,
-      row: 0,
-      x: 0,
-      y: 0,
-    });
-  }
 
   // `SpeciesPlanStep.parentA/B` never carry `.passives` (buildGraph's edge templates don't
   // track them — see speciesPlanner.ts's clean-carrier assumption), so every leaf node above
@@ -223,7 +205,14 @@ export function buildPlanGraph(
   }
   for (const e of edges) e.fromShared = nodes.get(e.from)?.isShared ?? false;
 
-  // Column = longest-path depth from a leaf.
+  // Column = longest-path depth from a leaf. Every structural node — leaf or bred
+  // intermediate — gets its column purely from dependency depth; target-ness never pulls a
+  // node out of its breeding position. It used to: a node that was simultaneously a target
+  // species AND still consumed as a parent elsewhere (a "self-carrier" cross — e.g. breeding
+  // an owned Pal of the target's own species into a better copy of itself) got forced into
+  // the rightmost column, which produced backwards-pointing edges. It also swallowed
+  // whichever step actually bred the result into a column unconditionally labeled "TARGETS",
+  // with no "STEP N" of its own ever appearing (2026-07-18 bug report).
   function computeColumn(id: string, stack: Set<string> = new Set()): number {
     const node = nodes.get(id);
     if (!node) return 0;
@@ -236,31 +225,67 @@ export function buildPlanGraph(
     return depth + 1;
   }
 
-  let maxNonTargetColumn = 0;
+  let maxStructuralColumn = 0;
   for (const node of nodes.values()) {
     node.column = computeColumn(node.id);
-    if (!node.isTarget) maxNonTargetColumn = Math.max(maxNonTargetColumn, node.column);
-  }
-  const targetColumn = maxNonTargetColumn + 1;
-  for (const node of nodes.values()) {
-    if (node.isTarget) node.column = targetColumn;
+    maxStructuralColumn = Math.max(maxStructuralColumn, node.column);
   }
 
-  const columnCount = targetColumn + 1;
+  // A target whose content is a bred result consumed nowhere else (the common single-step,
+  // single-target case) gets its `isTarget`/desired-passive-chip styling applied directly to
+  // the step that produced it, instead of a second lookalike box wired in by an edge — the
+  // two used to be visually indistinguishable (2026-07-19 bug report: "no difference between
+  // step 1 and final"). A standalone TARGETS marker is still needed when the source is a leaf
+  // (owned/caught outright — OWN/CATCH and TARGETS genuinely differ there) or when the
+  // producing step is shared with another consumer (that node can't wear two identities: its
+  // own breeding-material role and the goal itself).
+  const targetColumn = maxStructuralColumn + 1;
+  let usedTargetColumn = false;
+  for (const t of targets) {
+    const sourceId = lastProducerByspecies.get(t) ?? Array.from(nodes.values()).find((n) => n.kind === 'leaf' && n.species === t)?.id;
+    const source = sourceId ? nodes.get(sourceId) : undefined;
+    const canMerge = source?.kind === 'produced' && (outDegree.get(sourceId!) ?? 0) === 0;
+    if (canMerge && source) {
+      source.isTarget = true;
+      continue;
+    }
+    usedTargetColumn = true;
+    nodes.set(`target:${t}`, {
+      id: `target:${t}`,
+      species: t,
+      gender: null,
+      kind: source ? 'produced' : 'leaf',
+      isCatch: false,
+      isTarget: true,
+      isShared: false,
+      isTargetMarker: true,
+      stepIndex: source?.kind === 'produced' ? source.stepIndex : undefined,
+      column: targetColumn,
+      row: 0,
+      x: 0,
+      y: 0,
+    });
+    if (sourceId) edges.push({ from: sourceId, to: `target:${t}`, fromShared: source?.isShared ?? false });
+  }
+
+  const columnCount = (usedTargetColumn ? targetColumn : maxStructuralColumn) + 1;
   const rowsByColumn: string[][] = Array.from({ length: columnCount }, () => []);
 
   for (const key of leafOrder) rowsByColumn[0]!.push(key);
 
-  const producedNonTarget = Array.from(nodes.values())
-    .filter((n) => n.kind === 'produced' && !n.isTarget)
+  // A merged target (isTarget but not isTargetMarker) is still a real breeding step, so it
+  // takes its place among the other produced nodes in its own natural column rather than the
+  // TARGETS column — only a standalone marker belongs there.
+  const producedNonMarker = Array.from(nodes.values())
+    .filter((n) => n.kind === 'produced' && !n.isTargetMarker)
     .sort((a, b) => (a.stepIndex ?? 0) - (b.stepIndex ?? 0));
-  for (const node of producedNonTarget) rowsByColumn[node.column]!.push(node.id);
+  for (const node of producedNonMarker) rowsByColumn[node.column]!.push(node.id);
 
   const targetOrder = new Map(targets.map((t, i) => [t, i]));
-  const targetNodes = Array.from(nodes.values())
-    .filter((n) => n.isTarget)
+  const targetMarkerNodes = Array.from(nodes.values())
+    .filter((n) => n.isTargetMarker)
     .sort((a, b) => (targetOrder.get(a.species) ?? 0) - (targetOrder.get(b.species) ?? 0));
-  for (const node of targetNodes) rowsByColumn[targetColumn]!.push(node.id);
+  for (const node of targetMarkerNodes) rowsByColumn[targetColumn]!.push(node.id);
 
   // Rows within a column stack by their *actual* estimated height rather than a uniform
   // slot, so a node with wrapped passive chips pushes the next node down instead of

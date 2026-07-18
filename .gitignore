@@ -50,3 +50,7 @@ venv/
 
 # Personal scratch notes — not project docs
 UI_Enhancements.txt
+
+# Private ops runbook — real Supabase project ref/URL, domain, CI details (docs/DEPLOYING_GUIDE.md
+# itself explains why this stays local rather than committed)
+docs/DEPLOYING_GUIDE.md

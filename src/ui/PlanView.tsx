@@ -105,6 +105,15 @@ function nodeSubLabel(node: PlanGraphNode, ctx: PlanGraphContext): { label: Reac
       className: 'text-success-text',
     };
   }
+  if (node.isTarget && node.isTargetMarker) {
+    // The terminal marker itself isn't a breeding step — it's wired by an edge to whichever
+    // step actually produced it (see graphLayout's per-target marker loop), so it only
+    // borrows that step's number for context rather than claiming to be "step 1" via the
+    // undefined-stepIndex default below.
+    return node.stepIndex !== undefined
+      ? { label: `from step ${node.stepIndex + 1}`, className: 'text-muted' }
+      : { label: '', className: 'text-muted' };
+  }
   if (node.isShared) {
     return { label: 'shared · used ×2', className: 'text-brand-hover font-semibold' };
   }
@@ -121,6 +130,7 @@ export function PlanGraphPanel({
   speciesById,
   hubSpeciesId,
   desiredPassives,
+  routedPassives,
   passivePlan,
   passivesById,
   selectedPlayerIds,
@@ -133,6 +143,13 @@ export function PlanGraphPanel({
   speciesById: Map<string, Species>;
   hubSpeciesId?: string | undefined;
   desiredPassives?: string[] | undefined;
+  /** Which of `desiredPassives` this specific plan actually routed into its lineage — set by
+   * callers whose plan has no `passivePlan` to derive matched/warn chips from (e.g. the
+   * guaranteed-carrier alternative's `ForcedCarrierResult`, which never runs the passive-odds
+   * math a `passivePlan` carries; the routed/unrouted split lives one level up on
+   * `GuaranteedCarrierAlternative` instead). Ignored when `passivePlan` already resolves a
+   * chip's source leaf. */
+  routedPassives?: string[] | undefined;
   passivePlan?: PassivePlanResult | undefined;
   passivesById?: Map<string, Passive> | undefined;
   selectedPlayerIds?: Set<PlayerIdentifier> | undefined;
@@ -179,15 +196,29 @@ export function PlanGraphPanel({
     return map;
   }, [layout.nodes]);
   const unassignedSet = new Set(passivePlan?.unassigned ?? []);
+  const routedSet = routedPassives ? new Set(routedPassives) : undefined;
   const targetPassiveChips = desiredPassives?.map((id) => {
     const p = passivesById?.get(id);
     const sourceNodeId = passiveSourceNodeId.get(id);
+    // `sourceNodeId` (a real leaf attributed via `passivePlan`) wins when both are available —
+    // it's the more specific answer and comes with a hoverable lineage node. `routedSet` is the
+    // fallback for plans with no `passivePlan` at all (see the prop doc comment above).
+    const chipVariant = sourceNodeId
+      ? ('matched' as const)
+      : routedSet
+        ? routedSet.has(id)
+          ? ('matched' as const)
+          : ('warn' as const)
+        : unassignedSet.has(id)
+          ? ('warn' as const)
+          : undefined;
     return {
       id,
       label: p?.displayName ?? id,
       tier: p?.tier,
       description: p?.description,
-      ...(sourceNodeId ? { chipVariant: 'matched' as const, sourceNodeId } : unassignedSet.has(id) ? { chipVariant: 'warn' as const } : {}),
+      ...(chipVariant && { chipVariant }),
+      ...(sourceNodeId && { sourceNodeId }),
     };
   });
 
@@ -393,6 +424,7 @@ export function PlanRenderer({
   provenance,
   hubSpeciesId,
   desiredPassives,
+  routedPassives,
   passivePlan,
   passivesById,
   selectedPlayerIds,
@@ -408,6 +440,7 @@ export function PlanRenderer({
   provenance?: Map<string, ProvenanceMatch> | undefined;
   hubSpeciesId?: string | undefined;
   desiredPassives?: string[] | undefined;
+  routedPassives?: string[] | undefined;
   passivePlan?: PassivePlanResult | undefined;
   passivesById?: Map<string, Passive> | undefined;
   selectedPlayerIds?: Set<PlayerIdentifier> | undefined;
@@ -455,6 +488,7 @@ export function PlanRenderer({
           speciesById={speciesById}
           hubSpeciesId={hubSpeciesId}
           desiredPassives={desiredPassives}
+          routedPassives={routedPassives}
           passivePlan={passivePlan}
           passivesById={passivesById}
           selectedPlayerIds={selectedPlayerIds}

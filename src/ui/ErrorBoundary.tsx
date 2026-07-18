@@ -1,10 +1,11 @@
 import { Component, type ErrorInfo, type ReactNode } from 'react';
+import { captureException } from '../sentry';
 
 /** Top-level render-crash guard (Phase 3, docs/PRODUCTION_READINESS_PLAN.md) — without
  * this, any uncaught render error blanks the whole tab with no explanation. React only
  * supports error boundaries as class components (no hook equivalent) — this is otherwise
- * the only class component in src/ui. No error-tracking wired up yet (console only);
- * Sentry lands in Phase 4. */
+ * the only class component in src/ui. Reports to Sentry (Phase 4) when configured; always
+ * logs to console regardless. */
 
 interface Props {
   children: ReactNode;
@@ -23,6 +24,7 @@ export default class ErrorBoundary extends Component<Props, State> {
 
   override componentDidCatch(error: Error, info: ErrorInfo): void {
     console.error('Unhandled render error', error, info.componentStack);
+    captureException(error, { componentStack: info.componentStack });
   }
 
   override render() {

@@ -1,0 +1,19 @@
+# Render blueprint (Phase 4, docs/PRODUCTION_READINESS_PLAN.md) — keeps hosting config
+# in-repo/reproducible rather than only living in the Render dashboard, same treatment
+# Supabase migrations already get. Create the site once via Render's "New Blueprint"
+# flow pointed at this repo; env var values themselves are set in the dashboard
+# (sync: false), never committed — same as the Supabase anon key's treatment in
+# docs/DEPLOYING_GUIDE.md.
+services:
+  - type: web
+    name: palgorithm
+    runtime: static
+    buildCommand: npm ci && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_SUPABASE_URL
+        sync: false
+      - key: VITE_SUPABASE_ANON_KEY
+        sync: false
+      - key: VITE_SENTRY_DSN
+        sync: false

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useAuthContext } from './AuthContext';
 
 /** Minimal account UI (Phase 1, docs/PRODUCTION_READINESS_PLAN.md) — email/password
@@ -11,6 +12,10 @@ const inputClass =
 const labelClass = 'mb-1.5 font-sans text-[10.5px] font-semibold uppercase tracking-[.5px] text-muted';
 const primaryButtonClass =
   'cursor-pointer rounded-lg border-[1.5px] border-[#26241f] bg-white px-3.5 py-2 font-mono text-[12.5px] font-semibold hover:bg-panel-subtle disabled:cursor-default disabled:opacity-50';
+const secondaryButtonClass =
+  'cursor-pointer rounded-lg px-3.5 py-2 font-mono text-[12.5px] font-semibold text-muted hover:bg-panel-subtle disabled:cursor-default disabled:opacity-50';
+const dangerButtonClass =
+  'cursor-pointer rounded-lg border-[1.5px] border-danger-border bg-danger-bg px-3.5 py-2 font-mono text-[12.5px] font-semibold text-danger-text hover:bg-[#fbe6da] disabled:cursor-default disabled:opacity-50';
 
 type Mode = 'sign-in' | 'sign-up' | 'reset';
 
@@ -105,6 +110,62 @@ function AuthForm() {
   );
 }
 
+/** Delete-account confirmation, gating the irreversible action behind an explicit second
+ * click (same portal/modal pattern as GuestMigrationPrompt.tsx's import dialog). */
+function DangerZone() {
+  const { deleteAccount } = useAuthContext();
+  const [confirming, setConfirming] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const doDelete = async () => {
+    setDeleting(true);
+    setError(null);
+    const { error: deleteError } = await deleteAccount();
+    setDeleting(false);
+    if (deleteError) {
+      setError(deleteError);
+      return;
+    }
+    setConfirming(false);
+  };
+
+  return (
+    <div className="mt-4 rounded-card border border-danger-border bg-danger-bg p-5 px-[22px]">
+      <div className="mb-0.5 font-sans text-[13.5px] font-bold text-danger-text">Danger zone</div>
+      <div className="mb-3.5 font-sans text-[12px] text-danger-text">
+        Permanently delete your account and all synced data (roster, plans, teams, settings). This can't be undone.
+      </div>
+      <span onClick={() => setConfirming(true)} className={dangerButtonClass}>
+        Delete account
+      </span>
+
+      {confirming &&
+        createPortal(
+          <div className="fixed inset-0 z-[80] flex items-center justify-center bg-black/40 p-4">
+            <div className="w-full max-w-[420px] rounded-card border border-border-card bg-white p-5 px-[22px] shadow-card">
+              <div className="mb-1.5 font-sans text-[15px] font-bold">Delete your account?</div>
+              <div className="mb-4 font-sans text-[12.5px] text-muted">
+                This permanently deletes your account and every roster, saved plan, team, and settings row synced to
+                it. There's no undo. Your local guest data on this device (if any) is unaffected.
+              </div>
+              {error && <div className="mb-3 font-mono text-[12px] text-danger-text">{error}</div>}
+              <div className="flex justify-end gap-2">
+                <button disabled={deleting} onClick={() => setConfirming(false)} className={secondaryButtonClass}>
+                  Cancel
+                </button>
+                <button disabled={deleting} onClick={() => void doDelete()} className={dangerButtonClass}>
+                  {deleting ? 'Deleting…' : 'Permanently delete'}
+                </button>
+              </div>
+            </div>
+          </div>,
+          document.body,
+        )}
+    </div>
+  );
+}
+
 export default function AuthView() {
   const { configured, loading, user, signOut } = useAuthContext();
 
@@ -138,6 +199,22 @@ export default function AuthView() {
             <AuthForm />
           )}
         </div>
+
+        {configured && user && <DangerZone />}
+
+        {configured && !user && (
+          <div className="mt-3 font-sans text-[11.5px] text-muted-light">
+            Creating an account means you agree to the{' '}
+            <a href="/legal/terms.html" target="_blank" rel="noreferrer" className="underline hover:text-primary-dark">
+              Terms of Service
+            </a>{' '}
+            and{' '}
+            <a href="/legal/privacy.html" target="_blank" rel="noreferrer" className="underline hover:text-primary-dark">
+              Privacy Policy
+            </a>
+            .
+          </div>
+        )}
       </div>
     </main>
   );

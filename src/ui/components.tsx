@@ -303,9 +303,18 @@ export function Pill({ children, className = '' }: { children: ReactNode; classN
   );
 }
 
+/** Lower rank = rarer. Surfaced wherever a bare `r{n}` badge would otherwise be
+ * unexplained jargon to a first-time visitor (Phase 2, docs/PRODUCTION_READINESS_PLAN.md). */
+const RANK_EXPLANATION =
+  "Lower rank = rarer. A bred child's rank is the closest eligible species to (parent A + parent B + 1) / 2 — it can land modestly rarer than either parent.";
+
 export function RankPill({ rank }: { rank: number | null | undefined }) {
   if (rank === null || rank === undefined) return null;
-  return <span className="rounded font-mono text-[10px] font-medium text-[#9a7b3a] bg-[#f0e8d7] px-[5px] py-[1px]">r{rank}</span>;
+  return (
+    <HoverTooltip description={RANK_EXPLANATION}>
+      <span className="rounded font-mono text-[10px] font-medium text-[#9a7b3a] bg-[#f0e8d7] px-[5px] py-[1px]">r{rank}</span>
+    </HoverTooltip>
+  );
 }
 
 /**
@@ -387,6 +396,19 @@ export function HoverTooltip({ description, children }: { description?: string |
           document.body,
         )}
     </span>
+  );
+}
+
+/** Inline "(?)" icon wrapping `HoverTooltip` — for jargon (rank, hub, score) that needs a
+ * short explanation without cluttering the UI with permanent copy (Phase 2,
+ * docs/PRODUCTION_READINESS_PLAN.md). */
+export function InfoTooltip({ description }: { description: string }) {
+  return (
+    <HoverTooltip description={description}>
+      <span className="cursor-help text-[11px] leading-none text-muted-light" aria-label="More info">
+        ⓘ
+      </span>
+    </HoverTooltip>
   );
 }
 

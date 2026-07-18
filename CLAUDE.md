@@ -7,12 +7,12 @@ Guidance for Claude Code working in this repo. Read this first; full detail live
 Palworld Breeding Path Optimizer — a personal, client-side tool that takes the Pals you own (species, gender, passives) and one or more target Pals (with a desired perk set) and returns the breeding plan reaching them in the **fewest distinct breeding combinations**. Built to survive Palworld's 1.0 breeding overhaul (Genetic Recombination, July 10 2026) by keeping all breeding rules behind a swappable interface.
 
 Audience: guest-first. The app works fully client-side with zero sign-in (local/home-server
-use, unchanged), and an opt-in account layer syncs a user's data to the cloud across devices.
-The plan to take this from solo tool to public product lives in
-`docs/PRODUCTION_READINESS_PLAN.md` — not yet greenlit for implementation, tracked as its own
-phase sequence (distinct from the breeding-mechanics phases below, which this Status section
-tracks). The self-hosted PalDefender-proxy live feature stays out of the public product either
-way — see that plan's "explicitly out of scope."
+use, unchanged), and an opt-in account layer (Supabase auth + cloud sync) lets a user's data
+follow them across devices. The plan to take this from solo tool to public product lives in
+`docs/PRODUCTION_READINESS_PLAN.md`, tracked as its own phase sequence (distinct from the
+breeding-mechanics phases below, which this Status section tracks). The self-hosted
+PalDefender-proxy live feature stays out of the public product either way — see that plan's
+"explicitly out of scope."
 
 ## Status
 
@@ -20,8 +20,10 @@ Phase 1 — July 10 patch day (spec §5/§10). 1.0 shipped; `combirank-0.6` form
 
 > **Active session:** Phase 1 (post-ingestion)
 
-**Production readiness** (separate track, see `docs/PRODUCTION_READINESS_PLAN.md`): drafted,
-not yet started.
+**Production readiness** (separate track, see `docs/PRODUCTION_READINESS_PLAN.md`): Phases
+1–3 (accounts/cloud sync, onboarding, CI/hardening) done, 2026-07-17. Phase 4
+(observability, legal, deploy) is being scoped next; Phase 5 (Reference UI polish) not
+started.
 
 ## Stack
 
@@ -68,8 +70,9 @@ Ruleset forward/reverse are unit-tested against the oracle repos (spec §11). **
 
 ## Out of scope / don't
 
-- No backend, no server calls, no analytics, no auth — true of the app today. This is changing
-  under `docs/PRODUCTION_READINESS_PLAN.md` (accounts + Supabase-backed sync as an opt-in layer
-  on top of the unchanged local/guest path); don't build toward that until the plan is greenlit.
+- The local/guest path stays backend-free and unauthenticated by design — no server calls, no
+  analytics for that path. On top of it, `docs/PRODUCTION_READINESS_PLAN.md`'s opt-in account
+  layer (Supabase auth + RLS-scoped sync) now exists (Phases 1–3 done); still no analytics
+  anywhere in the app.
 - Don't invent passive-inheritance percentages — load them from data; if a value is unknown, keep it configurable and flag it.
 - Don't optimize for any objective other than combination-count without asking first.

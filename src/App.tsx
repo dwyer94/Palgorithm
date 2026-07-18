@@ -5,6 +5,7 @@ import { ReferenceProvider, useReferenceContext } from './ui/ReferenceContext';
 import { AuthProvider, useAuthContext } from './ui/AuthContext';
 import GuestMigrationPrompt from './ui/GuestMigrationPrompt';
 import PwaUpdateToast from './ui/PwaUpdateToast';
+import FirstRunExplainer from './ui/FirstRunExplainer';
 import { useRoster, useSettings } from './store/hooks';
 import { Sidebar } from './ui/components';
 import RosterView from './ui/RosterView';
@@ -98,30 +99,33 @@ function AppShell() {
   };
 
   return (
-    <div className="flex h-screen w-full flex-col overflow-hidden font-sans md:flex-row">
+    <div className="flex h-screen w-full flex-col overflow-hidden font-sans">
       <ReferenceMaximizeWatcher onMaximize={handleSelect} />
       <GuestMigrationPrompt />
       <PwaUpdateToast />
-      <Sidebar
-        active={active}
-        onSelect={handleSelect}
-        rosterCount={roster.length}
-        serverOnCount={live.selectedPlayerIds.size}
-        iconMode={settings.iconDisplayMode}
-        onIconModeChange={(iconDisplayMode) => setSettings({ ...settings, iconDisplayMode })}
-        accountLabel={user ? user.email ?? 'Account' : 'Sign in'}
-      />
-      <div className="flex flex-1 flex-col overflow-y-auto md:flex-row md:overflow-hidden">
-        {VIEW_KEYS.filter((key) => visited.has(key)).map((key) => {
-          const View = VIEWS[key];
-          return (
-            <div key={key} className={key === active ? 'contents' : 'hidden'}>
-              <Suspense fallback={<ViewLoadingFallback />}>
-                <View />
-              </Suspense>
-            </div>
-          );
-        })}
+      <FirstRunExplainer />
+      <div className="flex flex-1 flex-col overflow-hidden md:flex-row">
+        <Sidebar
+          active={active}
+          onSelect={handleSelect}
+          rosterCount={roster.length}
+          serverOnCount={live.selectedPlayerIds.size}
+          iconMode={settings.iconDisplayMode}
+          onIconModeChange={(iconDisplayMode) => setSettings({ ...settings, iconDisplayMode })}
+          accountLabel={user ? user.email ?? 'Account' : 'Sign in'}
+        />
+        <div className="flex flex-1 flex-col overflow-y-auto md:flex-row md:overflow-hidden">
+          {VIEW_KEYS.filter((key) => visited.has(key)).map((key) => {
+            const View = VIEWS[key];
+            return (
+              <div key={key} className={key === active ? 'contents' : 'hidden'}>
+                <Suspense fallback={<ViewLoadingFallback />}>
+                  <View />
+                </Suspense>
+              </div>
+            );
+          })}
+        </div>
       </div>
       <Suspense fallback={null}>
         <ReferenceBubbles hidden={active === 'reference'} />

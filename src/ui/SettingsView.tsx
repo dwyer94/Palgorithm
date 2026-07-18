@@ -6,11 +6,13 @@ import type { SavedPerkSet } from '../store/types';
 import { useLiveContext } from '../live/LiveContext';
 import { useRulesetContext } from './RulesetContext';
 import { PassiveChip, PassiveMultiSelect, Toggle } from './components';
+import { APP_VERSION } from '../version';
+import KofiButton from './KofiButton';
 
 /** Settings — planning policy, saved perk sets, live connection, name overrides, and the
  * 1.0-patch placeholders (design handoff README, Screen 3). */
 export default function SettingsView() {
-  const { passives, species, ruleset } = useRulesetContext();
+  const { passives, dataset } = useRulesetContext();
   const [settings, setSettings] = useSettings();
   const live = useLiveContext();
   const [testing, setTesting] = useState(false);
@@ -81,11 +83,7 @@ export default function SettingsView() {
   return (
     <main className="flex-1 overflow-y-auto bg-canvas">
       <div className="mx-auto max-w-[860px] px-4 pb-[70px] pt-[26px] md:px-[34px]">
-        <div className="mb-0.5 font-sans text-[22px] font-bold tracking-[-.4px]">Settings</div>
-        <div className="mb-[26px] font-sans text-[13px] text-muted">
-          Ruleset <b className="font-mono text-ink-muted">{ruleset.version}</b> · {species.length} species · {passives.length}{' '}
-          passives · all changes saved locally.
-        </div>
+        <div className="mb-4 font-sans text-[22px] font-bold tracking-[-.4px]">Settings</div>
 
         {/* PLANNING POLICY */}
         <div className="mb-4 rounded-card border border-border-card bg-white p-5 px-[22px] shadow-card">
@@ -126,6 +124,42 @@ export default function SettingsView() {
                 +
               </span>
             </div>
+          </div>
+        </div>
+
+        {/* ABOUT */}
+        <div className="mb-4 rounded-card border border-border-card bg-white p-5 px-[22px] shadow-card">
+          <div className="mb-0.5 font-sans text-[15px] font-bold">About</div>
+          <div className="mb-4 font-sans text-[12.5px] text-muted">
+            App <b className="font-mono text-ink-muted">v{APP_VERSION}</b> · dataset sourced from Palworld{' '}
+            <b className="font-mono text-ink-muted">{dataset.meta.version}</b>
+          </div>
+          <div className="flex flex-wrap items-center gap-4">
+            <a
+              href="https://github.com/dwyer94/Palgorithm"
+              target="_blank"
+              rel="noreferrer"
+              className="font-sans text-[12.5px] font-semibold text-primary-dark hover:underline"
+            >
+              ↗ View on GitHub
+            </a>
+            <a
+              href="/legal/privacy.html"
+              target="_blank"
+              rel="noreferrer"
+              className="font-sans text-[12.5px] font-semibold text-muted hover:underline"
+            >
+              Privacy Policy
+            </a>
+            <a
+              href="/legal/terms.html"
+              target="_blank"
+              rel="noreferrer"
+              className="font-sans text-[12.5px] font-semibold text-muted hover:underline"
+            >
+              Terms of Service
+            </a>
+            <KofiButton />
           </div>
         </div>
 
@@ -359,32 +393,6 @@ export default function SettingsView() {
               </tr>
             </tbody>
           </table>
-        </div>
-
-        {/* 1.0 SEAMS */}
-        <div className="rounded-card border-[1.5px] border-dashed border-[#d8cfbf] bg-panel-subtle p-5 px-[22px]">
-          <div className="mb-3.5 flex items-center gap-2.5">
-            <div className="font-sans text-[14px] font-bold text-[#6b655c]">Reserved for the 1.0 patch</div>
-            <span className="rounded-[5px] bg-[#efe6d3] px-1.5 py-0.5 font-mono text-[9.5px] font-semibold uppercase tracking-[.4px] text-provisional-text">
-              available Jul 10
-            </span>
-          </div>
-          <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
-            <div className="opacity-65">
-              <div className="mb-1.5 font-sans text-[12.5px] font-semibold">Active ruleset</div>
-              <div className="flex items-center justify-between rounded-panel border-[1.5px] border-[#d8cfbf] bg-white px-3 py-2 font-mono text-[12.5px] font-semibold text-muted">
-                {ruleset.version} <span className="text-muted-lighter">▾</span>
-              </div>
-              <div className="mt-1.5 font-sans text-[11px] text-muted-light">genrecomb-1.0 arrives with the patch.</div>
-            </div>
-            <div className="opacity-65">
-              <div className="mb-1.5 font-sans text-[12.5px] font-semibold">Server-config preset</div>
-              <div className="flex items-center justify-between rounded-panel border-[1.5px] border-[#d8cfbf] bg-white px-3 py-2 font-mono text-[12.5px] font-semibold text-muted">
-                — none — <span className="text-muted-lighter">▾</span>
-              </div>
-              <div className="mt-1.5 font-sans text-[11px] text-muted-light">Only if 1.0 mechanics prove server-dependent.</div>
-            </div>
-          </div>
         </div>
       </div>
     </main>

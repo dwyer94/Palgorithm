@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — Palgorithm</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    :root {
+      color-scheme: light;
+    }
+    body {
+      margin: 0;
+      background: #eceae4;
+      color: #211e18;
+      font-family: 'Space Grotesk', system-ui, sans-serif;
+      line-height: 1.55;
+    }
+    .wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+    }
+    a {
+      color: #2a6bbf;
+    }
+    h1 {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.4px;
+      margin: 0 0 6px;
+    }
+    .meta {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 12.5px;
+      color: #8a8378;
+      margin-bottom: 28px;
+    }
+    h2 {
+      font-size: 16px;
+      font-weight: 700;
+      margin: 32px 0 8px;
+    }
+    p, li {
+      font-size: 14px;
+      color: #4a453c;
+    }
+    ul {
+      padding-left: 20px;
+    }
+    .card {
+      background: #ffffff;
+      border: 1px solid #ddd6ca;
+      border-radius: 14px;
+      padding: 18px 22px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    }
+    .back {
+      display: inline-block;
+      margin-bottom: 20px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="back" href="/">&larr; Back to Palgorithm</a>
+    <h1>Privacy Policy</h1>
+    <div class="meta">Last updated: 2026-07-17</div>
+
+    <div class="card">
+      <p>
+        Palgorithm ("the app", "we") is a Palworld breeding-path planner. This policy covers what
+        happens to your data when you use it. Palgorithm is a fan-made tool and is not affiliated
+        with, endorsed by, or connected to Pocketpair, Inc. or the Palworld game.
+      </p>
+
+      <h2>Using the app without an account</h2>
+      <p>
+        By default, Palgorithm requires no sign-in. Your roster, saved plans, teams, and settings
+        are stored only in your browser's local storage, on your own device. We never see this
+        data — it isn't sent anywhere.
+      </p>
+
+      <h2>What we collect if you create an account</h2>
+      <p>Creating an account is entirely optional and only needed if you want your data to sync across devices. If you do, we store:</p>
+      <ul>
+        <li>Your email address, used for sign-in and account-related emails (verification, password reset).</li>
+        <li>The same roster, saved-plan, team, and settings data described above, now synced to our database instead of (or in addition to) your device.</li>
+        <li>If you configure a connection to your own self-hosted live-server proxy, that connection's URL and access token — stored so it can reconnect automatically on your other signed-in devices.</li>
+      </ul>
+      <p>We don't collect payment information (the app is free), analytics, ad-tracking identifiers, or any data beyond what's listed above. We don't sell or share your data with advertisers.</p>
+
+      <h2>Where your data lives</h2>
+      <p>
+        Account data is stored with <a href="https://supabase.com" target="_blank" rel="noreferrer">Supabase</a>,
+        our database and authentication provider. Each user's rows are scoped so only that
+        user's own signed-in session can read or write them (Postgres row-level security) — we
+        don't manually browse user data, and nobody else's account can see yours.
+      </p>
+      <p>
+        Account emails (verification, password reset) are sent via <a href="https://resend.com" target="_blank" rel="noreferrer">Resend</a>,
+        our transactional email provider. Resend only sees the email address and message content
+        needed to deliver that one email — it isn't used for marketing.
+      </p>
+
+      <h2>Cookies and tracking</h2>
+      <p>
+        We don't use tracking cookies, analytics scripts, or advertising pixels. Supabase's auth
+        library stores your session token in your browser's local storage so you stay signed in
+        between visits — that's the only thing resembling a "cookie" here.
+      </p>
+
+      <h2>Deleting your data</h2>
+      <p>
+        You can delete your account at any time from the Account tab in the app. This
+        permanently and immediately deletes your account and all associated data (roster, plans,
+        teams, settings) from our database — this cannot be undone. If you only want to stop
+        using the app without an account, you can simply clear your browser's local storage or
+        stop using it; there's nothing else to delete.
+      </p>
+
+      <h2>Children's privacy</h2>
+      <p>Palgorithm isn't directed at children and we don't knowingly collect data from anyone under 13.</p>
+
+      <h2>Changes to this policy</h2>
+      <p>If this policy changes materially, we'll update the "Last updated" date above.</p>
+
+      <h2>Contact</h2>
+      <p>Questions about this policy or your data: <a href="mailto:privacy@palgorithm.dev">privacy@palgorithm.dev</a></p>
+    </div>
+  </div>
+</body>
+</html>

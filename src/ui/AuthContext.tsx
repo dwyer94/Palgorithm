@@ -23,6 +23,7 @@ interface AuthContextValue {
   signIn: (email: string, password: string) => Promise<AuthResult>;
   signOut: () => Promise<void>;
   resetPassword: (email: string) => Promise<AuthResult>;
+  deleteAccount: () => Promise<AuthResult>;
 }
 
 const NOT_CONFIGURED_ERROR = 'Cloud sync is not configured for this deployment.';
@@ -70,6 +71,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return { error: error?.message ?? null };
   }, []);
 
+  // Deletes the auth.users row via the delete_user() RPC (supabase/migrations/0002_*.sql),
+  // which cascades to every synced table (rosters/saved_plans/teams/team_slots/settings).
+  // Signs out locally afterward since the session is no longer valid.
+  const deleteAccount = useCallback(async (): Promise<AuthResult> => {
+    if (!supabase) return { error: NOT_CONFIGURED_ERROR };
+    const { error } = await supabase.rpc('delete_user');
+    if (error) return { error: error.message };
+    await supabase.auth.signOut();
+    return { error: null };
+  }, []);
+
   const value = useMemo<AuthContextValue>(
     () => ({
       configured: supabase !== null,
@@ -80,8 +92,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       signIn,
       signOut,
       resetPassword,
+      deleteAccount,
     }),
-    [loading, session, signUp, signIn, signOut, resetPassword],
+    [loading, session, signUp, signIn, signOut, resetPassword, deleteAccount],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

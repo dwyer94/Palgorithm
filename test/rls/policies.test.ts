@@ -126,3 +126,57 @@ describe('RLS: per-user row cap (teams, cap = 50)', () => {
     }
   });
 });
+
+describe('RLS: delete_user() self-serve account deletion (0002_delete_account_rpc.sql)', () => {
+  it("deleting your own account cascades to every synced table's rows", async () => {
+    const user = await createTestUser();
+
+    const { error: rosterError } = await user.client.from('rosters').insert({ species: 'Lamball', gender: 'male', passives: [] });
+    expect(rosterError).toBeNull();
+    const { error: teamError } = await user.client.from('teams').insert({ name: 'team-1' });
+    expect(teamError).toBeNull();
+    const { error: settingsError } = await user.client.from('settings').insert({});
+    expect(settingsError).toBeNull();
+
+    const { error: rpcError } = await user.client.rpc('delete_user');
+    expect(rpcError).toBeNull();
+
+    const { data: authUser } = await adminClient.auth.admin.getUserById(user.userId);
+    expect(authUser.user).toBeNull();
+
+    const { count: rosterCount } = await adminClient
+      .from('rosters')
+      .select('*', { count: 'exact', head: true })
+      .eq('user_id', user.userId);
+    expect(rosterCount).toBe(0);
+
+    const { count: teamCount } = await adminClient
+      .from('teams')
+      .select('*', { count: 'exact', head: true })
+      .eq('user_id', user.userId);
+    expect(teamCount).toBe(0);
+
+    const { count: settingsCount } = await adminClient
+      .from('settings')
+      .select('*', { count: 'exact', head: true })
+      .eq('user_id', user.userId);
+    expect(settingsCount).toBe(0);
+  });
+
+  it("a user cannot delete another user's account through the RPC", async () => {
+    const userA = await createTestUser();
+    const userB = await createTestUser();
+    try {
+      // delete_user() only ever acts on auth.uid() server-side — there's no id parameter
+      // to pass, so this just confirms user B calling it doesn't touch user A.
+      const { error } = await userB.client.rpc('delete_user');
+      expect(error).toBeNull();
+
+      const { data: userAStillExists } = await adminClient.auth.admin.getUserById(userA.userId);
+      expect(userAStillExists.user).not.toBeNull();
+    } finally {
+      await deleteTestUser(userA.userId);
+      // userB already deleted itself via the RPC above.
+    }
+  });
+});

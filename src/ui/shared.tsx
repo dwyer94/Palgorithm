@@ -7,7 +7,14 @@ import type { PassiveId } from '../ruleset/types';
 import type { ProvenanceMatch } from '../live/provenance';
 import type { LivePlayerPals, PlayerIdentifier } from '../live/types';
 import { useSettings } from '../store/hooks';
-import { ComboCount, ProvisionalTag, ElementDot, HoverTooltip, PalCard, PalIcon, PassiveChip, RankPill } from './components';
+import { ComboCount, ProvisionalTag, ElementDot, HoverTooltip, InfoTooltip, PalCard, PalIcon, PassiveChip, RankPill } from './components';
+
+/** Jargon explanations for hub-related UI (Phase 2, docs/PRODUCTION_READINESS_PLAN.md) —
+ * colocated here since both HubView and this file's HubList/hubMeta need them. */
+export const HUB_EXPLANATION =
+  'A hub is a shared intermediate Pal bred once and then crossed into each target — cheaper than breeding every target from scratch when several targets can share one. Always optional: the union plan (breeding each target directly) never needs a hub.';
+export const HUB_SCORE_EXPLANATION =
+  "A hub candidate's score balances how many targets it reaches against its own obtain cost — higher is better, but it's a ranking heuristic, not a combination count.";
 
 /** Shared, data-bound view composites reused across the planner screens (design handoff
  * README's "Reuse map"). Visual atoms live in `./components`; the layered graph rendering
@@ -197,6 +204,8 @@ export function SpeciesPlanView({
   displayNameByIdentifier,
   title,
   note,
+  desiredPassives,
+  routedPassives,
 }: {
   plan: SpeciesPlanResult;
   speciesById: Map<string, Species>;
@@ -210,6 +219,15 @@ export function SpeciesPlanView({
    * section header doesn't leave two identically-titled cards indistinguishable. */
   title?: string | undefined;
   note?: string | undefined;
+  /** Overrides `plan.passivePlan?.desired` for plan shapes that never attach a `passivePlan` —
+   * e.g. the guaranteed-carrier alternative's `ForcedCarrierResult`, which doesn't run the
+   * passive-odds math a `passivePlan` carries (the desired/routed set lives one level up, on
+   * `GuaranteedCarrierAlternative`, instead). Without this the TARGETS node has nothing to show
+   * chips for at all. */
+  desiredPassives?: PassiveId[] | undefined;
+  /** Which of `desiredPassives` this plan actually routed into its lineage — see the matching
+   * prop on `PlanGraphPanel`. */
+  routedPassives?: PassiveId[] | undefined;
 }) {
   if (!plan.feasible) {
     return (
@@ -230,6 +248,7 @@ export function SpeciesPlanView({
     );
   }
 
+  const effectiveDesiredPassives = desiredPassives ?? plan.passivePlan?.desired;
   return (
     <div>
       <div className="mb-4 rounded-card border border-border-card bg-white p-5 shadow-card">
@@ -246,7 +265,8 @@ export function SpeciesPlanView({
           targets={[plan.target]}
           speciesById={speciesById}
           provenance={provenance}
-          desiredPassives={plan.passivePlan?.desired}
+          desiredPassives={effectiveDesiredPassives}
+          routedPassives={routedPassives}
           passivePlan={plan.passivePlan}
           passivesById={passivesById}
           selectedPlayerIds={selectedPlayerIds}
@@ -436,6 +456,8 @@ export function SingleTargetResultView({
                       palsByPlayer={palsByPlayer}
                       displayNameByIdentifier={displayNameByIdentifier}
                       note="guaranteed-carrier route"
+                      desiredPassives={guaranteedCarrierOutcome.alt.requiredPassives}
+                      routedPassives={guaranteedCarrierOutcome.alt.routedPassives}
                     />
                   </div>
                 </details>
@@ -647,8 +669,9 @@ export function HubList({
   if (isFull) {
     return (
       <div className="overflow-hidden rounded-card border border-border-card bg-white shadow-card">
-        <div className="px-[15px] pb-2 pt-3 font-sans text-[10.5px] font-semibold uppercase tracking-wide text-muted">
+        <div className="flex items-center gap-1.5 px-[15px] pb-2 pt-3 font-sans text-[10.5px] font-semibold uppercase tracking-wide text-muted">
           {scopeLabel ?? 'Ranked hubs'}
+          <InfoTooltip description={HUB_EXPLANATION} />
         </div>
         <div className="flex flex-wrap gap-2.5 border-t border-border-divider p-[15px]">
           {hubs.map((h) => {
