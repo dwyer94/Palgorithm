@@ -186,14 +186,14 @@ Not a launch blocker — revisit only if live profiling (below) shows otherwise.
 
 ## Not yet measured (recommended next)
 
-- **A clean Lighthouse run.** The lab scores above were contaminated by a concurrent process on
-  this machine (see Web Vitals). Re-run `npx lighthouse http://localhost:4173 --preset=desktop`
-  on a quiet machine or in CI to get a trustworthy load score. Expected to be high given the
-  real numbers.
-- **A Lighthouse *user-flow* / INP audit** that clicks "Run plan" — the only way a Lighthouse
-  run will actually surface the #1–#3 freezes (a page-load audit never triggers a solve).
-- **Live render profiling** of the Reference tab (React DevTools Profiler / Performance panel)
-  to quantify #4 before spending a dependency on virtualization.
+- ~~A clean Lighthouse run~~ and ~~a real-interaction audit that clicks "Run plan"~~ — **both
+  done 2026-07-15**, see `PERFORMANCE_MEASUREMENTS_2026-07-15.md`. Isolated desktop Lighthouse:
+  100 perf score. A Playwright-driven click of "Run plan" on the worst-case infeasible solve
+  found zero main-thread long tasks and a 34ms response to a real click mid-solve — the Web
+  Worker migration's non-blocking claim is now verified by browser instrumentation, not just a
+  manual observation.
+- ~~Live render profiling~~ of the Reference tab — **done in Phase 4** (see
+  `PERFORMANCE_REMEDIATION_PLAN.md`): ~33-82ms/keystroke pre-fix, now virtualized.
 
 ## Suggested sequencing
 
