@@ -51,7 +51,18 @@ function AutoPollCountdown({ nextPollAt }: { nextPollAt: number | null }) {
  * the new Find-a-pal cross-player search (design handoff README, Screen 2). */
 export default function ServerPalsView() {
   const [tab, setTab] = useState<'players' | 'search'>('players');
+  // Mirrors App.tsx's outer-tab `visited` gating: only mount a sub-tab once it's actually
+  // selected, not unconditionally up front. Mounting `FindAPalTab`'s VirtualizedTable while
+  // its `hidden` ancestor is display:none freezes react-virtual's one-time container
+  // measurement at 0 forever (see VirtualizedTable's doc comment in components.tsx) — gating
+  // the mount means its first render always happens while genuinely visible.
+  const [visitedTabs, setVisitedTabs] = useState<Set<'players' | 'search'>>(() => new Set(['players']));
   const live = useLiveContext();
+
+  const selectTab = (key: 'players' | 'search') => {
+    setTab(key);
+    setVisitedTabs((prev) => (prev.has(key) ? prev : new Set(prev).add(key)));
+  };
 
   return (
     <main className="flex-1 overflow-y-auto bg-canvas">
@@ -89,7 +100,7 @@ export default function ServerPalsView() {
 
         <div className="mb-[18px] flex gap-1 border-b-[1.5px] border-border-card">
           <div
-            onClick={() => setTab('players')}
+            onClick={() => selectTab('players')}
             className={`inline-flex -mb-[1.5px] cursor-pointer items-center gap-1.5 border-b-[2.5px] px-4 py-2.5 font-sans text-[13.5px] font-semibold ${
               tab === 'players' ? 'border-brand text-ink' : 'border-transparent text-muted'
             }`}
@@ -97,7 +108,7 @@ export default function ServerPalsView() {
             <Users size={14} /> Players <span className="opacity-60">{live.players.length}</span>
           </div>
           <div
-            onClick={() => setTab('search')}
+            onClick={() => selectTab('search')}
             className={`inline-flex -mb-[1.5px] cursor-pointer items-center gap-1.5 border-b-[2.5px] px-4 py-2.5 font-sans text-[13.5px] font-semibold ${
               tab === 'search' ? 'border-brand text-ink' : 'border-transparent text-muted'
             }`}
@@ -106,14 +117,18 @@ export default function ServerPalsView() {
           </div>
         </div>
 
-        {/* Both stay mounted once visited so switching sub-tabs doesn't lose expanded rows
-            or search filters — see the same pattern in App.tsx for the outer view tabs. */}
+        {/* Once visited, both stay mounted so switching sub-tabs doesn't lose expanded rows
+            or search filters — see the same pattern in App.tsx for the outer view tabs. Unlike
+            App.tsx's tabs, `visitedTabs` here also guards against mounting a tab's virtualized
+            table for the first time while hidden (see `selectTab` above). */}
         <div className={tab === 'players' ? undefined : 'hidden'}>
           <PlayersTab />
         </div>
-        <div className={tab === 'search' ? undefined : 'hidden'}>
-          <FindAPalTab />
-        </div>
+        {visitedTabs.has('search') && (
+          <div className={tab === 'search' ? undefined : 'hidden'}>
+            <FindAPalTab />
+          </div>
+        )}
       </div>
     </main>
   );

@@ -525,11 +525,50 @@ export function ComboCount({
   );
 }
 
+/** `@tanstack/react-virtual` measures its scroll container's size exactly once, at first
+ * mount, via a synchronous `offsetWidth`/`offsetHeight` read. If that first mount happens
+ * while an ancestor has `display:none` (a hidden, not-yet-selected tab), the measured size
+ * freezes at 0 and the list/table renders empty forever — its `ResizeObserver` never re-fires
+ * once the ancestor becomes visible, and `virtualizer.measure()` doesn't help either, since it
+ * only clears the item-size cache, not the frozen container-rect. The one thing that does fix
+ * it is a full remount, which re-runs the container measurement while genuinely visible. This
+ * hook returns a value that bumps exactly once, the first time `active` flips to `true`; use it
+ * as a `key` on the virtualizer-owning subtree so callers that might mount `VirtualizedList`/
+ * `VirtualizedTable` behind a hidden ancestor can force that one corrective remount. */
+function useMountNonceOnActivate(active: boolean): number {
+  const [nonce, setNonce] = useState(0);
+  const wasActive = useRef(active);
+  useEffect(() => {
+    if (active && !wasActive.current) setNonce((n) => n + 1);
+    wasActive.current = active;
+  }, [active]);
+  return nonce;
+}
+
 /** Virtualizes a fixed-height scrollable list of variable-height rows (`@tanstack/react-virtual`,
  * measuring actual DOM height per row rather than assuming a fixed one). Built for the bubble
  * reference panels' `max-h-[420px]` dense lists (PERFORMANCE_REMEDIATION_PLAN.md Phase 4) — only
  * ~15-20 rows are ever mounted regardless of how many `items` there are. */
 export function VirtualizedList<T>({
+  active = true,
+  ...props
+}: {
+  items: T[];
+  getKey: (item: T, index: number) => string | number;
+  renderItem: (item: T, index: number) => ReactNode;
+  estimateSize?: number;
+  gap?: number;
+  className?: string;
+  /** Pass `false` while this list's scroll container may sit behind a hidden (`display:none`)
+   * ancestor, e.g. an unselected tab. See `useMountNonceOnActivate` above for why this matters.
+   * Safe to omit for callers that only ever mount this while already visible. */
+  active?: boolean;
+}) {
+  const mountNonce = useMountNonceOnActivate(active);
+  return <VirtualizedListInner key={mountNonce} {...props} />;
+}
+
+function VirtualizedListInner<T>({
   items,
   getKey,
   renderItem,
@@ -604,6 +643,29 @@ export function useIsDesktop(): boolean {
  * header row within that same ancestor. Desktop-only caller (see `useIsDesktop`); mobile keeps
  * the plain unvirtualized `<table>` (PERFORMANCE_REMEDIATION_PLAN.md Phase 4). */
 export function VirtualizedTable<T>({
+  active = true,
+  ...props
+}: {
+  items: T[];
+  getKey: (item: T, index: number) => string | number;
+  columns: string;
+  header: ReactNode[];
+  renderRow: (item: T, index: number) => ReactNode[];
+  getScrollElement: () => HTMLElement | null;
+  estimateSize?: number;
+  /** Optional per-row class (e.g. highlighting an unresolved species) applied alongside the
+   * grid-row's own layout classes. */
+  getRowClassName?: (item: T, index: number) => string;
+  /** Pass `false` while this table's scroll container may sit behind a hidden (`display:none`)
+   * ancestor, e.g. an unselected tab. See `useMountNonceOnActivate` above for why this matters.
+   * Safe to omit for callers that only ever mount this while already visible. */
+  active?: boolean;
+}) {
+  const mountNonce = useMountNonceOnActivate(active);
+  return <VirtualizedTableInner key={mountNonce} {...props} />;
+}
+
+function VirtualizedTableInner<T>({
   items,
   getKey,
   columns,
@@ -620,8 +682,6 @@ export function VirtualizedTable<T>({
   renderRow: (item: T, index: number) => ReactNode[];
   getScrollElement: () => HTMLElement | null;
   estimateSize?: number;
-  /** Optional per-row class (e.g. highlighting an unresolved species) applied alongside the
-   * grid-row's own layout classes. */
   getRowClassName?: (item: T, index: number) => string;
 }) {
   const virtualizer = useVirtualizer({
