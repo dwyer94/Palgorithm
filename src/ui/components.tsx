@@ -914,6 +914,7 @@ export function Sidebar({
   onIconModeChange,
   accountLabel,
   signedIn,
+  onHelpClick,
 }: {
   active: string;
   onSelect: (key: string) => void;
@@ -923,6 +924,7 @@ export function Sidebar({
   onIconModeChange: (mode: 'compact' | 'full') => void;
   accountLabel: string;
   signedIn: boolean;
+  onHelpClick: () => void;
 }) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -1020,15 +1022,30 @@ export function Sidebar({
           >
             {signedIn ? <CloudCheck size={NAV_ICON_SIZE} /> : <Cloud size={NAV_ICON_SIZE} />}
             <span className="truncate">{accountLabel}</span>
+            {!signedIn && (
+              <span onClick={(e) => e.stopPropagation()} className="flex-none">
+                <InfoTooltip description="Optional — sync your roster, plans, teams, and settings across devices. The planner works fully without it, saved locally on this device." />
+              </span>
+            )}
           </div>
           <div
             onClick={() => select('settings')}
-            className={`flex cursor-pointer items-center gap-2.5 rounded-lg px-3 py-[9px] text-[13.5px] ${
+            className={`mb-0.5 flex cursor-pointer items-center gap-2.5 rounded-lg px-3 py-[9px] text-[13.5px] ${
               active === 'settings' ? 'bg-brand font-semibold text-sidebar-bg' : 'text-muted hover:bg-sidebar-hover'
             }`}
           >
             <Settings size={NAV_ICON_SIZE} />
             <span>Settings</span>
+          </div>
+          <div
+            onClick={() => {
+              onHelpClick();
+              setMobileOpen(false);
+            }}
+            className="flex cursor-pointer items-center gap-2.5 rounded-lg px-3 py-[9px] text-[13.5px] text-muted hover:bg-sidebar-hover"
+          >
+            <HelpCircle size={NAV_ICON_SIZE} />
+            <span>Help</span>
           </div>
         </div>
       </nav>

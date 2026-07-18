@@ -10,6 +10,7 @@ import { useRulesetContext } from './RulesetContext';
 import {
   ElementDot,
   GenderGlyph,
+  HoverTooltip,
   PalCard,
   PalIcon,
   PassiveChip,
@@ -22,6 +23,11 @@ import {
   useIsDesktop,
   type WorkSuitabilityFilter,
 } from './components';
+
+const UNRESOLVED_SPECIES_EXPLANATION =
+  "This pal's raw game ID isn't in the bundled dataset yet — usually a newer game patch or a mod the dataset hasn't caught up with. It's shown as-is but left out of planning until resolved.";
+const UNRESOLVED_PASSIVES_EXPLANATION =
+  "These passive IDs aren't in the bundled dataset yet (newer patch or mod) — kept out of planning odds instead of being silently dropped or miscounted.";
 
 // A player's own pal table (Players tab) has no Owner column; Find-a-pal's cross-player
 // results table adds one on the end. Kept as separate constants (not derived from one
@@ -502,9 +508,11 @@ function buildPalRowCells(pal: LivePal, speciesById: Map<string, Species>, passi
         </span>
       )}
       {unresolved && (
-        <span className="rounded-[4px] bg-unresolved-bg px-1.5 py-px font-mono text-[9px] font-semibold text-provisional-text">
-          unresolved
-        </span>
+        <HoverTooltip description={UNRESOLVED_SPECIES_EXPLANATION}>
+          <span className="cursor-help rounded-[4px] bg-unresolved-bg px-1.5 py-px font-mono text-[9px] font-semibold text-provisional-text">
+            unresolved
+          </span>
+        </HoverTooltip>
       )}
     </span>,
     <span key="gender" className="text-muted">
@@ -523,9 +531,11 @@ function buildPalRowCells(pal: LivePal, speciesById: Map<string, Species>, passi
         />
       ))}
       {pal.unresolvedPassives.length > 0 && (
-        <span className="rounded-[4px] bg-unresolved-bg px-1.5 py-px font-mono text-[10px] font-semibold text-provisional-text">
-          +{pal.unresolvedPassives.length} unresolved
-        </span>
+        <HoverTooltip description={UNRESOLVED_PASSIVES_EXPLANATION}>
+          <span className="cursor-help rounded-[4px] bg-unresolved-bg px-1.5 py-px font-mono text-[10px] font-semibold text-provisional-text">
+            +{pal.unresolvedPassives.length} unresolved
+          </span>
+        </HoverTooltip>
       )}
     </span>,
     <WorkSuitabilityRow key="work" levels={effectiveWorkSuitabilities(species, pal)} />,
@@ -591,7 +601,11 @@ function PalFullCard({
       }
     >
       {unresolved && (
-        <span className="rounded-[4px] bg-unresolved-bg px-1.5 py-px font-mono text-[9px] font-semibold text-provisional-text">unresolved</span>
+        <HoverTooltip description={UNRESOLVED_SPECIES_EXPLANATION}>
+          <span className="cursor-help rounded-[4px] bg-unresolved-bg px-1.5 py-px font-mono text-[9px] font-semibold text-provisional-text">
+            unresolved
+          </span>
+        </HoverTooltip>
       )}
       {(pal.passives.length > 0 || pal.unresolvedPassives.length > 0) && (
         <div className="flex flex-wrap justify-center gap-1">
@@ -605,9 +619,11 @@ function PalFullCard({
             />
           ))}
           {pal.unresolvedPassives.length > 0 && (
-            <span className="rounded-[4px] bg-unresolved-bg px-1.5 py-px font-mono text-[9px] font-semibold text-provisional-text">
-              +{pal.unresolvedPassives.length}
-            </span>
+            <HoverTooltip description={UNRESOLVED_PASSIVES_EXPLANATION}>
+              <span className="cursor-help rounded-[4px] bg-unresolved-bg px-1.5 py-px font-mono text-[9px] font-semibold text-provisional-text">
+                +{pal.unresolvedPassives.length}
+              </span>
+            </HoverTooltip>
           )}
         </div>
       )}

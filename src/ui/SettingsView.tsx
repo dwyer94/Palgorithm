@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Check, X } from 'lucide-react';
+import { Check, X, Mail, MessageCircle } from 'lucide-react';
 import { useSettings } from '../store/hooks';
 import { newId } from '../store/localStore';
 import type { SavedPerkSet } from '../store/types';
@@ -16,6 +16,7 @@ export default function SettingsView() {
   const [settings, setSettings] = useSettings();
   const live = useLiveContext();
   const [testing, setTesting] = useState(false);
+  const [discordCopied, setDiscordCopied] = useState(false);
 
   const [addingSet, setAddingSet] = useState(false);
   const [draftPerkSetName, setDraftPerkSetName] = useState('');
@@ -78,6 +79,16 @@ export default function SettingsView() {
     setTesting(true);
     await live.refreshPlayers();
     setTesting(false);
+  };
+
+  const copyDiscord = async () => {
+    try {
+      await navigator.clipboard.writeText('inputcomet');
+      setDiscordCopied(true);
+      setTimeout(() => setDiscordCopied(false), 1500);
+    } catch {
+      // clipboard permission denied — link/text is still visible to copy manually
+    }
   };
 
   return (
@@ -160,6 +171,33 @@ export default function SettingsView() {
               Terms of Service
             </a>
             <KofiButton />
+          </div>
+        </div>
+
+        {/* CONTACT & FEEDBACK */}
+        <div className="mb-4 rounded-card border border-border-card bg-white p-5 px-[22px] shadow-card">
+          <div className="mb-0.5 font-sans text-[15px] font-bold">Contact &amp; feedback</div>
+          <div className="mb-4 font-sans text-[12.5px] text-muted">
+            Questions, feature ideas, or something looks off? Reach out. If the planner gave you a bad
+            result, open the plan and hit <b className="font-semibold text-ink-muted">Debug Export</b> first,
+            then attach that file — it's what lets me actually reproduce it.
+          </div>
+          <div className="flex flex-wrap items-center gap-4">
+            <a
+              href="mailto:materia.market.contact@gmail.com"
+              className="flex items-center gap-1.5 font-sans text-[12.5px] font-semibold text-primary-dark hover:underline"
+            >
+              <Mail size={13} className="flex-none" />
+              materia.market.contact@gmail.com
+            </a>
+            <span
+              onClick={() => void copyDiscord()}
+              className="flex cursor-pointer items-center gap-1.5 font-sans text-[12.5px] font-semibold text-muted hover:text-primary-dark hover:underline"
+              title="Click to copy"
+            >
+              {discordCopied ? <Check size={13} className="flex-none text-success-text" /> : <MessageCircle size={13} className="flex-none" />}
+              {discordCopied ? 'Copied!' : '@inputcomet on Discord'}
+            </span>
           </div>
         </div>
 
@@ -271,7 +309,11 @@ export default function SettingsView() {
             )}
           </div>
           <div className="mb-[18px] font-sans text-[12.5px] text-muted">
-            Self-hosted PalDefender proxy. Blank base URL = demo/mock data.
+            Optionally connects to a self-hosted proxy that mirrors your Palworld server's PalDefender
+            API, so Server Pals and shared planning can draw on <b className="font-semibold text-ink-muted">everyone's real boxes</b>{' '}
+            instead of just your own roster. It's read-only — nothing is ever written back to your
+            server. Leave the base URL blank to keep using local/demo data; ask whoever hosts your
+            server for the proxy URL and bearer token to connect.
           </div>
 
           <div className="mb-3.5 grid grid-cols-1 gap-3.5 sm:grid-cols-2">

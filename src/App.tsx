@@ -5,7 +5,7 @@ import { ReferenceProvider, useReferenceContext } from './ui/ReferenceContext';
 import { AuthProvider, useAuthContext } from './ui/AuthContext';
 import GuestMigrationPrompt from './ui/GuestMigrationPrompt';
 import PwaUpdateToast from './ui/PwaUpdateToast';
-import FirstRunExplainer from './ui/FirstRunExplainer';
+import FirstRunExplainer, { hasSeenFirstRunExplainer, markFirstRunExplainerSeen } from './ui/FirstRunExplainer';
 import { useRoster, useSettings } from './store/hooks';
 import { Sidebar } from './ui/components';
 import RosterView from './ui/RosterView';
@@ -87,6 +87,7 @@ function ReferenceMaximizeWatcher({ onMaximize }: { onMaximize: (key: ViewKey) =
 function AppShell() {
   const [active, setActive] = useState<ViewKey>('single');
   const [visited, setVisited] = useState<Set<ViewKey>>(() => new Set(['single']));
+  const [helpBannerVisible, setHelpBannerVisible] = useState(() => !hasSeenFirstRunExplainer());
   const [roster] = useRoster();
   const [settings, setSettings] = useSettings();
   const live = useLiveContext();
@@ -103,7 +104,14 @@ function AppShell() {
       <ReferenceMaximizeWatcher onMaximize={handleSelect} />
       <GuestMigrationPrompt />
       <PwaUpdateToast />
-      <FirstRunExplainer />
+      {helpBannerVisible && (
+        <FirstRunExplainer
+          onDismiss={() => {
+            markFirstRunExplainerSeen();
+            setHelpBannerVisible(false);
+          }}
+        />
+      )}
       <div className="flex flex-1 flex-col overflow-hidden md:flex-row">
         <Sidebar
           active={active}
@@ -114,6 +122,7 @@ function AppShell() {
           onIconModeChange={(iconDisplayMode) => setSettings({ ...settings, iconDisplayMode })}
           accountLabel={user ? user.email ?? 'Account' : 'Sign in'}
           signedIn={!!user}
+          onHelpClick={() => setHelpBannerVisible(true)}
         />
         <div className="flex flex-1 flex-col overflow-y-auto md:flex-row md:overflow-hidden">
           {VIEW_KEYS.filter((key) => visited.has(key)).map((key) => {
