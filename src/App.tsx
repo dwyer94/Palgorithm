@@ -2,6 +2,9 @@ import { lazy, Suspense, useEffect, useState } from 'react';
 import { RulesetProvider } from './ui/RulesetContext';
 import { LiveProvider, useLiveContext } from './live/LiveContext';
 import { ReferenceProvider, useReferenceContext } from './ui/ReferenceContext';
+import { AuthProvider, useAuthContext } from './ui/AuthContext';
+import GuestMigrationPrompt from './ui/GuestMigrationPrompt';
+import PwaUpdateToast from './ui/PwaUpdateToast';
 import { useRoster, useSettings } from './store/hooks';
 import { Sidebar } from './ui/components';
 import RosterView from './ui/RosterView';
@@ -18,6 +21,7 @@ import { APP_VERSION } from './version';
 // is needed for the app's default landing tab, so they shouldn't cost first-load bytes.
 const ReferenceView = lazy(() => import('./ui/ReferenceView'));
 const SettingsView = lazy(() => import('./ui/SettingsView'));
+const AuthView = lazy(() => import('./ui/AuthView'));
 // ReferenceBubbles is rendered unconditionally (not gated behind `visited` like the tab
 // views above) — it was still a static import despite Phase 5's stated goal, dragging
 // PalReferenceList/PerkReferenceList and @tanstack/react-virtual into the main chunk for
@@ -48,6 +52,7 @@ const VIEWS = {
   reverse: ReverseLookupView,
   reference: ReferenceView,
   settings: SettingsView,
+  account: AuthView,
 } as const;
 
 type ViewKey = keyof typeof VIEWS;
@@ -84,6 +89,7 @@ function AppShell() {
   const [roster] = useRoster();
   const [settings, setSettings] = useSettings();
   const live = useLiveContext();
+  const { user } = useAuthContext();
 
   const handleSelect = (key: string) => {
     const viewKey = key as ViewKey;
@@ -94,6 +100,8 @@ function AppShell() {
   return (
     <div className="flex h-screen w-full flex-col overflow-hidden font-sans md:flex-row">
       <ReferenceMaximizeWatcher onMaximize={handleSelect} />
+      <GuestMigrationPrompt />
+      <PwaUpdateToast />
       <Sidebar
         active={active}
         onSelect={handleSelect}
@@ -101,6 +109,7 @@ function AppShell() {
         serverOnCount={live.selectedPlayerIds.size}
         iconMode={settings.iconDisplayMode}
         onIconModeChange={(iconDisplayMode) => setSettings({ ...settings, iconDisplayMode })}
+        accountLabel={user ? user.email ?? 'Account' : 'Sign in'}
       />
       <div className="flex flex-1 flex-col overflow-y-auto md:flex-row md:overflow-hidden">
         {VIEW_KEYS.filter((key) => visited.has(key)).map((key) => {
@@ -126,12 +135,15 @@ function AppShell() {
 
 export default function App() {
   return (
-    <RulesetProvider>
-      <LiveProvider>
-        <ReferenceProvider>
-          <AppShell />
-        </ReferenceProvider>
-      </LiveProvider>
-    </RulesetProvider>
+    <AuthProvider>
+      <RulesetProvider>
+        <LiveProvider>
+          <ReferenceProvider>
+            <AppShell />
+          </ReferenceProvider>
+        </LiveProvider>
+      </RulesetProvider>
+    </AuthProvider>
   );
 }
+

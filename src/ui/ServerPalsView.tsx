@@ -166,7 +166,12 @@ function PlayersTab() {
         )}
       </div>
 
-      {live.players.length === 0 && (
+      {live.players.length === 0 && live.status === 'unconfigured' && !live.isUsingMock && (
+        <div className="rounded-card border border-dashed border-border-input bg-panel-subtle p-8 text-center font-sans text-[13px] text-muted">
+          Not connected. Configure a proxy base URL in Settings → Live connection to see your server's Pals.
+        </div>
+      )}
+      {live.players.length === 0 && (live.status !== 'unconfigured' || live.isUsingMock) && (
         <div className="rounded-card border border-dashed border-border-input bg-panel-subtle p-8 text-center font-sans text-[13px] text-muted">
           No players found.
         </div>

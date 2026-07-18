@@ -86,6 +86,16 @@ export interface TeamSlot {
 /** Fixed team size, mirroring Palworld's in-game party size. */
 export const TEAM_SLOT_COUNT = 5;
 
+/** Per-user row caps enforced server-side by the cloud-sync triggers in
+ * supabase/migrations/0001_init_schema.sql — mirrored here only so the UI can show a
+ * count (RowCapBadge in components.tsx). Guests on localStorage have no such cap; these
+ * only apply once signed in. Keep in sync with the migration if the caps ever change. */
+export const CLOUD_ROW_CAPS = {
+  roster: 1000,
+  savedPlans: 200,
+  teams: 50,
+} as const;
+
 /** A named team of `TEAM_SLOT_COUNT` breeding-plan slots (spec-adjacent: Team Builder). */
 export interface Team {
   id: string;

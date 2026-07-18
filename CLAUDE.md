@@ -6,13 +6,22 @@ Guidance for Claude Code working in this repo. Read this first; full detail live
 
 Palworld Breeding Path Optimizer — a personal, client-side tool that takes the Pals you own (species, gender, passives) and one or more target Pals (with a desired perk set) and returns the breeding plan reaching them in the **fewest distinct breeding combinations**. Built to survive Palworld's 1.0 breeding overhaul (Genetic Recombination, July 10 2026) by keeping all breeding rules behind a swappable interface.
 
-Audience: one technical user, run locally / on a home server. Not a public product.
+Audience: guest-first. The app works fully client-side with zero sign-in (local/home-server
+use, unchanged), and an opt-in account layer syncs a user's data to the cloud across devices.
+The plan to take this from solo tool to public product lives in
+`docs/PRODUCTION_READINESS_PLAN.md` — not yet greenlit for implementation, tracked as its own
+phase sequence (distinct from the breeding-mechanics phases below, which this Status section
+tracks). The self-hosted PalDefender-proxy live feature stays out of the public product either
+way — see that plan's "explicitly out of scope."
 
 ## Status
 
 Phase 1 — July 10 patch day (spec §5/§10). 1.0 shipped; `combirank-0.6` formula confirmed unchanged, `dataset.1.0.json` ingested (291 species) and wired in as the live dataset. `genrecomb-1.0` ruleset not yet scaffolded — no published Mutation/passive odds to encode yet. Update the line below at the start of each working block:
 
 > **Active session:** Phase 1 (post-ingestion)
+
+**Production readiness** (separate track, see `docs/PRODUCTION_READINESS_PLAN.md`): drafted,
+not yet started.
 
 ## Stack
 
@@ -43,7 +52,6 @@ Phase 1 — July 10 patch day (spec §5/§10). 1.0 shipped; `combirank-0.6` form
 2. **The solver consumes edge outcomes as a probability distribution.** `combirank-0.6` is deterministic *given both parent genders*, but gender-dependent special combos with genders omitted return a multi-outcome split, so even today an edge isn't always one outcome at p=1. Never assume a single deterministic child. This is precisely what lets the 1.0 ruleset swap in without a solver rewrite.
 3. **All game data is loaded from the dataset JSON** — ranks, special combos, reachability, passive-inheritance odds. 1.0 will change these values; hardcoding them defeats the design.
 4. **Objective = fewest _distinct_ breeding combinations.** Shared intermediates are counted once. Re-breeding the same pair to re-roll passives is not a new combination.
-5. **Phase 0 UI is functional and unstyled.** Do not build visual design — that is session 0.D, with its own brief.
 
 ## Domain rules you'll get wrong without this
 
@@ -60,7 +68,8 @@ Ruleset forward/reverse are unit-tested against the oracle repos (spec §11). **
 
 ## Out of scope / don't
 
-- No backend, no server calls, no analytics, no auth.
-- No visual/aesthetic design in Phase 0.
+- No backend, no server calls, no analytics, no auth — true of the app today. This is changing
+  under `docs/PRODUCTION_READINESS_PLAN.md` (accounts + Supabase-backed sync as an opt-in layer
+  on top of the unchanged local/guest path); don't build toward that until the plan is greenlit.
 - Don't invent passive-inheritance percentages — load them from data; if a value is unknown, keep it configurable and flag it.
 - Don't optimize for any objective other than combination-count without asking first.

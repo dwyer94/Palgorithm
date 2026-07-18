@@ -713,6 +713,23 @@ export function BrandMark() {
   );
 }
 
+/** Per-user row cap indicator (Phase 1, docs/PRODUCTION_READINESS_PLAN.md) — only
+ * meaningful once signed in (cloud sync enforces it server-side); guests on localStorage
+ * have no such limit, so callers only render this while signed in. */
+export function RowCapBadge({ count, cap }: { count: number; cap: number }) {
+  const near = count >= cap * 0.9;
+  return (
+    <span
+      title={`${count} of ${cap} used`}
+      className={`rounded-pill border px-2 py-0.5 font-mono text-[11px] font-semibold ${
+        near ? 'border-danger-border bg-danger-bg text-danger-text' : 'border-border-inner bg-panel-subtle text-muted'
+      }`}
+    >
+      {count}/{cap}
+    </span>
+  );
+}
+
 function IconModeToggle({
   mode,
   onChange,
@@ -749,6 +766,7 @@ export function Sidebar({
   serverOnCount,
   iconMode,
   onIconModeChange,
+  accountLabel,
 }: {
   active: string;
   onSelect: (key: string) => void;
@@ -756,6 +774,7 @@ export function Sidebar({
   serverOnCount: number;
   iconMode: 'compact' | 'full';
   onIconModeChange: (mode: 'compact' | 'full') => void;
+  accountLabel: string;
 }) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -844,6 +863,15 @@ export function Sidebar({
         <div className="mt-auto px-2.5">
           <div className="mb-2 px-0.5">
             <IconModeToggle mode={iconMode} onChange={onIconModeChange} />
+          </div>
+          <div
+            onClick={() => select('account')}
+            className={`mb-0.5 flex cursor-pointer items-center gap-2.5 rounded-lg px-3 py-[9px] text-[13.5px] ${
+              active === 'account' ? 'bg-brand font-semibold text-sidebar-bg' : 'text-muted hover:bg-sidebar-hover'
+            }`}
+          >
+            <span>☁</span>
+            <span className="truncate">{accountLabel}</span>
           </div>
           <div
             onClick={() => select('settings')}

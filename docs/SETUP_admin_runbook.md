@@ -104,7 +104,12 @@ Fill in `.env`:
 - `PROXY_TOKEN` — optional. If set, callers must send it as a bearer token. Leave blank to
   rely purely on Tailscale network access as the gate (this repo's default assumption,
   since there's nothing here a caller could misuse beyond reading pal data).
-- `CORS_ORIGINS` — defaults to `*`. Tighten to the app's actual origin if you want.
+- `CORS_ORIGINS` — defaults to `*`. Tighten this to whatever origin you're actually loading
+  the web app from in your browser — e.g. `https://palgorithm.dev` if you're using the
+  public hosted app and pointing it at your own self-hosted proxy, or your own origin if
+  you're running a separate copy of the frontend yourself (see
+  docs/PRODUCTION_READINESS_PLAN.md Phase 1's CORS note for why `*` isn't a real risk here
+  either way — this is a precision setting, not a security one).
 - `CACHE_TTL_SECONDS` — defaults to 5. PalDefender's own docs note a 5-second game-thread
   timeout on its REST calls; this cache keeps repeated polling from hammering it.
 
