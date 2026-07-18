@@ -38,6 +38,13 @@ export default defineConfig({
         globPatterns: ['**/*.{js,css,html,ico,svg}', 'icons/app/*.png'],
         globIgnores: ['icons/pals/**'],
         cleanupOutdatedCaches: true,
+        // generateSW's default NavigationRoute sends every navigation-mode request to
+        // index.html (the standard SPA assumption) — that would intercept direct navigations
+        // to the standalone legal pages (public/legal/*.html, Phase 4) once the service worker
+        // is active and silently serve the app shell instead. Excluding them here lets those
+        // two requests fall through to the network / their own precache entry instead of the
+        // SPA fallback.
+        navigateFallbackDenylist: [/^\/legal\//],
         runtimeCaching: [
           {
             urlPattern: /\/icons\/pals\/.*\.png$/,

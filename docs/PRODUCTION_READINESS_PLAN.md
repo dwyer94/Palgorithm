@@ -1,9 +1,11 @@
 # PalCalc Production Readiness Plan
 
-> Status: **Phase 0 (docs reconciliation) done, 2026-07-17.** Phases 1-5 (accounts,
-> onboarding, CI, observability/legal/deploy, Reference UI polish) drafted, not yet
-> approved for implementation. `CLAUDE.md`, `docs/UI_REQUIREMENTS.md`, and
-> `docs/PALWORLD_BREEDING_OPTIMIZER_SPEC.md` now reflect the guest-first direction and
+> Status: **Phases 0-3 done, 2026-07-17** (docs reconciliation; accounts/cloud sync;
+> onboarding/in-app guidance; CI/hardening — see `docs/DEPLOYING_GUIDE.md` for the
+> private ops detail behind Phases 1/3). **Phase 4 (observability, legal, deploy) is
+> being scoped now.** Phase 5 (Reference UI polish) not started; independent and
+> non-blocking. `CLAUDE.md`, `docs/UI_REQUIREMENTS.md`, and
+> `docs/PALWORLD_BREEDING_OPTIMIZER_SPEC.md` reflect the guest-first direction and
 > point back to this plan as the source of truth for what's still pending.
 
 ## Context
@@ -63,7 +65,7 @@ new device reconnects to their own proxy without re-entering the URL/token by ha
 
 ---
 
-## Phase 1 — Accounts & cloud sync (the core lift)
+## Phase 1 — Accounts & cloud sync (the core lift) — **done, 2026-07-17**
 
 **Backend: Supabase (Postgres + Auth + Row-Level Security).** No custom server
 needed for this — the browser talks to Supabase directly using the public anon key;
@@ -147,7 +149,7 @@ public deploy (see "Explicitly out of scope" above).
 
 ---
 
-## Phase 2 — Onboarding & in-app guidance
+## Phase 2 — Onboarding & in-app guidance — **done, 2026-07-17**
 
 No tooltip/help-copy pattern exists anywhere in `src/ui` today (confirmed by grep).
 For strangers who don't already know the domain:
@@ -174,7 +176,7 @@ For strangers who don't already know the domain:
 
 ---
 
-## Phase 3 — Hardening & CI
+## Phase 3 — Hardening & CI — **done, 2026-07-17**
 
 - **CI**: none exists today. Add a GitHub Actions workflow running `npm run lint`,
   `tsc -b` (or a dedicated `typecheck` script), `npm run test`, and `npm run build` on

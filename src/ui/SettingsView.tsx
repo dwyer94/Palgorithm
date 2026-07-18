@@ -142,6 +142,22 @@ export default function SettingsView() {
             >
               ↗ View on GitHub
             </a>
+            <a
+              href="/legal/privacy.html"
+              target="_blank"
+              rel="noreferrer"
+              className="font-sans text-[12.5px] font-semibold text-muted hover:underline"
+            >
+              Privacy Policy
+            </a>
+            <a
+              href="/legal/terms.html"
+              target="_blank"
+              rel="noreferrer"
+              className="font-sans text-[12.5px] font-semibold text-muted hover:underline"
+            >
+              Terms of Service
+            </a>
             <KofiButton />
           </div>
         </div>
