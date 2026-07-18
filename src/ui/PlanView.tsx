@@ -104,7 +104,7 @@ function nodeSubLabel(node: PlanGraphNode, ctx: PlanGraphContext): { label: Reac
       className: 'text-success-text',
     };
   }
-  if (node.isTarget) {
+  if (node.isTarget && node.isTargetMarker) {
     // The terminal marker itself isn't a breeding step — it's wired by an edge to whichever
     // step actually produced it (see graphLayout's per-target marker loop), so it only
     // borrows that step's number for context rather than claiming to be "step 1" via the
