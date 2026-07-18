@@ -578,7 +578,7 @@ function main(): void {
   let adminAliasesAdded = 0;
   for (const [charId, row] of Object.entries(monster.Rows)) {
     if (!isAdminDuplicate(charId)) continue;
-    let targetId = tribeToId(row.Tribe);
+    let targetId = tribeToId(row.Tribe ?? '');
     if (!targetId) {
       const prefix = ADMIN_PREFIXES.find((p) => charId.startsWith(p));
       const baseId = prefix ? charId.slice(prefix.length) : charId.endsWith('_Oilrig') ? charId.slice(0, -'_Oilrig'.length) : undefined;
