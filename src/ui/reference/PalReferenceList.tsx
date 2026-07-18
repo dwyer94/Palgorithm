@@ -1,4 +1,5 @@
 import { useMemo, useRef } from 'react';
+import { Moon, Gauge, Zap, Crosshair, Handshake } from 'lucide-react';
 import { ELEMENTS, SIZES } from '../../data/schema';
 import type { Element, PartnerSkill, Species } from '../../data/schema';
 import { useRulesetContext } from '../RulesetContext';
@@ -19,6 +20,7 @@ import {
   VirtualizedTable,
   useIsDesktop,
   elementColor,
+  MountIcon,
 } from '../components';
 
 const PAL_TABLE_COLUMNS =
@@ -74,7 +76,7 @@ function partnerSkillTooltip(ps: PartnerSkill): string {
   return lines.join('\n\n');
 }
 
-/** Compact "🤝 <skill name>" badge, hover for the full effect text/unlock item/cooldown.
+/** Compact "<Handshake/> <skill name>" badge, hover for the full effect text/unlock item/cooldown.
  * Renders nothing for the handful of Pals with no partner skill on record. */
 function PartnerSkillBadge({ skill, className = '' }: { skill: PartnerSkill | undefined; className?: string }) {
   if (!skill) return null;
@@ -83,7 +85,7 @@ function PartnerSkillBadge({ skill, className = '' }: { skill: PartnerSkill | un
       <span
         className={`inline-flex items-center gap-1 rounded-chip border border-border-inner bg-[#f2ece0] px-1.5 py-0.5 font-mono text-[10px] font-semibold text-muted ${className}`}
       >
-        🤝 {skill.displayName}
+        <Handshake size={11} /> {skill.displayName}
       </span>
     </HoverTooltip>
   );
@@ -222,23 +224,23 @@ export default function PalReferenceList({ dense = false }: { dense?: boolean })
         </div>
         <span
           onClick={() => setPalsQuery({ ...palsQuery, nocturnalOnly: !nocturnalOnly })}
-          className={`cursor-pointer rounded-pill border-[1.5px] px-2 py-0.5 font-sans text-[10.5px] font-semibold ${
+          className={`inline-flex cursor-pointer items-center gap-1 rounded-pill border-[1.5px] px-2 py-0.5 font-sans text-[10.5px] font-semibold ${
             nocturnalOnly
               ? 'border-primary bg-primary-tint text-primary-dark'
               : 'border-border-card bg-white text-muted-light hover:border-muted-lighter'
           }`}
         >
-          🌙 Nocturnal
+          <Moon size={11} /> Nocturnal
         </span>
         <span
           onClick={() => setPalsQuery({ ...palsQuery, mountableOnly: !mountableOnly })}
-          className={`cursor-pointer rounded-pill border-[1.5px] px-2 py-0.5 font-sans text-[10.5px] font-semibold ${
+          className={`inline-flex cursor-pointer items-center gap-1 rounded-pill border-[1.5px] px-2 py-0.5 font-sans text-[10.5px] font-semibold ${
             mountableOnly
               ? 'border-primary bg-primary-tint text-primary-dark'
               : 'border-border-card bg-white text-muted-light hover:border-muted-lighter'
           }`}
         >
-          🐴 Mountable
+          <MountIcon size={11} /> Mountable
         </span>
         <span className="flex items-center gap-1 font-sans text-[11px] font-semibold text-muted-light">
           Rank
@@ -259,7 +261,7 @@ export default function PalReferenceList({ dense = false }: { dense?: boolean })
           />
         </span>
         <span className="flex items-center gap-1 font-sans text-[11px] font-semibold text-muted-light">
-          🏃 Run ≥
+          <Gauge size={12} /> Run ≥
           <input
             type="number"
             value={minRunSpeed ?? ''}
@@ -287,7 +289,7 @@ export default function PalReferenceList({ dense = false }: { dense?: boolean })
           ))}
           {WORK_SUITABILITY_TYPES.map((w) => (
             <option key={w.id} value={w.id}>
-              Sort: {w.icon} {w.label} (high → low)
+              Sort: {w.label} (high → low)
             </option>
           ))}
         </select>
@@ -319,11 +321,31 @@ export default function PalReferenceList({ dense = false }: { dense?: boolean })
                 </span>
               </div>
               <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-0.5 font-mono text-[10px] text-muted-light">
-                {s.movement?.run !== undefined && <span>🏃 {s.movement.run}</span>}
-                {s.stamina !== undefined && <span>⚡ {s.stamina}</span>}
-                {s.captureRateCorrect !== undefined && <span>🎯 ×{s.captureRateCorrect}</span>}
-                {s.nocturnal && <span title="Nocturnal">🌙</span>}
-                {s.mountable && <span title="Mountable">🐴</span>}
+                {s.movement?.run !== undefined && (
+                  <span className="inline-flex items-center gap-0.5">
+                    <Gauge size={10} /> {s.movement.run}
+                  </span>
+                )}
+                {s.stamina !== undefined && (
+                  <span className="inline-flex items-center gap-0.5">
+                    <Zap size={10} /> {s.stamina}
+                  </span>
+                )}
+                {s.captureRateCorrect !== undefined && (
+                  <span className="inline-flex items-center gap-0.5">
+                    <Crosshair size={10} /> ×{s.captureRateCorrect}
+                  </span>
+                )}
+                {s.nocturnal && (
+                  <span title="Nocturnal">
+                    <Moon size={10} />
+                  </span>
+                )}
+                {s.mountable && (
+                  <span title="Mountable">
+                    <MountIcon size={10} />
+                  </span>
+                )}
               </div>
               <div className="mt-1">
                 <WorkSuitabilityRow levels={workLevels(s)} max={2} />
@@ -351,12 +373,32 @@ export default function PalReferenceList({ dense = false }: { dense?: boolean })
               }
             >
               <WorkSuitabilityRow levels={workLevels(s)} />
-              <div className="flex flex-wrap justify-center gap-x-2 gap-y-0.5 font-mono text-[10px] text-muted-light">
-                {s.movement?.run !== undefined && <span>🏃 {s.movement.run}</span>}
-                {s.stamina !== undefined && <span>⚡ {s.stamina}</span>}
-                {s.captureRateCorrect !== undefined && <span>🎯 ×{s.captureRateCorrect}</span>}
-                {s.nocturnal && <span title="Nocturnal">🌙</span>}
-                {s.mountable && <span title="Mountable">🐴</span>}
+              <div className="flex min-h-[27px] flex-wrap content-center justify-center gap-x-1.5 gap-y-0.5 font-mono text-[10px] text-muted-light">
+                {s.movement?.run !== undefined && (
+                  <span className="inline-flex items-center gap-0.5">
+                    <Gauge size={9} /> {s.movement.run}
+                  </span>
+                )}
+                {s.stamina !== undefined && (
+                  <span className="inline-flex items-center gap-0.5">
+                    <Zap size={9} /> {s.stamina}
+                  </span>
+                )}
+                {s.captureRateCorrect !== undefined && (
+                  <span className="inline-flex items-center gap-0.5">
+                    <Crosshair size={9} /> ×{s.captureRateCorrect}
+                  </span>
+                )}
+                {s.nocturnal && (
+                  <span title="Nocturnal">
+                    <Moon size={9} />
+                  </span>
+                )}
+                {s.mountable && (
+                  <span title="Mountable">
+                    <MountIcon size={9} />
+                  </span>
+                )}
               </div>
               <PartnerSkillBadge skill={partnerSkillBySpecies.get(s.id)} />
             </PalCard>
@@ -393,11 +435,11 @@ export default function PalReferenceList({ dense = false }: { dense?: boolean })
             <span key="capture" className="text-ink-muted">
               {s.captureRateCorrect ?? '—'}
             </span>,
-            <div key="noct" className="text-center text-ink-muted">
-              {s.nocturnal ? '🌙' : ''}
+            <div key="noct" className="flex justify-center text-ink-muted">
+              {s.nocturnal ? <Moon size={13} /> : ''}
             </div>,
-            <div key="mount" className="text-center text-ink-muted">
-              {s.mountable ? '🐴' : ''}
+            <div key="mount" className="flex justify-center text-ink-muted">
+              {s.mountable ? <MountIcon size={13} /> : ''}
             </div>,
             <PartnerSkillBadge key="partner" skill={partnerSkillBySpecies.get(s.id)} />,
           ]}
@@ -435,8 +477,12 @@ export default function PalReferenceList({ dense = false }: { dense?: boolean })
                   <td className="px-3 py-2.5 text-ink-muted">{s.movement?.run ?? '—'}</td>
                   <td className="px-3 py-2.5 text-ink-muted">{s.stamina ?? '—'}</td>
                   <td className="px-3 py-2.5 text-ink-muted">{s.captureRateCorrect ?? '—'}</td>
-                  <td className="px-3 py-2.5 text-center text-ink-muted">{s.nocturnal ? '🌙' : ''}</td>
-                  <td className="px-3 py-2.5 text-center text-ink-muted">{s.mountable ? '🐴' : ''}</td>
+                  <td className="px-3 py-2.5 text-ink-muted">
+                    <div className="flex justify-center">{s.nocturnal ? <Moon size={13} /> : ''}</div>
+                  </td>
+                  <td className="px-3 py-2.5 text-ink-muted">
+                    <div className="flex justify-center">{s.mountable ? <MountIcon size={13} /> : ''}</div>
+                  </td>
                   <td className="px-3 py-2.5">
                     <PartnerSkillBadge skill={partnerSkillBySpecies.get(s.id)} />
                   </td>

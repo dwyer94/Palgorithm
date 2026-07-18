@@ -1,8 +1,66 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import { useVirtualizer } from '@tanstack/react-virtual';
+import {
+  Flame,
+  Droplet,
+  Sprout,
+  Zap,
+  Hammer,
+  ShoppingBasket,
+  Axe,
+  Pickaxe,
+  Pill as PillIcon,
+  Package,
+  Wheat,
+  Snowflake,
+  HelpCircle,
+  Target,
+  Network,
+  Bookmark,
+  Users,
+  Backpack,
+  Server,
+  Calculator,
+  ArrowLeftRight,
+  Search,
+  Rows3,
+  LayoutGrid,
+  Menu,
+  Settings,
+  Sparkle,
+  TriangleAlert,
+  Info,
+} from 'lucide-react';
 import { ELEMENTS } from '../data/schema';
 import type { Element, Gender, Species, Passive } from '../data/schema';
+
+/** A rideable/mount indicator — no library icon fits a horseshoe, so it's hand-drawn to
+ * match Lucide's visual language (24x24 viewbox, 2px round stroke, no fill). */
+export function MountIcon({ size = 14, className = '' }: { size?: number | string; className?: string }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden
+    >
+      <path d="M7 21c-1-4.5 0-8 1.5-10.5C10 8 10.5 5.5 9.5 3c2 .5 3.5 2 4 4 .5-2 2-3.5 4-4-1 2.5-.5 5 1 7.5C20 13 21 16.5 20 21" />
+    </svg>
+  );
+}
+
+/** Common shape for both Lucide icon components and hand-drawn ones like `MountIcon` —
+ * a plain callable type (rather than `ComponentType<P>`) so it only checks the call
+ * signature, sidestepping the `propTypes`/`defaultProps` static-field noise that trips up
+ * `exactOptionalPropertyTypes` when narrowing Lucide's full prop type down to what we use. */
+export type IconComponent = (props: { size?: number | string; className?: string }) => ReactNode;
 
 /**
  * Shared visual primitives (spec session 0.D handoff, docs in
@@ -78,28 +136,28 @@ export function GenderGlyph({ gender, className }: { gender: Gender | null | und
 export interface WorkSuitabilityMeta {
   id: string;
   label: string;
-  icon: string;
+  icon: IconComponent;
 }
 
 export const WORK_SUITABILITY_TYPES: WorkSuitabilityMeta[] = [
-  { id: 'EmitFlame', label: 'Kindling', icon: '🔥' },
-  { id: 'Watering', label: 'Watering', icon: '💧' },
-  { id: 'Seeding', label: 'Planting', icon: '🌱' },
-  { id: 'GenerateElectricity', label: 'Electricity', icon: '⚡' },
-  { id: 'Handcraft', label: 'Handiwork', icon: '🔨' },
-  { id: 'Collection', label: 'Gathering', icon: '🧺' },
-  { id: 'Deforest', label: 'Lumbering', icon: '🪓' },
-  { id: 'Mining', label: 'Mining', icon: '⛏' },
-  { id: 'ProductMedicine', label: 'Medicine', icon: '💊' },
-  { id: 'Transport', label: 'Transporting', icon: '📦' },
-  { id: 'MonsterFarm', label: 'Farming', icon: '🌾' },
-  { id: 'Cool', label: 'Cooling', icon: '❄' },
+  { id: 'EmitFlame', label: 'Kindling', icon: Flame },
+  { id: 'Watering', label: 'Watering', icon: Droplet },
+  { id: 'Seeding', label: 'Planting', icon: Sprout },
+  { id: 'GenerateElectricity', label: 'Electricity', icon: Zap },
+  { id: 'Handcraft', label: 'Handiwork', icon: Hammer },
+  { id: 'Collection', label: 'Gathering', icon: ShoppingBasket },
+  { id: 'Deforest', label: 'Lumbering', icon: Axe },
+  { id: 'Mining', label: 'Mining', icon: Pickaxe },
+  { id: 'ProductMedicine', label: 'Medicine', icon: PillIcon },
+  { id: 'Transport', label: 'Transporting', icon: Package },
+  { id: 'MonsterFarm', label: 'Farming', icon: Wheat },
+  { id: 'Cool', label: 'Cooling', icon: Snowflake },
 ];
 
 const WORK_SUITABILITY_BY_ID = new Map(WORK_SUITABILITY_TYPES.map((w) => [w.id, w]));
 
 export function workSuitabilityMeta(id: string): WorkSuitabilityMeta {
-  return WORK_SUITABILITY_BY_ID.get(id) ?? { id, label: id, icon: '❔' };
+  return WORK_SUITABILITY_BY_ID.get(id) ?? { id, label: id, icon: HelpCircle };
 }
 
 /** Compact "icon + level" badge for one work type. `dim` mirrors `PassiveChip`'s dim variant —
@@ -113,7 +171,7 @@ export function WorkSuitabilityBadge({ id, level, dim = false }: { id: string; l
         dim ? 'border-border-inner bg-[#f2ece0] text-muted opacity-60' : 'border-primary-border3 bg-primary-tint text-primary-dark'
       }`}
     >
-      <span aria-hidden>{meta.icon}</span>
+      <meta.icon size={11} />
       {level}
     </span>
   );
@@ -414,8 +472,9 @@ export function ProvisionalTag({ variant = 'pill' }: { variant?: 'pill' | 'inlin
     );
   }
   return (
-    <span className="rounded-[5px] font-mono text-[9.5px] font-semibold uppercase tracking-[.4px] text-provisional-text bg-provisional-bg border border-provisional-border px-[7px] py-[2px]">
-      ⚠ provisional estimate
+    <span className="inline-flex items-center gap-1 rounded-[5px] font-mono text-[9.5px] font-semibold uppercase tracking-[.4px] text-provisional-text bg-provisional-bg border border-provisional-border px-[7px] py-[2px]">
+      <TriangleAlert size={10} />
+      provisional estimate
     </span>
   );
 }
@@ -649,24 +708,26 @@ export function SegmentedControl<T extends string>({
 export interface NavItem {
   key: string;
   label: string;
-  icon: string;
+  icon: ReactNode;
 }
 
+const NAV_ICON_SIZE = 15;
+
 export const PLAN_NAV_ITEMS: NavItem[] = [
-  { key: 'single', label: 'Single target', icon: '◇' },
-  { key: 'hub', label: 'Hub planner', icon: '◈' },
-  { key: 'saved', label: 'Saved plans', icon: '★' },
-  { key: 'teams', label: 'Team builder', icon: '⛊' },
+  { key: 'single', label: 'Single target', icon: <Target size={NAV_ICON_SIZE} /> },
+  { key: 'hub', label: 'Hub planner', icon: <Network size={NAV_ICON_SIZE} /> },
+  { key: 'saved', label: 'Saved plans', icon: <Bookmark size={NAV_ICON_SIZE} /> },
+  { key: 'teams', label: 'Team builder', icon: <Users size={NAV_ICON_SIZE} /> },
 ];
 
-const ROSTER_NAV_ITEM: NavItem = { key: 'roster', label: 'Roster', icon: '▤' };
-const SERVER_NAV_ITEM: NavItem = { key: 'server', label: 'Server pals', icon: '⛭' };
+const ROSTER_NAV_ITEM: NavItem = { key: 'roster', label: 'Roster', icon: <Backpack size={NAV_ICON_SIZE} /> };
+const SERVER_NAV_ITEM: NavItem = { key: 'server', label: 'Server pals', icon: <Server size={NAV_ICON_SIZE} /> };
 export const DATA_NAV_ITEMS: NavItem[] = [ROSTER_NAV_ITEM, SERVER_NAV_ITEM];
 
 export const UTILITY_NAV_ITEMS: NavItem[] = [
-  { key: 'forward', label: 'Forward calc', icon: '→' },
-  { key: 'reverse', label: 'Reverse lookup', icon: '←' },
-  { key: 'reference', label: 'Reference', icon: '⌕' },
+  { key: 'forward', label: 'Forward calc', icon: <Calculator size={NAV_ICON_SIZE} /> },
+  { key: 'reverse', label: 'Reverse lookup', icon: <ArrowLeftRight size={NAV_ICON_SIZE} /> },
+  { key: 'reference', label: 'Reference', icon: <Search size={NAV_ICON_SIZE} /> },
 ];
 
 function NavRow({
@@ -737,9 +798,9 @@ function IconModeToggle({
   mode: 'compact' | 'full';
   onChange: (mode: 'compact' | 'full') => void;
 }) {
-  const options: { value: 'compact' | 'full'; label: string; title: string }[] = [
-    { value: 'compact', label: '☰ Compact', title: 'Compact — text rows with a small icon' },
-    { value: 'full', label: '▦ Full', title: 'Full — larger Pal icon cards' },
+  const options: { value: 'compact' | 'full'; label: string; icon: IconComponent; title: string }[] = [
+    { value: 'compact', label: 'Compact', icon: Rows3, title: 'Compact — text rows with a small icon' },
+    { value: 'full', label: 'Full', icon: LayoutGrid, title: 'Full — larger Pal icon cards' },
   ];
   return (
     <div className="flex rounded-lg bg-sidebar-hover p-[3px]">
@@ -748,10 +809,11 @@ function IconModeToggle({
           key={opt.value}
           onClick={() => onChange(opt.value)}
           title={opt.title}
-          className={`flex-1 cursor-pointer rounded-[6px] py-[5px] text-center font-sans text-[11px] font-semibold ${
+          className={`flex flex-1 cursor-pointer items-center justify-center gap-1.5 rounded-[6px] py-[5px] text-center font-sans text-[11px] font-semibold ${
             mode === opt.value ? 'bg-brand text-sidebar-bg' : 'text-sidebar-text hover:text-[#f4f1ea]'
           }`}
         >
+          <opt.icon size={13} />
           {opt.label}
         </span>
       ))}
@@ -795,9 +857,9 @@ export function Sidebar({
           onClick={() => setMobileOpen(true)}
           role="button"
           aria-label="Open menu"
-          className="cursor-pointer px-1 text-[22px] leading-none text-[#f4f1ea]"
+          className="cursor-pointer px-1 leading-none text-[#f4f1ea]"
         >
-          ☰
+          <Menu size={22} />
         </span>
       </div>
 
@@ -879,7 +941,7 @@ export function Sidebar({
               active === 'settings' ? 'bg-brand font-semibold text-sidebar-bg' : 'text-muted hover:bg-sidebar-hover'
             }`}
           >
-            <span>⚙</span>
+            <Settings size={NAV_ICON_SIZE} />
             <span>Settings</span>
           </div>
         </div>
@@ -961,10 +1023,10 @@ export function PalNode({
           <PalIcon icon={icon} size={18} />
           <span
             title={species}
-            className={`truncate font-mono text-[12.5px] font-semibold ${isTarget ? 'text-ink-strong' : 'text-ink-strong'}`}
+            className={`flex min-w-0 items-center gap-1 truncate font-mono text-[12.5px] font-semibold ${isTarget ? 'text-ink-strong' : 'text-ink-strong'}`}
           >
-            {species}
-            {isTarget && ' ✦'}
+            <span className="truncate">{species}</span>
+            {isTarget && <Sparkle size={11} className="flex-none" />}
           </span>
         </span>
         <span className="font-mono text-[11px] text-muted-lighter">{genderLabel ?? <GenderGlyph gender={gender} />}</span>
@@ -1337,7 +1399,7 @@ export function PassiveMultiSelect({
               key={category}
               className="flex items-start gap-1.5 rounded-panel border border-[#e9d9a8] bg-unresolved-bg2 px-2.5 py-1.5 font-sans text-[11.5px] font-medium text-provisional-text"
             >
-              <span>ⓘ</span>
+              <Info size={13} className="flex-none" />
               <span>
                 {list.map((p) => p.displayName).join(' and ')} are all {category} passives — confirm they can coexist on one Pal before
                 relying on this plan.
@@ -1405,7 +1467,7 @@ export function WorkSuitabilityFilterEditor({
             key={f.type}
             className="inline-flex items-center gap-1.5 rounded-pill border-[1.5px] border-primary-border3 bg-primary-tint px-2.5 py-1 font-mono text-[12px] font-semibold text-primary-dark"
           >
-            <span aria-hidden>{meta.icon}</span>
+            <meta.icon size={12} />
             {meta.label}
             <span className="flex items-center gap-0.5">
               <span
@@ -1451,7 +1513,7 @@ export function WorkSuitabilityFilterEditor({
             <div className="absolute left-0 top-[calc(100%+4px)] z-10 max-h-64 w-[190px] overflow-y-auto rounded-panel border border-border-card bg-white shadow-dropdown">
               {available.map((w) => (
                 <DropdownRow key={w.id} onPick={() => add(w.id)}>
-                  <span aria-hidden>{w.icon}</span>
+                  <w.icon size={13} />
                   {w.label}
                 </DropdownRow>
               ))}
@@ -1476,7 +1538,7 @@ export function WorkSuitabilitySortSelect({ value, onChange }: { value: string |
       <option value="">Sort: default order</option>
       {WORK_SUITABILITY_TYPES.map((w) => (
         <option key={w.id} value={w.id}>
-          Sort: {w.icon} {w.label} (high → low)
+          Sort: {w.label} (high → low)
         </option>
       ))}
     </select>

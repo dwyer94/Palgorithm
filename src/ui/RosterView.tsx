@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { Download, Upload } from 'lucide-react';
 import { useRoster, useSettings } from '../store/hooks';
 import { newId } from '../store/localStore';
 import { CLOUD_ROW_CAPS, type RosterEntry } from '../store/types';
@@ -83,7 +84,7 @@ export default function RosterView() {
 
   const inputClass = 'rounded-panel border-[1.5px] border-border-input px-3 py-2 font-sans text-[13px] outline-none focus:border-primary';
   const buttonClass =
-    'cursor-pointer rounded-panel border border-border-card bg-white px-3.5 py-2 font-sans text-[13px] font-semibold hover:border-muted-lighter';
+    'inline-flex cursor-pointer items-center gap-1.5 rounded-panel border border-border-card bg-white px-3.5 py-2 font-sans text-[13px] font-semibold hover:border-muted-lighter';
 
   const editForm = (
     <>
@@ -152,10 +153,10 @@ export default function RosterView() {
 
         <div className="mb-3 flex gap-2">
           <span onClick={exportJson} className={buttonClass}>
-            ⤓ Export JSON
+            <Download size={13} /> Export JSON
           </span>
           <span onClick={() => fileInputRef.current?.click()} className={buttonClass}>
-            Import JSON
+            <Upload size={13} /> Import JSON
           </span>
           <input
             ref={fileInputRef}

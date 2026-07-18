@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { TriangleAlert, X, Play, Eye, RotateCcw, Pencil, Check, Trash2 } from 'lucide-react';
 import type { Species, Passive } from '../data/schema';
 import type { PassiveId, SpeciesId, TeamSlot } from '../store/types';
 import { PalIcon, PassiveChip } from './components';
@@ -119,7 +120,9 @@ export default function TeamSlotCard({
 
       {!isPlanning && error && (
         <div className="rounded-panel border border-l-[3px] border-l-brand-hover border-border-card bg-white px-2.5 py-2 font-sans text-[11.5px] text-ink-strong">
-          <div className="font-semibold text-brand-hover">⚠ Plan failed</div>
+          <div className="flex items-center gap-1 font-semibold text-brand-hover">
+            <TriangleAlert size={12} /> Plan failed
+          </div>
           <div className="text-muted">{error}</div>
         </div>
       )}
@@ -131,7 +134,15 @@ export default function TeamSlotCard({
             slot.target || isPlanning ? 'cursor-pointer hover:bg-sidebar-hover' : 'cursor-not-allowed opacity-50'
           }`}
         >
-          {isPlanning ? '✕ Cancel' : '▶ Run plan'}
+          {isPlanning ? (
+            <>
+              <X size={13} /> Cancel
+            </>
+          ) : (
+            <>
+              <Play size={13} /> Run plan
+            </>
+          )}
         </div>
       )}
 
@@ -154,21 +165,33 @@ export default function TeamSlotCard({
           <div className="flex flex-wrap gap-1.5">
             <span
               onClick={onToggleView}
-              className="cursor-pointer rounded-panel border border-border-card px-2.5 py-1.5 font-sans text-[12px] font-semibold hover:border-primary hover:text-primary-dark"
+              className="inline-flex cursor-pointer items-center gap-1 rounded-panel border border-border-card px-2.5 py-1.5 font-sans text-[12px] font-semibold hover:border-primary hover:text-primary-dark"
             >
-              {isOpen ? '▾ Hide' : '👁 View'}
+              {isOpen ? '▾ Hide' : (
+                <>
+                  <Eye size={12} /> View
+                </>
+              )}
             </span>
             <span
               onClick={isPlanning ? onCancel : onRun}
-              className="cursor-pointer rounded-panel border border-border-card px-2.5 py-1.5 font-sans text-[12px] font-semibold hover:border-primary hover:text-primary-dark"
+              className="inline-flex cursor-pointer items-center gap-1 rounded-panel border border-border-card px-2.5 py-1.5 font-sans text-[12px] font-semibold hover:border-primary hover:text-primary-dark"
             >
-              {isPlanning ? '✕ Cancel' : '↻ Re-run'}
+              {isPlanning ? (
+                <>
+                  <X size={12} /> Cancel
+                </>
+              ) : (
+                <>
+                  <RotateCcw size={12} /> Re-run
+                </>
+              )}
             </span>
             <span
               onClick={() => setEditing(true)}
-              className="cursor-pointer rounded-panel border border-border-card px-2.5 py-1.5 font-sans text-[12px] font-semibold text-muted-light hover:text-brand-hover"
+              className="inline-flex cursor-pointer items-center gap-1 rounded-panel border border-border-card px-2.5 py-1.5 font-sans text-[12px] font-semibold text-muted-light hover:text-brand-hover"
             >
-              ✎ Edit target
+              <Pencil size={12} /> Edit target
             </span>
           </div>
         </>
@@ -198,21 +221,27 @@ export default function TeamSlotCard({
           <div className="flex flex-wrap gap-1.5">
             <span
               onClick={onKeepNew}
-              className="cursor-pointer rounded-panel bg-primary px-2.5 py-1.5 font-sans text-[12px] font-semibold text-white hover:bg-primary-dark"
+              className="inline-flex cursor-pointer items-center gap-1 rounded-panel bg-primary px-2.5 py-1.5 font-sans text-[12px] font-semibold text-white hover:bg-primary-dark"
             >
-              ✓ Keep new
+              <Check size={12} /> Keep new
             </span>
             <span
               onClick={onKeepOld}
-              className="cursor-pointer rounded-panel border border-border-card px-2.5 py-1.5 font-sans text-[12px] font-semibold text-muted-light hover:border-brand-hover hover:text-brand-hover"
+              className="inline-flex cursor-pointer items-center gap-1 rounded-panel border border-border-card px-2.5 py-1.5 font-sans text-[12px] font-semibold text-muted-light hover:border-brand-hover hover:text-brand-hover"
             >
-              ✕ Keep old
+              <X size={12} /> Keep old
             </span>
             <span
               onClick={onToggleView}
-              className="cursor-pointer rounded-panel border border-border-card px-2.5 py-1.5 font-sans text-[12px] font-semibold hover:border-primary hover:text-primary-dark"
+              className="inline-flex cursor-pointer items-center gap-1 rounded-panel border border-border-card px-2.5 py-1.5 font-sans text-[12px] font-semibold hover:border-primary hover:text-primary-dark"
             >
-              {isOpen ? '▾ Hide compare' : '👁 Compare'}
+              {isOpen ? (
+                '▾ Hide compare'
+              ) : (
+                <>
+                  <Eye size={12} /> Compare
+                </>
+              )}
             </span>
           </div>
         </div>
@@ -221,9 +250,9 @@ export default function TeamSlotCard({
       {slot.target && (
         <span
           onClick={() => setConfirmingClear(true)}
-          className="cursor-pointer self-start font-mono text-[11px] font-semibold text-muted-lighter hover:text-brand-hover"
+          className="inline-flex cursor-pointer items-center gap-1 self-start font-mono text-[11px] font-semibold text-muted-lighter hover:text-brand-hover"
         >
-          🗑 Clear slot
+          <Trash2 size={11} /> Clear slot
         </span>
       )}
     </div>

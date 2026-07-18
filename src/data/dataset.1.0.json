@@ -3,8 +3,8 @@
     "version": "1.0",
     "ruleset": "combirank-0.6",
     "provisional": false,
-    "source": "FModel/Ue4Export export of local Palworld build (1.0, usmap Mappings100.usmap); EN L10N names. Normalized by src/pipeline/normalize.ts. Partner skill descriptions added post-ingestion (see EXTRACTION.md).",
-    "generatedAt": "2026-07-14T11:54:01.962Z"
+    "source": "FModel export of local Palworld build 22461598 (species/names: usmap Mappings.0.6.6; passives: usmap Mappings073.usmap, same game build); EN L10N names. Normalized by src/pipeline/normalize.ts. passiveModel (inherit/mutation odds) remains a flagged estimate (verified:false) — the passive list itself is real extracted data.",
+    "generatedAt": "2026-07-18T14:34:22.490Z"
   },
   "species": [
     {
@@ -18791,8 +18791,8 @@
       "tier": 4,
       "categories": [
         "Defense",
-        "LeanBackInvalid_ForPassiveSkill",
-        "KnockbackInvalid_ForPassiveSkill"
+        "Flinch Immunity",
+        "Knockback Immunity"
       ],
       "lotteryWeight": 5,
       "description": "Defense +30%\nImmune to Flinch\nImmune to Knockback"
@@ -18803,7 +18803,7 @@
       "tier": 3,
       "categories": [
         "Defense",
-        "LeanBackInvalid_ForPassiveSkill"
+        "Flinch Immunity"
       ],
       "lotteryWeight": 100,
       "description": "Defense +20%\nImmune to Flinch"
@@ -19690,7 +19690,7 @@
       "categories": [
         "Attack",
         "Defense",
-        "WorldTreeDecayImmunity"
+        "World Tree Preservation"
       ],
       "lotteryWeight": 5,
       "description": "Attack +50%\nDefense -30%\nWorld Tree resources will not vanish when approached."
@@ -19702,7 +19702,7 @@
       "categories": [
         "Defense",
         "Attack",
-        "WorldTreeDecayImmunity"
+        "World Tree Preservation"
       ],
       "lotteryWeight": 5,
       "description": "Defense +50%\nAttack -30%\nWorld Tree resources will not vanish when approached."
@@ -19714,7 +19714,7 @@
       "categories": [
         "Crafting Speed",
         "Sanity",
-        "WorldTreeDecayImmunity"
+        "World Tree Preservation"
       ],
       "lotteryWeight": 5,
       "description": "Work Speed +90%\nSAN dreceases +15.0% faster\nWorld Tree harvestables won't vanish when approached."
@@ -19726,7 +19726,7 @@
       "categories": [
         "Food Consumption",
         "Max HP",
-        "WorldTreeDecayImmunity"
+        "World Tree Preservation"
       ],
       "lotteryWeight": 5,
       "description": "Decrease Hunger depletion rate by +50.0%\nHP -20%\nWorld Tree resources will not vanish when approached."
@@ -19738,7 +19738,7 @@
       "categories": [
         "Sanity",
         "Crafting Speed",
-        "WorldTreeDecayImmunity"
+        "World Tree Preservation"
       ],
       "lotteryWeight": 5,
       "description": "SAN depletion rate -50.0%\nWork Speed -20%\nWorld Tree resources will not vanish when approached."
@@ -19750,7 +19750,7 @@
       "categories": [
         "Move Speed",
         "Food Consumption",
-        "WorldTreeDecayImmunity"
+        "World Tree Preservation"
       ],
       "lotteryWeight": 5,
       "description": "Movement Speed +50%\nIncreases Hunger depletion rate by +15.0%\nWorld Tree resources will not vanish when approached."
@@ -19785,7 +19785,7 @@
       "tier": 2,
       "categories": [
         "Defense",
-        "KnockbackInvalid_ForPassiveSkill"
+        "Knockback Immunity"
       ],
       "lotteryWeight": 100,
       "description": "Defense +20%\nImmune to Knockback"
@@ -19795,8 +19795,8 @@
       "displayName": "Babysitter",
       "tier": 4,
       "categories": [
-        "PalEggHatchingSpeed",
-        "BreedSpeed_InBaseCamp"
+        "Egg Hatching Speed",
+        "Base Breeding Speed"
       ],
       "lotteryWeight": 100,
       "description": "While at a base, increases egg production speed by +30% and incubation speed by +30% for Pals assigned to a Breeding Farm."
@@ -19806,9 +19806,9 @@
       "displayName": "Idiosyncratic",
       "tier": 4,
       "categories": [
-        "AutoHPRegeneRate",
-        "ResistAdditionalEffect_Burn",
-        "ResistAdditionalEffect_Poison"
+        "HP Regen",
+        "Burn Resistance",
+        "Poison Resistance"
       ],
       "lotteryWeight": 100,
       "description": "Pal and Player Auto Health Regeneration Rate +50%\nDefense +{EffectValue4}%\nImmune to Poison Damage\nImmune to Burn Damage"
@@ -19818,7 +19818,7 @@
       "displayName": "Night Owl",
       "tier": -1,
       "categories": [
-        "NightOwl"
+        "Night Owl"
       ],
       "lotteryWeight": 100,
       "description": "Tends to nap through the day, due to being nocturnal."
@@ -19828,7 +19828,7 @@
       "displayName": "Service-Minded",
       "tier": 3,
       "categories": [
-        "SelfDeathAddItemDrop"
+        "Death Drop Rate"
       ],
       "lotteryWeight": 100,
       "description": "Your Dropped Items + 50%"
@@ -19838,7 +19838,7 @@
       "displayName": "Lavish Hospitality",
       "tier": 4,
       "categories": [
-        "SelfDeathAddItemDrop"
+        "Death Drop Rate"
       ],
       "lotteryWeight": 5,
       "description": "Your Dropped Items + 100%"
@@ -19848,7 +19848,7 @@
       "displayName": "Farmhand",
       "tier": 3,
       "categories": [
-        "WorkSuitabilityAddRank_MonsterFarm"
+        "Farming Rank"
       ],
       "lotteryWeight": 100,
       "description": "<uiCommon id=|COMMON_WORK_SUITABILITY_MonsterFarm|/>'s <uiCommon id=|COMMON_WORK_SUITABILITY_PALDEX|/> +1"
@@ -19858,7 +19858,7 @@
       "displayName": "Ranch Master",
       "tier": 4,
       "categories": [
-        "WorkSuitabilityAddRank_MonsterFarm"
+        "Farming Rank"
       ],
       "lotteryWeight": 5,
       "description": "<uiCommon id=|COMMON_WORK_SUITABILITY_MonsterFarm|/>'s <uiCommon id=|COMMON_WORK_SUITABILITY_PALDEX|/> +2"
@@ -19869,7 +19869,7 @@
       "tier": 4,
       "categories": [
         "Life Steal",
-        "AutoHPRegeneRate",
+        "HP Regen",
         "Attack"
       ],
       "lotteryWeight": 100,
@@ -19880,7 +19880,7 @@
       "displayName": "Heavily Armored",
       "tier": 4,
       "categories": [
-        "ExplosionResist"
+        "Explosion Resistance"
       ],
       "lotteryWeight": 100,
       "description": "Immune to Explosion Damage"
@@ -19890,7 +19890,7 @@
       "displayName": "Lightfooted",
       "tier": 4,
       "categories": [
-        "RideJumpCount_Increase"
+        "Mount Jump Count"
       ],
       "lotteryWeight": 5,
       "description": "Mounted Jump Count +1"
@@ -19900,7 +19900,7 @@
       "displayName": "Skymarcher",
       "tier": 4,
       "categories": [
-        "RideJumpCount_Increase"
+        "Mount Jump Count"
       ],
       "lotteryWeight": 100,
       "description": "Mounted Jump Count +2"
@@ -19910,7 +19910,7 @@
       "displayName": "Wellness Watcher",
       "tier": 3,
       "categories": [
-        "PlayerSP_DecreaseRate"
+        "Player Stamina"
       ],
       "lotteryWeight": 100,
       "description": "Player Stamina Consumption -5.0%"
@@ -19920,7 +19920,7 @@
       "displayName": "Healing Coach",
       "tier": 3,
       "categories": [
-        "AutoHPRegeneRate"
+        "HP Regen"
       ],
       "lotteryWeight": 100,
       "description": "Player Auto Health Regeneration Rate +5%"
@@ -19930,7 +19930,7 @@
       "displayName": "Reload Master",
       "tier": 3,
       "categories": [
-        "ReloadSpeedUp"
+        "Reload Speed"
       ],
       "lotteryWeight": 100,
       "description": "Player Reload Speed +4%"

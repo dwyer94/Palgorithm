@@ -1,4 +1,5 @@
 import { useMemo, useRef, useState } from 'react';
+import { Pencil, Download, Upload } from 'lucide-react';
 import type { Species, Passive } from '../data/schema';
 import { useTeams } from '../store/hooks';
 import { newId } from '../store/localStore';
@@ -128,15 +129,15 @@ export default function TeamsView() {
           <div className="flex gap-2">
             <span
               onClick={exportTeams}
-              className="cursor-pointer rounded-panel border border-border-card bg-white px-3 py-1.5 font-sans text-[12px] font-semibold text-[#6b655c] hover:border-muted-lighter"
+              className="inline-flex cursor-pointer items-center gap-1.5 rounded-panel border border-border-card bg-white px-3 py-1.5 font-sans text-[12px] font-semibold text-[#6b655c] hover:border-muted-lighter"
             >
-              ⤓ Export backup
+              <Download size={12} /> Export backup
             </span>
             <span
               onClick={() => fileInputRef.current?.click()}
-              className="cursor-pointer rounded-panel border border-border-card bg-white px-3 py-1.5 font-sans text-[12px] font-semibold text-[#6b655c] hover:border-muted-lighter"
+              className="inline-flex cursor-pointer items-center gap-1.5 rounded-panel border border-border-card bg-white px-3 py-1.5 font-sans text-[12px] font-semibold text-[#6b655c] hover:border-muted-lighter"
             >
-              ⤒ Import backup
+              <Upload size={12} /> Import backup
             </span>
             <input
               ref={fileInputRef}
@@ -257,9 +258,9 @@ function TeamCard({
               setDraftName(team.name);
               setEditingName(true);
             }}
-            className="cursor-pointer rounded-[5px] bg-[#f2ece0] px-1.5 py-0.5 font-mono text-[10px] font-medium text-muted-light hover:text-brand-hover"
+            className="inline-flex cursor-pointer items-center gap-1 rounded-[5px] bg-[#f2ece0] px-1.5 py-0.5 font-mono text-[10px] font-medium text-muted-light hover:text-brand-hover"
           >
-            ✎ rename
+            <Pencil size={9} /> rename
           </span>
         </>
       )}

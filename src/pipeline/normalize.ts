@@ -256,6 +256,21 @@ const EFFECT_CATEGORY_MAP: Record<string, string> = {
   TemperatureResist_Cold: 'Cold Resistance',
   MaxInventoryWeight: 'Carry Weight',
   Support: 'Support',
+  AutoHPRegeneRate: 'HP Regen',
+  BreedSpeed_InBaseCamp: 'Base Breeding Speed',
+  ExplosionResist: 'Explosion Resistance',
+  KnockbackInvalid_ForPassiveSkill: 'Knockback Immunity',
+  LeanBackInvalid_ForPassiveSkill: 'Flinch Immunity',
+  NightOwl: 'Night Owl',
+  PalEggHatchingSpeed: 'Egg Hatching Speed',
+  PlayerSP_DecreaseRate: 'Player Stamina',
+  ReloadSpeedUp: 'Reload Speed',
+  ResistAdditionalEffect_Burn: 'Burn Resistance',
+  ResistAdditionalEffect_Poison: 'Poison Resistance',
+  RideJumpCount_Increase: 'Mount Jump Count',
+  SelfDeathAddItemDrop: 'Death Drop Rate',
+  WorkSuitabilityAddRank_MonsterFarm: 'Farming Rank',
+  WorldTreeDecayImmunity: 'World Tree Preservation',
 };
 
 /** A passive's effect type can be an element boost/resist parameterized by element

@@ -1,11 +1,13 @@
 import type { ReactNode } from 'react';
+import { PawPrint, Sparkle, Maximize2, Minimize2 } from 'lucide-react';
 import { useReferenceContext, type ReferenceKind } from './ReferenceContext';
 import PalReferenceList from './reference/PalReferenceList';
 import PerkReferenceList from './reference/PerkReferenceList';
+import type { IconComponent } from './components';
 
-const BUBBLE_META: Record<ReferenceKind, { label: string; icon: string }> = {
-  pals: { label: 'Pals', icon: '🐾' },
-  perks: { label: 'Perks', icon: '✦' },
+const BUBBLE_META: Record<ReferenceKind, { label: string; icon: IconComponent }> = {
+  pals: { label: 'Pals', icon: PawPrint },
+  perks: { label: 'Perks', icon: Sparkle },
 };
 
 // Each bubble's FAB is a fixed width so the gap between the two bubbles' anchor points is
@@ -34,7 +36,7 @@ function Bubble({ kind, children }: { kind: ReferenceKind; children: ReactNode }
         {expanded && (
           <div className="absolute bottom-[calc(100%+8px)] right-0 flex h-[70vh] w-[min(92vw,360px)] flex-col overflow-hidden rounded-card border border-border-card bg-white shadow-dropdown">
             <div className="flex flex-none items-center gap-2 bg-sidebar-bg px-3.5 py-2.5 text-sidebar-text">
-              <span aria-hidden>{meta.icon}</span>
+              <meta.icon size={14} />
               <span className="font-sans text-[13px] font-semibold">{meta.label} reference</span>
               <span className="ml-auto flex items-center gap-2">
                 <span
@@ -42,18 +44,18 @@ function Bubble({ kind, children }: { kind: ReferenceKind; children: ReactNode }
                   role="button"
                   aria-label={`Maximize ${meta.label} reference`}
                   title="Maximize"
-                  className="cursor-pointer px-1 text-[15px] leading-none hover:text-brand"
+                  className="cursor-pointer px-1 leading-none hover:text-brand"
                 >
-                  ⛶
+                  <Maximize2 size={14} />
                 </span>
                 <span
                   onClick={() => toggleBubble(kind)}
                   role="button"
                   aria-label={`Minimize ${meta.label} reference`}
                   title="Minimize"
-                  className="cursor-pointer px-1 text-[17px] leading-none hover:text-brand"
+                  className="cursor-pointer px-1 leading-none hover:text-brand"
                 >
-                  –
+                  <Minimize2 size={15} />
                 </span>
               </span>
             </div>
@@ -70,9 +72,7 @@ function Bubble({ kind, children }: { kind: ReferenceKind; children: ReactNode }
             expanded ? 'bg-brand text-sidebar-bg' : 'bg-sidebar-bg text-sidebar-text hover:bg-sidebar-hover'
           }`}
         >
-          <span aria-hidden className="text-[16px]">
-            {meta.icon}
-          </span>
+          <meta.icon size={16} />
           {meta.label}
         </span>
       </div>

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Check, X } from 'lucide-react';
 import { useSettings } from '../store/hooks';
 import { newId } from '../store/localStore';
 import type { SavedPerkSet } from '../store/types';
@@ -268,15 +269,17 @@ export default function SettingsView() {
               {testing ? 'Testing…' : 'Test connection'}
             </span>
             {!testing && live.status === 'connected' && (
-              <span className="font-mono text-[12px] text-success-text">
-                ✓ {live.isUsingMock ? 'mock' : live.lastConnectionMeta ? `${live.lastConnectionMeta.status} OK` : 'connected'} ·{' '}
+              <span className="inline-flex items-center gap-1 font-mono text-[12px] text-success-text">
+                <Check size={12} className="flex-none" />
+                {live.isUsingMock ? 'mock' : live.lastConnectionMeta ? `${live.lastConnectionMeta.status} OK` : 'connected'} ·{' '}
                 {live.players.length} players
                 {!live.isUsingMock && live.lastConnectionMeta && ` · ${live.lastConnectionMeta.latencyMs}ms`}
               </span>
             )}
             {!testing && live.status === 'error' && (
-              <span className="font-mono text-[12px] text-danger-text">
-                ✗ {live.error?.code} — {live.error?.message}
+              <span className="inline-flex items-center gap-1 font-mono text-[12px] text-danger-text">
+                <X size={12} className="flex-none" />
+                {live.error?.code} — {live.error?.message}
               </span>
             )}
           </div>

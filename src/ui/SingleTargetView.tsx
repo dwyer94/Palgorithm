@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { Hourglass, X, TriangleAlert, ArrowLeft, Bookmark, BookmarkCheck, Download, Bug, Play } from 'lucide-react';
 import { useRoster, useSavedPlans, useSettings } from '../store/hooks';
 import { newId } from '../store/localStore';
 import { computeOwnedUnassignedPassives } from '../solver/runSingleTargetPlan';
@@ -200,7 +201,15 @@ export default function SingleTargetView() {
             task.isPlanning ? 'opacity-60' : 'cursor-pointer hover:bg-sidebar-hover'
           }`}
         >
-          {task.isPlanning ? '⏳ Running plan…' : '▶ Run plan'}
+          {task.isPlanning ? (
+            <>
+              <Hourglass size={14} /> Running plan…
+            </>
+          ) : (
+            <>
+              <Play size={14} /> Run plan
+            </>
+          )}
         </div>
       </aside>
 
@@ -208,19 +217,24 @@ export default function SingleTargetView() {
         <div className="mx-auto max-w-[1080px] px-4 pb-[60px] pt-[26px] md:px-[34px]">
           {task.isPlanning && (
             <div className="rounded-card border border-dashed border-border-input bg-panel-subtle p-10 text-center font-sans text-[13px] text-muted">
-              <div className="mb-3">⏳ Solving breeding paths…</div>
+              <div className="mb-3 inline-flex items-center gap-1.5">
+                <Hourglass size={14} />
+                Solving breeding paths…
+              </div>
               <div
                 onClick={cancelPlan}
                 className="inline-flex cursor-pointer items-center gap-1.5 rounded-panel border border-border-card bg-white px-3.5 py-2 font-sans text-[12.5px] font-semibold text-[#6b655c] hover:border-muted-lighter"
               >
-                ✕ Cancel
+                <X size={13} /> Cancel
               </div>
             </div>
           )}
 
           {!task.isPlanning && task.error && (
             <div className="rounded-card border border-l-[4px] border-l-brand-hover border-border-card bg-white p-6 font-sans text-[13px] text-ink-strong">
-              <div className="mb-1 font-semibold text-brand-hover">⚠ Couldn't compute a plan</div>
+              <div className="mb-1 flex items-center gap-1.5 font-semibold text-brand-hover">
+                <TriangleAlert size={13} /> Couldn't compute a plan
+              </div>
               <div className="text-muted">{task.error}</div>
               <div className="mt-2 text-[12px] text-muted-light">
                 This is unexpected — if it keeps happening, the target/perk combination above is worth reporting.
@@ -260,26 +274,34 @@ export default function SingleTargetView() {
                     onClick={backToSelection}
                     className="flex cursor-pointer items-center gap-1.5 rounded-panel border border-border-card bg-white px-3.5 py-2.5 font-sans text-[13px] font-semibold text-[#6b655c] hover:border-muted-lighter"
                   >
-                    ← Back
+                    <ArrowLeft size={14} /> Back
                   </div>
                   <div
                     onClick={savePlan}
                     className="flex cursor-pointer items-center gap-1.5 rounded-panel border border-border-card bg-white px-3.5 py-2.5 font-sans text-[13px] font-semibold hover:border-brand-hover hover:text-brand-hover"
                   >
-                    {saved ? '✓ Saved' : '★ Save plan'}
+                    {saved ? (
+                      <>
+                        <BookmarkCheck size={14} /> Saved
+                      </>
+                    ) : (
+                      <>
+                        <Bookmark size={14} /> Save plan
+                      </>
+                    )}
                   </div>
                   <div
                     onClick={exportPlan}
                     className="flex cursor-pointer items-center gap-1.5 rounded-panel border border-border-card bg-white px-3.5 py-2.5 font-sans text-[13px] font-semibold text-[#6b655c] hover:border-muted-lighter"
                   >
-                    ⤓ Export
+                    <Download size={14} /> Export
                   </div>
                   <div
                     onClick={debugExport}
                     title="Download inputs, roster, timing, and output for troubleshooting"
                     className="flex cursor-pointer items-center gap-1.5 rounded-panel border border-border-card bg-white px-3.5 py-2.5 font-sans text-[13px] font-semibold text-[#6b655c] hover:border-muted-lighter"
                   >
-                    🐞 Debug Export
+                    <Bug size={14} /> Debug Export
                   </div>
                 </div>
               </div>

@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { Pencil } from 'lucide-react';
 import { useSavedPlans } from '../store/hooks';
 import { CLOUD_ROW_CAPS, type SavedPlan } from '../store/types';
 import type { SpeciesPlanResult, UnionPlanResult } from '../solver/types';
@@ -37,7 +38,7 @@ export default function SavedPlansView() {
 
         {plans.length === 0 && (
           <div className="rounded-card border border-dashed border-border-input bg-panel-subtle p-10 text-center font-sans text-[13px] text-muted">
-            No saved plans yet. Use "★ Save plan" from a planner result.
+            No saved plans yet. Use "Save plan" from a planner result.
           </div>
         )}
 
@@ -116,9 +117,9 @@ function SavedPlanCard({
                 setDraftName(plan.name);
                 setEditingName(true);
               }}
-              className="cursor-pointer rounded-[5px] bg-[#f2ece0] px-1.5 py-0.5 font-mono text-[10px] font-medium text-muted-light hover:text-brand-hover"
+              className="inline-flex cursor-pointer items-center gap-1 rounded-[5px] bg-[#f2ece0] px-1.5 py-0.5 font-mono text-[10px] font-medium text-muted-light hover:text-brand-hover"
             >
-              ✎ rename
+              <Pencil size={9} /> rename
             </span>
           </>
         )}

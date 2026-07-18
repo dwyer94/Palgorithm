@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
+import { Check, Pencil, Star, RefreshCw, Users, Search, Info } from 'lucide-react';
 import type { Species, Passive } from '../data/schema';
 import { useLiveContext } from '../live/LiveContext';
 import { resolvePlayerDisplayName } from '../live/nameResolution';
@@ -81,7 +82,7 @@ export default function ServerPalsView() {
               onClick={() => void live.refreshPlayers()}
               className="flex cursor-pointer items-center gap-1.5 rounded-panel bg-sidebar-bg px-3.5 py-2.5 font-sans text-[13px] font-semibold text-white hover:bg-sidebar-hover"
             >
-              ⟳ Refresh
+              <RefreshCw size={13} /> Refresh
             </div>
           </div>
         </div>
@@ -89,19 +90,19 @@ export default function ServerPalsView() {
         <div className="mb-[18px] flex gap-1 border-b-[1.5px] border-border-card">
           <div
             onClick={() => setTab('players')}
-            className={`-mb-[1.5px] cursor-pointer border-b-[2.5px] px-4 py-2.5 font-sans text-[13.5px] font-semibold ${
+            className={`inline-flex -mb-[1.5px] cursor-pointer items-center gap-1.5 border-b-[2.5px] px-4 py-2.5 font-sans text-[13.5px] font-semibold ${
               tab === 'players' ? 'border-brand text-ink' : 'border-transparent text-muted'
             }`}
           >
-            ▤ Players <span className="opacity-60">{live.players.length}</span>
+            <Users size={14} /> Players <span className="opacity-60">{live.players.length}</span>
           </div>
           <div
             onClick={() => setTab('search')}
-            className={`-mb-[1.5px] cursor-pointer border-b-[2.5px] px-4 py-2.5 font-sans text-[13.5px] font-semibold ${
+            className={`inline-flex -mb-[1.5px] cursor-pointer items-center gap-1.5 border-b-[2.5px] px-4 py-2.5 font-sans text-[13.5px] font-semibold ${
               tab === 'search' ? 'border-brand text-ink' : 'border-transparent text-muted'
             }`}
           >
-            ⌕ Find a pal
+            <Search size={14} /> Find a pal
           </div>
         </div>
 
@@ -135,7 +136,7 @@ function PlayersTab() {
     <div>
       {live.isUsingMock && (
         <div className="mb-4 flex items-center gap-2 rounded-panel border border-[#e9d9a8] bg-unresolved-bg2 px-3.5 py-2.5">
-          <span className="text-[14px]">ⓘ</span>
+          <Info size={14} className="flex-none" />
           <span className="font-sans text-[12.5px] font-medium text-provisional-text">
             Showing demo/mock data. Configure a proxy base URL in Settings → Live connection for live data.
           </span>
@@ -268,7 +269,7 @@ function PlayerRow({
             isSelected ? 'border-primary bg-primary text-white' : 'border-border-input bg-white'
           }`}
         >
-          {isSelected && <span className="text-[11px]">✓</span>}
+          {isSelected && <Check size={12} />}
         </div>
         <span className={`h-2 w-2 flex-none rounded-full ${notFound ? 'bg-offline' : 'bg-success-dot'}`} />
         <NameOverrideEditor
@@ -308,9 +309,9 @@ function PlayerRow({
               </span>
               <span
                 onClick={() => void live.refreshPlayerPals(p.identifier)}
-                className="ml-auto cursor-pointer rounded-panel border border-danger-border bg-white px-2.5 py-1 font-mono text-[12px] font-semibold text-danger-text hover:bg-[#fdeee5]"
+                className="ml-auto inline-flex cursor-pointer items-center gap-1 rounded-panel border border-danger-border bg-white px-2.5 py-1 font-mono text-[12px] font-semibold text-danger-text hover:bg-[#fdeee5]"
               >
-                ⟳ Retry
+                <RefreshCw size={11} /> Retry
               </span>
             </div>
           )}
@@ -325,9 +326,9 @@ function PlayerRow({
               </span>
               <span
                 onClick={() => void live.refreshPlayerPals(p.identifier)}
-                className="ml-auto cursor-pointer rounded-panel border border-border-input bg-white px-2.5 py-1 font-mono text-[12px] font-semibold text-muted hover:bg-panel-subtle"
+                className="ml-auto inline-flex cursor-pointer items-center gap-1 rounded-panel border border-border-input bg-white px-2.5 py-1 font-mono text-[12px] font-semibold text-muted hover:bg-panel-subtle"
               >
-                ⟳ Check now
+                <RefreshCw size={11} /> Check now
               </span>
             </div>
           )}
@@ -442,9 +443,9 @@ function NameOverrideEditor({
             setDraft(displayName);
             setEditing(true);
           }}
-          className="cursor-pointer rounded-[5px] bg-[#f2ece0] px-1.5 py-0.5 font-mono text-[10px] font-medium text-muted-light hover:text-brand-hover"
+          className="inline-flex cursor-pointer items-center gap-1 rounded-[5px] bg-[#f2ece0] px-1.5 py-0.5 font-mono text-[10px] font-medium text-muted-light hover:text-brand-hover"
         >
-          ✎ override
+          <Pencil size={9} /> override
         </span>
       </>
     );
@@ -480,7 +481,11 @@ function buildPalRowCells(pal: LivePal, speciesById: Map<string, Species>, passi
       <b className={`text-[12.5px] ${unresolved ? 'text-provisional-text' : ''}`}>
         {species?.displayName ?? `${pal.rawPalId} (unresolved)`}
       </b>
-      {pal.shiny && <span className="text-shiny">★</span>}
+      {pal.shiny && (
+        <span className="text-shiny">
+          <Star size={11} />
+        </span>
+      )}
       {unresolved && (
         <span className="rounded-[4px] bg-unresolved-bg px-1.5 py-px font-mono text-[9px] font-semibold text-provisional-text">
           unresolved
@@ -557,7 +562,11 @@ function PalFullCard({
       title={
         <span className={unresolved ? 'text-provisional-text' : ''}>
           {species?.displayName ?? `${pal.rawPalId} (unresolved)`}
-          {pal.shiny && <span className="ml-1 text-shiny">★</span>}
+          {pal.shiny && (
+            <span className="ml-1 text-shiny">
+              <Star size={11} />
+            </span>
+          )}
         </span>
       }
       meta={
@@ -616,7 +625,7 @@ function buildFindAPalRowCells(
       <b className="whitespace-nowrap text-[12.5px]">{sp?.displayName ?? pal.rawPalId}</b>
       {pal.shiny && (
         <span className="text-shiny" title="shiny">
-          ★
+          <Star size={11} />
         </span>
       )}
     </span>,
@@ -746,7 +755,9 @@ function FindAPalTab() {
                 }`}
               >
                 {on ? (
-                  <span className="flex h-3.5 w-3.5 items-center justify-center rounded-[4px] bg-primary text-[9px] text-white">✓</span>
+                  <span className="flex h-3.5 w-3.5 items-center justify-center rounded-[4px] bg-primary text-white">
+                    <Check size={10} />
+                  </span>
                 ) : (
                   <span className="h-3.5 w-3.5 rounded-[4px] border-[1.5px] border-border-input" />
                 )}
@@ -810,7 +821,11 @@ function FindAPalTab() {
                 title={
                   <span>
                     {sp?.displayName ?? pal.rawPalId}
-                    {pal.shiny && <span className="ml-1 text-shiny">★</span>}
+                    {pal.shiny && (
+                      <span className="ml-1 text-shiny">
+                        <Star size={11} />
+                      </span>
+                    )}
                   </span>
                 }
                 meta={
@@ -889,7 +904,7 @@ function FindAPalTab() {
                         <b className="whitespace-nowrap text-[12.5px]">{sp?.displayName ?? pal.rawPalId}</b>
                         {pal.shiny && (
                           <span className="text-shiny" title="shiny">
-                            ★
+                            <Star size={11} />
                           </span>
                         )}
                       </span>

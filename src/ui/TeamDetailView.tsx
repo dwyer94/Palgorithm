@@ -1,4 +1,5 @@
 import { useMemo, useRef, useState } from 'react';
+import { ArrowLeft } from 'lucide-react';
 import { useRoster, useSettings } from '../store/hooks';
 import { useLiveContext } from '../live/LiveContext';
 import { buildRosterForSolver } from '../live/rosterMerge';
@@ -125,9 +126,9 @@ export default function TeamDetailView({
         <div className="mb-4 flex items-center gap-3">
           <span
             onClick={onBack}
-            className="cursor-pointer rounded-panel border border-border-card bg-white px-3 py-1.5 font-sans text-[13px] font-semibold text-[#6b655c] hover:border-muted-lighter"
+            className="inline-flex cursor-pointer items-center gap-1.5 rounded-panel border border-border-card bg-white px-3 py-1.5 font-sans text-[13px] font-semibold text-[#6b655c] hover:border-muted-lighter"
           >
-            ← Teams
+            <ArrowLeft size={13} /> Teams
           </span>
           <div className="font-sans text-[22px] font-bold tracking-[-.4px]">{team.name}</div>
         </div>

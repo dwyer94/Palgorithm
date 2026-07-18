@@ -1,4 +1,5 @@
 import { useMemo, useState, type ReactNode } from 'react';
+import { Waypoints, ListOrdered, Sparkle } from 'lucide-react';
 import type { Species, SpeciesId, Passive } from '../data/schema';
 import type { PassivePlanResult, PlanIndividual, SpeciesPlanStep } from '../solver/types';
 import type { ProvenanceMatch } from '../live/provenance';
@@ -361,7 +362,7 @@ export function StepsList({
             <span className={`flex items-center gap-1.5 font-mono text-[13px] font-semibold ${isTarget ? '' : isHub ? 'text-primary-darker' : ''}`}>
               <PalIcon icon={speciesById.get(step.child)?.icon} size={20} />
               {speciesName(speciesById, step.child)}
-              {isTarget && ' ✦'}
+              {isTarget && <Sparkle size={11} className="flex-none" />}
             </span>
             {isHub && (
               <span className="rounded-[5px] border border-primary-border2 bg-[#e2edfc] px-1.5 py-px font-mono text-[10px] font-semibold text-primary-dark">
@@ -427,8 +428,22 @@ export function PlanRenderer({
           value={view}
           onChange={setView}
           options={[
-            { value: 'graph', label: '◈ Graph' },
-            { value: 'list', label: '☰ Steps' },
+            {
+              value: 'graph',
+              label: (
+                <span className="inline-flex items-center gap-1.5">
+                  <Waypoints size={13} /> Graph
+                </span>
+              ),
+            },
+            {
+              value: 'list',
+              label: (
+                <span className="inline-flex items-center gap-1.5">
+                  <ListOrdered size={13} /> Steps
+                </span>
+              ),
+            },
           ]}
         />
       </div>

@@ -1,4 +1,5 @@
 import { lazy, Suspense } from 'react';
+import { TriangleAlert, Flag, Check, Star } from 'lucide-react';
 import type { Species, Passive } from '../data/schema';
 import type { SpeciesPlanResult, PassivePlanResult, UnionPlanResult, HubCandidate } from '../solver/types';
 import type { GuaranteedCarrierOutcome } from '../solver/passivePlanner';
@@ -117,7 +118,9 @@ export function PassivePlanView({
       )}
       {hasUnassigned && (
         <div className="flex flex-wrap items-center gap-2 border-t border-dashed border-border-inner bg-unresolved-bg2 px-5 py-[11px]">
-          <span className="font-sans text-[11px] font-semibold text-provisional-text">⚠ Not sourced in this plan</span>
+          <span className="inline-flex items-center gap-1 font-sans text-[11px] font-semibold text-provisional-text">
+            <TriangleAlert size={11} /> Not sourced in this plan
+          </span>
           <span className="flex flex-wrap items-center gap-1">
             {unassigned.map((id) => (
               <PassiveChip key={`u-${id}`} label={passiveName(id)} tier={passiveTier(id)} description={passiveDescription(id)} variant="warn" />
@@ -131,7 +134,9 @@ export function PassivePlanView({
       )}
       {hasPollution && (
         <div className="flex flex-wrap items-center gap-2 border-t border-dashed border-border-inner bg-[#fdfaf4] px-5 py-[11px]">
-          <span className="font-sans text-[11px] font-semibold text-brand-hover">⚑ Pollution</span>
+          <span className="inline-flex items-center gap-1 font-sans text-[11px] font-semibold text-brand-hover">
+            <Flag size={11} /> Pollution
+          </span>
           {pollutionA.length > 0 && (
             <span className="flex flex-wrap items-center gap-1 font-mono text-[11px] text-muted">
               <PalIcon icon={speciesById?.get(plan.finalParentA.species)?.icon} size={14} />
@@ -214,7 +219,9 @@ export function SpeciesPlanView({
           <span className="font-mono text-[14px] font-semibold">
             {speciesById.get(plan.target)?.displayName ?? plan.target}
           </span>
-          <span className="font-mono text-[12px] font-semibold text-brand-hover">⚠ not reachable</span>
+          <span className="inline-flex items-center gap-1 font-mono text-[12px] font-semibold text-brand-hover">
+            <TriangleAlert size={11} /> not reachable
+          </span>
         </div>
         <div className="border-t border-[#f2ecdf]">
           <AnchorHintsBlock plan={plan} speciesById={speciesById} />
@@ -311,8 +318,9 @@ export function SingleTargetResultView({
   return (
     <>
       {result.passiveNote?.status === 'owned-exact-match' && (
-        <div className="mb-4 rounded-card border border-l-[4px] border-l-success-border border-border-card bg-success-bg px-4 py-3 font-sans text-[13px] text-success-text">
-          ✓ You already own {targetLabel} with every desired perk — 0 combinations needed. The next-best way to breed another is below.
+        <div className="mb-4 flex items-center gap-1.5 rounded-card border border-l-[4px] border-l-success-border border-border-card bg-success-bg px-4 py-3 font-sans text-[13px] text-success-text">
+          <Check size={14} className="flex-none" />
+          You already own {targetLabel} with every desired perk — 0 combinations needed. The next-best way to breed another is below.
         </div>
       )}
       {result.passiveNote?.status === 'owned-partial-match' && (
@@ -326,8 +334,9 @@ export function SingleTargetResultView({
       {/* No perks requested but the target is owned outright: the baseline carries no
           passiveNote, so state the ownership explicitly here before the next-best route. */}
       {desiredPassives.length === 0 && nextBestWhenOwned && (
-        <div className="mb-4 rounded-card border border-l-[4px] border-l-success-border border-border-card bg-success-bg px-4 py-3 font-sans text-[13px] text-success-text">
-          ✓ You already own {targetLabel}. The next-best way to obtain another is below.
+        <div className="mb-4 flex items-center gap-1.5 rounded-card border border-l-[4px] border-l-success-border border-border-card bg-success-bg px-4 py-3 font-sans text-[13px] text-success-text">
+          <Check size={14} className="flex-none" />
+          You already own {targetLabel}. The next-best way to obtain another is below.
         </div>
       )}
 
@@ -559,7 +568,13 @@ export function UnionPlanView({
                   {species?.rank != null ? `r${species.rank}` : ''} {species?.elements[0] ?? ''}
                 </span>
                 <span className={`ml-auto font-mono text-[12px] font-semibold ${p.feasible ? 'text-success-text' : 'text-brand-hover'}`}>
-                  {p.feasible ? `feasible · ${p.combinationCount} combos` : '⚠ not reachable'}
+                  {p.feasible ? (
+                    `feasible · ${p.combinationCount} combos`
+                  ) : (
+                    <span className="inline-flex items-center gap-1">
+                      <TriangleAlert size={10} /> not reachable
+                    </span>
+                  )}
                 </span>
                 <span className="font-sans text-[12px] text-muted-lighter">▾</span>
               </summary>
@@ -649,8 +664,8 @@ export function HubList({
                 selected={isSelected}
                 onClick={() => onSelect?.(h.species)}
               >
-                <span className={`font-mono text-[11px] font-semibold ${isSelected ? 'text-primary-dark' : 'text-muted'}`}>
-                  {isSelected && '★ '}
+                <span className={`inline-flex items-center gap-1 font-mono text-[11px] font-semibold ${isSelected ? 'text-primary-dark' : 'text-muted'}`}>
+                  {isSelected && <Star size={10} />}
                   {h.score ?? h.breadth ?? h.obtainCost}
                 </span>
               </PalCard>
@@ -682,7 +697,7 @@ export function HubList({
             <div className="flex items-center justify-between gap-2">
               <span className={`flex min-w-0 items-center gap-1.5 font-mono text-[12.5px] font-semibold ${isSelected ? 'text-primary-darker' : 'text-ink-strong'}`}>
                 <PalIcon icon={speciesById.get(h.species)?.icon} size={20} />
-                {isSelected && '★ '}
+                {isSelected && <Star size={11} className="flex-none" />}
                 {speciesById.get(h.species)?.displayName ?? h.species}
               </span>
               <span className={`font-mono text-[12px] font-semibold ${isSelected ? 'text-primary-dark' : 'text-muted'}`}>

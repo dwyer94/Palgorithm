@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { X, ArrowLeft, Download, Bookmark, BookmarkCheck, Hourglass, Search, Swords, Wrench, Star, Play } from 'lucide-react';
 import { useRoster, useSavedPlans, useSettings } from '../store/hooks';
 import { newId } from '../store/localStore';
 import { solverWorker } from '../solver/worker/client';
@@ -10,7 +11,18 @@ import { buildDisplayNameMap } from '../live/nameResolution';
 import { useRulesetContext } from './RulesetContext';
 import { useSolverTask } from './useSolverTask';
 import { UnionPlanView, HubList } from './shared';
-import { ComboCount, ElementDot, PalIcon, PassiveChip, PassiveMultiSelect, Pill, SpeciesTypeahead, Toggle } from './components';
+import {
+  ComboCount,
+  ElementDot,
+  PalIcon,
+  PassiveChip,
+  PassiveMultiSelect,
+  Pill,
+  SpeciesTypeahead,
+  Toggle,
+  MountIcon,
+  type IconComponent,
+} from './components';
 import rawSuggestedHubs from '../data/suggestedHubs.1.0.json';
 import { SuggestedHubsSchema, type RoleSuggestion } from '../data/suggestedHubsSchema';
 
@@ -19,10 +31,10 @@ import { SuggestedHubsSchema, type RoleSuggestion } from '../data/suggestedHubsS
  * data, not user data, so it doesn't need to live behind a hook. */
 const suggestedHubs = SuggestedHubsSchema.parse(rawSuggestedHubs);
 
-const ROLE_META: Record<string, { label: string; icon: string }> = {
-  combat: { label: 'Combat', icon: '⚔' },
-  worker: { label: 'Worker', icon: '🔧' },
-  mount: { label: 'Mount', icon: '🐎' },
+const ROLE_META: Record<string, { label: string; icon: IconComponent }> = {
+  combat: { label: 'Combat', icon: Swords },
+  worker: { label: 'Worker', icon: Wrench },
+  mount: { label: 'Mount', icon: MountIcon },
 };
 
 /** Multi-target / hub planner — the flagship view (design handoff README, "Hub planner").
@@ -311,7 +323,15 @@ export default function HubView() {
             planTask.isPlanning ? 'opacity-60' : 'cursor-pointer hover:bg-sidebar-hover'
           }`}
         >
-          {planTask.isPlanning ? '⏳ Running plan…' : '▶ Run plan'}
+          {planTask.isPlanning ? (
+            <>
+              <Hourglass size={14} /> Running plan…
+            </>
+          ) : (
+            <>
+              <Play size={14} /> Run plan
+            </>
+          )}
         </div>
       </aside>
 
@@ -320,12 +340,15 @@ export default function HubView() {
         <div className="mx-auto max-w-[1080px] px-4 pb-[60px] pt-[26px] md:px-[34px]">
           {planTask.isPlanning && (
             <div className="rounded-card border border-dashed border-border-input bg-panel-subtle p-10 text-center font-sans text-[13px] text-muted">
-              <div className="mb-3">⏳ Solving breeding paths…</div>
+              <div className="mb-3 inline-flex items-center gap-1.5">
+                <Hourglass size={14} />
+                Solving breeding paths…
+              </div>
               <div
                 onClick={cancelPlan}
                 className="inline-flex cursor-pointer items-center gap-1.5 rounded-panel border border-border-card bg-white px-3.5 py-2 font-sans text-[12.5px] font-semibold text-[#6b655c] hover:border-muted-lighter"
               >
-                ✕ Cancel
+                <X size={13} /> Cancel
               </div>
             </div>
           )}
@@ -340,7 +363,7 @@ export default function HubView() {
               </div>
               <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-3">
                 {Object.entries(suggestedHubs.roles).map(([role, roleData]) => {
-                  const meta = ROLE_META[role] ?? { label: role, icon: '★' };
+                  const meta = ROLE_META[role] ?? { label: role, icon: Star };
                   const top = roleData.topHubs[0];
                   return (
                     <div
@@ -348,8 +371,8 @@ export default function HubView() {
                       onClick={() => applySuggestion(roleData)}
                       className="cursor-pointer rounded-card border border-border-card bg-white p-[18px] shadow-card hover:border-brand-hover"
                     >
-                      <div className="mb-1.5 font-sans text-[11px] font-semibold uppercase tracking-[.6px] text-muted">
-                        {meta.icon} {meta.label}
+                      <div className="mb-1.5 flex items-center gap-1.5 font-sans text-[11px] font-semibold uppercase tracking-[.6px] text-muted">
+                        <meta.icon size={12} /> {meta.label}
                       </div>
                       <div className="flex items-center gap-2 font-mono text-[16px] font-bold text-ink-strong">
                         {top && <PalIcon icon={speciesById.get(top.species)?.icon} size={26} />}
@@ -401,19 +424,27 @@ export default function HubView() {
                     onClick={backToSelection}
                     className="flex cursor-pointer items-center gap-1.5 rounded-panel border border-border-card bg-white px-3.5 py-2.5 font-sans text-[13px] font-semibold text-[#6b655c] hover:border-muted-lighter"
                   >
-                    ← Back
+                    <ArrowLeft size={14} /> Back
                   </div>
                   <div
                     onClick={savePlan}
                     className="flex cursor-pointer items-center gap-1.5 rounded-panel border border-border-card bg-white px-3.5 py-2.5 font-sans text-[13px] font-semibold hover:border-brand-hover hover:text-brand-hover"
                   >
-                    {saved ? '✓ Saved' : '★ Save plan'}
+                    {saved ? (
+                      <>
+                        <BookmarkCheck size={14} /> Saved
+                      </>
+                    ) : (
+                      <>
+                        <Bookmark size={14} /> Save plan
+                      </>
+                    )}
                   </div>
                   <div
                     onClick={exportPlan}
                     className="flex cursor-pointer items-center gap-1.5 rounded-panel border border-border-card bg-white px-3.5 py-2.5 font-sans text-[13px] font-semibold text-[#6b655c] hover:border-muted-lighter"
                   >
-                    ⤓ Export
+                    <Download size={14} /> Export
                   </div>
                 </div>
               </div>
@@ -448,11 +479,19 @@ export default function HubView() {
                           <Pill className="bg-[#fdf1d8] text-[#9a7b3a]">quick pick</Pill>
                           <span
                             onClick={searchTask.isPlanning ? undefined : searchAllHubsFromSuggestion}
-                            className={`ml-auto font-sans text-[11px] font-semibold text-primary-dark ${
+                            className={`ml-auto inline-flex items-center gap-1 font-sans text-[11px] font-semibold text-primary-dark ${
                               searchTask.isPlanning ? 'opacity-60' : 'cursor-pointer hover:underline'
                             }`}
                           >
-                            {searchTask.isPlanning ? '⏳ searching every hub…' : '🔍 search all hubs'}
+                            {searchTask.isPlanning ? (
+                              <>
+                                <Hourglass size={11} /> searching every hub…
+                              </>
+                            ) : (
+                              <>
+                                <Search size={11} /> search all hubs
+                              </>
+                            )}
                           </span>
                         </>
                       )}
