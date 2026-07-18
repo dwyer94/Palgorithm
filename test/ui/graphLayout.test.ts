@@ -49,15 +49,54 @@ describe('buildPlanGraph row heights', () => {
   });
 
   it('labels step columns with plain legible numbers instead of circled unicode glyphs', () => {
-    // A single step whose child *is* the target collapses into the TARGETS column, so an
-    // intermediate (non-target) step is needed to get a dedicated STEP column.
     const steps: SpeciesPlanStep[] = [
       { parentA: { species: 'a', gender: 'male' }, parentB: { species: 'b', gender: 'female' }, child: 'intermediate' },
       { parentA: { species: 'intermediate', gender: 'male' }, parentB: { species: 'c', gender: 'female' }, child: 'target' },
     ];
     const layout = buildPlanGraph(steps, [], ['target']);
-    const stepColumn = layout.columns.find((c) => c.label.startsWith('STEP'));
-    expect(stepColumn?.label).toBe('STEP 1');
+    const stepLabels = layout.columns.filter((c) => c.label.startsWith('STEP')).map((c) => c.label);
+    expect(stepLabels).toEqual(['STEP 1', 'STEP 2']);
     for (const c of layout.columns) expect(c.label).not.toMatch(/[①-⑨]/);
+  });
+
+  it('gives a step that directly produces the target its own STEP column, separate from TARGETS', () => {
+    // Regression fixture for a real bug: the target-producing step used to be force-collapsed
+    // into the TARGETS column, so it never got a visible "STEP N" column of its own.
+    const steps: SpeciesPlanStep[] = [
+      { parentA: { species: 'a', gender: 'male' }, parentB: { species: 'b', gender: 'female' }, child: 'target' },
+    ];
+    const layout = buildPlanGraph(steps, [], ['target']);
+    const labels = layout.columns.map((c) => c.label);
+    expect(labels).toEqual(['OWN / CATCH', 'STEP 1', 'TARGETS']);
+
+    const producedTarget = layout.nodes.find((n) => n.id === 'p0')!;
+    expect(producedTarget.isTarget).toBe(false);
+    expect(producedTarget.column).toBe(1);
+
+    const marker = layout.nodeById.get('target:target')!;
+    expect(marker.isTarget).toBe(true);
+    expect(marker.column).toBe(2);
+    expect(layout.edges.some((e) => e.from === 'p0' && e.to === 'target:target')).toBe(true);
+  });
+
+  it('keeps a self-carrier leaf (owned individual of the target species used as a breeding parent) in OWN/CATCH, not TARGETS', () => {
+    // Regression fixture: an owned Pal of the target's own species used as a carrier parent
+    // used to get yanked into the rightmost TARGETS column purely by species match, producing
+    // a backwards-pointing edge from TARGETS back into an earlier STEP column.
+    const steps: SpeciesPlanStep[] = [
+      { parentA: { species: 'target', gender: 'male' }, parentB: { species: 'other', gender: 'female' }, child: 'target' },
+    ];
+    const layout = buildPlanGraph(steps, [], ['target']);
+    const carrierLeaf = layout.nodeById.get('leaf:target:male')!;
+    expect(carrierLeaf.column).toBe(0);
+    expect(carrierLeaf.isTarget).toBe(false);
+
+    const marker = layout.nodeById.get('target:target')!;
+    expect(marker.column).toBe(2);
+    for (const e of layout.edges) {
+      const from = layout.nodeById.get(e.from)!;
+      const to = layout.nodeById.get(e.to)!;
+      expect(to.column).toBeGreaterThanOrEqual(from.column);
+    }
   });
 });

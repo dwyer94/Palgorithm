@@ -116,7 +116,6 @@ export function buildPlanGraph(
   desiredPassives?: string[],
   passiveLabel: (id: string) => string = (id) => id,
 ): PlanGraphLayout {
-  const targetSet = new Set(targets);
   const catchKeys = new Set(catches.map((c) => leafKey(c.species, c.gender)));
 
   const nodes = new Map<string, PlanGraphNode>();
@@ -138,7 +137,7 @@ export function buildPlanGraph(
         gender: individual.gender,
         kind: 'leaf',
         isCatch: catchKeys.has(key),
-        isTarget: targetSet.has(individual.species),
+        isTarget: false,
         isShared: false,
         passives: individual.passives && individual.passives.length > 0 ? individual.passives : undefined,
         column: 0,
@@ -162,7 +161,7 @@ export function buildPlanGraph(
       gender: null,
       kind: 'produced',
       isCatch: false,
-      isTarget: targetSet.has(step.child),
+      isTarget: false,
       isShared: false,
       stepIndex: i,
       column: 0,
@@ -176,28 +175,6 @@ export function buildPlanGraph(
   // A target reached purely by catching (no breeding needed) never appears as a step
   // parent, so it wouldn't otherwise get a node — surface it as a leaf/target anyway.
   for (const c of catches) resolveParent(c);
-
-  // A target already satisfied by ownership alone (cost 0, no steps/catches at all) gets
-  // no node from either loop above — without this it renders as an empty graph even though
-  // a feasible plan was returned. Gender is unknown here (the planner doesn't surface which
-  // roster individual matched), so this leaf is gender-less; the isTarget override below
-  // still routes it into the TARGETS column like any other target node.
-  for (const t of targets) {
-    if (Array.from(nodes.values()).some((n) => n.isTarget && n.species === t)) continue;
-    nodes.set(leafKey(t, null), {
-      id: leafKey(t, null),
-      species: t,
-      gender: null,
-      kind: 'leaf',
-      isCatch: false,
-      isTarget: true,
-      isShared: false,
-      column: 0,
-      row: 0,
-      x: 0,
-      y: 0,
-    });
-  }
 
   // `SpeciesPlanStep.parentA/B` never carry `.passives` (buildGraph's edge templates don't
   // track them — see speciesPlanner.ts's clean-carrier assumption), so every leaf node above
@@ -223,7 +200,14 @@ export function buildPlanGraph(
   }
   for (const e of edges) e.fromShared = nodes.get(e.from)?.isShared ?? false;
 
-  // Column = longest-path depth from a leaf.
+  // Column = longest-path depth from a leaf. Every structural node — leaf or bred
+  // intermediate — gets its column purely from dependency depth; target-ness never pulls a
+  // node out of its breeding position. It used to: a node that was simultaneously a target
+  // species AND still consumed as a parent elsewhere (a "self-carrier" cross — e.g. breeding
+  // an owned Pal of the target's own species into a better copy of itself) got forced into
+  // the rightmost column, which produced backwards-pointing edges. It also swallowed
+  // whichever step actually bred the result into a column unconditionally labeled "TARGETS",
+  // with no "STEP N" of its own ever appearing (2026-07-18 bug report).
   function computeColumn(id: string, stack: Set<string> = new Set()): number {
     const node = nodes.get(id);
     if (!node) return 0;
@@ -236,14 +220,38 @@ export function buildPlanGraph(
     return depth + 1;
   }
 
-  let maxNonTargetColumn = 0;
+  let maxStructuralColumn = 0;
   for (const node of nodes.values()) {
     node.column = computeColumn(node.id);
-    if (!node.isTarget) maxNonTargetColumn = Math.max(maxNonTargetColumn, node.column);
+    maxStructuralColumn = Math.max(maxStructuralColumn, node.column);
   }
-  const targetColumn = maxNonTargetColumn + 1;
-  for (const node of nodes.values()) {
-    if (node.isTarget) node.column = targetColumn;
+  const targetColumn = maxStructuralColumn + 1;
+
+  // TARGETS is a dedicated final column, never shared with a breeding step: every target
+  // species gets exactly one terminal marker node there, wired by an edge back to wherever
+  // its content actually lives (a bred result, a direct catch, or — if nothing else
+  // references it, because it's already satisfied by ownership alone — nowhere, in which
+  // case the marker has no incoming edge). Only the marker carries `isTarget`/the target
+  // styling and desired-passive chips, so the real breeding step (or a self-carrier leaf)
+  // renders as plain breeding material instead of standing in for the goal.
+  for (const t of targets) {
+    const sourceId = lastProducerByspecies.get(t) ?? Array.from(nodes.values()).find((n) => n.kind === 'leaf' && n.species === t)?.id;
+    const source = sourceId ? nodes.get(sourceId) : undefined;
+    nodes.set(`target:${t}`, {
+      id: `target:${t}`,
+      species: t,
+      gender: null,
+      kind: source ? 'produced' : 'leaf',
+      isCatch: false,
+      isTarget: true,
+      isShared: false,
+      stepIndex: source?.kind === 'produced' ? source.stepIndex : undefined,
+      column: targetColumn,
+      row: 0,
+      x: 0,
+      y: 0,
+    });
+    if (sourceId) edges.push({ from: sourceId, to: `target:${t}`, fromShared: source?.isShared ?? false });
   }
 
   const columnCount = targetColumn + 1;

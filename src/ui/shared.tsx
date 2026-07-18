@@ -192,6 +192,8 @@ export function SpeciesPlanView({
   displayNameByIdentifier,
   title,
   note,
+  desiredPassives,
+  routedPassives,
 }: {
   plan: SpeciesPlanResult;
   speciesById: Map<string, Species>;
@@ -205,6 +207,15 @@ export function SpeciesPlanView({
    * section header doesn't leave two identically-titled cards indistinguishable. */
   title?: string | undefined;
   note?: string | undefined;
+  /** Overrides `plan.passivePlan?.desired` for plan shapes that never attach a `passivePlan` —
+   * e.g. the guaranteed-carrier alternative's `ForcedCarrierResult`, which doesn't run the
+   * passive-odds math a `passivePlan` carries (the desired/routed set lives one level up, on
+   * `GuaranteedCarrierAlternative`, instead). Without this the TARGETS node has nothing to show
+   * chips for at all. */
+  desiredPassives?: PassiveId[] | undefined;
+  /** Which of `desiredPassives` this plan actually routed into its lineage — see the matching
+   * prop on `PlanGraphPanel`. */
+  routedPassives?: PassiveId[] | undefined;
 }) {
   if (!plan.feasible) {
     return (
@@ -223,6 +234,7 @@ export function SpeciesPlanView({
     );
   }
 
+  const effectiveDesiredPassives = desiredPassives ?? plan.passivePlan?.desired;
   return (
     <div>
       <div className="mb-4 rounded-card border border-border-card bg-white p-5 shadow-card">
@@ -239,7 +251,8 @@ export function SpeciesPlanView({
           targets={[plan.target]}
           speciesById={speciesById}
           provenance={provenance}
-          desiredPassives={plan.passivePlan?.desired}
+          desiredPassives={effectiveDesiredPassives}
+          routedPassives={routedPassives}
           passivePlan={plan.passivePlan}
           passivesById={passivesById}
           selectedPlayerIds={selectedPlayerIds}
@@ -427,6 +440,8 @@ export function SingleTargetResultView({
                       palsByPlayer={palsByPlayer}
                       displayNameByIdentifier={displayNameByIdentifier}
                       note="guaranteed-carrier route"
+                      desiredPassives={guaranteedCarrierOutcome.alt.requiredPassives}
+                      routedPassives={guaranteedCarrierOutcome.alt.routedPassives}
                     />
                   </div>
                 </details>
