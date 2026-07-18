@@ -4,7 +4,7 @@
     "ruleset": "combirank-0.6",
     "provisional": false,
     "source": "FModel export of local Palworld build 22461598 (species/names: usmap Mappings.0.6.6; passives: usmap Mappings073.usmap, same game build); EN L10N names. Normalized by src/pipeline/normalize.ts. passiveModel (inherit/mutation odds) remains a flagged estimate (verified:false) — the passive list itself is real extracted data.",
-    "generatedAt": "2026-07-18T14:34:22.490Z"
+    "generatedAt": "2026-07-18T14:54:07.173Z"
   },
   "species": [
     {
@@ -1124,7 +1124,10 @@
       "internalName": "ElecPanda",
       "aliases": [
         "GYM_ElecPanda",
-        "BOSS_ElecPanda"
+        "GYM_ElecPanda_2",
+        "BOSS_ElecPanda",
+        "GYM_ElecPanda_Otomo",
+        "BOSS_ElecPanda_BossRush"
       ]
     },
     {
@@ -1230,7 +1233,8 @@
       "internalName": "Garm",
       "aliases": [
         "BOSS_Garm",
-        "PREDATOR_Garm"
+        "PREDATOR_Garm",
+        "PREDATOR_Garm_Quest"
       ]
     },
     {
@@ -2119,7 +2123,8 @@
       "icon": "/icons/pals/SheepBall.png",
       "internalName": "SheepBall",
       "aliases": [
-        "BOSS_SheepBall"
+        "BOSS_SheepBall",
+        "Quest_Farmer03_SheepBall"
       ]
     },
     {
@@ -2228,7 +2233,8 @@
       "internalName": "Umihebi_Fire",
       "aliases": [
         "BOSS_Umihebi_Fire",
-        "PREDATOR_Umihebi_Fire"
+        "PREDATOR_Umihebi_Fire",
+        "PREDATOR_Umihebi_Fire_Quest"
       ]
     },
     {
@@ -3297,7 +3303,8 @@
       "icon": "/icons/pals/PinkCat.png",
       "internalName": "PinkCat",
       "aliases": [
-        "BOSS_PinkCat"
+        "BOSS_PinkCat",
+        "Quest_Farmer03_PinkCat"
       ]
     },
     {
@@ -4951,8 +4958,10 @@
       "internalName": "Horus",
       "aliases": [
         "GYM_Horus",
+        "GYM_Horus_2",
         "BOSS_Horus",
-        "Horus_Oilrig"
+        "Horus_Oilrig",
+        "BOSS_Horus_BossRush"
       ]
     },
     {
@@ -5068,6 +5077,7 @@
       "internalName": "KingBahamut_Dragon",
       "aliases": [
         "RAID_KingBahamut_Dragon",
+        "RAID_KingBahamut_Dragon_2",
         "BOSS_KingBahamut_Dragon"
       ]
     },
@@ -5235,7 +5245,10 @@
       "internalName": "BlackGriffon",
       "aliases": [
         "GYM_BlackGriffon",
-        "BOSS_BlackGriffon"
+        "GYM_BlackGriffon_2",
+        "GYM_BlackGriffon_2_Avatar",
+        "BOSS_BlackGriffon",
+        "BOSS_BlackGriffon_BossRush"
       ]
     },
     {
@@ -5593,7 +5606,8 @@
       "internalName": "PinkLizard",
       "aliases": [
         "BOSS_PinkLizard",
-        "PREDATOR_PinkLizard"
+        "PREDATOR_PinkLizard",
+        "PREDATOR_PinkLizard_Quest"
       ]
     },
     {
@@ -6255,7 +6269,8 @@
       "icon": "/icons/pals/FlowerRabbit.png",
       "internalName": "FlowerRabbit",
       "aliases": [
-        "BOSS_FlowerRabbit"
+        "BOSS_FlowerRabbit",
+        "PREDATOR_FlowerRabbit_Quest"
       ]
     },
     {
@@ -6320,7 +6335,9 @@
       "internalName": "LilyQueen",
       "aliases": [
         "GYM_LilyQueen",
-        "BOSS_LilyQueen"
+        "GYM_LilyQueen_2",
+        "BOSS_LilyQueen",
+        "BOSS_LilyQueen_BossRush"
       ]
     },
     {
@@ -7643,7 +7660,8 @@
       "icon": "/icons/pals/PlantSlime.png",
       "internalName": "PlantSlime",
       "aliases": [
-        "BOSS_PlantSlime"
+        "BOSS_PlantSlime",
+        "BOSS_PlantSlime_Flower"
       ]
     },
     {
@@ -7693,10 +7711,7 @@
       },
       "captureRateCorrect": 1.3,
       "nocturnal": false,
-      "internalName": "PlantSlime_Flower",
-      "aliases": [
-        "BOSS_PlantSlime_Flower"
-      ]
+      "internalName": "PlantSlime_Flower"
     },
     {
       "id": "MopBaby",
@@ -9648,7 +9663,9 @@
       "internalName": "ThunderDragonMan",
       "aliases": [
         "GYM_ThunderDragonMan",
-        "BOSS_ThunderDragonMan"
+        "GYM_ThunderDragonMan_2",
+        "BOSS_ThunderDragonMan",
+        "BOSS_ThunderDragonMan_BossRush"
       ]
     },
     {
@@ -10076,6 +10093,7 @@
       "internalName": "NightLady_Dark",
       "aliases": [
         "RAID_NightLady_Dark",
+        "RAID_NightLady_Dark_2",
         "BOSS_NightLady_Dark"
       ]
     },
@@ -10139,7 +10157,10 @@
       "internalName": "MoonQueen",
       "aliases": [
         "GYM_MoonQueen",
-        "BOSS_MoonQueen"
+        "GYM_MoonQueen_2",
+        "GYM_MoonQueen_2_Servant",
+        "BOSS_MoonQueen",
+        "BOSS_MoonQueen_BossRush"
       ]
     },
     {
@@ -11129,6 +11150,7 @@
       "aliases": [
         "BOSS_DarkAlien",
         "SUMMON_DarkAlien",
+        "SUMMON_DarkAlien_MAX",
         "DarkAlien_Oilrig"
       ]
     },
@@ -11183,7 +11205,8 @@
       "internalName": "WhiteAlienDragon",
       "aliases": [
         "BOSS_WhiteAlienDragon",
-        "SUMMON_WhiteAlienDragon"
+        "SUMMON_WhiteAlienDragon",
+        "SUMMON_WhiteAlienDragon_MAX"
       ]
     },
     {
@@ -11355,7 +11378,8 @@
       "internalName": "DarkMechaDragon",
       "aliases": [
         "BOSS_DarkMechaDragon",
-        "RAID_DarkMechaDragon"
+        "RAID_DarkMechaDragon",
+        "RAID_DarkMechaDragon_2"
       ]
     },
     {
@@ -11631,7 +11655,8 @@
       "icon": "/icons/pals/WhiteShieldDragon.png",
       "internalName": "WhiteShieldDragon",
       "aliases": [
-        "BOSS_WhiteShieldDragon"
+        "BOSS_WhiteShieldDragon",
+        "PREDATOR_WhiteShieldDragon_Quest"
       ]
     },
     {
@@ -11900,7 +11925,8 @@
       "icon": "/icons/pals/KingWhale.png",
       "internalName": "KingWhale",
       "aliases": [
-        "BOSS_KingWhale"
+        "BOSS_KingWhale",
+        "BOSS_KingWhale_otomo"
       ]
     },
     {
@@ -13300,7 +13326,9 @@
       "internalName": "SnowTigerBeastman",
       "aliases": [
         "GYM_SnowTigerBeastman",
-        "BOSS_SnowTigerBeastman"
+        "GYM_SnowTigerBeastman_2",
+        "BOSS_SnowTigerBeastman",
+        "BOSS_SnowTigerBeastman_BossRush"
       ]
     },
     {
@@ -13671,7 +13699,8 @@
       "internalName": "LegendDeer",
       "aliases": [
         "BOSS_LegendDeer",
-        "RAID_LegendDeer"
+        "RAID_LegendDeer",
+        "RAID_LegendDeer_2"
       ]
     },
     {
@@ -15534,9 +15563,529 @@
       ]
     },
     {
+      "id": "YakushimaMonster001",
+      "displayName": "Green Slime",
+      "index": 262,
+      "standardBreedable": false,
+      "wildCatchable": false,
+      "otherObtainOnly": true,
+      "rank": 3100,
+      "combiPriority": 310000,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Grass"
+      ],
+      "rarity": 3,
+      "workSuitabilities": [
+        {
+          "type": "Transport",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 65,
+        "attack": 70,
+        "defense": 80
+      },
+      "movement": {
+        "slowWalk": 25,
+        "walk": 50,
+        "run": 300,
+        "rideSprint": 450,
+        "transport": 200,
+        "swim": 300,
+        "swimDash": 300
+      },
+      "size": "S",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 180,
+        "foodAmount": 2
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
+      "internalName": "YakushimaMonster001"
+    },
+    {
+      "id": "YakushimaMonster001_Blue",
+      "displayName": "Blue Slime",
+      "index": 263,
+      "standardBreedable": false,
+      "wildCatchable": false,
+      "otherObtainOnly": true,
+      "rank": 3100,
+      "combiPriority": 310000,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Water"
+      ],
+      "rarity": 3,
+      "workSuitabilities": [
+        {
+          "type": "Transport",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 70,
+        "attack": 70,
+        "defense": 80
+      },
+      "movement": {
+        "slowWalk": 25,
+        "walk": 50,
+        "run": 300,
+        "rideSprint": 450,
+        "transport": 200,
+        "swim": 300,
+        "swimDash": 300
+      },
+      "size": "S",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 210,
+        "foodAmount": 2
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
+      "internalName": "YakushimaMonster001_Blue"
+    },
+    {
+      "id": "YakushimaMonster001_Red",
+      "displayName": "Red Slime",
+      "index": 264,
+      "standardBreedable": false,
+      "wildCatchable": false,
+      "otherObtainOnly": true,
+      "rank": 3100,
+      "combiPriority": 310000,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Fire"
+      ],
+      "rarity": 3,
+      "workSuitabilities": [
+        {
+          "type": "Transport",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 70,
+        "attack": 75,
+        "defense": 85
+      },
+      "movement": {
+        "slowWalk": 25,
+        "walk": 50,
+        "run": 300,
+        "rideSprint": 450,
+        "transport": 200,
+        "swim": 300,
+        "swimDash": 300
+      },
+      "size": "S",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 240,
+        "foodAmount": 3
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
+      "internalName": "YakushimaMonster001_Red"
+    },
+    {
+      "id": "YakushimaMonster001_Purple",
+      "displayName": "Purple Slime",
+      "index": 265,
+      "standardBreedable": false,
+      "wildCatchable": false,
+      "otherObtainOnly": true,
+      "rank": 3100,
+      "combiPriority": 310000,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Dark"
+      ],
+      "rarity": 3,
+      "workSuitabilities": [
+        {
+          "type": "Transport",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 75,
+        "attack": 70,
+        "defense": 80
+      },
+      "movement": {
+        "slowWalk": 25,
+        "walk": 50,
+        "run": 300,
+        "rideSprint": 450,
+        "transport": 200,
+        "swim": 300,
+        "swimDash": 300
+      },
+      "size": "S",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 270,
+        "foodAmount": 3
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
+      "internalName": "YakushimaMonster001_Purple"
+    },
+    {
+      "id": "YakushimaMonster001_Pink",
+      "displayName": "Illuminant Slime",
+      "index": 266,
+      "standardBreedable": false,
+      "wildCatchable": false,
+      "otherObtainOnly": true,
+      "rank": 3100,
+      "combiPriority": 310000,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Neutral"
+      ],
+      "rarity": 4,
+      "workSuitabilities": [
+        {
+          "type": "Transport",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 80,
+        "attack": 75,
+        "defense": 85
+      },
+      "movement": {
+        "slowWalk": 25,
+        "walk": 50,
+        "run": 300,
+        "rideSprint": 450,
+        "transport": 200,
+        "swim": 300,
+        "swimDash": 300
+      },
+      "size": "S",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 300,
+        "foodAmount": 3
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
+      "internalName": "YakushimaMonster001_Pink"
+    },
+    {
+      "id": "YakushimaMonster001_Rainbow",
+      "displayName": "Rainbow Slime",
+      "index": 267,
+      "standardBreedable": false,
+      "wildCatchable": false,
+      "otherObtainOnly": true,
+      "rank": 3100,
+      "combiPriority": 310000,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Neutral"
+      ],
+      "rarity": 4,
+      "workSuitabilities": [
+        {
+          "type": "Transport",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 105,
+        "attack": 95,
+        "defense": 105
+      },
+      "movement": {
+        "slowWalk": 25,
+        "walk": 50,
+        "run": 300,
+        "rideSprint": 450,
+        "transport": 200,
+        "swim": 540,
+        "swimDash": 810
+      },
+      "size": "M",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 330,
+        "foodAmount": 3
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
+      "internalName": "YakushimaMonster001_Rainbow"
+    },
+    {
+      "id": "YakushimaMonster002",
+      "displayName": "Enchanted Sword",
+      "index": 268,
+      "standardBreedable": false,
+      "wildCatchable": false,
+      "otherObtainOnly": true,
+      "rank": 3100,
+      "combiPriority": 310000,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Neutral"
+      ],
+      "rarity": 3,
+      "workSuitabilities": [
+        {
+          "type": "Deforest",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 95,
+        "attack": 105,
+        "defense": 90
+      },
+      "movement": {
+        "slowWalk": 50,
+        "walk": 300,
+        "run": 600,
+        "rideSprint": 900,
+        "transport": 450,
+        "swim": 600,
+        "swimDash": 600
+      },
+      "size": "S",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 180,
+        "foodAmount": 2
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
+      "internalName": "YakushimaMonster002"
+    },
+    {
+      "id": "YakushimaMonster003",
+      "displayName": "Cave Bat",
+      "index": 269,
+      "standardBreedable": false,
+      "wildCatchable": false,
+      "otherObtainOnly": true,
+      "rank": 3100,
+      "combiPriority": 310000,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Neutral"
+      ],
+      "rarity": 3,
+      "workSuitabilities": [
+        {
+          "type": "Collection",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 65,
+        "attack": 75,
+        "defense": 80
+      },
+      "movement": {
+        "slowWalk": 25,
+        "walk": 150,
+        "run": 300,
+        "rideSprint": 450,
+        "transport": 275,
+        "swim": 300,
+        "swimDash": 300
+      },
+      "size": "S",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 220,
+        "foodAmount": 2
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
+      "internalName": "YakushimaMonster003"
+    },
+    {
+      "id": "YakushimaMonster003_Purple",
+      "displayName": "Illuminant Bat",
+      "index": 270,
+      "standardBreedable": false,
+      "wildCatchable": false,
+      "otherObtainOnly": true,
+      "rank": 3100,
+      "combiPriority": 310000,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Neutral"
+      ],
+      "rarity": 4,
+      "workSuitabilities": [
+        {
+          "type": "Collection",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 80,
+        "attack": 80,
+        "defense": 95
+      },
+      "movement": {
+        "slowWalk": 25,
+        "walk": 150,
+        "run": 300,
+        "rideSprint": 450,
+        "transport": 275,
+        "swim": 300,
+        "swimDash": 300
+      },
+      "size": "S",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 220,
+        "foodAmount": 2
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": false,
+      "internalName": "YakushimaMonster003_Purple"
+    },
+    {
+      "id": "YakushimaBoss001",
+      "displayName": "Eye of Cthulhu",
+      "index": 271,
+      "standardBreedable": false,
+      "wildCatchable": false,
+      "otherObtainOnly": true,
+      "rank": 3100,
+      "combiPriority": 310000,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Dark"
+      ],
+      "rarity": 6,
+      "workSuitabilities": [
+        {
+          "type": "Transport",
+          "level": 4
+        }
+      ],
+      "baseStats": {
+        "hp": 110,
+        "attack": 105,
+        "defense": 95
+      },
+      "movement": {
+        "slowWalk": 100,
+        "walk": 450,
+        "run": 900,
+        "rideSprint": 1200,
+        "transport": 600,
+        "swim": 900,
+        "swimDash": 900
+      },
+      "size": "L",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 240,
+        "foodAmount": 2
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
+      "internalName": "YakushimaBoss001",
+      "aliases": [
+        "BOSS_YakushimaBoss001"
+      ]
+    },
+    {
+      "id": "YakushimaBoss001_Small",
+      "displayName": "Demon Eye",
+      "index": 272,
+      "standardBreedable": false,
+      "wildCatchable": false,
+      "otherObtainOnly": true,
+      "rank": 3100,
+      "combiPriority": 310000,
+      "genderRatio": {
+        "male": 0.5,
+        "female": 0.5
+      },
+      "elements": [
+        "Dark"
+      ],
+      "rarity": 3,
+      "workSuitabilities": [
+        {
+          "type": "Transport",
+          "level": 1
+        }
+      ],
+      "baseStats": {
+        "hp": 105,
+        "attack": 110,
+        "defense": 95
+      },
+      "movement": {
+        "slowWalk": 25,
+        "walk": 150,
+        "run": 300,
+        "rideSprint": 450,
+        "transport": 275,
+        "swim": 300,
+        "swimDash": 300
+      },
+      "size": "S",
+      "stamina": 100,
+      "food": {
+        "maxFullStomach": 220,
+        "foodAmount": 2
+      },
+      "captureRateCorrect": 1,
+      "nocturnal": true,
+      "internalName": "YakushimaBoss001_Small"
+    },
+    {
       "id": "MummyPal",
       "displayName": "Gildra",
-      "index": 262,
+      "index": 273,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -15598,7 +16147,7 @@
     {
       "id": "KingSunfish",
       "displayName": "Solmora",
-      "index": 263,
+      "index": 274,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -15651,7 +16200,7 @@
     {
       "id": "KingSunfish_Thunder",
       "displayName": "Solmora Lux",
-      "index": 264,
+      "index": 275,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -15709,7 +16258,7 @@
     {
       "id": "MonochromeQueen",
       "displayName": "Solenne",
-      "index": 265,
+      "index": 276,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -15771,7 +16320,7 @@
     {
       "id": "ElecSnail",
       "displayName": "Snock",
-      "index": 266,
+      "index": 277,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -15823,7 +16372,7 @@
     {
       "id": "ElecSnail_Ground",
       "displayName": "Snock Lux",
-      "index": 267,
+      "index": 278,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -15876,7 +16425,7 @@
     {
       "id": "LanternButler",
       "displayName": "Loomen",
-      "index": 268,
+      "index": 279,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -15937,7 +16486,7 @@
     {
       "id": "SumoDog",
       "displayName": "Bulldosu",
-      "index": 269,
+      "index": 280,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -15994,7 +16543,7 @@
     {
       "id": "VenusFlytrap",
       "displayName": "Carnibora",
-      "index": 270,
+      "index": 281,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -16058,7 +16607,7 @@
     {
       "id": "FluffyBird",
       "displayName": "Muffly",
-      "index": 271,
+      "index": 282,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -16114,7 +16663,7 @@
     {
       "id": "DandelionGirl",
       "displayName": "Souffline",
-      "index": 272,
+      "index": 283,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -16170,7 +16719,7 @@
     {
       "id": "ClioneTwins",
       "displayName": "Amione",
-      "index": 273,
+      "index": 284,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -16230,7 +16779,7 @@
     {
       "id": "DarkFlameFox",
       "displayName": "Majex",
-      "index": 274,
+      "index": 285,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -16295,7 +16844,7 @@
     {
       "id": "RedFlowerBird",
       "displayName": "Tropicaw",
-      "index": 275,
+      "index": 286,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -16352,7 +16901,7 @@
     {
       "id": "SleeveRabbit",
       "displayName": "Lapure",
-      "index": 276,
+      "index": 287,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -16408,7 +16957,7 @@
     {
       "id": "LotusDragon",
       "displayName": "Ophydia",
-      "index": 277,
+      "index": 288,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -16466,7 +17015,7 @@
     {
       "id": "BlueSkyDragon",
       "displayName": "Shaolong",
-      "index": 278,
+      "index": 289,
       "standardBreedable": false,
       "wildCatchable": false,
       "otherObtainOnly": true,
@@ -16519,13 +17068,15 @@
       "internalName": "BlueSkyDragon",
       "aliases": [
         "GYM_BlueSkyDragon",
-        "BOSS_BlueSkyDragon"
+        "GYM_BlueSkyDragon_2",
+        "BOSS_BlueSkyDragon",
+        "BOSS_BlueSkyDragon_BossRush"
       ]
     },
     {
       "id": "PandaGirl",
       "displayName": "Leafan",
-      "index": 279,
+      "index": 290,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -16590,7 +17141,7 @@
     {
       "id": "GrassMinotaur",
       "displayName": "Elgrove",
-      "index": 280,
+      "index": 291,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -16658,7 +17209,7 @@
     {
       "id": "GrassMinotaur_Ice",
       "displayName": "Elgrove Cryst",
-      "index": 281,
+      "index": 292,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -16723,7 +17274,7 @@
     {
       "id": "Mothman",
       "displayName": "Silvance",
-      "index": 282,
+      "index": 293,
       "standardBreedable": false,
       "wildCatchable": false,
       "otherObtainOnly": true,
@@ -16791,7 +17342,7 @@
     {
       "id": "GhostDragon",
       "displayName": "Eidrolon",
-      "index": 283,
+      "index": 294,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -16845,7 +17396,7 @@
     {
       "id": "GhostDragon_Fire",
       "displayName": "Eidrolon Ignis",
-      "index": 284,
+      "index": 295,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -16903,7 +17454,7 @@
     {
       "id": "FlowerPrince",
       "displayName": "Dandilord",
-      "index": 285,
+      "index": 296,
       "standardBreedable": false,
       "wildCatchable": false,
       "otherObtainOnly": true,
@@ -16972,7 +17523,7 @@
     {
       "id": "WorldTreeDragon",
       "displayName": "Astralym",
-      "index": 286,
+      "index": 297,
       "standardBreedable": false,
       "wildCatchable": false,
       "otherObtainOnly": true,
@@ -17011,13 +17562,14 @@
       "internalName": "WorldTreeDragon",
       "aliases": [
         "GYM_WorldTreeDragon",
+        "GYM_WorldTreeDragon_2",
         "BOSS_WorldTreeDragon"
       ]
     },
     {
       "id": "KabukiMan",
       "displayName": "Renjishi",
-      "index": 287,
+      "index": 298,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -17081,7 +17633,7 @@
     {
       "id": "DomeArmorDragon",
       "displayName": "Aegidron",
-      "index": 288,
+      "index": 299,
       "standardBreedable": true,
       "wildCatchable": true,
       "otherObtainOnly": false,
@@ -17135,7 +17687,7 @@
     {
       "id": "GrassPanda_Electric_Tower",
       "displayName": "Mossanda Lux (Tower)",
-      "index": 289,
+      "index": 300,
       "standardBreedable": false,
       "wildCatchable": false,
       "otherObtainOnly": true,
@@ -17195,7 +17747,7 @@
     {
       "id": "LazyDragon_Electric_Tower",
       "displayName": "Relaxaurus Lux (Tower)",
-      "index": 290,
+      "index": 301,
       "standardBreedable": false,
       "wildCatchable": false,
       "otherObtainOnly": true,
@@ -18099,6 +18651,534 @@
         "WhiteDeer"
       ],
       "child": "WhiteDeer",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster001",
+        "YakushimaMonster001"
+      ],
+      "child": "YakushimaMonster001",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster001",
+        "YakushimaMonster001_Blue"
+      ],
+      "child": "YakushimaMonster001_Blue",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster001",
+        "YakushimaMonster001_Red"
+      ],
+      "child": "YakushimaMonster001_Red",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster001",
+        "YakushimaMonster001_Purple"
+      ],
+      "child": "YakushimaMonster001_Purple",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster001",
+        "YakushimaMonster001_Pink"
+      ],
+      "child": "YakushimaMonster001_Pink",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster001",
+        "YakushimaMonster001_Rainbow"
+      ],
+      "child": "YakushimaMonster001_Rainbow",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster001",
+        "YakushimaMonster002"
+      ],
+      "child": "YakushimaMonster002",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster001",
+        "YakushimaMonster003"
+      ],
+      "child": "YakushimaMonster001_Rainbow",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster001",
+        "YakushimaMonster003_Purple"
+      ],
+      "child": "YakushimaMonster001_Rainbow",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster001",
+        "YakushimaBoss001"
+      ],
+      "child": "YakushimaBoss001",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster001",
+        "YakushimaBoss001_Small"
+      ],
+      "child": "YakushimaBoss001_Small",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster001_Blue",
+        "YakushimaMonster001_Blue"
+      ],
+      "child": "YakushimaMonster001_Blue",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster001_Blue",
+        "YakushimaMonster001_Red"
+      ],
+      "child": "YakushimaMonster001_Purple",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster001_Blue",
+        "YakushimaMonster001_Purple"
+      ],
+      "child": "YakushimaMonster001_Purple",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster001_Blue",
+        "YakushimaMonster001_Pink"
+      ],
+      "child": "YakushimaMonster001_Pink",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster001_Blue",
+        "YakushimaMonster001_Rainbow"
+      ],
+      "child": "YakushimaMonster001_Rainbow",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster001_Blue",
+        "YakushimaMonster002"
+      ],
+      "child": "YakushimaMonster002",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster001_Blue",
+        "YakushimaMonster003"
+      ],
+      "child": "YakushimaMonster001_Rainbow",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster001_Blue",
+        "YakushimaMonster003_Purple"
+      ],
+      "child": "YakushimaMonster001_Rainbow",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster001_Blue",
+        "YakushimaBoss001"
+      ],
+      "child": "YakushimaBoss001",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster001_Blue",
+        "YakushimaBoss001_Small"
+      ],
+      "child": "YakushimaBoss001_Small",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster001_Red",
+        "YakushimaMonster001_Red"
+      ],
+      "child": "YakushimaMonster001_Red",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster001_Red",
+        "YakushimaMonster001_Purple"
+      ],
+      "child": "YakushimaMonster001_Purple",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster001_Red",
+        "YakushimaMonster001_Pink"
+      ],
+      "child": "YakushimaMonster001_Pink",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster001_Red",
+        "YakushimaMonster001_Rainbow"
+      ],
+      "child": "YakushimaMonster001_Rainbow",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster001_Red",
+        "YakushimaMonster002"
+      ],
+      "child": "YakushimaMonster002",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster001_Red",
+        "YakushimaMonster003"
+      ],
+      "child": "YakushimaMonster001_Rainbow",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster001_Red",
+        "YakushimaMonster003_Purple"
+      ],
+      "child": "YakushimaMonster001_Rainbow",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster001_Red",
+        "YakushimaBoss001"
+      ],
+      "child": "YakushimaBoss001",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster001_Red",
+        "YakushimaBoss001_Small"
+      ],
+      "child": "YakushimaBoss001_Small",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster001_Purple",
+        "YakushimaMonster001_Purple"
+      ],
+      "child": "YakushimaMonster001_Purple",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster001_Purple",
+        "YakushimaMonster001_Pink"
+      ],
+      "child": "YakushimaMonster001_Pink",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster001_Purple",
+        "YakushimaMonster001_Rainbow"
+      ],
+      "child": "YakushimaMonster001_Rainbow",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster001_Purple",
+        "YakushimaMonster002"
+      ],
+      "child": "YakushimaMonster002",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster001_Purple",
+        "YakushimaMonster003"
+      ],
+      "child": "YakushimaMonster003_Purple",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster001_Purple",
+        "YakushimaMonster003_Purple"
+      ],
+      "child": "YakushimaMonster003_Purple",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster001_Purple",
+        "YakushimaBoss001"
+      ],
+      "child": "YakushimaBoss001",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster001_Purple",
+        "YakushimaBoss001_Small"
+      ],
+      "child": "YakushimaBoss001_Small",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster001_Pink",
+        "YakushimaMonster001_Pink"
+      ],
+      "child": "YakushimaMonster001_Pink",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster001_Pink",
+        "YakushimaMonster001_Rainbow"
+      ],
+      "child": "YakushimaMonster001_Rainbow",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster001_Pink",
+        "YakushimaMonster002"
+      ],
+      "child": "YakushimaMonster002",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster001_Pink",
+        "YakushimaMonster003"
+      ],
+      "child": "YakushimaMonster001_Rainbow",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster001_Pink",
+        "YakushimaMonster003_Purple"
+      ],
+      "child": "YakushimaMonster001_Rainbow",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster001_Pink",
+        "YakushimaBoss001"
+      ],
+      "child": "YakushimaBoss001",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster001_Pink",
+        "YakushimaBoss001_Small"
+      ],
+      "child": "YakushimaBoss001_Small",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster001_Rainbow",
+        "YakushimaMonster001_Rainbow"
+      ],
+      "child": "YakushimaMonster001_Rainbow",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster001_Rainbow",
+        "YakushimaMonster002"
+      ],
+      "child": "YakushimaMonster001_Rainbow",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster001_Rainbow",
+        "YakushimaMonster003"
+      ],
+      "child": "YakushimaMonster001_Rainbow",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster001_Rainbow",
+        "YakushimaMonster003_Purple"
+      ],
+      "child": "YakushimaMonster001_Rainbow",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster001_Rainbow",
+        "YakushimaBoss001"
+      ],
+      "child": "YakushimaBoss001",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster001_Rainbow",
+        "YakushimaBoss001_Small"
+      ],
+      "child": "YakushimaBoss001_Small",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster002",
+        "YakushimaMonster002"
+      ],
+      "child": "YakushimaMonster002",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster002",
+        "YakushimaMonster003"
+      ],
+      "child": "YakushimaMonster002",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster002",
+        "YakushimaMonster003_Purple"
+      ],
+      "child": "YakushimaMonster002",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster002",
+        "YakushimaBoss001"
+      ],
+      "child": "YakushimaBoss001",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster002",
+        "YakushimaBoss001_Small"
+      ],
+      "child": "YakushimaBoss001_Small",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster003",
+        "YakushimaMonster003"
+      ],
+      "child": "YakushimaMonster003",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster003",
+        "YakushimaMonster003_Purple"
+      ],
+      "child": "YakushimaMonster003_Purple",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster003",
+        "YakushimaBoss001"
+      ],
+      "child": "YakushimaBoss001",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster003",
+        "YakushimaBoss001_Small"
+      ],
+      "child": "YakushimaBoss001_Small",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster003_Purple",
+        "YakushimaMonster003_Purple"
+      ],
+      "child": "YakushimaMonster003_Purple",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster003_Purple",
+        "YakushimaBoss001"
+      ],
+      "child": "YakushimaBoss001",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaMonster003_Purple",
+        "YakushimaBoss001_Small"
+      ],
+      "child": "YakushimaBoss001_Small",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaBoss001",
+        "YakushimaBoss001"
+      ],
+      "child": "YakushimaBoss001",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaBoss001",
+        "YakushimaBoss001_Small"
+      ],
+      "child": "YakushimaBoss001",
+      "genderRule": null
+    },
+    {
+      "parents": [
+        "YakushimaBoss001_Small",
+        "YakushimaBoss001_Small"
+      ],
+      "child": "YakushimaBoss001_Small",
       "genderRule": null
     },
     {
@@ -22304,6 +23384,83 @@
         3700,
         4200
       ]
+    },
+    {
+      "speciesId": "YakushimaMonster001",
+      "displayName": "Slime Body",
+      "description": "Produces Hallowed Bar",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "YakushimaMonster001_Blue",
+      "displayName": "Slime Body",
+      "description": "Produces Hallowed Bar",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "YakushimaMonster001_Red",
+      "displayName": "Slime Body",
+      "description": "Produces Hallowed Bar",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "YakushimaMonster001_Purple",
+      "displayName": "Slime Body",
+      "description": "Produces Hallowed Bar",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "YakushimaMonster001_Pink",
+      "displayName": "Slime Body",
+      "description": "Produces Hallowed Bar",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "YakushimaMonster001_Rainbow",
+      "displayName": "Slime Body",
+      "description": "Produces Hallowed Bar",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "YakushimaMonster002",
+      "displayName": "Enchant",
+      "description": "ElementAddItemDrop_Dark +80% (Self & Trainer)\nElementAddItemDrop_Dark +80% (Partner Pal)",
+      "descriptionSource": "passive"
+    },
+    {
+      "speciesId": "YakushimaMonster003",
+      "displayName": "Bat Backup",
+      "description": "Produces Hallowed Bar",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "YakushimaMonster003_Purple",
+      "displayName": "Bat Backup",
+      "description": "Produces Hallowed Bar",
+      "descriptionSource": "drop"
+    },
+    {
+      "speciesId": "YakushimaBoss001",
+      "displayName": "Mad Eye Lunge",
+      "mechanic": "Waza",
+      "description": "Eye of Cthulhu's exclusive skill. \nRepeatedly charges at the enemy at high speed.",
+      "descriptionSource": "waza",
+      "cooldownSeconds": 30,
+      "effectSeconds": 1,
+      "execCost": 1000,
+      "rankValues": [
+        1.1,
+        1.3,
+        1.6,
+        2,
+        2.5
+      ]
+    },
+    {
+      "speciesId": "YakushimaBoss001_Small",
+      "displayName": "Demonic Sight",
+      "description": "Produces Hallowed Bar",
+      "descriptionSource": "drop"
     },
     {
       "speciesId": "MummyPal",

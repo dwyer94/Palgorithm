@@ -344,8 +344,19 @@ const ADMIN_PREFIXES = ['BOSS_', 'Boss_', 'RAID_', 'GYM_', 'PREDATOR_', 'SUMMON_
 function isAdminDuplicate(charId: string): boolean {
   if (ADMIN_PREFIXES.some((p) => charId.startsWith(p))) return true;
   if (charId.endsWith('_Oilrig')) return true; // oil-rig fixed-spawn boss variants
-  if (charId.startsWith('YakushimaMonster') || charId.startsWith('YakushimaBoss')) return true;
   return false;
+}
+
+// Yakushima (Terraria crossover event) creatures — Green/Blue/Red/... Slime, Cave Bat, Eye of
+// Cthulhu, Demon Eye, etc. Unlike BOSS_/RAID_/GYM_/... rows, an unprefixed "YakushimaMonster*"/
+// "YakushimaBoss*" row is NOT a combat-stat duplicate of some other species — its own Tribe is
+// itself, it has a real resolvable English name, and it's genuinely released content with no
+// standard-species counterpart to fold into. It just never got a Paldex slot (ZukanIndex -1),
+// which would otherwise trip the "unreleased dev stub" gate below. The BOSS_/RAID_-prefixed
+// combat variants of these (e.g. BOSS_YakushimaBoss001) are still admin duplicates via the
+// prefix check above and alias back to the plain row through Tribe, same as any other species.
+function isYakushimaEventCreature(charId: string): boolean {
+  return charId.startsWith('YakushimaMonster') || charId.startsWith('YakushimaBoss');
 }
 
 // --- Build ---------------------------------------------------------------------------------
@@ -435,7 +446,7 @@ function main(): void {
       continue;
     }
     const zukan = row.ZukanIndex ?? -1;
-    if (zukan < 0) {
+    if (zukan < 0 && !isYakushimaEventCreature(charId)) {
       excluded.push({ charId, reason: 'no Paldex slot (unreleased stub with a stray name)' });
       continue;
     }
@@ -451,7 +462,9 @@ function main(): void {
     // remain valid parents and are still produced (via specialCombos).
     const standardBreedable = !row.IgnoreCombi;
 
-    const paldexNo = `${zukan}${row.ZukanIndexSuffix ?? ''}`;
+    // No Paldex slot for the Yakushima event creatures let in above (zukan -1) — leave
+    // paldexNo unset rather than emitting the sentinel "-1" as a fake dex number.
+    const paldexNo = zukan >= 0 ? `${zukan}${row.ZukanIndexSuffix ?? ''}` : undefined;
 
     // Icon: resolve via DT_PalCharacterIconDataTable, then confirm the referenced texture was
     // actually exported (a handful of table rows point at PNGs missing from this export — a
@@ -529,27 +542,6 @@ function main(): void {
 
   const includedIds = new Set(species.map((s) => s.id));
 
-  // Admin-duplicate rows (BOSS_/RAID_/GYM_/PREDATOR_/SUMMON_/Quest_-prefixed, *_Oilrig-suffixed)
-  // are excluded above as combat-stat duplicates, not distinct species — but a player really can
-  // end up owning one (e.g. catching a field-boss spawn), and a live-server integration
-  // (src/live/normalize.ts) needs to recognize that raw CharacterID as the base species instead
-  // of flagging it unresolved. Wire up an alias only when stripping the admin marker yields an
-  // exact match (case-insensitive) to an already-included species id — e.g. "BOSS_FlameBuffalo"
-  // → "FlameBuffalo". Never guess: markers with no such match (YakushimaBoss001, GYM_ThunderDragonMan
-  // — no standalone "ThunderDragonMan" species exists) are left genuinely unresolved.
-  const speciesByLowerId = new Map(species.map((s) => [s.id.toLowerCase(), s]));
-  let adminAliasesAdded = 0;
-  for (const charId of Object.keys(monster.Rows)) {
-    if (!isAdminDuplicate(charId)) continue;
-    const prefix = ADMIN_PREFIXES.find((p) => charId.startsWith(p));
-    const baseId = prefix ? charId.slice(prefix.length) : charId.endsWith('_Oilrig') ? charId.slice(0, -'_Oilrig'.length) : undefined;
-    if (!baseId) continue;
-    const target = speciesByLowerId.get(baseId.toLowerCase());
-    if (!target) continue;
-    target.aliases = [...(target.aliases ?? []), charId];
-    adminAliasesAdded++;
-  }
-
   // tribe enum name → canonical species id. Parents in DT_PalCombiUnique are referenced by
   // tribe (sometimes a numeric enum the usmap couldn't name, e.g. "262"); children by
   // CharacterID. Canonical = the species whose id equals the tribe name (case-insensitive,
@@ -569,6 +561,35 @@ function main(): void {
     if (!list || list.length === 0) return undefined;
     return (list.find((s) => s.id.toLowerCase() === t) ?? list[0]!).id;
   };
+
+  // Admin-duplicate rows (BOSS_/RAID_/GYM_/PREDATOR_/SUMMON_/Quest_-prefixed, *_Oilrig-suffixed)
+  // are excluded above as combat-stat duplicates, not distinct species — but a player really can
+  // end up owning one (e.g. catching a field-boss spawn), and a live-server integration
+  // (src/live/normalize.ts) needs to recognize that raw CharacterID as the base species instead
+  // of flagging it unresolved. Resolve via the row's own Tribe field first (e.g.
+  // "GYM_ElecPanda_Otomo" → Tribe "ElecPanda" → species ElecPanda) — this is the game's own link
+  // and survives arbitrary suffixes (_2, _Otomo, _BossRush, _MAX, _Avatar, _Servant, quest-name
+  // suffixes, ...) that a plain prefix-strip can't anticipate. Fall back to stripping the admin
+  // marker and matching the remainder against a species id verbatim, for the rare row whose
+  // Tribe doesn't itself resolve. Never guess further: a row with no match either way (e.g. the
+  // RAID_-prefixed Yakushima boss-fight variants, which share no Tribe with any included species)
+  // is left genuinely unresolved.
+  const speciesByLowerId = new Map(species.map((s) => [s.id.toLowerCase(), s]));
+  let adminAliasesAdded = 0;
+  for (const [charId, row] of Object.entries(monster.Rows)) {
+    if (!isAdminDuplicate(charId)) continue;
+    let targetId = tribeToId(row.Tribe);
+    if (!targetId) {
+      const prefix = ADMIN_PREFIXES.find((p) => charId.startsWith(p));
+      const baseId = prefix ? charId.slice(prefix.length) : charId.endsWith('_Oilrig') ? charId.slice(0, -'_Oilrig'.length) : undefined;
+      targetId = baseId ? speciesByLowerId.get(baseId.toLowerCase())?.id : undefined;
+    }
+    if (!targetId || targetId === charId) continue;
+    const target = speciesByLowerId.get(targetId.toLowerCase());
+    if (!target) continue;
+    target.aliases = [...(target.aliases ?? []), charId];
+    adminAliasesAdded++;
+  }
 
   const specialCombos: SpecialCombo[] = [];
   let droppedCombos = 0;
