@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { createPortal } from 'react-dom';
+import { Eye, EyeOff } from 'lucide-react';
 import { useAuthContext } from './AuthContext';
 
 /** Minimal account UI (Phase 1, docs/PRODUCTION_READINESS_PLAN.md) — email/password
@@ -16,19 +17,64 @@ const secondaryButtonClass =
   'cursor-pointer rounded-lg px-3.5 py-2 font-mono text-[12.5px] font-semibold text-muted hover:bg-panel-subtle disabled:cursor-default disabled:opacity-50';
 const dangerButtonClass =
   'cursor-pointer rounded-lg border-[1.5px] border-danger-border bg-danger-bg px-3.5 py-2 font-mono text-[12.5px] font-semibold text-danger-text hover:bg-[#fbe6da] disabled:cursor-default disabled:opacity-50';
+const oauthButtonClass =
+  'flex cursor-pointer items-center justify-center gap-2 rounded-lg border-[1.5px] border-border-input px-3.5 py-2 font-sans text-[12.5px] font-semibold hover:bg-panel-subtle disabled:cursor-default disabled:opacity-50';
 
 type Mode = 'sign-in' | 'sign-up' | 'reset';
 
+/** Shared password input with a show/hide toggle (sign-in password, sign-up password, and
+ * sign-up confirm-password all use this). */
+function PasswordField({
+  label,
+  value,
+  onChange,
+  autoComplete,
+}: {
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  autoComplete: string;
+}) {
+  const [visible, setVisible] = useState(false);
+  return (
+    <div>
+      <div className={labelClass}>{label}</div>
+      <div className="relative">
+        <input
+          type={visible ? 'text' : 'password'}
+          required
+          autoComplete={autoComplete}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          className={`${inputClass} pr-9`}
+        />
+        <span
+          onClick={() => setVisible((v) => !v)}
+          className="absolute right-0 top-0 flex h-full cursor-pointer items-center px-2.5 text-muted hover:text-primary-dark"
+          aria-label={visible ? 'Hide password' : 'Show password'}
+        >
+          {visible ? <EyeOff size={15} /> : <Eye size={15} />}
+        </span>
+      </div>
+    </div>
+  );
+}
+
 function AuthForm() {
-  const { signIn, signUp, resetPassword } = useAuthContext();
+  const { signIn, signUp, signInWithOAuth, resetPassword } = useAuthContext();
   const [mode, setMode] = useState<Mode>('sign-in');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
 
   const submit = async () => {
+    if (mode === 'sign-up' && password !== confirmPassword) {
+      setError('Passwords do not match.');
+      return;
+    }
     setSubmitting(true);
     setError(null);
     setMessage(null);
@@ -45,6 +91,17 @@ function AuthForm() {
       if (signInError) setError(signInError);
     }
     setSubmitting(false);
+  };
+
+  const oauth = async (provider: 'google' | 'discord') => {
+    setSubmitting(true);
+    setError(null);
+    const { error: oauthError } = await signInWithOAuth(provider);
+    if (oauthError) {
+      setError(oauthError);
+      setSubmitting(false);
+    }
+    // On success the browser is redirected to the provider, so no further local state update happens.
   };
 
   return (
@@ -67,6 +124,22 @@ function AuthForm() {
         ))}
       </div>
 
+      {mode !== 'reset' && (
+        <div className="mb-3 flex flex-col gap-2">
+          <span onClick={() => void oauth('google')} className={oauthButtonClass}>
+            Continue with Google
+          </span>
+          <span onClick={() => void oauth('discord')} className={oauthButtonClass}>
+            Continue with Discord
+          </span>
+          <div className="my-0.5 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[.5px] text-muted-light">
+            <div className="h-px flex-1 bg-border-input" />
+            or
+            <div className="h-px flex-1 bg-border-input" />
+          </div>
+        </div>
+      )}
+
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -86,17 +159,20 @@ function AuthForm() {
           />
         </div>
         {mode !== 'reset' && (
-          <div>
-            <div className={labelClass}>Password</div>
-            <input
-              type="password"
-              required
-              autoComplete={mode === 'sign-up' ? 'new-password' : 'current-password'}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className={inputClass}
-            />
-          </div>
+          <PasswordField
+            label="Password"
+            value={password}
+            onChange={setPassword}
+            autoComplete={mode === 'sign-up' ? 'new-password' : 'current-password'}
+          />
+        )}
+        {mode === 'sign-up' && (
+          <PasswordField
+            label="Confirm password"
+            value={confirmPassword}
+            onChange={setConfirmPassword}
+            autoComplete="new-password"
+          />
         )}
 
         {error && <div className="font-mono text-[12px] text-danger-text">{error}</div>}
