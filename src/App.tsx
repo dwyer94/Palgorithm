@@ -1,4 +1,5 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
+const ciThrowawayUnusedVar = 'deliberate lint error for CI verification';
 import { RulesetProvider } from './ui/RulesetContext';
 import { LiveProvider, useLiveContext } from './live/LiveContext';
 import { ReferenceProvider, useReferenceContext } from './ui/ReferenceContext';
