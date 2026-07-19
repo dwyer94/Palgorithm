@@ -159,8 +159,10 @@ export function createMockDataSource(config: MockDataSourceConfig, dataset: Data
 
 // --- Selection -------------------------------------------------------------------------
 
-/** Empty base URL -> mock data source in dev, otherwise the real HTTP client. No manual
- * toggle in the UI — the moment a base URL is entered, the real thing is used.
+/** A base URL with the `enabled` toggle on -> the real HTTP client; anything else (no URL,
+ * or a saved URL left disabled) -> mock data source in dev, `null` in prod. Requiring an
+ * explicit `enabled` flip (not just a saved URL) keeps a real network request from firing
+ * the moment settings load — see the flag's doc comment in src/store/types.ts.
  *
  * The mock fallback only exists for local development and the `test/live/*` suite — a
  * stranger using the public production build with no proxy configured should see a clear
@@ -173,10 +175,14 @@ export function createMockDataSource(config: MockDataSourceConfig, dataset: Data
  * the fixture data — fake player names/ids — from the shipped bundle entirely, not just
  * make the mock path unreachable at runtime. */
 export function selectDataSource(
-  settings: { live: { baseUrl: string; bearerToken: string } },
+  settings: { live: { enabled: boolean; baseUrl: string; bearerToken: string } },
   dataset: Dataset,
 ): { source: LiveDataSource | null; isMock: boolean } {
-  if (!settings.live.baseUrl.trim()) {
+  // `enabled` is the deliberate-action gate (src/store/types.ts) — a saved baseUrl alone
+  // must never produce a real HTTP source, since that source gets fetched automatically
+  // on mount (LiveContext.tsx) and would fire an unprompted network request the moment
+  // settings load, e.g. right after a cloud-synced sign-in on a new device/browser.
+  if (!settings.live.enabled || !settings.live.baseUrl.trim()) {
     if (import.meta.env.DEV) {
       const mockConfig: MockDataSourceConfig = { players: FIXTURE_PLAYERS, palsByIdentifier: FIXTURE_PALS_BY_IDENTIFIER };
       return { source: createMockDataSource(mockConfig, dataset), isMock: true };

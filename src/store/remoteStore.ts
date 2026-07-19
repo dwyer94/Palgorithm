@@ -335,7 +335,10 @@ function rowToSettings(row: Record<string, unknown>): Settings {
     serverConfigPreset: (row.server_config_preset as Settings['serverConfigPreset']) ?? null,
     activeRuleset: (row.active_ruleset as string | null) ?? null,
     iconDisplayMode: row.icon_display_mode as Settings['iconDisplayMode'],
-    live: row.live as Settings['live'],
+    // Merged over DEFAULT_SETTINGS.live so a row saved before the `enabled` flag existed
+    // (2026-07-19) comes back with `enabled: false` — the safe default — rather than
+    // `undefined`, instead of silently resuming an auto-connect the user never opted into.
+    live: { ...DEFAULT_SETTINGS.live, ...(row.live as Partial<Settings['live']>) },
   };
 }
 

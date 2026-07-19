@@ -307,13 +307,21 @@ export default function SettingsView() {
                 connected
               </span>
             )}
+            <div className="ml-auto flex items-center gap-2">
+              <span className="font-mono text-[11px] font-semibold text-muted">
+                {settings.live.enabled ? 'Enabled' : 'Disabled'}
+              </span>
+              <Toggle on={settings.live.enabled} onChange={(v) => setLive({ enabled: v })} />
+            </div>
           </div>
           <div className="mb-[18px] font-sans text-[12.5px] text-muted">
             Optionally connects to a self-hosted proxy that mirrors your Palworld server's PalDefender
             API, so Server Pals and shared planning can draw on <b className="font-semibold text-ink-muted">everyone's real boxes</b>{' '}
             instead of just your own roster. It's read-only — nothing is ever written back to your
-            server. Leave the base URL blank to keep using local/demo data; ask whoever hosts your
-            server for the proxy URL and bearer token to connect. Hosting your own? See{' '}
+            server. Off by default — connecting reaches out to your proxy's address, which is often
+            on a private network, so your browser may ask to confirm access the first time. Fill in
+            the URL and token below, then flip the toggle above to connect. Ask whoever hosts your
+            server for the proxy URL and bearer token; hosting your own? See{' '}
             <code className="font-mono text-[11.5px]">proxy/README.md</code> in the repo for setup.
             Pointing this at PalDefender directly is technically possible but not recommended —
             no CORS, localhost-only, admin-scoped token — the proxy is what makes this work
@@ -343,8 +351,13 @@ export default function SettingsView() {
 
           <div className="flex flex-wrap items-center gap-3 border-b border-panel-header pb-4">
             <span
-              onClick={() => void testConnection()}
-              className="cursor-pointer rounded-lg border-[1.5px] border-[#26241f] bg-white px-3.5 py-2 font-mono text-[12.5px] font-semibold hover:bg-panel-subtle"
+              onClick={() => settings.live.enabled && void testConnection()}
+              title={settings.live.enabled ? undefined : 'Enable the connection above first'}
+              className={
+                settings.live.enabled
+                  ? 'cursor-pointer rounded-lg border-[1.5px] border-[#26241f] bg-white px-3.5 py-2 font-mono text-[12.5px] font-semibold hover:bg-panel-subtle'
+                  : 'cursor-not-allowed rounded-lg border-[1.5px] border-border-input bg-panel-subtle px-3.5 py-2 font-mono text-[12.5px] font-semibold text-muted-lighter'
+              }
             >
               {testing ? 'Testing…' : 'Test connection'}
             </span>

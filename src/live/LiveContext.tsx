@@ -85,7 +85,7 @@ export function LiveProvider({ children }: { children: ReactNode }) {
   const { source, isMock } = useMemo(
     () => selectDataSource(settings, dataset),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [settings.live.baseUrl, settings.live.bearerToken, dataset],
+    [settings.live.enabled, settings.live.baseUrl, settings.live.bearerToken, dataset],
   );
 
   const refreshPlayerPals = useCallback(
