@@ -1,5 +1,5 @@
 import { useMemo, useRef, useState } from 'react';
-import { Pencil, Download, Upload } from 'lucide-react';
+import { Pencil, Download, Upload, Check } from 'lucide-react';
 import type { Species, Passive } from '../data/schema';
 import { useTeams } from '../store/hooks';
 import { newId } from '../store/localStore';
@@ -7,6 +7,7 @@ import { CLOUD_ROW_CAPS, createEmptyTeam, TEAM_SLOT_COUNT, type Team, type TeamS
 import { PalIcon, PassiveChip, RowCapBadge } from './components';
 import { useRulesetContext } from './RulesetContext';
 import { useAuthContext } from './AuthContext';
+import { effectiveSlotCombos } from './shared';
 import TeamDetailView from './TeamDetailView';
 
 /** Loose structural check on parsed JSON before it's trusted as `Team[]` — enough to reject
@@ -107,6 +108,16 @@ export default function TeamsView() {
     setTeams(teams.map((t) => (t.id === team.id ? team : t)));
   };
 
+  const toggleSlotDisabled = (teamId: string, index: number) => {
+    setTeams(
+      teams.map((t) =>
+        t.id === teamId
+          ? { ...t, slots: t.slots.map((s, i) => (i === index ? { ...s, disabled: !s.disabled } : s)) }
+          : t,
+      ),
+    );
+  };
+
   if (selectedTeam) {
     return (
       <TeamDetailView
@@ -190,6 +201,7 @@ export default function TeamsView() {
               onOpenSlot={(index) => openTeam(team.id, index)}
               onRemove={() => removeTeam(team.id)}
               onRename={(name) => renameTeam(team.id, name)}
+              onToggleSlotDisabled={(index) => toggleSlotDisabled(team.id, index)}
             />
           ))}
         </div>
@@ -206,6 +218,7 @@ function TeamCard({
   onOpenSlot,
   onRemove,
   onRename,
+  onToggleSlotDisabled,
 }: {
   team: Team;
   speciesById: Map<string, Species>;
@@ -214,6 +227,7 @@ function TeamCard({
   onOpenSlot: (index: number) => void;
   onRemove: () => void;
   onRename: (name: string) => void;
+  onToggleSlotDisabled: (index: number) => void;
 }) {
   const [editingName, setEditingName] = useState(false);
   const [draftName, setDraftName] = useState(team.name);
@@ -312,6 +326,7 @@ function TeamCard({
             speciesById={speciesById}
             passivesById={passivesById}
             onClick={() => onOpenSlot(index)}
+            onToggleDisabled={() => onToggleSlotDisabled(index)}
           />
         ))}
       </div>
@@ -324,11 +339,13 @@ function TeamSlotPreview({
   speciesById,
   passivesById,
   onClick,
+  onToggleDisabled,
 }: {
   slot: TeamSlot;
   speciesById: Map<string, Species>;
   passivesById: Map<string, Passive>;
   onClick: () => void;
+  onToggleDisabled: () => void;
 }) {
   const targetSpecies = slot.target ? speciesById.get(slot.target) : undefined;
 
@@ -343,29 +360,45 @@ function TeamSlotPreview({
     );
   }
 
+  const combos = slot.plan ? effectiveSlotCombos(slot.plan) : undefined;
+
   return (
     <div
       onClick={onClick}
-      className="flex cursor-pointer flex-col items-center gap-1.5 rounded-card border border-border-card bg-white p-3 text-center shadow-card hover:border-primary"
+      className="relative flex cursor-pointer flex-col items-center gap-1.5 rounded-card border border-border-card bg-white p-3 text-center shadow-card hover:border-primary"
     >
-      <PalIcon icon={targetSpecies.icon} size={34} variant="card" />
-      <div className="w-full truncate font-sans text-[12.5px] font-bold">{targetSpecies.displayName}</div>
-      {slot.desiredPassives.length > 0 && (
-        <div className="flex flex-wrap justify-center gap-1">
-          {slot.desiredPassives.map((id) => (
-            <PassiveChip key={id} label={passivesById.get(id)?.displayName ?? id} tier={passivesById.get(id)?.tier} />
-          ))}
-        </div>
-      )}
-      {slot.plan && (
-        <span
-          className={`font-mono text-[10.5px] font-semibold ${
-            slot.plan.result.feasible ? 'text-success-text' : 'text-brand-hover'
-          }`}
-        >
-          {slot.plan.result.feasible ? `${slot.plan.result.combinationCount} combos` : 'infeasible'}
-        </span>
-      )}
+      <span
+        onClick={(e) => {
+          e.stopPropagation();
+          onToggleDisabled();
+        }}
+        role="checkbox"
+        aria-checked={slot.disabled ?? false}
+        className={`absolute right-1.5 top-1.5 flex h-[15px] w-[15px] cursor-pointer items-center justify-center rounded-[4px] border ${
+          slot.disabled ? 'border-primary bg-primary' : 'border-border-input bg-white hover:border-muted-lighter'
+        }`}
+      >
+        {slot.disabled && <Check size={10} className="text-white" strokeWidth={3} />}
+      </span>
+      <div className={`flex w-full flex-col items-center gap-1.5 ${slot.disabled ? 'opacity-40 grayscale' : ''}`}>
+        <PalIcon icon={targetSpecies.icon} size={34} variant="card" />
+        <div className="w-full truncate font-sans text-[12.5px] font-bold">{targetSpecies.displayName}</div>
+        {slot.desiredPassives.length > 0 && (
+          <div className="flex flex-wrap justify-center gap-1">
+            {slot.desiredPassives.map((id) => (
+              <PassiveChip key={id} label={passivesById.get(id)?.displayName ?? id} tier={passivesById.get(id)?.tier} />
+            ))}
+          </div>
+        )}
+        {combos && (
+          <span
+            className={`font-mono text-[10.5px] font-semibold ${combos.feasible ? 'text-success-text' : 'text-brand-hover'}`}
+          >
+            {combos.qualifier}
+            {combos.feasible ? `${combos.combinationCount} combos` : 'infeasible'}
+          </span>
+        )}
+      </div>
     </div>
   );
 }

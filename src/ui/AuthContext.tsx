@@ -14,6 +14,8 @@ interface AuthResult {
   error: string | null;
 }
 
+type OAuthProvider = 'google' | 'discord';
+
 interface AuthContextValue {
   configured: boolean;
   loading: boolean;
@@ -21,6 +23,7 @@ interface AuthContextValue {
   user: User | null;
   signUp: (email: string, password: string) => Promise<AuthResult>;
   signIn: (email: string, password: string) => Promise<AuthResult>;
+  signInWithOAuth: (provider: OAuthProvider) => Promise<AuthResult>;
   signOut: () => Promise<void>;
   resetPassword: (email: string) => Promise<AuthResult>;
   deleteAccount: () => Promise<AuthResult>;
@@ -60,6 +63,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return { error: error?.message ?? null };
   }, []);
 
+  const signInWithOAuth = useCallback(async (provider: OAuthProvider): Promise<AuthResult> => {
+    if (!supabase) return { error: NOT_CONFIGURED_ERROR };
+    const { error } = await supabase.auth.signInWithOAuth({ provider, options: { redirectTo: window.location.origin } });
+    return { error: error?.message ?? null };
+  }, []);
+
   const signOut = useCallback(async (): Promise<void> => {
     if (!supabase) return;
     await supabase.auth.signOut();
@@ -90,11 +99,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       user: session?.user ?? null,
       signUp,
       signIn,
+      signInWithOAuth,
       signOut,
       resetPassword,
       deleteAccount,
     }),
-    [loading, session, signUp, signIn, signOut, resetPassword, deleteAccount],
+    [loading, session, signUp, signIn, signInWithOAuth, signOut, resetPassword, deleteAccount],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

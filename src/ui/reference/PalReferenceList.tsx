@@ -1,5 +1,5 @@
-import { useMemo, useRef } from 'react';
-import { Moon, Gauge, Zap, Crosshair, Handshake } from 'lucide-react';
+import { useMemo, useRef, useState } from 'react';
+import { Moon, Gauge, Zap, Crosshair, Handshake, ChevronDown } from 'lucide-react';
 import { ELEMENTS, SIZES } from '../../data/schema';
 import type { Element, PartnerSkill, Species } from '../../data/schema';
 import { useRulesetContext } from '../RulesetContext';
@@ -32,12 +32,12 @@ const numberInputClass =
   'w-[56px] rounded-panel border-[1.5px] border-border-input px-2 py-1 font-mono text-[12px] text-ink outline-none focus:border-primary';
 
 const FIXED_SORT_OPTIONS: { value: PalsSortBy; label: string }[] = [
-  { value: 'name', label: 'Sort: Name (A→Z)' },
-  { value: 'rank', label: 'Sort: Breeding rank (rarest first)' },
-  { value: 'rarity', label: 'Sort: Rarity (high → low)' },
-  { value: 'walk', label: 'Sort: Walk speed (high → low)' },
-  { value: 'run', label: 'Sort: Run speed (high → low)' },
-  { value: 'swim', label: 'Sort: Swim speed (high → low)' },
+  { value: 'name', label: 'Name (A→Z)' },
+  { value: 'rank', label: 'Breeding rank (rarest first)' },
+  { value: 'rarity', label: 'Rarity (high → low)' },
+  { value: 'walk', label: 'Walk speed (high → low)' },
+  { value: 'run', label: 'Run speed (high → low)' },
+  { value: 'swim', label: 'Swim speed (high → low)' },
 ];
 
 const REACH_OPTIONS: { value: ReachFilter; label: string }[] = [
@@ -112,6 +112,10 @@ export default function PalReferenceList({ dense = false }: { dense?: boolean })
     workFilters,
     sortBy,
   } = palsQuery;
+
+  const [sortOpen, setSortOpen] = useState(false);
+  const currentSort = FIXED_SORT_OPTIONS.find((opt) => opt.value === sortBy) ?? null;
+  const currentWorkSort = !currentSort ? WORK_SUITABILITY_TYPES.find((w) => w.id === sortBy) ?? null : null;
 
   const toggleElement = (el: Element) =>
     setPalsQuery({
@@ -277,22 +281,50 @@ export default function PalReferenceList({ dense = false }: { dense?: boolean })
           filters={workFilters}
           onChange={(next) => setPalsQuery({ ...palsQuery, workFilters: next })}
         />
-        <select
-          value={sortBy}
-          onChange={(e) => setPalsQuery({ ...palsQuery, sortBy: e.target.value })}
-          className="rounded-panel border-[1.5px] border-border-input bg-white px-2.5 py-[7px] font-mono text-[12px] font-semibold text-ink outline-none focus:border-primary"
-        >
-          {FIXED_SORT_OPTIONS.map((opt) => (
-            <option key={opt.value} value={opt.value}>
-              {opt.label}
-            </option>
-          ))}
-          {WORK_SUITABILITY_TYPES.map((w) => (
-            <option key={w.id} value={w.id}>
-              Sort: {w.label} (high → low)
-            </option>
-          ))}
-        </select>
+        <div className="flex items-center gap-1.5">
+          <span className="font-sans text-[10.5px] font-semibold uppercase tracking-[.5px] text-muted">Sort</span>
+          <div className="relative">
+            <span
+              tabIndex={0}
+              onClick={() => setSortOpen((o) => !o)}
+              onBlur={() => setTimeout(() => setSortOpen(false), 120)}
+              className="flex cursor-pointer items-center gap-1.5 rounded-panel border-[1.5px] border-border-input bg-white px-2.5 py-[7px] font-mono text-[12px] font-semibold text-ink outline-none focus:border-primary"
+            >
+              {currentWorkSort && <currentWorkSort.icon size={13} />}
+              {currentWorkSort ? `${currentWorkSort.label} (high → low)` : (currentSort?.label ?? 'Name (A→Z)')}
+              <ChevronDown size={13} className="ml-0.5 text-muted-light" />
+            </span>
+            {sortOpen && (
+              <div className="absolute right-0 top-[calc(100%+4px)] z-10 max-h-72 w-[210px] overflow-y-auto rounded-panel border border-border-card bg-white shadow-dropdown">
+                {FIXED_SORT_OPTIONS.map((opt) => (
+                  <div
+                    key={opt.value}
+                    onMouseDown={() => {
+                      setPalsQuery({ ...palsQuery, sortBy: opt.value });
+                      setSortOpen(false);
+                    }}
+                    className="flex cursor-pointer items-center gap-2 px-3 py-2 font-mono text-[12.5px] font-semibold hover:bg-primary-tint2"
+                  >
+                    {opt.label}
+                  </div>
+                ))}
+                {WORK_SUITABILITY_TYPES.map((w) => (
+                  <div
+                    key={w.id}
+                    onMouseDown={() => {
+                      setPalsQuery({ ...palsQuery, sortBy: w.id });
+                      setSortOpen(false);
+                    }}
+                    className="flex cursor-pointer items-center gap-2 px-3 py-2 font-mono text-[12.5px] font-semibold hover:bg-primary-tint2"
+                  >
+                    <w.icon size={13} />
+                    {w.label} (high → low)
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
       </div>
 
       <div className="mb-2 font-sans text-[11.5px] font-semibold text-muted">{results.length} pals</div>

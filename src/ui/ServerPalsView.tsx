@@ -10,6 +10,7 @@ import { useRulesetContext } from './RulesetContext';
 import {
   ElementDot,
   GenderGlyph,
+  HoverTooltip,
   PalCard,
   PalIcon,
   PassiveChip,
@@ -22,6 +23,11 @@ import {
   useIsDesktop,
   type WorkSuitabilityFilter,
 } from './components';
+
+const UNRESOLVED_SPECIES_EXPLANATION =
+  "This pal's raw game ID isn't in the bundled dataset yet — usually a newer game patch or a mod the dataset hasn't caught up with. It's shown as-is but left out of planning until resolved.";
+const UNRESOLVED_PASSIVES_EXPLANATION =
+  "These passive IDs aren't in the bundled dataset yet (newer patch or mod) — kept out of planning odds instead of being silently dropped or miscounted.";
 
 // A player's own pal table (Players tab) has no Owner column; Find-a-pal's cross-player
 // results table adds one on the end. Kept as separate constants (not derived from one
@@ -51,7 +57,18 @@ function AutoPollCountdown({ nextPollAt }: { nextPollAt: number | null }) {
  * the new Find-a-pal cross-player search (design handoff README, Screen 2). */
 export default function ServerPalsView() {
   const [tab, setTab] = useState<'players' | 'search'>('players');
+  // Mirrors App.tsx's outer-tab `visited` gating: only mount a sub-tab once it's actually
+  // selected, not unconditionally up front. Mounting `FindAPalTab`'s VirtualizedTable while
+  // its `hidden` ancestor is display:none freezes react-virtual's one-time container
+  // measurement at 0 forever (see VirtualizedTable's doc comment in components.tsx) — gating
+  // the mount means its first render always happens while genuinely visible.
+  const [visitedTabs, setVisitedTabs] = useState<Set<'players' | 'search'>>(() => new Set(['players']));
   const live = useLiveContext();
+
+  const selectTab = (key: 'players' | 'search') => {
+    setTab(key);
+    setVisitedTabs((prev) => (prev.has(key) ? prev : new Set(prev).add(key)));
+  };
 
   return (
     <main className="flex-1 overflow-y-auto bg-canvas">
@@ -89,7 +106,7 @@ export default function ServerPalsView() {
 
         <div className="mb-[18px] flex gap-1 border-b-[1.5px] border-border-card">
           <div
-            onClick={() => setTab('players')}
+            onClick={() => selectTab('players')}
             className={`inline-flex -mb-[1.5px] cursor-pointer items-center gap-1.5 border-b-[2.5px] px-4 py-2.5 font-sans text-[13.5px] font-semibold ${
               tab === 'players' ? 'border-brand text-ink' : 'border-transparent text-muted'
             }`}
@@ -97,7 +114,7 @@ export default function ServerPalsView() {
             <Users size={14} /> Players <span className="opacity-60">{live.players.length}</span>
           </div>
           <div
-            onClick={() => setTab('search')}
+            onClick={() => selectTab('search')}
             className={`inline-flex -mb-[1.5px] cursor-pointer items-center gap-1.5 border-b-[2.5px] px-4 py-2.5 font-sans text-[13.5px] font-semibold ${
               tab === 'search' ? 'border-brand text-ink' : 'border-transparent text-muted'
             }`}
@@ -106,14 +123,18 @@ export default function ServerPalsView() {
           </div>
         </div>
 
-        {/* Both stay mounted once visited so switching sub-tabs doesn't lose expanded rows
-            or search filters — see the same pattern in App.tsx for the outer view tabs. */}
+        {/* Once visited, both stay mounted so switching sub-tabs doesn't lose expanded rows
+            or search filters — see the same pattern in App.tsx for the outer view tabs. Unlike
+            App.tsx's tabs, `visitedTabs` here also guards against mounting a tab's virtualized
+            table for the first time while hidden (see `selectTab` above). */}
         <div className={tab === 'players' ? undefined : 'hidden'}>
           <PlayersTab />
         </div>
-        <div className={tab === 'search' ? undefined : 'hidden'}>
-          <FindAPalTab />
-        </div>
+        {visitedTabs.has('search') && (
+          <div className={tab === 'search' ? undefined : 'hidden'}>
+            <FindAPalTab />
+          </div>
+        )}
       </div>
     </main>
   );
@@ -487,9 +508,11 @@ function buildPalRowCells(pal: LivePal, speciesById: Map<string, Species>, passi
         </span>
       )}
       {unresolved && (
-        <span className="rounded-[4px] bg-unresolved-bg px-1.5 py-px font-mono text-[9px] font-semibold text-provisional-text">
-          unresolved
-        </span>
+        <HoverTooltip description={UNRESOLVED_SPECIES_EXPLANATION}>
+          <span className="cursor-help rounded-[4px] bg-unresolved-bg px-1.5 py-px font-mono text-[9px] font-semibold text-provisional-text">
+            unresolved
+          </span>
+        </HoverTooltip>
       )}
     </span>,
     <span key="gender" className="text-muted">
@@ -508,9 +531,11 @@ function buildPalRowCells(pal: LivePal, speciesById: Map<string, Species>, passi
         />
       ))}
       {pal.unresolvedPassives.length > 0 && (
-        <span className="rounded-[4px] bg-unresolved-bg px-1.5 py-px font-mono text-[10px] font-semibold text-provisional-text">
-          +{pal.unresolvedPassives.length} unresolved
-        </span>
+        <HoverTooltip description={UNRESOLVED_PASSIVES_EXPLANATION}>
+          <span className="cursor-help rounded-[4px] bg-unresolved-bg px-1.5 py-px font-mono text-[10px] font-semibold text-provisional-text">
+            +{pal.unresolvedPassives.length} unresolved
+          </span>
+        </HoverTooltip>
       )}
     </span>,
     <WorkSuitabilityRow key="work" levels={effectiveWorkSuitabilities(species, pal)} />,
@@ -576,7 +601,11 @@ function PalFullCard({
       }
     >
       {unresolved && (
-        <span className="rounded-[4px] bg-unresolved-bg px-1.5 py-px font-mono text-[9px] font-semibold text-provisional-text">unresolved</span>
+        <HoverTooltip description={UNRESOLVED_SPECIES_EXPLANATION}>
+          <span className="cursor-help rounded-[4px] bg-unresolved-bg px-1.5 py-px font-mono text-[9px] font-semibold text-provisional-text">
+            unresolved
+          </span>
+        </HoverTooltip>
       )}
       {(pal.passives.length > 0 || pal.unresolvedPassives.length > 0) && (
         <div className="flex flex-wrap justify-center gap-1">
@@ -590,9 +619,11 @@ function PalFullCard({
             />
           ))}
           {pal.unresolvedPassives.length > 0 && (
-            <span className="rounded-[4px] bg-unresolved-bg px-1.5 py-px font-mono text-[9px] font-semibold text-provisional-text">
-              +{pal.unresolvedPassives.length}
-            </span>
+            <HoverTooltip description={UNRESOLVED_PASSIVES_EXPLANATION}>
+              <span className="cursor-help rounded-[4px] bg-unresolved-bg px-1.5 py-px font-mono text-[9px] font-semibold text-provisional-text">
+                +{pal.unresolvedPassives.length}
+              </span>
+            </HoverTooltip>
           )}
         </div>
       )}

@@ -30,9 +30,9 @@ import {
   Settings,
   Sparkle,
   TriangleAlert,
-  Info,
   Cloud,
   CloudCheck,
+  ChevronDown,
 } from 'lucide-react';
 import { ELEMENTS } from '../data/schema';
 import type { Element, Gender, Species, Passive } from '../data/schema';
@@ -525,11 +525,50 @@ export function ComboCount({
   );
 }
 
+/** `@tanstack/react-virtual` measures its scroll container's size exactly once, at first
+ * mount, via a synchronous `offsetWidth`/`offsetHeight` read. If that first mount happens
+ * while an ancestor has `display:none` (a hidden, not-yet-selected tab), the measured size
+ * freezes at 0 and the list/table renders empty forever — its `ResizeObserver` never re-fires
+ * once the ancestor becomes visible, and `virtualizer.measure()` doesn't help either, since it
+ * only clears the item-size cache, not the frozen container-rect. The one thing that does fix
+ * it is a full remount, which re-runs the container measurement while genuinely visible. This
+ * hook returns a value that bumps exactly once, the first time `active` flips to `true`; use it
+ * as a `key` on the virtualizer-owning subtree so callers that might mount `VirtualizedList`/
+ * `VirtualizedTable` behind a hidden ancestor can force that one corrective remount. */
+function useMountNonceOnActivate(active: boolean): number {
+  const [nonce, setNonce] = useState(0);
+  const wasActive = useRef(active);
+  useEffect(() => {
+    if (active && !wasActive.current) setNonce((n) => n + 1);
+    wasActive.current = active;
+  }, [active]);
+  return nonce;
+}
+
 /** Virtualizes a fixed-height scrollable list of variable-height rows (`@tanstack/react-virtual`,
  * measuring actual DOM height per row rather than assuming a fixed one). Built for the bubble
  * reference panels' `max-h-[420px]` dense lists (PERFORMANCE_REMEDIATION_PLAN.md Phase 4) — only
  * ~15-20 rows are ever mounted regardless of how many `items` there are. */
 export function VirtualizedList<T>({
+  active = true,
+  ...props
+}: {
+  items: T[];
+  getKey: (item: T, index: number) => string | number;
+  renderItem: (item: T, index: number) => ReactNode;
+  estimateSize?: number;
+  gap?: number;
+  className?: string;
+  /** Pass `false` while this list's scroll container may sit behind a hidden (`display:none`)
+   * ancestor, e.g. an unselected tab. See `useMountNonceOnActivate` above for why this matters.
+   * Safe to omit for callers that only ever mount this while already visible. */
+  active?: boolean;
+}) {
+  const mountNonce = useMountNonceOnActivate(active);
+  return <VirtualizedListInner key={mountNonce} {...props} />;
+}
+
+function VirtualizedListInner<T>({
   items,
   getKey,
   renderItem,
@@ -604,6 +643,29 @@ export function useIsDesktop(): boolean {
  * header row within that same ancestor. Desktop-only caller (see `useIsDesktop`); mobile keeps
  * the plain unvirtualized `<table>` (PERFORMANCE_REMEDIATION_PLAN.md Phase 4). */
 export function VirtualizedTable<T>({
+  active = true,
+  ...props
+}: {
+  items: T[];
+  getKey: (item: T, index: number) => string | number;
+  columns: string;
+  header: ReactNode[];
+  renderRow: (item: T, index: number) => ReactNode[];
+  getScrollElement: () => HTMLElement | null;
+  estimateSize?: number;
+  /** Optional per-row class (e.g. highlighting an unresolved species) applied alongside the
+   * grid-row's own layout classes. */
+  getRowClassName?: (item: T, index: number) => string;
+  /** Pass `false` while this table's scroll container may sit behind a hidden (`display:none`)
+   * ancestor, e.g. an unselected tab. See `useMountNonceOnActivate` above for why this matters.
+   * Safe to omit for callers that only ever mount this while already visible. */
+  active?: boolean;
+}) {
+  const mountNonce = useMountNonceOnActivate(active);
+  return <VirtualizedTableInner key={mountNonce} {...props} />;
+}
+
+function VirtualizedTableInner<T>({
   items,
   getKey,
   columns,
@@ -620,8 +682,6 @@ export function VirtualizedTable<T>({
   renderRow: (item: T, index: number) => ReactNode[];
   getScrollElement: () => HTMLElement | null;
   estimateSize?: number;
-  /** Optional per-row class (e.g. highlighting an unresolved species) applied alongside the
-   * grid-row's own layout classes. */
   getRowClassName?: (item: T, index: number) => string;
 }) {
   const virtualizer = useVirtualizer({
@@ -854,6 +914,7 @@ export function Sidebar({
   onIconModeChange,
   accountLabel,
   signedIn,
+  onHelpClick,
 }: {
   active: string;
   onSelect: (key: string) => void;
@@ -863,6 +924,7 @@ export function Sidebar({
   onIconModeChange: (mode: 'compact' | 'full') => void;
   accountLabel: string;
   signedIn: boolean;
+  onHelpClick: () => void;
 }) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -960,15 +1022,30 @@ export function Sidebar({
           >
             {signedIn ? <CloudCheck size={NAV_ICON_SIZE} /> : <Cloud size={NAV_ICON_SIZE} />}
             <span className="truncate">{accountLabel}</span>
+            {!signedIn && (
+              <span onClick={(e) => e.stopPropagation()} className="flex-none">
+                <InfoTooltip description="Optional — sync your roster, plans, teams, and settings across devices. The planner works fully without it, saved locally on this device." />
+              </span>
+            )}
           </div>
           <div
             onClick={() => select('settings')}
-            className={`flex cursor-pointer items-center gap-2.5 rounded-lg px-3 py-[9px] text-[13.5px] ${
+            className={`mb-0.5 flex cursor-pointer items-center gap-2.5 rounded-lg px-3 py-[9px] text-[13.5px] ${
               active === 'settings' ? 'bg-brand font-semibold text-sidebar-bg' : 'text-muted hover:bg-sidebar-hover'
             }`}
           >
             <Settings size={NAV_ICON_SIZE} />
             <span>Settings</span>
+          </div>
+          <div
+            onClick={() => {
+              onHelpClick();
+              setMobileOpen(false);
+            }}
+            className="flex cursor-pointer items-center gap-2.5 rounded-lg px-3 py-[9px] text-[13.5px] text-muted hover:bg-sidebar-hover"
+          >
+            <HelpCircle size={NAV_ICON_SIZE} />
+            <span>Help</span>
           </div>
         </div>
       </nav>
@@ -1374,22 +1451,6 @@ export function PassiveMultiSelect({
     setQuery('');
   };
 
-  // Advisory only, never a block — the game's actual tier-stacking rules aren't verified
-  // data (CLAUDE.md: don't invent domain rules), so this just surfaces "these two share a
-  // category" for the user to judge, e.g. two tiers of the same Crafting Speed line.
-  const categoryConflicts = useMemo(() => {
-    const byCategory = new Map<string, Passive[]>();
-    for (const id of value) {
-      const p = byId.get(id);
-      if (!p) continue;
-      for (const cat of p.categories.length > 0 ? p.categories : ['Other']) {
-        if (!byCategory.has(cat)) byCategory.set(cat, []);
-        byCategory.get(cat)!.push(p);
-      }
-    }
-    return Array.from(byCategory.entries()).filter(([, list]) => list.length >= 2);
-  }, [value, byId]);
-
   return (
     <div className="relative">
       <div className="flex min-h-[42px] flex-wrap items-center gap-1.5 rounded-panel border-[1.5px] border-border-input bg-white px-2 py-1.5">
@@ -1418,22 +1479,6 @@ export function PassiveMultiSelect({
           />
         )}
       </div>
-      {categoryConflicts.length > 0 && (
-        <div className="mt-1.5 flex flex-col gap-1">
-          {categoryConflicts.map(([category, list]) => (
-            <div
-              key={category}
-              className="flex items-start gap-1.5 rounded-panel border border-[#e9d9a8] bg-unresolved-bg2 px-2.5 py-1.5 font-sans text-[11.5px] font-medium text-provisional-text"
-            >
-              <Info size={13} className="flex-none" />
-              <span>
-                {list.map((p) => p.displayName).join(' and ')} are all {category} passives — confirm they can coexist on one Pal before
-                relying on this plan.
-              </span>
-            </div>
-          ))}
-        </div>
-      )}
       {open && !atCap && matches.length > 0 && (
         <Dropdown>
           {grouped.map(([category, list]) => (
@@ -1551,22 +1596,45 @@ export function WorkSuitabilityFilterEditor({
   );
 }
 
-/** Native `<select>` for "sort results by this work type's effective level, descending" — kept
- * a plain select (rather than the custom `Dropdown`) since it's a single-choice, keyboard- and
- * screen-reader-friendly control with no need for the richer chip/grouping treatment above. */
+/** "Sort results by this work type's effective level, descending" — a custom dropdown (rather
+ * than a native `<select>`) so each option can carry the work type's icon, matching
+ * `WorkSuitabilityFilterEditor`'s chip/icon treatment above. The "Sort" label lives outside the
+ * control rather than repeated inside every option. */
 export function WorkSuitabilitySortSelect({ value, onChange }: { value: string | null; onChange: (v: string | null) => void }) {
+  const [open, setOpen] = useState(false);
+  const current = value ? workSuitabilityMeta(value) : null;
+
+  const pick = (v: string | null) => {
+    onChange(v);
+    setOpen(false);
+  };
+
   return (
-    <select
-      value={value ?? ''}
-      onChange={(e) => onChange(e.target.value || null)}
-      className="rounded-panel border-[1.5px] border-border-input bg-white px-2.5 py-[7px] font-mono text-[12px] font-semibold text-ink outline-none focus:border-primary"
-    >
-      <option value="">Sort: default order</option>
-      {WORK_SUITABILITY_TYPES.map((w) => (
-        <option key={w.id} value={w.id}>
-          Sort: {w.label} (high → low)
-        </option>
-      ))}
-    </select>
+    <div>
+      <div className="mb-1.5 font-sans text-[10.5px] font-semibold uppercase tracking-[.5px] text-muted">Sort</div>
+      <div className="relative">
+        <span
+          tabIndex={0}
+          onClick={() => setOpen((o) => !o)}
+          onBlur={() => setTimeout(() => setOpen(false), 120)}
+          className="flex cursor-pointer items-center gap-1.5 rounded-panel border-[1.5px] border-border-input bg-white px-2.5 py-[7px] font-mono text-[12px] font-semibold text-ink outline-none focus:border-primary"
+        >
+          {current && <current.icon size={13} />}
+          {current ? `${current.label} (high → low)` : 'Default order'}
+          <ChevronDown size={13} className="ml-0.5 text-muted-light" />
+        </span>
+        {open && (
+          <div className="absolute right-0 top-[calc(100%+4px)] z-10 w-[200px] overflow-y-auto rounded-panel border border-border-card bg-white shadow-dropdown">
+            <DropdownRow onPick={() => pick(null)}>Default order</DropdownRow>
+            {WORK_SUITABILITY_TYPES.map((w) => (
+              <DropdownRow key={w.id} onPick={() => pick(w.id)}>
+                <w.icon size={13} />
+                {w.label} (high → low)
+              </DropdownRow>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
   );
 }

@@ -3,6 +3,8 @@ import { ArrowLeft } from 'lucide-react';
 import { useRoster, useSettings } from '../store/hooks';
 import { useLiveContext } from '../live/LiveContext';
 import { buildRosterForSolver } from '../live/rosterMerge';
+import { annotateSpeciesPlan } from '../live/provenance';
+import { buildDisplayNameMap } from '../live/nameResolution';
 import { computeOwnedUnassignedPassives } from '../solver/runSingleTargetPlan';
 import { solverWorker } from '../solver/worker/client';
 import type { PassiveId, SpeciesId, Team, TeamSlot, TeamSlotPlan } from '../store/types';
@@ -47,6 +49,11 @@ export default function TeamDetailView({
   const rosterForSolver = useMemo(
     () => buildRosterForSolver(roster, live.selectedPlayerIds, live.palsByPlayer),
     [roster, live.selectedPlayerIds, live.palsByPlayer],
+  );
+
+  const displayNameByIdentifier = useMemo(
+    () => buildDisplayNameMap(live.players, live.selectedPlayerIds, settings.live.nameOverrides, settings.live.identityLinks),
+    [live.players, live.selectedPlayerIds, settings.live.nameOverrides, settings.live.identityLinks],
   );
 
   const passivesById = useMemo(() => new Map(passives.map((p) => [p.id, p])), [passives]);
@@ -120,6 +127,21 @@ export default function TeamDetailView({
 
   const openSlot = openIndex !== null ? team.slots[openIndex] : null;
 
+  const pendingPlanProvenance = useMemo(
+    () =>
+      openSlot?.pendingPlan
+        ? annotateSpeciesPlan(openSlot.pendingPlan.result, live.selectedPlayerIds, live.palsByPlayer, displayNameByIdentifier)
+        : undefined,
+    [openSlot?.pendingPlan, live.selectedPlayerIds, live.palsByPlayer, displayNameByIdentifier],
+  );
+  const planProvenance = useMemo(
+    () =>
+      openSlot?.plan
+        ? annotateSpeciesPlan(openSlot.plan.result, live.selectedPlayerIds, live.palsByPlayer, displayNameByIdentifier)
+        : undefined,
+    [openSlot?.plan, live.selectedPlayerIds, live.palsByPlayer, displayNameByIdentifier],
+  );
+
   return (
     <main className="flex-1 overflow-y-auto bg-canvas">
       <div className="mx-auto max-w-[1080px] px-4 pb-[60px] pt-[26px] md:px-[34px]">
@@ -179,6 +201,10 @@ export default function TeamDetailView({
                     nextBestWhenOwned={openSlot.pendingPlan.nextBestWhenOwned}
                     speciesById={speciesById}
                     passivesById={passivesById}
+                    provenance={pendingPlanProvenance}
+                    selectedPlayerIds={live.selectedPlayerIds}
+                    palsByPlayer={live.palsByPlayer}
+                    displayNameByIdentifier={displayNameByIdentifier}
                   />
                 </div>
               </div>
@@ -199,6 +225,10 @@ export default function TeamDetailView({
                     nextBestWhenOwned={openSlot.plan.nextBestWhenOwned}
                     speciesById={speciesById}
                     passivesById={passivesById}
+                    provenance={planProvenance}
+                    selectedPlayerIds={live.selectedPlayerIds}
+                    palsByPlayer={live.palsByPlayer}
+                    displayNameByIdentifier={displayNameByIdentifier}
                   />
                 </div>
               </div>
