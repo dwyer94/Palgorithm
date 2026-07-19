@@ -128,11 +128,11 @@ export default function ServerPalsView() {
             App.tsx's tabs, `visitedTabs` here also guards against mounting a tab's virtualized
             table for the first time while hidden (see `selectTab` above). */}
         <div className={tab === 'players' ? undefined : 'hidden'}>
-          <PlayersTab />
+          <PlayersTab active={tab === 'players'} />
         </div>
         {visitedTabs.has('search') && (
           <div className={tab === 'search' ? undefined : 'hidden'}>
-            <FindAPalTab />
+            <FindAPalTab active={tab === 'search'} />
           </div>
         )}
       </div>
@@ -140,7 +140,7 @@ export default function ServerPalsView() {
   );
 }
 
-function PlayersTab() {
+function PlayersTab({ active }: { active: boolean }) {
   const { speciesById, passives } = useRulesetContext();
   const passivesById = useMemo(() => new Map(passives.map((p) => [p.id, p])), [passives]);
   const live = useLiveContext();
@@ -201,7 +201,7 @@ function PlayersTab() {
 
       <div className="flex flex-col gap-2.5">
         {live.players.map((p) => (
-          <PlayerRow key={p.identifier} p={p} speciesById={speciesById} passivesById={passivesById} />
+          <PlayerRow key={p.identifier} p={p} speciesById={speciesById} passivesById={passivesById} tabActive={active} />
         ))}
       </div>
     </div>
@@ -216,10 +216,12 @@ function PlayerRow({
   p,
   speciesById,
   passivesById,
+  tabActive,
 }: {
   p: LivePlayer;
   speciesById: Map<string, Species>;
   passivesById: Map<string, Passive>;
+  tabActive: boolean;
 }) {
   const live = useLiveContext();
   const [settings, setSettings] = useSettings();
@@ -375,6 +377,7 @@ function PlayerRow({
                   estimateSize={44}
                   getRowClassName={(pal) => (pal.species === null ? 'bg-unresolved-bg2' : '')}
                   renderRow={(pal) => buildPalRowCells(pal, speciesById, passivesById)}
+                  active={tabActive && isExpanded}
                 />
               </div>
             ) : (
@@ -693,7 +696,7 @@ function buildFindAPalRowCells(
   ];
 }
 
-function FindAPalTab() {
+function FindAPalTab({ active }: { active: boolean }) {
   const { species, passives, speciesById } = useRulesetContext();
   const passivesById = useMemo(() => new Map(passives.map((p) => [p.id, p])), [passives]);
   const [settings] = useSettings();
@@ -905,6 +908,7 @@ function FindAPalTab() {
             getScrollElement={() => resultsRef.current}
             estimateSize={45}
             renderRow={(r) => buildFindAPalRowCells(r, speciesById, passivesById, traitFilter, workHighlight)}
+            active={active}
           />
         </div>
       ) : (
