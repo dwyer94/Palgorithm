@@ -130,7 +130,11 @@ function AppShell() {
             return (
               <div key={key} className={key === active ? 'contents' : 'hidden'}>
                 <Suspense fallback={<ViewLoadingFallback />}>
-                  <View />
+                  {/* ServerPalsView needs to know when *this whole view* (not just its own
+                      internal Players/Find-a-pal sub-tab) is hidden — see its `active` prop
+                      doc comment for why. Every other view is indifferent to outer visibility,
+                      so this stays a special case rather than a prop every view must accept. */}
+                  {key === 'server' ? <ServerPalsView active={key === active} /> : <View />}
                 </Suspense>
               </div>
             );

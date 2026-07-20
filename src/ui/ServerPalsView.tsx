@@ -54,8 +54,22 @@ function AutoPollCountdown({ nextPollAt }: { nextPollAt: number | null }) {
 }
 
 /** Server Pals: the Players browser (live boxes, all connection/loading/error states) plus
- * the new Find-a-pal cross-player search (design handoff README, Screen 2). */
-export default function ServerPalsView() {
+ * the new Find-a-pal cross-player search (design handoff README, Screen 2).
+ *
+ * `active`: whether this *entire* view (not just its own Players/Find-a-pal sub-tab) is
+ * currently visible — App.tsx passes `false` while the user has navigated to a different
+ * top-level view (Roster, Single target, etc.), which hides this view's whole subtree the
+ * same way ServerPalsView hides its own inactive sub-tab. That matters here specifically
+ * because a player row's `VirtualizedTable` (see `PlayerRow` below) remounts on every
+ * loading→loaded transition, including ones triggered by the background auto-poll — which
+ * keeps running no matter which top-level view is showing. Without folding this outer flag
+ * into the `tabActive`/`active` passed down to `PlayersTab`/`FindAPalTab`, a remount that
+ * lands while the user is on another view looks, from this component's narrow perspective,
+ * like it was "active" the whole time (never a false→true edge), so the corrective remount
+ * in `useMountNonceOnActivate` (components.tsx) never fires and the table freezes at
+ * zero-height forever, even after navigating back. Defaults to `true` for callers (e.g.
+ * tests) that render this view outside AppShell's visibility gating. */
+export default function ServerPalsView({ active: outerActive = true }: { active?: boolean }) {
   const [tab, setTab] = useState<'players' | 'search'>('players');
   // Mirrors App.tsx's outer-tab `visited` gating: only mount a sub-tab once it's actually
   // selected, not unconditionally up front. Mounting `FindAPalTab`'s VirtualizedTable while
@@ -128,11 +142,11 @@ export default function ServerPalsView() {
             App.tsx's tabs, `visitedTabs` here also guards against mounting a tab's virtualized
             table for the first time while hidden (see `selectTab` above). */}
         <div className={tab === 'players' ? undefined : 'hidden'}>
-          <PlayersTab active={tab === 'players'} />
+          <PlayersTab active={outerActive && tab === 'players'} />
         </div>
         {visitedTabs.has('search') && (
           <div className={tab === 'search' ? undefined : 'hidden'}>
-            <FindAPalTab active={tab === 'search'} />
+            <FindAPalTab active={outerActive && tab === 'search'} />
           </div>
         )}
       </div>
