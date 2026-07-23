@@ -259,6 +259,7 @@ async function fetchTeams(): Promise<void> {
         desiredPassives: (row.desired_passives as TeamSlot['desiredPassives']) ?? [],
         ...(plan ? { plan } : {}),
         ...(pendingPlan ? { pendingPlan } : {}),
+        ...(row.disabled ? { disabled: true } : {}),
       };
     }
   }
@@ -309,6 +310,7 @@ async function pushTeams(prevIds: Set<string>, next: Team[], userId: string): Pr
       desired_passives: slot.desiredPassives,
       plan: slot.plan ?? null,
       pending_plan: slot.pendingPlan ?? null,
+      disabled: slot.disabled ?? false,
     })),
   );
   const { error: slotsError } = await supabase.from('team_slots').upsert(slotRows, { onConflict: 'team_id,slot_index' });
