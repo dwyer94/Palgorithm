@@ -7,6 +7,14 @@ import { captureException } from '../sentry';
  * the only class component in src/ui. Reports to Sentry (Phase 4) when configured; always
  * logs to console regardless. */
 
+// A tab left open across a deploy (or one that catches a brief CDN propagation window,
+// as happened 2026-07-18) has a lazy `import()` reference a chunk hash that 404s — that's
+// not a real crash, just staleness. Auto-reload once per session instead of showing the
+// scary crash screen; the guard key (cleared once the app boots and stays up) stops a
+// genuinely broken deploy from reload-looping the tab forever.
+const CHUNK_LOAD_ERROR = /dynamically imported module|Importing a module script failed|Loading chunk .* failed/i;
+const RELOAD_GUARD_KEY = 'palgorithm:chunk-reload-attempted';
+
 interface Props {
   children: ReactNode;
 }
@@ -25,6 +33,11 @@ export default class ErrorBoundary extends Component<Props, State> {
   override componentDidCatch(error: Error, info: ErrorInfo): void {
     console.error('Unhandled render error', error, info.componentStack);
     captureException(error, { componentStack: info.componentStack });
+
+    if (CHUNK_LOAD_ERROR.test(error.message) && !sessionStorage.getItem(RELOAD_GUARD_KEY)) {
+      sessionStorage.setItem(RELOAD_GUARD_KEY, '1');
+      window.location.reload();
+    }
   }
 
   override render() {

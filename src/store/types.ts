@@ -126,6 +126,13 @@ export function createEmptyTeam(name: string, id: string): Team {
  * throughout, while `identityLinks` bridges PlayerUID -> SteamID64 so overrides/caching keep
  * working once a player goes offline (see src/live/nameResolution.ts). */
 export interface LiveConnectionSettings {
+  /** Master switch, off by default — a saved `baseUrl` alone no longer auto-connects.
+   * Connecting reaches out to (often private-network) infrastructure the user doesn't
+   * control, which browsers gate behind a "wants to access devices on your network"
+   * permission prompt; firing that automatically on every app load (e.g. right after a
+   * cloud-synced sign-in on a device that never opted in) reads as alarming/suspicious.
+   * Flipping this on is the deliberate action that earns the prompt. */
+  enabled: boolean;
   baseUrl: string;
   bearerToken: string;
   autoPollEnabled: boolean;
@@ -176,6 +183,7 @@ export const DEFAULT_SETTINGS: Settings = {
   activeRuleset: null,
   iconDisplayMode: 'compact',
   live: {
+    enabled: false,
     baseUrl: '',
     bearerToken: '',
     autoPollEnabled: true,
