@@ -69,8 +69,13 @@ export function effectiveSlotCombos(plan: TeamSlotPlan): EffectiveSlotCombos {
   return { feasible: base.result.feasible, combinationCount: base.result.combinationCount, qualifier: base.qualifier };
 }
 
-function formatEggs(n: number): string {
-  return isFinite(n) ? `≈ ${n.toFixed(1)} eggs` : '∞ eggs';
+function formatEggs(n: number | null): string {
+  // `n` is `Infinity` whenever the underlying odds are 0 (speciesPlanner.ts). A saved plan
+  // round-tripped through localStorage's JSON persistence (SavedPlan/TeamSlotPlan) silently
+  // turns that `Infinity` into `null` — `JSON.stringify(Infinity) === 'null'` — so `null` here
+  // means the same "won't happen" case, not a missing value; without this check
+  // `isFinite(null)` coerces to `isFinite(0)` (true) and `null.toFixed(1)` throws.
+  return n != null && isFinite(n) ? `≈ ${n.toFixed(1)} eggs` : '∞ eggs';
 }
 
 export function PassivePlanView({
