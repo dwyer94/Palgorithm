@@ -17,6 +17,11 @@ services:
         sync: false
       - key: VITE_SENTRY_DSN
         sync: false
+      # Build-time only (not a VITE_ var, so it's never inlined into the bundle). Enables
+      # source map upload in vite.config.ts; without it the build still succeeds and simply
+      # emits no maps, which is what local and PR-preview builds do.
+      - key: SENTRY_AUTH_TOKEN
+        sync: false
     headers:
       - path: /*
         name: X-Content-Type-Options

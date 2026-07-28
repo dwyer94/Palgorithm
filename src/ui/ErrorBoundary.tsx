@@ -1,19 +1,12 @@
 import { Component, type ErrorInfo, type ReactNode } from 'react';
 import { captureException } from '../sentry';
+import { claimReloadAttempt, isChunkLoadError } from './chunkReload';
 
 /** Top-level render-crash guard (Phase 3, docs/PRODUCTION_READINESS_PLAN.md) — without
  * this, any uncaught render error blanks the whole tab with no explanation. React only
  * supports error boundaries as class components (no hook equivalent) — this is otherwise
  * the only class component in src/ui. Reports to Sentry (Phase 4) when configured; always
  * logs to console regardless. */
-
-// A tab left open across a deploy (or one that catches a brief CDN propagation window,
-// as happened 2026-07-18) has a lazy `import()` reference a chunk hash that 404s — that's
-// not a real crash, just staleness. Auto-reload once per session instead of showing the
-// scary crash screen; the guard key (cleared once the app boots and stays up) stops a
-// genuinely broken deploy from reload-looping the tab forever.
-const CHUNK_LOAD_ERROR = /dynamically imported module|Importing a module script failed|Loading chunk .* failed/i;
-const RELOAD_GUARD_KEY = 'palgorithm:chunk-reload-attempted';
 
 interface Props {
   children: ReactNode;
@@ -32,12 +25,29 @@ export default class ErrorBoundary extends Component<Props, State> {
 
   override componentDidCatch(error: Error, info: ErrorInfo): void {
     console.error('Unhandled render error', error, info.componentStack);
-    captureException(error, { componentStack: info.componentStack });
 
-    if (CHUNK_LOAD_ERROR.test(error.message) && !sessionStorage.getItem(RELOAD_GUARD_KEY)) {
-      sessionStorage.setItem(RELOAD_GUARD_KEY, '1');
-      window.location.reload();
-    }
+    // Claim the reload *before* reporting, so severity can reflect whether this is a blip we
+    // are about to recover from or a failure that already survived its recovery attempt.
+    const chunkLoad = isChunkLoadError(error);
+    const willReload = chunkLoad && claimReloadAttempt();
+
+    captureException(
+      error,
+      { componentStack: info.componentStack },
+      chunkLoad
+        ? {
+            // A chunk load we're about to auto-reload out of is self-healing — the user sees
+            // a reload, not a crash — so it reports as a warning rather than paging as an
+            // error. Once the guard is exhausted the reload didn't fix it: that's a genuinely
+            // broken deploy or a dead network, the user is looking at the crash screen, and it
+            // should surface at full severity.
+            level: willReload ? 'warning' : 'error',
+            tags: { chunk_load_error: 'true', chunk_recovery: willReload ? 'reloading' : 'exhausted' },
+          }
+        : undefined,
+    );
+
+    if (willReload) window.location.reload();
   }
 
   override render() {

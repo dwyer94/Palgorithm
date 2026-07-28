@@ -19,7 +19,23 @@ export function initSentry(): void {
   });
 }
 
-export function captureException(error: unknown, context?: Record<string, unknown>): void {
+/** Reporting knobs for callers that can classify their own errors — currently the chunk-load
+ * recovery in src/ui/chunkReload.ts, which downgrades a failure it's about to auto-reload out
+ * of so a self-healing blip doesn't page at the same severity as a genuinely broken deploy. */
+interface CaptureOptions {
+  level?: Sentry.SeverityLevel;
+  tags?: Record<string, string>;
+}
+
+export function captureException(
+  error: unknown,
+  context?: Record<string, unknown>,
+  options?: CaptureOptions,
+): void {
   if (!sentryConfigured) return;
-  Sentry.captureException(error, context ? { extra: context } : undefined);
+  Sentry.captureException(error, {
+    ...(context ? { extra: context } : {}),
+    ...(options?.level ? { level: options.level } : {}),
+    ...(options?.tags ? { tags: options.tags } : {}),
+  });
 }
