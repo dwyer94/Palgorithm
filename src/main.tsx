@@ -17,9 +17,3 @@ createRoot(rootEl).render(
     </ErrorBoundary>
   </StrictMode>,
 );
-
-// Clear the chunk-load auto-reload guard (src/ui/ErrorBoundary.tsx) once the app has
-// stayed up for a bit — confirms this boot is stable, not itself mid-reload-loop, so a
-// later deploy can still trigger one auto-reload rather than being silently suppressed
-// by a guard key left over from today.
-setTimeout(() => sessionStorage.removeItem('palgorithm:chunk-reload-attempted'), 5000);
