@@ -3,6 +3,7 @@ import { Download, Upload } from 'lucide-react';
 import { useRoster, useSettings } from '../store/hooks';
 import { newId } from '../store/localStore';
 import { CLOUD_ROW_CAPS, type RosterEntry } from '../store/types';
+import { parseImportedRoster, ROSTER_IMPORT_ERRORS } from '../store/validate';
 import { useRulesetContext } from './RulesetContext';
 import { useAuthContext } from './AuthContext';
 import { PassiveMultiSelect, SpeciesSelect } from './shared';
@@ -28,6 +29,7 @@ export default function RosterView() {
   const [editGender, setEditGender] = useState<'male' | 'female'>('male');
   const [editPassives, setEditPassives] = useState<string[]>([]);
   const [editNotes, setEditNotes] = useState('');
+  const [importError, setImportError] = useState<string | null>(null);
 
   const addEntry = () => {
     if (!draftSpecies) return;
@@ -75,11 +77,27 @@ export default function RosterView() {
     URL.revokeObjectURL(url);
   };
 
-  const importJson = (file: File) => {
-    file
-      .text()
-      .then((text) => setRoster(JSON.parse(text) as RosterEntry[]))
-      .catch((err) => alert(`Failed to import roster: ${String(err)}`));
+  /** Replaces the roster with a validated file (same replace-not-append semantics as before —
+   * this is the other half of Export JSON, i.e. a restore). Everything about the file is
+   * checked in `parseImportedRoster` before it reaches the store: the previous version cast
+   * `JSON.parse`'s result straight to `RosterEntry[]`, so a non-array walked into the store
+   * and crashed the roster table, the planner's roster memo, and the cloud push at once
+   * (Sentry PALGORITHM-8/-9/-A). */
+  const importJson = async (file: File) => {
+    setImportError(null);
+    let parsed: unknown;
+    try {
+      parsed = JSON.parse(await file.text());
+    } catch {
+      setImportError(ROSTER_IMPORT_ERRORS['not-json']);
+      return;
+    }
+    const result = parseImportedRoster(parsed);
+    if (!result.ok) {
+      setImportError(ROSTER_IMPORT_ERRORS[result.reason]);
+      return;
+    }
+    setRoster(result.roster);
   };
 
   const inputClass = 'rounded-panel border-[1.5px] border-border-input px-3 py-2 font-sans text-[13px] outline-none focus:border-primary';
@@ -165,11 +183,13 @@ export default function RosterView() {
             className="hidden"
             onChange={(e) => {
               const file = e.target.files?.[0];
-              if (file) importJson(file);
+              if (file) void importJson(file);
               e.target.value = '';
             }}
           />
         </div>
+
+        {importError && <div className="mb-4 font-sans text-[12px] font-semibold text-brand-hover">{importError}</div>}
 
         {roster.length === 0 ? (
           <div className="rounded-card border border-dashed border-border-input bg-panel-subtle p-8 text-center font-sans text-[13px] text-muted">
