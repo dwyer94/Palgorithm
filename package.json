@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@sentry/react": "^10.66.0",
-    "@supabase/supabase-js": "^2.110.7",
+    "@supabase/supabase-js": "^2.111.0",
     "@tanstack/react-virtual": "^3.14.6",
     "lucide-react": "^1.25.0",
     "react": "^18.3.1",
