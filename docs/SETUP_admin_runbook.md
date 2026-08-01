@@ -182,6 +182,34 @@ plaintext startup script you might share.
 
 Your friends' final connection target is: `https://<magicdns-name>.<your-tailnet>.ts.net`
 
+### Which base URLs the hosted app can actually reach
+
+If you point people at the hosted app (`https://www.palgorithm.dev`) rather than serving it
+yourself, the browser constrains what Settings' proxy base URL is allowed to be. Two separate
+rules apply, and only the first is ours:
+
+1. **The app's `connect-src` policy** (`render.yaml`) has to name the origin. It allows
+   `https://*.ts.net`, plus `localhost` / `127.0.0.1` / `[::1]` on any port.
+2. **Mixed-content blocking**, which the browser applies before CSP is consulted: an `https`
+   page may not fetch `http`. Loopback is the standing exception — `http://localhost:8212`
+   works, `http://192.168.1.50:8212` and `http://100.x.x.x:8080` (a raw Tailscale IP) do not,
+   and no CSP change can make them.
+
+So, in practice:
+
+| Proxy base URL | Hosted app | App served from your own machine/tailnet |
+| --- | --- | --- |
+| `https://<magicdns>.<tailnet>.ts.net` | ✅ | ✅ |
+| `http://localhost:<port>` (browser on the same box as the proxy) | ✅¹ | ✅ |
+| `http://<LAN or Tailscale IP>:<port>` | ❌ mixed content | ✅ |
+
+¹ Chrome additionally applies Private Network Access checks to public→loopback requests; if
+it preflights, the proxy needs to answer with `Access-Control-Allow-Private-Network: true`.
+
+`tailscale serve` (Part C) exists precisely to turn case 3 into case 1 by putting a real
+certificate in front of a loopback-bound proxy — that remains the supported setup. Running the
+app locally (`npm run dev`) sends no CSP header at all, so any of these work there.
+
 ---
 
 ## Part D — (Optional) Friendly display names
