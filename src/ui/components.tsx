@@ -33,6 +33,7 @@ import {
   Cloud,
   CloudCheck,
   ChevronDown,
+  Ban,
 } from 'lucide-react';
 import { ELEMENTS } from '../data/schema';
 import type { Element, Gender, Species, Passive } from '../data/schema';
@@ -1183,6 +1184,27 @@ function DropdownRow({ onPick, children }: { onPick: () => void; children: React
     >
       {children}
     </div>
+  );
+}
+
+/** Human-readable reason a species can never be a parent — kept in one place so the roster,
+ * the forward calculator and anything else that has to explain it stay consistent. */
+export const NO_BREEDING_STATION_NOTE =
+  "The game won't let this Pal be assigned to a breeding station, so it can never be used as a " +
+  'parent. It can still be a plan target, and still counts as owned.';
+
+/** Badge for a Pal that can't go in a breeding station at all (dataset
+ * `breedingParentEligible: false` — e.g. Panthalus). Renders nothing for every ordinary Pal. */
+export function NoBreedingBadge({ species, className = '' }: { species: Species | undefined; className?: string }) {
+  if (species?.breedingParentEligible !== false) return null;
+  return (
+    <HoverTooltip description={NO_BREEDING_STATION_NOTE}>
+      <span
+        className={`inline-flex items-center gap-1 rounded-chip border border-border-inner bg-panel-subtle px-1.5 py-0.5 font-mono text-[10px] font-semibold text-muted ${className}`}
+      >
+        <Ban size={10} /> no station
+      </span>
+    </HoverTooltip>
   );
 }
 

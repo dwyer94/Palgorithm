@@ -127,14 +127,28 @@ async function pushRoster(prevIds: Set<string>, next: RosterEntry[], userId: str
   return null;
 }
 
+/**
+ * Each `set*` below resolves its push with an error *message* on a Supabase-level failure, so
+ * the `.then` handles the expected case. The `.catch` is for the unexpected one: a push that
+ * throws outright rather than resolving — which is what happened when an unvalidated roster
+ * import put a non-array in the store and `pushRoster`'s first line threw
+ * (Sentry PALGORITHM-9).
+ *
+ * Without it that rejection escapes as an unhandled promise rejection: reported by Sentry's
+ * global handler, invisible to the caller, and — the part that actually cost triage time —
+ * never routed to the `.catch` on the caller's own chain, so RosterView's import error handler
+ * sat there looking correct while showing the user nothing at all.
+ */
 export function setRoster(next: RosterEntry[]): void {
   const prevIds = new Set((rosterCache ?? []).map((r) => r.id));
   rosterCache = next;
   notify();
   if (!supabase || !activeUserId) return;
-  void pushRoster(prevIds, next, activeUserId).then((error) => {
-    if (error) console.error('remoteStore: failed to save rosters', error);
-  });
+  void pushRoster(prevIds, next, activeUserId)
+    .then((error) => {
+      if (error) console.error('remoteStore: failed to save rosters', error);
+    })
+    .catch((err: unknown) => console.error('remoteStore: failed to save rosters', err));
 }
 
 // ── saved_plans ──────────────────────────────────────────────────────────────
@@ -222,9 +236,11 @@ export function setSavedPlans(next: SavedPlan[]): void {
   savedPlansCache = next;
   notify();
   if (!supabase || !activeUserId) return;
-  void pushSavedPlans(prevIds, next, activeUserId).then((error) => {
-    if (error) console.error('remoteStore: failed to save saved_plans', error);
-  });
+  void pushSavedPlans(prevIds, next, activeUserId)
+    .then((error) => {
+      if (error) console.error('remoteStore: failed to save saved_plans', error);
+    })
+    .catch((err: unknown) => console.error('remoteStore: failed to save saved_plans', err));
 }
 
 // ── teams / team_slots ───────────────────────────────────────────────────────
@@ -323,9 +339,11 @@ export function setTeams(next: Team[]): void {
   teamsCache = next;
   notify();
   if (!supabase || !activeUserId) return;
-  void pushTeams(prevIds, next, activeUserId).then((error) => {
-    if (error) console.error('remoteStore: failed to save teams', error);
-  });
+  void pushTeams(prevIds, next, activeUserId)
+    .then((error) => {
+      if (error) console.error('remoteStore: failed to save teams', error);
+    })
+    .catch((err: unknown) => console.error('remoteStore: failed to save teams', err));
 }
 
 // ── settings ─────────────────────────────────────────────────────────────────
@@ -391,9 +409,11 @@ export function setSettings(next: Settings): void {
   settingsCache = next;
   notify();
   if (!supabase || !activeUserId) return;
-  void pushSettings(next, activeUserId).then((error) => {
-    if (error) console.error('remoteStore: failed to save settings', error);
-  });
+  void pushSettings(next, activeUserId)
+    .then((error) => {
+      if (error) console.error('remoteStore: failed to save settings', error);
+    })
+    .catch((err: unknown) => console.error('remoteStore: failed to save settings', err));
 }
 
 // ── guest → cloud migration (Phase 1) ─────────────────────────────────────────

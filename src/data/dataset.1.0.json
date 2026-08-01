@@ -4,7 +4,7 @@
     "ruleset": "combirank-0.6",
     "provisional": false,
     "source": "FModel export of local Palworld build 22461598 (species/names: usmap Mappings.0.6.6; passives: usmap Mappings073.usmap, same game build); EN L10N names. Normalized by src/pipeline/normalize.ts. passiveModel (inherit/mutation odds) remains a flagged estimate (verified:false) — the passive list itself is real extracted data.",
-    "generatedAt": "2026-07-18T14:59:27.443Z"
+    "generatedAt": "2026-08-01T11:31:51.538Z"
   },
   "species": [
     {
@@ -11889,6 +11889,7 @@
       "standardBreedable": false,
       "wildCatchable": false,
       "otherObtainOnly": true,
+      "breedingParentEligible": false,
       "rank": 20,
       "combiPriority": 2000,
       "genderRatio": {
@@ -17527,6 +17528,7 @@
       "standardBreedable": false,
       "wildCatchable": false,
       "otherObtainOnly": true,
+      "breedingParentEligible": false,
       "rank": 10,
       "combiPriority": 1000,
       "genderRatio": {

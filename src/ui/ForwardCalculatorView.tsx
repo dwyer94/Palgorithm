@@ -2,7 +2,7 @@ import { useState } from 'react';
 import type { Gender, BreedingEdge } from '../ruleset/types';
 import { useRulesetContext } from './RulesetContext';
 import { SpeciesSelect } from './shared';
-import { ElementDot, PalIcon } from './components';
+import { ElementDot, NO_BREEDING_STATION_NOTE, NoBreedingBadge, PalIcon } from './components';
 
 /** Forward calculator: pick two parents → predicted child, a sanity tool that visually
  * validates the ruleset. Genders are optional — omitting one surfaces the gender-dependent
@@ -15,6 +15,9 @@ export default function ForwardCalculatorView() {
   const [genderA, setGenderA] = useState<Gender | ''>('');
   const [genderB, setGenderB] = useState<Gender | ''>('');
   const [edge, setEdge] = useState<BreedingEdge | null>(null);
+  // Which of the predicted-on parents can't go in a breeding station at all. Captured at
+  // Predict time alongside the edge so the explanation can't drift from the shown result.
+  const [blockedNames, setBlockedNames] = useState<string[]>([]);
 
   const compute = () => {
     setEdge(
@@ -23,6 +26,14 @@ export default function ForwardCalculatorView() {
         ...(genderB !== '' && { genderB }),
       }),
     );
+    setBlockedNames([
+      ...new Set(
+        [parentA, parentB]
+          .map((id) => speciesById.get(id))
+          .filter((s) => s?.breedingParentEligible === false)
+          .map((s) => s!.displayName),
+      ),
+    ]);
   };
 
   const selectClass = 'rounded-panel border-[1.5px] border-border-input px-3 py-2 font-mono text-[13px] outline-none focus:border-primary';
@@ -43,6 +54,7 @@ export default function ForwardCalculatorView() {
               <option value="male">male</option>
               <option value="female">female</option>
             </select>
+            <NoBreedingBadge species={speciesById.get(parentA)} />
           </div>
           <div className="mb-4 flex flex-wrap items-center gap-2.5">
             <div className="w-full sm:w-[240px]">
@@ -53,6 +65,7 @@ export default function ForwardCalculatorView() {
               <option value="male">male</option>
               <option value="female">female</option>
             </select>
+            <NoBreedingBadge species={speciesById.get(parentB)} />
           </div>
           <span
             onClick={compute}
@@ -66,7 +79,14 @@ export default function ForwardCalculatorView() {
           <div className="rounded-card border border-border-card bg-white p-5 shadow-card">
             <div className="mb-3 font-sans text-[15px] font-bold">Outcomes</div>
             {edge.outcomes.length === 0 ? (
-              <p className="font-sans text-[13px] text-muted">No valid outcome for this pair.</p>
+              blockedNames.length > 0 ? (
+                <p className="font-sans text-[13px] text-muted">
+                  <span className="font-semibold text-ink">{blockedNames.join(' and ')}</span> can't be
+                  used as a parent. {NO_BREEDING_STATION_NOTE}
+                </p>
+              ) : (
+                <p className="font-sans text-[13px] text-muted">No valid outcome for this pair.</p>
+              )
             ) : (
               <div className="flex flex-col gap-1.5">
                 {edge.outcomes.map((o, i) => {

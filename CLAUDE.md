@@ -60,6 +60,7 @@ started.
 - Child species: `childRank = floor((rankA + rankB + 1) / 2)`; the eligible Pal with the closest rank wins; ties → lower game-file index.
 - Lower rank = rarer. `childRank ≥ min(parentRanks)`, but the child is the *closest eligible* species so it can land modestly rarer than either parent (spec §3.2). Treat "you need a comparably-rare anchor" as strong reachability **guidance**, surfaced as a first-class result — never a silent failure. **Do not prune the search on "both parents rank > target"** — it drops valid paths; evaluate `forward()` instead (spec §7.1).
 - ~60 species are capture/event/special-only — valid parents, never standard-breeding outputs.
+- Being *obtainable* and being a *legal parent* are different axes. A couple of Pals (Panthalus, Astralym) carry a real rank but can't be assigned to a breeding station at all → `breedingParentEligible: false` in the dataset, `ruleset.canBeParent()` behind the seam. Absent = eligible. Never enumerate parents from `rankTable` without filtering on it.
 - ~24–28 special combos override the formula; some depend on parent gender.
 - Producing a species needs **both** parents → this is an AND/OR (hypergraph) derivation, not a simple shortest path. Use cheapest-derivation (Knuth–Dijkstra), memoizing produced intermediates at cost 0.
 - Passives: 4 slots, an inheritance roll then a mutation roll; a passive can come from either parent; the odds of a specific set of 4 are maximized when the two parents jointly hold exactly those 4 and nothing else.
