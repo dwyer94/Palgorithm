@@ -19,9 +19,17 @@ PalDefender-proxy live feature stays out of the public product either way — se
 
 ## Status
 
-Phase 1 — July 10 patch day (spec §5/§10). 1.0 shipped; `combirank-0.6` formula confirmed unchanged, `dataset.1.0.json` ingested (291 species) and wired in as the live dataset. `genrecomb-1.0` ruleset not yet scaffolded — no published Mutation/passive odds to encode yet. Update the line below at the start of each working block:
+Phase 1 — July 10 patch day (spec §5/§10) — **ingestion complete**. 1.0 shipped;
+`combirank-0.6` confirmed unchanged post-launch (childRank formula, special combos, and
+reachability all held), so it stays the live ruleset — `dataset.1.0.json` carries
+`meta.ruleset: 'combirank-0.6'`. That dataset (**302 species**, including the Yakushima
+additions) is wired in as the live data via `src/ui/RulesetContext.tsx` and
+`src/solver/worker/solver.worker.ts`. `dataset.0.6.json` is retained for the oracle tests
+only. The one open item is `genrecomb-1.0`: still unscaffolded, and there's nothing to
+encode until Mutation/passive odds are published. Update the line below at the start of
+each working block:
 
-> **Active session:** Phase 1 (post-ingestion)
+> **Active session:** none — Phase 1 ingestion done, `genrecomb-1.0` blocked on published odds
 
 **Production readiness** (separate track, see `docs/PRODUCTION_READINESS_PLAN.md`): **all
 phases done** — 1–3 (accounts/cloud sync, onboarding, CI/hardening) 2026-07-17; 4–5
@@ -40,9 +48,9 @@ https://palgorithm.dev.
 ```
 /src/data      dataset.<version>.json + loader
 /src/ruleset   BreedingRuleset interface, combirank-0.6 impl, (later) genrecomb-1.0
-/src/solver    speciesPlanner, hubFinder, passivePlanner, types
-/src/store     localStorage roster/plans/settings
-/src/ui        views + components (unstyled until session 0.D)
+/src/solver    speciesPlanner, hubFinder, passivePlanner, types; worker/ runs it off the main thread
+/src/store     roster/plans/settings — localStore (guest) + remoteStore (Supabase sync), both behind hooks.ts
+/src/ui        views + components, incl. reference/ (Pal/Perk Reference)
 /src/live      PalDefender-proxy connection: mock + HTTP data sources, normalizer, LiveContext
 /src/pipeline  normalizer + diff scripts (Node CLI, run offline)
 /test          ruleset-vs-oracle + solver unit tests
