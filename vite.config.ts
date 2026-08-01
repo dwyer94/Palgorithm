@@ -3,12 +3,54 @@ import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 import { sentryVitePlugin } from '@sentry/vite-plugin';
 
+// render.yaml declares SENTRY_AUTH_TOKEN `sync: false`, so its value lives only in the Render
+// dashboard — neither review nor CI can see it, and a bad paste there surfaces only as an
+// identical, unhelpful `401 Invalid token` from sentry-cli late in the build. That build still
+// exits 0 and deploys, which is how 2026-08-01 shipped green having uploaded no maps at all
+// (the value was a DSN, not an auth token). These checks inspect the string itself — no network
+// — so they catch the paste mistakes deterministically and a Sentry outage can never trip them
+// and block a deploy.
+function resolveSentryAuthToken(): string | undefined {
+  const raw = process.env.SENTRY_AUTH_TOKEN;
+  if (!raw) return undefined;
+
+  // Surrounding whitespace/quotes are pure paste artifacts (Render stores quotes literally).
+  // Repair rather than fail — the token is otherwise usable, so the deploy still gets its
+  // maps — but warn, so the dashboard value gets cleaned up instead of silently relying on this.
+  const token = raw.trim().replace(/^(['"])([\s\S]*)\1$/, '$2').trim();
+  if (token !== raw) {
+    console.warn(
+      '[sentry] SENTRY_AUTH_TOKEN had surrounding whitespace or quotes; using the trimmed value. Fix the value in the Render dashboard.',
+    );
+  }
+
+  // A DSN is the classic wrong paste: it sits directly beside the token as VITE_SENTRY_DSN in
+  // both render.yaml and the dashboard, and authenticates against nothing. Not repairable.
+  if (/^https?:\/\//.test(token)) {
+    throw new Error(
+      '[sentry] SENTRY_AUTH_TOKEN looks like a DSN, not an auth token. Use an Organization Auth Token (sntrys_…, scope org:ci) from Sentry → Settings → Auth Tokens.',
+    );
+  }
+  if (!token) {
+    throw new Error('[sentry] SENTRY_AUTH_TOKEN is set but empty once trimmed.');
+  }
+  // Legacy personal tokens are bare 64-char hex with no prefix, so an unfamiliar shape is only
+  // suspicious, not provably wrong — warn and let the upload be the judge.
+  if (!/^sntry[su]_/.test(token) && !/^[0-9a-f]{64}$/.test(token)) {
+    console.warn(
+      '[sentry] SENTRY_AUTH_TOKEN does not look like a Sentry auth token (expected an sntrys_/sntryu_ prefix). The upload may 401.',
+    );
+  }
+  return token;
+}
+
 // Source maps are built only when there's a token to upload them with. The 2026-07-28
 // chunk-load report (PALGORITHM-6) arrived as "No stacktrace available", which is most of
 // what made it slow to triage. Gating on the token keeps local/PR-preview builds byte-identical
 // to today's and — more importantly — means maps are never emitted into dist/ unless the
 // upload step that deletes them again is also running, so minified source stays unpublished.
-const uploadSourcemaps = Boolean(process.env.SENTRY_AUTH_TOKEN);
+const sentryAuthToken = resolveSentryAuthToken();
+const uploadSourcemaps = Boolean(sentryAuthToken);
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -92,7 +134,7 @@ export default defineConfig({
           sentryVitePlugin({
             org: 'christian-dwyer',
             project: 'palgorithm',
-            authToken: process.env.SENTRY_AUTH_TOKEN,
+            authToken: sentryAuthToken,
             // Upload, then remove the maps so the deployed site doesn't serve them. The PWA
             // precache manifest never picks them up either way (globPatterns above doesn't
             // match .map), so this only affects what lands in dist/.
