@@ -129,13 +129,25 @@ The 663 rows include far more than the released roster. Rules applied, in order:
    standard combination formula" flag. Special-combo-only variants and legendaries (Hartalis)
    carry it → `standardBreedable:false`, `otherObtainOnly:true`, but they stay valid parents and
    are still produced via `specialCombos`.
-4. **Special-combo parent resolution.** `DT_PalCombiUnique` names parents by **tribe** (sometimes a
+4. **`breedingParentEligible = has at least one work suitability`** (+ `PARENT_ELIGIBILITY_OVERRIDES`).
+   A few Pals carry a real `CombiRank` — so the formula happily uses them as a parent — yet the game
+   won't let you assign them to a Breeding Farm at all (live report 2026-08-01: **Panthalus**, which
+   the solver was routing plans through as a rank-20 anchor). No exported table carries a direct
+   "assignable to a base facility" flag; `IgnoreCombi` is about the *formula*, not the station (every
+   legendary carries it and every legendary is farmable). The one game-authoritative correlate that
+   *is* present is work suitability: a Pal with **zero** work suitability has no way to be assigned to
+   any base facility, breeding station included. Over the released 1.0 roster that selects exactly two
+   rows — `KingWhale` (Panthalus) and `WorldTreeDragon` (Astralym), both XL capture-only boss Pals.
+   Emitted only when `false`; **absent = eligible**, so `dataset.0.6.json` (which predates the field)
+   is unchanged. Correct a miss in either direction by adding a row to `PARENT_ELIGIBILITY_OVERRIDES`
+   in `normalize.ts`, with the in-game observation that justifies it — don't loosen the derivation.
+5. **Special-combo parent resolution.** `DT_PalCombiUnique` names parents by **tribe** (sometimes a
    numeric enum the usmap couldn't name, e.g. `262`, and with casing quirks like `Blueplatypus` vs
    `BluePlatypus`) and children by **CharacterID**. Resolved tribe→species case-insensitively via
    the monster table's own `Tribe` field. **69 combos referencing excluded/unreleased species were
    dropped** (future Feybreak content: ElecLion, GrassDragon, …). Referential integrity is enforced
    by the schema, so a bad resolution fails the build, not silently.
-5. **Gender-dependent combos** (spec invariant #2): the CatMage+FoxMage pair yields a different
+6. **Gender-dependent combos** (spec invariant #2): the CatMage+FoxMage pair yields a different
    child by which parent is female. Encoded as **two** `SpecialCombo` entries, each with
    `genderRule.femaleParent` → its child. The ruleset (0.2) resolves this to a distribution.
 
@@ -148,6 +160,10 @@ pass through. All 9 game elements map onto the schema's closed set.
 
 - **`wildCatchable` is an approximation** (`= standardBreedable`). No spawner tables were exported;
   refine from `DT_PalSpawner*` later. Special-only variants and legendaries → not catchable.
+- **`breedingParentEligible` is derived, not extracted** (rule 4 above). Panthalus is confirmed
+  in-game; **Astralym is inferred** from the same zero-work-suitability signal and has not been
+  confirmed by observation. If it turns out to be station-assignable, flip it in
+  `PARENT_ELIGIBILITY_OVERRIDES` and re-normalize.
 - **The passive list itself (92 entries) is real extracted data** (session 0.6), but
   **`passiveModel.verified:false` stays.** Inheritance/mutation odds are NOT reliably
   extractable from the pak (spec §3.3) and ship as placeholder estimates — the UI must present
