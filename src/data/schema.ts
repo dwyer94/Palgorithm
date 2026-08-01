@@ -74,6 +74,16 @@ export const SpeciesSchema = z.object({
   wildCatchable: z.boolean(), // obtainable in the wild → may be suggested as an anchor
   otherObtainOnly: z.boolean(), // event/raid/boss/shop-only → valid parent only if owned
 
+  // --- Parent eligibility (orthogonal to the three-way reachability split above) ---
+  // The trio above answers "how do you OBTAIN this species"; this answers "can it be used as
+  // a PARENT at all". A handful of Pals are ownable and carry a real CombiRank, yet cannot be
+  // assigned to a Breeding Farm in-game, so they can never sit on either side of a combo
+  // (confirmed in-game for Panthalus). The game's character tables carry no direct flag for
+  // this — it's derived + overridable in the normalizer (src/pipeline/EXTRACTION.md).
+  // Absent = eligible, so pre-1.0 datasets that predate this field keep their
+  // oracle-verified behavior unchanged.
+  breedingParentEligible: z.boolean().optional(),
+
   // --- Game values our model needs. Nullable ONLY while provisional (see DatasetSchema
   //     refinement): a dataset that declares itself final must populate these. ---
   rank: z.number().int().nullable(), // CombiRank / breeding power; lower = rarer

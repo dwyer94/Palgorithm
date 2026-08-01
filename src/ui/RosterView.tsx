@@ -1,12 +1,14 @@
 import { useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { Download, Upload } from 'lucide-react';
 import { useRoster, useSettings } from '../store/hooks';
 import { newId } from '../store/localStore';
 import { CLOUD_ROW_CAPS, type RosterEntry } from '../store/types';
+import { parseImportedRoster, ROSTER_IMPORT_ERRORS } from '../store/validate';
 import { useRulesetContext } from './RulesetContext';
 import { useAuthContext } from './AuthContext';
 import { PassiveMultiSelect, SpeciesSelect } from './shared';
-import { ElementDot, GenderGlyph, PalCard, PalIcon, PassiveChip, RowCapBadge } from './components';
+import { ElementDot, GenderGlyph, NoBreedingBadge, PalCard, PalIcon, PassiveChip, RowCapBadge } from './components';
 
 /** Roster manager: add/edit/remove owned Pals, import/export JSON. Not part of the design
  * handoff bundle (session 0.D covered Hub/Server Pals/Settings) — styled to sit
@@ -28,6 +30,9 @@ export default function RosterView() {
   const [editGender, setEditGender] = useState<'male' | 'female'>('male');
   const [editPassives, setEditPassives] = useState<string[]>([]);
   const [editNotes, setEditNotes] = useState('');
+  const [importError, setImportError] = useState<string | null>(null);
+  /** A validated import waiting on the replace-confirmation dialog. Null when none is pending. */
+  const [pendingImport, setPendingImport] = useState<RosterEntry[] | null>(null);
 
   const addEntry = () => {
     if (!draftSpecies) return;
@@ -75,12 +80,44 @@ export default function RosterView() {
     URL.revokeObjectURL(url);
   };
 
-  const importJson = (file: File) => {
-    file
-      .text()
-      .then((text) => setRoster(JSON.parse(text) as RosterEntry[]))
-      .catch((err) => alert(`Failed to import roster: ${String(err)}`));
+  /** Replaces the roster with a validated file (this is the other half of Export JSON, i.e. a
+   * restore — not an append like Team Builder's import). Everything about the file is checked
+   * in `parseImportedRoster` before it reaches the store: the previous version cast
+   * `JSON.parse`'s result straight to `RosterEntry[]`, so a non-array walked into the store
+   * and crashed the roster table, the planner's roster memo, and the cloud push at once
+   * (Sentry PALGORITHM-8/-9/-A).
+   *
+   * Validate first, then confirm — asking someone to okay destroying their roster and only
+   * then telling them the file was unreadable gets the order exactly backwards. */
+  const importJson = async (file: File) => {
+    setImportError(null);
+    let parsed: unknown;
+    try {
+      parsed = JSON.parse(await file.text());
+    } catch {
+      setImportError(ROSTER_IMPORT_ERRORS['not-json']);
+      return;
+    }
+    const result = parseImportedRoster(parsed);
+    if (!result.ok) {
+      setImportError(ROSTER_IMPORT_ERRORS[result.reason]);
+      return;
+    }
+    // Nothing to lose when the roster is empty, so don't make an empty-state import a
+    // two-step action.
+    if (roster.length === 0) {
+      setRoster(result.roster);
+      return;
+    }
+    setPendingImport(result.roster);
   };
+
+  // Dialog buttons, matching AuthView.tsx's delete-account confirmation. Kept local like this
+  // view's other class strings rather than hoisted — the two dialogs are the only users.
+  const secondaryButtonClass =
+    'cursor-pointer rounded-lg px-3.5 py-2 font-mono text-[12.5px] font-semibold text-muted hover:bg-panel-subtle';
+  const dangerButtonClass =
+    'cursor-pointer rounded-lg border-[1.5px] border-danger-border bg-danger-bg px-3.5 py-2 font-mono text-[12.5px] font-semibold text-danger-text hover:bg-[#fbe6da]';
 
   const inputClass = 'rounded-panel border-[1.5px] border-border-input px-3 py-2 font-sans text-[13px] outline-none focus:border-primary';
   const buttonClass =
@@ -165,11 +202,47 @@ export default function RosterView() {
             className="hidden"
             onChange={(e) => {
               const file = e.target.files?.[0];
-              if (file) importJson(file);
+              if (file) void importJson(file);
               e.target.value = '';
             }}
           />
         </div>
+
+        {importError && <div className="mb-4 font-sans text-[12px] font-semibold text-brand-hover">{importError}</div>}
+
+        {/* Import replaces rather than merges, which is silent, total, and — for a signed-in
+            user — pushed straight to the cloud. Gated behind an explicit second click, same
+            portal/modal pattern as AuthView.tsx's delete-account confirmation. */}
+        {pendingImport !== null &&
+          createPortal(
+            <div className="fixed inset-0 z-[80] flex items-center justify-center bg-black/40 p-4">
+              <div className="w-full max-w-[420px] rounded-card border border-border-card bg-white p-5 px-[22px] shadow-card">
+                <div className="mb-1.5 font-sans text-[15px] font-bold">Replace your roster?</div>
+                <div className="mb-4 font-sans text-[12.5px] text-muted">
+                  Importing this file <span className="font-semibold">removes all {roster.length}</span>{' '}
+                  {roster.length === 1 ? 'Pal' : 'Pals'} currently in your roster and replaces them with the{' '}
+                  {pendingImport.length} in the file. This can't be undone
+                  {user ? ' — and it syncs to your account on every device.' : '.'} Export first if you want a copy of
+                  what you have now.
+                </div>
+                <div className="flex justify-end gap-2">
+                  <button onClick={() => setPendingImport(null)} className={secondaryButtonClass}>
+                    Cancel
+                  </button>
+                  <button
+                    onClick={() => {
+                      setRoster(pendingImport);
+                      setPendingImport(null);
+                    }}
+                    className={dangerButtonClass}
+                  >
+                    Replace {roster.length} {roster.length === 1 ? 'Pal' : 'Pals'}
+                  </button>
+                </div>
+              </div>
+            </div>,
+            document.body,
+          )}
 
         {roster.length === 0 ? (
           <div className="rounded-card border border-dashed border-border-input bg-panel-subtle p-8 text-center font-sans text-[13px] text-muted">
@@ -191,7 +264,12 @@ export default function RosterView() {
                       icon={s?.icon}
                       elements={s?.elements}
                       title={s?.displayName ?? entry.species}
-                      meta={<GenderGlyph gender={entry.gender} className="font-mono text-[11px] text-muted" />}
+                      meta={
+                        <span className="inline-flex items-center gap-1.5">
+                          <GenderGlyph gender={entry.gender} className="font-mono text-[11px] text-muted" />
+                          <NoBreedingBadge species={s} />
+                        </span>
+                      }
                     >
                       {entry.passives.length > 0 && (
                         <div className="flex flex-wrap justify-center gap-1">
@@ -254,6 +332,7 @@ export default function RosterView() {
                           <PalIcon icon={s?.icon} size={20} />
                           <ElementDot elements={s?.elements} />
                           {s?.displayName ?? entry.species}
+                          <NoBreedingBadge species={s} />
                         </span>
                       </td>
                       <td className="px-4 py-2.5">

@@ -38,6 +38,23 @@ services:
       - path: /*
         name: Strict-Transport-Security
         value: max-age=63072000; includeSubDomains; preload
+      # The live PalDefender proxy (src/live/dataSource.ts) is a user-entered origin, so
+      # connect-src has to name every shape it can legitimately take:
+      #
+      #   *.ts.net       the `tailscale serve` HTTPS target from docs/SETUP_admin_runbook.md
+      #                  Part C — real cert, so it's a normal cross-origin fetch. The CSP
+      #                  wildcard matches multi-label hosts, i.e. <machine>.<tailnet>.ts.net.
+      #   localhost/     the proxy running on the same machine as the browser. http: is fine
+      #   127.0.0.1/[::1]  here specifically: loopback counts as a potentially-trustworthy
+      #                  origin, so it's exempt from mixed-content blocking on an https page.
+      #                  Ports are wildcarded — the runbook's proxy defaults to 8080 but
+      #                  PalDefender itself is commonly on 8212.
+      #
+      # Deliberately NOT covered: a plain-http LAN address (http://192.168.x.x:8080) or a raw
+      # Tailscale IP (http://100.x.x.x). Those are blocked as mixed content by the browser
+      # before CSP is consulted, so listing them — or opening this up to `http:` wholesale —
+      # would weaken the policy and still not make them work. `tailscale serve` exists to give
+      # exactly those setups an https origin; that's the supported path.
       - path: /*
         name: Content-Security-Policy
         value: >-
@@ -46,7 +63,9 @@ services:
           style-src 'self' https://fonts.googleapis.com;
           font-src 'self' https://fonts.gstatic.com;
           img-src 'self' data:;
-          connect-src 'self' https://ierlcetswgclqgdamshv.supabase.co https://o4509702392971264.ingest.us.sentry.io;
+          connect-src 'self' https://ierlcetswgclqgdamshv.supabase.co
+          https://o4509702392971264.ingest.us.sentry.io https://*.ts.net
+          http://localhost:* http://127.0.0.1:* http://[::1]:*;
           object-src 'none';
           base-uri 'self';
           form-action 'self';

@@ -359,6 +359,32 @@ function isYakushimaEventCreature(charId: string): boolean {
   return charId.startsWith('YakushimaMonster') || charId.startsWith('YakushimaBoss');
 }
 
+// --- Breeding-station (parent) eligibility --------------------------------------------------
+//
+// Some released Pals carry a real CombiRank — so the formula will happily use them as a parent
+// — yet cannot be assigned to a Breeding Farm in-game at all. Panthalus is the confirmed case
+// (live report, 2026-08-01: it can't be placed in a station, but the solver was routing plans
+// through it as a rank-20 anchor).
+//
+// None of the exported character tables carries a direct "assignable to a base facility" flag
+// (there is no Breed*/Farm*/Assign* column in DT_PalMonsterParameter — `IgnoreCombi` is about
+// the *formula*, not the station, and every legendary carries it while remaining perfectly
+// farmable). The one game-authoritative correlate that IS present is work suitability: a Pal
+// with zero work suitability of any kind has no way to be assigned to any base facility, the
+// breeding station included. Over the released 1.0 species that selects exactly two rows —
+// KingWhale (Panthalus) and WorldTreeDragon (Astralym), both XL capture-only boss Pals.
+//
+// PARENT_ELIGIBILITY_OVERRIDES is the escape hatch for anything the correlate gets wrong in
+// either direction. Prefer adding a row here — with the in-game observation that justifies it
+// — over loosening the derivation.
+const PARENT_ELIGIBILITY_OVERRIDES: Record<string, boolean> = {
+  // e.g. Foo: true,   // observed in a station in-game despite having no work suitability
+};
+
+function parentEligibility(charId: string, hasWorkSuitability: boolean): boolean {
+  return PARENT_ELIGIBILITY_OVERRIDES[charId] ?? hasWorkSuitability;
+}
+
 // --- Build ---------------------------------------------------------------------------------
 
 function main(): void {
@@ -395,6 +421,16 @@ function main(): void {
     }
   }
   const missingIcons: string[] = []; // species with no resolvable icon (no table row, or file absent from export)
+  // Icons are optional inputs, but "optional" must not read as "harmless": a re-run against an
+  // export that only refreshed the DataTables emits a dataset with NO icon paths at all, which
+  // silently strips every icon from a previously icon-populated dataset. Say so loudly.
+  if (!iconTbl || !iconFiles) {
+    console.warn(
+      `WARNING: no icon ${!iconTbl ? 'table' : 'textures'} in this export — the output will carry ` +
+        `no icon paths. If you are re-normalizing over a dataset that already had icons, re-export ` +
+        `Pal/Texture/PalIcon/Normal first or merge the icon fields forward.`,
+    );
+  }
 
   // "en_text" / "en Text" is Unreal's own placeholder LocalizedString for keys that were never
   // actually localized (only a dev source-string stub exists) — it shows up verbatim in the
@@ -462,6 +498,11 @@ function main(): void {
     // remain valid parents and are still produced (via specialCombos).
     const standardBreedable = !row.IgnoreCombi;
 
+    // Can this Pal actually be put in a breeding station? Only emitted when false — the
+    // schema reads an absent field as eligible (see PARENT_ELIGIBILITY_OVERRIDES above).
+    const suits = workSuits(row);
+    const breedingParentEligible = parentEligibility(charId, (suits?.length ?? 0) > 0);
+
     // No Paldex slot for the Yakushima event creatures let in above (zukan -1) — leave
     // paldexNo unset rather than emitting the sentinel "-1" as a fake dex number.
     const paldexNo = zukan >= 0 ? `${zukan}${row.ZukanIndexSuffix ?? ''}` : undefined;
@@ -493,13 +534,14 @@ function main(): void {
       // legendaries as not. Refine from DT_PalSpawner* later. See EXTRACTION.md.
       wildCatchable: standardBreedable,
       otherObtainOnly: !standardBreedable,
+      ...(breedingParentEligible ? {} : { breedingParentEligible: false }),
       rank: row.CombiRank ?? null,
       combiPriority: row.CombiDuplicatePriority,
       genderRatio: { male, female: 1 - male },
       elements,
       paldexNo,
       rarity: typeof row.Rarity === 'number' ? row.Rarity : undefined,
-      workSuitabilities: workSuits(row),
+      workSuitabilities: suits,
       baseStats: { hp: row.Hp, attack: row.ShotAttack, defense: row.Defense },
       movement: {
         slowWalk: row.SlowWalkSpeed,
@@ -940,6 +982,13 @@ function main(): void {
   console.log(`  species:        ${species.length}`);
   console.log(`    standardBreedable: ${species.filter((s) => s.standardBreedable).length}`);
   console.log(`    otherObtainOnly:   ${species.filter((s) => s.otherObtainOnly).length}`);
+  {
+    const ineligible = species.filter((s) => s.breedingParentEligible === false);
+    console.log(
+      `    not station-assignable (never a parent): ${ineligible.length}` +
+        (ineligible.length ? ` — ${ineligible.map((s) => `${s.displayName} (${s.id})`).join(', ')}` : ''),
+    );
+  }
   console.log(`    with icon:         ${species.filter((s) => s.icon).length}${missingIcons.length ? ` (missing: ${missingIcons.join(', ')})` : ''}`);
   console.log(`  admin aliases:  ${adminAliasesAdded} (BOSS_/RAID_/GYM_/PREDATOR_/SUMMON_/Quest_/_Oilrig rows mapped to base species)`);
   console.log(`  specialCombos:  ${specialCombos.length} (dropped ${droppedCombos} referencing excluded species)`);

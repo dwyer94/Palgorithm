@@ -25,6 +25,7 @@ function synthetic(species: Partial<Species>[], specialCombos: Dataset['specialC
       standardBreedable: s.standardBreedable ?? true,
       wildCatchable: s.wildCatchable ?? true,
       otherObtainOnly: s.otherObtainOnly ?? false,
+      ...(s.breedingParentEligible !== undefined && { breedingParentEligible: s.breedingParentEligible }),
       rank: s.rank ?? null,
       combiPriority: s.combiPriority,
       genderRatio: s.genderRatio ?? { male: 0.5, female: 0.5 },
@@ -215,6 +216,72 @@ describe('combirank-0.6 reverse()', () => {
         (p.parentA === combo.parents[1] && p.parentB === combo.parents[0]),
     );
     expect(found).toBe(true);
+  });
+});
+
+// Some Pals (Panthalus is the confirmed one) can be owned and carry a real rank, yet can't be
+// assigned to a breeding station in-game — so they are legal children/roster entries but never
+// legal parents. `breedingParentEligible: false` in the dataset; absent means eligible.
+describe('combirank-0.6 breeding-station (parent) eligibility', () => {
+  const ineligibleSet = () =>
+    createCombiRank06(
+      synthetic([
+        { id: 'A', rank: 10 },
+        { id: 'B', rank: 20 },
+        { id: 'C', rank: 16 },
+        { id: 'X', rank: 12, breedingParentEligible: false },
+      ]),
+    );
+
+  it('reports eligibility via canBeParent(), defaulting to eligible when unflagged', () => {
+    const rs = ineligibleSet();
+    expect(rs.canBeParent('A')).toBe(true);
+    expect(rs.canBeParent('X')).toBe(false);
+  });
+
+  it('forward(): an ineligible parent yields no outcome, on either side', () => {
+    const rs = ineligibleSet();
+    expect(rs.forward('X', 'A').outcomes).toEqual([]);
+    expect(rs.forward('A', 'X').outcomes).toEqual([]);
+    expect(rs.forward('X', 'X').outcomes).toEqual([]); // not even the same-species shortcut
+    expect(rs.forward('A', 'B').outcomes.length).toBeGreaterThan(0); // unaffected pair still works
+  });
+
+  it('forward(): a special combo cannot route around it either', () => {
+    const rs = createCombiRank06(
+      synthetic(
+        [
+          { id: 'A', rank: 10 },
+          { id: 'X', rank: 12, breedingParentEligible: false },
+          { id: 'Z', rank: 5 },
+        ],
+        [{ parents: ['A', 'X'], child: 'Z', genderRule: null }],
+      ),
+    );
+    expect(rs.forward('A', 'X').outcomes).toEqual([]);
+  });
+
+  it('reverse(): never proposes an ineligible species as a parent', () => {
+    const rs = ineligibleSet();
+    for (const target of ['A', 'B', 'C', 'X']) {
+      for (const { parentA, parentB } of rs.reverse(target)) {
+        expect(parentA, `${target} <- ${parentA}`).not.toBe('X');
+        expect(parentB, `${target} <- ${parentB}`).not.toBe('X');
+      }
+    }
+  });
+
+  it('keeps the ineligible species usable as a CHILD (it only gates parenthood)', () => {
+    const rs = createCombiRank06(
+      synthetic([
+        { id: 'A', rank: 10 },
+        { id: 'B', rank: 20 },
+        // rank 15 = exactly childRank(A,B); flagged ineligible but still standard-breedable.
+        { id: 'X', rank: 15, breedingParentEligible: false },
+      ]),
+    );
+    expect(rs.forward('A', 'B').outcomes).toEqual([{ child: 'X', p: 1 }]);
+    expect(rs.rankTable['X']).toBe(15);
   });
 });
 
