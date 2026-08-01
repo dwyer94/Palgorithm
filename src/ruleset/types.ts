@@ -111,6 +111,16 @@ export interface BreedingRuleset {
     otherObtainOnly: Set<SpeciesId>;
   };
 
+  /**
+   * Can this species be assigned to a breeding station at all, i.e. is it a legal PARENT?
+   * Orthogonal to `reachability`, which is about how a species is obtained: a Pal can be
+   * ownable, carry a real rank, and still be unusable as a parent (dataset
+   * `breedingParentEligible: false` — Panthalus is the confirmed case). `forward()` returns
+   * no outcomes and `reverse()` never proposes such a species, so the solver inherits this for
+   * free; callers that enumerate parents themselves (the hub sweep, UI pickers) ask here.
+   */
+  canBeParent(species: SpeciesId): boolean;
+
   passiveModel: PassiveModel;
 }
 

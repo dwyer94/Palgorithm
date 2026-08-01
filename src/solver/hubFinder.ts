@@ -116,7 +116,7 @@ export function planUnion(
  * breed-capable pairs (cheap at this graph size, spec §7.1), reused across every
  * candidate instead of recomputed per-candidate. */
 function buildDirectChildIndex(ruleset: BreedingRuleset): Map<SpeciesId, Set<SpeciesId>> {
-  const breedCapable = Object.keys(ruleset.rankTable);
+  const breedCapable = Object.keys(ruleset.rankTable).filter((s) => ruleset.canBeParent(s));
   const idx = new Map<SpeciesId, Set<SpeciesId>>();
   const add = (parent: SpeciesId, child: SpeciesId) => {
     const s = idx.get(parent) ?? new Set<SpeciesId>();
@@ -160,8 +160,13 @@ export function findHubs(ruleset: BreedingRuleset, roster: RosterEntry[], option
     ...(options.excludeFromCatching !== undefined && { excludeFromCatching: options.excludeFromCatching }),
   };
 
+  // A hub is by definition something you then breed FROM, so a species that can't be assigned
+  // to a breeding station is never a candidate — including when the caller passed an explicit
+  // `candidates` list (it would otherwise be suggested and score as a dead end).
   const targetSet = new Set(targets);
-  const candidates = (options.candidates ?? Object.keys(ruleset.rankTable)).filter((s) => !targetSet.has(s));
+  const candidates = (options.candidates ?? Object.keys(ruleset.rankTable)).filter(
+    (s) => !targetSet.has(s) && ruleset.canBeParent(s),
+  );
 
   // The base roster is identical for every candidate's obtainCost, so solve it once and read
   // each candidate off that single fixpoint (`resultFromContext`) instead of re-running the

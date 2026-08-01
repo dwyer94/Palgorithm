@@ -8,7 +8,7 @@ import { parseImportedRoster, ROSTER_IMPORT_ERRORS } from '../store/validate';
 import { useRulesetContext } from './RulesetContext';
 import { useAuthContext } from './AuthContext';
 import { PassiveMultiSelect, SpeciesSelect } from './shared';
-import { ElementDot, GenderGlyph, PalCard, PalIcon, PassiveChip, RowCapBadge } from './components';
+import { ElementDot, GenderGlyph, NoBreedingBadge, PalCard, PalIcon, PassiveChip, RowCapBadge } from './components';
 
 /** Roster manager: add/edit/remove owned Pals, import/export JSON. Not part of the design
  * handoff bundle (session 0.D covered Hub/Server Pals/Settings) — styled to sit
@@ -264,7 +264,12 @@ export default function RosterView() {
                       icon={s?.icon}
                       elements={s?.elements}
                       title={s?.displayName ?? entry.species}
-                      meta={<GenderGlyph gender={entry.gender} className="font-mono text-[11px] text-muted" />}
+                      meta={
+                        <span className="inline-flex items-center gap-1.5">
+                          <GenderGlyph gender={entry.gender} className="font-mono text-[11px] text-muted" />
+                          <NoBreedingBadge species={s} />
+                        </span>
+                      }
                     >
                       {entry.passives.length > 0 && (
                         <div className="flex flex-wrap justify-center gap-1">
@@ -327,6 +332,7 @@ export default function RosterView() {
                           <PalIcon icon={s?.icon} size={20} />
                           <ElementDot elements={s?.elements} />
                           {s?.displayName ?? entry.species}
+                          <NoBreedingBadge species={s} />
                         </span>
                       </td>
                       <td className="px-4 py-2.5">
