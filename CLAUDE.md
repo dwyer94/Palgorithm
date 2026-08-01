@@ -4,13 +4,16 @@ Guidance for Claude Code working in this repo. Read this first; full detail live
 
 ## Project
 
-Palworld Breeding Path Optimizer — a personal, client-side tool that takes the Pals you own (species, gender, passives) and one or more target Pals (with a desired perk set) and returns the breeding plan reaching them in the **fewest distinct breeding combinations**. Built to survive Palworld's 1.0 breeding overhaul (Genetic Recombination, July 10 2026) by keeping all breeding rules behind a swappable interface.
+Palworld Breeding Path Optimizer — a client-side web app that takes the Pals you own (species, gender, passives) and one or more target Pals (with a desired perk set) and returns the breeding plan reaching them in the **fewest distinct breeding combinations**. Built to survive Palworld's 1.0 breeding overhaul (Genetic Recombination, July 10 2026) by keeping all breeding rules behind a swappable interface.
+
+**This is a live product**, deployed at https://palgorithm.dev with real users — not a
+personal tool on one machine. Treat user-facing changes accordingly.
 
 Audience: guest-first. The app works fully client-side with zero sign-in (local/home-server
 use, unchanged), and an opt-in account layer (Supabase auth + cloud sync) lets a user's data
-follow them across devices. The plan to take this from solo tool to public product lives in
-`docs/PRODUCTION_READINESS_PLAN.md`, tracked as its own phase sequence (distinct from the
-breeding-mechanics phases below, which this Status section tracks). The self-hosted
+follow them across devices. The route from solo tool to public product is recorded in
+`docs/PRODUCTION_READINESS_PLAN.md` as its own phase sequence, now complete (distinct from
+the breeding-mechanics phases below, which this Status section tracks). The self-hosted
 PalDefender-proxy live feature stays out of the public product either way — see that plan's
 "explicitly out of scope."
 
@@ -20,16 +23,17 @@ Phase 1 — July 10 patch day (spec §5/§10). 1.0 shipped; `combirank-0.6` form
 
 > **Active session:** Phase 1 (post-ingestion)
 
-**Production readiness** (separate track, see `docs/PRODUCTION_READINESS_PLAN.md`): Phases
-1–3 (accounts/cloud sync, onboarding, CI/hardening) done, 2026-07-17. Phase 4
-(observability, legal, deploy) is being scoped next; Phase 5 (Reference UI polish) not
-started.
+**Production readiness** (separate track, see `docs/PRODUCTION_READINESS_PLAN.md`): **all
+phases done** — 1–3 (accounts/cloud sync, onboarding, CI/hardening) 2026-07-17; 4–5
+(observability/legal/deploy, Reference UI polish) 2026-08-01. The app is live at
+https://palgorithm.dev.
 
 ## Stack
 
-- React + TypeScript (strict) + Tailwind, built with Vite. No backend.
-- Vitest for tests, ESLint + Prettier for lint/format.
-- Game data bundled as static JSON; user data persisted via `localStorage`.
+- React + TypeScript (strict) + Tailwind, built with Vite. No backend of our own; Supabase (auth + RLS-scoped Postgres) backs the opt-in account layer only.
+- Vitest for tests, ESLint + Prettier for lint/format. Sentry for error tracking.
+- Game data bundled as static JSON; user data persisted via `localStorage`, synced to Supabase when signed in.
+- **Deploy: Render static site, blueprint in `render.yaml`, auto-deploys `master`.** Merging to `master` ships to production — `render.yaml` also owns the CSP and security headers, which exist only in prod, so a build can pass CI and still break live.
 
 ## Structure (established in session 0.1)
 

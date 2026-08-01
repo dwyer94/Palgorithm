@@ -1,12 +1,13 @@
 # PalCalc Production Readiness Plan
 
-> Status: **Phases 0-3 done, 2026-07-17** (docs reconciliation; accounts/cloud sync;
-> onboarding/in-app guidance; CI/hardening — see `docs/DEPLOYING_GUIDE.md` for the
-> private ops detail behind Phases 1/3). **Phase 4 (observability, legal, deploy) is
-> being scoped now.** Phase 5 (Reference UI polish) not started; independent and
-> non-blocking. `CLAUDE.md`, `docs/UI_REQUIREMENTS.md`, and
-> `docs/PALWORLD_BREEDING_OPTIMIZER_SPEC.md` reflect the guest-first direction and
-> point back to this plan as the source of truth for what's still pending.
+> Status: **All phases (0-5) done.** Phases 0-3, 2026-07-17 (docs reconciliation;
+> accounts/cloud sync; onboarding/in-app guidance; CI/hardening — see
+> `docs/DEPLOYING_GUIDE.md` for the private ops detail behind Phases 1/3); Phases 4-5,
+> 2026-08-01 (observability/legal/deploy; Reference UI polish). **The app is live in
+> production at https://palgorithm.dev with real users.** This plan is now a record of
+> how it got there rather than a list of pending work; `CLAUDE.md`,
+> `docs/UI_REQUIREMENTS.md`, and `docs/PALWORLD_BREEDING_OPTIMIZER_SPEC.md` reflect the
+> guest-first direction and point back here for that history.
 
 ## Context
 
@@ -198,7 +199,15 @@ For strangers who don't already know the domain:
 
 ---
 
-## Phase 4 — Observability, legal, and deploy
+## Phase 4 — Observability, legal, and deploy — **done, 2026-08-01**
+
+Shipped as planned except for hosting, where the choice landed on **Render** rather
+than the Vercel/Netlify/Cloudflare options sketched below. The blueprint lives in
+`render.yaml` at the repo root (static site, `npm ci && npm run build` → `dist`), which
+also owns the security headers and CSP rather than leaving them in a dashboard.
+Note for anyone touching build tooling: **Render auto-deploys `master`, so merging to
+`master` is a production release** — see the dependency-upgrade note under "Ongoing
+maintenance" below.
 
 - **Error tracking**: Sentry free tier (5k events/mo) for the frontend; catches both
   render errors and Supabase call failures.
@@ -217,14 +226,35 @@ For strangers who don't already know the domain:
 
 ---
 
-## Phase 5 — Reference UI polish (independent, non-blocking)
+## Phase 5 — Reference UI polish (independent, non-blocking) — **done, 2026-08-01**
 
 More professional visual polish on the Pal/Perk Reference UI (`src/ui` — the Reference
-tab/bubbles feature), particularly the icons — these currently read as
-functional-but-rough rather than production-grade. Doesn't depend on
-or block any account/backend work above; can be picked up any time in parallel, ideally
-before public launch since it's one of the more visible/first-impression surfaces for a
-stranger landing on the app.
+tab/bubbles feature), particularly the icons — these previously read as
+functional-but-rough rather than production-grade. Didn't depend on or block any
+account/backend work above; landed before public launch since it's one of the more
+visible/first-impression surfaces for a stranger landing on the app.
+
+---
+
+## Ongoing maintenance — dependency upgrades against a live site
+
+With the app deployed and `master` auto-deploying, dependency bumps are no longer
+free. Two standing rules, established 2026-08-01 while triaging a Dependabot backlog:
+
+- **CI green is not a deploy gate for anything that changes the build output.** The
+  test suite covers solver/ruleset logic, not the shipped bundle. A bundler or build
+  tooling major (e.g. Vite 8, which swaps Rollup for Rolldown) needs a preview build
+  verified for three things CI can't see: `@sentry/vite-plugin` still emitting and
+  uploading source maps (only runs when `SENTRY_AUTH_TOKEN` is set, i.e. on Render
+  only), no CSP violations under `render.yaml`'s `script-src 'self'` (those headers
+  don't exist locally), and the PWA update path behaving when every chunk hash changes
+  at once (`registerType: 'prompt'` + `PwaUpdateToast`).
+- **Tailwind majors are pinned off** in `.github/dependabot.yml`. v3 → v4 carries
+  silent visual regressions — `outline-none` changes meaning, the `rounded`/`shadow`
+  scales shift down a step, the default border color becomes `currentColor` — roughly
+  180 class instances across 21 files here. Nothing in `test/` would catch one, and
+  with the UI finished and live the blast radius is real users. Revisit as scheduled
+  work with a deliberate visual diff, not as a merged bot PR.
 
 ---
 

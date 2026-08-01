@@ -4,3 +4,14 @@ updates:
     directory: /
     schedule:
       interval: weekly
+    ignore:
+      # Tailwind v3 -> v4 is a visual-regression risk, not a security one: no advisory
+      # touches tailwindcss 3, and v4's breaking changes are silent at build time —
+      # `outline-none` changes meaning, the `rounded`/`shadow` scales each shift down a
+      # step, and the default border color becomes `currentColor`. That's ~180 class
+      # instances across 21 files here, and nothing in test/ would catch a single one.
+      # With the UI finished and palgorithm.dev serving real users, this needs a
+      # deliberate visual diff rather than a green-CI merge. Unpin when that work is
+      # actually scheduled. See docs/PRODUCTION_READINESS_PLAN.md, "Ongoing maintenance".
+      - dependency-name: 'tailwindcss'
+        update-types: ['version-update:semver-major']
